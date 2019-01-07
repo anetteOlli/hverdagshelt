@@ -5,14 +5,9 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
-
 import { SnackbarProvider } from 'notistack';
 
-type Props = {
-  classes: Object
-};
-
-class App extends React.Component<Props> {
+class App extends React.Component{
   render() {
     return (
       <SnackbarProvider maxSnack={3}>

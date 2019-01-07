@@ -23,8 +23,3 @@ flow-typed install
 yarn flow
 yarn start
 ```
-
-## The idea behind the example
-
-This example demonstrate how you can use [Create React App](https://github.com/facebookincubator/create-react-app) with [Flow](https://github.com/facebook/flow).
-

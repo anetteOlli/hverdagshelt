@@ -14,10 +14,10 @@ import {
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
-import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import SearchIcon from '@material-ui/icons/Search';
 import SideBar from './SideBar';
+import SignedOutLinks from "./SignedOutLinks";
+import SignedInLinks from './SignedInLinks';
 
 const styles = (theme: Object) => ({
   root: {
@@ -87,9 +87,11 @@ class NavBar extends React.Component<Props, State> {
             >
               <MenuIcon />
             </IconButton>
-            <Button component={NavLink} to={'/'} variant="h6" color="inherit" noWrap className={classes.title}>
+            <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
+            <div className={classes.grow} />
+            {true ? <SignedOutLinks/> : <SignedInLinks/>}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose('drawer')} />

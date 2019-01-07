@@ -1,0 +1,27 @@
+{
+  "name": "nettavis-prosjekt",
+  "version": "1.0.2",
+  "private": true,
+  "scripts": {
+    "client-install": "npm install --prefix server",
+    "server-install": "npm install --prefix client",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [
+    "restful",
+    "nettavis",
+    "mini prosjekt"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/del": "^3.0.1",
+    "@types/express": "^4.16.0",
+    "@types/flowjs": "0.0.31",
+    "@types/material-ui": "^0.21.5",
+    "@types/sequelize": "^4.27.28",
+    "concurrently": "^4.0.1"
+  }
+}

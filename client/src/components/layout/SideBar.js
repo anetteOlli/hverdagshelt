@@ -61,7 +61,9 @@ class TemporaryDrawer extends React.Component {
           {categories &&
             categories.map((category, index) => (
               <ListItem button component={NavLink} to={`/browse/${category}`} key={index}>
-                <ListItemIcon />
+                <ListItemIcon>
+                  <NewIcon />
+                </ListItemIcon>
                 <ListItemText primary={category} />
               </ListItem>
             ))}
