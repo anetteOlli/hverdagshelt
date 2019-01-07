@@ -8,7 +8,8 @@ import withRoot from '../../withRoot';
 import { Checkbox, FormControlLabel, Paper, Typography, withStyles } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
-
+import {connect} from 'react-redux';
+import {signIn} from '../../store/actions/userActions'
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -52,7 +53,7 @@ class SignIn extends React.Component<Props, State> {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.signIn(this.state);
   };
 
   render() {
@@ -113,4 +114,10 @@ class SignIn extends React.Component<Props, State> {
   }
 }
 
-export default withRoot(withStyles(styles)(withSnackbar(SignIn)));
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (newUser) => dispatch(signIn(newUser))
+  }
+};
+
+export default connect(null,mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(SignIn))));

@@ -2,7 +2,7 @@
 import { Button, withStyles } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
-import SignIn from './SignIn';
+import SignIn from '../user/SignIn';
 import withRoot from '../../withRoot';
 
 type Props = {
