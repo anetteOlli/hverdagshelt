@@ -10,9 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import NewIcon from '@material-ui/icons/NewReleases';
 import HotIcon from '@material-ui/icons/Whatshot';
 import SettingIcon from '@material-ui/icons/Settings';
-
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import { NavLink } from 'react-router-dom';
+
+type Props = {
+  classes: Object,
+  open: any,
+  onClose: any
+};
 
 const styles = {
   list: {
@@ -22,10 +27,9 @@ const styles = {
     width: 'auto'
   }
 };
-
 const categories = ['Test', 'test'];
 
-class TemporaryDrawer extends React.Component {
+class TemporaryDrawer extends React.Component<Props> {
   render() {
     const { classes, open, onClose } = this.props;
     const sideList = (
@@ -79,5 +83,4 @@ class TemporaryDrawer extends React.Component {
     );
   }
 }
-
 export default withStyles(styles)(TemporaryDrawer);

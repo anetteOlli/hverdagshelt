@@ -59,7 +59,7 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
         </MenuItem>
         <MenuItem component={Link} to={'/'} onClick={this.handleMenuClose}>
           Logg ut
-        </MenuItem>'
+        </MenuItem>
       </Menu>
     );
     return (
