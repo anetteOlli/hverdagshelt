@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const connAmount = 10000000;
 
 //Creating the pool of connections
+
 let pool = mysql.createPool({
     connectionLimit: connAmount,
     host: ' http://mysql.stud.iie.ntnu.no/',

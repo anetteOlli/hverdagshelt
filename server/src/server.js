@@ -5,10 +5,6 @@ import path from 'path';
 import reload from 'reload';
 /*--- file system: to watch the public file to check if it is in production or not ---*/
 import fs from 'fs';
-import indexRoute from './routes/index';
-import articleRoute from './routes/articleRoute';
-import userRoute from './routes/userRoute';
-import categoryRoute from './routes/categoryRoute';
 import logger from 'morgan';
 
 const public_path = path.join(__dirname, '/../../client/public');
@@ -28,11 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
   let reloadServer = reload(app);
   fs.watch(public_path, () => reloadServer.reload());
 }
-
-app.use('/', indexRoute);
-app.use('/categories', categoryRoute);
-app.use('/articles', articleRoute);
-app.use('/users', userRoute);
 
 const PORT: number = process.env.PORT != null ? parseInt(process.env.PORT, 10) : 3000;
 export let listen = new Promise<void>((resolve, reject) => {
