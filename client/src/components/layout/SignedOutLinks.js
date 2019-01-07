@@ -43,7 +43,7 @@ class SignedOutLinks extends React.Component<Props, State> {
         <Button
           component={NavLink}
           className={classes.button}
-          to="/register"
+          to="/registrer-bruker"
           variant="outlined"
           size="small"
           color="inherit"
