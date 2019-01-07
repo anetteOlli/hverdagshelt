@@ -1,0 +1,30 @@
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src'),
+        use: ['babel-loader']
+      },
+      {
+        test:/\.css$/,
+        use:['style-loader','css-loader']
+      }
+    ],
+  },
+  devServer: {
+    publicPath: "/",
+    contentBase: "./public",
+    compress: true,
+    hot: true,
+    port: 3000
+
+  }
+};
