@@ -1,6 +1,12 @@
 const initState = {};
 
 const userReducer = (state = initState, action) => {
-  return state;
+  switch (action.type) {
+    case 'SIGN_IN_SUCCESS':
+      console.log("lol");
+    default:
+      return state;
+
+  }
 };
 export default userReducer;
