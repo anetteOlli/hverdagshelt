@@ -1,4 +1,6 @@
 // @flow
+import { setToken, clearToken } from '../util';
+
 export type State = { token: string, isLoggedIn: boolean, errorMessage: string };
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', token: string }
@@ -18,43 +20,46 @@ const userReducer = (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'SIGN_IN_SUCCESS':
       console.log('SIGN_IN_SUCCESS');
+      setToken(action.token);
       return {
-        loggedIn: true,
+        isLoggedIn: true,
         token: action.token,
         errorMessage: ''
       };
     case 'SIGN_IN_ERROR':
       console.log('SIGN_IN_ERROR');
       return {
-        loggedIn: true,
+        isLoggedIn: true,
         token: '',
         errorMessage: action.error.message
       };
     case 'SIGN_UP_SUCCESS':
       console.log('SIGN_UP_SUCCESS');
+      setToken(action.token);
       return {
-        loggedIn: true,
+        isLoggedIn: true,
         token: action.token,
         errorMessage: ''
       };
     case 'SIGN_UP_ERROR':
       console.log('SIGN_UP_ERROR');
       return {
-        loggedIn: true,
+        isLoggedIn: true,
         token: '',
         errorMessage: action.error.message
       };
     case 'SIGN_OUT_SUCCESS':
       console.log('SIGN_OUT_SUCCESS');
+      clearToken();
       return {
-        loggedIn: false,
+        isLoggedIn: false,
         token: '',
         errorMessage: ''
       };
     case 'SIGN_OUT_ERROR':
       console.log('SIGN_OUT_ERORR');
       return {
-        loggedIn: false,
+        isLoggedIn: false,
         token: '',
         errorMessage: action.error.message
       };

@@ -28,15 +28,15 @@ export const signIn = (creds: { email: string, password: string }) => {
 export const signUp = (newUser: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
     testPromise.then(() =>
+      dispatch({
+        type: 'SIGN_UP_SUCCESS',
+        token: 'this is a token'
+      }).catch((error: Error) =>
         dispatch({
-          type: 'SIGN_UP_SUCCESS',
-          token: 'this is a token'
-        }).catch((error: Error) =>
-            dispatch({
-              type: 'SIGN_UP_ERROR',
-              error
-            })
-        )
+          type: 'SIGN_UP_ERROR',
+          error
+        })
+      )
     );
   };
 };

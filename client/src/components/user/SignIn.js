@@ -8,8 +8,8 @@ import withRoot from '../../withRoot';
 import { Checkbox, FormControlLabel, Paper, Typography, withStyles } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
-import {connect} from 'react-redux';
-import {signIn} from '../../store/actions/userActions'
+import { connect } from 'react-redux';
+import { signIn } from '../../store/actions/userActions';
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -99,13 +99,21 @@ class SignIn extends React.Component<Props, State> {
               errorMessages={['Feltet kan ikke være tomt']}
             />
             <FormControlLabel
-              control={<Checkbox name="remember" value={this.state.remember} onClick={this.handleChange} color="primary" />}
+              control={
+                <Checkbox name="remember" value={this.state.remember} onClick={this.handleChange} color="primary" />
+              }
               label="Remember me"
             />
             <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
               Login
             </Button>
-            <Button fullWidth variant="contained" color="secondary" className={classes.button} onClick={this.handleClose}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              onClick={this.handleClose}
+            >
               Cancel
             </Button>
           </ValidatorForm>
@@ -117,8 +125,11 @@ class SignIn extends React.Component<Props, State> {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: (creds) => dispatch(signIn(creds))
-  }
+    signIn: creds => dispatch(signIn(creds))
+  };
 };
 
-export default connect(null,mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(SignIn))));
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(SignIn))));

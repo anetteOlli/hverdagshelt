@@ -6,17 +6,20 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
+import { signIn } from '../../store/actions/userActions';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 type Props = {
   classes: Object,
-  history: any
+  isLoggedIn: boolean
 };
 
 type State = {
   firstName: string,
   lastName: string,
   email: string,
-  newPassword: string,
+  password: string,
   cnfPassword: string,
   showPassword: boolean
 };
@@ -36,7 +39,7 @@ class SignUp extends React.Component<Props, State> {
     firstName: '',
     lastName: '',
     email: '',
-    newPassword: '',
+    password: '',
     cnfPassword: '',
     showPassword: false
   };
@@ -47,7 +50,7 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
-  handleShowPassword = () => {
+  handleVisibility = () => {
     this.setState(prevState => ({
       showPassword: !prevState.showPassword
     }));
@@ -57,12 +60,10 @@ class SignUp extends React.Component<Props, State> {
     e.preventDefault();
     console.log(this.state);
   };
-  handleCancel = () => {
-    this.props.history.push('/');
-  };
 
   render() {
-    const { classes } = this.props;
+    const { classes, isLoggedIn } = this.props;
+    if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
         <Typography variant="h2" gutterBottom align="center">
@@ -77,7 +78,7 @@ class SignUp extends React.Component<Props, State> {
             autoComplete="given-name"
             value={this.state.firstName}
             onChange={this.handleChange}
-            validators={['required', 'matchRegexp:^[A-Za-zøæåØÆÅ]']}
+            validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
             errorMessages={['Du må skrive inn fornavnet ditt', 'Ugyldig navn']}
           />
           <TextValidator
@@ -88,8 +89,8 @@ class SignUp extends React.Component<Props, State> {
             autoComplete="family-name"
             value={this.state.lastName}
             onChange={this.handleChange}
-            validators={['required']}
-            errorMessages={['Du må skrive inn etternavnet ditt']}
+            validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
+            errorMessages={['Du må skrive inn etternavnet ditt', 'Ugyldig navn']}
           />
           <TextValidator
             fullWidth
@@ -106,17 +107,17 @@ class SignUp extends React.Component<Props, State> {
             fullWidth
             margin="normal"
             label="New password"
-            name="newPassword"
+            name="password"
             autoComplete="new-password"
             type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.newPassword}
+            value={this.state.password}
             onChange={this.handleChange}
             validators={['required', 'minStringLength:6']}
             errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleShowPassword}>
+                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
                     {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
@@ -137,13 +138,7 @@ class SignUp extends React.Component<Props, State> {
           <Button fullWidth variant="contained" className={classes.button} type="submit">
             Register
           </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            className={classes.button}
-            color="secondary"
-            onClick={this.handleCancel}
-          >
+          <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
             Cancel
           </Button>
         </ValidatorForm>
@@ -152,7 +147,23 @@ class SignUp extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.newPassword);
+    ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
   }
 }
-export default withRoot(withStyles(styles)(withSnackbar(SignUp)));
+
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.user.isLoggedIn
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: creds => dispatch(signIn(creds))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(SignUp))));

@@ -19,7 +19,7 @@ import SideBar from './SideBar';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
-import { signOut } from '../../store/actions/userActions';
+import { signIn, signOut } from '../../store/actions/userActions';
 
 const styles = (theme: Object) => ({
   appBar: {
@@ -44,7 +44,7 @@ const styles = (theme: Object) => ({
 type Props = {
   classes: Object,
   categories: string[],
-  loggedIn: boolean,
+  isLoggedIn: boolean,
   signOut: Function
 };
 
@@ -70,7 +70,7 @@ class NavBar extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, loggedIn, signOut } = this.props;
+    const { classes, isLoggedIn, signOut } = this.props;
     return (
       <div>
         <AppBar position="sticky" className={classes.appBar}>
@@ -87,7 +87,7 @@ class NavBar extends React.Component<Props, State> {
               HverdagsHelt
             </Button>
             <div className={classes.grow} />
-            {true ? <SignedOutLinks /> : <SignedInLinks handleSignOut={signOut} />}
+            {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose} />
@@ -98,7 +98,7 @@ class NavBar extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.user.loggedIn
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
