@@ -6,3 +6,11 @@ export const signIn = creds => {
         })
     }
 };
+export const signOut = () => {
+    return (dispatch, getState) => {
+        //axios.post.....
+        dispatch({
+            type: 'SIGN_OUT_SUCCESS'
+        })
+    }
+};
