@@ -7,7 +7,7 @@ type Props = {
 class MainPage extends React.Component<Props> {
   render() {
     return (
-      <main>
+      <main>  
         <div>Test</div>
       </main>
     );

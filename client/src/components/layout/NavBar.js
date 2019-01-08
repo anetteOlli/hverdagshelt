@@ -22,17 +22,11 @@ import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/userActions';
 
 const styles = (theme: Object) => ({
-  root: {
-    width: '100%'
-  },
   appBar: {
     marginBottom: 20
   },
   grow: {
     flexGrow: 1
-  },
-  button: {
-    margin: theme.spacing.unit
   },
   menuButton: {
     marginLeft: -12,
@@ -63,13 +57,13 @@ class NavBar extends React.Component<Props, State> {
     drawer: false
   };
 
-  handleOpen = e => {
+  handleOpen = () => {
     this.setState({
       drawer: true
     });
   };
 
-  handleClose = name => () => {
+  handleClose = () => {
     this.setState({
       drawer: false
     });

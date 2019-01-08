@@ -18,9 +18,10 @@ const styles = (theme: Object) => ({
 
 type Props = {
   classes: Object,
-  enqueueSnackbar: any,
-  open: function,
-  onClose: function
+  enqueueSnackbar: Function,
+  open: Function,
+  onClose: Function,
+  signIn: Function
 };
 
 type State = {
@@ -83,7 +84,7 @@ class SignIn extends React.Component<Props, State> {
               value={this.state.email}
               onChange={this.handleChange}
               validators={['required', 'isEmail']}
-              errorMessages={['this field is required', 'email is not valid']}
+              errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse']}
             />
             <TextValidator
               fullWidth
@@ -95,7 +96,7 @@ class SignIn extends React.Component<Props, State> {
               value={this.state.password}
               onChange={this.handleChange}
               validators={['required']}
-              errorMessages={['this field is required']}
+              errorMessages={['Feltet kan ikke være tomt']}
             />
             <FormControlLabel
               control={<Checkbox name="remember" value={this.state.remember} onClick={this.handleChange} color="primary" />}
@@ -116,7 +117,7 @@ class SignIn extends React.Component<Props, State> {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: (newUser) => dispatch(signIn(newUser))
+    signIn: (creds) => dispatch(signIn(creds))
   }
 };
 
