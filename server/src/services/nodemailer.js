@@ -1,5 +1,6 @@
 // https://codeburst.io/implementing-nodemailer-5-min-de2d2c781d6b
 const nodemailer = require('nodemailer');
+
 const transporter = nodemailer.createTransport(
     {
         host:'smtp.gmail.com',
@@ -13,7 +14,10 @@ const transporter = nodemailer.createTransport(
 );
 
 module.exports = class MailController {
-    
+    /***
+     * Method for sending an activation link to an given email with a specific activation link
+     * @param notification JSON with email and activationLink
+     */
     sendActivationLink(notification) {
         const mailOptions = {
             from: 'test-email@gmail.com',
@@ -24,8 +28,13 @@ module.exports = class MailController {
         transporter.sendMail(mailOptions, (err,res) => this.callbackHandler(err,res));
     }
     
+    
+    /***
+     * Method for sending bulk of emails to specific groups of recepients
+     * @param notification  A string message that is sent out to the users/recepients
+     * @param recepients An array of recepients that is iterated and sent an mail
+     */
     sendMassMail(notification,recepients) {
-        
         recepients.map((val) => {
             let mailOptions = {
                 from:'mapokengaming@gmail.com',
@@ -37,6 +46,11 @@ module.exports = class MailController {
         });
     }
     
+    /***
+     * Simple callbackHandler for sendMail function
+     * @param err Error message if the mail wasn't sent
+     * @param res The response status of the action
+     */
     callbackHandler(err,res){
         if (err) {
             console.error('there was an error: ', err);
