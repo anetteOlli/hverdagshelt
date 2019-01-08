@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-type Props = {
-}
+type Props = {};
 
 class MainPage extends React.Component<Props> {
   render() {

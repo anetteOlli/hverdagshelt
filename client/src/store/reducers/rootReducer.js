@@ -1,10 +1,14 @@
+// @flow
 import userReducer from './userReducer';
-import categoryReducer from './userReducer';
+import problemReducer from './problemReducer';
+import eventReducer from './eventReducer';
+
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  category: categoryReducer
+  problem: problemReducer,
+  event: eventReducer
 });
 
 export default rootReducer;
