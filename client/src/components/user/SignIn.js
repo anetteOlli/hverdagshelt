@@ -8,16 +8,20 @@ import withRoot from '../../withRoot';
 import { Checkbox, FormControlLabel, Paper, Typography, withStyles } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
-
+import {connect} from 'react-redux';
+import {signIn} from '../../store/actions/userActions'
 const styles = (theme: Object) => ({
-  root: {
-    textAlign: 'center',
-    paddingTop: theme.spacing.unit * 20
-  },
   button: {
     marginTop: theme.spacing.unit
   }
 });
+
+type Props = {
+  classes: Object,
+  enqueueSnackbar: any,
+  open: function,
+  onClose: function
+};
 
 type State = {
   email: string,
@@ -25,27 +29,31 @@ type State = {
   remember: string
 };
 
-class SignIn extends React.Component<State> {
+class SignIn extends React.Component<Props, State> {
   state = {
     email: '',
     password: '',
     remember: ''
   };
 
-  handleChange = name => event => {
+  handleChange = e => {
     this.setState({
-      [name]: event.target.value
+      [e.target.name]: e.target.value
     });
   };
 
-  handleRemember = () => {
-    this.setState(prevState => ({
-      remember: !prevState.remember
-    }));
+  handleClose = () => {
+    this.setState({
+      email: '',
+      password: '',
+      remember: ''
+    });
+    this.props.onClose();
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    this.props.signIn(this.state);
   };
 
   render() {
@@ -73,7 +81,7 @@ class SignIn extends React.Component<State> {
               autoComplete="email"
               autoFocus
               value={this.state.email}
-              onChange={this.handleChange('email')}
+              onChange={this.handleChange}
               validators={['required', 'isEmail']}
               errorMessages={['this field is required', 'email is not valid']}
             />
@@ -85,18 +93,18 @@ class SignIn extends React.Component<State> {
               type="password"
               autoComplete="current-password"
               value={this.state.password}
-              onChange={this.handleChange('password')}
+              onChange={this.handleChange}
               validators={['required']}
               errorMessages={['this field is required']}
             />
             <FormControlLabel
-              control={<Checkbox value={this.state.remember} onClick={this.handleRemember} color="primary" />}
+              control={<Checkbox name="remember" value={this.state.remember} onClick={this.handleChange} color="primary" />}
               label="Remember me"
             />
             <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
               Login
             </Button>
-            <Button fullWidth variant="contained" color="secondary" className={classes.button} onClick={onClose}>
+            <Button fullWidth variant="contained" color="secondary" className={classes.button} onClick={this.handleClose}>
               Cancel
             </Button>
           </ValidatorForm>
@@ -106,4 +114,10 @@ class SignIn extends React.Component<State> {
   }
 }
 
-export default withRoot(withStyles(styles)(withSnackbar(SignIn)));
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (newUser) => dispatch(signIn(newUser))
+  }
+};
+
+export default connect(null,mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(SignIn))));
