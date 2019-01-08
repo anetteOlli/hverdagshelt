@@ -10,17 +10,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { Link } from 'react-router-dom';
 
-const styles = theme => ({
+const styles = () => ({
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex'
-    }
+    display: 'flex'
   }
 });
 
 type Props = {
-  classes: Object
+  classes: Object,
+  handleSignOut: Function
 };
 type State = {
   anchorEl: any
@@ -41,7 +39,7 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, handleSignOut } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const renderMenu = (
       <Menu
@@ -57,7 +55,7 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
         <MenuItem component={Link} to={'/innstillinger'} onClick={this.handleMenuClose}>
           Innstillinger
         </MenuItem>
-        <MenuItem component={Link} to={'/'} onClick={this.handleMenuClose}>
+        <MenuItem component={Link} to={'/'} onClick={handleSignOut}>
           Logg ut
         </MenuItem>
       </Menu>

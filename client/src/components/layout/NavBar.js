@@ -16,8 +16,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SideBar from './SideBar';
-import SignedOutLinks from "./SignedOutLinks";
+import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
+import { connect } from 'react-redux';
+import { signOut } from '../../store/actions/userActions';
 
 const styles = (theme: Object) => ({
   root: {
@@ -47,40 +49,40 @@ const styles = (theme: Object) => ({
 
 type Props = {
   classes: Object,
-  categories: string[]
+  categories: string[],
+  loggedIn: boolean,
+  signOut: Function
 };
 
 type State = {
-  loginForm: boolean,
   drawer: boolean
 };
 
 class NavBar extends React.Component<Props, State> {
   state = {
-    loginForm: false,
     drawer: false
   };
 
-  handleOpen = name => () => {
+  handleOpen = e => {
     this.setState({
-      [name]: true
+      drawer: true
     });
   };
 
   handleClose = name => () => {
     this.setState({
-      [name]: false
+      drawer: false
     });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, loggedIn, signOut } = this.props;
     return (
       <div>
         <AppBar position="sticky" className={classes.appBar}>
           <Toolbar>
             <IconButton
-              onClick={this.handleOpen('drawer')}
+              onClick={this.handleOpen}
               className={classes.menuButton}
               color="inherit"
               aria-label="Open drawer"
@@ -91,13 +93,28 @@ class NavBar extends React.Component<Props, State> {
               HverdagsHelt
             </Button>
             <div className={classes.grow} />
-            {true ? <SignedOutLinks/> : <SignedInLinks/>}
+            {true ? <SignedOutLinks /> : <SignedInLinks handleSignOut={signOut} />}
           </Toolbar>
         </AppBar>
-        <SideBar open={this.state.drawer} onClose={this.handleClose('drawer')} />
+        <SideBar open={this.state.drawer} onClose={this.handleClose} />
       </div>
     );
   }
 }
 
-export default withRoot(withStyles(styles)(NavBar));
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.user.loggedIn
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(NavBar)));

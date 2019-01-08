@@ -1,4 +1,4 @@
-# Create React App example with Flow
+# Hverdagsvindu
 
 ## flow-typed
 
@@ -7,12 +7,7 @@ The community is maintaining [the definitions under this project](https://github
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
-
-```bash
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2 material-ui-master/examples/create-react-app-with-flow
-cd create-react-app-with-flow
-```
+Download the project [or clone the repo](https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt.git):
 
 Install it and run:
 

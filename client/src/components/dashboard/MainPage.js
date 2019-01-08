@@ -1,15 +1,10 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { withStyles } from '@material-ui/core/styles';
+type Props = {
+}
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  }
-});
-
-class MainPage extends React.Component {
+class MainPage extends React.Component<Props> {
   render() {
     return (
       <main>
@@ -19,4 +14,4 @@ class MainPage extends React.Component {
   }
 }
 
-export default withRoot(withStyles(styles)(MainPage));
+export default withRoot(MainPage);
