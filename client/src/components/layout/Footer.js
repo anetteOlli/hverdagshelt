@@ -3,7 +3,7 @@ import React from 'react';
 import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import withRoot from '../../withRoot';
 
-const styles = (theme: Object) => ({
+const styles = () => ({
   main: {
     flexGrow: 1
   }
@@ -14,7 +14,7 @@ const Footer = props => {
   return (
     <Paper>
       <Grid className={classes.main} container>
-        Footer
+        <Typography variant="h5">Footer</Typography>
       </Grid>
     </Paper>
   );

@@ -1,11 +1,18 @@
-Nettavis prosjekt
+# Hverdagsvindu
 
-For å laste ned skriv:
+## About the project
 
+Project about ....
+
+## How to use
+
+Download the project [or clone the repo](https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt.git):
+
+Install it and run:
+
+```bash
+npm i
 npm run client-install
 npm run server-install
-
-
-så for å kjøre både backend og front end kjør:
-
-npm run dev
+npm start
+```
