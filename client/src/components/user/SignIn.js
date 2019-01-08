@@ -10,6 +10,7 @@ import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/userActions';
+
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -55,10 +56,16 @@ class SignIn extends React.Component<Props, State> {
   handleSubmit = e => {
     e.preventDefault();
     this.props.signIn(this.state);
+/*
+    if()
+    enqueueSnackbar(`Warning ${error.props.label.toString().toLowerCase()} is invalid`, {
+      variant: 'warning'
+    })
+    */
   };
 
   render() {
-    const { enqueueSnackbar, open, onClose, classes } = this.props;
+    const { open, onClose, classes } = this.props;
     return (
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle>Login</DialogTitle>
@@ -66,13 +73,6 @@ class SignIn extends React.Component<Props, State> {
           <ValidatorForm
             ref="form"
             onSubmit={this.handleSubmit}
-            onError={(errors: TextValidator[]) =>
-              errors.map(error =>
-                enqueueSnackbar(`Warning ${error.props.label.toString().toLowerCase()} is invalid`, {
-                  variant: 'warning'
-                })
-              )
-            }
           >
             <TextValidator
               fullWidth
