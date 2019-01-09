@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import GoogleMap from 'google-map-react';
-let imgsrc = './geotag.png';
-import GeoCode from 'react-geocode';
 
+let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
+
+
+
 
 const AnyReactComponent = ({  img_src }) => <div><img src={img_src} className="YOUR-CLASS-NAME" style={{'height':'10px', 'width':'10px'} } /></div>;
 
@@ -20,6 +22,14 @@ class SimpleMap extends Component {
             zoom: 11
         };
     }
+
+    fromCordsToPlace(cords) {
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + cords.lat + ',' + cords.lon + '&key=' + API_KEY)
+          .then((response) => response.json())
+          .then((responseJson) => {
+              console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+          })
+    }
     
     _onClick = ({x, y, lat, lng, event}) => {
         console.log(x, y, lat, lng, event);
@@ -31,6 +41,7 @@ class SimpleMap extends Component {
         tempState.push(cords);
         this.setState({center: tempState})
         console.log(this.state.center);
+        this.fromCordsToPlace(cords);
     };
     
     render() {

@@ -40,9 +40,6 @@
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
-  <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/server/src/dao/SQL/municipality.sql" connection-id="434feb8e-42e1-467f-b51d-3e017346d21b" session-id="MAIN" current-schema="hverdagshelt" />
-  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
