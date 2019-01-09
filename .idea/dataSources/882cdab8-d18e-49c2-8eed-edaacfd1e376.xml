@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="larssorl@mysql.stud.iie.ntnu.no">
+<dataSource name="larssorl@mysql.stud.iie.ntnu.no [2]">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
     <root id="1">
       <ServerVersion>5.7.24</ServerVersion>
@@ -949,7 +949,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="228" name="event_description">
+    <column id="243" parent="228" name="event_descpription">
       <Position>3</Position>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>

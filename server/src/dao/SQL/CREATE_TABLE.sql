@@ -9,9 +9,16 @@ DROP TABLE IF EXISTS event;
 DROP TABLE IF EXISTS priority;
 DROP TABLE IF EXISTS problem;
 DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS county;
 
-CREATE TABLE municipality (
-    municipality VARCHAR(30) NOT NULL PRIMARY KEY
+CREATE TABLE county(
+    name VARCHAR(255) PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE municipality(
+    municipality VARCHAR(255) NOT NULL,
+    county varchar(255) NOT NULL REFERENCES county(name),
+    PRIMARY KEY (municipality,county)
 );
 
 CREATE TABLE location (
@@ -80,6 +87,7 @@ CREATE TABLE user_event(
     event_fk INTEGER
 );
 
+ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES counties(name);
 
 ALTER TABLE location
 ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);
@@ -108,6 +116,9 @@ ADD FOREIGN KEY(category_fk) REFERENCES category(category);
 ALTER TABLE user_event
 ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
 ADD FOREIGN KEY(event_fk) REFERENCES event(event_id);
+
+ALTER TABLE municipality
+ADD FOREIGN KEY(county) REFERENCES county(name);
 
 set foreign_key_checks = 1;
 
