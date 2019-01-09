@@ -6,13 +6,15 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signUp, validateEmail } from '../../store/actions/userActions';
+import { signUp } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { validateEmail } from '../../store/util';
 
 type Props = {
   classes: Object,
-  isLoggedIn: boolean
+  isLoggedIn: boolean,
+  signUp: Function
 };
 
 type State = {
@@ -21,7 +23,8 @@ type State = {
   email: string,
   password: string,
   cnfPassword: string,
-  showPassword: boolean
+  showPassword: boolean,
+  emailExists: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -41,7 +44,8 @@ class SignUp extends React.Component<Props, State> {
     email: '',
     password: '',
     cnfPassword: '',
-    showPassword: false
+    showPassword: false,
+    isUniqueEmail: false
   };
 
   handleChange = e => {
@@ -58,7 +62,24 @@ class SignUp extends React.Component<Props, State> {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { firstName, lastName, email, password } = this.state;
     console.log(this.state);
+    this.props
+      .signUp({
+        firstName,
+        lastName,
+        email,
+        password
+      })
+      .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+  };
+
+  handleValidateEmail = () => {
+    validateEmail({ email: this.state.email }).then((resp: { isUniqueEmail: boolean }) =>
+      this.setState({
+        isUniqueEmail: resp.isUniqueEmail
+      })
+    );
   };
 
   render() {
@@ -100,8 +121,9 @@ class SignUp extends React.Component<Props, State> {
             autoComplete="email"
             value={this.state.email}
             onChange={this.handleChange}
-            validators={['required', 'isEmail']}
-            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse']}
+            onBlur={this.handleValidateEmail}
+            validators={['required', 'isEmail', 'isUniqueEmail']}
+            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Epost-adressen finnes fra før']}
           />
           <TextValidator
             fullWidth
@@ -148,6 +170,7 @@ class SignUp extends React.Component<Props, State> {
 
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
+    ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
   }
 }
 
@@ -159,7 +182,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    validateEmail: email => dispatch(validateEmail(email)),
     signUp: newUser => dispatch(signUp(newUser))
   };
 };

@@ -11,7 +11,7 @@ const url: string = '';
 
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
-    axios
+    return axios
       .post(url + 'auth/login', creds)
       .then(response => {
         setToken(response.data.token);
@@ -31,28 +31,8 @@ export const signIn = (creds: { email: string, password: string }) => {
 
 export const signUp = (newUser: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    axios
+    return axios
       .post(url + 'auth/signup', newUser)
-      .then(response => {
-        setToken(response.data.token);
-        return dispatch({
-          type: 'SIGN_UP_SUCCESS',
-          token: response.data.token
-        });
-      })
-      .catch((error: Error) =>
-        dispatch({
-          type: 'SIGN_UP_ERROR',
-          error
-        })
-      );
-  };
-};
-
-export const validateEmail = (email: { email: string }) => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    axios
-      .post(url + 'auth/email', email)
       .then(response => {
         setToken(response.data.token);
         return dispatch({

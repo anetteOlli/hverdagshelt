@@ -1,6 +1,6 @@
 import SignUpForm from './SignUpForm';
 import React from 'react';
-import withRoot from '../../withRoot';
+import withRoot from '../../../withRoot';
 import { withStyles } from '@material-ui/core';
 
 const styles = () => ({

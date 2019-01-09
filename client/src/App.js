@@ -6,33 +6,23 @@ import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
-import SignUpTest from './components/user/SignUpTest';
-
+import SimpleMap from './components/layout/GoogleMap';
 import { SnackbarProvider } from 'notistack';
 
-type Props = {};
-
-class App extends React.Component<Props> {
-  render() {
-    return (
-      <SnackbarProvider maxSnack={3}>
-        <HashRouter>
-          <Fragment>
-            <CssBaseline />
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={MainPage} />
-              <Route exact path="/registrer-bruker" component={SignUp } />
-              <Route exact path="/editbruker" component={MainPage} />
-              <Route exact path="/signup" component={MainPage} />
-              <Route exact path="/signuptest" component={SignUpTest} />
-            </Switch>
-            <Footer />
-          </Fragment>
-        </HashRouter>
-      </SnackbarProvider>
-    );
-  }
-}
-
-export default App;
+export default () => (
+  <SnackbarProvider maxSnack={3}>
+    <HashRouter>
+      <Fragment>
+        <CssBaseline />
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/registrer-nybruker" component={SignUp} />
+          <Route exact path="/editbruker" component={MainPage} />
+          <Route exact path="/map" component={SimpleMap} />
+        </Switch>
+        <Footer />
+      </Fragment>
+    </HashRouter>
+  </SnackbarProvider>
+);
