@@ -1,9 +1,5 @@
 import express from 'express';
 import path from 'path';
-import reload from 'reload';
-/*--- file system: to watch the public file to check if it is in production or not ---*/
-import fs from 'fs';
-//import logger from 'morgan';
 const morgan = require('morgan');
 
 const public_path = path.join(__dirname, '/../../client/public');
@@ -24,10 +20,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-/*--- Hot reload application when not in production environment ---*/
+/*--- Hot reload application when not in production environment ---
 if (process.env.NODE_ENV !== 'production') {
     let reloadServer = reload(app);
     fs.watch(public_path, () => reloadServer.reload());
 }
+*/
+//custom 404 error handler
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+//returns error as json
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  });
+});
 
 module.exports = app;
