@@ -3,7 +3,7 @@ import path from 'path';
 const morgan = require('morgan');
 
 const public_path = path.join(__dirname, '/../../client/public');
-const app = require('express').Router();
+const app = express();
 const bodyParser = require('body-parser');
 app.use(express.static(public_path));
 const routes = require('./routes');
@@ -11,13 +11,13 @@ const routes = require('./routes');
 /*--- Morgan logger for debug ---*/
 app.use(morgan('dev'));
 
-/*Henter alle routes her, fra index.*/
-app.use('/', routes);
-
 //false for å bare handle url-encoded data
 app.use(bodyParser.urlencoded({ extended: false }));
 //extract json data og gjør det lettere leselig
 app.use(bodyParser.json());
+
+/*Henter alle routes her, fra index.*/
+app.use('/', routes);
 
 
 /*--- Hot reload application when not in production environment ---
@@ -42,5 +42,7 @@ app.use((error, req, res, next) => {
     }
   });
 });
+
+
 
 module.exports = app;
