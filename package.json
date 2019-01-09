@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "private": true,
   "scripts": {
-    "client-install": "npm install --prefix server",
-    "server-install": "npm install --prefix client",
+    "client-install": "npm install --prefix client",
+    "server-install": "npm install --prefix server",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\""
