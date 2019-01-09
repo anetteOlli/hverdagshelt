@@ -2,7 +2,39 @@
 import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ img_src, text }) => (
+  <div>
+    <img src={img_src} style={{ height: '10px', width: '10px' }} />
+    <p> {text} </p>
+  </div>
+);
+
+class Map1 extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cords: {
+        lat: '',
+        lng: ''
+      }
+    };
+  }
+
+  onclick(lat) {
+    console.log(lat.lat, lat.lng);
+    let cords = { lat: lat.lat, lng: lat.lng };
+    this.setState({
+      cords: cords
+    });
+  }
+  render() {
+    return (
+      <div>
+        <SimpleMap cords={this.state.cords} onClick={this.onclick.bind(this)} center={[45, 32]} />
+      </div>
+    );
+  }
+}
 
 class SimpleMap extends Component<Props> {
   static defaultProps = {
@@ -12,11 +44,6 @@ class SimpleMap extends Component<Props> {
     },
     zoom: 11
   };
-  constructor(props) {
-    super(props);
-    this.props.center.lat = this.props.lat;
-    this.props.center.lng = this.props.lng;
-  }
 
   render() {
     return (
@@ -26,12 +53,21 @@ class SimpleMap extends Component<Props> {
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-          onClick={({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event)}
-        />
+          onClick={(lat, lng) => {
+            this.props.onClick(lat, lng);
+          }}
+        >
+          <AnyReactComponent
+            lat={this.props.cords.lat}
+            lng={this.props.cords.lng}
+            text="you are here"
+            img_src="http://cdn.grid.fotosearch.com/CSP/CSP808/k8080955.jpg"
+          />
+        </GoogleMapReact>
         <div>
           <p>
             {' '}
-            {console.log(this.props.center, this.props.center.lat, this.props.center.lng)}
+            {console.log(this.props.center, this.props)}
             {this.props.center.lat}{' '}
           </p>
         </div>
@@ -40,4 +76,4 @@ class SimpleMap extends Component<Props> {
   }
 }
 
-export default SimpleMap;
+export default Map1;
