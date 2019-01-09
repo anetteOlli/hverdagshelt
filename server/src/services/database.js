@@ -6,10 +6,10 @@ const connAmount = 10000000;
 //Creating the pool of connections
 let pool = mysql.createPool({
     connectionLimit: connAmount,
-    host: ' http://mysql.stud.iie.ntnu.no/',
-    user: 'larssorl',
-    password: '5QjoZeLq',
-    database: 'larssorl',
+    host: process.env.MYSQL_HOST || 'test',
+    user: process.env.MYSQL_USER || 'test',
+    password: process.env.MYSQL_PASSWORD || '',
+    database: process.env.MYSQL_DB || 'test',
     debug: false,
     multipleStatements: true
 });
