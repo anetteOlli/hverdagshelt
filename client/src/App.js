@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
+import CreateProblem from './components/problem/CreateProblem';
 import SimpleMap from './components/layout/GoogleMap';
 import { SnackbarProvider } from 'notistack';
 
@@ -25,6 +26,7 @@ class App extends React.Component<Props> {
               <Route exact path="/editbruker" component={MainPage} />
               <Route exact path="/signup" component={MainPage} />
               <Route exact path="/" component={MainPage} />
+              <Route exact path="/lagproblem" component={CreateProblem}/>
               <Route exact path="/map" component={SimpleMap} />
             </Switch>
             <Footer />
