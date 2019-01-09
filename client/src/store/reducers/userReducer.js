@@ -24,7 +24,7 @@ const userReducer = (state: State = initState, action: Action) => {
       return {
         isLoggedIn: true,
         token: action.token,
-        errorMessage: ''
+        errorMessage: 'WRONG EMAIL'
       };
     case 'SIGN_IN_ERROR':
       console.log('SIGN_IN_ERROR');
