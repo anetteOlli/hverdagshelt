@@ -4,6 +4,10 @@
 
 Project about ....
 
+Created by ...
+
+For Systemutvikling 2, Jan 2019
+
 ## How to use
 
 Download the project [or clone the repo](https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt.git):
