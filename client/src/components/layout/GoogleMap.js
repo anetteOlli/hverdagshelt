@@ -4,9 +4,6 @@ import GoogleMap from 'google-map-react';
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
-
-
-
 const AnyReactComponent = ({  img_src }) => <div><img src={img_src} className="YOUR-CLASS-NAME" style={{'height':'10px', 'width':'10px'} } /></div>;
 
 
@@ -16,18 +13,21 @@ class SimpleMap extends Component {
         super(props);
         this.state = {
             center: [{
-                lat: 59.95,
-                lng: 30.33
+                lat: 61.5966871,
+                lng: 9.769488616282388
             }],
             zoom: 11
         };
     }
 
     fromCordsToPlace(cords) {
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + cords.lat + ',' + cords.lon + '&key=' + API_KEY)
+        let url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
+        fetch(url)
           .then((response) => response.json())
           .then((responseJson) => {
-              console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+              //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+              console.log(responseJson.results[2]);
+
           })
     }
     
@@ -40,7 +40,6 @@ class SimpleMap extends Component {
         let tempState = this.state.center;
         tempState.push(cords);
         this.setState({center: tempState})
-        console.log(this.state.center);
         this.fromCordsToPlace(cords);
     };
     
