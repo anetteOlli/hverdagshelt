@@ -1,19 +1,24 @@
 const express = require('express');
 const router = express.Router();
 var mysql = require('mysql');
-//const UserDao = require('../dao/userDao');
+const UserDao = require('../dao/userDao');
 
-var pool = mysql.createPool({
-    connectionLimit: 2,
-    host: 'mysql.stud.iie.ntnu.no',
-    user: 'simenten',
-    password: 'TOFcRtVk',
-    database: 'simenten',
-    debug: false
+const pool = require("../services/database");
+let userDao = new UserDao(pool);
+
+router.get('/', (req, res) => {
+  userDao.getAll((status, data) => {
+    console.log(data);
+    res.status(status).json(data);
+  });
 });
 
-
-
-
+/*
+router.get('/id/:id', (req, res) => {
+  userDao.getOneById(req.params.id, (status, data) => {
+    res.status(status).json(data);
+  });
+});
+*/
 
 module.exports = router;
