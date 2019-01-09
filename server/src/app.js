@@ -20,12 +20,6 @@ app.use(bodyParser.json());
 app.use('/', routes);
 
 
-/*--- Hot reload application when not in production environment ---
-if (process.env.NODE_ENV !== 'production') {
-    let reloadServer = reload(app);
-    fs.watch(public_path, () => reloadServer.reload());
-}
-*/
 //custom 404 error handler
 app.use((req, res, next) => {
   const error = new Error('Not found');

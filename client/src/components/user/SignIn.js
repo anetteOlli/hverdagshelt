@@ -10,6 +10,7 @@ import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/userActions';
+
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -21,7 +22,9 @@ type Props = {
   enqueueSnackbar: Function,
   open: Function,
   onClose: Function,
-  signIn: Function
+  signIn: Function,
+  enqueueSnackbar: Function,
+  errorMessage: string
 };
 
 type State = {
@@ -55,10 +58,15 @@ class SignIn extends React.Component<Props, State> {
   handleSubmit = e => {
     e.preventDefault();
     this.props.signIn(this.state);
+    console.log("Signin");
+    if(this.props.errorMessage)
+    this.props.enqueueSnackbar(this.props.errorMessage, {
+      variant: 'warning'
+    })
   };
 
   render() {
-    const { enqueueSnackbar, open, onClose, classes } = this.props;
+    const { open, onClose, classes } = this.props;
     return (
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle>Login</DialogTitle>
@@ -66,13 +74,6 @@ class SignIn extends React.Component<Props, State> {
           <ValidatorForm
             ref="form"
             onSubmit={this.handleSubmit}
-            onError={(errors: TextValidator[]) =>
-              errors.map(error =>
-                enqueueSnackbar(`Warning ${error.props.label.toString().toLowerCase()} is invalid`, {
-                  variant: 'warning'
-                })
-              )
-            }
           >
             <TextValidator
               fullWidth
@@ -123,6 +124,12 @@ class SignIn extends React.Component<Props, State> {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.user.errorMessage
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signIn: creds => dispatch(signIn(creds))
@@ -130,6 +137,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+    mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(SignIn))));
