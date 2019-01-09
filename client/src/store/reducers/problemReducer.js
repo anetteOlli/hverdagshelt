@@ -9,7 +9,14 @@ export type Action =
   | { type: 'DELETE_PROBLEM_ERROR', error: Error };
 
 const initState = {
-  errorMessage: ''
+    problem_id: null,
+    problem_description: '',
+    img_user: '',
+    date_made: '',
+    last_edited: '',
+    location_fk: '',
+    status_fk: '',
+    category_fk: ''
 };
 
 const problemReducer = (state: State = initState, action: Action) => {

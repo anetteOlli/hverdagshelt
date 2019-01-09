@@ -7,6 +7,7 @@ import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
 import { SnackbarProvider } from 'notistack';
+import EditProblem from "./components/problem/EditProblem";
 
 type Props = {};
 
@@ -21,6 +22,7 @@ class App extends React.Component<Props> {
             <Switch>
               <Route exact path="/" component={MainPage} />
               <Route exact path="/registrer-bruker" component={SignUp} />
+              <Route exact path="/editp" component={EditProblem} />
               <Route exact path="/editbruker" component={MainPage} />
               <Route exact path="/signup" component={MainPage} />
               <Route exact path="/" component={MainPage} />
