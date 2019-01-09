@@ -32,7 +32,7 @@ CREATE TABLE problem (
     problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     problem_description VARCHAR(300) NOT NULL,
     img_user VARCHAR(300),
-    img_entrepeneur VARCHAR(300),
+    img_entrepreneur VARCHAR(300),
     date_made DATETIME DEFAULT NOW(),
     last_edited DATETIME,
     date_finished DATETIME,
