@@ -15,6 +15,11 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 
+/**
+ * @fileOverview Create Problem Component
+ * @author Sindre H. Paulshus
+ * */
+
 const styles = theme => ({
   root: {
     width: '90%',
@@ -42,10 +47,12 @@ const styles = theme => ({
   }
 });
 
+/** @return the title for a specific step in the stepper */
 function getSteps() {
   return ['Hvor er problemet?', 'Forslag til like problemer', 'Beskriv problemet'];
 }
 
+/** @return the content (divs, buttons, etc) for a specific step in the stepper */
 function getStepContent(step, state: State, handleChange: function, handleSubmit: function) {
   switch (step) {
     case 0:
@@ -182,6 +189,7 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
   }
 }
 
+/** Validator Component class for multiline textinput */
 class ValidatorTextField extends ValidatorComponent{
   render() {
     const { errorMessages, validators, requiredError, value, ...rest } = this.props;
@@ -217,6 +225,7 @@ type State = {
   status: string
 };
 
+/** CreateProblem Component */
 class CreateProblem extends React.Component<Props, State> {
   state = {
     activeStep: 0,
@@ -231,6 +240,7 @@ class CreateProblem extends React.Component<Props, State> {
     status: 'NotChecked'
   };
 
+  /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
     let { skipped } = this.state;
@@ -240,16 +250,23 @@ class CreateProblem extends React.Component<Props, State> {
     });
   };
 
+  /** Handles clicking "Back" button */
   handleBack = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1
     }));
   };
 
+  /** Handles input values
+   * changes this component's state values
+   * */
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  /** Handles validation forms' submit event
+   *  @see handleNext
+   * */
   handleSubmit = e => {
     e.preventDefault();
     console.log(this.state);
