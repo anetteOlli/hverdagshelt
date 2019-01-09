@@ -3,8 +3,8 @@
     "JWT_KEY": "password",
     "PORT": "3000",
     "MYSQL_HOST": "mysql.stud.iie.ntnu.no",
-    "MYSQL_DB": "snorreks",
-    "MYSQL_USER": "snorreks",
-    "MYSQL_PASSWORD": "C2msn3nm"
+    "MYSQL_DB": "larssorl",
+    "MYSQL_USER": "larssorl",
+    "MYSQL_PASSWORD": "5QjoZeLq"
   }
 }
