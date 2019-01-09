@@ -8,6 +8,7 @@ import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
 import { SnackbarProvider } from 'notistack';
+import SimpleMap from './components/layout/GoogleMap';
 import MuniPage from './components/dashboard/MuniPage';
 
 type Props = {};
@@ -27,6 +28,7 @@ class App extends React.Component<Props> {
               <Route exact path="/signup" component={MainPage} />
               {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
               <Route exact path="/lagproblem" component={CreateProblem}/>
+              <Route exact path='/map' component={SimpleMap}/>
             </Switch>
             <Footer />
           </Fragment>

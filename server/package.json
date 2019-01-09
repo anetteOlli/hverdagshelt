@@ -11,7 +11,9 @@
     "testURL": "http://localhost"
   },
   "dependencies": {
+    "@google-cloud/storage": "^2.3.4",
     "bcrypt": "3.0.2",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "express": "4.16.4",
     "jsonwebtoken": "8.3.0",
