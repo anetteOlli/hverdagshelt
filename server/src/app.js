@@ -3,7 +3,7 @@ import path from 'path';
 const morgan = require('morgan');
 
 const public_path = path.join(__dirname, '/../../client/public');
-const app = require('express').Router();
+const app = express();
 const bodyParser = require('body-parser');
 app.use(express.static(public_path));
 const routes = require('./routes');

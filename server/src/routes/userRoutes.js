@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-var mysql = require('mysql');
+
 const UserDao = require('../dao/userDao');
 
 const pool = require("../services/database");
