@@ -22,7 +22,9 @@ type Props = {
   enqueueSnackbar: Function,
   open: Function,
   onClose: Function,
-  signIn: Function
+  signIn: Function,
+  enqueueSnackbar: Function,
+  errorMessage: string
 };
 
 type State = {
@@ -56,12 +58,11 @@ class SignIn extends React.Component<Props, State> {
   handleSubmit = e => {
     e.preventDefault();
     this.props.signIn(this.state);
-/*
-    if()
-    enqueueSnackbar(`Warning ${error.props.label.toString().toLowerCase()} is invalid`, {
+    console.log("Signin");
+    if(this.props.errorMessage)
+    this.props.enqueueSnackbar(this.props.errorMessage, {
       variant: 'warning'
     })
-    */
   };
 
   render() {
@@ -123,6 +124,12 @@ class SignIn extends React.Component<Props, State> {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.user.errorMessage
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signIn: creds => dispatch(signIn(creds))
@@ -130,6 +137,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+    mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(SignIn))));
