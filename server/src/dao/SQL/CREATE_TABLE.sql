@@ -9,9 +9,16 @@ DROP TABLE IF EXISTS Events;
 DROP TABLE IF EXISTS Priority;
 DROP TABLE IF EXISTS Problem;
 DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Counties;
 
-CREATE TABLE Municipality (
-    municipality VARCHAR(30) NOT NULL PRIMARY KEY
+CREATE TABLE Counties(
+  name VARCHAR(255) PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE Municipality(
+  municipality VARCHAR(255) NOT NULL,
+  county varchar(255) NOT NULL REFERENCES counties(name),
+  PRIMARY KEY (municipality,county)
 );
 
 CREATE TABLE Location (
@@ -39,7 +46,9 @@ CREATE TABLE Problem (
     category_fk VARCHAR(50),
     status_fk VARCHAR(30),
     user_fk INTEGER,
-    location_fk INTEGER
+    location_fk INTEGER,
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL
 );
 
 CREATE TABLE Priority(
