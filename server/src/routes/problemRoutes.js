@@ -17,9 +17,9 @@ router.get("/", (req: express$Request, res: express$Response) => {
 router.get("/:id", (req, res) => {
   console.log("/problems/" + req.params.id + " fikk GET request fra klient");
   problemDao.getOne(req.params.id, (status, data) => {
-    res.status(status).json({message: 'fikk et "problem" fra server'});
+   // res.status(status).json({message: 'fikk et "problem" fra server (fra tabellen problem liksom hehe xd)'});
 
-    // res.status(status).json(data[0]);
+     res.status(status).json(data[0]);
   });
 });
 
