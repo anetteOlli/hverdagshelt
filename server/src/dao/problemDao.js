@@ -3,14 +3,14 @@ const Dao = require("./dao.js");
 
 module.exports = class ArticleDao extends Dao {
   getAll(callback) {
-    super.query("select * from Problem",
+    super.query("select * from problem",
       [],
       callback);
   }
 
   getOne(id, callback) {
     super.query(
-      "select * from Problem where problem_id=?",
+      "select * from problem where problem_id=?",
       [id],
       callback
     );
@@ -21,12 +21,15 @@ module.exports = class ArticleDao extends Dao {
     const newContent = [
       json.problem_description,
       json.img_user,
+      json.img_entrepreneur,
+      json.date_finished,
       json.category_fk,
+      json.status_fk,
       json.user_fk,
       json.location_fk
     ];
     super.query(
-      "insert into Problem (problem_description,img_user,category_fk,user_fk,location_fk) values (?,?,?,?,?)",
+      "insert into problem (problem_description,img_user,img_entrepreneur,date_finished,category_fk,status_fk,user_fk,location_fk) values (?,?,?,?,?,?,?,?)",
       newContent,
       callback
     );
@@ -37,20 +40,23 @@ module.exports = class ArticleDao extends Dao {
     const values = [
       json.problem_description,
       json.img_user,
+      json.img_entrepreneur,
+      json.date_finished,
       json.category_fk,
+      json.status_fk,
       json.user_fk,
       json.location_fk,
       id
     ];
 
-    super.query("update Problem set problem_description = ?, img_user = ?, category_fk = ?, user_fk = ?, location_fk = ? where problem_id = ?",
+    super.query("update problem set problem_description = ?, img_user = ?, img_entrepreneur = ?, date_finished = ?, category_fk = ?, status_fk = ?, user_fk = ?, location_fk = ? where problem_id = ?",
       values,
       callback
     );
   }
   deleteOne(id, callback) {
     super.query(
-      "delete from Problem where problem_id=?",
+      "delete from problem where problem_id=?",
       [id],
       callback
     );

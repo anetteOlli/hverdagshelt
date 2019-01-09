@@ -7,3 +7,5 @@ router.use('/events', require("./eventRoutes.js"));
 router.use('/locations', require("./locationRoutes.js"));
 
 module.exports = router;
+
+
