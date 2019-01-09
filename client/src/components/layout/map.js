@@ -9,6 +9,9 @@ const AnyReactComponent = ({ img_src, text }) => (
   </div>
 );
 
+/**
+ * Example of usage of SimpleMap
+ */
 class Map1 extends Component<Props> {
   constructor(props) {
     super(props);
@@ -36,6 +39,12 @@ class Map1 extends Component<Props> {
   }
 }
 
+/**
+ * A map with a default location set.
+ * when using SimpleMap it's possible to pass in a prop.onClick() to track the location clicked on mapStateToProps
+ * (see Map1 for example)
+ *
+ **/
 class SimpleMap extends Component<Props> {
   static defaultProps = {
     center: {
