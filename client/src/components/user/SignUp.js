@@ -6,7 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signIn } from '../../store/actions/userActions';
+import { signUp, validateEmail } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -159,7 +159,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    validateEmail: email => dispatch(validateEmail(email)),
+    signUp: newUser => dispatch(signUp(newUser))
   };
 };
 
