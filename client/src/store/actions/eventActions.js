@@ -1,5 +1,5 @@
 // @flow
-import type { Action, State } from '../reducers/userReducer';
+import type { Action, State } from '../reducers/eventReducer';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -9,15 +9,14 @@ const testPromise = new Promise(function(resolve, reject) {
   resolve('Success!');
 });
 
-export const signIn = (creds: { email: string, password: string }) => {
+export const createEvent = (newEvent: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
     testPromise.then(() =>
       dispatch({
-        type: 'SIGN_IN_SUCCESS',
-        token: 'this is a token'
+        type: 'CREATE_EVENT_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'SIGN_IN_ERROR',
+          type: 'CREATE_EVENT_ERROR',
           error
         })
       )
@@ -25,15 +24,14 @@ export const signIn = (creds: { email: string, password: string }) => {
   };
 };
 
-export const signUp = (newUser: JSON) => {
+export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
     testPromise.then(() =>
       dispatch({
-        type: 'SIGN_UP_SUCCESS',
-        token: 'this is a token'
+        type: 'EDIT_EVENT_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'SIGN_UP_ERROR',
+          type: 'EDIT_EVENT_ERROR',
           error
         })
       )
@@ -41,11 +39,17 @@ export const signUp = (newUser: JSON) => {
   };
 };
 
-export const signOut = () => {
+export const deleteEvent = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    //axios.post.....
-    dispatch({
-      type: 'SIGN_OUT_SUCCESS'
-    });
+    testPromise.then(() =>
+      dispatch({
+        type: 'DELETE_EVENT_SUCCESS'
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'DELETE_EVENT_ERROR',
+          error
+        })
+      )
+    );
   };
 };

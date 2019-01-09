@@ -8,10 +8,9 @@ import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
 import { SnackbarProvider } from 'notistack';
 
-type Props = {
-}
+type Props = {};
 
-class App extends React.Component<Props>{
+class App extends React.Component<Props> {
   render() {
     return (
       <SnackbarProvider maxSnack={3}>
