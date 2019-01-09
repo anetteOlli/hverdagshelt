@@ -17,7 +17,7 @@ CREATE TABLE Counties(
 
 CREATE TABLE Municipality(
   municipality VARCHAR(255) NOT NULL,
-  county varchar(255) NOT NULL REFERENCES counties(name),
+  county varchar(255) NOT NULL,
   PRIMARY KEY (municipality,county)
 );
 
@@ -89,6 +89,7 @@ CREATE TABLE User_Events(
     event_fk INTEGER
 );
 
+ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES counties(name);
 
 ALTER TABLE Location
 ADD FOREIGN KEY(municipality_fk) REFERENCES Municipality(municipality);
