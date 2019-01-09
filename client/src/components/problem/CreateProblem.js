@@ -231,13 +231,13 @@ class CreateProblem extends React.Component<Props, State> {
     activeStep: 0,
     skipped: new Set(),
 
-    category: 'Annet',
-    municipality: 'Vestby',
-    street: 'niven',
+    category: '',
+    municipality: '',
+    street: '',
     description: '',
     imageURL: '',
     entrepreneur: '',
-    status: 'NotChecked'
+    status: 'UnChecked'
   };
 
   /** Handles clicking "Next" button */
