@@ -23,7 +23,7 @@ export default () => (
           <Route exact path="/editp" component={EditProblem} />
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem}/>
-          {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+          <Route exact path="/:municipality" component={MuniPage} />
         </Switch>
         <Footer />
       </Fragment>
