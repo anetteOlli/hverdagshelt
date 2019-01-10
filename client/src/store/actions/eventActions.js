@@ -1,17 +1,14 @@
 // @flow
 import type { Action, State } from '../reducers/eventReducer';
+import { postData, putData, deleteData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => State;
 
-const testPromise = new Promise(function(resolve, reject) {
-  resolve('Success!');
-});
-
 export const createEvent = (newEvent: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    testPromise.then(() =>
+    return postData('events', newEvent).then(() =>
       dispatch({
         type: 'CREATE_EVENT_SUCCESS'
       }).catch((error: Error) =>
@@ -26,7 +23,7 @@ export const createEvent = (newEvent: JSON) => {
 
 export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    testPromise.then(() =>
+    return putData('events', event).then(() =>
       dispatch({
         type: 'EDIT_EVENT_SUCCESS'
       }).catch((error: Error) =>
@@ -39,9 +36,9 @@ export const editEvent = (event: JSON) => {
   };
 };
 
-export const deleteEvent = () => {
+export const deleteEvent = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    testPromise.then(() =>
+    return deleteData(`events/${id}`).then(() =>
       dispatch({
         type: 'DELETE_EVENT_SUCCESS'
       }).catch((error: Error) =>

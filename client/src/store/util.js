@@ -7,7 +7,7 @@ export const clearToken = () => localStorage.removeItem('token');
 
 const url: string = '';
 
-export const fetch = (endpoint: string) => {
+export const getData = (endpoint: string) => {
   return axios.get(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export const fetch = (endpoint: string) => {
   });
 };
 
-export const store = (endpoint: string, data: JSON) => {
+export const postData = (endpoint: string, data: JSON) => {
   return axios.post(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const store = (endpoint: string, data: JSON) => {
   });
 };
 
-export const update = (endpoint: string, data: JSON) => {
+export const putData = (endpoint: string, data: JSON) => {
   return axios.put(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const update = (endpoint: string, data: JSON) => {
   });
 };
 
-export const destroy = (endpoint: string) => {
+export const deleteData = (endpoint: string) => {
   return axios.delete(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -49,4 +49,8 @@ export const destroy = (endpoint: string) => {
 
 export const validateEmail = (email: string) => {
   return axios.post(url + 'users/validate-email', email);
+};
+
+export const signInAxios = (creds: { email: string, password: string }) => {
+  return axios.post(url + 'users/login', creds);
 };

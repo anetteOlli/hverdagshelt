@@ -1,6 +1,5 @@
 // @flow
 import { setToken, clearToken } from '../util';
-
 export type State = { token: string, isLoggedIn: boolean, errorMessage: string };
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', token: string }
