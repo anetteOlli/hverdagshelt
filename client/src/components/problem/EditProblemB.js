@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import Grid from '@material-ui/core/Grid/Grid';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 const statuss = ["til avventing", "påbegynt", "registrert", "ferdig"];
@@ -39,7 +40,12 @@ const styles = (theme: Object) => ({
   },
   button: {
     marginTop: theme.spacing.unit
-  }
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
 });
 
 class EditProblemB extends React.Component<Props, State> {
@@ -92,8 +98,15 @@ class EditProblemB extends React.Component<Props, State> {
     // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
-        <paper>
+        <Grid container spacing={24}>
 
+          <Grid item xs={6} sm={3}>
+          </Grid>
+
+        <Grid item xs>
+      <Grid container spacing={24}>
+        <Grid item xs>
+        <paper>
           <Typography variant="h2" gutterBottom align="center">
             Bruker beskrivelse:
           </Typography>
@@ -139,7 +152,8 @@ class EditProblemB extends React.Component<Props, State> {
           <h3> Dato startet:  {this.state.date_made} </h3>
           </ValidatorForm>
         </paper>
-
+        </Grid>
+        <Grid item xs>
         <paper>
         <Typography variant="h2" gutterBottom align="center">
           Entrepeneur:
@@ -196,20 +210,36 @@ class EditProblemB extends React.Component<Props, State> {
                 onChange={this.handleChange}
               />
               <input type='file' name="img_user" accept="image/*" value={this.readURL(this)} onChange={this.handleChange}/>
-
             </ExpansionPanel>
           </div>
-
           <h3> Sted:  {this.state.location_fk} </h3>
           <h3> Dato Endret:  {this.state.last_edited} </h3>
-
-          <Button fullWidth variant="contained" className={classes.button} type="submit">
-            Lagre endringer
-          </Button>
         </ValidatorForm>
       </paper>
+        </Grid>
+      </Grid>
+      <div>
+        <ExpansionPanel fullWidth>
+          <ExpansionPanelSummary>
+            <div>
+              <Typography >Her skal map komme: </Typography>
+            </div>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <div/>
+            <div>
+              <img id="img" top width="80%" src={this.state.img_user|| "https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+            </div>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <Button fullWidth variant="contained" className={classes.button} type="submit">
+          Lagre endringer
+        </Button>
       </div>
-    );
+        </Grid>
+      </Grid>
+      </div>
+  );
   }
 
   componentDidMount() {
