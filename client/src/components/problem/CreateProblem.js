@@ -53,7 +53,17 @@ function getSteps() {
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper */
-function getStepContent(step, state: State, handleChange: function, handleSubmit: function) {
+function getStepContent(step: number, state: State, handleChange: function, similarProblems: any) {
+  let curSelProblem = {
+    id: -1,
+    category: 'Default',
+    municipality: 'Default',
+    street: 'Default',
+    description: 'Default',
+    imageURL: 'Default',
+    entrepreneur: 'Default',
+    status: 'Default'
+  };
   switch (step) {
     case 0:
       return (
@@ -68,11 +78,11 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
               value={state.category}
               onChange={handleChange}
               validators={['required']}
-              errorMessages={['Du må velge en kategori', 'Ugyldig kategori']}
+              errorMessages={['Du må velge en kategori']}
             >
-              <MenuItem value={0}>Veier</MenuItem>
-              <MenuItem value={1}>Bygninger</MenuItem>
-              <MenuItem value={2}>Annet</MenuItem>
+              <MenuItem value={"Veier"}>Veier</MenuItem>
+              <MenuItem value={"Bygninger"}>Bygninger</MenuItem>
+              <MenuItem value={"Annet"}>Annet</MenuItem>
             </SelectValidator>
             <TextValidator
               fullWidth
@@ -82,8 +92,8 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
               autoComplete="municipality"
               value={state.municipality}
               onChange={handleChange}
-              validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
-              errorMessages={['Du må skrive inn en kommune', 'Ugyldig kommune']}
+              validators={['required']}
+              errorMessages={['Du må skrive inn en kommune']}
             />
             <TextValidator
               fullWidth
@@ -93,8 +103,8 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
               autoComplete="street"
               value={state.street}
               onChange={handleChange}
-              validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
-              errorMessages={['Du må skrive inn en gate', 'Ugyldig gate']}
+              validators={['required']}
+              errorMessages={['Du må skrive inn en gate']}
             />
             <div className="mapPlaceholder">
               MAP HERE
@@ -119,35 +129,35 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
                   <h4>Beskrivelse</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>Beskrivelse</Typography>
+                  <Typography>{curSelProblem.description}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Kommune</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>Kommune</Typography>
+                  <Typography>{curSelProblem.municipality}</Typography>
                 </Grid>
                 <Grid item xs>
                 <h4>Gate</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>Gate</Typography>
+                  <Typography>{curSelProblem.street}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Entreprenør</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>Entreprenør</Typography>
+                  <Typography>{curSelProblem.entrepreneur}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Status</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>Status</Typography>
+                  <Typography>{curSelProblem.status}</Typography>
                 </Grid>
                 <Grid item xs>
                   <Button variant="contained" color="secondary" className="{classes.button}"
-                  onClick={e => console.log("Clicked updoot! Take me away hunny")}>
+                  onClick={e => handleSupport(curSelProblem.id)}>
                      Støtt problemet
                    </Button>
                 </Grid>
@@ -160,22 +170,22 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
       return (
         <Card className="content-2" align="center">
           <CardContent>
-            <Typography>Kategori</Typography>
-            <Typography>Kommune</Typography>
-            <Typography>Gate</Typography>
-            <ValidatorTextField
+            <Typography>{state.category}</Typography>
+            <Typography>{state.municipality}</Typography>
+            <Typography>{state.street}</Typography>
+            <TextValidator
+              multiline
               fullWidth
+              rows="2"
+              rowsMax="6"
               margin="normal"
               label="Beskrivelse"
               name="description"
               autoComplete="description"
               value={state.description}
               onChange={handleChange}
-              errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beskrivelse']}
-
-              id="myTextField"
-              label="Beskrivelse"
-              placeholder="Beskrivelse"
+              validators={['required']}
+              errorMessages={['Du må skrive inn en beskrivelse']}
             />
             <Typography>Last opp et bilde</Typography>
             <Fab color="primary" aria-label="Add" className="{classes.fab}">
@@ -189,32 +199,15 @@ function getStepContent(step, state: State, handleChange: function, handleSubmit
   }
 }
 
-/** Validator Component class for multiline textinput */
-class ValidatorTextField extends ValidatorComponent{
-  render() {
-    const { errorMessages, validators, requiredError, value, ...rest } = this.props;
-    return (
-      <div>
-        <TextField
-          id={this.props.id}
-          label={this.props.label}
-          placeholder={this.props.placeholder}
-          multiline
-          className="ValidatorTextField"
-          margin="normal"
-          onChange={this.props.onChange}
-          name={this.props.name}
-          ref={(r) => { this.input = r; }}
-        />
-      </div>
-    );
-  }
+/** Handles supporting an existing problem */
+function handleSupport(problemId: number){
+  //@TODO Handle support a problem
+  console.log("Clicked updoot for " + problemId + "! Take me away hunny")
 }
 
 type Props = {};
 type State = {
   activeStep: number,
-  skipped: any,
 
   category: string,
   municipality: string,
@@ -229,7 +222,6 @@ type State = {
 class CreateProblem extends React.Component<Props, State> {
   state = {
     activeStep: 0,
-    skipped: new Set(),
 
     category: '',
     municipality: '',
@@ -240,13 +232,17 @@ class CreateProblem extends React.Component<Props, State> {
     status: 'UnChecked'
   };
 
+  similarProblems = [];
+
+  getSimilarProblems = e => {
+    //@TODO AXIOS GET SIMILAR PROBLEMS
+  }
+
   /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
-    let { skipped } = this.state;
     this.setState({
-      activeStep: activeStep + 1,
-      skipped,
+      activeStep: activeStep + 1
     });
   };
 
@@ -270,8 +266,17 @@ class CreateProblem extends React.Component<Props, State> {
   handleSubmit = e => {
     e.preventDefault();
     console.log(this.state);
+    if(this.state.activeStep > 1){
+      //@TODO Save in DB/Redux
+      console.log("SAVE PROBLEM HERE")
+    }
     this.handleNext();
   };
+
+  /** Handles when user is done and gets sent away. */
+  handleFinish = e => {
+    history.push("/");
+  }
 
   render() {
     //const { classes } = this.props;
@@ -301,7 +306,7 @@ class CreateProblem extends React.Component<Props, State> {
                   </Typography>
                   <Button variant="contained" color="primary"
                   className="create-problem-done-button"
-                  onClick={e => history.push("/")}
+                  onClick={this.handleFinish}
                   >
                     Ferdig
                   </Button>
@@ -309,7 +314,7 @@ class CreateProblem extends React.Component<Props, State> {
               </Card>
             ) : (
               <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
-                {getStepContent(activeStep, this.state, this.handleChange, this.handleSubmit)}
+                {getStepContent(activeStep, this.state, this.handleChange)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
