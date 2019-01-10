@@ -2,6 +2,7 @@
 import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import SearchBox from './SearchBox';
+import { updateMap } from '../../store/actions/mapActions';
 
 const AnyReactComponent = ({ img_src, text }) => (
   <div>
@@ -24,9 +25,8 @@ class Map1 extends Component<Props> {
     };
   }
 
-  onclick(lat) {
-    console.log(lat.lat, lat.lng);
-    let cords = { lat: lat.lat, lng: lat.lng };
+  onclick(cords) {
+    console.log(cords);
     this.setState({
       cords: cords
     });
@@ -93,7 +93,7 @@ class SimpleMap extends Component<Props> {
           defaultZoom={this.props.zoom}
           yesIWantToUseGoogleMapApiInternals
           onClick={(lat, lng) => {
-            this.props.onClick(lat, lng);
+            this.props.updateMap(lat, lng);
           }}
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
@@ -116,4 +116,20 @@ class SimpleMap extends Component<Props> {
   }
 }
 
-export default Map1;
+const mapStateToProps = state => {
+  return {
+    lat: state.map.lat,
+    lng: state.map.lng
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMap: cords => dispatch(updateMap(cords))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(Map1))));
