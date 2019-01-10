@@ -14,6 +14,8 @@ import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
+import MuiTable from '../util/MuiTable'
+import createMuiData from '../util/createMuiData'
 
 /**
  * @fileOverview Create Problem Component
@@ -52,18 +54,18 @@ function getSteps() {
   return ['Hvor er problemet?', 'Forslag til like problemer', 'Beskriv problemet'];
 }
 
-/** @return the content (divs, buttons, etc) for a specific step in the stepper */
-function getStepContent(step: number, state: State, handleChange: function, similarProblems: any) {
-  let curSelProblem = {
-    id: -1,
-    category: 'Default',
-    municipality: 'Default',
-    street: 'Default',
-    description: 'Default',
-    imageURL: 'Default',
-    entrepreneur: 'Default',
-    status: 'Default'
-  };
+/** @return the content (divs, buttons, etc) for a specific step in the stepper
+* @params step: number, current step in Stepper
+* @params state: State, CreateProblem's State
+* @params handleChange: @see handleChange
+* @params handleChangeSpec: @see handleChangeSpec
+* @params handleUpload: @see handleUpload
+* @params similarProblems: [], array of similar problems to our user's
+* @params categories: [], array of ALL problem categories
+*/
+function getStepContent(step: number, state: State,
+                      handleChange: function, handleChangeSpec: function, handleUpload: function,
+                      similarProblems: [], categories: []) {
   switch (step) {
     case 0:
       return (
@@ -80,9 +82,9 @@ function getStepContent(step: number, state: State, handleChange: function, simi
               validators={['required']}
               errorMessages={['Du må velge en kategori']}
             >
-              <MenuItem value={"Veier"}>Veier</MenuItem>
-              <MenuItem value={"Bygninger"}>Bygninger</MenuItem>
-              <MenuItem value={"Annet"}>Annet</MenuItem>
+            {categories.map((e,i) => (
+              <MenuItem key={i} value={e}>{e}</MenuItem>
+              ))}
             </SelectValidator>
             <TextValidator
               fullWidth
@@ -99,9 +101,9 @@ function getStepContent(step: number, state: State, handleChange: function, simi
               fullWidth
               margin="normal"
               label="Gate"
-              name="street"
-              autoComplete="street"
-              value={state.street}
+              name="location"
+              autoComplete="location"
+              value={state.location}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en gate']}
@@ -113,12 +115,26 @@ function getStepContent(step: number, state: State, handleChange: function, simi
         </Card>
       );
     case 1:
+      const rows = (similarProblems == null ? [] : createMuiData(similarProblems));
+      //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
             <Grid container spacing={8}>
               <Grid item sm={4} className="MU-table">
-                MU TABLE HERE
+                <MuiTable
+                rows={rows}
+                onClick={e => {
+                  let myProblem = similarProblems.filter(a => e.rowData.eId == a.id)[0];
+                  handleChangeSpec("cur_id", myProblem.id);
+                  handleChangeSpec("cur_title", myProblem.title);
+                  handleChangeSpec("cur_municipality", myProblem.municipality);
+                  handleChangeSpec("cur_location", myProblem.location);
+                  handleChangeSpec("cur_description", myProblem.description);
+                  handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
+                  handleChangeSpec("cur_status", myProblem.status);
+                  }}
+                />
               </Grid>
               <Grid item
               xs container
@@ -129,35 +145,35 @@ function getStepContent(step: number, state: State, handleChange: function, simi
                   <h4>Beskrivelse</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{curSelProblem.description}</Typography>
+                  <Typography>{state.cur_description}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Kommune</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{curSelProblem.municipality}</Typography>
+                  <Typography>{state.cur_municipality}</Typography>
                 </Grid>
                 <Grid item xs>
                 <h4>Gate</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{curSelProblem.street}</Typography>
+                  <Typography>{state.cur_location}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Entreprenør</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{curSelProblem.entrepreneur}</Typography>
+                  <Typography>{state.cur_entrepreneur}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Status</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{curSelProblem.status}</Typography>
+                  <Typography>{state.cur_status}</Typography>
                 </Grid>
                 <Grid item xs>
                   <Button variant="contained" color="secondary" className="{classes.button}"
-                  onClick={e => handleSupport(curSelProblem.id)}>
+                  onClick={e => handleSupport(state.cur_id)}>
                      Støtt problemet
                    </Button>
                 </Grid>
@@ -172,7 +188,18 @@ function getStepContent(step: number, state: State, handleChange: function, simi
           <CardContent>
             <Typography>{state.category}</Typography>
             <Typography>{state.municipality}</Typography>
-            <Typography>{state.street}</Typography>
+            <Typography>{state.location}</Typography>
+            <TextValidator
+              fullWidth
+              margin="normal"
+              label="Tittel"
+              name="title"
+              autoComplete="title"
+              value={state.title}
+              onChange={handleChange}
+              validators={['required']}
+              errorMessages={['Du må skrive inn en tittel']}
+            />
             <TextValidator
               multiline
               fullWidth
@@ -189,7 +216,7 @@ function getStepContent(step: number, state: State, handleChange: function, simi
             />
             <Typography>Last opp et bilde</Typography>
             <Fab color="primary" aria-label="Add" className="{classes.fab}">
-              <AddIcon />
+              <AddIcon onClick={handleUpload}/>
             </Fab>
           </CardContent>
         </Card>
@@ -199,7 +226,9 @@ function getStepContent(step: number, state: State, handleChange: function, simi
   }
 }
 
-/** Handles supporting an existing problem */
+/** Handles 'supporting' an existing problem
+* @params problemId: number, id of the problem to 'support'
+*/
 function handleSupport(problemId: number){
   //@TODO Handle support a problem
   console.log("Clicked updoot for " + problemId + "! Take me away hunny")
@@ -209,33 +238,81 @@ type Props = {};
 type State = {
   activeStep: number,
 
+  title: string,
   category: string,
   municipality: string,
-  street: string,
+  location: string,
   description: string,
   imageURL: string,
   entrepreneur: string,
-  status: string
+  status: string,
+
+  cur_id: -1,
+  cur_title: 'Default',
+  cur_category: 'Default',
+  cur_municipality: 'Default',
+  cur_location: 'Default',
+  cur_description: 'Default',
+  cur_imageURL: 'Default',
+  cur_entrepreneur: 'Default',
+  cur_status: 'Default'
 };
 
 /** CreateProblem Component */
 class CreateProblem extends React.Component<Props, State> {
+  constructor() {
+    super();
+    this.handleChangeSpec = this.handleChangeSpec.bind(this);
+  }
+
   state = {
     activeStep: 0,
 
+    title: '',
     category: '',
     municipality: '',
-    street: '',
+    location: '',
     description: '',
     imageURL: '',
     entrepreneur: '',
-    status: 'UnChecked'
+    status: 'Unchecked',
+
+    cur_id: -1,
+    cur_title: 'Default',
+    cur_category: 'Default',
+    cur_municipality: 'Default',
+    cur_location: 'Default',
+    cur_description: 'Default',
+    cur_imageURL: 'Default',
+    cur_entrepreneur: 'Default',
+    cur_status: 'Default'
   };
 
   similarProblems = [];
+  categories = [];
 
-  getSimilarProblems = e => {
+  componentWillMount(){
+    //this.getSimilarProblems("", "");
+    this.getCategories();
+  }
+
+  /** Gets problems in vicinity
+   * @params municipality: string, the user-selected municipality
+   * @params location: string, the inputted location
+   * */
+  getSimilarProblems(municipality: string, location: string) {
     //@TODO AXIOS GET SIMILAR PROBLEMS
+    this.similarProblems = [
+    {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', location: 'Kongens Gate', description: 'abc', status: 'Unchecked' },
+    {id:2, title: 'Dårlig', category: 'Veier', municipality: 'Trondheim', location: 'Jørunds Gate', description: 'def', status: 'Checked' },
+    {id:3, title: 'Problem', category: 'Veier', municipality: 'Ås', location: 'Torget', description: 'mnl', status: 'Working' }
+    ]
+  }
+
+  /** Gets ALL problem categories*/
+  getCategories(){
+    //@TODO AXIOS GET CATEGORIES
+    this.categories = ['Veier', 'Bygninger', 'Annet'];
   }
 
   /** Handles clicking "Next" button */
@@ -244,6 +321,7 @@ class CreateProblem extends React.Component<Props, State> {
     this.setState({
       activeStep: activeStep + 1
     });
+    this.getSimilarProblems(this.state.municipality, this.state.location);
   };
 
   /** Handles clicking "Back" button */
@@ -260,12 +338,21 @@ class CreateProblem extends React.Component<Props, State> {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  /** Handles input values which are not from ordinary events
+   * changes this component's state values
+   * @params name: the name of the state variable to set
+   * @params value: the value to set a state variable
+   * */
+  handleChangeSpec(name, value){
+    this.setState({ [name]: value });
+  };
+
   /** Handles validation forms' submit event
    *  @see handleNext
    * */
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    //console.log(this.state);
     if(this.state.activeStep > 1){
       //@TODO Save in DB/Redux
       console.log("SAVE PROBLEM HERE")
@@ -276,6 +363,12 @@ class CreateProblem extends React.Component<Props, State> {
   /** Handles when user is done and gets sent away. */
   handleFinish = e => {
     history.push("/");
+  };
+
+  /** Handles uploading of image files */
+  handleUpload = e => {
+    //@TODO make uploader for image
+    console.log("Upload me hunny!");
   }
 
   render() {
@@ -314,7 +407,9 @@ class CreateProblem extends React.Component<Props, State> {
               </Card>
             ) : (
               <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
-                {getStepContent(activeStep, this.state, this.handleChange)}
+                {getStepContent(activeStep, this.state, this.handleChange,
+                              this.handleChangeSpec, this.handleUpload,
+                              this.similarProblems, this.categories)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
