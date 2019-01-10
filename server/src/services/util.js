@@ -40,13 +40,13 @@ export const checkAuth = (req: () => mixed, res: express$Response, next: express
 };
 
 /*---     Generate token        ---*/
-export const genToken = (user: { id: number, email: string, username: string, password?: string }) =>
+export const genToken = ( id: number, email: string, isAdmin: boolean) =>
   jwt.sign(
     {
       user: {
-        id: user.id,
-        email: user.email,
-        username: user.email
+        id,
+        email,
+        isAdmin
       }
     },
     process.env.JWT_KEY,
@@ -59,3 +59,5 @@ export const genToken = (user: { id: number, email: string, username: string, pa
 export const hashPassword = (password: string) => bcrypt.hashSync(password, bcrypt.genSaltSync());
 export const validatePassword = (inputPassword: string, currentPassword: string) =>
   bcrypt.compareSync(inputPassword, currentPassword);
+
+
