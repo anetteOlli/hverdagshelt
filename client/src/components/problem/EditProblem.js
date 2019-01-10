@@ -20,7 +20,7 @@ type Props = {
 };
 
 type State = {
-  problem_id: int,
+  problem_id: number,
   problem_description: string,
   img_user: string,
   date_made: datetime,

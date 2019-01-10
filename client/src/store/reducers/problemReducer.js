@@ -1,5 +1,14 @@
 // @flow
-export type State = { errorMessage: string };
+export type State = {
+  problem_id: number,
+  problem_description: string,
+  img_user: string,
+  date_made: string,
+  last_edited: string,
+  location_fk: number,
+  status_fk: number,
+  category_fk: number,
+  errorMessage: string };
 export type Action =
   | { type: 'CREATE_PROBLEM_SUCCESS' }
   | { type: 'CREATE_PROBLEM_ERROR', error: Error }
@@ -9,14 +18,15 @@ export type Action =
   | { type: 'DELETE_PROBLEM_ERROR', error: Error };
 
 const initState = {
-    problem_id: null,
+    problem_id: -1,
     problem_description: '',
     img_user: '',
     date_made: '',
     last_edited: '',
     location_fk: '',
     status_fk: '',
-    category_fk: ''
+    category_fk: '',
+  errorMessage: ''
 };
 
 export default (state: State = initState, action: Action) => {
