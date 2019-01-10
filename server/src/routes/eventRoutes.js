@@ -25,8 +25,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   console.log("Fikk POST-request fra klienten");
   eventDao.createOne(req.body, (status, data) => {
-    res.status(status);
-    res.json(data);
+    return res.status(status).json(data);
   });
 });
 
