@@ -9,7 +9,7 @@ import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
 import { SnackbarProvider } from 'notistack';
 import EditProblem from "./components/problem/EditProblem";
-import Map from './components/layout/map';
+import Map from './components/layout/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 
 export default () => (
