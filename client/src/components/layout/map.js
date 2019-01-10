@@ -31,6 +31,7 @@ class Map1 extends Component<Props> {
       cords: cords
     });
   }
+
   render() {
     return (
       <div>
@@ -85,6 +86,7 @@ class SimpleMap extends Component<Props> {
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '80vh', width: '100%' }}>
+        {apiReady && <SearchBox map={this.state.map} mapsapi={this.state.mapsapi} googlemaps={this.state.googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
           defaultCenter={this.props.center}
@@ -101,9 +103,6 @@ class SimpleMap extends Component<Props> {
             text="you are here"
             img_src="http://cdn.grid.fotosearch.com/CSP/CSP808/k8080955.jpg"
           />
-          {apiReady && (
-            <SearchBox map={this.state.map} mapsapi={this.state.mapsapi} googlemaps={this.state.googlemaps} />
-          )}
         </GoogleMapReact>
         <div>
           <p>

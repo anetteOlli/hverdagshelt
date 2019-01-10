@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,30 +6,38 @@ class SearchBox extends Component {
   static propTypes = {
     mapsapi: PropTypes.shape({
       places: PropTypes.shape({
-        SearchBox: PropTypes.func,
+        SearchBox: PropTypes.func
       }),
       event: PropTypes.shape({
-        clearInstanceListeners: PropTypes.func,
-      }),
+        clearInstanceListeners: PropTypes.func
+      })
     }).isRequired,
     placeholder: PropTypes.string,
-    onPlacesChanged: PropTypes.func,
+    onPlacesChanged: PropTypes.func
   };
 
   static defaultProps = {
     placeholder: 'Search...',
-    onPlacesChanged: null,
+    onPlacesChanged: null
   };
 
   constructor(props) {
     super(props);
 
     this.searchInput = React.createRef();
+
+    this.state = {
+      cords: {
+        lat: '',
+        lng: ''
+      },
+      location: ''
+    };
   }
 
   componentDidMount() {
     const {
-      mapsapi: { places },
+      mapsapi: { places }
     } = this.props;
 
     this.searchBox = new places.SearchBox(this.searchInput.current);
@@ -37,7 +46,7 @@ class SearchBox extends Component {
 
   componentWillUnmount() {
     const {
-      mapsapi: { event },
+      mapsapi: { event }
     } = this.props;
 
     event.clearInstanceListeners(this.searchBox);
@@ -45,9 +54,24 @@ class SearchBox extends Component {
 
   onPlacesChanged = () => {
     const { onPlacesChanged } = this.props;
+    let cords = {
+      lat: this.searchBox.getPlaces()[0].geometry.location.lat(),
+      lng: this.searchBox.getPlaces()[0].geometry.location.lng()
+    };
+    this.setState({
+      cords: cords
+    });
+    console.log(
+      'onPlacesChanged getPlaces()[0].geometry.location.lat()',
+      this.searchBox.getPlaces()[0].geometry.location.lat()
+    );
+    console.log('this.state.cords', this.state.cords);
+    console.log('onPlacesChanged', this.state.location);
+    console.log('forsøker å skrive ut drit', this.props);
 
     if (onPlacesChanged) {
       onPlacesChanged(this.searchBox.getPlaces());
+      console.log('place has changed', this.searchBox.getPlaces());
     }
   };
 
@@ -63,7 +87,7 @@ class SearchBox extends Component {
           width: '392px',
           height: '48px',
           fontSize: '20px',
-          padding: '12px 104px 11px 64px',
+          padding: '12px 104px 11px 64px'
         }}
       />
     );
