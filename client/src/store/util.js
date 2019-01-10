@@ -7,7 +7,7 @@ export const clearToken = () => localStorage.removeItem('token');
 
 const url: string = '';
 
-export function fetch(endpoint: string) {
+export const fetch = (endpoint: string) => {
   return axios.get(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -15,9 +15,9 @@ export function fetch(endpoint: string) {
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
-}
+};
 
-export function store(endpoint: string, data: JSON) {
+export const store = (endpoint: string, data: JSON) => {
   return axios.post(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -25,9 +25,9 @@ export function store(endpoint: string, data: JSON) {
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
-}
+};
 
-export function update(endpoint: string, data: JSON) {
+export const update = (endpoint: string, data: JSON) => {
   return axios.put(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -35,9 +35,9 @@ export function update(endpoint: string, data: JSON) {
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
-}
+};
 
-export function destroy(endpoint: string) {
+export const destroy = (endpoint: string) => {
   return axios.delete(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -45,4 +45,8 @@ export function destroy(endpoint: string) {
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
-}
+};
+
+export const validateEmail = (email: string) => {
+  return axios.post(url + 'users/validate-email', email);
+};

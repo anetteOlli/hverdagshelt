@@ -19,7 +19,7 @@ const initState = {
     category_fk: ''
 };
 
-const problemReducer = (state: State = initState, action: Action) => {
+export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_PROBLEM_SUCCESS':
       console.log('CREATE_PROBLEM_SUCCESS');
@@ -55,4 +55,3 @@ const problemReducer = (state: State = initState, action: Action) => {
       return state;
   }
 };
-export default problemReducer;
