@@ -5,7 +5,8 @@ import withRoot from '../../withRoot';
 
 const styles = () => ({
   main: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: 20
   },
   footertekst: {
     alignContent: 'center',

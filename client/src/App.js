@@ -27,7 +27,7 @@ export default () => (
           <Route exact path="/lagproblem" component={CreateProblem}/>
           <Route exact path="/problemdetails" component={ProblemDetails}/>
           <Route exact path="/muiTable" component={MuiTable}/>
-          {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+          <Route exact path="/:municipality" component={MuniPage} />
         </Switch>
         <Footer />
       </Fragment>

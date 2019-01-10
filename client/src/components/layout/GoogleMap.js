@@ -35,7 +35,7 @@ class SimpleMap extends Component {
               };
           })
     }
-    
+
     _onClick = ({x, y, lat, lng, event}) => {
         console.log(x, y, lat, lng, event);
         let cords = {
@@ -47,7 +47,7 @@ class SimpleMap extends Component {
         this.setState({center: tempState})
         this.fromCordsToPlace(cords);
     };
-    
+
     render() {
         return (
             // Important! Always set the container height explicitly
@@ -68,13 +68,12 @@ class SimpleMap extends Component {
                             />
                         )
                     })}
-                    
+
                 </GoogleMap>
             </div>
-            
+
         );
     }
 }
 
 export default SimpleMap;
-
