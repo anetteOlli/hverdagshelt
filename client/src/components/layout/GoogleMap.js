@@ -4,9 +4,6 @@ import GoogleMap from 'google-map-react';
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
-
-
-
 const AnyReactComponent = ({  img_src }) => <div><img src={img_src} className="YOUR-CLASS-NAME" style={{'height':'10px', 'width':'10px'} } /></div>;
 
 
@@ -15,19 +12,27 @@ class SimpleMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            priority:'',
             center: [{
-                lat: 59.95,
-                lng: 30.33
+                lat: 61.5966871,
+                lng: 9.769488616282388
             }],
-            zoom: 11
+            zoom: 17
         };
     }
 
     fromCordsToPlace(cords) {
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + cords.lat + ',' + cords.lon + '&key=' + API_KEY)
+        let url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
+        fetch(url)
           .then((response) => response.json())
           .then((responseJson) => {
-              console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+              let place = {
+                street: responseJson.results[2].address_components[1].long_name,
+                city: responseJson.results[2].address_components[2].long_name,
+                municipality: responseJson.results[2].address_components[3].long_name,
+                county: responseJson.results[2].address_components[4].long_name,
+                country: responseJson.results[2].address_components[5].long_name
+              };
           })
     }
     
@@ -40,7 +45,6 @@ class SimpleMap extends Component {
         let tempState = this.state.center;
         tempState.push(cords);
         this.setState({center: tempState})
-        console.log(this.state.center);
         this.fromCordsToPlace(cords);
     };
     

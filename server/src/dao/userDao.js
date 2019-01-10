@@ -1,5 +1,4 @@
 const Dao = require("./dao.js");
-const UserDao = require('../dao/userDao');
 
 module.exports = class UserDao extends Dao {
 
