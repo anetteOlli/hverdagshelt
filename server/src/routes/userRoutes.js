@@ -39,7 +39,6 @@ router.patch('/:email', (req, res) => {
   });
 });
 
-
 router.post('/validate-email', (req, res) => {
   console.log(req.body);
     res.json( {emailExist: true});
