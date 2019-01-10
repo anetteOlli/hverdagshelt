@@ -1,10 +1,26 @@
 // @flow
 import type { Action, State } from '../reducers/problemReducer';
-import { postData, putData, deleteData } from '../util';
+import { postData, putData, deleteData, getData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => State;
+
+export const getProblemById = (id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`problems/${id}`).then(problems =>
+      dispatch({
+        type: 'PROBLEM_BY_ID_SUCCESS',
+        problems
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEM_BY_ID_ERROR',
+          error
+        })
+      )
+    );
+  };
+};
 
 export const createProblem = (newProblem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -44,6 +60,22 @@ export const deleteProblem = (id: number) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'DELETE_PROBLEM_ERROR',
+          error
+        })
+      )
+    );
+  };
+};
+
+export const getProblemsByState = (state: string) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`problems/${state}`).then(problems =>
+      dispatch({
+        type: 'PROBLEMS_BY_STATE_SUCCESS',
+        problems
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEMS_BY_STATE_ERROR',
           error
         })
       )
