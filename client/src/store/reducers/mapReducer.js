@@ -1,6 +1,6 @@
 // @flow
 export type State = { lat: string, lng: string };
-export type Action = { type: 'UPDATE_MAP', action: { lat: string, lng: string } };
+export type Action = { type: 'UPDATE_MAP', lat: string, lng: string };
 
 const initState = {
   lat: '',

@@ -9,6 +9,7 @@ import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
 import { SnackbarProvider } from 'notistack';
 import EditProblem from "./components/problem/EditProblem";
+import Map from './components/layout/map';
 import MuniPage from './components/dashboard/MuniPage';
 
 export default () => (
@@ -18,7 +19,7 @@ export default () => (
         <CssBaseline />
         <NavBar />
         <Switch>
-          <Route exact path="/" component={MainPage} />
+          <Route exact path="/" component={Map} />
           <Route exact path="/registrer-bruker" component={SignUp} />
           <Route exact path="/editp" component={EditProblem} />
           <Route exact path="/editbruker" component={MainPage} />

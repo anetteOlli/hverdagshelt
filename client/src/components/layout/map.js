@@ -3,6 +3,8 @@ import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import SearchBox from './SearchBox';
 import { updateMap } from '../../store/actions/mapActions';
+import { connect } from 'react-redux';
+import withRoot from '../../withRoot';
 
 const AnyReactComponent = ({ img_src, text }) => (
   <div>
@@ -125,11 +127,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMap: cords => dispatch(updateMap(cords))
+    updateMap: (lat, lng) => dispatch(updateMap(lat, lng))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(Map1))));
+)(withRoot(Map1));
