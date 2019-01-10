@@ -1,16 +1,11 @@
 // @flow
 import React from 'react';
 import { Button, Typography, MenuItem } from '@material-ui/core/';
-import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from '@material-ui/core/Divider/Divider';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
+import Grid from '@material-ui/core/Grid';
 import createHashHistory from 'history/createHashHistory';
 import { getProblem } from '../../store/actions/problemActions';
 const history = createHashHistory();
@@ -18,11 +13,20 @@ const history = createHashHistory();
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
-    padding: 20
+    padding: 20,
+    paddingBottom: 500
   },
   button: {
-    marginTop: theme.spacing.unit
+    //marginTop: theme.spacing.unit,
+
+  },
+  editBTN: {
+    align: 'right'
+  },
+  addBTN: {
+    align: 'right'
   }
+
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -57,15 +61,13 @@ class ProblemDetails extends React.Component<Props, State> {
           Problem informasjon
         </Typography>
         <div className="pdbtnwrapper">
-          <Button className="AddEntrepreneurBTN" onClick={this.onClickAdd}>
+          <Button className={classes.addBTN} onClick={this.onClickAdd}>
             Add entrepreneur
           </Button>
-          <Button className="EditProblemsBTN" onClick={this.onClickEdit}>
+          <Button className={classes.editBTN}onClick={this.onClickEdit}>
             Edit Problem
           </Button>
-          <Button fullWidth variant="contained" className={classes.button} type="submit">
-            classesButton
-          </Button>
+
         </div>
       </div>
     );

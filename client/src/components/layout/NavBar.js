@@ -71,9 +71,7 @@ class NavBar extends React.Component<Props, State> {
     });
   };
 
-  onClick() {
-    history.push('/problemdetails/1');
-  }
+
 
   render() {
     const { classes, isLoggedIn, signOut } = this.props;
@@ -92,9 +90,7 @@ class NavBar extends React.Component<Props, State> {
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
-            <Button className="testBTN" onClick = {this.onClick}>
-              ProblemDetaljer
-            </Button>
+
 
 
             <div className={classes.grow} />
