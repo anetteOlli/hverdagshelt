@@ -16,7 +16,7 @@ export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'UPDATE_MAP':
       console.log('UPDATE_MAP');
-      console.log(action.lat,action.lng);
+      console.log(action.lat, action.lng);
       return {
         ...state,
         lat: action.lat,

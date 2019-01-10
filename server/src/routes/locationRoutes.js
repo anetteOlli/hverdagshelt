@@ -1,15 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const LocationController = require('../controllers/locationController');
 
-const LocationDao = require('../dao/locationDao');
 
-const pool = require("../services/database");
-let locationDao = new LocationDao(pool);
-
-router.get('/', (req, res) => {
-  locationDao.getAllLocations((status, data) => {
-    res.status(status).json(data);
-  });
-});
+router.get('/', LocationController.locations_get_all);
 
 module.exports = router;

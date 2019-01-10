@@ -27,7 +27,7 @@ module.exports = class EventDao extends Dao {
       json.location_fk
     ];
     super.query(
-      "insert into event (event_name,event_description,status_fk,category_fk,user_fk,location_fk) values (?,?,?,?,?,?)",
+      "insert into event (event_name,event_description,status_fk,user_fk,location_fk) values (?,?,?,?,?)",
       newContent,
       callback
     );
@@ -39,13 +39,12 @@ module.exports = class EventDao extends Dao {
       json.event_name,
       json.event_description,
       json.status_fk,
-      json.category_fk,
       json.user_fk,
       json.location_fk,
       id
     ];
 
-    super.query("update event set event_name = ?, event_description = ?, status_fk = ?, category_fk = ?, user_fk = ?, location_fk = ? where event_id = ?",
+    super.query("update event set event_name = ?, event_description = ?, status_fk = ?,  user_fk = ?, location_fk = ? where event_id = ?",
       values,
       callback
     );

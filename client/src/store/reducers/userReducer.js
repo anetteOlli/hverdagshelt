@@ -7,8 +7,7 @@ export type Action =
   | { type: 'SIGN_OUT_SUCCESS' }
   | { type: 'SIGN_OUT_ERROR', error: Error }
   | { type: 'SIGN_UP_SUCCESS', token: string }
-  | { type: 'SIGN_UP_ERROR', error: Error }
-  ;
+  | { type: 'SIGN_UP_ERROR', error: Error };
 
 const initState = {
   token: '',

@@ -8,7 +8,6 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './store/reducers/rootReducer';
 
-
 /*--- Reload application when not in production environment ---*/
 if (process.env.NODE_ENV !== 'production') {
   let script = document.createElement('script');
@@ -17,10 +16,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-
-
-
-
 
 const root = document.getElementById('root');
 if (root)
