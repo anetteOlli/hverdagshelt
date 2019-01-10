@@ -12,11 +12,12 @@ class SimpleMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            priority:'',
             center: [{
                 lat: 61.5966871,
                 lng: 9.769488616282388
             }],
-            zoom: 11
+            zoom: 17
         };
     }
 
@@ -25,9 +26,13 @@ class SimpleMap extends Component {
         fetch(url)
           .then((response) => response.json())
           .then((responseJson) => {
-              //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
-              console.log(responseJson.results[2]);
-
+              let place = {
+                street: responseJson.results[2].address_components[1].long_name,
+                city: responseJson.results[2].address_components[2].long_name,
+                municipality: responseJson.results[2].address_components[3].long_name,
+                county: responseJson.results[2].address_components[4].long_name,
+                country: responseJson.results[2].address_components[5].long_name
+              };
           })
     }
     

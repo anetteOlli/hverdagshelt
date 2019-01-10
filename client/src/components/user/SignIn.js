@@ -30,7 +30,7 @@ type Props = {
 type State = {
   email: string,
   password: string,
-  remember: string
+  remember: boolean
 };
 
 class SignIn extends React.Component<Props, State> {
@@ -55,14 +55,19 @@ class SignIn extends React.Component<Props, State> {
     this.props.onClose();
   };
 
+  handleRemember = () => {
+    this.setState(prevState => ({
+      remember: !prevState.remember
+    }));
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    this.props.signIn(this.state);
-    console.log("Signin");
-    if(this.props.errorMessage)
-    this.props.enqueueSnackbar(this.props.errorMessage, {
-      variant: 'warning'
-    })
+    this.props.signIn(this.state).then(resp => {
+      console.log(resp);
+      if (resp.type === 'SIGN_IN_SUCCESS') this.props.enqueueSnackbar(' U in', { variant: 'success' });
+      else this.refs.form.submit();
+    });
   };
 
   render() {
@@ -71,37 +76,34 @@ class SignIn extends React.Component<Props, State> {
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
-          <ValidatorForm
-            ref="form"
-            onSubmit={this.handleSubmit}
-          >
+          <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
             <TextValidator
               fullWidth
               margin="normal"
-              label="Email"
+              label="Epost"
               name="email"
               autoComplete="email"
               autoFocus
               value={this.state.email}
               onChange={this.handleChange}
-              validators={['required', 'isEmail']}
-              errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse']}
+              validators={['required', 'isEmail', 'isRightEmail']}
+              errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Feil epost-adresse']}
             />
             <TextValidator
               fullWidth
               margin="normal"
-              label="Password"
+              label="Passord"
               name="password"
               type="password"
               autoComplete="current-password"
               value={this.state.password}
               onChange={this.handleChange}
-              validators={['required']}
-              errorMessages={['Feltet kan ikke være tomt']}
+              validators={['required', 'isRightPassword']}
+              errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
             />
             <FormControlLabel
               control={
-                <Checkbox name="remember" value={this.state.remember} onClick={this.handleChange} color="primary" />
+                <Checkbox onChange={this.handleRemember} color="primary" />
               }
               label="Remember me"
             />
@@ -122,6 +124,11 @@ class SignIn extends React.Component<Props, State> {
       </Dialog>
     );
   }
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isRightEmail', () => this.props.errorMessage !== 'WRONG EMAIL');
+    ValidatorForm.addValidationRule('isRightPassword', () => this.props.errorMessage !== 'WRONG PASSWORD');
+  }
 }
 
 const mapStateToProps = state => {
@@ -137,6 +144,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(SignIn))));

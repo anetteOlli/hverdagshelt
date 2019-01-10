@@ -72,7 +72,7 @@ CREATE TABLE user_problem (
 CREATE TABLE event(
     event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     event_name VARCHAR(100) NOT NULL,
-    event_descpription VARCHAR(500),
+    event_description VARCHAR(500),
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
@@ -87,7 +87,6 @@ CREATE TABLE user_event(
     event_fk INTEGER
 );
 
-ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES counties(name);
 
 ALTER TABLE location
 ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);

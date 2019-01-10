@@ -12,7 +12,7 @@ const initState = {
   errorMessage: ''
 };
 
-const eventReducer = (state: State = initState, action: Action) => {
+export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_EVENT_SUCCESS':
       console.log('CREATE_EVENT_SUCCESS');
@@ -48,5 +48,3 @@ const eventReducer = (state: State = initState, action: Action) => {
       return state;
   }
 };
-
-export default eventReducer;
