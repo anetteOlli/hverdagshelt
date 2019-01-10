@@ -78,7 +78,6 @@ CREATE TABLE event(
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
-    category_fk VARCHAR(30),
     user_fk INTEGER,
     location_fk INTEGER
 );
@@ -112,8 +111,7 @@ ADD FOREIGN KEY(user_fk) REFERENCES users(user_id);
 ALTER TABLE event
 ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
 ADD FOREIGN KEY(user_fk) REFERENCES users(user_id),
-ADD FOREIGN KEY(status_fk) REFERENCES status(status),
-ADD FOREIGN KEY(category_fk) REFERENCES category(category);
+ADD FOREIGN KEY(status_fk) REFERENCES status(status);
 
 ALTER TABLE user_event
 ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
