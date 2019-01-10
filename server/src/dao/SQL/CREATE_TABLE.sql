@@ -38,6 +38,7 @@ CREATE TABLE category(
 CREATE TABLE problem (
     problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     problem_description VARCHAR(300) NOT NULL,
+    description_entrepreneur VARCHAR(300),
     img_user VARCHAR(300),
     img_entrepreneur VARCHAR(300),
     date_made DATETIME DEFAULT NOW(),
@@ -46,6 +47,7 @@ CREATE TABLE problem (
     category_fk VARCHAR(50),
     status_fk VARCHAR(30),
     user_fk INTEGER,
+    entrepreneur_fk INTEGER,
     location_fk INTEGER
 );
 
@@ -76,7 +78,6 @@ CREATE TABLE event(
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
-    category_fk VARCHAR(30),
     user_fk INTEGER,
     location_fk INTEGER
 );
@@ -96,7 +97,8 @@ ALTER TABLE problem
 ADD FOREIGN KEY(status_fk) REFERENCES status(status),
 ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
 ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
-ADD FOREIGN KEY(category_fk) REFERENCES category(category);
+ADD FOREIGN KEY(category_fk) REFERENCES category(category),
+ADD FOREIGN KEY(entrepreneur_fk) REFERENCES user(user_id);
 
 ALTER TABLE user
 ADD FOREIGN KEY(priority_fk)REFERENCES priority(priority),
@@ -110,8 +112,7 @@ ADD FOREIGN KEY(user_fk) REFERENCES users(user_id);
 ALTER TABLE event
 ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
 ADD FOREIGN KEY(user_fk) REFERENCES users(user_id),
-ADD FOREIGN KEY(status_fk) REFERENCES status(status),
-ADD FOREIGN KEY(category_fk) REFERENCES category(category);
+ADD FOREIGN KEY(status_fk) REFERENCES status(status);
 
 ALTER TABLE user_event
 ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
