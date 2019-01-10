@@ -42,7 +42,7 @@ router.patch('/:email', (req, res) => {
 
 router.post('/validate-email', (req, res) => {
   console.log(req.body);
-    res.status(200).json( {emailExist: true});
+    res.json( {emailExist: true});
 });
 
 module.exports = router;
