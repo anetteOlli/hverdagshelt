@@ -20,13 +20,13 @@ type Props = {
 };
 
 type State = {
-  problem_id: int,
+  problem_id: number,
   problem_description: string,
   img_user: string,
-  date_made: datetime,
-  last_edited: datetime,
-//  location_fk: ,
-//  status_fk: ,
+  date_made: Date,
+  last_edited: Date,
+  location_fk: Geolocation,
+  status_fk: 'active'|'inacitve'|'happening',
   category_fk: string
 };
 

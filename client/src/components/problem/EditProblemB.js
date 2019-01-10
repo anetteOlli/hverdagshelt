@@ -21,13 +21,14 @@ type Props = {
 };
 
 type State = {
-  problem_id: int,
+  problem_id: number,
   problem_description: string,
+  description_entrepreneur: string,
   img_user: string,
-  date_made: datetime,
-  last_edited: datetime,
-//  location_fk: ,
-//  status_fk: ,
+  date_made: Date,
+  last_edited: Date,
+  location_fk: Geolocation,
+  status_fk: 'active'|'inacitve'|'happening',
   category_fk: string
 };
 
@@ -45,6 +46,7 @@ class EditProblemB extends React.Component<Props, State> {
   state = {
     problem_id: null,
     problem_description: '',
+    description_entrepreneur: '',
     img_user: '',
     date_made: '',
     last_edited: '',
@@ -148,8 +150,8 @@ class EditProblemB extends React.Component<Props, State> {
             margin="normal"
             multiline
             label="Beskrivelse"
-            name="problem_description"
-            value={this.state.problem_description}
+            name="description_entrepreneur"
+            value={this.state.description_entrepreneur}
             onChange={this.handleChange}
             validators={['required', 'minStringLength:1']}
             errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
