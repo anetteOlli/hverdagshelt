@@ -15,17 +15,20 @@ export type Action =
   | { type: 'EDIT_PROBLEM_SUCCESS' }
   | { type: 'EDIT_PROBLEM_ERROR', error: Error }
   | { type: 'DELETE_PROBLEM_SUCCESS' }
-  | { type: 'DELETE_PROBLEM_ERROR', error: Error };
+  | { type: 'DELETE_PROBLEM_ERROR', error: Error }
+  | { type: 'GOT_PROBLEM_SUCCESS', problem: problem };
 
 const initState = {
-    problem_id: -1,
-    problem_description: '',
-    img_user: '',
-    date_made: '',
-    last_edited: '',
-    location_fk: '',
-    status_fk: '',
-    category_fk: '',
+    problem: {
+      problem_id: 1,
+      problem_description: 'Veldig nice problem',
+      img_user: 'USYBUDWUVJKAN726382tguBJBDUYB',
+      date_made: '20-13-2018',
+      last_edited: '20-14-2018',
+      location_fk: 'Eplegaten 2',
+      status_fk: '2',
+      category_fk: '3',
+    },
   errorMessage: ''
 };
 
@@ -60,6 +63,12 @@ export default (state: State = initState, action: Action) => {
       console.log('CREATE_PROBLEM_ERROR');
       return {
         errorMessage: action.error.message
+      };
+    case 'GOT_PROBLEM_SUCCESS':
+      console.log('GOT_PROBLEM_SUCCESS');
+      return {
+        errorMessage: '',
+        problem: action.problem
       };
     default:
       return state;

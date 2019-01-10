@@ -5,7 +5,7 @@ let categoryDao = new CategoryDao(pool);
 
 router.get("/", (req, res) => {
   console.log("Handling GET requests to /events");
-  eventDao.getAll((status, data) => {
+  categoryDao.getAll((status, data) => {
     console.log(data);
     res.status(status);
     res.json(data);

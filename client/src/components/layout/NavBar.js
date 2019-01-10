@@ -20,6 +20,8 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../../store/actions/userActions';
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 const styles = (theme: Object) => ({
   appBar: {
@@ -69,6 +71,10 @@ class NavBar extends React.Component<Props, State> {
     });
   };
 
+  onClick() {
+    history.push('/problemdetails/1');
+  }
+
   render() {
     const { classes, isLoggedIn, signOut } = this.props;
     return (
@@ -86,6 +92,11 @@ class NavBar extends React.Component<Props, State> {
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
+            <Button className="testBTN" onClick = {this.onClick}>
+              ProblemDetaljer
+            </Button>
+
+
             <div className={classes.grow} />
             {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>

@@ -37,6 +37,7 @@ CREATE TABLE category(
 
 CREATE TABLE problem (
     problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    problem_title VARCHAR(50) NOT NULL,
     problem_description VARCHAR(300) NOT NULL,
     description_entrepreneur VARCHAR(300),
     img_user VARCHAR(300),
@@ -61,31 +62,30 @@ CREATE TABLE user (
     password VARCHAR(100) NOT NULL,
     auz_url VARCHAR(100) NOT NULL,
     priority_fk INTEGER NOT NULL,
-    problem_fk INTEGER,
-    event_fk INTEGER
+    problem_fk INTEGER
 );
 
 CREATE TABLE user_problem (
     user_problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_fk INTEGER,
-    problem_fk INTEGER
+    user_id INTEGER,
+    problem_id INTEGER
 );
 
 CREATE TABLE event(
     event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     event_name VARCHAR(100) NOT NULL,
     event_description VARCHAR(500),
+    event_img VARCHAR(300),
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
-    user_fk INTEGER,
     location_fk INTEGER
 );
 
 CREATE TABLE user_event(
     user_event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_fk INTEGER,
-    event_fk INTEGER
+    user_id INTEGER,
+    event_id INTEGER
 );
 
 
@@ -101,21 +101,19 @@ ADD FOREIGN KEY(entrepreneur_fk) REFERENCES user(user_id);
 
 ALTER TABLE user
 ADD FOREIGN KEY(priority_fk)REFERENCES priority(priority),
-ADD FOREIGN KEY(problem_fk) REFERENCES problem(problem_id),
-ADD FOREIGN KEY(event_fk) REFERENCES event(event_id);
+ADD FOREIGN KEY(problem_fk) REFERENCES problem(problem_id);
 
 ALTER TABLE user_problem
-ADD FOREIGN KEY(problem_fk) REFERENCES problem(problem_id),
-ADD FOREIGN KEY(user_fk) REFERENCES users(user_id);
+ADD FOREIGN KEY(problem_id) REFERENCES problem(problem_id),
+ADD FOREIGN KEY(user_id) REFERENCES user(user_id);
 
 ALTER TABLE event
 ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
-ADD FOREIGN KEY(user_fk) REFERENCES users(user_id),
 ADD FOREIGN KEY(status_fk) REFERENCES status(status);
 
 ALTER TABLE user_event
-ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
-ADD FOREIGN KEY(event_fk) REFERENCES event(event_id);
+ADD FOREIGN KEY(user_id) REFERENCES user(user_id),
+ADD FOREIGN KEY(event_id) REFERENCES event(event_id);
 
 ALTER TABLE municipality
 ADD FOREIGN KEY(county) REFERENCES county(name);
