@@ -63,6 +63,11 @@ const styles = theme => ({
   },
   statustext: {
     color: "#ff9800",
+    marginBottom: 20
+  },
+  categorytext: {
+    color: "#1565c0",
+    marginBottom: 20,
   }
 
 });
@@ -78,7 +83,7 @@ const events = [
     status_fk: "KOMMER!",
     location_fk: "tunet",
     event_img: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1"
-    },
+  },
   {
     event_id: 1,
     event_name: "Høytlesning på biblioteket",
@@ -88,7 +93,7 @@ const events = [
     status_fk: "FOREGÅR NÅ!",
     location_fk: "biblioteket",
     event_img: "https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg"
-    },
+  },
   {
     event_id: 2,
     event_name: "Felles vårrengjøring av fotballbanen",
@@ -98,7 +103,62 @@ const events = [
     status_fk: "AVSLUTTET",
     location_fk: "Fotballbanen",
     event_img: "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1"
-    },
+  },
+  {
+    event_id: 3,
+    event_name: "Høytlesning på biblioteket",
+    event_description: "brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb",
+    date_starting: "12-14-2356",
+    date_ending: "12-14-2356",
+    status_fk: "FOREGÅR NÅ!",
+    location_fk: "biblioteket",
+    event_img: "https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg"
+  },
+  {
+    event_id: 4,
+    event_name: "Felles vårrengjøring av fotballbanen",
+    event_description: "brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb",
+    date_starting: "12-14-2356",
+    date_ending: "12-14-2356",
+    status_fk: "AVSLUTTET",
+    location_fk: "Fotballbanen",
+    event_img: "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1"
+  },
+  {
+    event_id: 5,
+    event_name: "Konsert på tunet",
+    event_description: "brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb",
+    date_starting: "12-14-2356",
+    date_ending: "12-14-2356",
+    status_fk: "KOMMER!",
+    location_fk: "tunet",
+    event_img: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1"
+  },
+  {
+    event_id: 6,
+    event_name: "Felles vårrengjøring av fotballbanen",
+    event_description: "brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb",
+    date_starting: "12-14-2356",
+    date_ending: "12-14-2356",
+    status_fk: "AVSLUTTET",
+    location_fk: "Fotballbanen",
+    event_img: "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1"
+  },
+]
+
+/**Event replacement*/
+const problems = [
+  {
+    problem_id: 0,
+    problem_title: "Biblioteket raste ned",
+    problem_description: "brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb",
+    date_made: "12-14-2356",
+    last_edited: "12-14-2356",
+    status_fk: "UNDER BEHANDLING",
+    location_fk: "rådhusplassen",
+    img_user: "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffarm3.staticflickr.com%2F2372%2F2520041294_a67c6bd12b_z.jpg&f=1",
+    category_fk: "Ødeleggelse"
+  },
 
 ]
 
@@ -212,9 +272,69 @@ class MuniPage extends React.Component<Props, State>{
                     ))}
                     </Grid>
                     </TabContainer>}
-                  {value === 1 && <TabContainer>
-                    Problemer kommer her
-                    </TabContainer>}
+
+                    {value === 1 && <TabContainer>
+                      <Grid container spacing={24}>
+                      {problems.map(problem => (
+                          <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
+                          {console.log("Problems" , JSON.stringify(problem))}
+
+                            <Card className={classes.card}>
+                              <CardActionArea>
+                                <CardMedia
+                                  component="img"
+                                  alt="Bilde av Problem"
+                                  className={classes.media}
+                                  height="180"
+                                  image={problem.img_user}
+                                  title={problem.problem_title}
+                                />
+                                <CardContent>
+                                  <Grid container spacing={24}>
+                                    <Grid item md={8}>
+                                      <Typography component="p" className={classes.statustext}>
+                                        <b>{problem.status_fk}</b>
+                                      </Typography>
+                                    </Grid>
+                                    <Grid item md={4}>
+                                      <Typography component="p" className={classes.categorytext}>
+                                        <i>{problem.category_fk}</i>
+                                      </Typography>
+                                    </Grid>
+                                  </Grid>
+                                  <Typography gutterBottom variant="h5" component="h2">
+                                    {problem.problem_title}
+                                  </Typography>
+                                  <Typography component="p">
+                                    {problem.problem_description}
+                                  </Typography>
+                                  <Typography component="p">
+                                    <br/>
+                                    Starter den: {problem.date_made} <br/>
+                                    Slutter den: {problem.last_edited} <br/>
+                                    <br/>
+                                  </Typography>
+                                  <Typography component="p">
+                                    Lokasjon: {problem.location_fk}
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                              <CardActions>
+                                <Grid container spacing={24}>
+                                  <Grid item md={8}>
+                                  </Grid>
+                                  <Grid item md={4}>
+                                    <Button variant="contained"  size="small" color="primary">
+                                      Kart
+                                    </Button>
+                                  </Grid>
+                                </Grid>
+                              </CardActions>
+                            </Card>
+                          </Grid>
+                      ))}
+                      </Grid>
+                  </TabContainer>}
                 </div>
             </CardContent>
           </Card>
