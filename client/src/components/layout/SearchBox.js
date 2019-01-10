@@ -96,4 +96,4 @@ class SearchBox extends Component {
 
 export default SearchBox;
 
-  // note to self: wtf hvorfor får jeg s mye feil npr jeg puller kode fra de andre på teamet
+// note to self: wtf hvorfor får jeg s mye feil npr jeg puller kode fra de andre på teamet
