@@ -11,31 +11,22 @@ import { SnackbarProvider } from 'notistack';
 import EditProblem from "./components/problem/EditProblem";
 import MuniPage from './components/dashboard/MuniPage';
 
-type Props = {};
-
-class App extends React.Component<Props> {
-  render() {
-    return (
-      <SnackbarProvider maxSnack={3}>
-        <HashRouter>
-          <Fragment>
-            <CssBaseline />
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={MainPage} />
-              <Route exact path="/registrer-bruker" component={SignUp} />
-              <Route exact path="/editp" component={EditProblem} />
-              <Route exact path="/editbruker" component={MainPage} />
-              <Route exact path="/signup" component={MainPage} />
-              {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
-              <Route exact path="/lagproblem" component={CreateProblem}/>
-            </Switch>
-            <Footer />
-          </Fragment>
-        </HashRouter>
-      </SnackbarProvider>
-    );
-  }
-}
-
-export default App;
+export default () => (
+  <SnackbarProvider maxSnack={3}>
+    <HashRouter>
+      <Fragment>
+        <CssBaseline />
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/registrer-bruker" component={SignUp} />
+          <Route exact path="/editp" component={EditProblem} />
+          <Route exact path="/editbruker" component={MainPage} />
+          <Route exact path="/lagproblem" component={CreateProblem}/>
+          {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+        </Switch>
+        <Footer />
+      </Fragment>
+    </HashRouter>
+  </SnackbarProvider>
+);
