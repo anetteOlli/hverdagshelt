@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import Grid from '@material-ui/core/Grid/Grid';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 
@@ -89,6 +90,10 @@ class EditProblem extends React.Component<Props, State> {
     // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
+        <Grid container spacing={24}>
+              <Grid item xs={6} sm={3}>
+              </Grid>
+          <Grid item xs>
         <Typography variant="h2" gutterBottom align="center">
           Endre på problem
         </Typography>
@@ -151,12 +156,15 @@ class EditProblem extends React.Component<Props, State> {
             <h3> Sted:  {this.state.location_fk} </h3>
             <h3> Dato startet:  {this.state.date_made} </h3>
             <h3> Status:    {this.state.status_fk} </h3>
-
+        </ValidatorForm>
 
             <Button fullWidth variant="contained" className={classes.button} type="submit">
             Lagre endringer
           </Button>
-        </ValidatorForm>
+          </Grid>
+
+
+        </Grid>
       </div>
     );
   }
