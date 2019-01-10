@@ -23,8 +23,10 @@ type State = {
   problem_id: number,
   problem_description: string,
   img_user: string,
-  date_made: datetime,
-  last_edited: datetime,
+  date_made: Date,
+  last_edited: Date,
+  location_fk: Geolocation,
+  status_fk: 'active'|'inacitve'|'happening',
   category_fk: string
 };
 
@@ -46,7 +48,7 @@ class EditProblem extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     location_fk: '',
-      status_fk: '',
+    status_fk: '',
     category_fk: ''
   };
 
@@ -64,7 +66,7 @@ class EditProblem extends React.Component<Props, State> {
   };
     readURL(input) {
         if (input.files && input.files[0]) {
-            const fileExtension = input.substr((fileName.lastIndexOf('.') + 1));
+            const fileExtension = input.substr((input.lastIndexOf('.') + 1));
             if(fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
                 alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
                 return false;
@@ -73,7 +75,7 @@ class EditProblem extends React.Component<Props, State> {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#blah')
+                    $('#img')
                         .attr('src', e.target.result);
                 };
 
