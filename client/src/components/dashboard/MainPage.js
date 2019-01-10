@@ -89,7 +89,7 @@ class MainPage extends React.Component<Props, State> {
             <Card className={classes.card}>
               <CardContent>
                 <Typography variant="h3" className={classes.tittel}>
-                  ----------- HVERDAGddsfsdSHELT!
+                  ----------- -----!
                 </Typography>
                 <Typography variant="h5" className={classes.tekst}>
                   Finn din kommune
