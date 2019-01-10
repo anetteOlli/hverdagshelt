@@ -1,6 +1,6 @@
 // @flow
 import type { Action, State } from '../reducers/categoryReducer';
-import { postData, putData, deleteData } from '../util';
+import { postData, deleteData, getData } from '../util';
 
 /**
  * @fileOverview categoryActions: actions for categories in redux
@@ -26,21 +26,6 @@ export const createCategory = (newCategory: JSON) => {
   };
 };
 
-export const editCategory = (category: JSON) => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return putData('categories', category).then(() =>
-      dispatch({
-        type: 'EDIT_CATEGORY_SUCCESS'
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'EDIT_CATEGORY_ERROR',
-          error
-        })
-      )
-    );
-  };
-};
-
 export const deleteCategory = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return deleteData(`categories/${id}`).then(() =>
@@ -49,6 +34,22 @@ export const deleteCategory = (id: number) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'DELETE_CATEGORY_ERROR',
+          error
+        })
+      )
+    );
+  };
+};
+
+export const getCategory = (id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData('categories').then(categories =>
+      dispatch({
+        type: 'GET_CATEGORIES_SUCCESS',
+        categories
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'GET_CATEGORIES_ERROR',
           error
         })
       )

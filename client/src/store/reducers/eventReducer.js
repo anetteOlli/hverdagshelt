@@ -1,5 +1,10 @@
 // @flow
-export type State = { events: [], errorMessage: string };
+type Event = {
+  event_id: number,
+  event_description: string
+}
+
+export type State = { events: Event[], errorMessage: string };
 export type Action =
   | { type: 'CREATE_EVENT_SUCCESS' }
   | { type: 'CREATE_EVENT_ERROR', error: Error }

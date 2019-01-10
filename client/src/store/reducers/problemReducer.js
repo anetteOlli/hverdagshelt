@@ -1,15 +1,17 @@
 // @flow
+type Problem = {
+  problem_id: number,
+  problem_description: string,
+  img_user: string,
+  date_made: string,
+  last_edited: string,
+  location_fk: number,
+  status_fk: number,
+  category_fk: number
+};
+
 export type State = {
-  problems: {
-    problem_id: number,
-    problem_description: string,
-    img_user: string,
-    date_made: string,
-    last_edited: string,
-    location_fk: number,
-    status_fk: number,
-    category_fk: number
-  }[],
+  problems: Problem[],
   errorMessage: string
 };
 
