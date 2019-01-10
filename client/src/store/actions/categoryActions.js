@@ -1,19 +1,19 @@
 // @flow
-import type { Action, State } from '../reducers/problemReducer';
+import type { Action, State } from '../reducers/categoryReducer';
 import { postData, putData, deleteData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => State;
 
-export const createProblem = (newProblem: JSON) => {
+export const createCategory = (newCATEGORY: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('problems', newProblem).then(() =>
+    return postData('categories', newCATEGORY).then(() =>
       dispatch({
-        type: 'CREATE_PROBLEM_SUCCESS'
+        type: 'CREATE_CATEGORY_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'CREATE_PROBLEM_ERROR',
+          type: 'CREATE_CATEGORY_ERROR',
           error
         })
       )
@@ -21,14 +21,14 @@ export const createProblem = (newProblem: JSON) => {
   };
 };
 
-export const editProblem = (problem: JSON) => {
+export const editCATEGORY = (CATEGORY: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return putData('problems', problem).then(() =>
+    return putData('categories', CATEGORY).then(() =>
       dispatch({
-        type: 'EDIT_PROBLEM_SUCCESS'
+        type: 'EDIT_CATEGORY_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'EDIT_PROBLEM_ERROR',
+          type: 'EDIT_CATEGORY_ERROR',
           error
         })
       )
@@ -36,14 +36,14 @@ export const editProblem = (problem: JSON) => {
   };
 };
 
-export const deleteProblem = (id: number) => {
+export const deleteCATEGORY = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return deleteData(`problems/${id}`).then(() =>
+    return deleteData(`categories/${id}`).then(() =>
       dispatch({
-        type: 'DELETE_PROBLEM_SUCCESS'
+        type: 'DELETE_CATEGORY_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'DELETE_PROBLEM_ERROR',
+          type: 'DELETE_CATEGORY_ERROR',
           error
         })
       )

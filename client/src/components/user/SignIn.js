@@ -37,7 +37,7 @@ class SignIn extends React.Component<Props, State> {
   state = {
     email: '',
     password: '',
-    remember: ''
+    remember: false
   };
 
   handleChange = e => {
@@ -50,7 +50,7 @@ class SignIn extends React.Component<Props, State> {
     this.setState({
       email: '',
       password: '',
-      remember: ''
+      remember: false
     });
     this.props.onClose();
   };

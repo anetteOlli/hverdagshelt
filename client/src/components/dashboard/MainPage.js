@@ -89,7 +89,7 @@ class MainPage extends React.Component<Props, State> {
           <Grid item xs={10}>
             <Card className={classes.card}>
               <CardContent>
-                <Typography variant="h3" className={classes.tittel}>VELKOMMEN TIL HVERDAGSHELT!</Typography>
+                <Typography variant="h3" className={classes.tittel}>sdfsdfsd TIL HVERDAGSHELT!</Typography>
                 <Typography variant="h5" className={classes.tekst}>Finn din kommune</Typography>
                 <TextField
                   id="standard-select-municipalities-full-width"
