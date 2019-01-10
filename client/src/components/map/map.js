@@ -1,7 +1,7 @@
 // @flow
 import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from './SearchBox';
+import SearchBox from '../layout/SearchBox';
 
 const AnyReactComponent = ({ img_src, text }) => (
   <div>

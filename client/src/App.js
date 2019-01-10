@@ -10,7 +10,7 @@ import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
 import EditProblem from './components/problem/EditProblem';
-import Map from './components/layout/maptest';
+import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import MuiTable from './components/util/MuiTable';
 

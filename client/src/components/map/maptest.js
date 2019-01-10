@@ -1,57 +1,28 @@
 // @flow
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from './SearchBox';
+import SearchBox from '../layout/SearchBox';
 import { updateMap } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
+import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 
-const AnyReactComponent = ({ img_src, text }) => (
-  <div>
-    <img src={img_src} style={{ height: '10px', width: '10px' }} />
-    <p> {text} </p>
-  </div>
-);
-
-type State1 = {};
-type Props1 = {};
-
-/**
- * Example of usage of SimpleMap
- */
-/*
-class Map1 extends Component<Props1> {
-  render() {
-    return (
-      <div>
-        <SimpleMap />
-      </div>
-    );
-  }
-}
-*/
-type Props2 = {
-  apiReady: any,
-  googlemaps: any,
-  map: any,
-  mapsapi: any,
-  center: {
-    lat: number,
-    lng: number
-  },
-  zoom: number,
+type Props = {
   updateMap: Function,
   lat: number,
   lng: number
 };
 
-type State2 = {
-  mapsApiLoaded: boolean,
-  mapInstance: any,
+type State = {
   mapsapi: any,
   map: any,
   googlemaps: any,
-  apiReady: boolean
+  apiReady: boolean,
+  center: {
+    lat: number,
+    lng: number
+  },
+  zoom: number
 };
 
 /**
@@ -59,26 +30,20 @@ type State2 = {
  * when using SimpleMap it's possible to pass in a prop.onClick() to track the location clicked on mapStateToProps
  * (see Map1 for example)
  **/
-class SimpleMap extends React.Component<Props2, State2> {
+class SimpleMap extends React.Component<Props, State> {
   state = {
-    mapsApiLoaded: false,
-    mapInstance: null,
     mapsapi: null,
     map: null,
     googlemaps: null,
-    apiReady: false
-  };
-  static defaultProps = {
+    apiReady: false,
     center: {
       lat: 59.95,
       lng: 30.33
     },
-    zoom: 11,
-    lat: 59.95,
-    lng: 30.33
+    zoom: 11
   };
 
-  apiHasLoaded(map, maps) {
+  handleApiLoad = (map, maps) => {
     console.log('apiHasLoaded', maps);
     if (map && maps) {
       this.setState({
@@ -88,42 +53,23 @@ class SimpleMap extends React.Component<Props2, State2> {
         mapsapi: maps
       });
     }
-  }
+  };
 
   render() {
-    var { apiReady, googlemaps, map, mapsapi } = this.state;
-    console.log(this.props);
-    console.log('Lat from redux: ', this.props.lat);
-    console.log('Lng from redux ', this.props.lng);
+    const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
-      // Important! Always set the container height explicitly
       <div style={{ height: '80vh', width: '100%' }}>
-        {apiReady && <SearchBox map={this.state.map} mapsapi={this.state.mapsapi} googlemaps={this.state.googlemaps} />}
+        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={center}
+          defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
-          onClick={cords => {
-            console.log(cords);
-            this.props.updateMap(cords.lat, cords.lng);
-          }}
-          onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
+          onClick={this.props.updateMap}
+          onGoogleApiLoaded={this.handleApiLoad}
         >
-          <AnyReactComponent
-            lat={this.props.lat}
-            lng={this.props.lng}
-            text="you are here"
-            img_src="http://cdn.grid.fotosearch.com/CSP/CSP808/k8080955.jpg"
-          />
+          {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
-        <div>
-          <p>
-            {' '}
-            {console.log(this.props.center, this.props)}
-            {this.props.center.lat}{' '}
-          </p>
-        </div>
       </div>
     );
   }
@@ -131,10 +77,8 @@ class SimpleMap extends React.Component<Props2, State2> {
 
 const mapStateToProps = state => {
   return {
-    lat: state.lat,
-    lng: state.lng,
-    center: state.center,
-    zoom: state.zoom
+    lat: state.map.lat,
+    lng: state.map.lng
   };
 };
 
