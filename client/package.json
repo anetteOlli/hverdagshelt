@@ -14,7 +14,6 @@
     "notistack": "^0.4.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-geocode": "0.1.2",
     "react-material-ui-form-validator": "^2.0.3",
     "react-router-dom": "^4.3.1",
     "redux-thunk": "^2.3.0"
