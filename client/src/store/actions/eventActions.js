@@ -1,6 +1,11 @@
 // @flow
 import type { Action, State } from '../reducers/eventReducer';
 import { postData, putData, deleteData } from '../util';
+
+/**
+ * @fileOverview categoryActions: actions for categories in redux
+ * */
+
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
