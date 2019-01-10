@@ -38,7 +38,7 @@ CREATE TABLE category(
 CREATE TABLE problem (
     problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     problem_description VARCHAR(300) NOT NULL,
-    descripton_entrepreneur VARCHAR(300),
+    description_entrepreneur VARCHAR(300),
     img_user VARCHAR(300),
     img_entrepreneur VARCHAR(300),
     date_made DATETIME DEFAULT NOW(),
