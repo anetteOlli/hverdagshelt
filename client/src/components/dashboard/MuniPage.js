@@ -32,8 +32,8 @@ const styles = theme => ({
     },
   },
   button: {
-    size: 200,
-    padding: 30,
+    // size: 200,
+    // padding: 30,
   },
   labeltext: {
     [theme.breakpoints.down('lg')]: {
