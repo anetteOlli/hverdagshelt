@@ -15,6 +15,9 @@ type State = {
 
 /**Styling*/
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
   card: {
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -23,9 +26,14 @@ const styles = theme => ({
     alignContent: 'center',
   },
   tittel: {
-    size: 10,
     marginButtom: 30,
     marginTop: 30,
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '150%'
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '300%'
+    },
   },
   tekst: {
     size: 5,
@@ -89,7 +97,7 @@ class MainPage extends React.Component<Props, State> {
           <Grid item xs={10}>
             <Card className={classes.card}>
               <CardContent>
-                <Typography variant="h3" className={classes.tittel}>VELKOMMEN TIL HVERDAGSHELT!</Typography>
+                <Typography variant="h3" className={classes.tittel}>sdfsdfsd TIL HVERDAGSHELT!</Typography>
                 <Typography variant="h5" className={classes.tekst}>Finn din kommune</Typography>
                 <TextField
                   id="standard-select-municipalities-full-width"

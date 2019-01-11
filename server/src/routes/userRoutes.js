@@ -1,43 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const UserDao = require('../dao/userDao');
+const router = require('express').Router();
+const UserController = require('../controllers/userController');
 
-const pool = require("../services/database");
-let userDao = new UserDao(pool);
+router.get("/", UserController.users_get_all);
 
-router.get('/', (req, res) => {
-  userDao.getAll((status, data) => {
-    console.log(data);
-    res.status(status).json(data);
-  });
-});
+router.post("/login", UserController.users_login);
 
-router.get('/id/:id', (req, res) => {
-  userDao.getOneById(req.params.id, (status, data) => {
-    res.status(status).json(data);
-  });
-});
+router.get('/id/:id', UserController.users_get_user);
 
-router.post('/', (req, res) => {
-  console.log(req.body);
-  userDao.createOne(req.body, (status, data) => {
-    res.status(status);
-    res.json(data);
-  });
-});
+router.post('/', UserController.users_create_user);
 
-router.delete('/:email', (req, res) => {
-  userDao.deleteOne(req.params.email, (status, data) => {
-    res.status(status).json(data);
-  });
-});
+router.delete('/:id', UserController.user_delete_user);
 
-router.patch('/:email', (req, res) => {
-  let email = req.params.email;
-  userDao.patchOne(email, req.body, (status, data) => {
-    res.status(status).json(data);
-  });
-});
+router.patch('/:id', UserController.user_patch_user);
 
+router.post('/validate_email', UserController.user_validate_email);
 
 module.exports = router;

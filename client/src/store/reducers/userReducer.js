@@ -1,6 +1,5 @@
 // @flow
 import { setToken, clearToken } from '../util';
-
 export type State = { token: string, isLoggedIn: boolean, errorMessage: string };
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', token: string }
@@ -8,7 +7,8 @@ export type Action =
   | { type: 'SIGN_OUT_SUCCESS' }
   | { type: 'SIGN_OUT_ERROR', error: Error }
   | { type: 'SIGN_UP_SUCCESS', token: string }
-  | { type: 'SIGN_UP_ERROR', error: Error };
+  | { type: 'SIGN_UP_ERROR', error: Error }
+  ;
 
 const initState = {
   token: '',
@@ -16,7 +16,7 @@ const initState = {
   errorMessage: ''
 };
 
-const userReducer = (state: State = initState, action: Action) => {
+export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'SIGN_IN_SUCCESS':
       console.log('SIGN_IN_SUCCESS');
@@ -24,12 +24,12 @@ const userReducer = (state: State = initState, action: Action) => {
       return {
         isLoggedIn: true,
         token: action.token,
-        errorMessage: ''
+        errorMessage: 'WRONG EMAIL'
       };
     case 'SIGN_IN_ERROR':
       console.log('SIGN_IN_ERROR');
       return {
-        isLoggedIn: true,
+        isLoggedIn: false,
         token: '',
         errorMessage: action.error.message
       };
@@ -44,7 +44,7 @@ const userReducer = (state: State = initState, action: Action) => {
     case 'SIGN_UP_ERROR':
       console.log('SIGN_UP_ERROR');
       return {
-        isLoggedIn: true,
+        isLoggedIn: false,
         token: '',
         errorMessage: action.error.message
       };
@@ -67,5 +67,3 @@ const userReducer = (state: State = initState, action: Action) => {
       return state;
   }
 };
-
-export default userReducer;

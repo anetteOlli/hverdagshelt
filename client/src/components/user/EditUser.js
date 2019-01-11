@@ -155,4 +155,5 @@ class SignUp extends React.Component<Props, State> {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.newPassword);
   }
 }
+
 export default withRoot(withStyles(styles)(withSnackbar(SignUp)));

@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import Grid from '@material-ui/core/Grid/Grid';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 
@@ -20,11 +21,13 @@ type Props = {
 };
 
 type State = {
-  problem_id: int,
+  problem_id: number,
   problem_description: string,
   img_user: string,
-  date_made: datetime,
-  last_edited: datetime,
+  date_made: Date,
+  last_edited: Date,
+  location_fk: Geolocation,
+  status_fk: 'active'|'inacitve'|'happening',
   category_fk: string
 };
 
@@ -46,7 +49,7 @@ class EditProblem extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     location_fk: '',
-      status_fk: '',
+    status_fk: '',
     category_fk: ''
   };
 
@@ -64,7 +67,7 @@ class EditProblem extends React.Component<Props, State> {
   };
     readURL(input) {
         if (input.files && input.files[0]) {
-            const fileExtension = input.substr((fileName.lastIndexOf('.') + 1));
+            const fileExtension = input.substr((input.lastIndexOf('.') + 1));
             if(fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
                 alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
                 return false;
@@ -73,7 +76,7 @@ class EditProblem extends React.Component<Props, State> {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#blah')
+                    $('#img')
                         .attr('src', e.target.result);
                 };
 
@@ -87,6 +90,10 @@ class EditProblem extends React.Component<Props, State> {
     // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
+        <Grid container spacing={24}>
+              <Grid item xs={6} sm={3}>
+              </Grid>
+          <Grid item xs>
         <Typography variant="h2" gutterBottom align="center">
           Endre på problem
         </Typography>
@@ -149,12 +156,15 @@ class EditProblem extends React.Component<Props, State> {
             <h3> Sted:  {this.state.location_fk} </h3>
             <h3> Dato startet:  {this.state.date_made} </h3>
             <h3> Status:    {this.state.status_fk} </h3>
-
+        </ValidatorForm>
 
             <Button fullWidth variant="contained" className={classes.button} type="submit">
             Lagre endringer
           </Button>
-        </ValidatorForm>
+          </Grid>
+
+
+        </Grid>
       </div>
     );
   }

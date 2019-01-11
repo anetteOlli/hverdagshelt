@@ -5,10 +5,8 @@ import eventReducer from './eventReducer';
 
 import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({
+export default combineReducers({
   user: userReducer,
   problem: problemReducer,
-  event: eventReducer
+  event: eventReducer,
 });
-
-export default rootReducer;

@@ -1,5 +1,5 @@
 {
-  "name": "HverdagsHelt",
+  "name": "hverdags-helt",
   "version": "0.0.1",
   "private": true,
   "keywords": [],
@@ -16,6 +16,8 @@
     "react-dom": "^16.7.0",
     "react-material-ui-form-validator": "^2.0.3",
     "react-router-dom": "^4.3.1",
+    "react-virtualized": "^9.21.0",
+    "redux-form": "^8.1.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
@@ -36,7 +38,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --hot --mode development",
+    "start": "webpack-dev-server --open --hot --watch --mode development",
     "build": "webpack --mode production"
   }
 }
