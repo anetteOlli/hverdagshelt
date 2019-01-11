@@ -1,5 +1,6 @@
 const UserDao = require('../dao/userDao');
 const pool = require('../services/database');
+import { validatePassword, genToken } from '../services/util';
 let userDao = new UserDao(pool);
 
 exports.users_get_all = (req, res) => {
@@ -12,10 +13,20 @@ exports.users_get_all = (req, res) => {
 exports.users_login = (req, res) => {
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.sendStatus(404);
-    console.log(data);
-    res.status(status).json(data);
+    if (validatePassword(req.body.password, data[0].password)) {
+      res.status(200).json({
+        id: data[0].id,
+        jwt: genToken(data[0].id, data[0].email)
+      });
+    } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
 };
+
+exports.users_refresh = (req, res) => {
+  res.status(200).json({
+    jwt: genToken(req.userData.user.id, req.userData.user.email)
+  });
+}
 
 exports.users_get_user = (req, res) => {
   userDao.getOneById(req.params.id, (status, data) => {
