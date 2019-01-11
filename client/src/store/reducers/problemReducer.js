@@ -15,7 +15,7 @@ export type State = {
   errorMessage: string
 };
 
-export type Action =
+export type Action = 
   | { type: 'CREATE_PROBLEM_SUCCESS' }
   | { type: 'CREATE_PROBLEM_ERROR', error: Error }
   | { type: 'EDIT_PROBLEM_SUCCESS' }
@@ -40,6 +40,7 @@ const initState = {
       category_fk: -1
     }
   ],
+
   errorMessage: ''
 };
 
@@ -104,6 +105,12 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         errorMessage: action.error.message
+      };
+    case 'GOT_PROBLEM_SUCCESS':
+      console.log('GOT_PROBLEM_SUCCESS');
+      return {
+        errorMessage: '',
+        problem: action.problem
       };
     default:
       return state;

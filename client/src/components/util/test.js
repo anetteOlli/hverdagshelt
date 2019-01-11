@@ -17,27 +17,33 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
-const styles = {};
+type Props = {
+  enqueueSnackbar: Function
+};
+type State = { title: string, picture: any, displayImg: string };
 
-class Test extends React.Component {
+class Test extends React.Component<Props, State> {
   state = {
     title: '',
     picture: '',
     displayImg: ''
   };
 
-  handleSubmit() {
-    if (!this.picture) {
+  handleSubmit = e => {
+    e.preventDefault();
+    const { picture, title } = this.state;
+    if (!picture) {
       this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
       return;
     }
-
     /*--- Need formdata so multer module in backend can store the image ---*/
     const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('picture', this.picture);
-  }
+    formData.append('title', title);
+    formData.append('picture', picture);
+    console.log(formData);
+  };
 
   handleChange = e => {
     this.setState({
@@ -98,7 +104,7 @@ class Test extends React.Component {
             </Button>
           </FormControl>
           <FormControl fullWidth margin="normal">
-            <Button variant="contained" onClick={() => history.push('/')}>
+            <Button variant="contained" component={Link} to={'/'}>
               Cancel
             </Button>
           </FormControl>
@@ -115,4 +121,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(Test))));
+)(withRoot(withSnackbar(Test)));
