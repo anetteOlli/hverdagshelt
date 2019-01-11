@@ -4,4 +4,6 @@ const CategoryController = require('../controllers/categoryController');
 
 router.get("/", CategoryController.categories_get_all);
 
-router.delete("/:name", CategoryController.categories_delete_category);
+router.delete("/:name", CategoryController.categories_delete_category)
+
+module.exports = router;

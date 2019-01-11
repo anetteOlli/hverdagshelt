@@ -14,7 +14,8 @@ import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
-import SimpleMap from './components/layout/GoogleMap';
+import UploadFile from './components/util/test';
+import SimpleMap from './components/map/GoogleMap';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -23,7 +24,8 @@ export default () => (
         <CssBaseline />
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Map} />
+          <Route exact path="/uploadfile" component={UploadFile} />
+          <Route exact path="/" component={MainPage} />
           <Route exact path="/registrer-bruker" component={SignUp} />
           <Route exact path="/editp" component={EditProblem} />
           <Route exact path="/editpb" component={EditProblemB} />
@@ -31,7 +33,7 @@ export default () => (
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem} />
           <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-          <Route exact path="/map" component={SimpleMap}/>
+          <Route exact path='/map' component={SimpleMap}/>
           {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
         </Switch>
         <Footer />
