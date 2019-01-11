@@ -2,11 +2,18 @@
 export type State = { lat: string, lng: string };
 export type Action =
   | { type: 'UPDATE_MAP', lat: string, lng: string }
-  | { type: 'UPDATE_CENTER', lat: string, lng: string };
+  | { type: 'UPDATE_CENTER', lat: string, lng: string }
+  | { type: 'UPDATE_PLACE_NAME', street: string, municipality: string }
+  | { type: 'UPDATE_STREET', street: string };
 
 const initState = {
+  streetname: '',
   lat: '',
-  lng: ''
+  lng: '',
+  center: {
+    lat: '',
+    lng: ''
+  }
 };
 
 export default (state: State = initState, action: Action) => {
@@ -21,12 +28,19 @@ export default (state: State = initState, action: Action) => {
     case 'UPDATE_CENTER':
       console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action);
       return {
+        ...state,
         lat: action.lat,
         lng: action.lng,
         center: {
           lat: action.lat,
           lng: action.lng
         }
+      };
+    case 'UPDATE_STREET':
+      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action);
+      return {
+        ...state,
+        streetname: action.street
       };
     default:
       return state;

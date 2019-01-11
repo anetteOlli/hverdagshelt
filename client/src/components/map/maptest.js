@@ -7,10 +7,19 @@ import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 
+let imgsrc = './geotag.png';
+let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
+
 type Props = {
   updateMap: Function,
   lat: number,
-  lng: number
+  lng: number,
+  center: {
+    lat: number,
+    lng: number
+  },
+  street: string,
+  municipality: string
 };
 
 type State = {
@@ -18,10 +27,6 @@ type State = {
   map: any,
   googlemaps: any,
   apiReady: boolean,
-  center: {
-    lat: number,
-    lng: number
-  },
   zoom: number
 };
 
@@ -37,10 +42,15 @@ class SimpleMap extends React.Component<Props, State> {
     googlemaps: null,
     apiReady: false,
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: 63.42656212314987,
+      lng: 10.393969503996345
     },
-    zoom: 11
+    zoom: 13
+  };
+
+  onRecievingLocation = cords => {
+    this.props.updateMap(cords);
+    this.fromCordsToPlace(cords);
   };
 
   apiHasLoaded = (map, maps) => {
@@ -55,20 +65,40 @@ class SimpleMap extends React.Component<Props, State> {
     }
   };
 
+  fromCordsToPlace(cords) {
+    let url =
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log('length', responseJson.results.length);
+        if (responseJson.results.length > 5) {
+          if (responseJson.results[2].address_components.length > 6) {
+            let place = {
+              street: responseJson.results[2].address_components[1].long_name,
+              city: responseJson.results[2].address_components[2].long_name,
+              municipality: responseJson.results[2].address_components[3].long_name,
+              county: responseJson.results[2].address_components[4].long_name,
+              country: responseJson.results[2].address_components[5].long_name
+            };
+            console.log(place);
+          }
+        }
+      });
+  }
+
   //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
       <div style={{ height: '80vh', width: '100%' }}>
-        <p> tadskjfø {console.log('state', this.state)}</p>
-        {}
         {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
           defaultCenter={center}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
-          onClick={this.props.updateMap}
+          onClick={this.onRecievingLocation}
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
           {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}

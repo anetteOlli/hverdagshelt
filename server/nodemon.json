@@ -1,7 +1,7 @@
 {
   "env": {
     "JWT_KEY": "password",
-    "PORT": "3000",
+    "PORT": "3001",
     "MYSQL_HOST": "mysql.stud.iie.ntnu.no",
     "MYSQL_DB": "larssorl",
     "MYSQL_USER": "larssorl",
