@@ -1,28 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-<<<<<<< HEAD
 import { withStyles, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, Tabs, Tab } from '@material-ui/core';
-=======
-import {
-  withStyles,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  CardActions,
-  Paper,
-  Grid,
-  Typography,
-  TextField,
-  MenuItem,
-  Button,
-  Tabs,
-  Tab,
-  AppBar,
-  NoSsr
-} from '@material-ui/core';
->>>>>>> 7ad09502f312f14587bfa5ec029a0a208a6a8697
 import PropTypes from 'prop-types';
 
 import createHashHistory from 'history/createHashHistory';
@@ -70,7 +49,6 @@ const styles = theme => ({
   },
   card: {
     margin: 5,
-<<<<<<< HEAD
    [theme.breakpoints.up('sm')]: {
      maxWidth: 310,
      minWidth: 310
@@ -79,16 +57,6 @@ const styles = theme => ({
      maxWidth: 200,
      minWidth: 10
    }
-=======
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: 345,
-      minWidth: 345
-    },
-    [theme.breakpoints.down('xs')]: {
-      maxWidth: 200,
-      minWidth: 10
-    }
->>>>>>> 7ad09502f312f14587bfa5ec029a0a208a6a8697
   },
   media: {
     objectFit: 'cover'

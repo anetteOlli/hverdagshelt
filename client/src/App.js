@@ -16,6 +16,7 @@ import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
 import UploadFile from './components/util/test';
 import CreateEvent from './components/event/CreateEvent';
+import MuiTable from './components/util/MuiTable';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
