@@ -89,6 +89,7 @@ CREATE TABLE user_event(
     event_id INTEGER
 );
 
+ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES counties(name);
 
 ALTER TABLE location
 ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);

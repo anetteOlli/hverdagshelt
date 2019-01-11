@@ -15,6 +15,9 @@ type State = {
 
 /**Styling*/
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
   card: {
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -23,9 +26,14 @@ const styles = theme => ({
     alignContent: 'center',
   },
   tittel: {
-    size: 10,
     marginButtom: 30,
     marginTop: 30,
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '150%'
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '300%'
+    },
   },
   tekst: {
     size: 5,
