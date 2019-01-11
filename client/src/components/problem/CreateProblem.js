@@ -22,6 +22,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import {createProblem, getProblemsByMuniAndStreet} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
+import Map from '../map/maptest';
 
 /**
  * @fileOverview Create Problem Component
@@ -118,7 +119,7 @@ function getStepContent(step: number, state: State,
               errorMessages={['Du må skrive inn en gate']}
             />
             <div className="mapPlaceholder">
-              MAP HERE
+              <Map />
             </div>
           </CardContent>
         </Card>
