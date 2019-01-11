@@ -80,3 +80,17 @@ export const getProblemsByState = (state: string) => {
     );
   };
 };
+
+export const getProblemsByMuniAndStreet = (muni: string, street: string) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`problems/${muni}/${street}`).then(problems =>
+      dispatch({
+        type: 'PROBLEMS_BY_MUNI_AND_STREET_SUCCESS',
+        problems
+      })).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEMS_BY_MUNI_AND_STREET_ERROR',
+          error
+      }))
+  };
+};

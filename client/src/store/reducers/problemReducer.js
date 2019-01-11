@@ -93,6 +93,18 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.error.message
       };
+    case 'PROBLEMS_BY_MUNI_AND_STREET_SUCCESS':
+      console.log('%c PROBLEMS_BY_MUNI_AND_STREET_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+      return {
+        ...state,
+        problems: action.problems
+      };
+    case 'PROBLEMS_BY_MUNI_AND_STREET_ERROR':
+      console.log('%c PROBLEMS_BY_MUNI_AND_STREET_ERROR', 'color: red; font-weight: bold;', action.error);
+      return {
+        ...state,
+        errorMessage: action.error.message
+      };
     case 'PROBLEM_BY_ID_SUCCESS':
       console.log('%c PROBLEM_BY_ID_SUCCESS', 'color: green; font-weight: bold;', action.problems);
       return {
