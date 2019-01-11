@@ -8,6 +8,8 @@ export type Action =
 
 const initState = {
   streetname: '',
+  municipality: '',
+  county: '',
   lat: '',
   lng: '',
   center: {
@@ -41,6 +43,14 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         streetname: action.street
+      };
+    case 'UPDATE_PLACE_NAME':
+      console.log('%c UPDATE_PLACE_NAME', 'color: green; font-weight: bold;', action);
+      return {
+        ...state,
+        streetname: action.street,
+        county: action.county,
+        municipality: action.municipality
       };
     default:
       return state;

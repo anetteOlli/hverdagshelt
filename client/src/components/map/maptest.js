@@ -2,7 +2,7 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import SearchBox from '../layout/SearchBox';
-import { updateMap } from '../../store/actions/mapActions';
+import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
@@ -12,6 +12,7 @@ let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
   updateMap: Function,
+  updateMapName: Function,
   lat: number,
   lng: number,
   center: {
@@ -81,6 +82,7 @@ class SimpleMap extends React.Component<Props, State> {
               county: responseJson.results[2].address_components[4].long_name,
               country: responseJson.results[2].address_components[5].long_name
             };
+            this.updateMapName(place.street, place.municipality, place.county);
             console.log(place);
           }
         }
@@ -117,7 +119,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMap: cords => dispatch(updateMap(cords.lat, cords.lng))
+    updateMap: cords => dispatch(updateMap(cords.lat, cords.lng)),
+    updateMapName: (street, municipality, county) => dispatch(changePlaceName(street, municipality, county))
   };
 };
 
