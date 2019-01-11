@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS priority;
 DROP TABLE IF EXISTS problem;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS county;
+DROP TABLE IF EXISTS city;
+DROP TABLE IF EXISTS street;
 
 CREATE TABLE county(
     name VARCHAR(255) PRIMARY KEY NOT NULL
@@ -19,12 +21,6 @@ CREATE TABLE municipality(
     municipality VARCHAR(255) NOT NULL,
     county varchar(255) NOT NULL REFERENCES county(name),
     PRIMARY KEY (municipality,county)
-);
-
-CREATE TABLE location (
-    location_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    location_name VARCHAR(50) NOT NULL,
-    municipality_fk VARCHAR(30)
 );
 
 CREATE TABLE status (
@@ -46,15 +42,20 @@ CREATE TABLE problem (
     date_made DATETIME DEFAULT NOW(),
     last_edited DATETIME,
     date_finished DATETIME,
-    category_fk VARCHAR(50),
-    status_fk VARCHAR(30),
-    user_fk INTEGER,
+    category_fk VARCHAR(50) NOT NULL,
+    status_fk VARCHAR(30) NOT NULL,
+    user_fk INTEGER NOT NULL,
     entrepreneur_fk INTEGER,
-    location_fk INTEGER
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL,
+    county_fk VARCHAR(30) NOT NULL,
+    municipality_fk VARCHAR(30) NOT NULL,
+    city_fk VARCHAR(30) NOT NULL,
+    street_fk VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE priority(
-    priority INTEGER NOT NULL PRIMARY KEY
+    powerLvl INTEGER NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE user (
@@ -62,8 +63,7 @@ CREATE TABLE user (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     auz_url VARCHAR(100) NOT NULL,
-    priority_fk INTEGER NOT NULL,
-    problem_fk INTEGER
+    priority_fk INTEGER NOT NULL
 );
 
 CREATE TABLE user_problem (
@@ -80,37 +80,50 @@ CREATE TABLE event(
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
-    location_fk INTEGER
+    county_fk VARCHAR(30),
+    municipality_fk VARCHAR(30),
+    city_fk VARCHAR(30),
+    street_fk VARCHAR(30)
 );
 
 CREATE TABLE user_event(
-    user_event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id INTEGER,
-    event_id INTEGER
+    user_event_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    user_id INTEGER NOT NULL,
+    event_id INTEGER NOT NULL
 );
 
-ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES counties(name);
+CREATE TABLE city(
+  cityName VARCHAR(30) PRIMARY KEY
+);
 
-ALTER TABLE location
-ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);
+CREATE TABLE street(
+  streetName VARCHAR(30) PRIMARY KEY
+);
+
+ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES county(name);
+
+
 
 ALTER TABLE problem
 ADD FOREIGN KEY(status_fk) REFERENCES status(status),
 ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
-ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
+ADD FOREIGN KEY(municipality_fk, county_fk) REFERENCES municipality(municipality,county),
+ADD FOREIGN KEY(city_fk) REFERENCES city(cityName),
+ADD FOREIGN KEY(street_fk) REFERENCES street(streetName),
 ADD FOREIGN KEY(category_fk) REFERENCES category(category),
 ADD FOREIGN KEY(entrepreneur_fk) REFERENCES user(user_id);
 
 ALTER TABLE user
-ADD FOREIGN KEY(priority_fk)REFERENCES priority(priority),
-ADD FOREIGN KEY(problem_fk) REFERENCES problem(problem_id);
+ADD FOREIGN KEY(priority_fk)REFERENCES priority(powerLvl);
 
 ALTER TABLE user_problem
 ADD FOREIGN KEY(problem_id) REFERENCES problem(problem_id),
 ADD FOREIGN KEY(user_id) REFERENCES user(user_id);
 
 ALTER TABLE event
-ADD FOREIGN KEY(location_fk) REFERENCES location(location_id),
+ADD FOREIGN KEY(county_fk, municipality_fk) REFERENCES municipality(municipality,county),
+ADD FOREIGN KEY(city_fk) REFERENCES city(cityName),
+ADD FOREIGN KEY(street_fk) REFERENCES street(streetName),
 ADD FOREIGN KEY(status_fk) REFERENCES status(status);
 
 ALTER TABLE user_event
@@ -121,20 +134,3 @@ ALTER TABLE municipality
 ADD FOREIGN KEY(county) REFERENCES county(name);
 
 set foreign_key_checks = 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

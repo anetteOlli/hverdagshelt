@@ -1,9 +1,14 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+
+const outputDirectory = 'public';
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, outputDirectory),
     filename: 'bundle.js'
   },
   module: {
@@ -14,15 +19,16 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test:/\.css$/,
-        use:['style-loader','css-loader']
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
-    ],
+    ]
   },
   devServer: {
+    port: 3000,
     publicPath: "/",
     contentBase: "./public",
     compress: true,
-    port: 3000,
+    hot: true
   }
 };
