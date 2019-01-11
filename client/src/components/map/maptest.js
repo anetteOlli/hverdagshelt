@@ -43,8 +43,8 @@ class SimpleMap extends React.Component<Props, State> {
     zoom: 11
   };
 
-  handleApiLoad = (map, maps) => {
-    console.log('apiHasLoaded', maps);
+  apiHasLoaded = (map, maps) => {
+    console.log('apiHasLoaded', map);
     if (map && maps) {
       this.setState({
         apiReady: true,
@@ -60,13 +60,16 @@ class SimpleMap extends React.Component<Props, State> {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
       <div style={{ height: '80vh', width: '100%' }}>
+        <p> tadskjfø {console.log('state', this.state)}</p>
+        {}
+        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
           defaultCenter={center}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
           onClick={this.props.updateMap}
-          onGoogleApiLoaded={this.handleApiLoad}
+          onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
           {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
