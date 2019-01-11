@@ -15,6 +15,7 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
 import UploadFile from './components/util/test';
+import Stati from './components/statistics/StatisticPage';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -31,6 +32,7 @@ export default () => (
           <Route exact path="/editpa" component={EditProblemA} />
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem} />
+          <Route exact path="/stati" component={Stati} />
           <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
           {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
         </Switch>
