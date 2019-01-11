@@ -15,7 +15,8 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
 import UploadFile from './components/util/test';
-import SimpleMap from './components/map/GoogleMap';
+import CreateEvent from './components/event/CreateEvent';
+import MuiTable from './components/util/MuiTable';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -31,6 +32,11 @@ export default () => (
           <Route exact path="/editpb" component={EditProblemB} />
           <Route exact path="/editpa" component={EditProblemA} />
           <Route exact path="/editbruker" component={MainPage} />
+          <Route exact path="/lagproblem" component={CreateProblem}/>
+          <Route exact path="/problemdetails" component={ProblemDetails}/>
+          <Route exact path="/opprArrangement" component={CreateEvent} />
+          <Route exact path="/muiTable" component={MuiTable}/>
+          <Route exact path="/:municipality" component={MuniPage} />
           <Route exact path="/lagproblem" component={CreateProblem} />
           <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
           <Route exact path='/map' component={SimpleMap}/>
