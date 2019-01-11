@@ -21,12 +21,6 @@ CREATE TABLE municipality(
     PRIMARY KEY (municipality,county)
 );
 
-CREATE TABLE location (
-    location_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    location_name VARCHAR(50) NOT NULL,
-    municipality_fk VARCHAR(30)
-);
-
 CREATE TABLE status (
     status VARCHAR(30) NOT NULL PRIMARY KEY
 );
@@ -46,7 +40,10 @@ CREATE TABLE problem (
     category_fk VARCHAR(50),
     status_fk VARCHAR(30),
     user_fk INTEGER,
-    location_fk INTEGER
+    
+    municipality VARCHAR(30),
+    city VARCHAR(30),
+    street VARCHAR(30)
 );
 
 CREATE TABLE priority(
@@ -78,7 +75,9 @@ CREATE TABLE event(
     status_fk VARCHAR(30),
     category_fk VARCHAR(30),
     user_fk INTEGER,
-    location_fk INTEGER
+    municipality VARCHAR(30),
+    city VARCHAR(30),
+    street VARCHAR(30)
 );
 
 CREATE TABLE user_event(
@@ -88,8 +87,6 @@ CREATE TABLE user_event(
 );
 
 
-ALTER TABLE location
-ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);
 
 ALTER TABLE problem
 ADD FOREIGN KEY(status_fk) REFERENCES status(status),
