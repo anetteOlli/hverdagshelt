@@ -12,6 +12,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import blue from '@material-ui/core/es/colors/blue';
 
 const styles = (theme: Object) => ({
   main: {
@@ -23,10 +24,12 @@ const styles = (theme: Object) => ({
     //marginTop: theme.spacing.unit,
   },
   editBTN: {
-    align: 'right'
+    position: 'relative',
+    minWidth: 50
   },
   addBTN: {
-    align: 'right'
+    position: 'relative',
+    minWidth: 50
   },
   grid: {
     height: '100%',
@@ -48,8 +51,8 @@ const styles = (theme: Object) => ({
     alignItems: 'flex-end'
   },
   problem_img: {
-    maxWidth: 400,
-    maxHeight: 300
+    width: '100%',
+    height: '100%'
   },
   root: {
     width: '100%'
@@ -60,7 +63,16 @@ const styles = (theme: Object) => ({
   },
   wrapper1: {
     alignItems: 'flex-end'
+  },
+  title: {
+    paddingTop: 50,
+    paddingBottom: 25,
+    paddingLeft: 15
+  },
+  button1: {
+
   }
+
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -109,8 +121,7 @@ class ProblemDetails extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid xs = {6}/>
-          <Grid item xs={2} >
+          <Grid item xs={2}>
             <div>
               <Button
                 aria-owns={open ? 'simple-popper' : undefined}
@@ -138,41 +149,41 @@ class ProblemDetails extends React.Component<Props, State> {
               </Popover>
             </div>
           </Grid>
-          <Grid item xs={4}>
+
+          <Grid xs={5} />
+
+          <Grid item xs={5}>
             <Button className={classes.addBTN} onClick={this.onClickAdd}>
-              Add entrepreneur
+              Legg til entrepreneur
             </Button>
+
             <Button className={classes.editBTN} onClick={this.onClickEdit}>
-              Edit Problem
+              Rediger problem
             </Button>
           </Grid>
-          <Grid item xs={4}>
-            <Typography variant="h6" gutterBottom align="left">
-              Status: {problem.status_fk}
-            </Typography>
-          </Grid>
-          <Grid item xs={8} />
-          <Grid item xs={4}>
 
-          </Grid>
-          <Grid item xs={8} />
 
-          <Grid item xs={2}>
-            <Typography variant="caption" gutterBottom align="left">
-              Beskrivelse:
-            </Typography>
-          </Grid>
-
-          <Grid item xs={4} />
-          <Grid item xs={2}>
-            <Typography variant="caption">Entrepreneur:</Typography>
-          </Grid>
+          <div className={classes.title}>
+            <Grid xs={12}>
+              <Typography variant="h4" gutterBottom align="left">
+                {problem.problem_title}
+              </Typography>
+            </Grid>
+              <Grid xs={12}>
+                <Typography variant="caption" gutterBottom align="left">
+                  Status: {problem.status_fk}
+                </Typography>
+              </Grid>
+          </div>
 
           <Grid item xs={2} />
 
           <Grid item xs={12}>
             <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
               <Grid item xs className="Wrapper1">
+                <Typography variant="h6" gutterBottom align="left">
+                  Problem
+                </Typography>
                 <ExpansionPanel>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>Beskrivelse</Typography>
@@ -200,6 +211,9 @@ class ProblemDetails extends React.Component<Props, State> {
                 </div>
               </Grid>
               <Grid item xs className="Wrapper2">
+                <Typography variant="h6" gutterBottom align="left">
+                  Entrepreneur
+                </Typography>
                 <ExpansionPanel>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>Beskrivelse</Typography>
@@ -235,10 +249,9 @@ class ProblemDetails extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
   const id = ownProps.match.params.problem_id;
   return {
-    problem: state.problem.problem
+    problem: state.problems.problem
   };
   /*
     getProblem(id).then(() => {
