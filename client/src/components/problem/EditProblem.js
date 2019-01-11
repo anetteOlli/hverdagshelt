@@ -12,6 +12,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import Grid from '@material-ui/core/Grid/Grid';
+import Paper from '@material-ui/core/Paper/Paper';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 
@@ -35,6 +36,12 @@ const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20
+  },
+  paper: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10,
+    color: theme.palette.text.secondary,
   },
   button: {
     marginTop: theme.spacing.unit
@@ -94,10 +101,23 @@ class EditProblem extends React.Component<Props, State> {
               <Grid item xs={6} sm={3}>
               </Grid>
           <Grid item xs>
+            <Paper className={classes.paper}>
         <Typography variant="h2" gutterBottom align="center">
           Endre på problem
         </Typography>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+
+
+          <Paper
+            className={classes.paper}
+            fullWidth
+            readOnly
+            margin="normal"
+            label="Status:"
+            name="status_fk"
+            value={"status"}
+          >{"Status:   " + this.state.status_fk}</Paper>
+
           <TextValidator
             fullWidth
             margin="normal"
@@ -125,7 +145,9 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                 ))}
             </SelectValidator>
-            <div>
+          <Paper className={classes.paper}> Dato startet:  {this.state.date_made} </Paper>
+
+          <div>
                 <ExpansionPanel>
                     <ExpansionPanelSummary>
                         <div>
@@ -135,7 +157,6 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                         <div/>
                         <div>
-
                           <img id="img" top width="80%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
                         </div>
                     </ExpansionPanelDetails>
@@ -152,15 +173,24 @@ class EditProblem extends React.Component<Props, State> {
 
                 </ExpansionPanel>
             </div>
-
-            <h3> Sted:  {this.state.location_fk} </h3>
-            <h3> Dato startet:  {this.state.date_made} </h3>
-            <h3> Status:    {this.state.status_fk} </h3>
         </ValidatorForm>
-
+              <ExpansionPanel>
+                <ExpansionPanelSummary>
+                  <div>
+                    <Typography >Her skal map komme: </Typography>
+                  </div>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div/>
+                  <div>
+                    <img id="img" top width="100%" src={"https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
             <Button fullWidth variant="contained" className={classes.button} type="submit">
             Lagre endringer
           </Button>
+            </Paper>
           </Grid>
 
 

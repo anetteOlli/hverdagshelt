@@ -51,6 +51,7 @@ const styles = (theme: Object) => ({
   },
   paper2: {
     height: '100%',
+
   },
   grid: {
     height: '100%',
@@ -60,7 +61,8 @@ const styles = (theme: Object) => ({
   },
   grid2: {
     paddingBottom: 20,
-    height: '100%'
+    height: '100%',
+    alignItems: 'flex-end'
   }
 });
 
@@ -188,7 +190,7 @@ class EditProblemA extends React.Component<Props, State> {
                       <ExpansionPanelDetails>
                         <div/>
                         <div>
-                          <img id="img" top width="80%" src={this.state.img_user ||"http://placehold.it/180" } alt="Bilde" />
+                          <img id="img" top width="100%" src={this.state.img_user ||"http://placehold.it/180" } alt="Bilde" />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -198,7 +200,7 @@ class EditProblemA extends React.Component<Props, State> {
               <Grid item xs className={classes.grid2} name={"GridItem for entrepreneur"}>
                 <Paper className={classes.paper2} name={"Paper for entrepreneur"}>
                   <Typography variant="h2" gutterBottom align="center">
-                    Entrepreneur:
+                    Entreprenør beskrivelse:
                   </Typography>
 
                   <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
@@ -206,7 +208,7 @@ class EditProblemA extends React.Component<Props, State> {
                     <SelectValidator
                       fullWidth
                       margin="normal"
-                      label="Entrepreneur: "
+                      label="Entreprenør: "
                       name="entrepreneur_fk"
                       value={this.state.entrepreneur_fk}
                       onChange={this.handleChange}
@@ -245,7 +247,7 @@ class EditProblemA extends React.Component<Props, State> {
                           <div/>
                           <div>
 
-                            <img id="img" top width="80%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                            <img id="img" top width="100%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
                           </div>
                         </ExpansionPanelDetails>
                       </ExpansionPanel>
@@ -265,7 +267,7 @@ class EditProblemA extends React.Component<Props, State> {
                 <ExpansionPanelDetails>
                   <div/>
                   <div>
-                    <img id="img" top width="80%" src={this.state.img_user|| "https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+                    <img id="img" top width="100%" src={"https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
