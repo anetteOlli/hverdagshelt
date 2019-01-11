@@ -22,6 +22,12 @@ exports.users_login = (req, res) => {
   });
 };
 
+exports.users_refresh = (req, res) => {
+  res.status(200).json({
+    jwt: genToken(req.userData.user.id, req.userData.user.email)
+  });
+}
+
 exports.users_get_user = (req, res) => {
   userDao.getOneById(req.params.id, (status, data) => {
     res.status(status).json(data);

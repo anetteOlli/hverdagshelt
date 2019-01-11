@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const EventController = require('../controllers/eventController');
+const ProblemController = require('../controllers/problemController');
 
 
-router.get("/", EventController.events_get_all);
+router.get("/", ProblemController.problems_get_all);
 
-router.get("/:id", EventController.events_get_event);
+router.get("/:id", ProblemController.problems_get_problem);
 
-router.post("/", EventController.events_create_event);
+router.post("/", ProblemController.problems_create_problem);
 
-router.delete("/:id", EventController.events_delete_event);
+router.delete("/:id", ProblemController.problems_delete_problem);
 
-router.patch("/:id", EventController.events_edit_event);
+router.patch("/:id", ProblemController.problems_edit_problem);
 
 module.exports = router;

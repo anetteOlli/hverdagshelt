@@ -36,7 +36,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  patch(id, json, callback) {
+  patch(id, locked, json, callback) {
 
     const values = [
       json.problem_description,
@@ -47,17 +47,19 @@ module.exports = class ArticleDao extends Dao {
       json.status_fk,
       json.user_fk,
       json.location_fk,
+      locked,
       id
     ];
 
-    super.query("update problem set problem_description = ?, img_user = ?, img_entrepreneur = ?, date_finished = ?, category_fk = ?, status_fk = ?, user_fk = ?, location_fk = ? where problem_id = ?",
+    super.query("update problem set problem_description = ?, img_user = ?, img_entrepreneur = ?, date_finished = ?, category_fk = ?, status_fk = ?, user_fk = ?, location_fk = ?, problem_locked = ? where problem_id = ?",
       values,
       callback
     );
   }
+
   deleteOne(id, callback) {
     super.query(
-      "delete from problem where problem_id=?",
+      "update problem set status_fk = 'archived' where problem_id=?",
       [id],
       callback
     );
