@@ -62,7 +62,43 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':
-      console.log('CREATE_PROBLEM_ERROR');
+      console.log('%c DELETE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      return {
+        ...state,
+        errorMessage: action.error.message
+      };
+    case 'PROBLEMS_BY_STATE_SUCCESS':
+      console.log('%c PROBLEMS_BY_STATE_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+      return {
+        ...state,
+        problems: action.problems
+      };
+    case 'PROBLEMS_BY_STATE_ERROR':
+      console.log('%c PROBLEMS_BY_STATE_ERROR', 'color: red; font-weight: bold;', action.error);
+      return {
+        ...state,
+        errorMessage: action.error.message
+      };
+    case 'PROBLEMS_BY_MUNI_AND_STREET_SUCCESS':
+      console.log('%c PROBLEMS_BY_MUNI_AND_STREET_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+      return {
+        ...state,
+        problems: action.problems
+      };
+    case 'PROBLEMS_BY_MUNI_AND_STREET_ERROR':
+      console.log('%c PROBLEMS_BY_MUNI_AND_STREET_ERROR', 'color: red; font-weight: bold;', action.error);
+      return {
+        ...state,
+        errorMessage: action.error.message
+      };
+    case 'PROBLEM_BY_ID_SUCCESS':
+      console.log('%c PROBLEM_BY_ID_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+      return {
+        ...state,
+        problems: action.problems
+      };
+    case 'PROBLEM_BY_ID_ERROR':
+      console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.error);
       return {
         errorMessage: action.error.message
       };
