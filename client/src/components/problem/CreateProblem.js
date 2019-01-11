@@ -56,6 +56,14 @@ const styles = theme => ({
   },
   media:{
     objectFit: 'cover',
+  },
+  MuiTable:{
+    [theme.breakpoints.down('xs')]:{
+      minWidth: 50
+    }
+  },
+  Typography:{
+    fontSize: '50%'
   }
 });
 
@@ -130,27 +138,28 @@ function getStepContent(step: number, state: State,
       return (
         <Card className="content-1">
           <CardContent>
-            <Grid container spacing={8}>
-              <Grid item sm={4} className="MuiTable">
-                <MuiTable
-                rows={rows}
-                onClick={e => {
-                  let myProblem = state.similarProblems.filter(a => e.rowData.eId == a.id)[0];
-                  handleChangeSpec("cur_id", myProblem.id);
-                  handleChangeSpec("cur_title", myProblem.title);
-                  handleChangeSpec("cur_municipality", myProblem.municipality);
-                  handleChangeSpec("cur_street", myProblem.street);
-                  handleChangeSpec("cur_description", myProblem.description);
-                  handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                  handleChangeSpec("cur_status", myProblem.status);
-                  handleChangeSpec("cur_imageURL", myProblem.imageURL);
-                  }}
-                />
-              </Grid>
+            <Card>
+              <MuiTable
+              rows={rows}
+              onClick={e => {
+                let myProblem = state.similarProblems.filter(a => e.rowData.eId == a.id)[0];
+                handleChangeSpec("cur_id", myProblem.id);
+                handleChangeSpec("cur_title", myProblem.title);
+                handleChangeSpec("cur_municipality", myProblem.municipality);
+                handleChangeSpec("cur_street", myProblem.street);
+                handleChangeSpec("cur_description", myProblem.description);
+                handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
+                handleChangeSpec("cur_status", myProblem.status);
+                handleChangeSpec("cur_imageURL", myProblem.imageURL);
+                }}
+              />
+            </Card>
+            <Grid container spacing={24}>
               <Grid item
               xs container
               direction="column"
               alignItems="flex-start"
+              lg={5} md={6} sm={12} sx={12}
               >
                 <Grid item xs>
                   <h4>Beskrivelse</h4>
@@ -194,8 +203,9 @@ function getStepContent(step: number, state: State,
               direction="column"
               alignItems="center"
               justify="center"
+              lg={5} md={6} sm={12} sx={1}
               >
-                <Grid item sm={10}>
+                <Grid item lg={6} md={6} sm={6} sx={6}>
                   <Card>
                     <CardMedia
                     component="img"
@@ -245,15 +255,16 @@ function getStepContent(step: number, state: State,
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
             <FormControl fullWidth margin="normal">
-              {state.displayImg != '' ? (<CardMedia
+              {state.displayImg != '' ?
+              (<CardMedia
                 image={state.displayImg || ''}
                 title="Image title"
                 style={{
                   height: 400,
                   paddingTop: '20%'
                 }}
-              />) :
-              (<i className="imgHere"></i>)}
+              />)
+              : (<i className="imgHere"></i>)}
               <input
                 accept="image/*"
                 id="contained-button-file"
