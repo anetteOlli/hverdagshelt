@@ -19,8 +19,6 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.use(express.json()); // For parsing application/json
 
-
-
 app.use('/', require('./routes'));
 
 /*--- Hot reload application when not in production environment ---*/
@@ -28,8 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
   let reloadServer = reload(app);
   fs.watch(public_path, () => reloadServer.reload());
 }
-
-
 
 const PORT: number = process.env.PORT != null ? parseInt(process.env.PORT, 10) : 3000;
 export let listen = new Promise<void>((resolve, reject) => {

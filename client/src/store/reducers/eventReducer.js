@@ -2,7 +2,7 @@
 type Event = {
   event_id: number,
   event_description: string
-}
+};
 
 export type State = { events: Event[], errorMessage: string };
 export type Action =

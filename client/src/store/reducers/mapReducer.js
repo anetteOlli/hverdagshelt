@@ -1,9 +1,16 @@
 // @flow
-export type State = { lat: string, lng: string };
+export type State = {
+  streetname: string,
+  municipality: string,
+  county: string,
+  center: { lat: string, lng: string },
+  lat: string,
+  lng: string
+};
 export type Action =
   | { type: 'UPDATE_MAP', lat: string, lng: string }
   | { type: 'UPDATE_CENTER', lat: string, lng: string }
-  | { type: 'UPDATE_PLACE_NAME', street: string, municipality: string }
+  | { type: 'UPDATE_PLACE_NAME', street: string, municipality: string, county: string }
   | { type: 'UPDATE_STREET', street: string };
 
 const initState = {
