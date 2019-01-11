@@ -4,14 +4,14 @@ const Dao = require("./dao.js");
 module.exports = class ArticleDao extends Dao {
 
   getAll(callback) {
-    super.query("select * from problem",
+    super.query("SELECT * FROM problem",
       [],
       callback);
   }
 
   getOne(id, callback) {
     super.query(
-      "select * from problem where problem_id=?",
+      "SELECT * FROM problem WHERE problem_id LIKE ?",
       [id],
       callback
     );
@@ -20,23 +20,27 @@ module.exports = class ArticleDao extends Dao {
   createOne(json, callback) {
 
     const newContent = [
+      json.problem_title,
       json.problem_description,
       json.img_user,
-      json.img_entrepreneur,
-      json.date_finished,
       json.category_fk,
       json.status_fk,
       json.user_fk,
-      json.location_fk
+      json.latitude,
+      json.longitude,
+      json.county,
+      json.municipality,
+      json.city,
+      json.street
     ];
     super.query(
-      "insert into problem (problem_description,img_user,img_entrepreneur,date_finished,category_fk,status_fk,user_fk,location_fk) values (?,?,?,?,?,?,?,?)",
+      "INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
       newContent,
       callback
     );
   }
 
-  patch(id, json, callback) {
+  patchUser(id, json, callback) {
 
     const values = [
       json.problem_description,
@@ -50,14 +54,22 @@ module.exports = class ArticleDao extends Dao {
       id
     ];
 
-    super.query("update problem set problem_description = ?, img_user = ?, img_entrepreneur = ?, date_finished = ?, category_fk = ?, status_fk = ?, user_fk = ?, location_fk = ? where problem_id = ?",
+    super.query("UPDATE problem SET problem_description = ?, img_user = ?, img_entrepreneur = ?, date_finished = ?, category_fk = ?, status_fk = ?, user_fk = ?, location_fk = ? WHERE problem_id = ?",
       values,
       callback
     );
   }
+
+  patchEntrepreneur(id,json,callback){
+      super.query(
+        "UPDATE problem "
+      )
+
+
+  }
   deleteOne(id, callback) {
     super.query(
-      "delete from problem where problem_id=?",
+      "DELETE FROM problem WHERE problem_id LIKE ?",
       [id],
       callback
     );

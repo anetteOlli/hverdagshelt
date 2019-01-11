@@ -46,7 +46,8 @@ export const genToken = (user: { id: number, email: string, username: string, pa
       user: {
         id: user.id,
         email: user.email,
-        username: user.email
+        username: user.email,
+        status:
       }
     },
     process.env.JWT_KEY,

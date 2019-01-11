@@ -32,7 +32,6 @@ exports.problems_create_problem = (req, res) => {
 };
 
 exports.problems_delete_problem = (req, res)=> {
-  console.log("/articles/" + req.params.id + " fikk request fra klient");
   problemDao.deleteOne(req.params.id, (status, data) => {
     res.status(status);
     res.json(data);
