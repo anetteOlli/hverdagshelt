@@ -18,7 +18,6 @@ const styles = (theme: Object) => ({
   },
   button: {
     //marginTop: theme.spacing.unit,
-
   },
   editBTN: {
     align: 'right'
@@ -30,9 +29,8 @@ const styles = (theme: Object) => ({
     height: '100%',
     paddingBottom: 20,
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   }
-
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -63,18 +61,18 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(problem);
     return (
       <div className={classes.main}>
-        <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
-        <Typography variant="h2" gutterBottom align="center">
-          Problem informasjon
-        </Typography>
-        <div className="pdbtnwrapper">
-          <Button className={classes.addBTN} onClick={this.onClickAdd}>
-            Add entrepreneur
-          </Button>
-          <Button className={classes.editBTN}onClick={this.onClickEdit}>
-            Edit Problem
-          </Button>
-        </div>
+        <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
+          <Typography variant="h2" gutterBottom align="center">
+            Problem informasjon
+          </Typography>
+          <div className="pdbtnwrapper">
+            <Button className={classes.addBTN} onClick={this.onClickAdd}>
+              Add entrepreneur
+            </Button>
+            <Button className={classes.editBTN} onClick={this.onClickEdit}>
+              Edit Problem
+            </Button>
+          </div>
         </Grid>
       </div>
     );
@@ -86,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     problem: state.problem.problem
-  }
+  };
   /*
     getProblem(id).then(() => {
     return {

@@ -88,7 +88,7 @@ class NavBar extends React.Component<Props, State> {
               <MenuIcon />
             </IconButton>
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
-              HverdagsHelt
+              HverdagsHelt22
             </Button>
 
 
