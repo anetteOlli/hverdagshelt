@@ -71,8 +71,6 @@ class NavBar extends React.Component<Props, State> {
     });
   };
 
-
-
   render() {
     const { classes, isLoggedIn, signOut } = this.props;
     return (
@@ -88,11 +86,8 @@ class NavBar extends React.Component<Props, State> {
               <MenuIcon />
             </IconButton>
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
-              HverdagsHelt22
+              HverdagsHelt222
             </Button>
-
-
-
             <div className={classes.grow} />
             {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>

@@ -12,7 +12,7 @@ import HotIcon from '@material-ui/icons/Whatshot';
 import SettingIcon from '@material-ui/icons/Settings';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import { NavLink } from 'react-router-dom';
-import EventIcon from '@material-ui/icons/event'
+
 type Props = {
   classes: Object,
   open: any,
@@ -27,7 +27,6 @@ const styles = {
     width: 'auto'
   }
 };
-const categories = ['Test', 'test'];
 
 class TemporaryDrawer extends React.Component<Props> {
   render() {
@@ -35,42 +34,63 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem button component={NavLink} to={'/opprArrangement'}>
+          <ListItem button component={NavLink} to={'/map'}>
             <ListItemIcon>
-              <EventIcon />
+              <NewIcon />
             </ListItemIcon>
-            <ListItemText primary="Opprett Arrangement" />
+            <ListItemText primary="Map" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/browse/trending'}>
+          <ListItem button component={NavLink} to={'/munipage'}>
             <ListItemIcon>
               <TrendingIcon />
             </ListItemIcon>
-            <ListItemText primary="Trending" />
+            <ListItemText primary="munipage" />
           </ListItem>
-          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/browse/popular'}>
+          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/stati'}>
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Most Popular" />
+            <ListItemText primary="stati" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/tests'}>
+          <ListItem button component={NavLink} to={'/problemdetails/2'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="Tests components" />
+            <ListItemText primary="ProblemDetails" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/lagproblem'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="lagproblem" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/editp'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="editproblem" />
           </ListItem>
         </List>
         <Divider />
         <List>
-          {categories &&
-            categories.map((category, index) => (
-              <ListItem button component={NavLink} to={`/browse/${category}`} key={index}>
-                <ListItemIcon>
-                  <NewIcon />
-                </ListItemIcon>
-                <ListItemText primary={category} />
-              </ListItem>
-            ))}
+          <ListItem button component={NavLink} to={'/muiTable'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="muiTable" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/lagproblem'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="lagproblem" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/map_simpel'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="map_simpel" />
+          </ListItem>
         </List>
       </div>
     );

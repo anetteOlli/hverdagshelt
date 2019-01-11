@@ -25,3 +25,15 @@ export const placeChanged = (lat: string, lng: string) => {
     });
   };
 };
+
+export const changePlaceName = (street: string, municipality: string, county: string) => {
+  console.log('...data');
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'UPDATE_PLACE_NAME',
+      street,
+      county,
+      municipality
+    });
+  };
+};
