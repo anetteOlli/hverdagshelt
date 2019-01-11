@@ -28,6 +28,7 @@ const initState = {
       location_fk: 'Eplegaten 2',
       status_fk: '2',
       category_fk: '3',
+      user_fk: '1'
     },
   errorMessage: ''
 };
