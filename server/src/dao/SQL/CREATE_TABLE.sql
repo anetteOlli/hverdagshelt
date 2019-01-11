@@ -48,6 +48,7 @@ CREATE TABLE problem (
     entrepreneur_fk INTEGER,
     latitude DOUBLE NOT NULL,
     longitude DOUBLE NOT NULL,
+    support INT,
     county_fk VARCHAR(30) NOT NULL,
     municipality_fk VARCHAR(30) NOT NULL,
     city_fk VARCHAR(30) NOT NULL,

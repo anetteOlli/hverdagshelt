@@ -1,14 +1,9 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-
-const outputDirectory = 'public';
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, outputDirectory),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
   module: {
@@ -25,10 +20,9 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 3000,
-    publicPath: "/",
-    contentBase: "./public",
+    publicPath: '/',
+    contentBase: './public',
     compress: true,
-    hot: true
+    port: 3000
   }
 };
