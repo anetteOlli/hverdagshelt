@@ -23,7 +23,6 @@ module.exports = {
     publicPath: "/",
     contentBase: "./public",
     compress: true,
-    open: true,
     port: 3000,
   }
 };

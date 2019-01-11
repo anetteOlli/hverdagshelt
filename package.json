@@ -7,7 +7,7 @@
     "server-install": "npm install --prefix server",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "restful",

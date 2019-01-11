@@ -7,6 +7,7 @@ import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
 import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
+import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
 import EditProblem from "./components/problem/EditProblem";
 import MuniPage from './components/dashboard/MuniPage';
@@ -27,6 +28,7 @@ export default () => (
           <Route exact path="/editpa" component={EditProblemA} />
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem}/>
+          <Route exact path="/problemdetails/:problem_id" component={ProblemDetails}/>
           {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
         </Switch>
         <Footer />
