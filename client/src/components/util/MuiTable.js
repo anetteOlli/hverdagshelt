@@ -224,7 +224,7 @@ function MuiTable(props) {
   //console.log("Rows lower");
   //console.log(rows);
   return (
-    <Paper style={{ height: 400, width: '100%' }}>
+    <Paper style={{ height: 200, width: '100%' }}>
       <WrappedVirtualizedTable
         rowCount={rows.length}
         rowGetter={({ index }) => rows[index]}

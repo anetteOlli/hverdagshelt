@@ -19,6 +19,8 @@ function createSingleData(eId, title, status) {
  * @params elements: [], an array of problem/event objects with atleast id, title and status
  */
 export default function createData(elements: []) {
+  //console.log("CreateData");
+  //console.log(elements);
   const rows = [];
   elements.map(e => rows.push(createSingleData(e.id, e.title, e.status)));
   return rows;

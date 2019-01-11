@@ -41,18 +41,16 @@ export const deleteCategory = (id: number) => {
   };
 };
 
-export const getCategory = (id: number) => {
+export const getCategories = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('categories').then(categories =>
       dispatch({
         type: 'GET_CATEGORIES_SUCCESS',
         categories
-      }).catch((error: Error) =>
+      })).catch((error: Error) =>
         dispatch({
           type: 'GET_CATEGORIES_ERROR',
           error
-        })
-      )
-    );
+      }))
   };
 };

@@ -6,16 +6,22 @@ const history = createHashHistory();
 
 // Material-ui
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
-        Grid, Paper, Card, CardContent, TextField
+        Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
+        Icon, Fab, Switch,
+        FormControl, FormControlLabel, FormHelperText,
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Fab from '@material-ui/core/Fab';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import Icon from '@material-ui/core/Icon';
-import MuiTable from '../util/MuiTable'
+import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import { withSnackbar } from 'notistack';
+import { connect } from 'react-redux';
+import {createProblem, getProblemsByMuniAndStreet} from '../../store/actions/problemActions';
+import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 
 /**
@@ -47,6 +53,17 @@ const styles = theme => ({
   },
   Card:{
     textAlign: 'center',
+  },
+  media:{
+    objectFit: 'cover',
+  },
+  MuiTable:{
+    [theme.breakpoints.down('xs')]:{
+      minWidth: 50
+    }
+  },
+  Typography:{
+    fontSize: '50%'
   }
 });
 
@@ -83,7 +100,7 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må velge en kategori']}
             >
-            {categories.map((e,i) => (
+            {state.categories.map((e,i) => (
               <MenuItem key={i} value={e}>{e}</MenuItem>
               ))}
             </SelectValidator>
@@ -102,9 +119,9 @@ function getStepContent(step: number, state: State,
               fullWidth
               margin="normal"
               label="Gate"
-              name="location"
-              autoComplete="location"
-              value={state.location}
+              name="street"
+              autoComplete="street"
+              value={state.street}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en gate']}
@@ -116,31 +133,33 @@ function getStepContent(step: number, state: State,
         </Card>
       );
     case 1:
-      const rows = (similarProblems == null ? [] : createMuiData(similarProblems));
+      const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
-            <Grid container spacing={8}>
-              <Grid item sm={4} className="MU-table">
-                <MuiTable
-                rows={rows}
-                onClick={e => {
-                  let myProblem = similarProblems.filter(a => e.rowData.eId == a.id)[0];
-                  handleChangeSpec("cur_id", myProblem.id);
-                  handleChangeSpec("cur_title", myProblem.title);
-                  handleChangeSpec("cur_municipality", myProblem.municipality);
-                  handleChangeSpec("cur_location", myProblem.location);
-                  handleChangeSpec("cur_description", myProblem.description);
-                  handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                  handleChangeSpec("cur_status", myProblem.status);
-                  }}
-                />
-              </Grid>
+            <Card>
+              <MuiTable
+              rows={rows}
+              onClick={e => {
+                let myProblem = state.similarProblems.filter(a => e.rowData.eId == a.id)[0];
+                handleChangeSpec("cur_id", myProblem.id);
+                handleChangeSpec("cur_title", myProblem.title);
+                handleChangeSpec("cur_municipality", myProblem.municipality);
+                handleChangeSpec("cur_street", myProblem.street);
+                handleChangeSpec("cur_description", myProblem.description);
+                handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
+                handleChangeSpec("cur_status", myProblem.status);
+                handleChangeSpec("cur_imageURL", myProblem.imageURL);
+                }}
+              />
+            </Card>
+            <Grid container spacing={24}>
               <Grid item
               xs container
               direction="column"
               alignItems="flex-start"
+              lg={5} md={6} sm={12} sx={12}
               >
                 <Grid item xs>
                   <h4>Beskrivelse</h4>
@@ -158,7 +177,7 @@ function getStepContent(step: number, state: State,
                 <h4>Gate</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_location}</Typography>
+                  <Typography>{state.cur_street}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Entreprenør</h4>
@@ -179,6 +198,26 @@ function getStepContent(step: number, state: State,
                    </Button>
                 </Grid>
               </Grid>
+              <Grid item
+              xs container
+              direction="column"
+              alignItems="center"
+              justify="center"
+              lg={5} md={6} sm={12} sx={1}
+              >
+                <Grid item lg={6} md={6} sm={6} sx={6}>
+                  <Card>
+                    <CardMedia
+                    component="img"
+                    alt="problem img"
+                    height="300"
+                    width="300"
+                    image={state.cur_imageURL}
+                    title="problem image"
+                    />
+                  </Card>
+                </Grid>
+              </Grid>
             </Grid>
           </CardContent>
         </Card>
@@ -189,7 +228,7 @@ function getStepContent(step: number, state: State,
           <CardContent>
             <Typography>{state.category}</Typography>
             <Typography>{state.municipality}</Typography>
-            <Typography>{state.location}</Typography>
+            <Typography>{state.street}</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -215,10 +254,32 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
-            <Typography>Last opp et bilde</Typography>
-            <Fab color="primary" aria-label="Add" className="{classes.fab}">
-              <AddIcon onClick={handleUpload}/>
-            </Fab>
+            <FormControl fullWidth margin="normal">
+              {state.displayImg != '' ?
+              (<CardMedia
+                image={state.displayImg || ''}
+                title="Image title"
+                style={{
+                  height: 400,
+                  paddingTop: '20%'
+                }}
+              />)
+              : (<i className="imgHere"></i>)}
+              <input
+                accept="image/*"
+                id="contained-button-file"
+                multiple
+                type="file"
+                onChange={handleUpload}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="contained-button-file">
+                <Button variant="contained" component="span">
+                  <CloudUploadIcon className="icon-button" />
+                  {'  '}Last opp bilde
+                </Button>
+              </label>
+            </FormControl>
           </CardContent>
         </Card>
       );
@@ -242,9 +303,10 @@ type State = {
   title: string,
   category: string,
   municipality: string,
-  location: string,
+  street: string,
   description: string,
-  imageURL: string,
+  image: any,
+  displayImg: string,
   entrepreneur: string,
   status: string,
 
@@ -252,11 +314,14 @@ type State = {
   cur_title: 'Default',
   cur_category: 'Default',
   cur_municipality: 'Default',
-  cur_location: 'Default',
+  cur_street: 'Default',
   cur_description: 'Default',
   cur_imageURL: 'Default',
   cur_entrepreneur: 'Default',
-  cur_status: 'Default'
+  cur_status: 'Default',
+
+  similarProblems: [],
+  categories: []
 };
 
 /** CreateProblem Component */
@@ -272,25 +337,27 @@ class CreateProblem extends React.Component<Props, State> {
     title: '',
     category: '',
     municipality: '',
-    location: '',
+    street: '',
     description: '',
-    imageURL: '',
+    image: '',
+    displayImg: '',
     entrepreneur: '',
     status: 'Unchecked',
 
     cur_id: -1,
-    cur_title: 'Default',
-    cur_category: 'Default',
-    cur_municipality: 'Default',
-    cur_location: 'Default',
-    cur_description: 'Default',
-    cur_imageURL: 'Default',
-    cur_entrepreneur: 'Default',
-    cur_status: 'Default'
-  };
+    cur_title: 'defaultTitle',
+    cur_category: 'defaultCat',
+    cur_municipality: 'defaultMuni',
+    cur_street: 'defaultStreet',
+    cur_description: 'defaultDesc',
+    cur_imageURL: 'defaultImgUrl',
+    cur_entrepreneur: 'defaultEntrepreneur',
+    cur_status: 'defaultStatus',
 
-  similarProblems = [];
-  categories = [];
+    similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default',
+                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}],
+    categories: ['Default']
+  };
 
   componentWillMount(){
     //this.getSimilarProblems("", "");
@@ -299,21 +366,39 @@ class CreateProblem extends React.Component<Props, State> {
 
   /** Gets problems in vicinity
    * @params municipality: string, the user-selected municipality
-   * @params location: string, the inputted location
+   * @params street: string, the inputted street
    * */
-  getSimilarProblems(municipality: string, location: string) {
-    //@TODO AXIOS GET SIMILAR PROBLEMS
-    this.similarProblems = [
-    {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', location: 'Kongens Gate', description: 'abc', status: 'Unchecked' },
-    {id:2, title: 'Dårlig', category: 'Veier', municipality: 'Trondheim', location: 'Jørunds Gate', description: 'def', status: 'Checked' },
-    {id:3, title: 'Problem', category: 'Veier', municipality: 'Ås', location: 'Torget', description: 'mnl', status: 'Working' }
+   getSimilarProblems(municipality: string, street: string){
+    /*
+    [
+      {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', street: 'Kongens Gate', description: 'abc', status: 'Unchecked', imageURL: "https://frontnews.eu/contents/news/7936/images/resize_g0fGyc2N8zYuO6kVZUKI3hqe7mWn45Tv_980x590.jpg"},
+      {id:2, title: 'Dårlig rengjøring', category: 'Bygninger', municipality: 'Trondheim', street: 'Jørunds Gate', description: 'def', status: 'Checked', imageURL: "https://previews.123rf.com/images/metrue/metrue1412/metrue141200013/34190474-abandoned-overgrown-building-exterior-urban-industrial-construction.jpg" },
+      {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
+    */
+    let simProbs = this.props.getProblemsByMuniAndStreet(municipality, street)
+    .then(e => this.props.enqueueSnackbar('error',{variant: 'warning'})
+    );
+
+    if(simProbs[0] != null){
+      this.setState({
+        similarProblems: simProbs
+      });
+      //this.state.similarProblems = simProbs;
+    }
   }
 
   /** Gets ALL problem categories*/
   getCategories(){
-    //@TODO AXIOS GET CATEGORIES
-    this.categories = ['Veier', 'Bygninger', 'Annet'];
+    //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
+     let categories = this.props.getCategories();
+
+    if(categories[0] != null){
+      this.setState({
+        getCategories: categories
+      });
+      //this.state.categories = categories;
+    }
   }
 
   /** Handles clicking "Next" button */
@@ -322,7 +407,9 @@ class CreateProblem extends React.Component<Props, State> {
     this.setState({
       activeStep: activeStep + 1
     });
-    this.getSimilarProblems(this.state.municipality, this.state.location);
+    if(activeStep == 1){
+      this.getSimilarProblems(this.state.municipality, this.state.street);
+    }
   };
 
   /** Handles clicking "Back" button */
@@ -348,15 +435,17 @@ class CreateProblem extends React.Component<Props, State> {
     this.setState({ [name]: value });
   };
 
-  /** Handles validation forms' submit event
+  /** Handles validation forms' submit event and post request to server
    *  @see handleNext
    * */
   handleSubmit = e => {
     e.preventDefault();
-    //console.log(this.state);
+    console.log(this.state);
     if(this.state.activeStep > 1){
-      //@TODO Save in DB/Redux
-      console.log("SAVE PROBLEM HERE")
+      //Save in DB/Redux
+      this.props.createProblem(this.state).then( e =>
+        this.props.enqueueSnackbar('error',{variant: 'warning'})
+      );
     }
     this.handleNext();
   };
@@ -369,11 +458,16 @@ class CreateProblem extends React.Component<Props, State> {
   /** Handles uploading of image files */
   handleUpload = e => {
     //@TODO make uploader for image
-    console.log("Upload me hunny!");
+    this.setState({
+      image: e.target.files[0],
+      displayImg: URL.createObjectURL(e.target.files[0])
+    });
+
   }
 
   render() {
     //const { classes } = this.props;
+    //console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
     return (
@@ -407,10 +501,9 @@ class CreateProblem extends React.Component<Props, State> {
                 </CardContent>
               </Card>
             ) : (
-              <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
+              <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload,
-                              this.similarProblems, this.categories)}
+                              this.handleChangeSpec, this.handleUpload)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
@@ -439,4 +532,22 @@ class CreateProblem extends React.Component<Props, State> {
   }
 }
 
-export default withRoot(CreateProblem);
+
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.problems.errorMessage
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createProblem: newProblem => dispatch(createProblem(newProblem)),
+    getCategories: categories => dispatch(getCategories()),
+    getProblemsByMuniAndStreet: (muni, street) => dispatch(getProblemsByMuniAndStreet(muni, street))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(CreateProblem))));
