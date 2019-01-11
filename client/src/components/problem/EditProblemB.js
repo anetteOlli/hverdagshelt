@@ -58,15 +58,17 @@ const styles = (theme: Object) => ({
     height: '100%',
     paddingBottom: 20,
     display: 'flex',
+
   },
   grid2: {
     paddingBottom: 20,
     height: '100%',
+
   },
   grid3: {
     paddingBottom: 20,
     minHeight: '100%',
-    alignItems: 'flex-end'
+    //alignItems: 'flex-end'
   }
 });
 
@@ -234,7 +236,7 @@ class EditProblemA extends React.Component<Props, State> {
                         <ExpansionPanelDetails>
                           <div/>
                           <div>
-                            <img id="img" top width="80%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                            <img id="img" top width="100%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
                           </div>
                         </ExpansionPanelDetails>
                         <Divider />

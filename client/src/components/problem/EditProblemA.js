@@ -93,26 +93,6 @@ class EditProblemA extends React.Component<Props, State> {
     console.log(this.state);
   };
 
-  readURL(input) {
-    if (input.files && input.files[0]) {
-      const fileExtension = input.substr((input.lastIndexOf('.') + 1));
-      if(fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
-        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
-        return false;
-      }
-      else {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('#img')
-            .attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-  }
-
   render() {
     const { classes, problem, isLoggedIn } = this.props;
     // if (!isLoggedIn) return <Redirect to="/" />;
@@ -179,7 +159,7 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
                 </ValidatorForm>
-                    <h3> Dato startet:  {this.state.date_made} </h3>
+                    <Paper className={classes.paper}> Dato startet:  {this.state.date_made} </Paper>
 
                     <ExpansionPanel>
                       <ExpansionPanelSummary>
@@ -234,7 +214,7 @@ class EditProblemA extends React.Component<Props, State> {
                         {"Beskrivelse: \n " + this.state.description_entrepreneur}
                     </Paper>
 
-                    <h3> Dato Endret:  {this.state.last_edited} </h3>
+                    <Paper className={classes.paper}> Dato Endret:  {this.state.last_edited} </Paper>
 
                     <div>
                       <ExpansionPanel>

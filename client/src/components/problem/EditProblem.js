@@ -107,7 +107,6 @@ class EditProblem extends React.Component<Props, State> {
         </Typography>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
 
-
           <Paper
             className={classes.paper}
             fullWidth
@@ -192,8 +191,6 @@ class EditProblem extends React.Component<Props, State> {
           </Button>
             </Paper>
           </Grid>
-
-
         </Grid>
       </div>
     );
