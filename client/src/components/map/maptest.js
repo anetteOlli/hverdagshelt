@@ -26,9 +26,9 @@ type State = {
 };
 
 /**
- * A map with a default location set.
- * when using SimpleMap it's possible to pass in a prop.onClick() to track the location clicked on mapStateToProps
- * (see Map1 for example)
+ * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
+ * as we don't want the map to load each time a user clicks on the map, we are splitting those variables into to different locations
+ *
  **/
 class SimpleMap extends React.Component<Props, State> {
   state = {

@@ -14,7 +14,7 @@ import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
-import SimpleMap from './components/layout/GoogleMap';
+import UploadFile from './components/util/test';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -23,6 +23,7 @@ export default () => (
         <CssBaseline />
         <NavBar />
         <Switch>
+          <Route exact path="/uploadfile" component={UploadFile} />
           <Route exact path="/" component={Map} />
           <Route exact path="/registrer-bruker" component={SignUp} />
           <Route exact path="/editp" component={EditProblem} />
