@@ -16,6 +16,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MuiTable from '../util/MuiTable'
 import createMuiData from '../util/createMuiData'
+import { withSnackbar } from 'notistack';
+import { connect } from 'react-redux';
 import {createProblem} from '../../store/actions/problemActions'
 /**
  * @fileOverview Create Problem Component
@@ -291,15 +293,6 @@ class CreateProblem extends React.Component<Props, State> {
   state = {
     activeStep: 0,
 
-    problem:{
-      title: 'a',
-      category: 'b',
-      municipality: 'c',
-      location: 'd',
-      description: 'e',
-      imageURL: 'f',
-      entrepreneur: 'g'
-    },
     title: '',
     category: '',
     municipality: '',
@@ -307,6 +300,7 @@ class CreateProblem extends React.Component<Props, State> {
     description: '',
     imageURL: '',
     entrepreneur: '',
+    status: 'Unchecked',
 
     cur_id: -1,
     cur_title: 'Default',
@@ -316,7 +310,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_description: 'Default',
     cur_imageURL: 'Default',
     cur_entrepreneur: 'Default',
-    cur_status: 'Default',
+    cur_status: 'Default'
   };
 
   similarProblems = [];
@@ -386,10 +380,15 @@ class CreateProblem extends React.Component<Props, State> {
     //console.log(this.state);
     if(this.state.activeStep > 1){
       //@TODO Save in DB/Redux
-      this.props.createProblem(this.state.problem);
+      console.log("SAVE PROBLEM HERE")
     }
     this.handleNext();
   };
+
+  handleTest = () => {
+    this.props.createProblem(this.state)
+   this.props.enqueueSnackbar('error',{variant: 'warning'})
+  }
 
   /** Handles when user is done and gets sent away. */
   handleFinish = e => {
@@ -404,11 +403,13 @@ class CreateProblem extends React.Component<Props, State> {
 
   render() {
     //const { classes } = this.props;
+    console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
     return (
       <div>
         <Typography>Registrer Problem</Typography>
+        <Button onClick={this.handleTest}>terst</Button>
         <div className=" Stepper">
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -437,7 +438,7 @@ class CreateProblem extends React.Component<Props, State> {
                 </CardContent>
               </Card>
             ) : (
-              <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
+              <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
                               this.handleChangeSpec, this.handleUpload,
                               this.similarProblems, this.categories)}
@@ -468,6 +469,7 @@ class CreateProblem extends React.Component<Props, State> {
     );
   }
 }
+
 
 const mapStateToProps = state => {
   return {

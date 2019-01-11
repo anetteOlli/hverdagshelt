@@ -27,13 +27,11 @@ export const createProblem = (newProblem: JSON) => {
     return postData('problems', newProblem).then(() =>
       dispatch({
         type: 'CREATE_PROBLEM_SUCCESS'
-      }).catch((error: Error) =>
+      })).catch((error: Error) =>
         dispatch({
           type: 'CREATE_PROBLEM_ERROR',
           error
-        })
-      )
-    );
+        }))
   };
 };
 
