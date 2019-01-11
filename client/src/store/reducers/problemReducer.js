@@ -21,13 +21,15 @@ export type Action =
 const initState = {
     problem: {
       problem_id: 1,
-      problem_description: 'Veldig nice problem',
-      img_user: 'USYBUDWUVJKAN726382tguBJBDUYB',
+      problem_title: 'Hull i veien',
+      problem_description: 'Dette er krise kom og fiks!',
+      problem_locked: 0,
+      img_user: 'https://i.imgur.com/ykbz8hO.png',
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
       location_fk: 'Eplegaten 2',
-      status_fk: '2',
-      category_fk: '3',
+      status_fk: 'Fixed',
+      category_fk: 'Vei og kjørebane',
     },
   errorMessage: ''
 };
