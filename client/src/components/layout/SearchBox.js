@@ -1,6 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { placeChanged } from '../../store/actions/mapActions';
+import { connect } from 'react-redux';
+import withRoot from '../../withRoot';
+
+type Props = {
+  placeChanged: Function,
+  lat: number,
+  lng: number
+};
 
 class SearchBox extends Component {
   static propTypes = {
@@ -58,9 +67,7 @@ class SearchBox extends Component {
       lat: this.searchBox.getPlaces()[0].geometry.location.lat(),
       lng: this.searchBox.getPlaces()[0].geometry.location.lng()
     };
-    this.setState({
-      cords: cords
-    });
+    this.props.placeChanged(cords);
     console.log(
       'onPlacesChanged getPlaces()[0].geometry.location.lat()',
       this.searchBox.getPlaces()[0].geometry.location.lat()
@@ -94,6 +101,15 @@ class SearchBox extends Component {
   }
 }
 
-export default SearchBox;
+const mapDispatchToProps = dispatch => {
+  return {
+    placeChanged: cords => dispatch(placeChanged(cords.lat, cords.lng))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRoot(SearchBox));
 
 // note to self: wtf hvorfor får jeg s mye feil npr jeg puller kode fra de andre på teamet

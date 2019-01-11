@@ -15,7 +15,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MuiTable from '../util/MuiTable'
-import createMuiData from '../util/createMuiData'
+import createMuiData from '../util/createMuiData';
+import Map from '../map/maptest';
 
 /**
  * @fileOverview Create Problem Component
@@ -109,7 +110,7 @@ function getStepContent(step: number, state: State,
               errorMessages={['Du må skrive inn en gate']}
             />
             <div className="mapPlaceholder">
-              MAP HERE
+              <Map />
             </div>
           </CardContent>
         </Card>
