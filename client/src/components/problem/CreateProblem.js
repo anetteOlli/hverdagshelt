@@ -16,7 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MuiTable from '../util/MuiTable'
 import createMuiData from '../util/createMuiData'
-
+import {createProblem} from '../../store/actions/problemActions'
 /**
  * @fileOverview Create Problem Component
  * @author Sindre H. Paulshus
@@ -291,6 +291,15 @@ class CreateProblem extends React.Component<Props, State> {
   state = {
     activeStep: 0,
 
+    problem:{
+      title: 'a',
+      category: 'b',
+      municipality: 'c',
+      location: 'd',
+      description: 'e',
+      imageURL: 'f',
+      entrepreneur: 'g'
+    },
     title: '',
     category: '',
     municipality: '',
@@ -298,7 +307,6 @@ class CreateProblem extends React.Component<Props, State> {
     description: '',
     imageURL: '',
     entrepreneur: '',
-    status: 'Unchecked',
 
     cur_id: -1,
     cur_title: 'Default',
@@ -308,7 +316,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_description: 'Default',
     cur_imageURL: 'Default',
     cur_entrepreneur: 'Default',
-    cur_status: 'Default'
+    cur_status: 'Default',
   };
 
   similarProblems = [];
@@ -378,7 +386,7 @@ class CreateProblem extends React.Component<Props, State> {
     //console.log(this.state);
     if(this.state.activeStep > 1){
       //@TODO Save in DB/Redux
-      console.log("SAVE PROBLEM HERE")
+      this.props.createProblem(this.state.problem);
     }
     this.handleNext();
   };
@@ -461,4 +469,19 @@ class CreateProblem extends React.Component<Props, State> {
   }
 }
 
-export default withRoot(CreateProblem);
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.problems.errorMessage
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createProblem: newProblem => dispatch(createProblem(newProblem))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(CreateProblem))));
