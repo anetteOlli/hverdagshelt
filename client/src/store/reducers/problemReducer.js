@@ -15,14 +15,13 @@ export type State = {
   errorMessage: string
 };
 
-export type Action =
+export type Action = 
   | { type: 'CREATE_PROBLEM_SUCCESS' }
   | { type: 'CREATE_PROBLEM_ERROR', error: Error }
   | { type: 'EDIT_PROBLEM_SUCCESS' }
   | { type: 'EDIT_PROBLEM_ERROR', error: Error }
   | { type: 'DELETE_PROBLEM_SUCCESS' }
   | { type: 'DELETE_PROBLEM_ERROR', error: Error }
-<<<<<<< HEAD
   | { type: 'PROBLEMS_BY_STATE_SUCCESS', problems: [] }
   | { type: 'PROBLEMS_BY_STATE_ERROR', error: Error }
   | { type: 'PROBLEM_BY_ID_SUCCESS', problems: [] }
@@ -41,21 +40,7 @@ const initState = {
       category_fk: -1
     }
   ],
-=======
-  | { type: 'GOT_PROBLEM_SUCCESS', problem: problem };
 
-const initState = {
-    problem: {
-      problem_id: 1,
-      problem_description: 'Veldig nice problem',
-      img_user: 'USYBUDWUVJKAN726382tguBJBDUYB',
-      date_made: '20-13-2018',
-      last_edited: '20-14-2018',
-      location_fk: 'Eplegaten 2',
-      status_fk: '2',
-      category_fk: '3',
-    },
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
   errorMessage: ''
 };
 
