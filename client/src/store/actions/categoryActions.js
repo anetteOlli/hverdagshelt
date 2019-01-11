@@ -1,6 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/eventReducer';
-import { postData, putData, deleteData } from '../util';
+import type { Action, State } from '../reducers/categoryReducer';
+import { postData, deleteData, getData } from '../util';
 
 /**
  * @fileOverview categoryActions: actions for categories in redux
@@ -11,14 +11,14 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => State;
 
-export const createEvent = (newEvent: JSON) => {
+export const createCategory = (newCategory: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('events', newEvent).then(() =>
+    return postData('categories', newCategory).then(() =>
       dispatch({
-        type: 'CREATE_EVENT_SUCCESS'
+        type: 'CREATE_CATEGORY_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'CREATE_EVENT_ERROR',
+          type: 'CREATE_CATEGORY_ERROR',
           error
         })
       )
@@ -26,14 +26,14 @@ export const createEvent = (newEvent: JSON) => {
   };
 };
 
-export const editEvent = (event: JSON) => {
+export const deleteCategory = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return putData('events', event).then(() =>
+    return deleteData(`categories/${id}`).then(() =>
       dispatch({
-        type: 'EDIT_EVENT_SUCCESS'
+        type: 'DELETE_CATEGORY_SUCCESS'
       }).catch((error: Error) =>
         dispatch({
-          type: 'EDIT_EVENT_ERROR',
+          type: 'DELETE_CATEGORY_ERROR',
           error
         })
       )
@@ -41,14 +41,15 @@ export const editEvent = (event: JSON) => {
   };
 };
 
-export const deleteEvent = (id: number) => {
+export const getCategory = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return deleteData(`events/${id}`).then(() =>
+    return getData('categories').then(categories =>
       dispatch({
-        type: 'DELETE_EVENT_SUCCESS'
+        type: 'GET_CATEGORIES_SUCCESS',
+        categories
       }).catch((error: Error) =>
         dispatch({
-          type: 'DELETE_EVENT_ERROR',
+          type: 'GET_CATEGORIES_ERROR',
           error
         })
       )

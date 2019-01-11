@@ -14,7 +14,8 @@ import { validateEmail } from '../../store/util';
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
-  signUp: Function
+  signUp: Function,
+  enqueueSnackbar: Function
 };
 
 type State = {
@@ -24,7 +25,7 @@ type State = {
   password: string,
   cnfPassword: string,
   showPassword: boolean,
-  emailExists: boolean
+  isUniqueEmail: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -75,7 +76,7 @@ class SignUp extends React.Component<Props, State> {
   };
 
   handleValidateEmail = () => {
-    validateEmail({ email: this.state.email }).then((resp: { isUniqueEmail: boolean }) =>
+    validateEmail(this.state.email).then((resp: { isUniqueEmail: boolean }) =>
       this.setState({
         isUniqueEmail: resp.isUniqueEmail
       })
