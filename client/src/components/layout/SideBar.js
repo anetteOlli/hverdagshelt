@@ -27,7 +27,6 @@ const styles = {
     width: 'auto'
   }
 };
-const categories = ['Test', 'test'];
 
 class TemporaryDrawer extends React.Component<Props> {
   render() {
@@ -74,15 +73,24 @@ class TemporaryDrawer extends React.Component<Props> {
         </List>
         <Divider />
         <List>
-          {categories &&
-            categories.map((category, index) => (
-              <ListItem button component={NavLink} to={`/browse/${category}`} key={index}>
-                <ListItemIcon>
-                  <NewIcon />
-                </ListItemIcon>
-                <ListItemText primary={category} />
-              </ListItem>
-            ))}
+          <ListItem button component={NavLink} to={'/muiTable'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="muiTable" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/lagproblem'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="lagproblem" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/map_simpel'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="map_simpel" />
+          </ListItem>
         </List>
       </div>
     );
