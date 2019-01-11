@@ -7,18 +7,11 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import Divider from '@material-ui/core/Divider/Divider';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
-=======
 import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import Grid from '@material-ui/core/Grid/Grid';
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
 
 const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
 
@@ -72,23 +65,6 @@ class EditProblem extends React.Component<Props, State> {
     e.preventDefault();
     console.log(this.state);
   };
-<<<<<<< HEAD
-  readURL(input) {
-    if (input.files && input.files[0]) {
-      const fileExtension = input.substr(fileName.lastIndexOf('.') + 1);
-      if (fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
-        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
-        return false;
-      } else {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          $('#blah').attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-=======
     readURL(input) {
         if (input.files && input.files[0]) {
             const fileExtension = input.substr((input.lastIndexOf('.') + 1));
@@ -107,7 +83,6 @@ class EditProblem extends React.Component<Props, State> {
                 reader.readAsDataURL(input.files[0]);
             }
         }
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
     }
   }
 
@@ -182,24 +157,6 @@ class EditProblem extends React.Component<Props, State> {
                 name="img_user"
                 value={this.state.img_user}
                 onChange={this.handleChange}
-<<<<<<< HEAD
-              />
-              <input
-                type="file"
-                name="img_user"
-                accept="image/*"
-                value={this.readURL(this)}
-                onChange={this.handleChange}
-              />
-            </ExpansionPanel>
-          </div>
-
-          <h3> Sted: {this.state.location_fk} </h3>
-          <h3> Dato startet: {this.state.date_made} </h3>
-          <h3> Status: {this.state.status_fk} </h3>
-
-          <Button fullWidth variant="contained" className={classes.button} type="submit">
-=======
                 validators={['required']}
                 errorMessages={['this field is required']}
             >
@@ -243,7 +200,6 @@ class EditProblem extends React.Component<Props, State> {
         </ValidatorForm>
 
             <Button fullWidth variant="contained" className={classes.button} type="submit">
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
             Lagre endringer
           </Button>
           </Grid>

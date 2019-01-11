@@ -1,20 +1,10 @@
 // @flow
 import React from 'react';
 import { Button, Typography, MenuItem } from '@material-ui/core/';
-<<<<<<< HEAD
-import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-=======
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import Divider from '@material-ui/core/Divider/Divider';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
-=======
 import Grid from '@material-ui/core/Grid';
 import createHashHistory from 'history/createHashHistory';
 import { getProblem } from '../../store/actions/problemActions';
@@ -28,8 +18,6 @@ const styles = (theme: Object) => ({
   },
   button: {
     //marginTop: theme.spacing.unit,
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
-
   },
   editBTN: {
     align: 'right'
@@ -41,18 +29,8 @@ const styles = (theme: Object) => ({
     height: '100%',
     paddingBottom: 20,
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   }
-
-<<<<<<< HEAD
-class ProblemDetails extends React.Component<Props, State> {
-  render() {
-    return {};
-  }
-}
-
-export default ProblemDetails;
-=======
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -83,18 +61,18 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(problem);
     return (
       <div className={classes.main}>
-        <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
-        <Typography variant="h2" gutterBottom align="center">
-          Problem informasjon
-        </Typography>
-        <div className="pdbtnwrapper">
-          <Button className={classes.addBTN} onClick={this.onClickAdd}>
-            Add entrepreneur
-          </Button>
-          <Button className={classes.editBTN}onClick={this.onClickEdit}>
-            Edit Problem
-          </Button>
-        </div>
+        <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
+          <Typography variant="h2" gutterBottom align="center">
+            Problem informasjon
+          </Typography>
+          <div className="pdbtnwrapper">
+            <Button className={classes.addBTN} onClick={this.onClickAdd}>
+              Add entrepreneur
+            </Button>
+            <Button className={classes.editBTN} onClick={this.onClickEdit}>
+              Edit Problem
+            </Button>
+          </div>
         </Grid>
       </div>
     );
@@ -106,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     problem: state.problem.problem
-  }
+  };
   /*
     getProblem(id).then(() => {
     return {
@@ -117,4 +95,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4

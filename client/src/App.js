@@ -12,12 +12,8 @@ import { SnackbarProvider } from 'notistack';
 import EditProblem from './components/problem/EditProblem';
 import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
-<<<<<<< HEAD
-import MuiTable from './components/util/MuiTable';
-=======
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -32,16 +28,9 @@ export default () => (
           <Route exact path="/editpb" component={EditProblemB} />
           <Route exact path="/editpa" component={EditProblemA} />
           <Route exact path="/editbruker" component={MainPage} />
-<<<<<<< HEAD
           <Route exact path="/lagproblem" component={CreateProblem} />
-          <Route exact path="/problemdetails" component={ProblemDetails} />
-          <Route exact path="/muiTable" component={MuiTable} />
-          <Route exact path="/:municipality" component={MuniPage} />
-=======
-          <Route exact path="/lagproblem" component={CreateProblem}/>
-          <Route exact path="/problemdetails/:problem_id" component={ProblemDetails}/>
+          <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
           {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
         </Switch>
         <Footer />
       </Fragment>
