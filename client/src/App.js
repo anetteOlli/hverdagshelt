@@ -13,6 +13,7 @@ import EditProblem from './components/problem/EditProblem';
 import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import MuiTable from './components/util/MuiTable';
+import UploadFile from './components/util/test';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -21,6 +22,7 @@ export default () => (
         <CssBaseline />
         <NavBar />
         <Switch>
+          <Route exact path="/uploadfile" component={UploadFile} />
           <Route exact path="/" component={Map} />
           <Route exact path="/registrer-bruker" component={SignUp} />
           <Route exact path="/editp" component={EditProblem} />
