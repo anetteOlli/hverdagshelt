@@ -7,14 +7,17 @@ const history = createHashHistory();
 // Material-ui
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
         Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
-        Icon, Fab
+        Icon, Fab, Switch,
+        FormControl, FormControlLabel, FormHelperText,
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import MuiTable from '../util/MuiTable'
-import createMuiData from '../util/createMuiData'
+import MuiTable from '../util/MuiTable';
+import createMuiData from '../util/createMuiData';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import {createProblem, getProblemsByMuniAndStreet} from '../../store/actions/problemActions';
@@ -240,10 +243,31 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
-            <Typography>Last opp et bilde</Typography>
-            <Fab color="primary" aria-label="Add" className="{classes.fab}">
-              <AddIcon onClick={handleUpload}/>
-            </Fab>
+            <FormControl fullWidth margin="normal">
+              {state.displayImg != '' ? (<CardMedia
+                image={state.displayImg || ''}
+                title="Image title"
+                style={{
+                  height: 400,
+                  paddingTop: '20%'
+                }}
+              />) :
+              (<i className="imgHere"></i>)}
+              <input
+                accept="image/*"
+                id="contained-button-file"
+                multiple
+                type="file"
+                onChange={handleUpload}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="contained-button-file">
+                <Button variant="contained" component="span">
+                  <CloudUploadIcon className="icon-button" />
+                  {'  '}Last opp bilde
+                </Button>
+              </label>
+            </FormControl>
           </CardContent>
         </Card>
       );
@@ -269,7 +293,8 @@ type State = {
   municipality: string,
   street: string,
   description: string,
-  imageURL: string,
+  image: any,
+  displayImg: string,
   entrepreneur: string,
   status: string,
 
@@ -302,7 +327,8 @@ class CreateProblem extends React.Component<Props, State> {
     municipality: '',
     street: '',
     description: '',
-    imageURL: '',
+    image: '',
+    displayImg: '',
     entrepreneur: '',
     status: 'Unchecked',
 
@@ -330,8 +356,7 @@ class CreateProblem extends React.Component<Props, State> {
    * @params municipality: string, the user-selected municipality
    * @params street: string, the inputted street
    * */
-  getSimilarProblems(municipality: string, street: string) {
-    //@TODO AXIOS GET SIMILAR PROBLEMS
+   getSimilarProblems(municipality: string, street: string){
     /*
     [
       {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', street: 'Kongens Gate', description: 'abc', status: 'Unchecked', imageURL: "https://frontnews.eu/contents/news/7936/images/resize_g0fGyc2N8zYuO6kVZUKI3hqe7mWn45Tv_980x590.jpg"},
@@ -344,18 +369,23 @@ class CreateProblem extends React.Component<Props, State> {
     );
 
     if(simProbs[0] != null){
-      this.state.similarProblems = simProbs;
+      this.setState({
+        similarProblems: simProbs
+      });
+      //this.state.similarProblems = simProbs;
     }
   }
 
   /** Gets ALL problem categories*/
   getCategories(){
-    //@TODO AXIOS GET CATEGORIES
     //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
      let categories = this.props.getCategories();
 
     if(categories[0] != null){
-      this.state.categories = categories;
+      this.setState({
+        getCategories: categories
+      });
+      //this.state.categories = categories;
     }
   }
 
@@ -393,14 +423,14 @@ class CreateProblem extends React.Component<Props, State> {
     this.setState({ [name]: value });
   };
 
-  /** Handles validation forms' submit event
+  /** Handles validation forms' submit event and post request to server
    *  @see handleNext
    * */
   handleSubmit = e => {
     e.preventDefault();
-    //console.log(this.state);
+    console.log(this.state);
     if(this.state.activeStep > 1){
-      //@TODO Save in DB/Redux
+      //Save in DB/Redux
       this.props.createProblem(this.state).then( e =>
         this.props.enqueueSnackbar('error',{variant: 'warning'})
       );
@@ -416,7 +446,11 @@ class CreateProblem extends React.Component<Props, State> {
   /** Handles uploading of image files */
   handleUpload = e => {
     //@TODO make uploader for image
-    console.log("Upload me hunny!");
+    this.setState({
+      image: e.target.files[0],
+      displayImg: URL.createObjectURL(e.target.files[0])
+    });
+
   }
 
   render() {

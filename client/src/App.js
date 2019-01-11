@@ -32,6 +32,7 @@ export default () => (
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem} />
           <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
+          <Route exact path="/upload" component={UploadFile} />
           {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
         </Switch>
         <Footer />
