@@ -15,7 +15,7 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
 import EditProblemMain from './components/problem/EditProblemMain';
-import UploadFile from './components/util/test';
+import UploadFile from './components/util/Test';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>

@@ -155,6 +155,7 @@ render(){
             onClick={e => {
               let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
               problem_id = myProblem.id
+              // history.push til problem details med id = problem_id
             }}
           />
         </Grid>

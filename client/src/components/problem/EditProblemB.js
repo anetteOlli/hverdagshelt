@@ -125,12 +125,6 @@ class EditProblemA extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
-
-          <Grid item xs={6} sm={3} className={classes.grid2}>
-          </Grid>
-
-          <Grid item xs name={"Grid item for problems"} className={classes.grid2} >
-            <Grid container spacing={24}  className={classes.grid3} name={"Grid cointainer for problems"}>
               <Grid item xs className={classes.grid3} name={"GridItem UserProblem"}>
                 <Paper className={classes.paper2} name={"Paper for UserProblem"}>
                   <Typography variant="h2" gutterBottom align="center">
@@ -275,8 +269,6 @@ class EditProblemA extends React.Component<Props, State> {
                 Lagre endringer
               </Button>
             </div>
-          </Grid>
-        </Grid>
       </div>
     );
   }

@@ -30,14 +30,17 @@ export type Action =
 const initState = {
   problems: [
     {
-      problem_id: -1,
-      problem_description: '',
-      img_user: '',
-      date_made: '',
-      last_edited: '',
-      location_fk: -1,
-      status_fk: -1,
-      category_fk: -1
+      problem_id: 1,
+      problem_description: 'stort problem',
+      description_entrepreneurcr: 'not so big after all',
+      img_user: 'https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg',
+      date_made: 'før lunsj',
+      user_fk: 1,
+      entrepreneur_fk: 1,
+      last_edited: 'etter lunsj',
+      location_fk: 'bergen',
+      status_fk: 'påbegynt',
+      category_fk: 'vei'
     }
   ],
 
