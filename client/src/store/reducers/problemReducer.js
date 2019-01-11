@@ -1,5 +1,5 @@
 // @flow
-type Problem = {
+export type State = {
   problem_id: number,
   problem_description: string,
   img_user: string,
@@ -7,73 +7,58 @@ type Problem = {
   last_edited: string,
   location_fk: number,
   status_fk: number,
-  category_fk: number
-};
-
-export type State = {
-  problems: Problem[],
-  errorMessage: string
-};
-
-export type Action = 
+  category_fk: number,
+  errorMessage: string };
+export type Action =
   | { type: 'CREATE_PROBLEM_SUCCESS' }
   | { type: 'CREATE_PROBLEM_ERROR', error: Error }
   | { type: 'EDIT_PROBLEM_SUCCESS' }
   | { type: 'EDIT_PROBLEM_ERROR', error: Error }
   | { type: 'DELETE_PROBLEM_SUCCESS' }
   | { type: 'DELETE_PROBLEM_ERROR', error: Error }
-  | { type: 'PROBLEMS_BY_STATE_SUCCESS', problems: [] }
-  | { type: 'PROBLEMS_BY_STATE_ERROR', error: Error }
-  | { type: 'PROBLEM_BY_ID_SUCCESS', problems: [] }
-  | { type: 'PROBLEM_BY_ID_ERROR', error: Error };
+  | { type: 'GOT_PROBLEM_SUCCESS', problem: problem };
 
 const initState = {
-  problems: [
-    {
-      problem_id: -1,
-      problem_description: '',
-      img_user: '',
-      date_made: '',
-      last_edited: '',
-      location_fk: -1,
-      status_fk: -1,
-      category_fk: -1
-    }
-  ],
-
+    problem: {
+      problem_id: 1,
+      problem_title: 'Hull i veien',
+      problem_description: 'Dette er krise kom og fiks!',
+      problem_locked: 0,
+      img_user: 'https://i.imgur.com/ykbz8hO.png',
+      date_made: '20-13-2018',
+      last_edited: '20-14-2018',
+      location_fk: 'Eplegaten 2',
+      status_fk: 'Fixed',
+      category_fk: 'Vei og kjørebane',
+    },
   errorMessage: ''
 };
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_PROBLEM_SUCCESS':
-      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;');
+      console.log('CREATE_PROBLEM_SUCCESS');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'CREATE_PROBLEM_ERROR':
-      console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('CREATE_PROBLEM_ERROR');
       return {
-        ...state,
         errorMessage: action.error.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
-      console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('EDIT_PROBLEM_SUCCESS');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
-      console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('EDIT_PROBLEM_ERROR');
       return {
-        ...state,
         errorMessage: action.error.message
       };
     case 'DELETE_PROBLEM_SUCCESS':
-      console.log('%c DELETE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('DELETE_PROBLEM_SUCCESS');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':
@@ -115,7 +100,6 @@ export default (state: State = initState, action: Action) => {
     case 'PROBLEM_BY_ID_ERROR':
       console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.error);
       return {
-        ...state,
         errorMessage: action.error.message
       };
     case 'GOT_PROBLEM_SUCCESS':
