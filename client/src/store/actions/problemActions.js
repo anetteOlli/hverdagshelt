@@ -1,6 +1,8 @@
 // @flow
 import type { Action, State } from '../reducers/problemReducer';
+
 import { postData, putData, deleteData, getData } from '../util';
+
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -74,6 +76,7 @@ export const getProblemsByState = (state: string) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_STATE_ERROR',
+
           error
         })
       )

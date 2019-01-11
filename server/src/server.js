@@ -7,7 +7,7 @@ import reload from 'reload';
 import fs from 'fs';
 import logger from 'morgan';
 
-const public_path = path.join(__dirname, '/../../client/public');
+const public_path = path.join(__dirname, '../../client/public');
 const app: express$Application = express();
 
 app.use(express.static(public_path));
