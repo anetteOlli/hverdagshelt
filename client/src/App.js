@@ -11,7 +11,8 @@ import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
 import EditProblem from "./components/problem/EditProblem";
 import MuniPage from './components/dashboard/MuniPage';
-import MuiTable from './components/util/MuiTable'
+import MuiTable from './components/util/MuiTable';
+import CreateEvent from './components/event/CreateEvent';
 
 export default () => (
   <SnackbarProvider maxSnack={3}>
@@ -26,6 +27,7 @@ export default () => (
           <Route exact path="/editbruker" component={MainPage} />
           <Route exact path="/lagproblem" component={CreateProblem}/>
           <Route exact path="/problemdetails" component={ProblemDetails}/>
+          <Route exact path="/opprArrangement" component={CreateEvent} />
           <Route exact path="/muiTable" component={MuiTable}/>
           <Route exact path="/:municipality" component={MuniPage} />
         </Switch>

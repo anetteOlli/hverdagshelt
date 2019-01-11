@@ -1,0 +1,372 @@
+// @flow
+import React from 'react';
+import withRoot from '../../withRoot';
+import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Icon from '@material-ui/core/Icon';
+
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory(); // Use history.push(...) to programmatically change path
+
+type Props = {
+  classes: Object,
+};
+
+type State = {
+  activeStep: number,
+
+  tittel: string,
+  description: string,
+  dateStart: string,
+  dateEnd: string,
+  imageURL: string,
+  status: string,
+
+  municipality: string,
+  location: string,
+
+};
+
+/**Styling*/
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%'
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    //width: 200,
+    fullWidth: true,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  button: {
+    marginRight: theme.spacing.unit,
+  },
+  instructions: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+  form: {
+    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+  },
+  Select: {
+    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
+  Card:{
+    textAlign: 'center',
+  }
+});
+
+/**Municipality placeholder*/
+const municipalities = [
+  {
+    value: 'Rogaland',
+    label: 'Rogaland',
+  },
+  {
+    value: 'Hordaland',
+    label: 'Hordaland',
+  },
+  {
+    value: 'Sør-Trøndelag',
+    label: 'Sør-Trøndelag',
+  },
+  {
+    value: 'Finnmark',
+    label: 'Finnmark',
+  },
+];
+
+  /** @return the title for a specific step in the stepper */
+  function getSteps() {
+    return ['Hvor er arrangementet?', 'Beskriv problemet'];
+  }
+
+  /** @return the content (divs, buttons, etc) for a specific step in the stepper
+  * @params step: number, current step in Stepper
+  * @params state: State, CreateEvent's State
+  * @params handleChange: @see handleChange
+  * @params handleChangeSpec: @see handleChangeSpec
+  * @params handleUpload: @see handleUpload
+  */
+  function getStepContent(step: number,
+                          state: State,
+                          handleChange: function,
+                          handleChangeSpec: function,
+                          handleUpload: function, classes: Props) {
+
+    switch (step) {
+      case 0:
+        return (
+          <Card className={classes.contentNull}>
+            <CardContent>
+
+              <TextValidator
+                id="standard-select-municipalities-full-width"
+                select
+                fullWidth
+                margin="normal"
+                label="Kommune"
+                name="municipality"
+                className={classes.textField}
+                value={state.municipality}
+                onChange={handleChange}
+                validators={['required']}
+                errorMessages={['Du må skrive inn en kommune']}
+              >
+                {municipalities.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextValidator>
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Gate"
+                name="location"
+                autoComplete="location"
+                value={state.location}
+                onChange={handleChange}
+                validators={['required']}
+                errorMessages={['Du må skrive inn en gate']}
+              />
+              <div className={classes.mapPlaceholder}>
+                MAP HERE
+              </div>
+            </CardContent>
+          </Card>
+        );
+        case 1:
+          return (
+            <Card className={classes.contentEn} align="center">
+              <CardContent>
+                <Typography>{state.municipality}</Typography>
+                <Typography>{state.location}</Typography>
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Tittel"
+                  name="title"
+                  autoComplete="title"
+                  value={state.title}
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['Du må skrive inn en tittel']}
+                />
+                <TextValidator
+                  multiline
+                  fullWidth
+                  rows="2"
+                  rowsMax="6"
+                  margin="normal"
+                  label="Beskrivelse"
+                  name="description"
+                  autoComplete="description"
+                  value={state.description}
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['Du må skrive inn en beskrivelse']}
+                />
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Dato arrangementet starter"
+                  name="dateStart"
+                  autoComplete="DD-MM-ÅÅÅÅ"
+                  value={state.dateStart}
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['Du må skrive inn en start-dato']}
+                />
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Dato arrangementet slutter"
+                  name="dateEnd"
+                  autoComplete="DD-MM-ÅÅÅÅ"
+                  value={state.dateEnd}
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['Du må skrive inn en slutt-dato']}
+                />
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Status"
+                  name="status"
+                  autoComplete="status"
+                  value={state.status}
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['Du må skrive inn en status på arrangementet']}
+                />
+                <Typography>Last opp et bilde</Typography>
+                <Fab color="primary" aria-label="Add" className="{classes.fab}">
+                  <AddIcon onClick={handleUpload}/>
+                </Fab>
+              </CardContent>
+            </Card>
+          );
+      default:
+        return 'Unknown step';
+    }
+  }
+
+  /** Handles 'supporting' an existing problem
+  * @params problemId: number, id of the problem to 'support'
+  */
+  function handleSupport(eventId: number){
+    //@TODO Handle support a event
+    console.log("Clicked updoot for " + eventId + "! Take me away hunny")
+  }
+
+  class CreateEvent extends React.Component<Props, State>{
+
+    state = {
+      activeStep: 0,
+
+      tittel: '',
+      description: '',
+      dateStart: '',
+      dateEnd: '',
+      status: '',
+      imageURL: '',
+
+      municipality: '',
+      location: '',
+    };
+
+    render() {
+      const { classes } = this.props;
+      const steps = getSteps();
+      const { activeStep } = this.state;
+
+      return (
+        <div>
+          <div className={classes.Stepper}>
+            <Typography variant="h3" className={classes.tittel}>Opprett et arrangement</Typography>
+            <Stepper activeStep={activeStep}>
+              {steps.map((label, index) => {
+                const props = {};
+                const labelProps = {};
+                return (
+                  <Step key={label} {...props}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+            <div className={classes.bottomContent}>
+              {activeStep === steps.length ? (
+                <Card className={classes.createeventdone} align="center">
+                  <CardContent>
+                    <Typography className={classes.instructions}>
+                      {"Takk! Arrangementet er blitt opprettet."}
+                    </Typography>
+                    <Button variant="contained" color="primary"
+                    className={classes.createeventdonebutton}
+                    onClick={this.handleFinish}
+                    >
+                      Ferdig
+                    </Button>
+                  </CardContent>
+                </Card>
+              ) : (
+                <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
+                  {getStepContent(activeStep, this.state, this.handleChange,
+                                this.handleChangeSpec, this.handleUpload, classes)}
+                  <Card className={classes.navigationbuttons} align="center">
+                    <CardContent>
+                      <Button
+                        disabled={activeStep === 0}
+                        onClick={this.handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        type="submit"
+                      >
+                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      </Button>
+                  </CardContent>
+                </Card>
+              </ValidatorForm>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /** Handles clicking "Next" button */
+    handleNext = () => {
+      const { activeStep } = this.state;
+      this.setState({
+        activeStep: activeStep + 1
+      });
+    };
+
+    /** Handles clicking "Back" button */
+    handleBack = () => {
+      this.setState(state => ({
+        activeStep: state.activeStep - 1
+      }));
+    };
+
+    /** Handles input values
+     * changes this component's state values
+     * */
+    handleChange = event => {
+      this.setState({ [event.target.name]: event.target.value });
+    };
+
+    /** Handles validation forms' submit event
+     *  @see handleNext
+     * */
+    handleSubmit = e => {
+      e.preventDefault();
+      //console.log(this.state);
+      if(this.state.activeStep > 0){
+        //@TODO Save in DB/Redux
+        console.log("SAVE PROBLEM HERE")
+      }
+      this.handleNext();
+    };
+
+    /** Handles when user is done and gets sent away. */
+    handleFinish = e => {
+      history.push("/");
+    };
+
+    /** Handles uploading of image files */
+    handleUpload = e => {
+      //@TODO make uploader for image
+      console.log("Upload me hunny!");
+    }
+  }
+
+  export default withRoot(withStyles(styles)(CreateEvent));

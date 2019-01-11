@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { withStyles, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, Tabs, Tab, AppBar, NoSsr } from '@material-ui/core';
+import { withStyles, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, Tabs, Tab } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import createHashHistory from 'history/createHashHistory';

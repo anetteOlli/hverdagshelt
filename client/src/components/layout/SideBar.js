@@ -12,7 +12,7 @@ import HotIcon from '@material-ui/icons/Whatshot';
 import SettingIcon from '@material-ui/icons/Settings';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import { NavLink } from 'react-router-dom';
-
+import EventIcon from '@material-ui/icons/event'
 type Props = {
   classes: Object,
   open: any,
@@ -35,11 +35,11 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem button component={NavLink} to={'/browse/newest'}>
+          <ListItem button component={NavLink} to={'/opprArrangement'}>
             <ListItemIcon>
-              <NewIcon />
+              <EventIcon />
             </ListItemIcon>
-            <ListItemText primary="Test" />
+            <ListItemText primary="Opprett Arrangement" />
           </ListItem>
           <ListItem button component={NavLink} to={'/browse/trending'}>
             <ListItemIcon>
