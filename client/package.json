@@ -42,6 +42,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --hot --watch --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "webpack --mode development --watch"
   }
 }
