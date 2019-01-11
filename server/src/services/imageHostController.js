@@ -12,11 +12,12 @@ class ImageHostController {
   uploadImage(image,callback) {
     cloudinary.v2.uploader.upload(image,
       function(error, result) {
-      if(!error){
-        console.log(result);
-        callback(result.url);
+        if(!error){
+          console.log(result);
+          callback(result.url);
+        }
       }
-    });
+    );
   }
 }
 module.exports = new ImageHostController();
