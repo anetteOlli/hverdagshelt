@@ -6,7 +6,7 @@ const history = createHashHistory();
 
 // Material-ui
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
-        Grid, Paper, Card, CardContent, TextField
+        Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
@@ -46,6 +46,9 @@ const styles = theme => ({
   },
   Card:{
     textAlign: 'center',
+  },
+  media:{
+    objectFit: 'cover',
   }
 });
 
@@ -121,7 +124,7 @@ function getStepContent(step: number, state: State,
         <Card className="content-1">
           <CardContent>
             <Grid container spacing={8}>
-              <Grid item sm={4} className="MU-table">
+              <Grid item sm={4} className="MuiTable">
                 <MuiTable
                 rows={rows}
                 onClick={e => {
@@ -133,6 +136,7 @@ function getStepContent(step: number, state: State,
                   handleChangeSpec("cur_description", myProblem.description);
                   handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
                   handleChangeSpec("cur_status", myProblem.status);
+                  handleChangeSpec("cur_imageURL", myProblem.imageURL);
                   }}
                 />
               </Grid>
@@ -176,6 +180,25 @@ function getStepContent(step: number, state: State,
                   onClick={e => handleSupport(state.cur_id)}>
                      Støtt problemet
                    </Button>
+                </Grid>
+              </Grid>
+              <Grid item
+              xs container
+              direction="column"
+              alignItems="center"
+              justify="center"
+              >
+                <Grid item sm={10}>
+                  <Card>
+                    <CardMedia
+                    component="img"
+                    alt="problem img"
+                    height="300"
+                    width="300"
+                    image={state.cur_imageURL}
+                    title="problem image"
+                    />
+                  </Card>
                 </Grid>
               </Grid>
             </Grid>
@@ -303,9 +326,9 @@ class CreateProblem extends React.Component<Props, State> {
   getSimilarProblems(municipality: string, location: string) {
     //@TODO AXIOS GET SIMILAR PROBLEMS
     this.similarProblems = [
-    {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', location: 'Kongens Gate', description: 'abc', status: 'Unchecked' },
-    {id:2, title: 'Dårlig', category: 'Veier', municipality: 'Trondheim', location: 'Jørunds Gate', description: 'def', status: 'Checked' },
-    {id:3, title: 'Problem', category: 'Veier', municipality: 'Ås', location: 'Torget', description: 'mnl', status: 'Working' }
+    {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', location: 'Kongens Gate', description: 'abc', status: 'Unchecked', imageURL: "https://frontnews.eu/contents/news/7936/images/resize_g0fGyc2N8zYuO6kVZUKI3hqe7mWn45Tv_980x590.jpg"},
+    {id:2, title: 'Dårlig rengjøring', category: 'Bygninger', municipality: 'Trondheim', location: 'Jørunds Gate', description: 'def', status: 'Checked', imageURL: "https://previews.123rf.com/images/metrue/metrue1412/metrue141200013/34190474-abandoned-overgrown-building-exterior-urban-industrial-construction.jpg" },
+    {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', location: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
   }
 
