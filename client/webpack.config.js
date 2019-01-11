@@ -14,15 +14,15 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test:/\.css$/,
-        use:['style-loader','css-loader']
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
-    ],
+    ]
   },
   devServer: {
-    publicPath: "/",
-    contentBase: "./public",
+    publicPath: '/',
+    contentBase: './public',
     compress: true,
-    port: 3000,
+    port: 3000
   }
 };

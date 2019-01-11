@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 /*Henter alle routes her, fra index.*/
 app.use('/', routes);
 
-
 //custom 404 error handler
 app.use((req, res, next) => {
   const error = new Error('Not found');
