@@ -15,82 +15,93 @@ type State = {
 
 /**Styling*/
 const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
   card: {
     textAlign: 'center',
     color: theme.palette.text.secondary,
     marginBottom: 20,
     justifyContent: 'center',
-    alignContent: 'center',
+    alignContent: 'center'
   },
   tittel: {
-    size: 10,
     marginButtom: 30,
     marginTop: 30,
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '150%'
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '300%'
+    }
   },
   tekst: {
     size: 5,
-    marginTop: 50,
+    marginTop: 50
   },
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   textField: {
-    fullWidth: true,
+    fullWidth: true
   },
   dense: {
-    marginTop: 19,
+    marginTop: 19
   },
   menu: {
-    width: 200,
+    width: 200
   },
   button: {
     marginTop: 50,
     marginBottom: 50,
     size: 200,
-    padding: 30,
+    padding: 30
   },
   input: {
-    display: 'none',
-  },
+    display: 'none'
+  }
 });
 
 /**Municipality placeholder*/
 const municipalities = [
   {
     value: 'Rogaland',
-    label: 'Rogaland',
+    label: 'Rogaland'
   },
   {
     value: 'Hordaland',
-    label: 'Hordaland',
+    label: 'Hordaland'
   },
   {
     value: 'Sør-Trøndelag',
-    label: 'Sør-Trøndelag',
+    label: 'Sør-Trøndelag'
   },
   {
     value: 'Finnmark',
-    label: 'Finnmark',
-  },
+    label: 'Finnmark'
+  }
 ];
 
 class MainPage extends React.Component<Props, State> {
   state = {
-    municipality: ""
-  }
+    municipality: ''
+  };
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <main>
         <Grid container spacing={24}>
-          <Grid item xs={1}>
-          </Grid>
+          <Grid item xs={1} />
           <Grid item xs={10}>
             <Card className={classes.card}>
               <CardContent>
-                <Typography variant="h3" className={classes.tittel}>VELKOMMEN TIL HVERDAGSHELT!</Typography>
-                <Typography variant="h5" className={classes.tekst}>Finn din kommune</Typography>
+                <Typography variant="h3" className={classes.tittel}>
+                  VELKOMMEN TIL HVERDAGSHELT!
+                </Typography>
+                <Typography variant="h5" className={classes.tekst}>
+                  Finn din kommune
+                </Typography>
                 <TextField
                   id="standard-select-municipalities-full-width"
                   select
@@ -107,15 +118,22 @@ class MainPage extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </TextField>
-                <Typography variant="h5" className={classes.tekst}>Eller</Typography>
-                <Button variant="contained" color="primary" size="large" className={classes.button} onClick={this.registerProblem}>
+                <Typography variant="h5" className={classes.tekst}>
+                  Eller
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  className={classes.button}
+                  onClick={this.registerProblem}
+                >
                   Registrer et problem
                 </Button>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={1}>
-          </Grid>
+          <Grid item xs={1} />
         </Grid>
       </main>
     );
@@ -133,7 +151,7 @@ class MainPage extends React.Component<Props, State> {
   /** User will be pushed to the chosen municipality page */
   handleChange = municipality => event => {
     history.push('/' + event.target.value);
-  }
+  };
 
   /**User will be pushed to the registerProblem page */
   registerProblem() {

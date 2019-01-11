@@ -37,7 +37,7 @@ class SignIn extends React.Component<Props, State> {
   state = {
     email: '',
     password: '',
-    remember: ''
+    remember: false
   };
 
   handleChange = e => {
@@ -50,7 +50,7 @@ class SignIn extends React.Component<Props, State> {
     this.setState({
       email: '',
       password: '',
-      remember: ''
+      remember: false
     });
     this.props.onClose();
   };
@@ -102,9 +102,7 @@ class SignIn extends React.Component<Props, State> {
               errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
             />
             <FormControlLabel
-              control={
-                <Checkbox onChange={this.handleRemember} color="primary" />
-              }
+              control={<Checkbox onChange={this.handleRemember} color="primary" />}
               label="Remember me"
             />
             <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>

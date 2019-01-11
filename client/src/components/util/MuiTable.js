@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import createHashHistory from 'history/createHashHistory'
+import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
 
 // Material-ui
@@ -11,88 +11,87 @@ import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
-import {MenuItem, Button, Typography,
-        Grid, Paper, Card, CardContent,
-        SvgIcon, Icon
-        } from '@material-ui/core';
+import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon } from '@material-ui/core';
 import { CheckCircle } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
 /**
-* @fileOverview Material UI Table Component. Used with Events and problems.
-* @author Sindre H. Paulshus
-* @see https://material-ui.com/demos/tables/
-* How to use: import and use as any component, ie <MuiTable />
-* As props use 'rows' and 'onClick={e => code}'
-* 'rows' are the actual table rows and need to be formatted with createMuiData.js
-* 'onClick' represents when an item in the table is clicked. e is the event, so use e.rowData to get the data in the row. This data
-* will be the formatted one from createMuiData.js. Crosscheck e.rowData.eid with ids of the events you put in the table to get all the values.
-* */
+ * @fileOverview Material UI Table Component. Used with Events and problems.
+ * @author Sindre H. Paulshus
+ * @see https://material-ui.com/demos/tables/
+ * How to use: import and use as any component, ie <MuiTable />
+ * As props use 'rows' and 'onClick={e => code}'
+ * 'rows' are the actual table rows and need to be formatted with createMuiData.js
+ * 'onClick' represents when an item in the table is clicked. e is the event, so use e.rowData to get the data in the row. This data
+ * will be the formatted one from createMuiData.js. Crosscheck e.rowData.eid with ids of the events you put in the table to get all the values.
+ * */
 
 const styles = theme => ({
   table: {
-    fontFamily: theme.typography.fontFamily,
+    fontFamily: theme.typography.fontFamily
   },
   flexContainer: {
     display: 'flex',
     alignItems: 'center',
-    boxSizing: 'border-box',
+    boxSizing: 'border-box'
   },
   tableRow: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   tableRowHover: {
     '&:hover': {
-      backgroundColor: theme.palette.grey[200],
-    },
+      backgroundColor: theme.palette.grey[200]
+    }
   },
   tableCell: {
-    flex: 1,
+    flex: 1
   },
   noClick: {
-    cursor: 'initial',
-  },
+    cursor: 'initial'
+  }
 });
 
- /** Virtualized MU Table Component
-  *  NB! Not to be used.
-  *  @see MuiTable instead
-  *  Icon colors: primary, secondary, action, error, disabled
-  *  */
+/** Virtualized MU Table Component
+ *  NB! Not to be used.
+ *  @see MuiTable instead
+ *  Icon colors: primary, secondary, action, error, disabled
+ *  */
 class MuiVirtualizedTable extends React.PureComponent {
   getRowClassName = ({ index }) => {
     const { classes, rowClassName, onRowClick } = this.props;
 
     return classNames(classes.tableRow, classes.flexContainer, rowClassName, {
-      [classes.tableRowHover]: index !== -1 && onRowClick != null,
+      [classes.tableRowHover]: index !== -1 && onRowClick != null
     });
   };
 
   cellRenderer = ({ cellData, columnIndex = null }) => {
     const { columns, classes, rowHeight, onRowClick } = this.props;
-    let icon = (cellData == "Unchecked" ? 0
-    : (cellData == "Checked" ? 1
-    : (cellData == "Working" ? 2
-    : -1)));
-    let status = (icon >= 0 ? true : false);
+    let icon = cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1;
+    let status = icon >= 0 ? true : false;
     //console.log(icon);
     //console.log(cellData);
     return (
-        <TableCell
+      <TableCell
         component="div"
         className={classNames(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null,
+          [classes.noClick]: onRowClick == null
         })}
         variant="body"
         style={{ height: rowHeight }}
         align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
       >
-        {status ?
-          (icon == 0 ? <CheckCircle className="material-icons" color="disabled" />
-        : (icon == 1 ? <CheckCircle className="material-icons" color="primary"/>
-        : <CheckCircle className="material-icons" color="error"/>
-        ))
-        : cellData}
+        {status ? (
+          icon == 0 ? (
+            <CheckCircle className="material-icons" color="disabled" />
+          ) : icon == 1 ? (
+            <CheckCircle className="material-icons" color="primary" />
+          ) : (
+            <CheckCircle className="material-icons" color="error" />
+          )
+        ) : (
+          cellData
+        )}
       </TableCell>
     );
   };
@@ -101,7 +100,7 @@ class MuiVirtualizedTable extends React.PureComponent {
     const { headerHeight, columns, classes, sort } = this.props;
     const direction = {
       [SortDirection.ASC]: 'asc',
-      [SortDirection.DESC]: 'desc',
+      [SortDirection.DESC]: 'desc'
     };
 
     const inner =
@@ -144,7 +143,7 @@ class MuiVirtualizedTable extends React.PureComponent {
                 renderer = cellRendererProps =>
                   this.cellRenderer({
                     cellData: cellContentRenderer(cellRendererProps),
-                    columnIndex: index,
+                    columnIndex: index
                   });
               } else {
                 renderer = this.cellRenderer;
@@ -156,7 +155,7 @@ class MuiVirtualizedTable extends React.PureComponent {
                   headerRenderer={headerProps =>
                     this.headerRenderer({
                       ...headerProps,
-                      columnIndex: index,
+                      columnIndex: index
                     })
                   }
                   className={classNames(classes.flexContainer, className)}
@@ -173,37 +172,31 @@ class MuiVirtualizedTable extends React.PureComponent {
   }
 }
 
-MuiVirtualizedTable .propTypes = {
+MuiVirtualizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       cellContentRenderer: PropTypes.func,
       dataKey: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired,
-    }),
+      width: PropTypes.number.isRequired
+    })
   ).isRequired,
   headerHeight: PropTypes.number,
   onRowClick: PropTypes.func,
   rowClassName: PropTypes.string,
   rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  sort: PropTypes.func,
+  sort: PropTypes.func
 };
 
-MuiVirtualizedTable .defaultProps = {
+MuiVirtualizedTable.defaultProps = {
   headerHeight: 56,
-  rowHeight: 56,
+  rowHeight: 56
 };
 
-const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable );
+const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 //Backup
-const data = [
-  ['Frozen yoghurt'],
-  ['Ice cream sandwich'],
-  ['Eclair'],
-  ['Cupcake'],
-  ['Gingerbread'],
-];
+const data = [['Frozen yoghurt'], ['Ice cream sandwich'], ['Eclair'], ['Cupcake'], ['Gingerbread']];
 
 let id = 0;
 function createSingleData(problem) {
@@ -218,16 +211,16 @@ for (let i = 0; i < 3; i += 1) {
   rowsDefault.push(createSingleData(...randomSelection));
 }
 
-function createData(problems: []){
+function createData(problems: []) {
   const rowsDefault = [];
-  problems.map(e => rowsDefault.push(createSingleData(e.street)))
+  problems.map(e => rowsDefault.push(createSingleData(e.street)));
 }
 
 /** MuiTable Component. A table of problems/events
-* @params props: rows and onClick
-*/
+ * @params props: rows and onClick
+ */
 function MuiTable(props) {
-  const rows = (props.rows == null ? rowsDefault : props.rows);
+  const rows = props.rows == null ? rowsDefault : props.rows;
   //console.log("Rows lower");
   //console.log(rows);
   return (
@@ -241,13 +234,13 @@ function MuiTable(props) {
             width: 100,
             flexGrow: 1.0,
             label: 'Status',
-            dataKey: 'status',
+            dataKey: 'status'
           },
           {
             width: 200,
             flexGrow: 1.0,
             label: 'Problem',
-            dataKey: 'title',
+            dataKey: 'title'
           }
         ]}
       />

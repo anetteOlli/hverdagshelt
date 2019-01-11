@@ -1,18 +1,14 @@
 // @flow
 import type { Action, State } from '../reducers/userReducer';
-import axios from 'axios';
-import { setToken, clearToken } from '../util';
+import { setToken, clearToken, signInAxios, postData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => State;
 
-const url: string = '';
-
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
-    return axios
-      .post(url + 'auth/login', creds)
+    return signInAxios(creds)
       .then(response => {
         setToken(response.data.token);
         return dispatch({
@@ -31,8 +27,7 @@ export const signIn = (creds: { email: string, password: string }) => {
 
 export const signUp = (newUser: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return axios
-      .post(url + 'auth/signup', newUser)
+    return postData('users', newUser)
       .then(response => {
         setToken(response.data.token);
         return dispatch({
