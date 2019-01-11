@@ -55,11 +55,11 @@ class SimpleMap extends React.Component<Props, State> {
     }
   };
 
+  //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
       <div style={{ height: '80vh', width: '100%' }}>
-        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
           defaultCenter={center}
