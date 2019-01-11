@@ -8,7 +8,6 @@ router.get("/", (req: express$Request, res: express$Response) => {
   problemDao.getAll((status, data) => {
     console.log(data);
     res.status(status);
-
     res.json(data);
   });
 });

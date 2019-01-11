@@ -25,6 +25,12 @@ const styles = (theme: Object) => ({
   },
   addBTN: {
     align: 'right'
+  },
+  grid: {
+    height: '100%',
+    paddingBottom: 20,
+    display: 'flex',
+    alignItems: 'flex-end',
   }
 
 });
@@ -57,6 +63,7 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(problem);
     return (
       <div className={classes.main}>
+        <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
         <Typography variant="h2" gutterBottom align="center">
           Problem informasjon
         </Typography>
@@ -67,8 +74,8 @@ class ProblemDetails extends React.Component<Props, State> {
           <Button className={classes.editBTN}onClick={this.onClickEdit}>
             Edit Problem
           </Button>
-
         </div>
+        </Grid>
       </div>
     );
   }

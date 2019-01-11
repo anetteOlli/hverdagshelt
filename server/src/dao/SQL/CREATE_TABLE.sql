@@ -39,6 +39,7 @@ CREATE TABLE problem (
     problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     problem_title VARCHAR(50) NOT NULL,
     problem_description VARCHAR(300) NOT NULL,
+    problem_locked TINYINT(1) DEFAULT 0,
     description_entrepreneur VARCHAR(300),
     img_user VARCHAR(300),
     img_entrepreneur VARCHAR(300),
