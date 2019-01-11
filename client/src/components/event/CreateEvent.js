@@ -231,10 +231,6 @@ function getStepContent(step: number,
                 validators={['required']}
                 errorMessages={['Du må skrive inn en status på arrangementet']}
               />
-              <Typography>Last opp et bilde</Typography>
-              <Fab color="primary" aria-label="Add" className="{classes.fab}">
-                <AddIcon onClick={handleUpload}/>
-              </Fab>
               <FormControl fullWidth margin="normal">
                 {state.displayImg != '' ?
                 (<CardMedia
@@ -257,7 +253,7 @@ function getStepContent(step: number,
                 <label htmlFor="contained-button-file">
                   <Button fullWidth variant="contained" component="span">
                     <CloudUploadIcon className="icon-button" />
-                    Upload
+                    Last opp bilde
                   </Button>
                 </label>
               </FormControl>
