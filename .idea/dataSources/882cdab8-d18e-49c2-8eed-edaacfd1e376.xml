@@ -1098,11 +1098,7 @@ county</ColNames>
     <column id="270" parent="232" name="problem_locked">
       <Position>4</Position>
       <DataType>tinyint(1)|0s</DataType>
-<<<<<<< HEAD
       <DefaultExpression>0</DefaultExpression>
-=======
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
->>>>>>> 4232f185ae58bfb3845c85013233e47241ace4d4
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="271" parent="232" name="description_entrepreneur">

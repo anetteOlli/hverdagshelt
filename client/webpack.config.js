@@ -21,8 +21,15 @@ module.exports = {
   },
   devServer: {
     publicPath: '/',
-    contentBase: './public',
+    contentBase: path.join(__dirname, 'public'),
     compress: true,
-    port: 3000
+    port: 3000,
+    overlay: {
+      warnings: true,
+      errors: true
+    },
+    proxy: {
+      '/': 'http://localhost:3001'
+    }
   }
 };
