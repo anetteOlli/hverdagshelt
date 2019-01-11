@@ -35,29 +35,41 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem button component={NavLink} to={'/browse/newest'}>
+          <ListItem button component={NavLink} to={'/map'}>
             <ListItemIcon>
               <NewIcon />
             </ListItemIcon>
-            <ListItemText primary="Test" />
+            <ListItemText primary="Map" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/browse/trending'}>
+          <ListItem button component={NavLink} to={'/munipage'}>
             <ListItemIcon>
               <TrendingIcon />
             </ListItemIcon>
-            <ListItemText primary="Trending" />
+            <ListItemText primary="munipage" />
           </ListItem>
-          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/browse/popular'}>
+          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/stati'}>
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Most Popular" />
+            <ListItemText primary="stati" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/tests'}>
+          <ListItem button component={NavLink} to={'/problemdetails/2'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="Tests components" />
+            <ListItemText primary="ProblemDetails" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/lagproblem'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="lagproblem" />
+          </ListItem>
+          <ListItem button component={NavLink} to={'/editp'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="editproblem" />
           </ListItem>
         </List>
         <Divider />
