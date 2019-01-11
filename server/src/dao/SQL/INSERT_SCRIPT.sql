@@ -1,20 +1,53 @@
-INSERT INTO counties VALUES ('Trøndelag');
-INSERT INTO counties VALUES ('Oppland');
-INSERT INTO counties VALUES ('Oslo');
-INSERT INTO counties VALUES ('Nordland');
-INSERT INTO counties VALUES ('Telemark');
-INSERT INTO counties VALUES ('Hedmark');
-INSERT INTO counties VALUES ('Akershus');
-INSERT INTO counties VALUES ('Aust-Agder');
-INSERT INTO counties VALUES ('Vest-Agder');
-INSERT INTO counties VALUES ('Sogn og Fjordane');
-INSERT INTO counties VALUES ('Møre og Romsdal');
-INSERT INTO counties VALUES ('Finnmark');
-INSERT INTO counties VALUES ('Troms');
-INSERT INTO counties VALUES ('Hordaland');
-INSERT INTO counties VALUES ('Buskerud');
-INSERT INTO counties VALUES ('Rogaland');
-INSERT INTO counties VALUES ('Østfold');
+INSERT INTO CATEGORY VALUES('yeeet');
+INSERT INTO CITY VALUES('cityYeet');
+INSERT INTO street VALUES('STREETYEET');
+INSERT INTO status VALUES ('STATUSYEET');
+INSERT INTO priority VALUES ('1');
+INSERT INTO user (email, password, auz_url, priority_fk) VALUES('test@test.test', 'ok', 'test', '1');
+INSERT INTO problem VALUES (DEFAULT,"yeet","yeeeet", DEFAULT, NULL,null ,null,  DEFAULT, NULL, NULL, 'yeeet','STATUSYEET', 1, NULL, 2.13,3.13, 'Trøndelag', 'Trondheim', 'cityYeet','STREETYEET');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO county VALUES ('Trøndelag');
+INSERT INTO county VALUES ('Oppland');
+INSERT INTO county VALUES ('Oslo');
+INSERT INTO county VALUES ('Nordland');
+INSERT INTO county VALUES ('Telemark');
+INSERT INTO county VALUES ('Hedmark');
+INSERT INTO county VALUES ('Akershus');
+INSERT INTO county VALUES ('Aust-Agder');
+INSERT INTO county VALUES ('Vest-Agder');
+INSERT INTO county VALUES ('Sogn og Fjordane');
+INSERT INTO county VALUES ('Møre og Romsdal');
+INSERT INTO county VALUES ('Finnmark');
+INSERT INTO county VALUES ('Troms');
+INSERT INTO county VALUES ('Hordaland');
+INSERT INTO county VALUES ('Buskerud');
+INSERT INTO county VALUES ('Rogaland');
+INSERT INTO county VALUES ('Østfold');
+INSERT INTO county VALUES ('Vestfold');
 
 
 
