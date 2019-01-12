@@ -9,25 +9,23 @@ type GetState = () => State;
 
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
-    dispatch({
-      type: 'LOADING',
-      payload: true
-    });
+    dispatch(loading());
     return signInAxios(creds)
-      .then((response: { token: string, id: number }) => {
-        setToken(response.token);
+      .then((response: JSON) => {
+        console.log(response);
+        setToken(response.data.token);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
           payload: response.id
         });
-        loading(false);
+        dispatch(loading(false));
       })
       .catch((error: Error) => {
         dispatch({
           type: 'SIGN_IN_ERROR',
           payload: error
         });
-        loading(false);
+        dispatch(loading(false));
       });
   };
 };

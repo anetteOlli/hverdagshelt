@@ -91,7 +91,7 @@ const dataSimplePieChart = [
 
 export const SimplePieChart = () => (
   <PieChart width={800} height={400}>
-    <Pie dataKey="1" data={dataSimplePieChart} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
+    <Pie data={dataSimplePieChart} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
     <Tooltip />
   </PieChart>
 );

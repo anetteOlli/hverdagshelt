@@ -1,9 +1,9 @@
 // @flow
-export type State = { isLoading: boolean, };
-export type Action = { type: 'SET_LOADING', payload: boolean }
+export type State = { isLoading: boolean };
+export type Action = { type: 'SET_LOADING', payload: boolean };
 
 const initState = {
-  isLoading: false,
+  isLoading: false
 };
 
 export default (state: State = initState, action: Action) => {
@@ -11,7 +11,7 @@ export default (state: State = initState, action: Action) => {
     case 'SET_LOADING':
       console.log('%c SET_LOADING', 'color: green; font-weight: bold;', action.payload);
       return {
-        isLoading: action.payload,
+        isLoading: action.payload
       };
     default:
       return state;

@@ -10,5 +10,5 @@ export const loading = (isLoading: boolean = true): Action => {
   return {
     type: 'SET_LOADING',
     payload: isLoading
-  }
+  };
 };
