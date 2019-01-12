@@ -1,24 +1,25 @@
 // @flow
 export type State = {
-  streetname: string,
-  municipality: string,
+  street: string,
+  muni: string,
   county: string,
   center: { lat: string, lng: string },
-  lat: string,
-  lng: string
+  currentMarker: { lat: string, lng: string }
 };
 export type Action =
-  | { type: 'UPDATE_MAP', lat: string, lng: string }
-  | { type: 'UPDATE_CENTER', lat: string, lng: string }
-  | { type: 'UPDATE_PLACE_NAME', street: string, municipality: string, county: string }
-  | { type: 'UPDATE_STREET', street: string };
+  | { type: 'UPDATE_MAP', payload: { lat: string, lng: string } }
+  | { type: 'UPDATE_CENTER', payload: { lat: string, lng: string } }
+  | { type: 'UPDATE_PLACE_NAME', payload: { street: string, muni: string, county: string } }
+  | { type: 'UPDATE_STREET', payload: { street: string } };
 
 const initState = {
-  streetname: '',
-  municipality: '',
+  street: '',
+  muni: '',
   county: '',
-  lat: '',
-  lng: '',
+  currentMarker: {
+    lat: '',
+    lng: ''
+  },
   center: {
     lat: '',
     lng: ''
@@ -28,36 +29,30 @@ const initState = {
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'UPDATE_MAP':
-      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        lat: action.lat,
-        lng: action.lng
+        currentMarker: action.payload
       };
     case 'UPDATE_CENTER':
-      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        lat: action.lat,
-        lng: action.lng,
-        center: {
-          lat: action.lat,
-          lng: action.lng
-        }
+        center: action.payload
       };
     case 'UPDATE_STREET':
-      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        streetname: action.street
+        street: action.payload
       };
     case 'UPDATE_PLACE_NAME':
-      console.log('%c UPDATE_PLACE_NAME', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_PLACE_NAME', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        streetname: action.street,
-        county: action.county,
-        municipality: action.municipality
+        street: action.payload.street,
+        muni: action.payload.muni,
+        county: action.payload.county
       };
     default:
       return state;

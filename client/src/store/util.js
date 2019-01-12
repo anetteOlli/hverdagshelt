@@ -17,7 +17,7 @@ export const getData = (endpoint: string) => {
   });
 };
 
-export const postData = (endpoint: string, data: JSON) => {
+export const postData = <T>(endpoint: string, data: T) => {
   return axios.post(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',

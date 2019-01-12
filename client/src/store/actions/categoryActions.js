@@ -19,7 +19,7 @@ export const createCategory = (newCategory: JSON) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'CREATE_CATEGORY_ERROR',
-          error
+          payload: error
         })
       )
     );
@@ -34,7 +34,7 @@ export const deleteCategory = (id: number) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'DELETE_CATEGORY_ERROR',
-          error
+          payload: error
         })
       )
     );
@@ -47,13 +47,13 @@ export const getCategories = () => {
       .then(categories =>
         dispatch({
           type: 'GET_CATEGORIES_SUCCESS',
-          categories
+          payload: categories
         })
       )
       .catch((error: Error) =>
         dispatch({
           type: 'GET_CATEGORIES_ERROR',
-          error
+          payload: error
         })
       );
   };

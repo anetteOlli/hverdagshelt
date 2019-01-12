@@ -19,36 +19,67 @@ import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
 import Stati from './components/statistics/StatisticPage';
 import SimpleMap from './components/map/GoogleMap';
+import { withStyles } from '@material-ui/core/styles';
+import withRoot from './withRoot';
+const styles = () => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
+  },
+  site: {
+    flex: '1 0 auto',
+    padding: '2em 0 2em 0',
+    width: '100%',
+    '&::after': {
+      content: '|\\00a0\\00a0',
+      display: 'block',
+      marginTop: '2em 0',
+      height: '0',
+      visibility: 'hidden'
+    }
+  }
+});
 
-export default () => (
+type Props = {
+  classes: Object
+};
+
+const App = (props: Props) => (
   <SnackbarProvider maxSnack={3}>
     <HashRouter>
       <Fragment>
         <CssBaseline />
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route exact path="/uploadfile" component={UploadFile} />
-          <Route exact path="/map" component={Map} />
-          <Route exact path="/registrer_bruker" component={SignUp} />
-          <Route exact path="/editp" component={EditProblem} />
-          <Route exact path="/editpb" component={EditProblemB} />
-          <Route exact path="/editpa" component={EditProblemA} />
-          <Route exact path="/lagproblem" component={CreateProblem} />
-          <Route exact path="/problemdetails" component={ProblemDetails} />
-          <Route exact path="/opprArrangement" component={CreateEvent} />
-          <Route exact path="/muiTable" component={MuiTable} />
-          <Route exact path="/munipage" component={MuniPage} />
-          <Route exact path="/lagproblem" component={CreateProblem} />
-          <Route exact path="/uploadfile" component={UploadFile} />
-          <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-          <Route exact path="/map_simpel" component={SimpleMap} />
-          <Route exact path="/stati" component={Stati} />
-          <Route exact path="/:municipality" component={MuniPage} />
-          {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
-        </Switch>
-        <Footer />
+        <div className={props.classes.root}>
+          <NavBar />
+          <div className={props.classes.site}>
+            <Switch>
+              <Route exact path="/" component={MainPage} />
+              <Route exact path="/uploadfile" component={UploadFile} />
+              <Route exact path="/map" component={Map} />
+              <Route exact path="/registrer-bruker" component={SignUp} />
+              <Route exact path="/editp" component={EditProblem} />
+              <Route exact path="/editpb" component={EditProblemB} />
+              <Route exact path="/editpa" component={EditProblemA} />
+              <Route exact path="/lagproblem" component={CreateProblem} />
+              <Route exact path="/problemdetails" component={ProblemDetails} />
+              <Route exact path="/opprArrangement" component={CreateEvent} />
+              <Route exact path="/muiTable" component={MuiTable} />
+              <Route exact path="/munipage" component={MuniPage} />
+              <Route exact path="/lagproblem" component={CreateProblem} />
+              <Route exact path="/uploadfile" component={UploadFile} />
+              <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
+              <Route exact path="/map_simpel" component={SimpleMap} />
+              <Route exact path="/stati" component={Stati} />
+              <Route exact path="/:municipality" component={MuniPage} />
+              {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+            </Switch>
+          </div>
+          <Footer />
+        </div>
       </Fragment>
     </HashRouter>
   </SnackbarProvider>
 );
+
+export default withRoot(withStyles(styles)(App));

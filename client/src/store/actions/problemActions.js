@@ -1,8 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/problemReducer';
-
+import type { Action, State, Problem } from '../reducers/problemReducer';
 import { postData, putData, deleteData, getData } from '../util';
-
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -10,21 +8,21 @@ type GetState = () => State;
 
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${id}`).then(problems =>
+    return getData(`problems/${id}`).then((problem: Problem) =>
       dispatch({
         type: 'PROBLEM_BY_ID_SUCCESS',
-        problems
+        payload: problem
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEM_BY_ID_ERROR',
-          error
+          payload: error
         })
       )
     );
   };
 };
 
-export const createProblem = (newProblem: JSON) => {
+export const createProblem = (newProblem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems', newProblem)
       .then(() =>
@@ -35,7 +33,7 @@ export const createProblem = (newProblem: JSON) => {
       .catch((error: Error) =>
         dispatch({
           type: 'CREATE_PROBLEM_ERROR',
-          error
+          payload: error
         })
       );
   };
@@ -49,7 +47,7 @@ export const editProblem = (problem: JSON) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'EDIT_PROBLEM_ERROR',
-          error
+          payload: error
         })
       )
     );
@@ -64,7 +62,7 @@ export const deleteProblem = (id: number) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'DELETE_PROBLEM_ERROR',
-          error
+          payload: error
         })
       )
     );
@@ -76,12 +74,11 @@ export const getProblemsByState = (state: string) => {
     return getData(`problems/${state}`).then(problems =>
       dispatch({
         type: 'PROBLEMS_BY_MUNI_SUCCESS',
-        problems
+        payload: problems
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
-
-          error
+          payload: error
         })
       )
     );
@@ -94,13 +91,13 @@ export const getProblemsByMuniAndStreet = (muni: string, street: string) => {
       .then(problems =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',
-          problems
+          payload: problems
         })
       )
       .catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_ERROR',
-          error
+          payload: error
         })
       );
   };
