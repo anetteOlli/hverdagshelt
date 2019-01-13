@@ -12,3 +12,9 @@ export const loading = (isLoading: boolean = true): Action => {
     payload: isLoading
   };
 };
+
+export const hasCheckedJWT = (): Action => {
+  return {
+    type: 'SET_CHECKED_JWT',
+  };
+};

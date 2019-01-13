@@ -2,10 +2,6 @@
 import type { Action, State } from '../reducers/categoryReducer';
 import { postData, deleteData, getData } from '../util';
 
-/**
- * @fileOverview categoryActions: actions for categories in redux
- * */
-
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -44,10 +40,10 @@ export const deleteCategory = (id: number) => {
 export const getCategories = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('categories')
-      .then(categories =>
+      .then(response =>
         dispatch({
           type: 'GET_CATEGORIES_SUCCESS',
-          payload: categories
+          payload: response.data.categories
         })
       )
       .catch((error: Error) =>

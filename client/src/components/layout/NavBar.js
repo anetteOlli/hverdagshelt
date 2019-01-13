@@ -19,7 +19,7 @@ import SideBar from './SideBar';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
-import { refresh, signOut } from '../../store/actions/userActions';
+import { signOut } from '../../store/actions/userActions';
 
 const styles = (theme: Object) => ({
   appBar: {
@@ -95,10 +95,6 @@ class NavBar extends React.Component<Props, State> {
       </div>
     );
   }
-
-  componentDidMount(): void {
-    this.props.refresh();
-  }
 }
 
 const mapStateToProps = state => {
@@ -110,7 +106,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut()),
-    refresh: () => dispatch(refresh())
   };
 };
 

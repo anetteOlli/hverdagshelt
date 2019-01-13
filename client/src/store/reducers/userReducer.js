@@ -52,10 +52,10 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'REFRESH_SUCCESS':
-      console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
-        isLoggedIn: false,
-        userID: 0,
+        isLoggedIn: true,
+        userID: action.payload,
         errorMessage: ''
       };
     case 'REFRESH_ERROR':
