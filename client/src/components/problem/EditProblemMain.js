@@ -29,6 +29,7 @@ import { withSnackbar } from 'notistack';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
 import ProblemDetails from './ProblemDetails';
+import Tabletest from '../util/Tabletest';
 var bool = false;
 var user_id;
 
@@ -81,6 +82,12 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     Height: '100%',
     alignItems: 'flex-end'
+  },
+  gridLeft: {
+    paddingBottom: 20,
+    paddingLeft: 20,
+    height: '100%',
+    width: '100%'
   },
   MUI: {
     height: '100%'
@@ -169,10 +176,13 @@ class EditProblemMain extends React.Component<Props, State> {
     return (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item xs={6} sm={3}>
-            <MuiTable className={classes.MUI} rows={rows} onClick={this.handleTableClick} />
+          <Grid item sm md={3} xs className={classes.gridLeft}>
+            {
+              //            <MuiTable className={classes.MUI} rows={rows} onClick={this.handleTableClick} />
+            }
+            <Tabletest/>
           </Grid>
-          <Grid item xs>
+          <Grid item sm md={9} xs>
             {getEditView(getView(bool, a))}
           </Grid>
         </Grid>
