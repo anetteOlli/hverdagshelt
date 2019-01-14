@@ -85,9 +85,9 @@ export const getProblemsByState = (state: string) => {
   };
 };
 
-export const getProblemsByMuniAndStreet = (muni: string, street: string) => {
+export const getProblemsByStreet = (muni: string, street: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${muni}/${street}`)
+    return postData(`problems`, {municipality: muni, street: street})
       .then(problems =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',

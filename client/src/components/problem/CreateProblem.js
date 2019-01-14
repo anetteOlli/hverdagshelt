@@ -20,7 +20,7 @@ import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-import {createProblem, getProblemsByMuniAndStreet} from '../../store/actions/problemActions';
+import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 
@@ -376,7 +376,7 @@ class CreateProblem extends React.Component<Props, State> {
       {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
     */
-    let simProbs = this.props.getProblemsByMuniAndStreet(municipality, street)
+    let simProbs = this.props.getProblemsByStreet(municipality, street)
     .then(e => this.props.enqueueSnackbar('error',{variant: 'warning'})
     );
 
@@ -543,7 +543,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: categories => dispatch(getCategories()),
-    getProblemsByMuniAndStreet: (muni, street) => dispatch(getProblemsByMuniAndStreet(muni, street))
+    getProblemsByStreet: (muni, street) => dispatch(getProblemsByStreet(muni, street))
   };
 };
 
