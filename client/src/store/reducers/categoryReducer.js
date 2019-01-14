@@ -9,7 +9,7 @@ export type Action =
   | { type: 'GET_CATEGORIES_ERROR', payload: Error };
 
 const initState = {
-  categories: [],
+  categories: ['ee','ee'],
   errorMessage: ''
 };
 

@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
-import { Button, IconButton, InputAdornment, Typography } from '@material-ui/core/';
+import { Button, IconButton, InputAdornment, Typography, MenuItem } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
@@ -10,22 +10,29 @@ import { signUp } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { validateEmail } from '../../store/util';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
   signUp: Function,
-  enqueueSnackbar: Function
+  enqueueSnackbar: Function,
+  categories: string[]
 };
 
 type State = {
-  firstName: string,
-  lastName: string,
+  muni: string,
+  entrepreneurName: string,
   email: string,
   password: string,
   cnfPassword: string,
   showPassword: boolean,
-  isUniqueEmail: boolean
+  isUniqueEmail: boolean,
+  isEntrepreneur: boolean,
+  entrepreneurCategories: string[],
+  entrepreneurMuni: string[]
 };
 
 const styles = (theme: Object) => ({
@@ -37,16 +44,38 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing.unit
   }
 });
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250
+    }
+  }
+};
+
+function getStyles(name, that) {
+  return {
+    fontWeight:
+      that.state.name.indexOf(name) === -1
+        ? that.props.theme.typography.fontWeightRegular
+        : that.props.theme.typography.fontWeightMedium,
+  };
+}
 
 class SignUp extends React.Component<Props, State> {
   state = {
-    firstName: '',
-    lastName: '',
+    muni: '',
     email: '',
     password: '',
     cnfPassword: '',
     showPassword: false,
-    isUniqueEmail: false
+    isUniqueEmail: false,
+    isEntrepreneur: false,
+    entrepreneurName: '',
+    entrepreneurCategories: [],
+    entrepreneurMuni: []
   };
 
   handleChange = e => {
@@ -63,12 +92,11 @@ class SignUp extends React.Component<Props, State> {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { firstName, lastName, email, password } = this.state;
+    const { muni, email, password } = this.state;
     console.log(this.state);
     this.props
       .signUp({
-        firstName,
-        lastName,
+        muni,
         email,
         password
       })
@@ -84,7 +112,61 @@ class SignUp extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, categories } = this.props;
+    const EntrepenurSignUp = (
+      <div>
+        <TextValidator
+          fullWidth
+          margin="normal"
+          label="Entrepenør navn"
+          name="entrepreneurName"
+          autoComplete="organization"
+          value={this.state.entrepreneurName}
+          onChange={this.handleChange}
+          validators={['required']}
+          errorMessages={['Feltet kan ikke være tomt']}
+        />
+        <SelectValidator
+          fullWidth
+          margin="normal"
+          multiple
+          label="Kommuner entrepenøren jobber i lol:"
+          name="entrepreneurMuni"
+          value={this.state.entrepreneurMuni}
+          onChange={this.handleChange}
+          input={<Input id="select-multiple" />}
+          MenuProps={MenuProps}
+          renderValue={selected => selected.join(', ')}
+
+          validators={['required']}
+          errorMessages={['Feltet kan ikke være tomt']}
+        >
+          {categories.map((name: string) => (
+            <MenuItem key={name} value={name} style={getStyles(name, this)}>
+              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </SelectValidator>
+        <SelectValidator
+          fullWidth
+          multiple
+          margin="normal"
+          label="Muni:"
+          name="entrepreneurCategories"
+          value={this.state.entrepreneurCategories}
+          onChange={this.handleChange}
+          validators={['required']}
+          errorMessages={['this field is required']}
+        >
+          {categories.map((option, index) => (
+            <MenuItem key={index} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </SelectValidator>
+      </div>
+    );
     if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
@@ -92,28 +174,22 @@ class SignUp extends React.Component<Props, State> {
           Register ny bruker
         </Typography>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-          <TextValidator
+          <SelectValidator
             fullWidth
             margin="normal"
-            label="Fornavn"
-            name="firstName"
-            autoComplete="given-name"
-            value={this.state.firstName}
+            label="Muni:"
+            name="muni"
+            value={this.state.muni}
             onChange={this.handleChange}
-            validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
-            errorMessages={['Du må skrive inn fornavnet ditt', 'Ugyldig navn']}
-          />
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Etternavn"
-            name="lastName"
-            autoComplete="family-name"
-            value={this.state.lastName}
-            onChange={this.handleChange}
-            validators={['required', 'matchRegexp:^[a-zA-ZøæåØÆÅ]*$']}
-            errorMessages={['Du må skrive inn etternavnet ditt', 'Ugyldig navn']}
-          />
+            validators={['required']}
+            errorMessages={['this field is required']}
+          >
+            {categories.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </SelectValidator>
           <TextValidator
             fullWidth
             margin="normal"
@@ -177,7 +253,8 @@ class SignUp extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.user.isLoggedIn
+    isLoggedIn: state.user.isLoggedIn,
+    categories: state.category.categories
   };
 };
 

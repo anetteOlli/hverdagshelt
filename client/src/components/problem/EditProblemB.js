@@ -172,21 +172,21 @@ class EditProblemB extends React.Component<Props, State> {
                       errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
                     />
                     <SelectValidator
-                      fullWidth
-                      margin="normal"
-                      label="Status:"
-                      name="status_fk"
-                      value={this.state.status_fk}
-                      onChange={this.handleChange}
-                      validators={['required']}
-                      errorMessages={['this field is required']}
-                    >
-                      {statuss.map((option, index) => (
-                        <MenuItem key={index} value={option}>
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
+                    fullWidth
+                    margin="normal"
+                    label="Status:"
+                    name="status_fk"
+                    value={this.state.status_fk}
+                    onChange={this.handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  >
+                    {statuss.map((option, index) => (
+                      <MenuItem key={index} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
                     <div>
                       <ExpansionPanel>
                         <ExpansionPanelSummary>

@@ -28,7 +28,7 @@ export const getAllEvents = () => {
   };
 };
 
-export const getEventByMuni = (muni: string) => {
+export const getEventsByMuni = (muni: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData(`events/${muni}`).then(response =>
       dispatch({
