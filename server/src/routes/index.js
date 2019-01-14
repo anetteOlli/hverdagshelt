@@ -1,12 +1,17 @@
 // @flow
-const router = require('express').Router();
+let express = require('express');
+let router = express.Router();
 
-router.use('/users', require("./userRoutes.js"));
-router.use('/problems', require("./problemRoutes.js"));
-router.use('/events', require("./eventRoutes.js"));
-router.use('/locations', require("./locationRoutes.js"));
-router.use('/categories', require("./categoryRoutes"));
+router.use('/users', require('./userRoutes'));
+router.use('/problems', require('./problemRoutes'));
+router.use('/events', require('./eventRoutes'));
+router.use('/locations', require('./locationRoutes'));
+router.use('/categories', require('./categoryRoutes'));
 
 module.exports = router;
 
-
+/*
+if
+throw new TypeError('Router.use() requires a middleware function but got a ' + gettype(fn))
+shows up make sure every routes file exports its router. Either don't include it in index or add module.exports = router
+ */

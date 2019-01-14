@@ -1,32 +1,58 @@
 // @flow
-export type State = { lat: string, lng: string };
+export type State = {
+  street: string,
+  muni: string,
+  county: string,
+  center: { lat: string, lng: string },
+  currentMarker: { lat: string, lng: string }
+};
 export type Action =
-  | { type: 'UPDATE_MAP', lat: string, lng: string }
-  | { type: 'UPDATE_CENTER', lat: string, lng: string };
+  | { type: 'UPDATE_MAP', payload: { lat: string, lng: string } }
+  | { type: 'UPDATE_CENTER', payload: { lat: string, lng: string } }
+  | { type: 'UPDATE_PLACE_NAME', payload: { street: string, muni: string, county: string } }
+  | { type: 'UPDATE_STREET', payload: { street: string } };
 
 const initState = {
-  lat: '',
-  lng: ''
+  street: '',
+  muni: '',
+  county: '',
+  currentMarker: {
+    lat: '',
+    lng: ''
+  },
+  center: {
+    lat: '',
+    lng: ''
+  }
 };
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'UPDATE_MAP':
-      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        lat: action.lat,
-        lng: action.lng
+        currentMarker: action.payload
       };
     case 'UPDATE_CENTER':
-      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action);
+      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action.payload);
       return {
-        lat: action.lat,
-        lng: action.lng,
-        center: {
-          lat: action.lat,
-          lng: action.lng
-        }
+        ...state,
+        center: action.payload
+      };
+    case 'UPDATE_STREET':
+      console.log('%c UPDATE_CENTER', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        street: action.payload
+      };
+    case 'UPDATE_PLACE_NAME':
+      console.log('%c UPDATE_PLACE_NAME', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        street: action.payload.street,
+        muni: action.payload.muni,
+        county: action.payload.county
       };
     default:
       return state;

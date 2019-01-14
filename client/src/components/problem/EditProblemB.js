@@ -1,16 +1,16 @@
 // @flow
 import React from 'react';
 import { Button, Typography, MenuItem } from '@material-ui/core/';
-import {ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from "@material-ui/core/Divider/Divider";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import Divider from '@material-ui/core/Divider/Divider';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import TextField from '@material-ui/core/TextField/TextField';
@@ -72,7 +72,7 @@ const styles = (theme: Object) => ({
   }
 });
 
-class EditProblemA extends React.Component<Props, State> {
+class EditProblemB extends React.Component<Props, State> {
   state = {
     problem_id: null,
     problem_description: '',
@@ -101,17 +101,15 @@ class EditProblemA extends React.Component<Props, State> {
 
   readURL(input) {
     if (input.files && input.files[0]) {
-      const fileExtension = input.substr((input.lastIndexOf('.') + 1));
-      if(fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
+      const fileExtension = input.substr(input.lastIndexOf('.') + 1);
+      if (fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
         alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
         return false;
-      }
-      else {
+      } else {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
-          $('#img')
-            .attr('src', e.target.result);
+        reader.onload = function(e) {
+          $('#img').attr('src', e.target.result);
         };
 
         reader.readAsDataURL(input.files[0]);

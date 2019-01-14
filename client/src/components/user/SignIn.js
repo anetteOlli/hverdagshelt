@@ -5,15 +5,20 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withRoot from '../../withRoot';
-import { Checkbox, FormControlLabel, Paper, Typography, withStyles } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Paper, Typography, withStyles,CircularProgress } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/userActions';
+import purple from '@material-ui/core/colors/purple';
 
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
+  },
+  spinner: {
+    color: purple[500],
+    marginRight: 12,
   }
 });
 
@@ -24,7 +29,8 @@ type Props = {
   onClose: Function,
   signIn: Function,
   enqueueSnackbar: Function,
-  errorMessage: string
+  errorMessage: string,
+  isLoading: boolean
 };
 
 type State = {
@@ -71,7 +77,7 @@ class SignIn extends React.Component<Props, State> {
   };
 
   render() {
-    const { open, onClose, classes } = this.props;
+    const { open, onClose, classes, isLoading } = this.props;
     return (
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle>Login</DialogTitle>
@@ -106,6 +112,7 @@ class SignIn extends React.Component<Props, State> {
               label="Remember me"
             />
             <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
+              {isLoading && <CircularProgress size={20} className={classes.spinner}/>}
               Login
             </Button>
             <Button
@@ -131,7 +138,8 @@ class SignIn extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
+    isLoading: state.app.isLoading
   };
 };
 

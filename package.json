@@ -6,7 +6,7 @@
     "client-install": "npm install --prefix client",
     "server-install": "npm install --prefix server",
     "server": "npm start --prefix server",
-    "client": "npm run test --prefix client",
+    "client": "npm start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [

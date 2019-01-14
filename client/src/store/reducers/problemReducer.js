@@ -1,13 +1,15 @@
 // @flow
-type Problem = {
+export type Problem = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   img_user: string,
   date_made: string,
   last_edited: string,
-  location_fk: number,
-  status_fk: number,
-  category_fk: number
+  location_fk: string,
+  status_fk: string,
+  category_fk: string
 };
 
 export type State = {
@@ -15,105 +17,105 @@ export type State = {
   errorMessage: string
 };
 
-export type Action = 
+export type Action =
   | { type: 'CREATE_PROBLEM_SUCCESS' }
-  | { type: 'CREATE_PROBLEM_ERROR', error: Error }
+  | { type: 'CREATE_PROBLEM_ERROR', payload: Error }
   | { type: 'EDIT_PROBLEM_SUCCESS' }
-  | { type: 'EDIT_PROBLEM_ERROR', error: Error }
+  | { type: 'EDIT_PROBLEM_ERROR', payload: Error }
   | { type: 'DELETE_PROBLEM_SUCCESS' }
-  | { type: 'DELETE_PROBLEM_ERROR', error: Error }
-  | { type: 'PROBLEMS_BY_STATE_SUCCESS', problems: [] }
-  | { type: 'PROBLEMS_BY_STATE_ERROR', error: Error }
-  | { type: 'PROBLEM_BY_ID_SUCCESS', problems: [] }
-  | { type: 'PROBLEM_BY_ID_ERROR', error: Error };
+  | { type: 'DELETE_PROBLEM_ERROR', payload: Error }
+  | { type: 'PROBLEM_BY_ID_SUCCESS', payload: Problem }
+  | { type: 'PROBLEM_BY_ID_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_MUNI_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_MUNI_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_STREET_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error };
 
 const initState = {
   problems: [
     {
       problem_id: 1,
-      problem_description: 'stort problem',
-      description_entrepreneurcr: 'not so big after all',
-      img_user: 'https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg',
-      date_made: 'før lunsj',
-      user_fk: 1,
-      entrepreneur_fk: 1,
-      last_edited: 'etter lunsj',
-      location_fk: 'bergen',
-      status_fk: 'påbegynt',
-      category_fk: 'vei'
+      problem_title: 'Hull i veien',
+      problem_description: 'Dette er krise kom og fiks!',
+      problem_locked: 0,
+      img_user: 'https://i.imgur.com/ykbz8hO.png',
+      date_made: '20-13-2018',
+      last_edited: '20-14-2018',
+      location_fk: 'Eplegaten 2',
+      status_fk: 'Fixed',
+      category_fk: 'Vei og kjørebane'
     }
   ],
-
   errorMessage: ''
 };
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_PROBLEM_SUCCESS':
-      console.log('%c UPDATE_MAP', 'color: green; font-weight: bold;');
+      console.log('%c CREATE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'CREATE_PROBLEM_ERROR':
-      console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
-        ...state,
-        errorMessage: action.error.message
+        errorMessage: action.payload.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
       console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
-      console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
-        ...state,
-        errorMessage: action.error.message
+        errorMessage: action.payload.message
       };
     case 'DELETE_PROBLEM_SUCCESS':
       console.log('%c DELETE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
-        ...state,
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':
-      console.log('%c DELETE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('%c DELETE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
-        errorMessage: action.error.message
+        errorMessage: action.payload.message
       };
-    case 'PROBLEMS_BY_STATE_SUCCESS':
-      console.log('%c PROBLEMS_BY_STATE_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+    case 'PROBLEMS_BY_MUNI_SUCCESS':
+      console.log('%c PROBLEMS_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        problems: action.problems
+        problems: action.payload
       };
-    case 'PROBLEMS_BY_STATE_ERROR':
-      console.log('%c PROBLEMS_BY_STATE_ERROR', 'color: red; font-weight: bold;', action.error);
+    case 'PROBLEMS_BY_MUNI_ERROR':
+      console.log('%c PROBLEMS_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
-        errorMessage: action.error.message
+        errorMessage: action.payload.message
+      };
+    case 'PROBLEMS_BY_STREET_SUCCESS':
+      console.log('%c PROBLEMS_BY_STREET_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_STREET_ERROR':
+      console.log('%c PROBLEMS_BY_STREET_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
       };
     case 'PROBLEM_BY_ID_SUCCESS':
-      console.log('%c PROBLEM_BY_ID_SUCCESS', 'color: green; font-weight: bold;', action.problems);
+      console.log('%c PROBLEM_BY_ID_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        problems: action.problems
+        problems: action.payload
       };
     case 'PROBLEM_BY_ID_ERROR':
-      console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.error);
+      console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
-        ...state,
-        errorMessage: action.error.message
-      };
-    case 'GOT_PROBLEM_SUCCESS':
-      console.log('GOT_PROBLEM_SUCCESS');
-      return {
-        errorMessage: '',
-        problem: action.problem
+        errorMessage: action.payload.message
       };
     default:
       return state;

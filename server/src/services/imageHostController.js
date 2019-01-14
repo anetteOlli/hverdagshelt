@@ -1,22 +1,35 @@
-var cloudinary = require('cloudinary');
+import Datauri from 'datauri';
+import path from 'path';
+
+const cloudinary = require('cloudinary');
+const multer = require('multer');
+
+let upload = multer({storage: multer.memoryStorage()});
+const dUri = new Datauri();
 
 cloudinary.config({
-  cloud_name:'ozaug',
-  api_key:'613813645562654',
-  api_secret:'KFAfYRrdnj3-XWSlKqvXA-KzsDE'
+  cloud_name:'dj9kc6yib',
+  api_key:'423564988423112',
+  api_secret:'1hyDl7PPsYNDhu6qmWSOx02ICPA'
   }
 );
 
-
 class ImageHostController {
-  uploadImage(image,callback) {
-    cloudinary.v2.uploader.upload(image,
+  dataUri = req => dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
+
+  uploadImage(req,callback) {
+    let file = this.dataUri(req);
+    cloudinary.v2.uploader.upload(file,
       function(error, result) {
-      if(!error){
-        console.log(result);
-        callback(result.url);
+        if(!error){
+          console.log(result);
+          callback(result.url);
+        }else {
+          console.log(error);
+        }
+
       }
-    });
+    );
   }
 }
 module.exports = new ImageHostController();

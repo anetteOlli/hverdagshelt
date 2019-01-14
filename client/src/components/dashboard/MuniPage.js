@@ -15,9 +15,7 @@ import {
   MenuItem,
   Button,
   Tabs,
-  Tab,
-  AppBar,
-  NoSsr
+  Tab
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -49,8 +47,8 @@ const styles = theme => ({
     }
   },
   button: {
-    // size: 200,
-    // padding: 30,
+    //size: 200,
+    //padding: 30,
   },
   labeltext: {
     [theme.breakpoints.down('lg')]: {
@@ -67,8 +65,8 @@ const styles = theme => ({
   card: {
     margin: 5,
     [theme.breakpoints.up('sm')]: {
-      maxWidth: 345,
-      minWidth: 345
+      maxWidth: 310,
+      minWidth: 310
     },
     [theme.breakpoints.down('xs')]: {
       maxWidth: 200,

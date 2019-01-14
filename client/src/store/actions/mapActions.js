@@ -7,21 +7,39 @@ type GetState = () => State;
 
 //
 export const updateMap = (lat: string, lng: string) => {
-  return (dispatch: Dispatch, getState: GetState) => {
+  return (dispatch: Dispatch) => {
     dispatch({
       type: 'UPDATE_MAP',
-      lat: lat,
-      lng: lng
+      payload: {
+        lat: lat,
+        lng: lng
+      }
     });
   };
 };
 
 export const placeChanged = (lat: string, lng: string) => {
-  return (dispatch: Dispatch, getState: GetState) => {
+  return (dispatch: Dispatch) => {
     dispatch({
-      type: 'UPDATE_CENTER',
-      lat: lat,
-      lng: lng
+      type: 'UPDATE_MAP',
+      payload: {
+        lat: lat,
+        lng: lng
+      }
+    });
+  };
+};
+
+export const changePlaceName = (street: string, muni: string, county: string) => {
+  console.log('...data');
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: 'UPDATE_PLACE_NAME',
+      payload: {
+        street,
+        county,
+        muni
+      }
     });
   };
 };

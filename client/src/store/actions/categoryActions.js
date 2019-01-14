@@ -2,10 +2,6 @@
 import type { Action, State } from '../reducers/categoryReducer';
 import { postData, deleteData, getData } from '../util';
 
-/**
- * @fileOverview categoryActions: actions for categories in redux
- * */
-
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -19,7 +15,7 @@ export const createCategory = (newCategory: JSON) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'CREATE_CATEGORY_ERROR',
-          error
+          payload: error
         })
       )
     );
@@ -34,25 +30,27 @@ export const deleteCategory = (id: number) => {
       }).catch((error: Error) =>
         dispatch({
           type: 'DELETE_CATEGORY_ERROR',
-          error
+          payload: error
         })
       )
     );
   };
 };
 
-export const getCategory = (id: number) => {
+export const getCategories = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData('categories').then(categories =>
-      dispatch({
-        type: 'GET_CATEGORIES_SUCCESS',
-        categories
-      }).catch((error: Error) =>
+    return getData('categories')
+      .then(response =>
         dispatch({
-          type: 'GET_CATEGORIES_ERROR',
-          error
+          type: 'GET_CATEGORIES_SUCCESS',
+          payload: response.data.categories
         })
       )
-    );
+      .catch((error: Error) =>
+        dispatch({
+          type: 'GET_CATEGORIES_ERROR',
+          payload: error
+        })
+      );
   };
 };
