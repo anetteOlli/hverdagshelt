@@ -33,11 +33,7 @@
       <option name="SPACES_WITHIN_OBJECT_LITERAL_BRACES" value="true" />
       <option name="SPACES_WITHIN_IMPORTS" value="true" />
     </JSCodeStyleSettings>
-<<<<<<< HEAD
     <TypeScriptCodeStyleSettings version="0">
-=======
-    <TypeScriptCodeStyleSettings>
->>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
       <option name="SPACE_BEFORE_FUNCTION_LEFT_PARENTH" value="false" />
       <option name="USE_DOUBLE_QUOTES" value="false" />

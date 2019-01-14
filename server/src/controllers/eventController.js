@@ -13,13 +13,9 @@ exports.events_get_all = (req, res) => {
 exports.events_get_event = (req, res) => {
   console.log('/events/' + req.params.id + ' fikk GET request fra klient');
   eventDao.getOne(req.params.id, (status, data) => {
-<<<<<<< HEAD
-    res.status(status).json({ message: 'fikk et "event" fra server' });
-=======
     res.status(status).json(data[0]);
   });
 };
->>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
 
 exports.events_get_from_municipality = (req, res) => {
   console.log("/events/municipality" + req.params.municipalityName + " fikk GET request fra klient");
