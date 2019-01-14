@@ -14,7 +14,8 @@ import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
-import UploadFile from './components/util/test';
+import EditProblemMain from './components/problem/EditProblemMain';
+import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
 import Stati from './components/statistics/StatisticPage';
@@ -69,6 +70,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/editp" component={EditProblem} />
                     <Route exact path="/editpb" component={EditProblemB} />
                     <Route exact path="/editpa" component={EditProblemA} />
+                    <Route exact path="/editpm" component={EditProblemMain} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />
@@ -89,7 +91,7 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div/>;
+    } else return <div />;
   }
 
   componentDidMount(): void {
