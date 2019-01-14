@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
+import MuiTable2 from '../util/MuiTable-2';
 
 /**
  * @fileOverview Create Problem Component
@@ -152,6 +153,7 @@ function getStepContent(step: number, state: State,
                 handleChangeSpec("cur_status", myProblem.status);
                 handleChangeSpec("cur_imageURL", myProblem.imageURL);
                 }}
+              columnContent={state.similarProblems}
               />
             </Card>
             <Grid container spacing={24}>
@@ -355,7 +357,10 @@ class CreateProblem extends React.Component<Props, State> {
     cur_status: 'defaultStatus',
 
     similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default',
-                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}],
+                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
+                      {id:2, title: 'default2', category: 'default2', municipality: 'default2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
+                      ],
     categories: ['Default']
   };
 
