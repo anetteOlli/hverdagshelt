@@ -53,10 +53,37 @@ export const genToken = ( id: number, email: string, isAdmin: boolean) =>
     },
     process.env.JWT_KEY,
     {
-      expiresIn: '1h'
+      expiresIn: '30s'
     }
   );
+/**
+ * A method for generating the token a user uses to verify his account
+ * @param packageJson json with the packageInformation
+ * @returns the token made specifically for the user
+ */
+export const genTokenEmail = (packageJson: object) => {
+  return jwt.sign(
+    packageJson,
+    process.env.EMAIL_KEY,
+    {
+      expiresIn: '100s'
+    }
+  );
+};
 
+export const verifyTokenEmail = (token: object ) => {
+  try {
+    return {
+      status: true,
+      data: jwt.verify(token, process.env.EMAIL_KEY)
+    };
+  } catch(error) {
+    return {
+      status: false,
+      data: error
+    };
+  }
+};
 /*--- Hashing and validation password ---*/
 export const hashPassword = (password: string) => bcrypt.hashSync(password, bcrypt.genSaltSync());
 export const validatePassword = (inputPassword: string, currentPassword: string) =>

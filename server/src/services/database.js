@@ -14,3 +14,15 @@ let pool = mysql.createPool({
     multipleStatements: true
 });
 module.exports = pool;
+
+
+/*
+Probelems med current database:
+
+Hvordan skal en entreprenør kobles til en kommune med innen en/flere spesifikk kategori?
+Løsning: egen entrepenør table som kan kobles mot kommune: Lars har bilde på telf av db koblingen
+
+Hvordan skal en differensiere med å lage en kommuneansatt? lage en entreprenør?
+løsning: Bruker blir forandra av systemadministrator til å bli kommuneansatt, entreprenører har egen reg.
+
+ */

@@ -1,5 +1,7 @@
+// @flow
 // https://codeburst.io/implementing-nodemailer-5-min-de2d2c781d6b
 const nodemailer = require('nodemailer');
+
 
 const transporter = nodemailer.createTransport(
     {
@@ -16,29 +18,26 @@ const transporter = nodemailer.createTransport(
 class MailController {
     /***
      * Method for sending an activation link to an given email with a specific activation link
-     * @param notification JSON with email and activationLink
+     * @param newUser userInformation
+     * @param callback
      */
-    sendActivationLink(newUser, callback) {
-        var info = {};
-        info.user = newUser;
-        info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-        var token = nodemailer.encode(info, 'yeet');
-        console.log("http://localhost:3000/verifyEmail/" + token);
+    sendActivationLink(dataPackage: object, callback: function) {
 
-        var mailOptions = {
-            from : "TEST<noreply@vysly.com>",
-            to : newUser.email,
-            subject : "Welcome to TEST",
-            text : 'Visit this http://localhost:3000/verifyEmail/'+token,
-            html : '<a href="http://localhost:3000/verifyEmail/'+token+'"><H2>Click on this</H2></a>'
+        let mailOptions = {
+          from: "NOREPLY@hverdagshelt.com",
+          to: dataPackage.email,
+          subject: "Your problem has been registered",
+          text: dataPackage.text,
+          html: dataPackage.html
         };
-        nodemailer.sendMail(mailOptions,function(email_err){
-            if(email_err){
+
+        transporter.sendMail(mailOptions,function(email_err){
+            if(!email_err){
+                console.log("Email is Sent");
+                callback({success: true, token: token})
+            }else{
                 callback(email_err);
                 console.log(email_err);
-            }else{
-                console.log("Email is Sent");
-                callback({success: true})
             }
         });
     }
@@ -49,14 +48,15 @@ class MailController {
      * @param notification  A string message that is sent out to the users/recepients
      * @param recepients An array of recepients that is iterated and sent an mail
      */
-    sendMassMail(notification,recepients) {
-        recepients.map((val) => {
-            let mailOptions = {
-                from:'mapokengaming@gmail.com',
-                to:`${val}`,
-                subject: "YEETED MY WAY DOWN TOWN",
-                html: `<h2>mye svada om hva man skal gjøre osv så kommer message</h2> <p>${notification.message}</p>`
-            };
+    sendMassMail(dataPackage: object) {
+        dataPackage.recepients.map((val) => {
+          let mailOptions = {
+            from: "NOREPLY@hverdagshelt.com",
+            to: val.email,
+            subject: "Your problem has been registered",
+            text: dataPackage.text,
+            html: dataPackage.html
+          };
             transporter.sendMail(mailOptions, (err,res) => this.callbackHandler(err,res));
         });
     }

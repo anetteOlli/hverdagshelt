@@ -7,7 +7,6 @@ router.use('/problems', require("./problemRoutes"));
 router.use('/events', require("./eventRoutes"));
 router.use('/locations', require("./locationRoutes"));
 router.use('/categories', require("./categoryRoutes"));
-
 module.exports = router;
 
 /*
