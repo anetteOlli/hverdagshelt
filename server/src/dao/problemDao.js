@@ -7,18 +7,42 @@ module.exports = class ArticleDao extends Dao {
   }
 
   getOne(id, callback) {
+<<<<<<< HEAD
     super.query('SELECT * FROM problem WHERE problem_id LIKE ?', [id], callback);
   }
 
   getAllMunicipality(json, callback) {
     const values = [json.municipality, json.county];
     super.query('SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ?', values, callback);
+=======
+    super.query(
+      "SELECT * FROM problem WHERE problem_id = ?",
+      [id],
+      callback
+    );
+  }
+
+  getAllMunicipality(json,callback){
+    const values = [
+      json.municipality,
+      json.county
+    ];
+    super.query(
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ?",
+      values,
+      callback
+    )
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
   }
 
   getAllCity(json, callback) {
     const values = [json.municipality, json.county, json.city];
     super.query(
+<<<<<<< HEAD
       'SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ? AND city_fk LIKE ?',
+=======
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ?",
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       values,
       callback
     );
@@ -28,7 +52,11 @@ module.exports = class ArticleDao extends Dao {
     const values = [json.municipality, json.county, json.street];
 
     super.query(
+<<<<<<< HEAD
       'SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ? AND street_fk LIKE ?',
+=======
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ?",
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       values,
       callback
     );
@@ -60,7 +88,11 @@ module.exports = class ArticleDao extends Dao {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
 
     super.query(
+<<<<<<< HEAD
       'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id LIKE ?',
+=======
+      "UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?",
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       values,
       callback
     );
@@ -70,7 +102,11 @@ module.exports = class ArticleDao extends Dao {
     const values = [json.problem_title, json.problem_description, json.status, json.last_edited, id];
 
     super.query(
+<<<<<<< HEAD
       'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id LIKE ?',
+=======
+      "UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?",
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       values,
       callback
     );
@@ -80,13 +116,25 @@ module.exports = class ArticleDao extends Dao {
     const values = [json.problem_title, json.problem_description, json.img_user];
 
     super.query(
+<<<<<<< HEAD
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id LIKE ?',
+=======
+      "UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?",
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
       values,
       callback
     );
   }
 
   deleteOne(id, callback) {
+<<<<<<< HEAD
     super.query("UPDATE problem SET status_fk = 'archived' WHERE problem_id LIKE ?", [id], callback);
+=======
+    super.query(
+      "UPDATE problem SET status_fk = 'archived' WHERE problem_id = ?",
+      [id],
+      callback
+    );
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
   }
 };

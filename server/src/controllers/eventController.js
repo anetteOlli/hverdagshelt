@@ -6,17 +6,25 @@ exports.events_get_all = (req, res) => {
   console.log('Handling GET requests to /events');
   eventDao.getAll((status, data) => {
     console.log(data);
-    res.status(status);
-    res.json(data);
+    res.status(status).json(data);
   });
 };
 
 exports.events_get_event = (req, res) => {
   console.log('/events/' + req.params.id + ' fikk GET request fra klient');
   eventDao.getOne(req.params.id, (status, data) => {
+<<<<<<< HEAD
     res.status(status).json({ message: 'fikk et "event" fra server' });
+=======
+    res.status(status).json(data[0]);
+  });
+};
+>>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
 
-    // res.status(status).json(data[0]);
+exports.events_get_from_municipality = (req, res) => {
+  console.log("/events/municipality" + req.params.municipalityName + " fikk GET request fra klient");
+  eventDao.getFromMunicipality(req.params.municipalityName, (status, data) => {
+     res.status(status).json(data);
   });
 };
 
