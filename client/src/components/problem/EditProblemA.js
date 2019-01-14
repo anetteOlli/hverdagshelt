@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
+import Map from '../map/maptest';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 const statuss = ["til avventing", "påbegynt", "registrert", "ferdig"];
@@ -92,6 +92,7 @@ class EditProblemA extends React.Component<Props, State> {
     e.preventDefault();
     console.log(this.state);
   };
+
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
@@ -235,13 +236,12 @@ class EditProblemA extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Her skal map komme: </Typography>
+                    <Typography >Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <div/>
-                  <div>
-                    <img id="img" top width="100%" src={"https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+                <ExpansionPanelDetails className={classes.mapExpansion}>
+                  <div className="mapPlaceholder">
+                    <Map />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>

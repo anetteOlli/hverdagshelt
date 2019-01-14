@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import createHashHistory from 'history/createHashHistory'
-const history = createHashHistory();
+import {goToProblemDetail} from '../../store/actions/problemActions';
 
 // Material-ui
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
@@ -17,6 +16,9 @@ import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import ProblemDetails from './ProblemDetails';
+var bool = false;
+var user_id;
 
 type Props = {
   classes: Object,
@@ -74,10 +76,20 @@ const styles = (theme: Object) => ({
   }
 });
 
+function getView(bool: boolean, user_fk: number) {
+  var view;
+  if(bool){
+    view = getUserPri(user_fk);
+  } else{
+    view = 3;
+  }
+  return view;
+}
 
 function getUserPri(user_fk: number){
+  var prio;
+  prio = 1;
   // get user priority
-  const prio = 1;
   return prio;
 }
 
@@ -97,17 +109,22 @@ function getEditView(priority: number){
        <EditProblemA/>
 
     );
+    case 3:
+      return(
+       <ProblemDetails/>
+      );
     default:
       return (
-        'Unknown step'
+        'Unknown view'
     );
   }
 }
 
-
 class EditProblemMain extends React.Component<Props, State> {
 
-  state = {
+bool = true;
+
+state = {
     problem_id: null,
     problem_description: '',
     description_entrepreneur: '',
@@ -137,12 +154,17 @@ class EditProblemMain extends React.Component<Props, State> {
     console.log(this.state);
   };
 
+  handleTableClick = e => {
+      let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
+      this.props.goToProblemDetail(myProblem.id);
+  };
+
 
 render(){
+  console.log(this.props.problem.editPageId);
   const { classes, problem, isLoggedIn } = this.props;
-  const a = getUserPri(this.state.user_fk);
-  // noinspection JSAnnotator
-  var problem_id = 0;
+  var a = this.state.user_fk;
+  bool = true;
   const rows = (this.similarProblems == null ? [] : createMuiData(this.similarProblems));
 
   return (
@@ -152,19 +174,14 @@ render(){
           <MuiTable
             className={classes.MUI}
             rows={rows}
-            onClick={e => {
-              let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
-              problem_id = myProblem.id
-              // history.push til problem details med id = problem_id
-            }}
+            onClick={this.handleTableClick}
           />
         </Grid>
         <Grid item xs>
-          {getEditView(0)}
+          {getEditView(getView(this.props.editMode, a))}
         </Grid>
       </Grid>
     </div>
-
   );
 }
 
@@ -187,13 +204,16 @@ render(){
 
 const mapStateToProps = state => {
   return {
-    problem: state.problem
+    problem: state.problem,
+    userId: state.user.userID,
+    currentProblemId: state.problem.currentProblemId,
+    editMode: state.problem.editMode
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    goToProblemDetail: id => dispatch(goToProblemDetail(id))
   };
 };
 

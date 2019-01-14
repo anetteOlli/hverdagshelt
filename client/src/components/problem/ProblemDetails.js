@@ -13,7 +13,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import blue from '@material-ui/core/es/colors/blue';
-
+import {goToEdit} from '../../store/actions/problemActions'
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
@@ -86,6 +86,7 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit() {
+    this.props.handleEdit(this.state.problem_id);
     this.props.history.push('/editbruker');
   }
 
@@ -249,13 +250,19 @@ const mapStateToProps = (state, ownProps) => {
   return {
     problem: state.problems.problem
   };
-  /*
-    getProblem(id).then(() => {
-    return {
-      problem: state.problem.problem
-    };
-  });
-   */
-};
+}
 
-export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      goToEdit: (id: number) => dispatch(goToEdit(id))
+    };
+    /*
+      getProblem(id).then(() => {
+      return {
+        problem: state.problem.problem
+      };
+    });
+     */
+  };
+
+  export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));

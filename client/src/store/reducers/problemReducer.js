@@ -46,7 +46,9 @@ const initState = {
       category_fk: 'Vei og kjørebane'
     }
   ],
-  errorMessage: ''
+  errorMessage: '',
+  currentProblemId: 0,
+  editMode: false
 };
 
 export default (state: State = initState, action: Action) => {
@@ -115,7 +117,22 @@ export default (state: State = initState, action: Action) => {
     case 'PROBLEM_BY_ID_ERROR':
       console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
+      };
+    case 'GO_TO_PROBLEM_DETAIL':
+      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        currentProblemId: action.payload,
+        editMode: false,
+      };
+    case 'GO_TO_PROBLEM_EDIT':
+      console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        currentProblemId: action.payload,
+        editMode: true
       };
     default:
       return state;

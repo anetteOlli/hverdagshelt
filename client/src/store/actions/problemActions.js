@@ -102,3 +102,21 @@ export const getProblemsByMuniAndStreet = (muni: string, street: string) => {
       );
   };
 };
+
+export const goToProblemDetail = id => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'GO_TO_PROBLEM_DETAIL',
+      payload: id
+    });
+  };
+};
+
+export const goToProblemEdti = id => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'GO_TO_PROBLEM_EDIT',
+      payload: id
+    });
+  };
+};
