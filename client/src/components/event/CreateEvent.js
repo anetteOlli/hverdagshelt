@@ -14,6 +14,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
+import Map from '../map/maptest';
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
@@ -162,7 +163,7 @@ function getStepContent(step: number,
               errorMessages={['Du må skrive inn en gate']}
             />
             <div className={classes.mapPlaceholder}>
-              MAP HERE
+              <Map />
             </div>
           </CardContent>
         </Card>
