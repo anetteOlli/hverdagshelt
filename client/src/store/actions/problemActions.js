@@ -9,7 +9,7 @@ type GetState = () => State;
 
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    getData(`problems/${id}`).then(respone =>
+    return getData(`problems/${id}`).then(respone =>
       dispatch({
         type: 'PROBLEM_BY_ID_SUCCESS',
         payload: respone.data

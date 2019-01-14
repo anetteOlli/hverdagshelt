@@ -91,13 +91,12 @@ class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
     isLoggedIn: false,
-    problem_id: -1,
     anchorEl: null
   };
 
   onClickAdd = () => {
     // history.push('/lagproblem');
-    console.log(this.state.problem_id);
+    console.log(this.state.currentProblemId);
   };
 
   onClickEdit() {
@@ -115,21 +114,11 @@ class ProblemDetails extends React.Component<Props, State> {
       anchorEl: null
     });
   };
-
-  componentDidMount() {
-    this.setState({
-      problem_id: this.props.match.params.problem_id
-    });
-    this.props.getProblemById(this.props.match.params.problem_id);
-
-    //console.log(this.state.problem_id);
-  }
-
   render() {
     const { classes, problem, isLoggedIn } = this.props;
     console.log(problem);
     const open = Boolean(this.state.anchorEl);
-    if(problem) {
+    if (problem) {
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -147,7 +136,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
                 <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
-                    <Edit/>
+                    <Edit />
                   </Icon>{' '}
                   Edit
                 </Button>
@@ -172,7 +161,7 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
             </div>
 
-            <Grid item xs={2}/>
+            <Grid item xs={2} />
 
             <Grid item xs={12}>
               <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
@@ -181,30 +170,27 @@ class ProblemDetails extends React.Component<Props, State> {
                     Problem
                   </Typography>
                   <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <Typography variant="body1">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                        sunt
-                        in culpa qui officia deserunt mollit anim id est laborum.
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                       </Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
                   <div className={classes.root}>
                     <ExpansionPanel>
-                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>Vis bilde</Typography>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <img className={classes.problem_img} src={problem.img_user}/>
+                        <img className={classes.problem_img} src={problem.img_user} />
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>
@@ -214,30 +200,27 @@ class ProblemDetails extends React.Component<Props, State> {
                     Entrepreneur
                   </Typography>
                   <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <Typography variant="body1">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                        sunt
-                        in culpa qui officia deserunt mollit anim id est laborum.
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                       </Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
                   <div className={classes.root}>
                     <ExpansionPanel>
-                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>Vis bilde</Typography>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <img className={classes.problem_img} src={problem.img_user}/>
+                        <img className={classes.problem_img} src={problem.img_user} />
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>
@@ -247,26 +230,31 @@ class ProblemDetails extends React.Component<Props, State> {
 
             <Grid item xs={12}>
               <div className="mapPlaceholder">
-                <Map/>
+                <Map />
               </div>
             </Grid>
           </Grid>
         </div>
       );
-    }else {
-      return <div>LOADING PROBLEM...</div>
+    } else {
+      return <div>LOADING PROBLEM...</div>;
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentProblemId !== this.props.currentProblemId)
+      this.props.getProblemById(nextProps.currentProblemId);
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.problem_id;
+  //const id = ownProps.match.params.problem_id;
   const problems = state.problem.problems;
   console.log(problems);
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
   const problem = problems;
   return {
+    currentProblemId: state.problem.currentProblemId,
     problem
   };
 };
@@ -277,4 +265,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
