@@ -10,7 +10,28 @@ import withRoot from '../../withRoot';
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
-type Props = {};
+type Props = {
+  problems: problem[],
+  currentProblemId: number
+
+};
+type problem = {
+  lat : string,
+  lng : string,
+  id: number,
+  title: string,
+  description: string,
+  locked: string,
+  img_user: string,
+  date_made: string,
+  last_edited: string,
+  street: string,
+  status: string,
+  municipality: string,
+  county: string,
+  city: string
+
+};
 
 type State = {
   mapsapi: any,
@@ -50,18 +71,24 @@ class MapMarkers extends React.Component<Props, State> {
     }
   };
 
-  //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
       <div style={{ height: '80vh', width: '100%' }}>
-        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
+          bootstrapURLKeys={{ key: API_KEY}}
           defaultCenter={center}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
+
+          //create array.map functionality here
+          {this.props.problems.map(problem =>(
+            (problem.id === this.props.problems.currentProblemId) ?
+            (<Marker color='primary' lat={problem.lat} lng={problem.lng} onClick={this.showProblemDetail(problem.id)}/>) :
+            (<Marker color='secondary' lat={problem.lat} lng={problem.lng} onClick={this.showProblemDetail(problem.id)}/>)
+
+            ))}
         />
       </div>
     );
@@ -69,11 +96,16 @@ class MapMarkers extends React.Component<Props, State> {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    //placeholder:
+    problems : state.problem.problems
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    showProblemDetail: id => dispatch(goToProblemDetail(id))
+  };
 };
 
 export default connect(
