@@ -86,7 +86,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
+   return {
     updateMap: cords => dispatch(updateMap(cords.lat, cords.lng))
   };
 };
