@@ -12,7 +12,7 @@ import { SnackbarProvider } from 'notistack';
 import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
-import UploadFile from './components/util/test';
+import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
 import Stati from './components/statistics/StatisticPage';
@@ -84,7 +84,7 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div/>;
+    } else return <div />;
   }
 
   componentDidMount(): void {
