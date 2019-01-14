@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS county;
 DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS street;
+set foreign_key_checks = 1;
+
 
 CREATE TABLE county(
     name VARCHAR(255) PRIMARY KEY NOT NULL
@@ -101,7 +103,7 @@ CREATE TABLE street(
   streetName VARCHAR(30) PRIMARY KEY
 );
 
-ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES county(name);
+ALTER TABLE municipality ADD FOREIGN KEY(county) REFERENCES county(name);
 
 
 
@@ -134,4 +136,3 @@ ADD FOREIGN KEY(event_id) REFERENCES event(event_id);
 ALTER TABLE municipality
 ADD FOREIGN KEY(county) REFERENCES county(name);
 
-set foreign_key_checks = 1;
