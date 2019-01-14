@@ -6,8 +6,6 @@ const ProblemDao = require('../dao/problemDao');
 const pool = require('../services/database');
 let problemDao = new ProblemDao(pool);
 
-
-
 exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
   problemDao.getAll((status, data) => {
@@ -27,13 +25,13 @@ exports.problems_get_problem = (req, res) => {
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   console.log(req.body);
-  if(req.body.img_user !== undefined && req.files[0] === undefined){
+  if (req.body.img_user !== undefined && req.files[0] === undefined) {
     problemDao.createOne(req.body, (status, data) => {
       res.status(status);
       res.json(data);
     });
   } else {
-    ImageHostController.uploadImage(req.files[0], (url) => {
+    ImageHostController.uploadImage(req.files[0], url => {
       req.body.img_user = url;
       problemDao.createOne(req.body, (status, data) => {
         res.status(status);
@@ -41,8 +39,6 @@ exports.problems_create_problem = (req, res) => {
       });
     });
   }
-
-
 };
 
 exports.problems_delete_problem = (req, res) => {

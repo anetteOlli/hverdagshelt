@@ -69,10 +69,7 @@ const styles = (theme: Object) => ({
     paddingBottom: 25,
     paddingLeft: 15
   },
-  button1: {
-
-  }
-
+  button1: {}
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -162,18 +159,17 @@ class ProblemDetails extends React.Component<Props, State> {
             </Button>
           </Grid>
 
-
           <div className={classes.title}>
             <Grid xs={12}>
               <Typography variant="h4" gutterBottom align="left">
                 {problem.problem_title}
               </Typography>
             </Grid>
-              <Grid xs={12}>
-                <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
-                </Typography>
-              </Grid>
+            <Grid xs={12}>
+              <Typography variant="caption" gutterBottom align="left">
+                Status: {problem.status_fk}
+              </Typography>
+            </Grid>
           </div>
 
           <Grid item xs={2} />

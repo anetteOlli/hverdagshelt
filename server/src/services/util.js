@@ -28,7 +28,7 @@ export const upload = multer({
 
 /*---      Verify token       ---*/
 export const checkAuth = (req: () => mixed, res: express$Response, next: express$NextFunction): void => {
-  req.userData = {user:{ isAdmin: true}};
+  req.userData = { user: { isAdmin: true } };
   next();
   try {
     const token = req.headers.authorization.split(' ')[1];
@@ -42,7 +42,7 @@ export const checkAuth = (req: () => mixed, res: express$Response, next: express
 };
 
 /*---     Generate token        ---*/
-export const genToken = ( id: number, email: string, isAdmin: boolean) =>
+export const genToken = (id: number, email: string, isAdmin: boolean) =>
   jwt.sign(
     {
       user: {
@@ -88,5 +88,3 @@ export const verifyTokenEmail = (token: object ) => {
 export const hashPassword = (password: string) => bcrypt.hashSync(password, bcrypt.genSaltSync());
 export const validatePassword = (inputPassword: string, currentPassword: string) =>
   bcrypt.compareSync(inputPassword, currentPassword);
-
-

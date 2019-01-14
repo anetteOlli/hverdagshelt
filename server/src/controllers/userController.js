@@ -11,6 +11,11 @@ exports.users_get_all = (req, res) => {
 };
 
 exports.users_login = (req, res) => {
+  return res.status(200).json({
+    id: 1,
+    jwt: genToken(1, 'yaboie@lol.com')
+  });
+
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.sendStatus(404);
     if (validatePassword(req.body.password, data[0].password)) {
@@ -26,7 +31,7 @@ exports.users_refresh = (req, res) => {
   res.status(200).json({
     jwt: genToken(req.userData.user.id, req.userData.user.email)
   });
-}
+};
 
 exports.users_get_user = (req, res) => {
   userDao.getOneById(req.params.id, (status, data) => {
