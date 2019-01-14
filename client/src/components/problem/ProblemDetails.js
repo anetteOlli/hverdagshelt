@@ -38,7 +38,8 @@ const styles = (theme: Object) => ({
   },
 
   linkbtn: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    minWidth: 200
   },
   grid: {
     height: '100%',
@@ -71,11 +72,12 @@ const styles = (theme: Object) => ({
     fontWeight: theme.typography.fontWeightRegular
   },
   wrapper1: {
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    minWidth: 400
   },
   title: {
     paddingTop: 25,
-    paddingBottom: 25,
+    paddingBottom: 15,
     paddingLeft: 15
   }
 });
@@ -126,12 +128,10 @@ class ProblemDetails extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item xs={2}>
-
-
-            <div>
-
+          <Grid item xs={12}>
+            <div className={classes.btnContainer}>
               <Button
+                className={classes.linkbtn}
                 aria-owns={open ? 'simple-popper' : undefined}
                 aria-haspopup="true"
                 variant="contained"
@@ -156,13 +156,7 @@ class ProblemDetails extends React.Component<Props, State> {
               >
                 <h4>Per persen, Tlf: 90909090, Email: test@mail.com</h4>
               </Popover>
-            </div>
-          </Grid>
 
-
-
-          <Grid item xs className={classes.buttonsGrid}>
-            <div className={classes.btnContainer}>
               <Button
                 variant="contained"
                 size="small"
@@ -173,20 +167,18 @@ class ProblemDetails extends React.Component<Props, State> {
                 Legg til entrepreneur
               </Button>
 
-              <Button className={classes.linkbtn}
-                      onClick={this.onClickEdit}
-                      color="secondary"
-              >
-
-                <Icon><Edit/></Icon> Edit
+              <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
+                <Icon>
+                  <Edit />
+                </Icon>{' '}
+                Edit
               </Button>
             </div>
           </Grid>
 
-
           <div className={classes.title}>
             <Grid item xs={12}>
-              <Typography variant="h4" gutterBottom align="left">
+              <Typography variant="h2" gutterBottom align="left">
                 {problem.problem_title}
               </Typography>
             </Grid>
@@ -201,7 +193,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
           <Grid item xs={12}>
             <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
-              <Grid item xs className="Wrapper1">
+              <Grid item xs className={classes.wrapper1}>
                 <Typography variant="h6" gutterBottom align="left">
                   Problem
                 </Typography>
@@ -231,12 +223,12 @@ class ProblemDetails extends React.Component<Props, State> {
                   </ExpansionPanel>
                 </div>
               </Grid>
-              <Grid item xs className="Wrapper2">
+              <Grid item xs className={classes.wrapper1}>
                 <Typography variant="h6" gutterBottom align="left">
                   Entrepreneur
                 </Typography>
                 <ExpansionPanel>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <Typography className={classes.heading}>Beskrivelse</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
@@ -284,7 +276,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
-
 
 /*
 <Button
