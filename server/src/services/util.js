@@ -66,7 +66,7 @@ export const genTokenEmail = (packageJson: object) => {
     packageJson,
     process.env.EMAIL_KEY,
     {
-      expiresIn: '100s'
+      expiresIn: '24h'
     }
   );
 };
