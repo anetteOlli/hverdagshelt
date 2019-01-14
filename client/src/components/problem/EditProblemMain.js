@@ -1,12 +1,23 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import createHashHistory from 'history/createHashHistory'
-const history = createHashHistory();
+import { goToProblemDetail } from '../../store/actions/problemActions';
 
 // Material-ui
-import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
-  Grid, Paper, Card, CardContent, TextField
+import {
+  Select,
+  Input,
+  MenuItem,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Grid,
+  Paper,
+  Card,
+  CardContent,
+  TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import EditProblemA from './EditProblemA';
@@ -17,6 +28,9 @@ import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import ProblemDetails from './ProblemDetails';
+var bool = false;
+var user_id;
 
 type Props = {
   classes: Object,
@@ -30,9 +44,9 @@ type State = {
   img_user: string,
   date_made: Date,
   last_edited: Date,
-  entrepreneur_fk: number;
+  entrepreneur_fk: number,
   location_fk: Geolocation,
-  status_fk: 'active'|'inacitve'|'happening',
+  status_fk: 'active' | 'inacitve' | 'happening',
   category_fk: string,
   user_fk: number
 };
@@ -49,20 +63,19 @@ const styles = (theme: Object) => ({
     paddingTop: 20,
     paddingBottom: 20,
     marginTop: 10,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   },
   paper2: {
-    height: '100%',
-
+    height: '100%'
   },
   grid: {
     height: '100%',
     paddingBottom: 20,
-    display: 'flex',
+    display: 'flex'
   },
   grid2: {
     paddingBottom: 20,
-    height: '100%',
+    height: '100%'
   },
   grid3: {
     paddingBottom: 20,
@@ -70,42 +83,46 @@ const styles = (theme: Object) => ({
     alignItems: 'flex-end'
   },
   MUI: {
-    height: '100%',
+    height: '100%'
   }
 });
 
+function getView(bool: boolean, user_fk: number) {
+  var view;
+    if (bool) {
+      view = getUserPri(user_fk);
+    } else {
+      view = 3;
+    }
+  return view;
+}
 
-function getUserPri(user_fk: number){
+function getUserPri(user_fk: number) {
+  var prio;
+  prio = 2;
   // get user priority
-  const prio = 1;
   return prio;
 }
 
-function getEditView(priority: number){
-  switch (priority){
-
+function getEditView(priority: number) {
+  switch (priority) {
     case 0:
-      return(
-        <EditProblem/>
-    );
+      return <EditProblem />;
     case 1:
-      return(
-        <EditProblemB/>
-    );
+      return <EditProblemB />;
     case 2:
-      return(
-       <EditProblemA/>
-
-    );
+      return <EditProblemA />;
+    case 3:
+      return {
+        //<ProblemDetails/>
+      };
     default:
-      return (
-        'Unknown step'
-    );
+      return 'Unknown view';
   }
 }
 
-
 class EditProblemMain extends React.Component<Props, State> {
+  bool = true;
 
   state = {
     problem_id: null,
@@ -121,7 +138,7 @@ class EditProblemMain extends React.Component<Props, State> {
     user_fk: '',
 
     similarProblems: [],
-    categories: [],
+    categories: []
   };
 
   handleChange = e => {
@@ -137,44 +154,63 @@ class EditProblemMain extends React.Component<Props, State> {
     console.log(this.state);
   };
 
+  handleTableClick = e => {
+    let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
+    this.props.goToProblemDetail(myProblem.id);
+  };
 
-render(){
-  const { classes, problem, isLoggedIn } = this.props;
-  const a = getUserPri(this.state.user_fk);
-  // noinspection JSAnnotator
-  var problem_id = 0;
-  const rows = (this.similarProblems == null ? [] : createMuiData(this.similarProblems));
+  render() {
+    console.log(this.props.problem.currentProblemId);
+    const { classes, problem, isLoggedIn } = this.props;
+    var a = this.state.user_fk;
+    bool =  this.props.editMode || true;
+    const rows = this.similarProblems == null ? [] : createMuiData(this.similarProblems);
 
-  return (
-    <div>
-      <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
-        <Grid item xs={6} sm={3}>
-          <MuiTable
-            className={classes.MUI}
-            rows={rows}
-            onClick={e => {
-              let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
-              problem_id = myProblem.id
-              // history.push til problem details med id = problem_id
-            }}
-          />
+    return (
+      <div>
+        <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
+          <Grid item xs={6} sm={3}>
+            <MuiTable className={classes.MUI} rows={rows} onClick={this.handleTableClick} />
+          </Grid>
+          <Grid item xs>
+            {getEditView(getView(bool, a))}
+          </Grid>
         </Grid>
-        <Grid item xs>
-          {getEditView(0)}
-        </Grid>
-      </Grid>
-    </div>
-
-  );
-}
+      </div>
+    );
+  }
 
   getSimilarProblems(municipality: string, location: string) {
     //@TODO AXIOS GET SIMILAR PROBLEMS
     this.similarProblems = [
-      {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', location: 'Kongens Gate', description: 'abc', status: 'Unchecked' },
-      {id:2, title: 'Dårlig', category: 'Veier', municipality: 'Trondheim', location: 'Jørunds Gate', description: 'def', status: 'Checked' },
-      {id:3, title: 'Problem', category: 'Veier', municipality: 'Ås', location: 'Torget', description: 'mnl', status: 'Working' }
-    ]
+      {
+        id: 1,
+        title: 'Hull i vei',
+        category: 'Veier',
+        municipality: 'Vestby',
+        location: 'Kongens Gate',
+        description: 'abc',
+        status: 'Unchecked'
+      },
+      {
+        id: 2,
+        title: 'Dårlig',
+        category: 'Veier',
+        municipality: 'Trondheim',
+        location: 'Jørunds Gate',
+        description: 'def',
+        status: 'Checked'
+      },
+      {
+        id: 3,
+        title: 'Problem',
+        category: 'Veier',
+        municipality: 'Ås',
+        location: 'Torget',
+        description: 'mnl',
+        status: 'Working'
+      }
+    ];
   }
 
   componentDidMount() {
@@ -187,13 +223,16 @@ render(){
 
 const mapStateToProps = state => {
   return {
-    problem: state.problem
+    problem: state.problem,
+    userId: state.user.userID,
+    currentProblemId: state.problem.currentProblemId,
+    editMode: state.problem.editMode
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    goToProblemDetail: id => dispatch(goToProblemDetail(id))
   };
 };
 
@@ -201,4 +240,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(EditProblemMain))));
-

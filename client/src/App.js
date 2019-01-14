@@ -9,11 +9,8 @@ import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
-import EditProblem from './components/problem/EditProblem';
 import Map from './components/map/maptest';
 import MuniPage from './components/dashboard/MuniPage';
-import EditProblemB from './components/problem/EditProblemB';
-import EditProblemA from './components/problem/EditProblemA';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
@@ -66,11 +63,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/uploadfile" component={UploadFile} />
                     <Route exact path="/map" component={Map} />
-                    <Route exact path="/registrer-bruker" component={SignUp} />
-                    <Route exact path="/editp" component={EditProblem} />
-                    <Route exact path="/editpb" component={EditProblemB} />
-                    <Route exact path="/editpa" component={EditProblemA} />
-                    <Route exact path="/editpm" component={EditProblemMain} />
+                    <Route exact path="/problem" component={EditProblemMain} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />

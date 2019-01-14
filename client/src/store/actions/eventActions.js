@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/eventReducer';
+import type { Action } from '../reducers/eventReducer';
+import type { State } from '../reducers';
 import { postData, putData, deleteData } from '../util';
 
 /**

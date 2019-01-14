@@ -14,6 +14,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
+import Map from '../map/maptest';
 
 const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
 
@@ -74,23 +75,6 @@ class EditProblem extends React.Component<Props, State> {
     e.preventDefault();
     console.log(this.state);
   };
-  readURL(input) {
-    if (input.files && input.files[0]) {
-      const fileExtension = input.substr(input.lastIndexOf('.') + 1);
-      if (fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
-        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
-        return false;
-      } else {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          $('#img').attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-  }
 
   handleUpload = (e) => {
     this.setState({
@@ -180,23 +164,12 @@ class EditProblem extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography>Her skal map komme: </Typography>
+                    <Typography >Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <div />
-                  <div>
-                    <img
-                      id="img"
-                      top
-                      width="100%"
-                      src={
-                        this.state.img_user ||
-                        'https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg' ||
-                        'http://placehold.it/180'
-                      }
-                      alt="Bilde"
-                    />
+                <ExpansionPanelDetails className={classes.mapExpansion}>
+                  <div className="mapPlaceholder">
+                    <Map />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>

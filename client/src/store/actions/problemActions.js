@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State, Problem } from '../reducers/problemReducer';
+import type { Action, Problem } from '../reducers/problemReducer';
+import type { State } from '../reducers';
 import { postData, putData, deleteData, getData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -100,5 +101,23 @@ export const getProblemsByMuniAndStreet = (muni: string, street: string) => {
           payload: error
         })
       );
+  };
+};
+
+export const goToProblemDetail = id => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'GO_TO_PROBLEM_DETAIL',
+      payload: id
+    });
+  };
+};
+
+export const goToProblemEdti = id => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'GO_TO_PROBLEM_EDIT',
+      payload: id
+    });
   };
 };
