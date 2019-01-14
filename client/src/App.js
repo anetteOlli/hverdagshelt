@@ -16,7 +16,6 @@ import EditProblemB from './components/problem/EditProblemB';
 import EditProblemA from './components/problem/EditProblemA';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
-import UploadFile from './components/util/test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
 import Stati from './components/statistics/StatisticPage';
@@ -92,7 +91,7 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div/>;
+    } else return <div />;
   }
 
   componentDidMount(): void {
