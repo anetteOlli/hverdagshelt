@@ -18,9 +18,11 @@ exports.events_get_event = (req, res) => {
 };
 
 exports.events_get_from_municipality = (req, res) => {
-  console.log("/events/municipality" + req.params.municipalityName + " fikk GET request fra klient");
-  eventDao.getFromMunicipality(req.params.municipalityName, (status, data) => {
-     res.status(status).json(data);
+  console.log(
+    '/events/municipality/' + req.body.municipality_fk + '(' + req.body.county_fk + ') fikk GET request fra klient'
+  );
+  eventDao.getFromMunicipality(req.body, (status, data) => {
+    res.status(status).json(data);
   });
 };
 

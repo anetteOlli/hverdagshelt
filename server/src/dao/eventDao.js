@@ -12,7 +12,7 @@ module.exports = class EventDao extends Dao {
 <<<<<<< HEAD
 =======
 
-  getFromMunicipality(json,callback){
+  getFromMunicipality(json, callback){
     const values = [
       json.municipality,
       json.county
