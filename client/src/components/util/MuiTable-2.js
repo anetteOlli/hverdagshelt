@@ -20,7 +20,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
-/** Courtesy of https://material-ui.com/demos/expansion-panels/ */
+/** Courtesy of https://material-ui.com/demos/expansion-panels/
+* Styles the expansionpanels!
+*/
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0,0,0,.125)',
@@ -63,13 +65,21 @@ const ExpansionPanelDetails = withStyles(theme => ({
   },
 }))(MuiExpansionPanelDetails);
 
+//Own material start
+/** Props for MuiTable
+* The props are as following:
+* Rows are the item you want to show. Should contain id, title, description, status, entrepreneur
+* onClick is
+*/
 type Props = {
   classes: PropTypes.object,
   rows: PropTypes.array,
-  onSupportClick: PropTypes.func,
   onClick: PropTypes.func
 }
 
+/** Component Class for MuiTable
+* @see Props
+*/
 class MuiTable2Base extends React.Component<Props> {
   state = {
     expanded: '0',
@@ -141,7 +151,6 @@ function MuiTable2() {
     <Paper style={{ height: 250, width: '100%' }}>
       <MuiTable2Base
       rows={rows}
-      onSupportClick={e => console.log(e)}
       onClick={e => console.log(e)}
       />
     </Paper>
