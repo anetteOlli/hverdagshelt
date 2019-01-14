@@ -24,6 +24,15 @@ exports.problems_get_problem = (req, res) => {
   });
 };
 
+exports.problems_get_from_municipality = (req, res) => {
+  console.log(
+    '/problems/municipality/' + req.body.municipality_fk + '(' + req.body.county_fk + ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipality(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   console.log(req.body);

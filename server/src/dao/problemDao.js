@@ -18,7 +18,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  getAllMunicipality(json,callback){
+  getFromMunicipality(json,callback){
     const values = [
       json.municipality,
       json.county
@@ -30,7 +30,7 @@ module.exports = class ArticleDao extends Dao {
     )
   }
 
-  getAllCity(json,callback){
+  getFromCity(json,callback){
     const values = [
       json.municipality,
       json.county,
@@ -43,7 +43,7 @@ module.exports = class ArticleDao extends Dao {
     )
   };
 
-  getAllStreet(json,callback) {
+  getFromStreet(json,callback) {
     const values = [
       json.municipality,
       json.county,
