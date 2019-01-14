@@ -110,7 +110,7 @@ function getStepContent(step: number, state: State,
               label="Kommune"
               name="municipality"
               autoComplete="municipality"
-              value={state.muni}
+              value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
@@ -298,13 +298,16 @@ function handleSupport(problemId: number){
 }
 
 type Props = {
-  muni: string,
+  municipality: string,
   street: string,
+  cords : {
+    lat: number,
+    lng: number
+  }
 };
 
 type State = {
   activeStep: number,
-  muni: string,
   title: string,
   category: string,
   municipality: string,
@@ -338,10 +341,9 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-    muni: '',
+    municipality: '',
     title: '',
     category: '',
-    municipality: '',
     street: '',
     description: '',
     image: '',
@@ -369,13 +371,14 @@ class CreateProblem extends React.Component<Props, State> {
     this.getCategories();
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps : Props){
     console.log("HEEEER")
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
+        cords: nextProps.cords,
         street: nextProps.street,
-        muni: nextProps.muni,
+        municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
         })
@@ -559,7 +562,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    muni: state.map.muni,
+    municipality: state.map.muni,
     city: state.map.city,
     cords: state.map.cords
   };
