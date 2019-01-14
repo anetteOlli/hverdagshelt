@@ -56,26 +56,31 @@ export default (state: State = initState, action: Action) => {
     case 'CREATE_PROBLEM_SUCCESS':
       console.log('%c CREATE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'CREATE_PROBLEM_ERROR':
       console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
       console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
       console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'DELETE_PROBLEM_SUCCESS':
       console.log('%c DELETE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':

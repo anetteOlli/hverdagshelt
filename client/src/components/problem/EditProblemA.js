@@ -180,23 +180,6 @@ class EditProblemA extends React.Component<Props, State> {
 
                   <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
 
-                    <SelectValidator
-                      fullWidth
-                      margin="normal"
-                      label="Entreprenør: "
-                      name="entrepreneur_fk"
-                      value={this.state.entrepreneur_fk}
-                      onChange={this.handleChange}
-                      validators={['required']}
-                      errorMessages={['this field is required']}
-                    >
-                      {entrepreneur.map((option, index) => (
-                        <MenuItem key={index} value={option}>
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
-
                     <Paper className={classes.paper}> Entreprenør:  {this.state.entrepreneur_fk} </Paper>
 
                     <Paper
@@ -208,6 +191,10 @@ class EditProblemA extends React.Component<Props, State> {
                         name="problem_description">
                         {"Beskrivelse: \n " + this.state.description_entrepreneur}
                     </Paper>
+
+                    <Paper className={classes.paper}> Entreprenør kontakt informasjon:  {// her kommer kontakt informasjon
+                       } </Paper>
+
 
                     <Paper className={classes.paper}> Dato Endret:  {this.state.last_edited} </Paper>
 
