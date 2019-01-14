@@ -9,8 +9,6 @@ module.exports = class EventDao extends Dao {
   getOne(id, callback) {
     super.query('select * from event where event_id=?', [id], callback);
   }
-<<<<<<< HEAD
-=======
 
   getFromMunicipality(json, callback){
     const values = [
@@ -22,7 +20,6 @@ module.exports = class EventDao extends Dao {
       values,
       callback
     )};
->>>>>>> 0f9a11d459b0c7a8383c0dd3f473d8024ca0c4d1
 
   createOne(json, callback) {
     const newContent = [
