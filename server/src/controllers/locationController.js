@@ -1,6 +1,6 @@
-const EventDao = require('../dao/eventDao');
+const LocationDao = require('../dao/locationDao');
 const pool = require('../services/database');
-let eventDao = new EventDao(pool);
+let locationDao = new LocationDao(pool);
 
 
 exports.locations_get_all = (req, res) => {
