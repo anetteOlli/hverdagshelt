@@ -7,17 +7,17 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from '@material-ui/core/Divider/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
-import TextField from '@material-ui/core/TextField/TextField';
+import PictureUpload from '../util/PictureUpload';
+import Map from '../map/maptest';
+import { CardContent } from './CreateProblem';
 
-const categories = ['Vei','vann','strøm', 'annen skade'];
 const statuss = ["til avventing", "påbegynt", "registrert", "ferdig"];
-const entrepreneur = ["Bygg AS", "Vann AS", "Strøm AS", "Vi kan kanskje ikke mye, men vi er billig", "Ingen"];
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -69,6 +69,14 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     minHeight: '100%',
     //alignItems: 'flex-end'
+  },
+  mapPlaceholder: {
+    width: '100%',
+    height: '100%'
+  },
+  mapExpansion: {
+    width: '100%',
+    height: '100%'
   }
 });
 
@@ -98,24 +106,12 @@ class EditProblemB extends React.Component<Props, State> {
     e.preventDefault();
     console.log(this.state);
   };
-
-  readURL(input) {
-    if (input.files && input.files[0]) {
-      const fileExtension = input.substr(input.lastIndexOf('.') + 1);
-      if (fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
-        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
-        return false;
-      } else {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          $('#img').attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
+  handleUpload = (e) => {
+    this.setState({
+      displayImg: e
+    })
   }
+
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
@@ -168,7 +164,6 @@ class EditProblemB extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div/>
                       <div>
                         <img id="img" top width="100%" src={this.state.img_user ||"http://placehold.it/180" } alt="Bilde" />
                       </div>
@@ -222,26 +217,25 @@ class EditProblemB extends React.Component<Props, State> {
                       <ExpansionPanel>
                         <ExpansionPanelSummary>
                           <div>
-                            <Typography >Bilde</Typography>
+                            <Typography>Bilde</Typography>
                           </div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                          <div/>
+                          <div />
                           <div>
-                            <img id="img" top width="100%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                            <img
+                              id="img"
+                              top
+                              width="100%"
+                              src={
+                                this.state.displayImg ||
+                                this.state.img_user
+                              }
+                              alt="Bilde"
+                            />
+                            <PictureUpload uploadImg={this.handleUpload} />
                           </div>
                         </ExpansionPanelDetails>
-                        <Divider />
-                        <TextValidator
-                          fullWidth
-                          margin="normal"
-                          label="bilde url"
-                          name="img_user"
-                          value={this.state.img_user}
-                          onChange={this.handleChange}
-                        />
-                        <input type='file' name="img_user" accept="image/*" value={this.readURL(this)} onChange={this.handleChange}/>
-
                       </ExpansionPanel>
                     </div>
 
@@ -253,13 +247,12 @@ class EditProblemB extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Her skal map komme: </Typography>
+                    <Typography >Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <div/>
-                  <div>
-                    <img id="img" top width="100%" src={"https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+                <ExpansionPanelDetails className={classes.mapExpansion}>
+                  <div className="mapPlaceholder">
+                    <Map />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>

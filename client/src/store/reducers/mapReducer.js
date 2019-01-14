@@ -9,13 +9,14 @@ export type State = {
 export type Action =
   | { type: 'UPDATE_MAP', payload: { lat: string, lng: string } }
   | { type: 'UPDATE_CENTER', payload: { lat: string, lng: string } }
-  | { type: 'UPDATE_PLACE_NAME', payload: { street: string, muni: string, county: string } }
+  | { type: 'UPDATE_PLACE_NAME', payload: { street: string, muni: string, county: string, city: string } }
   | { type: 'UPDATE_STREET', payload: { street: string } };
 
 const initState = {
   street: '',
   muni: '',
   county: '',
+  city: '',
   currentMarker: {
     lat: '',
     lng: ''
@@ -52,7 +53,8 @@ export default (state: State = initState, action: Action) => {
         ...state,
         street: action.payload.street,
         muni: action.payload.muni,
-        county: action.payload.county
+        county: action.payload.county,
+        city: action.payload.city
       };
     default:
       return state;
