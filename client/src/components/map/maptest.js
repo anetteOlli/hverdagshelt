@@ -69,7 +69,7 @@ class SimpleMap extends React.Component<Props, State> {
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
           onClick={this.props.updateMap}
-          onGoogleApiLoaded={( map, maps ) => this.apiHasLoaded(map, maps)}
+          onGoogleApiLoaded={(map, maps) => this.apiHasLoaded(map, maps)}
         >
           {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>

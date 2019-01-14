@@ -51,7 +51,7 @@ class Test extends React.Component<Props, State> {
     });
   };
 
-  handleUpload = e => {
+  handleUpload = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
       picture: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])

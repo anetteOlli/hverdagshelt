@@ -36,6 +36,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-
-
 module.exports = app;

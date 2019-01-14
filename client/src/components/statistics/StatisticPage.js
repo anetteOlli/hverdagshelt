@@ -1,26 +1,26 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import SimpleLineChart from './SimpleLineChart';
+import { SimpleLineChart, SimpleAreaChart, DualLineChart, SimplePieChart } from './Charts';
 import SimpleTable from './SimpleTable';
 import withRoot from '../../withRoot';
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: 'flex'
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
     height: '100vh',
-    overflow: 'auto',
+    overflow: 'auto'
   },
   chartContainer: {
-    marginLeft: -22,
+    marginLeft: -22
   },
   tableContainer: {
-    height: 320,
-  },
+    height: 320
+  }
 });
 
 class Dashboard extends React.Component {
@@ -31,10 +31,28 @@ class Dashboard extends React.Component {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
-            Orders
+            SimpleLineChart
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <SimpleLineChart />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            SimpleAreaChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <SimpleAreaChart />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            DualLineChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <DualLineChart />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            SimplePieChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <SimplePieChart />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
             Products

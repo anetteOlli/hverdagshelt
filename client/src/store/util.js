@@ -17,7 +17,7 @@ export const getData = (endpoint: string) => {
   });
 };
 
-export const postData = (endpoint: string, data: JSON) => {
+export const postData = <T>(endpoint: string, data: T) => {
   return axios.post(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const deleteData = (endpoint: string) => {
 };
 
 export const validateEmail = (email: string) => {
-  return axios.post(url + 'users/validate-email', { email });
+  return axios.post(url + 'users/validate_email', { email });
 };
 
 export const signInAxios = (creds: { email: string, password: string }) => {
