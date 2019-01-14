@@ -6,18 +6,20 @@ import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
+import { getProblemsByState, goToProblemDetail } from '../../store/actions/problemActions';
 
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
   problems: problem[],
-  currentProblemId: number
-
+  currentProblemId: number,
+  getProblemsByState: Function,
+  match: { params: { municipality: string } }
 };
 type problem = {
-  lat : string,
-  lng : string,
+  lat: string,
+  lng: string,
   id: number,
   title: string,
   description: string,
@@ -30,7 +32,6 @@ type problem = {
   municipality: string,
   county: string,
   city: string
-
 };
 
 type State = {
@@ -59,6 +60,10 @@ class MapMarkers extends React.Component<Props, State> {
     zoom: 13
   };
 
+  componentWillMount() {
+    this.props.getProblemsByState('Oppland');
+  }
+
   apiHasLoaded = (map, maps) => {
     console.log('apiHasLoaded', map);
     if (map && maps) {
@@ -76,20 +81,25 @@ class MapMarkers extends React.Component<Props, State> {
     return (
       <div style={{ height: '80vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: API_KEY}}
+          bootstrapURLKeys={{ key: API_KEY }}
           defaultCenter={center}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
-
-          //create array.map functionality here
-          {this.props.problems.map(problem =>(
-            (problem.id === this.props.problems.currentProblemId) ?
-            (<Marker color='primary' lat={problem.lat} lng={problem.lng} onClick={this.showProblemDetail(problem.id)}/>) :
-            (<Marker color='secondary' lat={problem.lat} lng={problem.lng} onClick={this.showProblemDetail(problem.id)}/>)
-
-            ))}
-        />
+        >
+          // create array.map functionality here
+          {this.props.problems.map(problem => (
+            <div key={problem.id}>
+              {console.log('uskrift av problemet i map', problem)}
+              <Marker
+                color="primary"
+                lat={problem.lat}
+                lng={problem.lng}
+                onClick={this.props.goToProblemDetail(problem.id)}
+              />
+            </div>
+          ))}
+        </GoogleMapReact>
       </div>
     );
   }
@@ -98,13 +108,14 @@ class MapMarkers extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     //placeholder:
-    problems : state.problem.problems
+    problems: state.problem.problems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    showProblemDetail: id => dispatch(goToProblemDetail(id))
+    goToProblemDetail: id => dispatch(goToProblemDetail(id)),
+    getProblemsByState: state => dispatch(getProblemsByState(state))
   };
 };
 
