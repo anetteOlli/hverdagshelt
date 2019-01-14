@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
+import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
 
 const styles = (theme: Object) => ({
@@ -39,7 +40,11 @@ const styles = (theme: Object) => ({
 
   linkbtn: {
     margin: theme.spacing.unit,
-    minWidth: 200
+    minWidth: 400,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
+
   },
   grid: {
     height: '100%',
@@ -130,33 +135,6 @@ class ProblemDetails extends React.Component<Props, State> {
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item xs={12}>
             <div className={classes.btnContainer}>
-              <Button
-                className={classes.linkbtn}
-                aria-owns={open ? 'simple-popper' : undefined}
-                aria-haspopup="true"
-                variant="contained"
-                color="secondary"
-                onClick={this.handleClick}
-              >
-                kontaktinfo
-              </Button>
-              <Popover
-                id="simple-popper"
-                open={open}
-                anchorEl={this.state.anchorEl}
-                onClose={this.handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center'
-                }}
-              >
-                <h4>Per persen, Tlf: 90909090, Email: test@mail.com</h4>
-              </Popover>
-
               <Button
                 variant="contained"
                 size="small"
@@ -255,6 +233,14 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
             </Grid>
           </Grid>
+
+          <Grid item xs={12}>
+            <div className="mapPlaceholder">
+              <Map/>
+            </div>
+
+
+          </Grid>
         </Grid>
       </div>
     );
@@ -277,14 +263,3 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
 
-/*
-<Button
-                variant="contained"
-                size="small"
-                color="primary"
-                className={classes.linkbtn}
-                onClick={this.onClickEdit}
-              >
-                Rediger problem
-              </Button>
- */
