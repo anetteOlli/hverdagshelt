@@ -20,6 +20,7 @@ type Props = {
   classes: Object,
   handleSignOut: Function
 };
+
 type State = {
   anchorEl: any
 };

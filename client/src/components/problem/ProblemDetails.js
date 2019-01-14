@@ -6,30 +6,45 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Popover from '@material-ui/core/Popover/Popover';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import blue from '@material-ui/core/es/colors/blue';
-import {goToEdit} from '../../store/actions/problemActions'
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Icon from '@material-ui/core/Icon';
+import Map from '../map/maptest';
+import Edit from '@material-ui/icons/BorderColor';
+
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20,
-    paddingBottom: 500
+    paddingBottom: 250
   },
+
+  fab: {
+    margin: theme.spacing.unit
+  },
+
   button: {
-    //marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    flex: 1,
+    flexDirection: 'row'
   },
-  editBTN: {
-    position: 'relative',
-    minWidth: 50
+
+  btnContainer: {
+    //paddingRight: 30
   },
-  addBTN: {
-    position: 'relative',
-    minWidth: 50
+
+  linkbtn: {
+    margin: theme.spacing.unit,
+    minWidth: 400,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
+
   },
   grid: {
     height: '100%',
@@ -37,7 +52,7 @@ const styles = (theme: Object) => ({
     display: 'flex',
     alignItems: 'flex-end'
   },
-  gridi1: {},
+
   paper: {
     padding: theme.spacing.unit,
     textAlign: 'center',
@@ -62,14 +77,14 @@ const styles = (theme: Object) => ({
     fontWeight: theme.typography.fontWeightRegular
   },
   wrapper1: {
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    minWidth: 400
   },
   title: {
-    paddingTop: 50,
-    paddingBottom: 25,
+    paddingTop: 25,
+    paddingBottom: 15,
     paddingLeft: 15
-  },
-  button1: {}
+  }
 });
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -86,7 +101,6 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit() {
-    this.props.handleEdit(this.state.problem_id);
     this.props.history.push('/editbruker');
   }
 
@@ -111,64 +125,49 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
-    //console.log(problem);
-    //console.log(problem.status_fk);
+    console.log(problem);
+    console.log(problem.status_fk);
     console.log(this.state.anchorEl, this.props);
-
     const open = Boolean(this.state.anchorEl);
+
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item xs={2}>
-            <div>
+          <Grid item xs={12}>
+            <div className={classes.btnContainer}>
               <Button
-                aria-owns={open ? 'simple-popper' : undefined}
-                aria-haspopup="true"
                 variant="contained"
-                onClick={this.handleClick}
+                size="small"
+                color="secondary"
+                className={classes.linkbtn}
+                onClick={this.onClickAdd}
               >
-                kontaktinfo
+                Legg til entrepreneur
               </Button>
-              <Popover
-                id="simple-popper"
-                open={open}
-                anchorEl={this.state.anchorEl}
-                onClose={this.handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center'
-                }}
-              >
-                <h4>Per persen, Tlf: 90909090, Email: test@mail.com</h4>
-              </Popover>
+
+              <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
+                <Icon>
+                  <Edit />
+                </Icon>{' '}
+                Edit
+              </Button>
             </div>
           </Grid>
 
-          <Grid xs={5} />
-
-          <Grid item xs={5}>
-            <Button className={classes.addBTN} onClick={this.onClickAdd}>
-              Legg til entrepreneur
-            </Button>
-
-            <Button className={classes.editBTN} onClick={this.onClickEdit}>
-              Rediger problem
-            </Button>
-          </Grid>
-
           <div className={classes.title}>
-            <Grid xs={12}>
-              <Typography variant="h4" gutterBottom align="left">
+            <Grid item xs={12}>
+              <Typography variant="h2" gutterBottom align="left">
                 {problem.problem_title}
               </Typography>
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <Typography variant="caption" gutterBottom align="left">
                 Status: {problem.status_fk}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption" gutterBottom align="left">
+                Kontaktinfo: {problem.user_fk}
               </Typography>
             </Grid>
           </div>
@@ -177,7 +176,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
           <Grid item xs={12}>
             <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
-              <Grid item xs className="Wrapper1">
+              <Grid item xs className={classes.wrapper1}>
                 <Typography variant="h6" gutterBottom align="left">
                   Problem
                 </Typography>
@@ -207,12 +206,12 @@ class ProblemDetails extends React.Component<Props, State> {
                   </ExpansionPanel>
                 </div>
               </Grid>
-              <Grid item xs className="Wrapper2">
+              <Grid item xs className={classes.wrapper1}>
                 <Typography variant="h6" gutterBottom align="left">
                   Entrepreneur
                 </Typography>
                 <ExpansionPanel>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <Typography className={classes.heading}>Beskrivelse</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
@@ -239,6 +238,14 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
             </Grid>
           </Grid>
+
+          <Grid item xs={12}>
+            <div className="mapPlaceholder">
+              <Map/>
+            </div>
+
+
+          </Grid>
         </Grid>
       </div>
     );
@@ -248,21 +255,16 @@ class ProblemDetails extends React.Component<Props, State> {
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.problem_id;
   return {
-    problem: state.problems.problem
+    problem: state.problem.problems[0]
   };
-}
-
-  const mapDispatchToProps = (dispatch) => {
+  /*
+    getProblem(id).then(() => {
     return {
-      goToEdit: (id: number) => dispatch(goToEdit(id))
+      problem: state.problem.problem
     };
-    /*
-      getProblem(id).then(() => {
-      return {
-        problem: state.problem.problem
-      };
-    });
-     */
-  };
+  });
+   */
+};
 
-  export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+

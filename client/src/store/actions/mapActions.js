@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/mapReducer';
+import type { Action } from '../reducers/mapReducer';
+import type { State } from '../reducers';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
