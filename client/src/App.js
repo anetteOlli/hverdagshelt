@@ -21,8 +21,6 @@ import Stati from './components/statistics/StatisticPage';
 import SimpleMap from './components/map/GoogleMap';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
-import { refresh } from './store/actions/userActions';
-import { connect } from 'react-redux';
 const styles = () => ({
   root: {
     display: 'flex',
@@ -45,14 +43,11 @@ const styles = () => ({
 
 type Props = {
   classes: Object,
-  refresh: Function,
-  hasCheckedJWT: boolean
 };
 
 class App extends React.Component<Props> {
   render() {
-    const { classes, hasCheckedJWT } = this.props;
-    if (hasCheckedJWT) {
+    const { classes } = this.props;
       return (
         <SnackbarProvider maxSnack={3}>
           <HashRouter>
@@ -89,27 +84,7 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div> LOADING... </div>;
-  }
-
-  componentDidMount(): void {
-    this.props.refresh();
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    hasCheckedJWT: state.app.hasCheckedJWT
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    refresh: () => dispatch(refresh())
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRoot(withStyles(styles)(App)));
+export default withRoot(withStyles(styles)(App));

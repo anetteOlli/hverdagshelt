@@ -11,7 +11,11 @@ export type Action =
   | { type: 'EDIT_EVENT_SUCCESS' }
   | { type: 'EDIT_EVENT_ERROR', payload: Error }
   | { type: 'DELETE_EVENT_SUCCESS' }
-  | { type: 'DELETE_EVENT_ERROR', payload: Error };
+  | { type: 'DELETE_EVENT_ERROR', payload: Error }
+  | { type: 'EVENTS_BY_ALL_SUCCESS', payload: Event[] }
+  | { type: 'EVENTS_BY_ALL_ERROR', payload: Error }
+  | { type: 'EVENTS_BY_MUNI_SUCCESS', payload: Event[] }
+  | { type: 'EVENTS_BY_MUNI_ERROR', payload: Error };
 
 const initState = {
   events: [
@@ -52,6 +56,16 @@ export default (state: State = initState, action: Action) => {
       };
     case 'DELETE_EVENT_ERROR':
       console.log('%c DELETE_EVENT_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        errorMessage: action.payload.message
+      };
+    case 'EVENTS_BY_ALL_SUCCESS':
+      console.log('%c EVENTS_BY_ALL_SUCCESS', 'color: red; font-weight: bold;', action.payload);
+      return {
+        events: action.payload
+      };
+    case 'EVENTS_BY_ALL_ERROR':
+      console.log('%c EVENTS_BY_ALL_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         errorMessage: action.payload.message
       };

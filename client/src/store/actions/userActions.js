@@ -54,7 +54,7 @@ export const refresh = () => {
           });
         });
     }
-    dispatch(hasCheckedJWT());
+    return dispatch(hasCheckedJWT());
   };
 };
 

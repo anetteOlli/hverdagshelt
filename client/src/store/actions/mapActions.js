@@ -22,7 +22,7 @@ export const updateMap = (lat: string, lng: string) => {
 export const placeChanged = (lat: string, lng: string) => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type: 'UPDATE_CENTER',
+      type: 'UPDATE_MAP',
       payload: {
         lat: lat,
         lng: lng

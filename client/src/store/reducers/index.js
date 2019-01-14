@@ -23,6 +23,7 @@ export type State = {
   category: CategoryState
 };
 
+// @flowIgnore
 export default combineReducers({
   app: appReducer,
   user: userReducer,
