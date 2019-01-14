@@ -29,6 +29,7 @@ type Props = {
 
 type State = {
   municipality: string,
+  municipalities: [],
   value: number
 };
 
@@ -208,6 +209,7 @@ function LinkTab(props) {
 class MuniPage extends React.Component<Props, State> {
   state = {
     municipality: '',
+    municipalities: ['Default'],
     value: 0
   };
 
