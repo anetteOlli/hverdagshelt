@@ -12,7 +12,7 @@ module.exports = class ArticleDao extends Dao {
 
   getOne(id, callback) {
     super.query(
-      "SELECT * FROM problem WHERE problem_id LIKE ?",
+      "SELECT * FROM problem WHERE problem_id = ?",
       [id],
       callback
     );
@@ -24,7 +24,7 @@ module.exports = class ArticleDao extends Dao {
       json.county
     ];
     super.query(
-      "SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ?",
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ?",
       values,
       callback
     )
@@ -37,7 +37,7 @@ module.exports = class ArticleDao extends Dao {
       json.city
     ];
     super.query(
-      "SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ? AND city_fk LIKE ?",
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ?",
       values,
       callback
     )
@@ -51,7 +51,7 @@ module.exports = class ArticleDao extends Dao {
     ];
 
     super.query(
-      "SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ? AND street_fk LIKE ?",
+      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ?",
       values,
       callback
     )
@@ -90,7 +90,7 @@ module.exports = class ArticleDao extends Dao {
     ];
 
     super.query(
-      "UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id LIKE ?",
+      "UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?",
       values,
       callback
     )
@@ -106,7 +106,7 @@ module.exports = class ArticleDao extends Dao {
     ];
 
     super.query(
-      "UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id LIKE ?",
+      "UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?",
       values,
       callback
     )
@@ -120,7 +120,7 @@ module.exports = class ArticleDao extends Dao {
     ];
 
     super.query(
-      "UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id LIKE ?",
+      "UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?",
       values,
       callback
     )
@@ -128,7 +128,7 @@ module.exports = class ArticleDao extends Dao {
 
   deleteOne(id, callback) {
     super.query(
-      "UPDATE problem SET status_fk = 'archived' WHERE problem_id LIKE ?",
+      "UPDATE problem SET status_fk = 'archived' WHERE problem_id = ?",
       [id],
       callback
     );

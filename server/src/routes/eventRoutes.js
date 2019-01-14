@@ -7,6 +7,8 @@ router.get('/', EventController.events_get_all);
 
 router.get('/:id', EventController.events_get_event);
 
+router.get('/municipality/:municipalityName', EventController.events_get_from_municipality);
+
 router.post('/', checkAuth, EventController.events_create_event);
 
 router.delete('/:id', checkAuth, EventController.events_delete_event);
