@@ -9,10 +9,10 @@ type GetState = () => State;
 
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${id}`).then((problem: Problem) =>
+    getData(`problems/${id}`).then(respone =>
       dispatch({
         type: 'PROBLEM_BY_ID_SUCCESS',
-        payload: problem
+        payload: respone.data
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEM_BY_ID_ERROR',

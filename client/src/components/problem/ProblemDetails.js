@@ -16,12 +16,13 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
+import { getProblemById } from '../../store/actions/problemActions';
 
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20,
-    paddingBottom: 250
+    paddingBottom: 50
   },
 
   fab: {
@@ -44,7 +45,6 @@ const styles = (theme: Object) => ({
     [theme.breakpoints.down('sm')]: {
       width: '100%'
     }
-
   },
   grid: {
     height: '100%',
@@ -120,151 +120,161 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({
       problem_id: this.props.match.params.problem_id
     });
+    this.props.getProblemById(this.props.match.params.problem_id);
+
     //console.log(this.state.problem_id);
   }
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
     console.log(problem);
-    console.log(problem.status_fk);
-    console.log(this.state.anchorEl, this.props);
     const open = Boolean(this.state.anchorEl);
-
-    return (
-      <div className={classes.main}>
-        <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item xs={12}>
-            <div className={classes.btnContainer}>
-              <Button
-                variant="contained"
-                size="small"
-                color="secondary"
-                className={classes.linkbtn}
-                onClick={this.onClickAdd}
-              >
-                Legg til entrepreneur
-              </Button>
-
-              <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
-                <Icon>
-                  <Edit />
-                </Icon>{' '}
-                Edit
-              </Button>
-            </div>
-          </Grid>
-
-          <div className={classes.title}>
+    if(problem) {
+      return (
+        <div className={classes.main}>
+          <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
-              <Typography variant="h2" gutterBottom align="left">
-                {problem.problem_title}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption" gutterBottom align="left">
-                Status: {problem.status_fk}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption" gutterBottom align="left">
-                Kontaktinfo: {problem.user_fk}
-              </Typography>
-            </Grid>
-          </div>
+              <div className={classes.btnContainer}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="secondary"
+                  className={classes.linkbtn}
+                  onClick={this.onClickAdd}
+                >
+                  Legg til entrepreneur
+                </Button>
 
-          <Grid item xs={2} />
+                <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
+                  <Icon>
+                    <Edit/>
+                  </Icon>{' '}
+                  Edit
+                </Button>
+              </div>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
-              <Grid item xs className={classes.wrapper1}>
-                <Typography variant="h6" gutterBottom align="left">
-                  Problem
+            <div className={classes.title}>
+              <Grid item xs={12}>
+                <Typography variant="h2" gutterBottom align="left">
+                  {problem.problem_title}
                 </Typography>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>Beskrivelse</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Typography variant="body1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                      in culpa qui officia deserunt mollit anim id est laborum.
-                    </Typography>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-
-                <div className={classes.root}>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography className={classes.heading}>Vis bilde</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <img className={classes.problem_img} src={problem.img_user} />
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
               </Grid>
-              <Grid item xs className={classes.wrapper1}>
-                <Typography variant="h6" gutterBottom align="left">
-                  Entrepreneur
+              <Grid item xs={12}>
+                <Typography variant="caption" gutterBottom align="left">
+                  Status: {problem.status_fk}
                 </Typography>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                    <Typography className={classes.heading}>Beskrivelse</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Typography variant="body1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                      in culpa qui officia deserunt mollit anim id est laborum.
-                    </Typography>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-
-                <div className={classes.root}>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography className={classes.heading}>Vis bilde</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <img className={classes.problem_img} src={problem.img_user} />
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
               </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12}>
-            <div className="mapPlaceholder">
-              <Map/>
+              <Grid item xs={12}>
+                <Typography variant="caption" gutterBottom align="left">
+                  Kontaktinfo: {problem.user_fk}
+                </Typography>
+              </Grid>
             </div>
 
+            <Grid item xs={2}/>
 
+            <Grid item xs={12}>
+              <Grid container spacing={24} className={classes.grid} name={'mainGrid2'}>
+                <Grid item xs className={classes.wrapper1}>
+                  <Typography variant="h6" gutterBottom align="left">
+                    Problem
+                  </Typography>
+                  <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                      <Typography className={classes.heading}>Beskrivelse</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <Typography variant="body1">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                        velit
+                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt
+                        in culpa qui officia deserunt mollit anim id est laborum.
+                      </Typography>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+
+                  <div className={classes.root}>
+                    <ExpansionPanel>
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                        <Typography className={classes.heading}>Vis bilde</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <img className={classes.problem_img} src={problem.img_user}/>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  </div>
+                </Grid>
+                <Grid item xs className={classes.wrapper1}>
+                  <Typography variant="h6" gutterBottom align="left">
+                    Entrepreneur
+                  </Typography>
+                  <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                      <Typography className={classes.heading}>Beskrivelse</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <Typography variant="body1">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                        velit
+                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt
+                        in culpa qui officia deserunt mollit anim id est laborum.
+                      </Typography>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+
+                  <div className={classes.root}>
+                    <ExpansionPanel>
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                        <Typography className={classes.heading}>Vis bilde</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <img className={classes.problem_img} src={problem.img_user}/>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <div className="mapPlaceholder">
+                <Map/>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    );
+        </div>
+      );
+    }else {
+      return <div>LOADING PROBLEM...</div>
+    }
   }
+
 }
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.problem_id;
+  const problems = state.problem.problems;
+  console.log(problems);
+  //const problem = problems ? problems.find(problem => problem.id === id) : null;
+  const problem = problems;
   return {
-    problem: state.problem.problems[0]
+    problem
   };
-  /*
-    getProblem(id).then(() => {
-    return {
-      problem: state.problem.problem
-    };
-  });
-   */
 };
 
-export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+const mapDispatchToProps = dispatch => {
+  return {
+    getProblemById: (id: number) => dispatch(getProblemById(id))
+  };
+};
 
+export default connect(mapStateToProps,mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
