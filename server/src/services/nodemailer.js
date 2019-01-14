@@ -13,19 +13,34 @@ const transporter = nodemailer.createTransport(
     }
 );
 
-module.exports = class MailController {
+class MailController {
     /***
      * Method for sending an activation link to an given email with a specific activation link
      * @param notification JSON with email and activationLink
      */
-    sendActivationLink(notification) {
-        const mailOptions = {
-            from: 'test-email@gmail.com',
-            to: `${notification.email}`,
-            subject: 'AKTIVERINGS LINK FOR Hverdagshelt brukerkonto',
-            html: `<h2>mye svada om hva man skal gjøre osv så kommer message</h2> <p>${notification.message}</p>`
+    sendActivationLink(newUser, callback) {
+        var info = {};
+        info.user = newUser;
+        info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        var token = nodemailer.encode(info, 'yeet');
+        console.log("http://localhost:3000/verifyEmail/" + token);
+
+        var mailOptions = {
+            from : "TEST<noreply@vysly.com>",
+            to : newUser.email,
+            subject : "Welcome to TEST",
+            text : 'Visit this http://localhost:3000/verifyEmail/'+token,
+            html : '<a href="http://localhost:3000/verifyEmail/'+token+'"><H2>Click on this</H2></a>'
         };
-        transporter.sendMail(mailOptions, (err,res) => this.callbackHandler(err,res));
+        nodemailer.sendMail(mailOptions,function(email_err){
+            if(email_err){
+                callback(email_err);
+                console.log(email_err);
+            }else{
+                console.log("Email is Sent");
+                callback({success: true})
+            }
+        });
     }
     
     
@@ -60,6 +75,7 @@ module.exports = class MailController {
     }
 };
 
+module.exports = new MailController();
 
 //EXAMPLE USAGE
 /*

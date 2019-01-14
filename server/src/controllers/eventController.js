@@ -25,15 +25,10 @@ exports.events_create_event = (req, res) => {
   eventDao.createOne(req.body, (status, data) => {
     return res.status(status).json(data);
   });
-}
+};
 
 exports.events_delete_event = (req, res)=> {
   console.log("/articles/" + req.params.id + " fikk request fra klient");
-
-
-
-
-
   eventDao.deleteOne(req.params.id, (status, data) => {
     res.status(status);
     res.json(data);
