@@ -385,6 +385,11 @@ class MuniPage extends React.Component<Props, State> {
     history.push('/lagproblem');
   }
 
+/** List of municipalities from database*/
+  // componentWillMount(){
+  //   this.getMunicipalities();
+  // }
+
   /**Set state of municipality*/
   componentDidMount() {
     console.log(this.props.match.params.municipality);

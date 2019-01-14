@@ -82,7 +82,7 @@ class SimpleMap extends React.Component<Props, State> {
               county: responseJson.results[2].address_components[4].long_name,
               country: responseJson.results[2].address_components[5].long_name
             };
-            this.updateMapName(place.street, place.municipality, place.county);
+            this.props.updateMapName(place.street, place.municipality, place.county);
             console.log(place);
           }
         }
