@@ -165,6 +165,11 @@ class ProblemDetails extends React.Component<Props, State> {
                 Status: {problem.status_fk}
               </Typography>
             </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption" gutterBottom align="left">
+                Kontaktinfo: {problem.user_fk}
+              </Typography>
+            </Grid>
           </div>
 
           <Grid item xs={2} />
