@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State, Problem } from '../reducers/problemReducer';
+import type { Action, Problem } from '../reducers/problemReducer';
+import type { State } from '../reducers';
 import { postData, putData, deleteData, getData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
