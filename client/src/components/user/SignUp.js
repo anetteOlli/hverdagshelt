@@ -1,6 +1,15 @@
 // @flow
 import React from 'react';
-import { Button, IconButton, InputAdornment, Typography, MenuItem } from '@material-ui/core/';
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Typography,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select
+} from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
@@ -55,15 +64,6 @@ const MenuProps = {
   }
 };
 
-function getStyles(name, that) {
-  return {
-    fontWeight:
-      that.state.name.indexOf(name) === -1
-        ? that.props.theme.typography.fontWeightRegular
-        : that.props.theme.typography.fontWeightMedium,
-  };
-}
-
 class SignUp extends React.Component<Props, State> {
   state = {
     muni: '',
@@ -110,6 +110,27 @@ class SignUp extends React.Component<Props, State> {
       })
     );
   };
+  /*
+          <SelectValidator
+          fullWidth
+          margin="normal"
+          multiple
+          label="Kommuner entrepenøren jobber i lol:"
+          name="entrepreneurMuni"
+          value={this.state.entrepreneurMuni}
+          onChange={this.handleChange}
+          renderValue={selected => selected.join(', ')}
+          validators={['required']}
+          errorMessages={['Feltet kan ikke være tomt']}
+        >
+          {categories.map((name: string) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </SelectValidator>
+   */
 
   render() {
     const { classes, isLoggedIn, categories } = this.props;
@@ -126,42 +147,41 @@ class SignUp extends React.Component<Props, State> {
           validators={['required']}
           errorMessages={['Feltet kan ikke være tomt']}
         />
+
+        <FormControl fullWidth margin="normal" className={classes.formControl}>
+          <InputLabel htmlFor="select-multiple-checkbox">Kommuner entrepenøren jobber i lol:</InputLabel>
+          <Select
+            multiple
+            value={this.state.entrepreneurMuni}
+            name="entrepreneurMuni"
+            onChange={this.handleChange}
+            input={<Input id="select-multiple-checkbox" />}
+            renderValue={selected => selected.join(', ')}
+            MenuProps={MenuProps}
+          >
+            {categories.map(name => (
+              <MenuItem key={name} value={name}>
+                <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
+                <ListItemText primary={name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <SelectValidator
           fullWidth
           margin="normal"
           multiple
           label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          input={<Input id="select-multiple" />}
-          MenuProps={MenuProps}
-          renderValue={selected => selected.join(', ')}
-
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name} style={getStyles(name, this)}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-        <SelectValidator
-          fullWidth
-          multiple
-          margin="normal"
-          label="Muni:"
           name="entrepreneurCategories"
           value={this.state.entrepreneurCategories}
           onChange={this.handleChange}
           validators={['required']}
-          errorMessages={['this field is required']}
+          errorMessages={['Feltet kan ikke være tomt']}
         >
-          {categories.map((option, index) => (
-            <MenuItem key={index} value={option}>
-              {option}
+          {categories.map((name: string) => (
+            <MenuItem key={name} value={name}>
+              {name}
             </MenuItem>
           ))}
         </SelectValidator>
@@ -240,6 +260,7 @@ class SignUp extends React.Component<Props, State> {
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
             Cancel
           </Button>
+          {EntrepenurSignUp}
         </ValidatorForm>
       </div>
     );
@@ -267,4 +288,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(SignUp))));
+)(withRoot(withStyles(styles, { withTheme: true })(withSnackbar(SignUp))));
