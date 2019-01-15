@@ -1,9 +1,9 @@
 // @flow
 import axios from 'axios';
 
-export const setToken = (token: string) => localStorage.setItem('token', token);
+export const setToken = (token: string): void => localStorage.setItem('token', token);
 export const getToken = (): string => localStorage.getItem('token') || '';
-export const clearToken = () => localStorage.removeItem('token');
+export const clearToken = (): void => localStorage.removeItem('token');
 
 const url: string = '';
 
@@ -17,7 +17,7 @@ export const getData = (endpoint: string) => {
   });
 };
 
-export const postData = <T>(endpoint: string, data: T) => {
+export const postData = (endpoint: string, data: any): any => {
   return axios.post(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const postData = <T>(endpoint: string, data: T) => {
   });
 };
 
-export const putData = (endpoint: string, data: JSON) => {
+export const putData = (endpoint: string, data: any): any => {
   return axios.put(url + endpoint, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const putData = (endpoint: string, data: JSON) => {
   });
 };
 
-export const deleteData = (endpoint: string) => {
+export const deleteData = (endpoint: string): any => {
   return axios.delete(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -47,10 +47,10 @@ export const deleteData = (endpoint: string) => {
   });
 };
 
-export const validateEmail = (email: string) => {
+export const validateEmail = (email: string): any => {
   return axios.post(url + 'users/validate_email', { email });
 };
 
-export const signInAxios = (creds: { email: string, password: string }) => {
+export const signInAxios = (creds: { email: string, password: string }): any => {
   return axios.post(url + 'users/login', creds);
 };

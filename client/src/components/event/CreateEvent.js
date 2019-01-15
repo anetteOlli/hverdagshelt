@@ -14,13 +14,15 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
+import Map from '../map/maptest';
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
 
 type Props = {
   classes: Object,
-  enqueueSnackbar: Function
+  enqueueSnackbar: Function,
+  errorMessage: string,
 };
 
 type State = {
@@ -37,7 +39,7 @@ type State = {
   picture: any,
 
   municipality: string,
-  location: string,
+  street: string,
 
 };
 
@@ -83,6 +85,9 @@ const styles = theme => ({
   },
   Card:{
     textAlign: 'center',
+  },
+  mapText:{
+    marginTop: 40,
   }
 });
 
@@ -130,39 +135,32 @@ function getStepContent(step: number,
       return (
         <Card className={classes.contentNull}>
           <CardContent>
-
+          <Typography>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
             <TextValidator
-              id="standard-select-municipalities-full-width"
-              select
               fullWidth
               margin="normal"
               label="Kommune"
               name="municipality"
-              className={classes.textField}
+              autoComplete="municipality"
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
-            >
-              {municipalities.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextValidator>
+            />
             <TextValidator
               fullWidth
               margin="normal"
               label="Gate"
-              name="location"
-              autoComplete="location"
-              value={state.location}
+              name="street"
+              autoComplete="street"
+              value={state.street}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en gate']}
             />
             <div className={classes.mapPlaceholder}>
-              MAP HERE
+            <Typography className={classes.mapText}>Her kan du velge lokasjonen på kartet:</Typography>
+              <Map />
             </div>
           </CardContent>
         </Card>
@@ -172,7 +170,7 @@ function getStepContent(step: number,
           <Card className={classes.contentEn} align="center">
             <CardContent>
               <Typography>{state.municipality}</Typography>
-              <Typography>{state.location}</Typography>
+              <Typography>{state.street}</Typography>
               <TextValidator
                 fullWidth
                 margin="normal"
@@ -289,7 +287,7 @@ class CreateEvent extends React.Component<Props, State>{
     displayImg: '',
 
     municipality: '',
-    location: '',
+    street: '',
   };
 
   render() {
@@ -418,8 +416,39 @@ class CreateEvent extends React.Component<Props, State>{
       displayImg: URL.createObjectURL(e.target.files[0])
     });
   };
-}
 
+  componentWillMount(){
+    // this.getMunicipalities();
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("HEEEER")
+    console.log(nextProps);
+    if(this.state.street !== nextProps.street){
+      this.setState({
+        cords: nextProps.cords,
+        street: nextProps.street,
+        municipality: nextProps.muni,
+        county: nextProps.county,
+        city: nextProps.city
+        })
+    }
+    // this.getMunicipalities();
+  }
+}//CreateEvent
+
+/**Handles map information after choosing location*/
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.events.errorMessage,
+    //street, county, municipality, cords
+    street: state.map.street,
+    county: state.map.county,
+    municipality: state.map.muni,
+    city: state.map.city,
+    cords: state.map.cords
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -429,5 +458,6 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(
   null,
+  mapStateToProps,
   mapDispatchToProps
   )(withRoot(withStyles(styles)(withSnackbar(CreateEvent))));

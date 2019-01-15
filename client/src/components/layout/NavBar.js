@@ -19,7 +19,7 @@ import SideBar from './SideBar';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
-import { signOut } from '../../store/actions/userActions';
+import { refresh, signOut } from '../../store/actions/userActions';
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20
@@ -70,7 +70,7 @@ class NavBar extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn, signOut } = this.props;
+    const { classes, isLoggedIn, signOut, hasCheckedJWT } = this.props;
     return (
       <div>
         <AppBar position="sticky" className={classes.appBar}>
@@ -87,24 +87,29 @@ class NavBar extends React.Component<Props, State> {
               HverdagsHelt
             </Button>
             <div className={classes.grow} />
-            {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
+            {hasCheckedJWT && isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose} />
       </div>
     );
   }
+  componentDidMount(): void {
+    this.props.refresh();
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.user.isLoggedIn
+    isLoggedIn: state.user.isLoggedIn,
+    hasCheckedJWT: state.app.hasCheckedJWT
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut()),
+    refresh: () => dispatch(refresh())
   };
 };
 
