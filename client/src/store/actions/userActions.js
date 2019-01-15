@@ -17,7 +17,7 @@ export const signIn = (creds: { email: string, password: string }) => {
         setToken(response.data.token);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: response.data.id
+          payload: { userId: response.data.id, priority: response.data.priority }
         });
         dispatch(loading(false));
       })
@@ -44,7 +44,7 @@ export const refresh = () => {
           setToken(response.data.token);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: response.data.id
+            payload: { userId: response.data.id, priority: response.data.priority }
           });
         })
         .catch(() => {
@@ -54,7 +54,7 @@ export const refresh = () => {
           });
         });
     }
-    dispatch(hasCheckedJWT());
+    return dispatch(hasCheckedJWT());
   };
 };
 
