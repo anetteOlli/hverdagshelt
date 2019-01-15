@@ -13,7 +13,7 @@ type Event = {
   street_fk: ''
 };
 
-export type State = { events: Event[], errorMessage: string };
+export type State = { munies: [{ municipality_fk: string, events: Event[] }], errorMessage: string };
 export type Action =
   | { type: 'CREATE_EVENT_SUCCESS' }
   | { type: 'CREATE_EVENT_ERROR', payload: Error }
