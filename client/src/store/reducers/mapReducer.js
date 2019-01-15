@@ -22,8 +22,8 @@ const initState = {
     lng: ''
   },
   center: {
-    lat: '',
-    lng: ''
+    lat: '63.42656212314987',
+    lng: '10.393969503996345'
   }
 };
 
