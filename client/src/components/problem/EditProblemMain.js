@@ -25,11 +25,9 @@ import EditProblemB from './EditProblemB';
 import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
-import MuiTable from '../util/MuiTable';
-import createMuiData from '../util/createMuiData';
 import Tabletest from '../util/Tabletest';
-//import getProblemsByMuniAndStreet from '../../store/actions/problemActions';
-import createMTableData from '../util/createMTableData';
+import {getProblemsByMuni} from '../../store/actions/problemActions';
+import ProblemDetails from './ProblemDetails';
 
 var bool = false;
 var user_id;
@@ -170,7 +168,7 @@ class EditProblemMain extends React.Component<Props, State> {
     const { classes, problem, isLoggedIn } = this.props;
     var a = this.state.user_fk;
     bool =  this.props.editMode || true;
-    const rows = this.similarProblems == null ? [] : createMTableData(this.similarProblems);
+    //const rows = this.similarProblems == null ? [] : createMTableData(this.similarProblems);
 
     console.log(this.similarProblems )
     return (
@@ -178,7 +176,7 @@ class EditProblemMain extends React.Component<Props, State> {
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
             {
-              <Tabletest className={classes.MUI} rows={rows} onClick={this.handleTableClick} />
+              <Tabletest className={classes.MUI} onClick={this.handleTableClick} />
             }
           </Grid>
           <Grid item sm md={9} xs>
@@ -228,6 +226,7 @@ class EditProblemMain extends React.Component<Props, State> {
     this.setState({
       ...this.props.problem
     });
+    this.props.getProblemsByMuni(this.props.match.params.muni, this.props.match.params.county)
   }
 }
 
@@ -240,10 +239,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
-    getProblemsByMuniAndStreet: (muni, street) => dispatch(getProblemsByMuniAndStreet(muni, street))
+    getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county))
   };
 };
 

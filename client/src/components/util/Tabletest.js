@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,12 +10,14 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import createDataRows from './createMTableData';
+import connect from 'react-redux/es/connect/connect';
+import withRoot from '../../withRoot';
+import { withSnackbar } from 'notistack';
 
-let counter = 0;
-function createData(problem_title, status_fk, support) {
-  counter += 1;
-  return { id: counter, problem_title, status_fk, support};
+let id = 0;
+function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
+  id += 1;
+  return { id, problem_id, problem_title, status_fk, support};
 }
 
 function desc(a, b, orderBy) {
@@ -46,7 +47,7 @@ function getSorting(order, orderBy) {
 const rows = [
   { id: 'problem_title', numeric: false, disablePadding: true, label: 'Tittel: ' },
   { id: 'status_fk', numeric: false, disablePadding: true, label: 'Status: ' },
-  { id: 'support', numeric: true, disablePadding: false, label: 'Støtte: ' },
+  { id: 'support', numeric: true, disablePadding: false, label: 'Støtte: ' }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -55,7 +56,7 @@ class EnhancedTableHead extends React.Component {
   };
 
   render() {
-    const {order, orderBy} = this.props;
+    const { order, orderBy } = this.props;
 
     return (
       <TableHead>
@@ -68,11 +69,7 @@ class EnhancedTableHead extends React.Component {
                 padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}
               >
-                <Tooltip
-                  title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
-                >
+                <Tooltip title="Sort" placement={row.numeric ? 'bottom-end' : 'bottom-start'} enterDelay={300}>
                   <TableSortLabel
                     active={orderBy === row.id}
                     direction={order}
@@ -90,23 +87,16 @@ class EnhancedTableHead extends React.Component {
   }
 }
 
-EnhancedTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   table: {
-    width: '100%',
+    width: '100%'
   },
   tableWrapper: {
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   paper: {
     height: '100%',
@@ -120,19 +110,9 @@ class Tabletest extends React.Component {
     orderBy: 'problem_title',
     problem_id: 1,
     data: [
-
-      createData('Problem', 'Påbegynt', 10),
-      createData('Problem2', 'ikke startet', 0),
-      createData('Problem3', 'godkjent', 100),
-      createData('Problem4', 'Påbegynt', 15),
-      createData('Problem5', 'Påbegynt', 11),
-      createData('Problem6', 'godkjent', 17),
-      createData('Problem7', 'Påbegynt', 3),
-
-     // this.getSimilarProblems()
     ],
     page: 0,
-    rowsPerPage: 5,
+    rowsPerPage: 5
   };
 
   handleRequestSort = (event, property) => {
@@ -144,11 +124,11 @@ class Tabletest extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleClick = (event, id) => {
-    this.problem_id = id;
-console.log(this.problem_id)
-  };
+  handleClick = (id) => {
 
+    // endre problem i problemReducer til problem med id = this.id
+    console.log(id);
+  };
 
   handleChangePage = (event, page) => {
     this.setState({ page });
@@ -161,9 +141,8 @@ console.log(this.problem_id)
     const { classes } = this.props;
     const { data, order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
     return (
-      <Paper className={classes.paper}  name="Main paper in table">
+      <Paper className={classes.paper} name="Main paper in table">
         <div className={classes.tableWrapper} name="Main div in table">
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -177,12 +156,7 @@ console.log(this.problem_id)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   return (
-                    <TableRow
-                      hover
-                      onClick={event => this.handleClick(event, n.id)}
-                      tabIndex={-1}
-                      key={n.id}
-                    >
+                    <TableRow name={n.id} hover onClick={() => this.handleClick(n.problem_id)} tabIndex={-1}  key={n.problem_id}>
                       <TableCell component="th" scope="row" padding="none">
                         {n.problem_title}
                       </TableCell>
@@ -206,10 +180,10 @@ console.log(this.problem_id)
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            'aria-label': 'Previous Page',
+            'aria-label': 'Previous Page'
           }}
           nextIconButtonProps={{
-            'aria-label': 'Next Page',
+            'aria-label': 'Next Page'
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -218,32 +192,26 @@ console.log(this.problem_id)
     );
   }
 
-  getSimilarProblems(problems: []){
-    /*
+  componentWillReceiveProps(nextProps) {
+    if (this.props.problems !== nextProps.problems) {
+      const problems = nextProps.problems;
+      console.log(problems);
+      const data = problems
+        ? problems.map((problem, index: number) =>
+            createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status_fk, problem.support || 0)
+          )
+        : null;
 
-    problems: [
-      {id: 1, problem_title: 'Hull i vei', status_fk: 'Unchecked', support: 4},
-      {id: 2, problem_title: 'Dårlig rengjøring', status_fk: 'Checked', support: 14},
-      {id: 3, problem_title: 'Problem?', status_fk: 'Working', support: 10}
-
-    ]
-    this.data =  problems.map(e => rows.push(createDataRows(e.problem_id, e.problem_title, e.status_fk, e.support)));
-
-    this.data = createDataRows(problems)
-
-    */
-
-
+      this.setState({
+        data
+      });
+    }
   }
 }
 const mapStateToProps = state => {
   return {
-    problem: state.problem,
-  }
-}
-
-Tabletest.propTypes = {
-  classes: PropTypes.object.isRequired,
+    problems: state.problem.problems
+  };
 };
 
-export default withStyles(styles)(Tabletest);
+export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));

@@ -9,7 +9,8 @@ export type Problem = {
   last_edited: string,
   location_fk: string,
   status_fk: string,
-  category_fk: string
+  category_fk: string,
+  support: number
 };
 
 export type State = {
@@ -43,7 +44,8 @@ const initState = {
       last_edited: '20-14-2018',
       location_fk: 'Eplegaten 2',
       status_fk: 'Fixed',
-      category_fk: 'Vei og kjørebane'
+      category_fk: 'Vei og kjørebane',
+      support: -1
     }
   ],
   errorMessage: '',
