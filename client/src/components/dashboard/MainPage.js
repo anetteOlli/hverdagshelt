@@ -330,32 +330,32 @@ class MainPage extends React.Component<Props, State> {
 
   /**Mount the municipalities from database*/
   componentWillMount(){
-    // this.getMunicipalities();
+    this.getMunicipalities();
   }
 
   /** Gets ALL problem categories*/
-  // getMunicipalities(){
-  //   let municipalities = this.props.getMunicipalities().payload;
-  //   if(municipalities != null){
-  //     this.setState({
-  //       getMunicipalities: municipalities
-  //     });
-  //     municipalities.map(municipality => ({
-  //       value: municipality.label,
-  //       label: municipality.label,
-  //     }));
-  //   }
-  // }
+  getMunicipalities(){
+    let municipalities = this.props.getMunicipalities().payload;
+    if(municipalities != null){
+      this.setState({
+        getMunicipalities: municipalities
+      });
+      municipalities.map(municipality => ({
+        value: municipality.label,
+        label: municipality.label,
+      }));
+    }
+  }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getMunicipalities: municipalities => dispatch(getMunicipalities())
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    getMunicipalities: municipalities => dispatch(getMunicipalities())
+  };
+};
 
- export default withRoot(withStyles(styles)(MainPage));
+ // export default withRoot(withStyles(styles)(MainPage));
 
-// export default connect(
-//   mapDispatchToProps
-// )(withRoot(withStyles(styles)(MainPage)));
+export default connect(
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(MainPage)));
