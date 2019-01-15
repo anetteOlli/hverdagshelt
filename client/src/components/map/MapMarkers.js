@@ -62,7 +62,7 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.getProblemsByMuni('Trondheim');
+    this.props.getProblemsByMuni('Nord-Fron', 'Oppland');
   }
 
   apiHasLoaded = (map, maps) => {
@@ -109,7 +109,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
-    getProblemsByMuni: muni => dispatch(getProblemsByMuni(muni))
+    getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county))
   };
 };
 
