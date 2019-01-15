@@ -20,8 +20,7 @@ type Props = {
     lng: number
   },
   street: string,
-  municipality: string,
-  city: string
+  municipality: string
 };
 
 type State = {
@@ -73,20 +72,18 @@ class SimpleMap extends React.Component<Props, State> {
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        console.log('responseJson, fromCordsToPlace()', responseJson.results[2].address_components);
+        console.log('length', responseJson.results.length);
         if (responseJson.results.length > 5) {
           if (responseJson.results[2].address_components.length > 6) {
-            //chosing responseJson.results[2].address_components because it has the most accurate results
-            let address_components = responseJson.results[2].address_components;
             let place = {
-              street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
-              city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
-              municipality: address_components.filter(e => e.types[0] == 'administrative_area_level_2')[0].long_name,
-              county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
-              country: address_components.filter(e => e.types[0] == 'country')[0].long_name
+              street: responseJson.results[2].address_components[1].long_name,
+              city: responseJson.results[2].address_components[2].long_name,
+              municipality: responseJson.results[2].address_components[3].long_name,
+              county: responseJson.results[2].address_components[4].long_name,
+              country: responseJson.results[2].address_components[5].long_name
             };
-            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
-            console.log('place', place);
+            this.updateMapName(place.street, place.municipality, place.county);
+            console.log(place);
           }
         }
       });
@@ -123,7 +120,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateMap: cords => dispatch(updateMap(cords.lat, cords.lng)),
-    updateMapName: (street, municipality, county, city) => dispatch(changePlaceName(street, municipality, county, city))
+    updateMapName: (street, municipality, county) => dispatch(changePlaceName(street, municipality, county))
   };
 };
 
