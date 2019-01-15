@@ -8,6 +8,7 @@ import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
 import { changeCenter } from '../../store/actions/mapActions';
+import styled from 'styled-components';
 
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
@@ -48,6 +49,41 @@ type State = {
   },
   hasLoaded: boolean
 };
+const Wrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  &:hover {
+    z-index: 1;
+  }
+`;
+const WrapperCurrent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  &:hover {
+    z-index: 1;
+  }
+`;
+
+const Pointer = ({ onClick }) => <Wrapper onClick={onClick} />;
+const PointerCurrent = ({ onClick }) => <WrapperCurrent onClick={onClick} />;
 
 /**
  * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
@@ -94,16 +130,27 @@ class MapMarkers extends React.Component<Props, State> {
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
           >
+            {console.log('currentProblemId', this.props.currentProblemId)}
             {problems &&
-              problems.map(problem => (
-                <Marker
-                  onClick={() => this.props.goToProblemDetail(problem.problem_id)}
-                  key={problem.problem_id}
-                  lat={problem.latitude}
-                  lng={problem.longitude}
-                  hover={() => console.log('hover')}
-                />
-              ))}
+              problems.map(problem =>
+                problem.problem_id == this.props.currentProblemId ? (
+                  <PointerCurrent
+                    onClick={() => this.props.goToProblemDetail(problem.problem_id)}
+                    key={problem.problem_id}
+                    lat={problem.latitude}
+                    lng={problem.longitude}
+                    text={problem.problem_id}
+                  />
+                ) : (
+                  <Pointer
+                    onClick={() => this.props.goToProblemDetail(problem.problem_id)}
+                    key={problem.problem_id}
+                    lat={problem.latitude}
+                    lng={problem.longitude}
+                    text={problem.problem_id}
+                  />
+                )
+              )}
           </GoogleMapReact>
           {console.log('this.props', this.props)}
         </div>
