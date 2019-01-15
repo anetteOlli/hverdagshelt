@@ -11,6 +11,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import createDataRows from './createMTableData';
 
 let counter = 0;
 function createData(problem_title, status_fk, support) {
@@ -119,6 +120,7 @@ class Tabletest extends React.Component {
     orderBy: 'problem_title',
     problem_id: 1,
     data: [
+
       createData('Problem', 'Påbegynt', 10),
       createData('Problem2', 'ikke startet', 0),
       createData('Problem3', 'godkjent', 100),
@@ -126,6 +128,8 @@ class Tabletest extends React.Component {
       createData('Problem5', 'Påbegynt', 11),
       createData('Problem6', 'godkjent', 17),
       createData('Problem7', 'Påbegynt', 3),
+
+     // this.getSimilarProblems()
     ],
     page: 0,
     rowsPerPage: 5,
@@ -139,9 +143,6 @@ class Tabletest extends React.Component {
     }
     this.setState({ order, orderBy });
   };
-
-
-
 
   handleClick = (event, id) => {
     this.problem_id = id;
@@ -215,6 +216,29 @@ console.log(this.problem_id)
         />
       </Paper>
     );
+  }
+
+  getSimilarProblems(problems: []){
+    /*
+
+    problems: [
+      {id: 1, problem_title: 'Hull i vei', status_fk: 'Unchecked', support: 4},
+      {id: 2, problem_title: 'Dårlig rengjøring', status_fk: 'Checked', support: 14},
+      {id: 3, problem_title: 'Problem?', status_fk: 'Working', support: 10}
+
+    ]
+    this.data =  problems.map(e => rows.push(createDataRows(e.problem_id, e.problem_title, e.status_fk, e.support)));
+
+    this.data = createDataRows(problems)
+
+    */
+
+
+  }
+}
+const mapStateToProps = state => {
+  return {
+    problem: state.problem,
   }
 }
 

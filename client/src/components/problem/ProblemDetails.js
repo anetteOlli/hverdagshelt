@@ -243,8 +243,6 @@ class ProblemDetails extends React.Component<Props, State> {
             <div className="mapPlaceholder">
               <Map/>
             </div>
-
-
           </Grid>
         </Grid>
       </div>
