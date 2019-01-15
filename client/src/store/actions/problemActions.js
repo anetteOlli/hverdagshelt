@@ -72,17 +72,19 @@ export const deleteProblem = (id: number) => {
 
 export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('problems/municipality', { municipality, county }).then(response =>
-      dispatch({
-        type: 'PROBLEMS_BY_MUNI_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    return postData('problems/municipality', { municipality, county })
+      .then(response =>
+        dispatch({
+          type: 'PROBLEMS_BY_MUNI_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
 
