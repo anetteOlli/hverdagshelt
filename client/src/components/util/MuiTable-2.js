@@ -69,7 +69,7 @@ const ExpansionPanelDetails = withStyles(theme => ({
 /** Props for MuiTable
 * The props are as following:
 * Rows are the item you want to show. Should contain id, title, description, status, entrepreneur
-* onClick is
+* onClick is an OPTIONAL function
 */
 type Props = {
   classes: PropTypes.object,
