@@ -329,6 +329,7 @@ type State = {
   activeStep: number,
   title: string,
   category: string,
+  muni: string,
   municipality: string,
   street: string,
   description: string,
@@ -336,6 +337,10 @@ type State = {
   displayImg: string,
   entrepreneur: string,
   status: string,
+  cords : {
+    lat: string,
+    lng: string
+  },
 
   cur_id: -1,
   cur_title: 'Default',
@@ -366,6 +371,10 @@ class CreateProblem extends React.Component<Props, State> {
     street: '',
     description: '',
     image: '',
+    cords : {
+      lat: '',
+      lng: ''
+    },
     displayImg: '',
     entrepreneur: '',
     status: 'Unchecked',

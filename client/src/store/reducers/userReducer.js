@@ -1,5 +1,5 @@
 // @flow
-export type State = { userID: number, isLoggedIn: boolean, errorMessage: string };
+export type State = { userID: number, isLoggedIn: boolean, errorMessage: string, priority: 'Standard'|'Municipality'|'Entrepreneur'|'Administrator' };
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', payload: number }
   | { type: 'SIGN_IN_ERROR', payload: Error }
@@ -12,7 +12,8 @@ export type Action =
 const initState = {
   userID: 0,
   isLoggedIn: false,
-  errorMessage: ''
+  errorMessage: '',
+  priority: ''
 };
 
 export default (state: State = initState, action: Action) => {

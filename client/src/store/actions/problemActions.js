@@ -70,12 +70,12 @@ export const deleteProblem = (id: number) => {
   };
 };
 
-export const getProblemsByState = (state: string) => {
+export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${state}`).then(problems =>
+    return postData('problems/municipality', { municipality, county }).then(response =>
       dispatch({
         type: 'PROBLEMS_BY_MUNI_SUCCESS',
-        payload: problems
+        payload: response.data
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
@@ -86,9 +86,9 @@ export const getProblemsByState = (state: string) => {
   };
 };
 
-export const getProblemsByStreet = (muni: string, street: string) => {
+export const getProblemsByStreet = (municipality: string, street: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData(`problems`, {municipality: muni, street: street})
+    return postData(`problems`, { municipality, street })
       .then(problems =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',
@@ -104,7 +104,7 @@ export const getProblemsByStreet = (muni: string, street: string) => {
   };
 };
 
-export const goToProblemDetail = id => {
+export const goToProblemDetail = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     dispatch({
       type: 'GO_TO_PROBLEM_DETAIL',
@@ -113,7 +113,7 @@ export const goToProblemDetail = id => {
   };
 };
 
-export const goToProblemEdti = id => {
+export const goToProblemEdit = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     dispatch({
       type: 'GO_TO_PROBLEM_EDIT',

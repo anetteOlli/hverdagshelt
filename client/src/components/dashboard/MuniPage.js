@@ -18,7 +18,9 @@ import {
   Tab
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import {getEventsByMuni} from '../../store/actions/eventActions';
+import {getProblemsByMuni} from '../../store/actions/problemActions';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
 
@@ -29,6 +31,7 @@ type Props = {
 
 type State = {
   municipality: string,
+  municipalities: [],
   value: number
 };
 
@@ -69,7 +72,7 @@ const styles = theme => ({
       minWidth: 310
     },
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 200,
+      maxWidth: 130,
       minWidth: 10
     }
   },
@@ -87,7 +90,7 @@ const styles = theme => ({
 });
 
 /**Event replacement*/
-const events = [
+const eventsG = [
   {
     event_id: 0,
     event_name: 'Konsert på tunet',
@@ -173,7 +176,7 @@ const events = [
 ];
 
 /**Event replacement*/
-const problems = [
+const problemsG = [
   {
     problem_id: 0,
     problem_title: 'Biblioteket raste ned',
@@ -208,12 +211,14 @@ function LinkTab(props) {
 class MuniPage extends React.Component<Props, State> {
   state = {
     municipality: '',
+    municipalities: ['Default'],
     value: 0
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, events, problems, municounty} = this.props;
     const { value } = this.state;
+    const {municipality} = this.props.match.params;
 
     return (
       <main>
@@ -225,7 +230,7 @@ class MuniPage extends React.Component<Props, State> {
                 <Grid container spacing={24}>
                   <Grid item md={9} sm={12}>
                     <Typography variant="h3" className={classes.tittel}>
-                      {this.state.municipality}
+                      {municipality.split('&')[0]}
                     </Typography>
                   </Grid>
                   <Grid item md={3} sm={12}>
@@ -267,32 +272,29 @@ class MuniPage extends React.Component<Props, State> {
                             {console.log('Events', JSON.stringify(event))}
 
                             <Card className={classes.card}>
-                              <CardActionArea>
-                                <CardMedia
-                                  component="img"
-                                  alt="Bilde av arrangement"
-                                  className={classes.media}
-                                  height="180"
-                                  image={event.event_img}
-                                  title={event.event_name}
-                                />
-                                <CardContent>
-                                  <Typography component="p" className={classes.statustext}>
-                                    <b>{event.status_fk}</b>
-                                  </Typography>
-                                  <Typography gutterBottom variant="h5" component="h2">
-                                    {event.event_name}
-                                  </Typography>
-                                  <Typography component="p">{event.event_description}</Typography>
-                                  <Typography component="p">
-                                    <br />
-                                    Starter den: {event.date_starting} <br />
-                                    Slutter den: {event.date_ending} <br />
-                                    <br />
-                                  </Typography>
-                                  <Typography component="p">Lokasjon: {event.location_fk}</Typography>
-                                </CardContent>
-                              </CardActionArea>
+                              <CardMedia
+                                component="img"
+                                alt="Bilde av arrangement"
+                                className={classes.media}
+                                height="180"
+                                image={event.event_img}
+                                title={event.event_name}
+                              />
+                              <CardContent>
+                                <Typography component="p" className={classes.statustext}>
+                                  <b>{event.status_fk}</b>
+                                </Typography>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                  {event.event_name}
+                                </Typography>
+                                <Typography component="p">{event.event_description}</Typography>
+                                <Typography component="p">
+                                  <br />
+
+                                  <br />
+                                </Typography>
+                                <Typography component="p">Lokasjon: {event.location_fk}</Typography>
+                              </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
@@ -318,41 +320,38 @@ class MuniPage extends React.Component<Props, State> {
                             {console.log('Problems', JSON.stringify(problem))}
 
                             <Card className={classes.card}>
-                              <CardActionArea>
-                                <CardMedia
-                                  component="img"
-                                  alt="Bilde av Problem"
-                                  className={classes.media}
-                                  height="180"
-                                  image={problem.img_user}
-                                  title={problem.problem_title}
-                                />
-                                <CardContent>
-                                  <Grid container spacing={24}>
-                                    <Grid item md={8}>
-                                      <Typography component="p" className={classes.statustext}>
-                                        <b>{problem.status_fk}</b>
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                      <Typography component="p" className={classes.categorytext}>
-                                        <i>{problem.category_fk}</i>
-                                      </Typography>
-                                    </Grid>
+                              <CardMedia
+                                component="img"
+                                alt="Bilde av Problem"
+                                className={classes.media}
+                                height="180"
+                                image={problem.img_user}
+                                title={problem.problem_title}
+                              />
+                              <CardContent>
+                                <Grid container spacing={24}>
+                                  <Grid item md={8}>
+                                    <Typography component="p" className={classes.statustext}>
+                                      <b>{problem.status_fk}</b>
+                                    </Typography>
                                   </Grid>
-                                  <Typography gutterBottom variant="h5" component="h2">
-                                    {problem.problem_title}
-                                  </Typography>
-                                  <Typography component="p">{problem.problem_description}</Typography>
-                                  <Typography component="p">
-                                    <br />
-                                    Starter den: {problem.date_made} <br />
-                                    Slutter den: {problem.last_edited} <br />
-                                    <br />
-                                  </Typography>
-                                  <Typography component="p">Lokasjon: {problem.location_fk}</Typography>
-                                </CardContent>
-                              </CardActionArea>
+                                  <Grid item md={4}>
+                                    <Typography component="p" className={classes.categorytext}>
+                                      <i>{problem.category_fk}</i>
+                                    </Typography>
+                                  </Grid>
+                                </Grid>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                  {problem.problem_title}
+                                </Typography>
+                                <Typography component="p">{problem.problem_description}</Typography>
+                                <Typography component="p">
+                                  <br />
+
+                                  <br />
+                                </Typography>
+                                <Typography component="p">Lokasjon: {problem.location_fk}</Typography>
+                              </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
@@ -391,11 +390,29 @@ class MuniPage extends React.Component<Props, State> {
 
   /**Set state of municipality*/
   componentDidMount() {
-    console.log(this.props.match.params.municipality);
-    this.setState({
-      municipality: this.props.match.params.municipality
-    });
+    const municounty = this.props.match.params.municipality.split('&');
+    this.props.getEvents(municounty[0],municounty[1])
   }
-}
 
-export default withRoot(withStyles(styles)(MuniPage));
+
+
+}//class
+
+const mapStateToProps = state => {
+  return {
+    events: state.event.events,
+    problems: state.problem.problems
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getEvents: (muni, county) => dispatch(getEventsByMuni(muni, county)),
+    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni,county))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(MuniPage)));

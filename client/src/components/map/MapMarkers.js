@@ -6,7 +6,7 @@ import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
-import { getProblemsByState, goToProblemDetail } from '../../store/actions/problemActions';
+import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
 
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
@@ -14,8 +14,9 @@ let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 type Props = {
   problems: problem[],
   currentProblemId: number,
-  getProblemsByState: Function,
-  match: { params: { municipality: string } }
+  getProblemsByMuni: Function,
+  match: { params: { municipality: string } },
+  goToProblemDetail: Function
 };
 type problem = {
   lat: string,
@@ -61,7 +62,7 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.getProblemsByState('Oppland');
+    this.props.getProblemsByMuni('Nord-Fron', 'Oppland');
   }
 
   apiHasLoaded = (map, maps) => {
@@ -86,20 +87,14 @@ class MapMarkers extends React.Component<Props, State> {
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
-        >
-          // create array.map functionality here
-          {this.props.problems.map(problem => (
-            <div key={problem.id}>
-              {console.log('uskrift av problemet i map', problem)}
-              <Marker
-                color="primary"
-                lat={problem.lat}
-                lng={problem.lng}
-                onClick={this.props.goToProblemDetail(problem.id)}
-              />
-            </div>
-          ))}
-        </GoogleMapReact>
+        />
+        {console.log('this.props', this.props)}
+        {this.props.problems.map(problem => (
+          <div key={problem.problem_id}>
+            {console.log('uskrift av problemet i map', problem)}
+            <p> {problem.problem_title}</p>
+          </div>
+        ))}
       </div>
     );
   }
@@ -107,7 +102,6 @@ class MapMarkers extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    //placeholder:
     problems: state.problem.problems
   };
 };
@@ -115,7 +109,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
-    getProblemsByState: state => dispatch(getProblemsByState(state))
+    getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county))
   };
 };
 

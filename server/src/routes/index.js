@@ -5,7 +5,7 @@ let router = express.Router();
 router.use('/users', require('./userRoutes'));
 router.use('/problems', require('./problemRoutes'));
 router.use('/events', require('./eventRoutes'));
-router.use('/locations', require('./locationRoutes'));
+router.use('/div', require('./divRoutes'));
 router.use('/categories', require('./categoryRoutes'));
 
 module.exports = router;
