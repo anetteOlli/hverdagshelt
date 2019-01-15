@@ -41,7 +41,6 @@ const initState = {
       img_user: 'https://i.imgur.com/ykbz8hO.png',
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
-      location_fk: 'Eplegaten 2',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane'
     }
