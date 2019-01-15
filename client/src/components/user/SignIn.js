@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withRoot from '../../withRoot';
-import { Checkbox, FormControlLabel, Paper, Typography, withStyles,CircularProgress } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Paper, Typography, withStyles, CircularProgress } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ const styles = (theme: Object) => ({
   },
   spinner: {
     color: purple[500],
-    marginRight: 12,
+    marginRight: 12
   }
 });
 
@@ -112,7 +112,7 @@ class SignIn extends React.Component<Props, State> {
               label="Remember me"
             />
             <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
-              {isLoading && <CircularProgress size={20} className={classes.spinner}/>}
+              {isLoading && <CircularProgress size={20} className={classes.spinner} />}
               Login
             </Button>
             <Button

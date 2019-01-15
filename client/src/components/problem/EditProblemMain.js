@@ -89,11 +89,11 @@ const styles = (theme: Object) => ({
 
 function getView(bool: boolean, user_fk: number) {
   var view;
-    if (bool) {
-      view = getUserPri(user_fk);
-    } else {
-      view = 3;
-    }
+  if (bool) {
+    view = getUserPri(user_fk);
+  } else {
+    view = 3;
+  }
   return view;
 }
 
@@ -113,7 +113,7 @@ function getEditView(priority: number) {
     case 2:
       return <EditProblemA />;
     case 3:
-      return <ProblemDetails/>;
+      return <ProblemDetails />;
     default:
       return 'Unknown view';
   }
@@ -161,7 +161,7 @@ class EditProblemMain extends React.Component<Props, State> {
     console.log(this.props.problem.currentProblemId);
     const { classes, problem, isLoggedIn } = this.props;
     var a = this.state.user_fk;
-    bool =  this.props.editMode;
+    bool = this.props.editMode;
     const rows = this.similarProblems == null ? [] : createMuiData(this.similarProblems);
 
     return (
@@ -230,8 +230,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    goToProblemDetail: id => dispatch(goToProblemDetail(id)),
-
+    goToProblemDetail: id => dispatch(goToProblemDetail(id))
   };
 };
 

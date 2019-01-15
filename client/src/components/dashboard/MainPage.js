@@ -1,14 +1,25 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField, MenuItem, Button, NoSsr } from '@material-ui/core';
+import {
+  withStyles,
+  Card,
+  CardContent,
+  Paper,
+  Chip,
+  Grid,
+  Typography,
+  TextField,
+  MenuItem,
+  Button,
+  NoSsr
+} from '@material-ui/core';
 import Select from 'react-select';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 
 import createHashHistory from 'history/createHashHistory';
 
@@ -19,7 +30,7 @@ type Props = {
 type State = {
   municipality: string,
   municipalities: [],
-  single: string,
+  single: string
 };
 
 /**Styling*/
@@ -71,46 +82,43 @@ const styles = theme => ({
   //   display: 'none'
   // }
   input: {
-   display: 'flex',
-   padding: 0,
- },
- valueContainer: {
-   display: 'flex',
-   flexWrap: 'wrap',
-   flex: 1,
-   alignItems: 'center',
-   overflow: 'hidden',
- },
- chip: {
-   margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
- },
- chipFocused: {
-   backgroundColor: emphasize(
-     theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-     0.08,
-   ),
- },
- noOptionsMessage: {
-   padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
- },
- singleValue: {
-   fontSize: 16,
- },
- placeholder: {
-   position: 'absolute',
-   left: 2,
-   fontSize: 16,
- },
- paper: {
-   position: 'absolute',
-   zIndex: 1,
-   marginTop: theme.spacing.unit,
-   left: 0,
-   right: 0,
- },
- divider: {
-   height: theme.spacing.unit * 2,
- },
+    display: 'flex',
+    padding: 0
+  },
+  valueContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flex: 1,
+    alignItems: 'center',
+    overflow: 'hidden'
+  },
+  chip: {
+    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`
+  },
+  chipFocused: {
+    backgroundColor: emphasize(theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700], 0.08)
+  },
+  noOptionsMessage: {
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+  },
+  singleValue: {
+    fontSize: 16
+  },
+  placeholder: {
+    position: 'absolute',
+    left: 2,
+    fontSize: 16
+  },
+  paper: {
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: theme.spacing.unit,
+    left: 0,
+    right: 0
+  },
+  divider: {
+    height: theme.spacing.unit * 2
+  }
 });
 
 /**Municipality placeholder*/
@@ -129,38 +137,34 @@ const municipalitiesPPP = [
   }
 ].map(municipality => ({
   value: municipality.label,
-  label: municipality.label,
+  label: municipality.label
 }));
 
 /**Function handeling the select searchfield no options message
-*@return a message
-*@params props
-*/
+ *@return a message
+ *@params props
+ */
 function NoOptionsMessage(props) {
   return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.noOptionsMessage}
-      {...props.innerProps}
-    >
+    <Typography color="textSecondary" className={props.selectProps.classes.noOptionsMessage} {...props.innerProps}>
       {props.children}
     </Typography>
   );
 }
 
 /**Function handeling the select searchfield inputcomponent
-*@return a div
-*@params inputreferance
-*@params props
-*/
+ *@return a div
+ *@params inputreferance
+ *@params props
+ */
 function inputComponent({ inputRef, ...props }) {
   return <div ref={inputRef} {...props} />;
 }
 
 /**Function handeling the select searchfield props
-*@return a textfield
-*@params props
-*/
+ *@return a textfield
+ *@params props
+ */
 function Control(props) {
   return (
     <TextField
@@ -171,8 +175,8 @@ function Control(props) {
           className: props.selectProps.classes.input,
           inputRef: props.innerRef,
           children: props.children,
-          ...props.innerProps,
-        },
+          ...props.innerProps
+        }
       }}
       {...props.selectProps.textFieldProps}
     />
@@ -180,9 +184,9 @@ function Control(props) {
 }
 
 /**Function handeling the select searchfield options
-*@return a menuItem of the options
-*@params props
-*/
+ *@return a menuItem of the options
+ *@params props
+ */
 function Option(props) {
   return (
     <MenuItem
@@ -190,7 +194,7 @@ function Option(props) {
       selected={props.isFocused}
       component="div"
       style={{
-        fontWeight: props.isSelected ? 500 : 400,
+        fontWeight: props.isSelected ? 500 : 400
       }}
       {...props.innerProps}
     >
@@ -200,25 +204,21 @@ function Option(props) {
 }
 
 /**Function handeling the select searchfield placeholder
-*@return a placeholder
-*@params props
-*/
+ *@return a placeholder
+ *@params props
+ */
 function Placeholder(props) {
   return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.placeholder}
-      {...props.innerProps}
-    >
+    <Typography color="textSecondary" className={props.selectProps.classes.placeholder} {...props.innerProps}>
       {props.children}
     </Typography>
   );
 }
 
 /**Function handeling the select searchfield input-value
-*@return text
-*@params props
-*/
+ *@return text
+ *@params props
+ */
 function SingleValue(props) {
   return (
     <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
@@ -228,17 +228,17 @@ function SingleValue(props) {
 }
 
 /**Function handeling the select searchfield valuecontainer
-*@return a div
-*@params props
-*/
+ *@return a div
+ *@params props
+ */
 function ValueContainer(props) {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
 /**Function handeling the select searchfield menu
-*@return a paper conteiner with the menu
-*@params props
-*/
+ *@return a paper conteiner with the menu
+ *@params props
+ */
 function Menu(props) {
   return (
     <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
@@ -255,17 +255,17 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer,
+  ValueContainer
 };
 
 class MainPage extends React.Component<Props, State> {
   state = {
     municipality: '',
     single: null,
-    municipalities: ['Default'],
+    municipalities: ['Default']
   };
   render() {
-    const { classes,municipalities } = this.props;
+    const { classes, municipalities } = this.props;
     return (
       <main>
         <Grid container spacing={24}>
@@ -315,7 +315,7 @@ class MainPage extends React.Component<Props, State> {
   /** User will be pushed to the chosen municipality page */
   handleChange = name => value => {
     this.setState({
-      [name]: value,
+      [name]: value
     });
     console.log(value);
     this.props.history.push(value.value);
@@ -327,31 +327,34 @@ class MainPage extends React.Component<Props, State> {
   }
 
   /**Mount the municipalities from database*/
-  componentWillMount(){
+  componentWillMount() {
     this.props.getMunicipalities();
   }
 
   /** Gets ALL problem categories*/
-  getMunicipalities(){
+  getMunicipalities() {
     let municipalities = this.props.municipalities;
-    if(municipalities != null){
+    if (municipalities != null) {
       this.setState({
         getMunicipalities: municipalities
       });
       municipalities.map(municipality => ({
         value: municipality.municipality,
-        label: municipality.municipality,
+        label: municipality.municipality
       }));
     }
   }
-}//class
+} //class
 
 const mapStateToProps = state => {
-const municipalitiesFromRedux = state.muni.municipalities;
-const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(muni => {
-  const value = `${muni.municipality}&${muni.county}`;
-  const label = `${muni.municipality} i  ${muni.county}`;
-  return {value, label}})) : null
+  const municipalitiesFromRedux = state.muni.municipalities;
+  const municipalities = municipalitiesFromRedux
+    ? municipalitiesFromRedux.map(muni => {
+        const value = `${muni.municipality}&${muni.county}`;
+        const label = `${muni.municipality} i  ${muni.county}`;
+        return { value, label };
+      })
+    : null;
   return {
     municipalities
   };
@@ -363,6 +366,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps,
+export default connect(
+  mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(MainPage)));

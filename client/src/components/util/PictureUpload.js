@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
-import {Button, FormControl} from '@material-ui/core/';
+import { Button, FormControl } from '@material-ui/core/';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
-import Divider from "@material-ui/core/Divider/Divider";
+import Divider from '@material-ui/core/Divider/Divider';
 
 type Props = {
   enqueueSnackbar: Function
@@ -17,7 +17,7 @@ type State = { title: string, picture: any, displayImg: string };
 class Test extends React.Component<Props, State> {
   state = {
     title: '',
-    picture: '',
+    picture: ''
   };
 
   handleSubmit = e => {
@@ -42,17 +42,15 @@ class Test extends React.Component<Props, State> {
 
   handleUpload = e => {
     this.setState({
-      picture: e.target.files[0],
+      picture: e.target.files[0]
     });
     this.props.uploadImg(URL.createObjectURL(e.target.files[0]));
   };
-
 
   render() {
     return (
       <div className="article-form">
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-
           <FormControl fullWidth margin="normal">
             <input
               accept="image/*"
@@ -62,19 +60,16 @@ class Test extends React.Component<Props, State> {
               onChange={this.handleUpload}
               style={{ display: 'none' }}
             />
-            <Divider/>
+            <Divider />
             <label htmlFor="contained-button-file">
               <Button fullWidth variant="contained" component="span">
                 <CloudUploadIcon className="icon-button" />
                 Upload
               </Button>
             </label>
-
           </FormControl>
-          <FormControl fullWidth margin="normal">
-          </FormControl>
-          <FormControl fullWidth margin="normal">
-          </FormControl>
+          <FormControl fullWidth margin="normal" />
+          <FormControl fullWidth margin="normal" />
         </ValidatorForm>
       </div>
     );

@@ -1,5 +1,10 @@
 // @flow
-export type State = { userID: number, isLoggedIn: boolean, errorMessage: string, priority: 'Standard'|'Municipality'|'Entrepreneur'|'Administrator' };
+export type State = {
+  userID: number,
+  isLoggedIn: boolean,
+  errorMessage: string,
+  priority: 'Standard' | 'Municipality' | 'Entrepreneur' | 'Administrator'
+};
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', payload: number }
   | { type: 'SIGN_IN_ERROR', payload: Error }
