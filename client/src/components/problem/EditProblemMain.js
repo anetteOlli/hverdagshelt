@@ -121,9 +121,7 @@ function getEditView(priority: number) {
     case 2:
       return <EditProblemA />;
     case 3:
-      return {
-        //<ProblemDetails/>
-      };
+      return <ProblemDetails/>;
     default:
       return 'Unknown view';
   }

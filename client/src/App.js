@@ -10,11 +10,13 @@ import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
 import Map from './components/map/maptest';
+import MapMarkers from './components/map/MapMarkers';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
+import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SimpleMap from './components/map/GoogleMap';
 import { withStyles } from '@material-ui/core/styles';
@@ -62,12 +64,12 @@ class App extends React.Component<Props> {
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/uploadfile" component={UploadFile} />
-                    <Route exact path="/map" component={Map} />
+                    <Route exact path="/map" component={MapMarkers} />
                     <Route exact path="/problem" component={EditProblemMain} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />
-                    <Route exact path="/muiTable" component={MuiTable} />
+                    <Route exact path="/muiTable" component={MuiTable2Test} />
                     <Route exact path="/munipage" component={MuniPage} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/uploadfile" component={UploadFile} />

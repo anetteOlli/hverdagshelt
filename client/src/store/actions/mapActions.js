@@ -19,7 +19,7 @@ export const updateMap = (lat: string, lng: string) => {
   };
 };
 
-export const placeChanged = (lat: string, lng: string) => {
+export const updateMarker = (lat: string, lng: string) => {
   return (dispatch: Dispatch) => {
     dispatch({
       type: 'UPDATE_MAP',
