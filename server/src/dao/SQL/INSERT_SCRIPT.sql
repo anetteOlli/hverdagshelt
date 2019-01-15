@@ -1,35 +1,3 @@
-INSERT INTO CATEGORY VALUES('yeeet');
-INSERT INTO CITY VALUES('cityYeet');
-INSERT INTO street VALUES('STREETYEET');
-INSERT INTO status VALUES ('STATUSYEET');
-INSERT INTO priority VALUES ('1');
-INSERT INTO user (email, password, auz_url, priority_fk) VALUES('test@test.test', 'ok', 'test', '1');
-INSERT INTO problem VALUES (DEFAULT,"yeet","yeeeet", DEFAULT, NULL,null ,null,  DEFAULT, NULL, NULL, 'yeeet','STATUSYEET', 1, NULL, 2.13,3.13, 'Trøndelag', 'Trondheim', 'cityYeet','STREETYEET');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 INSERT INTO county VALUES ('Trøndelag');
 INSERT INTO county VALUES ('Oppland');
 INSERT INTO county VALUES ('Oslo');
@@ -473,3 +441,81 @@ INSERT INTO municipality(municipality, county) VALUES('Leka', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Inderøy', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Indre Fosen', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Rindal', 'Trøndelag');
+
+
+INSERT INTO category VALUES('Hole in road');
+INSERT INTO category VALUES('Tree in road');
+INSERT INTO category VALUES('Snowplow');
+
+
+INSERT INTO city VALUES('Trondheim');
+INSERT INTO city VALUES('Vinstra');
+INSERT INTO city VALUES('Tromsø');
+INSERT INTO city VALUES('Oslo');
+
+INSERT INTO street VALUES('Trondheimsveien');
+INSERT INTO street VALUES('Kjeldeveien');
+INSERT INTO street VALUES('Klostergata');
+INSERT INTO street VALUES('Sverresgate');
+INSERT INTO street VALUES('Mellomveien');
+
+
+
+INSERT INTO status VALUES ('Unchecked');
+INSERT INTO status VALUES ('InProgress');
+INSERT INTO status VALUES ('Finished');
+
+
+
+INSERT INTO priority VALUES (0);
+INSERT INTO priority VALUES (1);
+INSERT INTO priority VALUES (2);
+INSERT INTO priority VALUES (3);
+
+
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('user@user.user', 'ok',"Trondheim" ,0);
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('koma@koma.koma', 'ok',"Trondheim" , 2);
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('entr@entr.entr', 'ok',"Trondheim" ,1);
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('admin@admin.admin', 'ok', "Trondheim", 3);
+
+INSERT INTO entrepreneur(bedriftnavn, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
+
+INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk) VALUES(1,"Oslo");
+INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk) VALUES(1,"Tromsø");
+
+INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Hole in road');
+INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Snowplow');
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Erlend tried his best", "A big hole has been found in the rear of Erlend", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 1, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata");
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien");
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, entrepreneur_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 3 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

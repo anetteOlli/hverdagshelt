@@ -52,8 +52,8 @@ CREATE TABLE problem (
     latitude DOUBLE NOT NULL,
     longitude DOUBLE NOT NULL,
     support INT,
-    county_fk VARCHAR(30) NOT NULL,
     municipality_fk VARCHAR(30) NOT NULL,
+    county_fk VARCHAR(30) NOT NULL,
     city_fk VARCHAR(30) NOT NULL,
     street_fk VARCHAR(30) NOT NULL
 );
@@ -85,8 +85,8 @@ CREATE TABLE event (
     date_starting DATETIME,
     date_ending DATETIME,
     status_fk VARCHAR(30),
-    county_fk VARCHAR(30),
     municipality_fk VARCHAR(30),
+    county_fk VARCHAR(30),
     city_fk VARCHAR(30),
     street_fk VARCHAR(30)
 );
@@ -124,7 +124,7 @@ CREATE TABLE entrepreneur_category (
     category_fk VARCHAR(30) NOT NULL
 )
 
-ALTER TABLE Municipality ADD FOREIGN KEY(county) REFERENCES county(name);
+ALTER TABLE municipality ADD FOREIGN KEY(county) REFERENCES county(name);
 
 ALTER TABLE problem
 ADD FOREIGN KEY(status_fk) REFERENCES status(status),
