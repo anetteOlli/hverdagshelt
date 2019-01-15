@@ -467,16 +467,16 @@ INSERT INTO status VALUES ('Finished');
 
 
 
-INSERT INTO priority VALUES (0);
-INSERT INTO priority VALUES (1);
-INSERT INTO priority VALUES (2);
-INSERT INTO priority VALUES (3);
+INSERT INTO priority VALUES ("Standard");
+INSERT INTO priority VALUES ("Entrepreneur");
+INSERT INTO priority VALUES ("Municipality");
+INSERT INTO priority VALUES ("Administrator");
 
 
-INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('user@user.user', 'ok',"Trondheim" ,0);
-INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('koma@koma.koma', 'ok',"Trondheim" , 2);
-INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('entr@entr.entr', 'ok',"Trondheim" ,1);
-INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('admin@admin.admin', 'ok', "Trondheim", 3);
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('user@user.user', 'ok',"Trondheim" ,"standard");
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('koma@koma.koma', 'ok',"Trondheim" , "Municipality");
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('entr@entr.entr', 'ok',"Trondheim" ,"Entrepreneur");
+INSERT INTO user(email, password, municipality_fk ,priority_fk) VALUES('admin@admin.admin', 'ok', "Trondheim", "Administrator");
 
 INSERT INTO entrepreneur(bedriftnavn, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
 
