@@ -1,7 +1,7 @@
 // @flow
 const Dao = require("./dao.js");
 
-module.exports = class ArticleDao extends Dao {
+module.exports = class ProblemDao extends Dao {
 
   getAll(callback) {
     super.query(

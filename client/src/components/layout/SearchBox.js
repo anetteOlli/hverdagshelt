@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { placeChanged } from '../../store/actions/mapActions';
+import { placeChanged, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import withRoot from '../../withRoot';
 
@@ -10,6 +10,8 @@ type Props = {
   lat: number,
   lng: number
 };
+
+let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 class SearchBox extends Component {
   static propTypes = {
@@ -67,19 +69,29 @@ class SearchBox extends Component {
       lat: this.searchBox.getPlaces()[0].geometry.location.lat(),
       lng: this.searchBox.getPlaces()[0].geometry.location.lng()
     };
-    this.props.placeChanged(cords);
-    console.log(
-      'onPlacesChanged getPlaces()[0].geometry.location.lat()',
-      this.searchBox.getPlaces()[0].geometry.location.lat()
-    );
-    console.log('this.state.cords', this.state.cords);
-    console.log('onPlacesChanged', this.state.location);
-    console.log('forsøker å skrive ut drit', this.props);
 
-    if (onPlacesChanged) {
-      onPlacesChanged(this.searchBox.getPlaces());
-      console.log('place has changed', this.searchBox.getPlaces());
-    }
+    let url =
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log('responseJson, fromCordsToPlace()', responseJson.results[2].address_components);
+        if (responseJson.results.length > 5) {
+          if (responseJson.results[2].address_components.length > 6) {
+            //chosing responseJson.results[2].address_components because it has the most accurate results
+            let address_components = responseJson.results[2].address_components;
+            let place = {
+              street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
+              city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
+              municipality: address_components.filter(e => e.types[0] == 'administrative_area_level_2')[0].long_name,
+              county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
+              country: address_components.filter(e => e.types[0] == 'country')[0].long_name
+            };
+            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
+            console.log('place is changed based on searchbox', place);
+          }
+        }
+      });
   };
 
   render() {
@@ -103,7 +115,9 @@ class SearchBox extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    placeChanged: cords => dispatch(placeChanged(cords.lat, cords.lng))
+    placeChanged: (cords, street, muni, city, county) =>
+      dispatch(placeChanged(cords.lat, cords.lng, street, muni, city, county)),
+    updateMapName: (street, municipality, county, city) => dispatch(changePlaceName(street, municipality, county, city))
   };
 };
 

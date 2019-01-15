@@ -2,15 +2,26 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import SearchBox from '../layout/SearchBox';
-import { updateMap } from '../../store/actions/mapActions';
+import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 
+let imgsrc = './geotag.png';
+let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
+
 type Props = {
   updateMap: Function,
+  updateMapName: Function,
   lat: number,
-  lng: number
+  lng: number,
+  center: {
+    lat: number,
+    lng: number
+  },
+  street: string,
+  municipality: string,
+  city: string
 };
 
 type State = {
@@ -18,10 +29,6 @@ type State = {
   map: any,
   googlemaps: any,
   apiReady: boolean,
-  center: {
-    lat: number,
-    lng: number
-  },
   zoom: number
 };
 
@@ -37,10 +44,15 @@ class SimpleMap extends React.Component<Props, State> {
     googlemaps: null,
     apiReady: false,
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: 63.42656212314987,
+      lng: 10.393969503996345
     },
-    zoom: 11
+    zoom: 13
+  };
+
+  onRecievingLocation = cords => {
+    this.props.updateMap(cords);
+    this.fromCordsToPlace(cords);
   };
 
   apiHasLoaded = (map, maps) => {
@@ -55,21 +67,44 @@ class SimpleMap extends React.Component<Props, State> {
     }
   };
 
+  fromCordsToPlace(cords) {
+    let url =
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log('responseJson, fromCordsToPlace()', responseJson.results[2].address_components);
+        if (responseJson.results.length > 5) {
+          if (responseJson.results[2].address_components.length > 6) {
+            //chosing responseJson.results[2].address_components because it has the most accurate results
+            let address_components = responseJson.results[2].address_components;
+            let place = {
+              street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
+              city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
+              municipality: address_components.filter(e => e.types[0] == 'administrative_area_level_2')[0].long_name,
+              county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
+              country: address_components.filter(e => e.types[0] == 'country')[0].long_name
+            };
+            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
+            console.log('place', place);
+          }
+        }
+      });
+  }
+
   //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
       <div style={{ height: '80vh', width: '100%' }}>
-        <p> tadskjfø {console.log('state', this.state)}</p>
-        {}
         {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE', libraries: ['places'] }}
           defaultCenter={center}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
-          onClick={this.props.updateMap}
-          onGoogleApiLoaded={( map, maps ) => this.apiHasLoaded(map, maps)}
+          onClick={this.onRecievingLocation}
+          onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
           {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
@@ -80,14 +115,15 @@ class SimpleMap extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    lat: state.map.lat,
-    lng: state.map.lng
+    lat: state.map.currentMarker.lat,
+    lng: state.map.currentMarker.lng
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMap: cords => dispatch(updateMap(cords.lat, cords.lng))
+    updateMap: cords => dispatch(updateMap(cords.lat, cords.lng)),
+    updateMapName: (street, municipality, county, city) => dispatch(changePlaceName(street, municipality, county, city))
   };
 };
 

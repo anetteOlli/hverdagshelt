@@ -76,9 +76,9 @@ class SignUp extends React.Component<Props, State> {
   };
 
   handleValidateEmail = () => {
-    validateEmail(this.state.email).then((resp: { isUniqueEmail: boolean }) =>
+    validateEmail(this.state.email).then(response =>
       this.setState({
-        isUniqueEmail: resp.isUniqueEmail
+        isUniqueEmail: !response.data.emailExist
       })
     );
   };

@@ -19,10 +19,7 @@ import SideBar from './SideBar';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
-import { signIn, signOut } from '../../store/actions/userActions';
-import createHashHistory from 'history/createHashHistory';
-const history = createHashHistory();
-
+import { signOut } from '../../store/actions/userActions';
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20
@@ -47,7 +44,8 @@ type Props = {
   classes: Object,
   categories: string[],
   isLoggedIn: boolean,
-  signOut: Function
+  signOut: Function,
+  refresh: Function
 };
 
 type State = {
@@ -71,8 +69,6 @@ class NavBar extends React.Component<Props, State> {
     });
   };
 
-
-
   render() {
     const { classes, isLoggedIn, signOut } = this.props;
     return (
@@ -88,11 +84,8 @@ class NavBar extends React.Component<Props, State> {
               <MenuIcon />
             </IconButton>
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
-              HverdagsHelt22
+              HverdagsHelt
             </Button>
-
-
-
             <div className={classes.grow} />
             {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>
@@ -111,7 +104,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(signOut())
+    signOut: () => dispatch(signOut()),
   };
 };
 

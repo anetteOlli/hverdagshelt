@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from "@material-ui/core/Divider/Divider";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
+import Map from '../map/maptest';
 
 const categories = ['Vei','vann','strøm', 'annen skade'];
 const statuss = ["til avventing", "påbegynt", "registrert", "ferdig"];
@@ -51,6 +51,7 @@ const styles = (theme: Object) => ({
   },
   paper2: {
     height: '100%',
+
   },
   grid: {
     height: '100%',
@@ -60,7 +61,8 @@ const styles = (theme: Object) => ({
   },
   grid2: {
     paddingBottom: 20,
-    height: '100%'
+    height: '100%',
+    alignItems: 'flex-end'
   }
 });
 
@@ -91,25 +93,6 @@ class EditProblemA extends React.Component<Props, State> {
     console.log(this.state);
   };
 
-  readURL(input) {
-    if (input.files && input.files[0]) {
-      const fileExtension = input.substr((input.lastIndexOf('.') + 1));
-      if(fileExtension !== 'jpeg' && fileExtension !== 'jpg' && fileExtension !== 'png' && fileExtension !== 'gif') {
-        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
-        return false;
-      }
-      else {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('#img')
-            .attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-  }
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
@@ -117,12 +100,6 @@ class EditProblemA extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={"Main Grid"}>
-
-          <Grid item xs={6} sm={3} className={classes.grid2}>
-          </Grid>
-
-          <Grid item xs name={"Grid item for problems"}>
-            <Grid container spacing={24}  className={classes.grid2} name={"Grid cointainer for problems"}>
               <Grid item xs className={classes.grid2} name={"GridItem UserProblem"}>
                 <Paper className={classes.paper2} name={"Paper for UserProblem"}>
                   <Typography variant="h2" gutterBottom align="center">
@@ -177,7 +154,7 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
                 </ValidatorForm>
-                    <h3> Dato startet:  {this.state.date_made} </h3>
+                    <Paper className={classes.paper}> Dato startet:  {this.state.date_made} </Paper>
 
                     <ExpansionPanel>
                       <ExpansionPanelSummary>
@@ -188,7 +165,7 @@ class EditProblemA extends React.Component<Props, State> {
                       <ExpansionPanelDetails>
                         <div/>
                         <div>
-                          <img id="img" top width="80%" src={this.state.img_user ||"http://placehold.it/180" } alt="Bilde" />
+                          <img id="img" top width="100%" src={this.state.img_user ||"http://placehold.it/180" } alt="Bilde" />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -198,27 +175,10 @@ class EditProblemA extends React.Component<Props, State> {
               <Grid item xs className={classes.grid2} name={"GridItem for entrepreneur"}>
                 <Paper className={classes.paper2} name={"Paper for entrepreneur"}>
                   <Typography variant="h2" gutterBottom align="center">
-                    Entrepreneur:
+                    Entreprenør beskrivelse:
                   </Typography>
 
                   <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-
-                    <SelectValidator
-                      fullWidth
-                      margin="normal"
-                      label="Entrepreneur: "
-                      name="entrepreneur_fk"
-                      value={this.state.entrepreneur_fk}
-                      onChange={this.handleChange}
-                      validators={['required']}
-                      errorMessages={['this field is required']}
-                    >
-                      {entrepreneur.map((option, index) => (
-                        <MenuItem key={index} value={option}>
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
 
                     <Paper className={classes.paper}> Entreprenør:  {this.state.entrepreneur_fk} </Paper>
 
@@ -232,7 +192,11 @@ class EditProblemA extends React.Component<Props, State> {
                         {"Beskrivelse: \n " + this.state.description_entrepreneur}
                     </Paper>
 
-                    <h3> Dato Endret:  {this.state.last_edited} </h3>
+                    <Paper className={classes.paper}> Entreprenør kontakt informasjon:  {// her kommer kontakt informasjon
+                       } </Paper>
+
+
+                    <Paper className={classes.paper}> Dato Endret:  {this.state.last_edited} </Paper>
 
                     <div>
                       <ExpansionPanel>
@@ -245,7 +209,7 @@ class EditProblemA extends React.Component<Props, State> {
                           <div/>
                           <div>
 
-                            <img id="img" top width="80%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                            <img id="img" top width="100%" src={this.state.img_user|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
                           </div>
                         </ExpansionPanelDetails>
                       </ExpansionPanel>
@@ -259,13 +223,12 @@ class EditProblemA extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Her skal map komme: </Typography>
+                    <Typography >Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <div/>
-                  <div>
-                    <img id="img" top width="80%" src={this.state.img_user|| "https://foreignpolicymag.files.wordpress.com/2015/08/map_china_europe_stereotypes_final_copyrightforeignpolicy.jpg?w=1024&h=741" ||"http://placehold.it/180" } alt="Bilde" />
+                <ExpansionPanelDetails className={classes.mapExpansion}>
+                  <div className="mapPlaceholder">
+                    <Map />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
@@ -273,8 +236,6 @@ class EditProblemA extends React.Component<Props, State> {
                 Lagre endringer
               </Button>
             </div>
-          </Grid>
-        </Grid>
       </div>
     );
   }

@@ -4,8 +4,7 @@ import path from 'path';
 const cloudinary = require('cloudinary');
 const multer = require('multer');
 
-let storage =  multer.memoryStorage();
-let upload = multer({storage: storage});
+let upload = multer({storage: multer.memoryStorage()});
 const dUri = new Datauri();
 
 cloudinary.config({

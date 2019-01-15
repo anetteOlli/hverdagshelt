@@ -33,6 +33,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "cross-env": "^5.2.0",
+    "flow-bin": "^0.62.0",
     "jest": "^23.6.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9"

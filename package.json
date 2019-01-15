@@ -6,7 +6,7 @@
     "client-install": "npm install --prefix client",
     "server-install": "npm install --prefix server",
     "server": "npm start --prefix server",
-    "client": "npm run test --prefix client",
+    "client": "npm start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
@@ -14,9 +14,7 @@
     "nettavis",
     "mini prosjekt"
   ],
-  "dependencies": {
-    "react-virtualized": "^9.21.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/del": "^3.0.1",

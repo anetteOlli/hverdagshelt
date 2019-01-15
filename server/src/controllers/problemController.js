@@ -1,6 +1,4 @@
 import ImageHostController from '../services/imageHostController';
-
-const multer = require('multer');
 const ProblemDao = require('../dao/problemDao');
 
 const pool = require('../services/database');
