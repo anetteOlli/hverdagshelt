@@ -126,6 +126,7 @@ class Tabletest extends React.Component {
 
   handleClick = (id) => {
 
+
     // endre problem i problemReducer til problem med id = this.id
     console.log(id);
   };
@@ -143,7 +144,7 @@ class Tabletest extends React.Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return (
       <Paper className={classes.paper} name="Main paper in table">
-        <div className={classes.tableWrapper} name="Main div in table">
+        <div name="Main div in table">
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}

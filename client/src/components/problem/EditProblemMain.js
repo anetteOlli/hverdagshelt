@@ -30,7 +30,6 @@ import {getProblemsByMuni} from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 
 var bool = false;
-var user_id;
 
 type Props = {
   classes: Object,
@@ -71,7 +70,8 @@ const styles = (theme: Object) => ({
   grid: {
     height: '100%',
     paddingBottom: 20,
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'display-end'
   },
   grid2: {
     paddingBottom: 20,
@@ -84,31 +84,32 @@ const styles = (theme: Object) => ({
   },
   gridLeft: {
     paddingBottom: 20,
-    paddingLeft: 20,
+    paddingLeft: 200,
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   MUI: {
     height: '100%'
   }
 });
 
-function getView(bool: boolean, user_fk: number) {
+function getView(bool: boolean) {
   var view;
     if (bool) {
-      view = getUserPri(user_fk);
+      view = this.props.user.priority_fk;
     } else {
       view = 3;
     }
   return view;
 }
-
+/*
 function getUserPri(user_fk: number) {
   var prio;
-  prio = 2;
+  prio = this.state.priority_fk;
   // get user priority
   return prio;
 }
+*/
 
 function getEditView(priority: number) {
   switch (priority) {
@@ -126,7 +127,6 @@ function getEditView(priority: number) {
 }
 
 class EditProblemMain extends React.Component<Props, State> {
-  bool = true;
 
   state = {
     problem_id: null,
@@ -234,6 +234,7 @@ const mapStateToProps = state => {
   return {
     problem: state.problem,
     userId: state.user.userID,
+    priority_fk: state.priority_fk,
     currentProblemId: state.problem.currentProblemId,
     editMode: state.problem.editMode
   };
