@@ -5,7 +5,7 @@ import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField
 import Select from 'react-select';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import {getMunicipalities} from '../../store/actions/muniActions';
+//import {getMunicipalities} from '../../store/actions/muniActions';
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
@@ -17,6 +17,7 @@ type Props = {
 type State = {
   municipality: string,
   municipalitiesDB: [],
+  single: string,
 };
 
 /**Styling*/
@@ -325,7 +326,6 @@ class MainPage extends React.Component<Props, State> {
 
   /**Mount the municipalities from database*/
   componentWillMount(){
-    //this.getSimilarProblems("", "");
     this.getMunicipalities();
   }
 }
