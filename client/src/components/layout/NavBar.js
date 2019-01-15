@@ -20,7 +20,6 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/userActions';
-
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20

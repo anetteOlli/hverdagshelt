@@ -13,4 +13,6 @@ router.post("/", ProblemController.problems_create_problem);
 
 router.patch('/:id', ProblemController.problems_edit_problem);
 
+router.post('/nearby', ProblemController.problems_get_problem_nearby);
+
 module.exports = router;

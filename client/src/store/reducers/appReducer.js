@@ -1,5 +1,5 @@
 // @flow
-export type State = { isLoading: boolean };
+export type State = { isLoading: boolean, hasCheckedJWT: boolean };
 export type Action = { type: 'SET_LOADING', payload: boolean } | { type: 'SET_CHECKED_JWT' };
 
 const initState = {

@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/categoryReducer';
+import type { Action } from '../reducers/categoryReducer';
+import type { State } from '../reducers';
 import { postData, deleteData, getData } from '../util';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;

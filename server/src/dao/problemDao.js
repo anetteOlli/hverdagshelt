@@ -2,36 +2,21 @@
 const Dao = require('./dao.js');
 
 module.exports = class ArticleDao extends Dao {
-  getAll(callback) {
+  getAll(callback: function) {
     super.query('SELECT * FROM problem', [], callback);
   }
 
-  getOne(id, callback) {
-    super.query(
-      "SELECT * FROM problem WHERE problem_id = ?",
-      [id],
-      callback
-    );
+  getOne(id: number, callback: function) {
+    super.query('SELECT * FROM problem WHERE problem_id LIKE ?', [id], callback);
   }
 
-  getFromMunicipality(json,callback){
-    const values = [
-      json.municipality,
-      json.county
-    ];
-    super.query(
-      "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ?",
-      values,
-      callback
-    )
+  getAllMunicipality(json: any, callback: function) {
+    const values = [json.municipality, json.county];
+    super.query('SELECT * FROM problem WHERE municipality_fk LIKE ? AND county_fk LIKE ?', values, callback);
   }
 
-  getFromCity(json,callback){
-    const values = [
-      json.municipality,
-      json.county,
-      json.city
-    ];
+  getAllCity(json: any, callback: function) {
+    const values = [json.municipality, json.county, json.city];
     super.query(
       "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ?",
       values,
@@ -39,12 +24,8 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  getFromStreet(json,callback) {
-    const values = [
-      json.municipality,
-      json.county,
-      json.street
-    ];
+  getAllStreet(json: any, callback: function) {
+    const values = [json.municipality, json.county, json.street];
 
     super.query(
       "SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ?",
@@ -53,7 +34,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  createOne(json, callback) {
+  createOne(json: any, callback: function) {
     const newContent = [
       json.problem_title,
       json.problem_description,
@@ -75,7 +56,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  patchEntrepreneur(id, json, callback) {
+  patchEntrepreneur(id: number, json: any, callback: function) {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
 
     super.query(
@@ -85,7 +66,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  patchKommuneAnsatt(id, json, callback) {
+  patchKommuneAnsatt(id: number, json: any, callback: function) {
     const values = [json.problem_title, json.problem_description, json.status, json.last_edited, id];
 
     super.query(
@@ -95,7 +76,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  patchBruker(id, json, callback) {
+  patchBruker(id: number, json: any, callback: function) {
     const values = [json.problem_title, json.problem_description, json.img_user];
 
     super.query(
@@ -105,11 +86,7 @@ module.exports = class ArticleDao extends Dao {
     );
   }
 
-  deleteOne(id, callback) {
-    super.query(
-      "UPDATE problem SET status_fk = 'archived' WHERE problem_id = ?",
-      [id],
-      callback
-    );
+  deleteOne(id: number, callback: function) {
+    super.query("UPDATE problem SET status_fk = 'archived' WHERE problem_id LIKE ?", [id], callback);
   }
 };
