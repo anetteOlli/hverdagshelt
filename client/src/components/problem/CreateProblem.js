@@ -299,14 +299,14 @@ function handleSupport(problemId: number){
 
 type Props = {
   muni: string,
-  street: string,
+  street: string
 };
 
 type State = {
   activeStep: number,
-  muni: string,
   title: string,
   category: string,
+  muni: string,
   municipality: string,
   street: string,
   description: string,
@@ -314,6 +314,10 @@ type State = {
   displayImg: string,
   entrepreneur: string,
   status: string,
+  cords : {
+    lat: string,
+    lng: string
+  },
 
   cur_id: -1,
   cur_title: 'Default',
@@ -338,13 +342,17 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-    muni: '',
     title: '',
     category: '',
+    muni: '',
     municipality: '',
     street: '',
     description: '',
     image: '',
+    cords : {
+      lat: '',
+      lng: ''
+    },
     displayImg: '',
     entrepreneur: '',
     status: 'Unchecked',
@@ -374,6 +382,7 @@ class CreateProblem extends React.Component<Props, State> {
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
+        cords: nextProps.cords,
         street: nextProps.street,
         muni: nextProps.muni,
         county: nextProps.county,

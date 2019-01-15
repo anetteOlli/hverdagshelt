@@ -23,10 +23,6 @@ type Props = {
   classes: Object,
   enqueueSnackbar: Function,
   errorMessage: string,
-  streetmap: string,
-  countymap: string,
-  munimap: string,
-  cordsmap: string
 };
 
 type State = {
@@ -43,7 +39,6 @@ type State = {
   picture: any,
 
   municipality: string,
-  city: string,
   street: string,
 
 };
@@ -142,34 +137,15 @@ function getStepContent(step: number,
           <CardContent>
           <Typography>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
             <TextValidator
-              id="standard-select-municipalities-full-width"
-              select
               fullWidth
               margin="normal"
               label="Kommune"
               name="municipality"
-              className={classes.textField}
+              autoComplete="municipality"
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
-            >
-              {municipalities.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextValidator>
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="By"
-              name="city"
-              autoComplete="city"
-              value={state.city}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en by']}
             />
             <TextValidator
               fullWidth
@@ -194,7 +170,6 @@ function getStepContent(step: number,
           <Card className={classes.contentEn} align="center">
             <CardContent>
               <Typography>{state.municipality}</Typography>
-              <Typography>{state.city}</Typography>
               <Typography>{state.street}</Typography>
               <TextValidator
                 fullWidth
@@ -312,8 +287,7 @@ class CreateEvent extends React.Component<Props, State>{
     displayImg: '',
 
     municipality: '',
-    city: '',
-    location: '',
+    street: '',
   };
 
   render() {
@@ -442,16 +416,37 @@ class CreateEvent extends React.Component<Props, State>{
       displayImg: URL.createObjectURL(e.target.files[0])
     });
   };
-}
+
+  componentWillMount(){
+    // this.getMunicipalities();
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("HEEEER")
+    console.log(nextProps);
+    if(this.state.street !== nextProps.street){
+      this.setState({
+        cords: nextProps.cords,
+        street: nextProps.street,
+        municipality: nextProps.muni,
+        county: nextProps.county,
+        city: nextProps.city
+        })
+    }
+    // this.getMunicipalities();
+  }
+}//CreateEvent
 
 /**Handles map information after choosing location*/
 const mapStateToProps = state => {
   return {
-    errorMessage: state.problems.errorMessage,
-    streetmap: state.map.street,
-    //county: state.map.county,
-    munimap: state.map.muni,
-    cordsmap: state.map.cords,
+    errorMessage: state.events.errorMessage,
+    //street, county, municipality, cords
+    street: state.map.street,
+    county: state.map.county,
+    municipality: state.map.muni,
+    city: state.map.city,
+    cords: state.map.cords
   };
 };
 
@@ -463,5 +458,6 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(
   null,
+  mapStateToProps,
   mapDispatchToProps
   )(withRoot(withStyles(styles)(withSnackbar(CreateEvent))));
