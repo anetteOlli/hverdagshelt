@@ -5,14 +5,14 @@ export type Action =
 | { type: 'GET_MUNICIPALITIES_ERROR', payload: Error };
 
 const initState = {
-  municipalities: [],
+  municipalities: ['Test','test2'],
   errorMessage: ''
 };
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_MUNICIPALITIES_SUCCESS':
-      console.log('%c GET_MUNICIPALITIES_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c GET_MUNICIPALITIES_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         municipalities: action.payload

@@ -15,6 +15,7 @@ import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
+import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
@@ -58,6 +59,7 @@ const App = (props: Props) => {
                 <Route exact path="/" component={MainPage} />
                 <Route exact path="/uploadfile" component={UploadFile} />
                 <Route exact path="/map" component={MapMarkers} />
+                <Route exact path="/registrer-bruker" component={SignUp} />
                 <Route exact path="/problem" component={EditProblemMain} />
                 <Route exact path="/lagproblem" component={CreateProblem} />
                 <Route exact path="/problemdetails" component={ProblemDetails} />

@@ -5,6 +5,7 @@ import type { State as UserState } from './userReducer';
 import type { State as EventState } from './eventReducer';
 import type { State as AppState } from './appReducer';
 import type { State as ProblemState } from './problemReducer';
+import type { State as MuniState } from './muniState';
 
 import userReducer from './userReducer';
 import problemReducer from './problemReducer';
@@ -12,6 +13,7 @@ import eventReducer from './eventReducer';
 import mapReducer from './mapReducer';
 import appReducer from './appReducer';
 import categoryReducer from './categoryReducer';
+import muniReducer from './muniReducer';
 import { combineReducers } from 'redux';
 
 export type State = {
@@ -20,7 +22,8 @@ export type State = {
   problem: ProblemState,
   event: EventState,
   map: MapState,
-  category: CategoryState
+  category: CategoryState,
+  muni: MuniState
 };
 
 // $FlowFixMe
@@ -30,5 +33,6 @@ export default combineReducers({
   problem: problemReducer,
   event: eventReducer,
   map: mapReducer,
-  category: categoryReducer
+  category: categoryReducer,
+  muni: muniReducer
 });
