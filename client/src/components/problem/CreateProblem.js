@@ -560,7 +560,7 @@ class CreateProblem extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.problems.errorMessage,
+    errorMessage: state.errorMessage,
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
