@@ -33,7 +33,6 @@ import MuiTable2 from '../util/MuiTable-2';
 const styles = theme => ({
   root: {
     width: '90%',
-    flexGrow: 1,
   },
   button: {
     marginRight: theme.spacing.unit,
@@ -145,14 +144,12 @@ function getStepContent(step: number, state: State,
             <Grid container
             spacing={8}
             direction="row"
+            lg={3}
+            xs={12}
             >
               <Grid item
-              md={6}
-              xs={12}
+              xs
               >
-                <Typography align="center" variant="h6" color="secondary">
-                  Nærliggende Problemer
-                </Typography>
                 <Paper style={{height: '40%', width: '100%', overflow: 'auto'}}>
                   <MuiTable2
                   rows={rows}
@@ -172,8 +169,9 @@ function getStepContent(step: number, state: State,
               </Grid>
               <Grid item container
               direction="column"
-              md={6}
+              lg={3}
               xs={12}
+              xs
               alignItems="center"
               >
                 <Grid item xs>
@@ -194,7 +192,7 @@ function getStepContent(step: number, state: State,
                 <Grid item xs>
                   <Typography>{state.cur_street}</Typography>
                 </Grid>
-                <Grid item xs>
+                <Grid item xs alignItems="center">
                   <Button
                   variant="contained" color="primary"
                   size="small"
@@ -208,14 +206,15 @@ function getStepContent(step: number, state: State,
             <Grid item container
             direction="row"
             >
-              <Grid item xs
+              <Grid item
+              xs
               >
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
                       <Typography align="center">Bilde</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
-                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL || "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5"|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                      <img id="img" width="100%" height="100%" src={ "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5"|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </Grid>
@@ -285,7 +284,7 @@ function getStepContent(step: number, state: State,
         </Card>
       );
     default:
-      return 'How\'d u get here boi?';
+      return 'Unknown step';
   }
 }
 
@@ -370,8 +369,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_entrepreneur: 'defaultEntrepreneur',
     cur_status: 'defaultStatus',
 
-    similarProblems: [
-                      {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
+    similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
                       street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
                       {id:2, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
                       street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
@@ -394,7 +392,7 @@ class CreateProblem extends React.Component<Props, State> {
         municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
-      })
+        })
     }
     //this.getSimilarProblems("", "");
     this.getCategories();
@@ -412,23 +410,16 @@ class CreateProblem extends React.Component<Props, State> {
       {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
     */
-    let simProbs = this.props.getProblemsByStreet(municipality, street).payload;
+    let simProbs = this.props.getProblemsByStreet(municipality, street)
+    .then(e => this.props.enqueueSnackbar('error',{variant: 'warning'})
+    );
 
-    if(simProbs != null){
+    if(simProbs[0] != null){
       this.setState({
         similarProblems: simProbs
       });
       //this.state.similarProblems = simProbs;
     }
-    else{
-      this.props.enqueueSnackbar('Error: Cannot GET simprobs!',{variant: 'warning'});
-    }
-    this.handleChangeSpec("cur_id", this.state.similarProblems[0].id);
-    this.handleChangeSpec("cur_title", this.state.similarProblems[0].title);
-    this.handleChangeSpec("cur_description", this.state.similarProblems[0].description);
-    this.handleChangeSpec("cur_entrepreneur", this.state.similarProblems[0].entrepreneur);
-    this.handleChangeSpec("cur_status", this.state.similarProblems[0].status);
-    this.handleChangeSpec("cur_imageURL", this.state.similarProblems[0].imageURL);
   }
 
   /** Gets ALL problem categories*/
@@ -443,22 +434,19 @@ class CreateProblem extends React.Component<Props, State> {
       //this.state.categories = categories;
     }
     else{
-      this.props.enqueueSnackbar('Error: Can no get cats!',{variant: 'warning'});
+      this.props.enqueueSnackbar('SERVER_CONNECTION_ERROR',{variant: 'warning'});
     }
-    this.setState({
-      category: this.state.categories[0]
-    });
   }
 
   /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
-    if(activeStep == 0){
-      this.getSimilarProblems(this.state.municipality, this.state.street);
-    }
     this.setState({
       activeStep: activeStep + 1
     });
+    if(activeStep == 1){
+      this.getSimilarProblems(this.state.municipality, this.state.street);
+    }
   };
 
   /** Handles clicking "Back" button */
