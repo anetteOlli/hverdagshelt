@@ -86,7 +86,7 @@ class NavBar extends React.Component<Props, State> {
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
-            <div className={classes.grow} />
+            <div className={classes.grow}/>
             {hasCheckedJWT && isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>
         </AppBar>

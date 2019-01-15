@@ -201,13 +201,13 @@ class Tabletest extends React.Component {
             createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status_fk, problem.support || 0)
           )
         : null;
-
       this.setState({
         data
       });
     }
   }
 }
+
 const mapStateToProps = state => {
   return {
     problems: state.problem.problems

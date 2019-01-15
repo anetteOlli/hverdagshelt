@@ -237,8 +237,8 @@ function ValueContainer(props) {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
-/**Function handeling the select searchfield menu
-*@return a paper conteiner with the menu
+/**Function handling the select searchfield menu
+*@return a paper container with the menu
 *@params props
 */
 function Menu(props) {
