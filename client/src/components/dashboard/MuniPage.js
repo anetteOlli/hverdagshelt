@@ -70,7 +70,7 @@ const styles = theme => ({
       minWidth: 310
     },
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 200,
+      maxWidth: 130,
       minWidth: 10
     }
   },

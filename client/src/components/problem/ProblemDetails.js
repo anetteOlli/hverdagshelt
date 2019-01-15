@@ -91,7 +91,7 @@ class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
     isLoggedIn: false,
-    anchorEl: null
+    isHidden: true
   };
 
   onClickAdd = () => {
@@ -99,25 +99,16 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(this.state.currentProblemId);
   };
 
-  onClickEdit() {
-    this.props.history.push('/editbruker');
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
   }
 
-  handleClick = event => {
-    this.setState({
-      anchorEl: event.currentTarget
-    });
-  };
-
-  handleClose = () => {
-    this.setState({
-      anchorEl: null
-    });
-  };
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
+    const { classes, problem, isLoggedIn, userPriority } = this.props;
     console.log(problem);
-    const open = Boolean(this.state.anchorEl);
+
     if (problem) {
       return (
         <div className={classes.main}>
@@ -175,11 +166,7 @@ class ProblemDetails extends React.Component<Props, State> {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <Typography variant="body1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {problem.problem_description}
                       </Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -205,11 +192,7 @@ class ProblemDetails extends React.Component<Props, State> {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <Typography variant="body1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {problem.description_entrepreneur}
                       </Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -220,7 +203,7 @@ class ProblemDetails extends React.Component<Props, State> {
                         <Typography className={classes.heading}>Vis bilde</Typography>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <img className={classes.problem_img} src={problem.img_user} />
+                        <img className={classes.problem_img} src={problem.img_entrepreneur} />
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>
@@ -255,7 +238,8 @@ const mapStateToProps = (state, ownProps) => {
   const problem = problems;
   return {
     currentProblemId: state.problem.currentProblemId,
-    problem
+    problem,
+    userPriority: state.user.priority
   };
 };
 

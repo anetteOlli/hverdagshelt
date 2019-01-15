@@ -116,7 +116,7 @@ const styles = theme => ({
 });
 
 /**Municipality placeholder*/
-const municipalities = [
+const municipalitiesPPP = [
   {
     label: 'Rogaland'
   },
@@ -267,7 +267,7 @@ class MainPage extends React.Component<Props, State> {
     municipalities: ['Default'],
   };
   render() {
-    const { classes } = this.props;
+    const { classes,municipalities } = this.props;
     return (
       <main>
         <Grid container spacing={24}>
@@ -330,32 +330,43 @@ class MainPage extends React.Component<Props, State> {
 
   /**Mount the municipalities from database*/
   componentWillMount(){
-    // this.getMunicipalities();
+    this.props.getMunicipalities();
   }
 
   /** Gets ALL problem categories*/
-  // getMunicipalities(){
-  //   let municipalities = this.props.getMunicipalities().payload;
-  //   if(municipalities != null){
-  //     this.setState({
-  //       getMunicipalities: municipalities
-  //     });
-  //     municipalities.map(municipality => ({
-  //       value: municipality.label,
-  //       label: municipality.label,
-  //     }));
-  //   }
-  // }
+  getMunicipalities(){
+    let municipalities = this.props.municipalities;
+    if(municipalities != null){
+      this.setState({
+        getMunicipalities: municipalities
+      });
+      municipalities.map(municipality => ({
+        value: municipality.municipality,
+        label: municipality.municipality,
+      }));
+    }
+  }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getMunicipalities: municipalities => dispatch(getMunicipalities())
-//   };
-// };
+const mapStateToProps = state => {
+const municipalitiesFromRedux = state.muni.municipalities;
+const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(muni => {
+  const value = `${muni.municipality} ${muni.county}`;
+  const label = `${muni.municipality} i  ${muni.county}`;
+  return {value, label}})) : null
+  return {
+    municipalities
+  };
+};
 
- export default withRoot(withStyles(styles)(MainPage));
+const mapDispatchToProps = dispatch => {
+  return {
+    getMunicipalities: () => dispatch(getMunicipalities())
+  };
+};
 
-// export default connect(
-//   mapDispatchToProps
-// )(withRoot(withStyles(styles)(MainPage)));
+ // export default withRoot(withStyles(styles)(MainPage));
+
+export default connect(mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(MainPage)));
