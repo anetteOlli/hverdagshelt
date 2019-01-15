@@ -34,19 +34,20 @@ export type Action =
 const initState = {
   problems: [
     {
-      problem_id: 1,
+      problem_id: 2,
       problem_title: 'Hull i veien',
       problem_description: 'Dette er krise kom og fiks!',
       problem_locked: 0,
       img_user: 'https://i.imgur.com/ykbz8hO.png',
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
-      location_fk: 'Eplegaten 2',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane'
     }
   ],
-  errorMessage: ''
+  errorMessage: '',
+  currentProblemId: 0,
+  editMode: false
 };
 
 export default (state: State = initState, action: Action) => {
@@ -54,26 +55,31 @@ export default (state: State = initState, action: Action) => {
     case 'CREATE_PROBLEM_SUCCESS':
       console.log('%c CREATE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'CREATE_PROBLEM_ERROR':
       console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
       console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
       console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'DELETE_PROBLEM_SUCCESS':
       console.log('%c DELETE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':
@@ -115,7 +121,22 @@ export default (state: State = initState, action: Action) => {
     case 'PROBLEM_BY_ID_ERROR':
       console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
+      };
+    case 'GO_TO_PROBLEM_DETAIL':
+      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        currentProblemId: action.payload,
+        editMode: false,
+      };
+    case 'GO_TO_PROBLEM_EDIT':
+      console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        currentProblemId: action.payload,
+        editMode: true
       };
     default:
       return state;

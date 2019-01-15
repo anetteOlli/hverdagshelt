@@ -31,7 +31,7 @@ export const placeChanged = (lat: string, lng: string) => {
   };
 };
 
-export const changePlaceName = (street: string, muni: string, county: string) => {
+export const changePlaceName = (street: string, muni: string, county: string, city: string) => {
   console.log('...data');
   return (dispatch: Dispatch) => {
     dispatch({
@@ -39,7 +39,8 @@ export const changePlaceName = (street: string, muni: string, county: string) =>
       payload: {
         street,
         county,
-        muni
+        muni,
+        city
       }
     });
   };
