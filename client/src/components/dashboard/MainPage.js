@@ -326,7 +326,7 @@ class MainPage extends React.Component<Props, State> {
 
   /**Mount the municipalities from database*/
   componentWillMount(){
-    this.getMunicipalities();
+    //this.getMunicipalities();
   }
 }
 

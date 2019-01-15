@@ -47,4 +47,3 @@ exports.events_edit_event = (req, res) => {
     res.json(data);
   });
 };
-}
