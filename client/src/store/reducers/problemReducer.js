@@ -48,7 +48,7 @@ const initState = {
     }
   ],
   errorMessage: '',
-  currentProblemId: 0,
+  currentProblemId: -1,
   editMode: false
 };
 
@@ -127,14 +127,14 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'GO_TO_PROBLEM_DETAIL':
-      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
         editMode: false
       };
     case 'GO_TO_PROBLEM_EDIT':
-      console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_EDIT', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,

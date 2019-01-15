@@ -1,11 +1,12 @@
 // @flow
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from '../layout/SearchBox';
+import SearchBox from './SearchBox';
 import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
+import { Pointer } from './pointer';
 
 let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
@@ -92,7 +93,6 @@ class SimpleMap extends React.Component<Props, State> {
       });
   }
 
-  //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
@@ -106,7 +106,7 @@ class SimpleMap extends React.Component<Props, State> {
           onClick={this.onRecievingLocation}
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-          {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
+          {this.props.lat && <Pointer lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
       </div>
     );
