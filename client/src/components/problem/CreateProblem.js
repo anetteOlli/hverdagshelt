@@ -24,6 +24,9 @@ import {createProblem, getProblemsByStreet} from '../../store/actions/problemAct
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 import MuiTable2 from '../util/MuiTable-2';
+import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 
 /**
  * @fileOverview Create Problem Component
@@ -31,6 +34,16 @@ import MuiTable2 from '../util/MuiTable-2';
  * */
 
 const styles = theme => ({
+  "@global": {
+     html: {
+       [theme.breakpoints.down("sm")]: {
+         fontSize: 10
+       },
+       [theme.breakpoints.up("sm")]: {
+         fontSize: 20
+       }
+    }
+  },
   root: {
     width: '90%',
   },
@@ -70,7 +83,7 @@ const styles = theme => ({
 
 /** @return the title for a specific step in the stepper */
 function getSteps() {
-  return ['Hvor er problemet?', 'Forslag til like problemer', 'Beskriv problemet'];
+  return ['Hvor er problemet?', 'Nærliggende problemer', 'Beskriv problemet'];
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper
@@ -141,90 +154,88 @@ function getStepContent(step: number, state: State,
       return (
         <Card className="content-1">
           <CardContent>
-            <Card>
-              <Typography variant="title" align="center" color="textPrimary">
-                Problemer i kommunen: {state.municipality}, på gaten: {state.street}
-              </Typography>
-            </Card>
-            <Card>
-              <MuiTable2
-              rows={rows}
-              onClick={e => {
-                let myProblem = e;
-                handleChangeSpec("cur_id", myProblem.id);
-                handleChangeSpec("cur_title", myProblem.title);
-                //handleChangeSpec("cur_municipality", myProblem.municipality);
-                //handleChangeSpec("cur_street", myProblem.street);
-                handleChangeSpec("cur_description", myProblem.description);
-                handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                handleChangeSpec("cur_status", myProblem.status);
-                handleChangeSpec("cur_imageURL", myProblem.imageURL);
-                }}
-              />
-            </Card>
-            <Grid container spacing={24}>
+            <Grid container
+            spacing={8}
+            direction="row"
+            lg={3}
+            xs={12}
+            >
               <Grid item
-              xs container
-              direction="column"
-              alignItems="flex-start"
-              lg={5} md={6} sm={12} sx={12}
+              xs
               >
+                <Paper style={{height: '40%', width: '100%', overflow: 'auto'}}>
+                  <MuiTable2
+                  rows={rows}
+                  onClick={e => {
+                    let myProblem = e;
+                    handleChangeSpec("cur_id", myProblem.id);
+                    handleChangeSpec("cur_title", myProblem.title);
+                    //handleChangeSpec("cur_municipality", myProblem.municipality);
+                    //handleChangeSpec("cur_street", myProblem.street);
+                    handleChangeSpec("cur_description", myProblem.description);
+                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
+                    handleChangeSpec("cur_status", myProblem.status);
+                    handleChangeSpec("cur_imageURL", myProblem.imageURL);
+                    }}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item container
+              direction="column"
+              lg={3}
+              xs={12}
+              xs
+              alignItems="center"
+              >
+                <Typography variant="h5" align="center" color="secondary">
+                  {state.municipality},
+                </Typography>
+                <Typography variant="h5" align="center" color="secondary">
+                  {state.street}
+                </Typography>
                 <Grid item xs>
-                  <h4>Beskrivelse</h4>
+                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_description}</Typography>
+                  <Typography align="center">{state.cur_description}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <h4>Kommune</h4>
+                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_municipality}</Typography>
+                  <Typography align="center">{state.cur_entrepreneur}</Typography>
                 </Grid>
                 <Grid item xs>
-                <h4>Gate</h4>
+                  <Typography variant="subtitle2" align="center">Status</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_street}</Typography>
+                  <Typography align="center" color="error">{state.cur_status}</Typography>
                 </Grid>
-                <Grid item xs>
-                  <h4>Entreprenør</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{state.cur_entrepreneur}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <h4>Status</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{state.cur_status}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Button variant="contained" color="secondary" className="{classes.button}"
-                  onClick={e => handleSupport(state.cur_id)}>
-                     Støtt problemet
-                   </Button>
+                <Grid item xs alignItems="center">
+                  <Button
+                  variant="contained" color="primary"
+                  size="small"
+                  onClick={e => handleSupport(state.cur_id)}
+                  >
+                     <Typography>Støtt problemet</Typography>
+                  </Button>
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item container
+            direction="row"
+            >
               <Grid item
-              xs container
-              direction="column"
-              alignItems="center"
-              justify="center"
-              lg={5} md={6} sm={12} sx={1}
+              xs
               >
-                <Grid item lg={6} md={6} sm={6} sx={6}>
-                  <Card>
-                    <CardMedia
-                    component="img"
-                    alt="problem img"
-                    height="300"
-                    width="300"
-                    image={state.cur_imageURL}
-                    title="problem image"
-                    />
-                  </Card>
-                </Grid>
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                      <Typography align="center">Bilde</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                      <img id="img" width="100%" height="100%" src={ "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5"|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
               </Grid>
             </Grid>
           </CardContent>
@@ -370,7 +381,23 @@ class CreateProblem extends React.Component<Props, State> {
 
     similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
                       street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-                      {id:2, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default3', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:8, title: 'default7', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:9, title: 'default8', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:10, title: 'default9', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
                       street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
                       ],
     categories: ['Default']
@@ -424,13 +451,17 @@ class CreateProblem extends React.Component<Props, State> {
   /** Gets ALL problem categories*/
   getCategories(){
     //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
-     let categories = this.props.getCategories();
-
-    if(categories[0] != null){
+    let categories = this.props.getCategories().payload;
+    //console.log("Cats commin");
+    //console.log(categories);
+    if(categories != null){
       this.setState({
-        getCategories: categories
+        categories: categories
       });
       //this.state.categories = categories;
+    }
+    else{
+      this.props.enqueueSnackbar('SERVER_CONNECTION_ERROR',{variant: 'warning'});
     }
   }
 
@@ -505,7 +536,12 @@ class CreateProblem extends React.Component<Props, State> {
     const { activeStep } = this.state;
     return (
       <div>
-        <Typography>Registrer Problem</Typography>
+        <Typography variant="h2"
+        color="primary"
+        align="center"
+        >
+          Registrer Problem
+        </Typography>
         <div className=" Stepper">
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -522,7 +558,7 @@ class CreateProblem extends React.Component<Props, State> {
             {activeStep === steps.length ? (
               <Card className="create-problem-done" align="center">
                 <CardContent>
-                  <Typography className="{classes.instructions}">
+                  <Typography>
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
                   <Button variant="contained" color="primary"
@@ -572,7 +608,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.municipality,
+    municipality: state.map.muni,
     city: state.map.city,
     cords: state.map.cords
   };
