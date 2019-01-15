@@ -70,12 +70,12 @@ export const deleteProblem = (id: number) => {
   };
 };
 
-export const getProblemsByState = (state: string) => {
+export const getProblemsByMuni = (muni: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${state}`).then(problems =>
+    return getData(`problems/${muni}`).then(response =>
       dispatch({
         type: 'PROBLEMS_BY_MUNI_SUCCESS',
-        payload: problems
+        payload: response.data
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
