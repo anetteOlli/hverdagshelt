@@ -111,7 +111,7 @@ function getStepContent(step: number, state: State,
               label="Kommune"
               name="municipality"
               autoComplete="municipality"
-              value={state.muni}
+              value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
@@ -135,26 +135,31 @@ function getStepContent(step: number, state: State,
         </Card>
       );
     case 1:
-      const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
+      //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
+      const rows = (state.similarProblems == null ? [] : state.similarProblems);
       //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
             <Card>
-              <MuiTable
+              <Typography variant="title" align="center" color="textPrimary">
+                Problemer i kommunen: {state.municipality}, på gaten: {state.street}
+              </Typography>
+            </Card>
+            <Card>
+              <MuiTable2
               rows={rows}
               onClick={e => {
-                let myProblem = state.similarProblems.filter(a => e.rowData.eId == a.id)[0];
+                let myProblem = e;
                 handleChangeSpec("cur_id", myProblem.id);
                 handleChangeSpec("cur_title", myProblem.title);
-                handleChangeSpec("cur_municipality", myProblem.municipality);
-                handleChangeSpec("cur_street", myProblem.street);
+                //handleChangeSpec("cur_municipality", myProblem.municipality);
+                //handleChangeSpec("cur_street", myProblem.street);
                 handleChangeSpec("cur_description", myProblem.description);
                 handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
                 handleChangeSpec("cur_status", myProblem.status);
                 handleChangeSpec("cur_imageURL", myProblem.imageURL);
                 }}
-              columnContent={state.similarProblems}
               />
             </Card>
             <Grid container spacing={24}>
@@ -279,7 +284,7 @@ function getStepContent(step: number, state: State,
               <label htmlFor="contained-button-file">
                 <Button variant="contained" component="span">
                   <CloudUploadIcon className="icon-button" />
-                  {'  '}Last opp bilde
+                  Last opp bilde
                 </Button>
               </label>
             </FormControl>
@@ -300,13 +305,12 @@ function handleSupport(problemId: number){
 }
 
 type Props = {
-  muni: string,
+  municipality: string,
   street: string,
 };
 
 type State = {
   activeStep: number,
-  muni: string,
   title: string,
   category: string,
   municipality: string,
@@ -340,7 +344,6 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-    muni: '',
     title: '',
     category: '',
     municipality: '',
@@ -361,9 +364,9 @@ class CreateProblem extends React.Component<Props, State> {
     cur_entrepreneur: 'defaultEntrepreneur',
     cur_status: 'defaultStatus',
 
-    similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default',
+    similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
                       street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-                      {id:2, title: 'default2', category: 'default2', municipality: 'default2',
+                      {id:2, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
                       street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
                       ],
     categories: ['Default']
@@ -375,12 +378,12 @@ class CreateProblem extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("HEEEER")
+    //console.log("HEEEER")
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
         street: nextProps.street,
-        muni: nextProps.muni,
+        municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
         })
@@ -560,11 +563,11 @@ class CreateProblem extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.problems.errorMessage,
+    errorMessage: state.errorMessage,
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    muni: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.cords
   };
