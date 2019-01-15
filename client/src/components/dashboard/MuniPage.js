@@ -29,6 +29,7 @@ type Props = {
 
 type State = {
   municipality: string,
+  municipalities: [],
   value: number
 };
 
@@ -208,6 +209,7 @@ function LinkTab(props) {
 class MuniPage extends React.Component<Props, State> {
   state = {
     municipality: '',
+    municipalities: ['Default'],
     value: 0
   };
 
@@ -267,7 +269,6 @@ class MuniPage extends React.Component<Props, State> {
                             {console.log('Events', JSON.stringify(event))}
 
                             <Card className={classes.card}>
-                              <CardActionArea>
                                 <CardMedia
                                   component="img"
                                   alt="Bilde av arrangement"
@@ -292,7 +293,6 @@ class MuniPage extends React.Component<Props, State> {
                                   </Typography>
                                   <Typography component="p">Lokasjon: {event.location_fk}</Typography>
                                 </CardContent>
-                              </CardActionArea>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
@@ -318,7 +318,6 @@ class MuniPage extends React.Component<Props, State> {
                             {console.log('Problems', JSON.stringify(problem))}
 
                             <Card className={classes.card}>
-                              <CardActionArea>
                                 <CardMedia
                                   component="img"
                                   alt="Bilde av Problem"
@@ -352,7 +351,6 @@ class MuniPage extends React.Component<Props, State> {
                                   </Typography>
                                   <Typography component="p">Lokasjon: {problem.location_fk}</Typography>
                                 </CardContent>
-                              </CardActionArea>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
@@ -388,6 +386,11 @@ class MuniPage extends React.Component<Props, State> {
   registerProblem() {
     history.push('/lagproblem');
   }
+
+/** List of municipalities from database*/
+  // componentWillMount(){
+  //   this.getMunicipalities();
+  // }
 
   /**Set state of municipality*/
   componentDidMount() {
