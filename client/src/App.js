@@ -5,7 +5,6 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import MainPage from './components/dashboard/MainPage';
-import SignUp from './components/user/SignUp';
 import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
@@ -17,6 +16,7 @@ import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
 import Stati from './components/statistics/StatisticPage';
 import SimpleMap from './components/map/GoogleMap';
+import SignUp from './components/user/SignUp';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 const styles = () => ({
@@ -57,6 +57,7 @@ class App extends React.Component<Props> {
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/uploadfile" component={UploadFile} />
+                    <Route exact path="/registrer-bruker" component={SignUp} />
                     <Route exact path="/map" component={Map} />
                     <Route exact path="/problem" component={EditProblemMain} />
                     <Route exact path="/lagproblem" component={CreateProblem} />

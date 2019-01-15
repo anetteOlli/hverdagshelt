@@ -106,7 +106,7 @@ class ProblemDetails extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
+    const { classes, problem, isLoggedIn, userPriority } = this.props;
     console.log(problem);
 
     if (problem) {
