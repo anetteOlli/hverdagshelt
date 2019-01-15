@@ -130,5 +130,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(withRoot(SearchBox));
-
-// note to self: wtf hvorfor får jeg s mye feil npr jeg puller kode fra de andre på teamet
