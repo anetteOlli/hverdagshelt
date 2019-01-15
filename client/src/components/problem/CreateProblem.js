@@ -24,9 +24,6 @@ import {createProblem, getProblemsByStreet} from '../../store/actions/problemAct
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 import MuiTable2 from '../util/MuiTable-2';
-import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 
 /**
  * @fileOverview Create Problem Component
@@ -34,16 +31,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/Expan
  * */
 
 const styles = theme => ({
-  "@global": {
-     html: {
-       [theme.breakpoints.down("sm")]: {
-         fontSize: 10
-       },
-       [theme.breakpoints.up("sm")]: {
-         fontSize: 20
-       }
-    }
-  },
   root: {
     width: '90%',
     flexGrow: 1,
@@ -84,7 +71,7 @@ const styles = theme => ({
 
 /** @return the title for a specific step in the stepper */
 function getSteps() {
-  return ['Hvor er problemet?', 'Nærliggende problemer', 'Beskriv problemet'];
+  return ['Hvor er problemet?', 'Forslag til like problemer', 'Beskriv problemet'];
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper
@@ -189,29 +176,23 @@ function getStepContent(step: number, state: State,
               xs={12}
               alignItems="center"
               >
-                <Typography variant="h5" align="center" color="secondary">
-                  {state.municipality},
-                </Typography>
-                <Typography variant="h5" align="center" color="secondary">
-                  {state.street}
-                </Typography>
                 <Grid item xs>
-                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                  <h4>Beskrivelse</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography align="center">{state.cur_description}</Typography>
+                  <Typography>{state.cur_description}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
+                  <h4>Kommune</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography align="center">{state.cur_entrepreneur}</Typography>
+                  <Typography>{state.cur_municipality}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography variant="subtitle2" align="center">Status</Typography>
+                <h4>Gate</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography align="center" color="error">{state.cur_status}</Typography>
+                  <Typography>{state.cur_street}</Typography>
                 </Grid>
                 <Grid item xs>
                   <Button
@@ -392,23 +373,7 @@ class CreateProblem extends React.Component<Props, State> {
     similarProblems: [
                       {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
                       street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-                      {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default3', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:8, title: 'default7', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:9, title: 'default8', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:10, title: 'default9', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      {id:2, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
                       street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
                       ],
     categories: ['Default']
@@ -469,12 +434,11 @@ class CreateProblem extends React.Component<Props, State> {
   /** Gets ALL problem categories*/
   getCategories(){
     //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
-    let categories = this.props.getCategories().payload;
-    //console.log("Cats commin");
-    //console.log(categories);
-    if(categories != null){
+     let categories = this.props.getCategories();
+
+    if(categories[0] != null){
       this.setState({
-        categories: categories
+        getCategories: categories
       });
       //this.state.categories = categories;
     }
@@ -557,12 +521,7 @@ class CreateProblem extends React.Component<Props, State> {
     const { activeStep } = this.state;
     return (
       <div>
-        <Typography variant="h2"
-        color="primary"
-        align="center"
-        >
-          Registrer Problem
-        </Typography>
+        <Typography>Registrer Problem</Typography>
         <div className=" Stepper">
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -579,7 +538,7 @@ class CreateProblem extends React.Component<Props, State> {
             {activeStep === steps.length ? (
               <Card className="create-problem-done" align="center">
                 <CardContent>
-                  <Typography>
+                  <Typography className="{classes.instructions}">
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
                   <Button variant="contained" color="primary"
@@ -629,7 +588,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.cords
   };
