@@ -307,6 +307,10 @@ function handleSupport(problemId: number){
 type Props = {
   municipality: string,
   street: string,
+  cords : {
+    lat: number,
+    lng: number
+  }
 };
 
 type State = {
@@ -344,9 +348,9 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
+    municipality: '',
     title: '',
     category: '',
-    municipality: '',
     street: '',
     description: '',
     image: '',
@@ -382,6 +386,7 @@ class CreateProblem extends React.Component<Props, State> {
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
+        cords: nextProps.cords,
         street: nextProps.street,
         municipality: nextProps.municipality,
         county: nextProps.county,
