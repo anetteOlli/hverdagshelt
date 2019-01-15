@@ -1,6 +1,4 @@
 import ImageHostController from '../services/imageHostController';
-
-const multer = require('multer');
 const ProblemDao = require('../dao/problemDao');
 
 const pool = require('../services/database');
@@ -22,11 +20,12 @@ exports.problems_get_problem = (req, res) => {
   });
 };
 
-exports.problems_get_problem_nearby = (req, res) => {
-  console.log('/problems/ got POST request from client');
-  console.log(req.body);
-  problemDao.getAllStreet(req.body, (status, data) => {
-    res.status(status).json(data[0]);
+exports.problems_get_from_municipality = (req, res) => {
+  console.log(
+    '/problems/municipality/' + req.body.municipality_fk + '(' + req.body.county_fk + ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipality(req.body, (status, data) => {
+    res.status(status).json(data);
   });
 };
 
