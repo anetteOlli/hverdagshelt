@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/mapReducer';
+import type { Action } from '../reducers/mapReducer';
+import type { State } from '../reducers';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -21,7 +22,7 @@ export const updateMap = (lat: string, lng: string) => {
 export const placeChanged = (lat: string, lng: string) => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type: 'UPDATE_CENTER',
+      type: 'UPDATE_MAP',
       payload: {
         lat: lat,
         lng: lng
@@ -30,7 +31,7 @@ export const placeChanged = (lat: string, lng: string) => {
   };
 };
 
-export const changePlaceName = (street: string, muni: string, county: string) => {
+export const changePlaceName = (street: string, muni: string, county: string, city: string) => {
   console.log('...data');
   return (dispatch: Dispatch) => {
     dispatch({
@@ -38,7 +39,8 @@ export const changePlaceName = (street: string, muni: string, county: string) =>
       payload: {
         street,
         county,
-        muni
+        muni,
+        city
       }
     });
   };

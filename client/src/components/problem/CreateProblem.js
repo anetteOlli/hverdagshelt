@@ -20,9 +20,10 @@ import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-import {createProblem, getProblemsByMuniAndStreet} from '../../store/actions/problemActions';
+import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
+import MuiTable2 from '../util/MuiTable-2';
 
 /**
  * @fileOverview Create Problem Component
@@ -83,7 +84,7 @@ function getSteps() {
 */
 function getStepContent(step: number, state: State,
                       handleChange: function, handleChangeSpec: function, handleUpload: function,
-                      similarProblems: [], categories: []) {
+                      similarProblems: [], categories: [], props) {
   switch (step) {
     case 0:
       return (
@@ -110,11 +111,12 @@ function getStepContent(step: number, state: State,
               label="Kommune"
               name="municipality"
               autoComplete="municipality"
-              value={state.municipality}
+              value={state.muni}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
             />
+            {console.log('state in createProblem', state)}
             <TextValidator
               fullWidth
               margin="normal"
@@ -152,6 +154,7 @@ function getStepContent(step: number, state: State,
                 handleChangeSpec("cur_status", myProblem.status);
                 handleChangeSpec("cur_imageURL", myProblem.imageURL);
                 }}
+              columnContent={state.similarProblems}
               />
             </Card>
             <Grid container spacing={24}>
@@ -296,10 +299,14 @@ function handleSupport(problemId: number){
   console.log("Clicked updoot for " + problemId + "! Take me away hunny")
 }
 
-type Props = {};
+type Props = {
+  muni: string,
+  street: string,
+};
+
 type State = {
   activeStep: number,
-
+  muni: string,
   title: string,
   category: string,
   municipality: string,
@@ -333,7 +340,7 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-
+    muni: '',
     title: '',
     category: '',
     municipality: '',
@@ -355,11 +362,29 @@ class CreateProblem extends React.Component<Props, State> {
     cur_status: 'defaultStatus',
 
     similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default',
-                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}],
+                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
+                      {id:2, title: 'default2', category: 'default2', municipality: 'default2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
+                      ],
     categories: ['Default']
   };
 
   componentWillMount(){
+    //this.getSimilarProblems("", "");
+    this.getCategories();
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("HEEEER")
+    console.log(nextProps);
+    if(this.state.street !== nextProps.street){
+      this.setState({
+        street: nextProps.street,
+        muni: nextProps.muni,
+        county: nextProps.county,
+        city: nextProps.city
+        })
+    }
     //this.getSimilarProblems("", "");
     this.getCategories();
   }
@@ -376,7 +401,7 @@ class CreateProblem extends React.Component<Props, State> {
       {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
     */
-    let simProbs = this.props.getProblemsByMuniAndStreet(municipality, street)
+    let simProbs = this.props.getProblemsByStreet(municipality, street)
     .then(e => this.props.enqueueSnackbar('error',{variant: 'warning'})
     );
 
@@ -503,7 +528,7 @@ class CreateProblem extends React.Component<Props, State> {
             ) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload)}
+                              this.handleChangeSpec, this.handleUpload, this.props)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
@@ -535,7 +560,13 @@ class CreateProblem extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.problems.errorMessage
+    errorMessage: state.errorMessage,
+    //street, county, municipality, cords
+    street: state.map.street,
+    county: state.map.county,
+    muni: state.map.muni,
+    city: state.map.city,
+    cords: state.map.cords
   };
 };
 
@@ -543,7 +574,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: categories => dispatch(getCategories()),
-    getProblemsByMuniAndStreet: (muni, street) => dispatch(getProblemsByMuniAndStreet(muni, street))
+    getProblemsByStreet: (muni, street) => dispatch(getProblemsByStreet(muni, street))
   };
 };
 
