@@ -11,7 +11,10 @@ import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
-import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon } from '@material-ui/core';
+import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon,
+        ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails
+      } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
@@ -65,11 +68,25 @@ class MuiVirtualizedTable extends React.PureComponent {
     });
   };
 
-  cellRenderer = ({ cellData, columnIndex = null }) => {
-    const { columns, classes, rowHeight, onRowClick } = this.props;
-    let icon = cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1;
+  getRowIndex = ({index}) => {
+    return index;
+  }
+
+  //const [expanded, setExpanded] = React.useState(null);
+  expanded = false;
+
+  handleChange = panel => (event, isExpanded) => {
+    //setExpanded(isExpanded ? panel : false);
+    this.expanded = (isExpanded ? panel : false);
+  };
+
+  cellRenderer = ({ cellData, columnIndex = null, rowIndex }) => {
+    const { columns, classes, rowHeight, onRowClick, isExpandable } = this.props;
+    let icon = (cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1);
     let status = icon >= 0 ? true : false;
-    //console.log(icon);
+
+    //console.log(rowIndex);
+    //console.log(this.props);
     //console.log(cellData);
     return (
       <TableCell
@@ -81,17 +98,32 @@ class MuiVirtualizedTable extends React.PureComponent {
         style={{ height: rowHeight }}
         align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
       >
-        {status ? (
-          icon == 0 ? (
-            <CheckCircle className="material-icons" color="disabled" />
-          ) : icon == 1 ? (
-            <CheckCircle className="material-icons" color="primary" />
+        { isExpandable ? (
+          <ExpansionPanel expanded={this.expanded === rowIndex} onChange={this.handleChange(rowIndex)}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className="heading">{cellData}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
+                maximus est, id dignissim quam.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
           ) : (
-            <CheckCircle className="material-icons" color="error" />
+          status ? (
+            icon == 0 ? (
+              <CheckCircle className="material-icons" color="disabled" />
+            ) : icon == 1 ? (
+              <CheckCircle className="material-icons" color="primary" />
+            ) : (
+              <CheckCircle className="material-icons" color="error" />
+            )
+          ) : (
+            cellData
+            )
           )
-        ) : (
-          cellData
-        )}
+        }
       </TableCell>
     );
   };
@@ -117,7 +149,7 @@ class MuiVirtualizedTable extends React.PureComponent {
         component="div"
         className={classNames(classes.tableCell, classes.flexContainer, classes.noClick)}
         variant="head"
-        style={{ height: headerHeight }}
+        style={{ height: '100%' }}
         align={columns[columnIndex].numeric || false ? 'right' : 'left'}
       >
         {inner}
@@ -143,7 +175,8 @@ class MuiVirtualizedTable extends React.PureComponent {
                 renderer = cellRendererProps =>
                   this.cellRenderer({
                     cellData: cellContentRenderer(cellRendererProps),
-                    columnIndex: index
+                    columnIndex: index,
+                    rowIndex: this.getRowIndex
                   });
               } else {
                 renderer = this.cellRenderer;
@@ -190,7 +223,7 @@ MuiVirtualizedTable.propTypes = {
 
 MuiVirtualizedTable.defaultProps = {
   headerHeight: 56,
-  rowHeight: 56
+  rowHeight: 75
 };
 
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
@@ -223,26 +256,41 @@ function MuiTable(props) {
   const rows = props.rows == null ? rowsDefault : props.rows;
   //console.log("Rows lower");
   //console.log(rows);
+  let isExpandable = props.isExpandable;
+  isExpandable = false;
+  let columns = [
+    {
+      width: 100,
+      flexGrow: 1.0,
+      label: 'Status',
+      dataKey: 'status'
+    },
+    {
+      width: 200,
+      flexGrow: 1.0,
+      label: 'Problem',
+      dataKey: 'title'
+    }
+  ];
+  if(isExpandable){
+    columns = [
+      {
+        width: 100,
+        flexGrow: 1.0,
+        label: 'Problem',
+        dataKey: 'title'
+      }
+    ];
+  }
   return (
-    <Paper style={{ height: 200, width: '100%' }}>
+    <Paper style={{ height: 250, width: '100%' }}>
       <WrappedVirtualizedTable
         rowCount={rows.length}
         rowGetter={({ index }) => rows[index]}
         onRowClick={props.onClick}
-        columns={[
-          {
-            width: 100,
-            flexGrow: 1.0,
-            label: 'Status',
-            dataKey: 'status'
-          },
-          {
-            width: 200,
-            flexGrow: 1.0,
-            label: 'Problem',
-            dataKey: 'title'
-          }
-        ]}
+        isExpandable={isExpandable}
+        columns={columns}
+        columnContent={({index}) => props.columnContent[index]}
       />
     </Paper>
   );
