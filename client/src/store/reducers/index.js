@@ -23,7 +23,7 @@ export type State = {
   category: CategoryState
 };
 
-// @flowIgnore
+// $FlowFixMe
 export default combineReducers({
   app: appReducer,
   user: userReducer,
