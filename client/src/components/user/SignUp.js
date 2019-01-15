@@ -8,11 +8,12 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Select
+  Select,
+  FormControlLabel,
+  Switch
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signUp } from '../../store/actions/userActions';
@@ -28,7 +29,8 @@ type Props = {
   isLoggedIn: boolean,
   signUp: Function,
   enqueueSnackbar: Function,
-  categories: string[]
+  categories: string[],
+  municipalities: string[]
 };
 
 type State = {
@@ -75,13 +77,18 @@ class SignUp extends React.Component<Props, State> {
     isEntrepreneur: false,
     entrepreneurName: '',
     entrepreneurCategories: [],
-    entrepreneurMuni: []
+    entrepreneurMuni: [],
+    isEntrepreneur: false
   };
 
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
+  };
+
+  handleChecked = e => {
+    this.setState({ [e.target.name]: e.target.checked });
   };
 
   handleVisibility = () => {
@@ -110,27 +117,6 @@ class SignUp extends React.Component<Props, State> {
       })
     );
   };
-  /*
-          <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          renderValue={selected => selected.join(', ')}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-   */
 
   render() {
     const { classes, isLoggedIn, categories, municipalities } = this.props;
@@ -148,7 +134,7 @@ class SignUp extends React.Component<Props, State> {
           errorMessages={['Feltet kan ikke være tomt']}
         />
         <FormControl fullWidth margin="normal" className={classes.formControl}>
-          <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i lol:</InputLabel>
+          <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
           <Select
             multiple
             value={this.state.entrepreneurMuni}
@@ -167,7 +153,7 @@ class SignUp extends React.Component<Props, State> {
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal" className={classes.formControl}>
-          <InputLabel htmlFor="category-checkbox">Kategorier entrepenøren jobber innenfor lol:</InputLabel>
+          <InputLabel htmlFor="category-checkbox">Kategorier entrepenøren jobber innenfor:</InputLabel>
           <Select
             multiple
             value={this.state.entrepreneurCategories}
@@ -197,14 +183,14 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             fullWidth
             margin="normal"
-            label="Muni:"
+            label="Kommune du er fra:"
             name="muni"
             value={this.state.muni}
             onChange={this.handleChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {categories.map((option, index) => (
+            {municipalities.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
@@ -254,13 +240,19 @@ class SignUp extends React.Component<Props, State> {
             validators={['required', 'isPasswordMatch']}
             errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
           />
+          <FormControlLabel
+            control={
+              <Switch checked={this.state.isEntrepreneur} name="isEntrepreneur" onChange={this.handleChecked} color="primary" />
+            }
+            label="Er du entrepenør?"
+          />
+          {this.state.isEntrepreneur && EntrepenurSignUp}
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
             Register
           </Button>
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
             Cancel
           </Button>
-          {EntrepenurSignUp}
         </ValidatorForm>
       </div>
     );
@@ -291,3 +283,24 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
+
+/*          <SelectValidator
+          fullWidth
+          margin="normal"
+          multiple
+          label="Kommuner entrepenøren jobber i lol:"
+          name="entrepreneurMuni"
+          value={this.state.entrepreneurMuni}
+          onChange={this.handleChange}
+          renderValue={selected => selected.join(', ')}
+          validators={['required']}
+          errorMessages={['Feltet kan ikke være tomt']}
+        >
+          {categories.map((name: string) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </SelectValidator>
+   */
