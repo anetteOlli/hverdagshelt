@@ -8,11 +8,9 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 
 import createHashHistory from 'history/createHashHistory';
-const history = createHashHistory(); // Use history.push(...) to programmatically change path
 
 /**Props og State*/
 type Props = {
@@ -320,12 +318,12 @@ class MainPage extends React.Component<Props, State> {
       [name]: value,
     });
     console.log(value);
-    history.push('/' + value.label);
+    this.props.history.push(value.value);
   };
 
   /**User will be pushed to the registerProblem page */
   registerProblem() {
-    history.push('/lagproblem');
+    this.props.history.push('/lagproblem');
   }
 
   /**Mount the municipalities from database*/
@@ -346,12 +344,12 @@ class MainPage extends React.Component<Props, State> {
       }));
     }
   }
-}
+}//class
 
 const mapStateToProps = state => {
 const municipalitiesFromRedux = state.muni.municipalities;
 const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(muni => {
-  const value = `${muni.municipality} ${muni.county}`;
+  const value = `${muni.municipality}&${muni.county}`;
   const label = `${muni.municipality} i  ${muni.county}`;
   return {value, label}})) : null
   return {
@@ -364,8 +362,6 @@ const mapDispatchToProps = dispatch => {
     getMunicipalities: () => dispatch(getMunicipalities())
   };
 };
-
- // export default withRoot(withStyles(styles)(MainPage));
 
 export default connect(mapStateToProps,
   mapDispatchToProps
