@@ -18,6 +18,14 @@ import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById } from '../../store/actions/problemActions';
 
+import EnhancedTableHead from '../util/SelectTable';
+
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
@@ -35,15 +43,11 @@ const styles = (theme: Object) => ({
     flexDirection: 'row'
   },
 
-  btnContainer: {
-    //paddingRight: 30
-  },
-
   linkbtn: {
     margin: theme.spacing.unit,
-    minWidth: 400,
+    minWidth: '100%',
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '50%'
     }
   },
   grid: {
@@ -78,7 +82,7 @@ const styles = (theme: Object) => ({
   },
   wrapper1: {
     alignItems: 'flex-end',
-    minWidth: 400
+    minWidth: '100%'
   },
   title: {
     paddingTop: 25,
@@ -91,15 +95,17 @@ class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
     isHidden: true,
-    power: ''
+    power: '',
+    open: false,
   };
 
   onClickAdd = () => {
+    console.log("Trykte add knappen..");
 
-    console.log("Trykte add knappen");
-    console.log(this.props.isLoggedIn);
-
+    this.handleClickOpen();
+    this.toggleHidden();
   };
+
   onClickEdit = () => {
     console.log("Trykte på edit");
 
@@ -110,6 +116,18 @@ class ProblemDetails extends React.Component<Props, State> {
       isHidden: !this.state.isHidden
     });
   }
+
+  handleClickOpen = () => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
@@ -143,6 +161,7 @@ class ProblemDetails extends React.Component<Props, State> {
             <div className={classes.title}>
               <Grid item xs={12}>
                 <Typography variant="h2" gutterBottom align="left">
+                  TITTEL DEFAULT
                   {problem.problem_title}
                 </Typography>
               </Grid>
@@ -219,6 +238,29 @@ class ProblemDetails extends React.Component<Props, State> {
               </div>
             </Grid>
           </Grid>
+          <div>
+            <Dialog
+              onClose={this.handleClose}
+              aria-labelledby="customized-dialog-title"
+              open={this.state.open}
+            >
+              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+
+              </DialogTitle>
+              <DialogContent>
+                <Typography gutterBottom>
+
+                </Typography>
+                <EnhancedTableHead/>
+
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Save changes
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
         </div>
       );
     } else {
@@ -239,10 +281,8 @@ class ProblemDetails extends React.Component<Props, State> {
         power: this.props.userPriority
       });
     }
-
     console.log(this.props.userPriority); //undefined
     console.log(this.props.isLoggedIn);
-
   }
 
 }
