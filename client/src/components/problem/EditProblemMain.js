@@ -23,12 +23,12 @@ import { withStyles } from '@material-ui/core/styles';
 import EditProblemA from './EditProblemA';
 import EditProblemB from './EditProblemB';
 import EditProblem from './EditProblem';
-import { signIn } from '../../store/actions/userActions';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
-import MuiTable from '../util/MuiTable';
-import createMuiData from '../util/createMuiData';
+import Tabletest from '../util/Tabletest';
+import {getProblemsByMuni} from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
+
 var bool = false;
 var user_id;
 
@@ -81,6 +81,12 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     Height: '100%',
     alignItems: 'flex-end'
+  },
+  gridLeft: {
+    paddingBottom: 20,
+    paddingLeft: 20,
+    height: '100%',
+    width: '100%'
   },
   MUI: {
     height: '100%'
@@ -161,16 +167,19 @@ class EditProblemMain extends React.Component<Props, State> {
     console.log(this.props.problem.currentProblemId);
     const { classes, problem, isLoggedIn } = this.props;
     var a = this.state.user_fk;
-    bool =  this.props.editMode;
-    const rows = this.similarProblems == null ? [] : createMuiData(this.similarProblems);
+    bool =  this.props.editMode || true;
+    //const rows = this.similarProblems == null ? [] : createMTableData(this.similarProblems);
 
+    console.log(this.similarProblems )
     return (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item xs={6} sm={3}>
-            <MuiTable className={classes.MUI} rows={rows} onClick={this.handleTableClick} />
+          <Grid item sm md={3} xs className={classes.gridLeft}>
+            {
+              <Tabletest className={classes.MUI} onClick={this.handleTableClick} />
+            }
           </Grid>
-          <Grid item xs>
+          <Grid item sm md={9} xs>
             {getEditView(getView(bool, a))}
           </Grid>
         </Grid>
@@ -211,11 +220,13 @@ class EditProblemMain extends React.Component<Props, State> {
     ];
   }
 
+
   componentDidMount() {
     this.getSimilarProblems();
     this.setState({
       ...this.props.problem
     });
+    this.props.getProblemsByMuni(this.props.match.params.muni, this.props.match.params.county)
   }
 }
 
@@ -228,10 +239,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
-
+    getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county))
   };
 };
 
