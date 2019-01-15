@@ -16,6 +16,7 @@ import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
 import MuiTable from './components/util/MuiTable';
+import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SimpleMap from './components/map/GoogleMap';
 import { withStyles } from '@material-ui/core/styles';
@@ -68,7 +69,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />
-                    <Route exact path="/muiTable" component={MuiTable} />
+                    <Route exact path="/muiTable" component={MuiTable2Test} />
                     <Route exact path="/munipage" component={MuniPage} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/uploadfile" component={UploadFile} />

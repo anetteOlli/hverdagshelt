@@ -34,7 +34,7 @@ export type Action =
 const initState = {
   problems: [
     {
-      problem_id: 1,
+      problem_id: 2,
       problem_title: 'Hull i veien',
       problem_description: 'Dette er krise kom og fiks!',
       problem_locked: 0,
