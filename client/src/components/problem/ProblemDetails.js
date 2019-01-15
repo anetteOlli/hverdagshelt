@@ -90,13 +90,19 @@ const styles = (theme: Object) => ({
 class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
-    isLoggedIn: false,
-    isHidden: true
+    isHidden: true,
+    power: ''
   };
 
   onClickAdd = () => {
-    // history.push('/lagproblem');
-    console.log(this.state.currentProblemId);
+
+    console.log("Trykte add knappen");
+    console.log(this.props.isLoggedIn);
+
+  };
+  onClickEdit = () => {
+    console.log("Trykte på edit");
+
   };
 
   toggleHidden() {
@@ -106,8 +112,8 @@ class ProblemDetails extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, problem, isLoggedIn, userPriority } = this.props;
-    console.log(problem);
+    const { classes, problem, isLoggedIn } = this.props;
+    //console.log(problem);
 
     if (problem) {
       return (
@@ -208,7 +214,7 @@ class ProblemDetails extends React.Component<Props, State> {
             </Grid>
 
             <Grid item xs={12}>
-              <div className="mapPlaceholder">
+              <div className="map">
                 <Map />
               </div>
             </Grid>
@@ -223,19 +229,34 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentProblemId !== this.props.currentProblemId)
       this.props.getProblemById(nextProps.currentProblemId);
+
   }
+
+  componentDidMount() {
+    if(this.props.isLoggedIn !== undefined) {
+      console.log("kom hit.");
+      this.setState({
+        power: this.props.userPriority
+      });
+    }
+
+    console.log(this.props.userPriority); //undefined
+    console.log(this.props.isLoggedIn);
+
+  }
+
 }
 
 const mapStateToProps = (state, ownProps) => {
-  //const id = ownProps.match.params.problem_id;
   const problems = state.problem.problems;
-  console.log(problems);
+
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
   const problem = problems;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    userPriority: state.user.priority
+    userPriority: state.user.priority,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
@@ -245,8 +266,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+
+
+// bruker kan edit desciption hvis ikke locked
+// Admin kan gjøre alt
+// Kommuneansatt slett, add entrepreneur, edit
+// Entrepeneur edit
