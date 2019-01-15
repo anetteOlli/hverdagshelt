@@ -99,10 +99,10 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(this.state.currentProblemId);
   };
 
-  toggleHidden () {
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
-    })
+    });
   }
 
   render() {
@@ -165,9 +165,7 @@ class ProblemDetails extends React.Component<Props, State> {
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Typography variant="body1">
-                        {problem.problem_description}
-                      </Typography>
+                      <Typography variant="body1">{problem.problem_description}</Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
@@ -191,9 +189,7 @@ class ProblemDetails extends React.Component<Props, State> {
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Typography variant="body1">
-                        {problem.description_entrepreneur}
-                      </Typography>
+                      <Typography variant="body1">{problem.description_entrepreneur}</Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
