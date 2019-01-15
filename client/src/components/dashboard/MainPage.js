@@ -5,7 +5,11 @@ import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField
 import Select from 'react-select';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-//import {getMunicipalities} from '../../store/actions/muniActions';
+import { getMunicipalities } from '../../store/actions/muniActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
@@ -16,7 +20,7 @@ type Props = {
 };
 type State = {
   municipality: string,
-  municipalitiesDB: [],
+  municipalities: [],
   single: string,
 };
 
@@ -260,7 +264,7 @@ class MainPage extends React.Component<Props, State> {
   state = {
     municipality: '',
     single: null,
-    municipalitiesDB: ['Default'],
+    municipalities: ['Default'],
   };
   render() {
     const { classes } = this.props;
@@ -326,8 +330,32 @@ class MainPage extends React.Component<Props, State> {
 
   /**Mount the municipalities from database*/
   componentWillMount(){
-    //this.getMunicipalities();
+    // this.getMunicipalities();
   }
+
+  /** Gets ALL problem categories*/
+  // getMunicipalities(){
+  //   let municipalities = this.props.getMunicipalities().payload;
+  //   if(municipalities != null){
+  //     this.setState({
+  //       getMunicipalities: municipalities
+  //     });
+  //     municipalities.map(municipality => ({
+  //       value: municipality.label,
+  //       label: municipality.label,
+  //     }));
+  //   }
+  // }
 }
 
-export default withRoot(withStyles(styles)(MainPage));
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getMunicipalities: municipalities => dispatch(getMunicipalities())
+//   };
+// };
+
+ export default withRoot(withStyles(styles)(MainPage));
+
+// export default connect(
+//   mapDispatchToProps
+// )(withRoot(withStyles(styles)(MainPage)));
