@@ -84,7 +84,7 @@ function getSteps() {
 */
 function getStepContent(step: number, state: State,
                       handleChange: function, handleChangeSpec: function, handleUpload: function,
-                      similarProblems: [], categories: []) {
+                      similarProblems: [], categories: [], props) {
   switch (step) {
     case 0:
       return (
@@ -111,11 +111,12 @@ function getStepContent(step: number, state: State,
               label="Kommune"
               name="municipality"
               autoComplete="municipality"
-              value={state.municipality}
+              value={state.muni}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
             />
+            {console.log('state in createProblem', state)}
             <TextValidator
               fullWidth
               margin="normal"
@@ -298,10 +299,14 @@ function handleSupport(problemId: number){
   console.log("Clicked updoot for " + problemId + "! Take me away hunny")
 }
 
-type Props = {};
+type Props = {
+  muni: string,
+  street: string,
+};
+
 type State = {
   activeStep: number,
-
+  muni: string,
   title: string,
   category: string,
   municipality: string,
@@ -335,7 +340,7 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-
+    muni: '',
     title: '',
     category: '',
     municipality: '',
@@ -365,6 +370,21 @@ class CreateProblem extends React.Component<Props, State> {
   };
 
   componentWillMount(){
+    //this.getSimilarProblems("", "");
+    this.getCategories();
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("HEEEER")
+    console.log(nextProps);
+    if(this.state.street !== nextProps.street){
+      this.setState({
+        street: nextProps.street,
+        muni: nextProps.muni,
+        county: nextProps.county,
+        city: nextProps.city
+        })
+    }
     //this.getSimilarProblems("", "");
     this.getCategories();
   }
@@ -508,7 +528,7 @@ class CreateProblem extends React.Component<Props, State> {
             ) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload)}
+                              this.handleChangeSpec, this.handleUpload, this.props)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
@@ -540,7 +560,13 @@ class CreateProblem extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.problems.errorMessage
+    errorMessage: state.problems.errorMessage,
+    //street, county, municipality, cords
+    street: state.map.street,
+    county: state.map.county,
+    muni: state.map.muni,
+    city: state.map.city,
+    cords: state.map.cords
   };
 };
 

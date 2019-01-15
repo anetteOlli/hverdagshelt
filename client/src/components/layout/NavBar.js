@@ -20,7 +20,6 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/userActions';
-
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20
@@ -85,7 +84,7 @@ class NavBar extends React.Component<Props, State> {
               <MenuIcon />
             </IconButton>
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
-              HverdagsHelt222
+              HverdagsHelt
             </Button>
             <div className={classes.grow} />
             {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}

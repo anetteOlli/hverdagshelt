@@ -1,5 +1,6 @@
 // @flow
-import type { Action, State } from '../reducers/userReducer';
+import type { Action } from '../reducers/userReducer';
+import type { State } from '../reducers';
 import type { Action as AppAction } from '../reducers/appReducer';
 import { setToken, clearToken, signInAxios, postData, getData, getToken } from '../util';
 import { loading, hasCheckedJWT } from './appActions';
