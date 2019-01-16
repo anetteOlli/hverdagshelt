@@ -17,6 +17,7 @@ import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
+import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { postData } from '../../store/util';
@@ -31,12 +32,14 @@ type Props = {
   signUpEntrepreneur: Function,
   enqueueSnackbar: Function,
   categories: string[],
-  municipalities: string[],
+  counties: string[],
+  currentMunicipalities: string[],
   errorMessage: string
 };
 
 type State = {
   muni: string,
+  county: string,
   entrepreneurName: string,
   email: string,
   password: string,
@@ -46,7 +49,7 @@ type State = {
   entrepreneurId: number,
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
-  entrepreneurCategories: string[],
+  entrepreneurCategories: string[]
 };
 
 const styles = (theme: Object) => ({
@@ -72,6 +75,7 @@ const MenuProps = {
 class SignUp extends React.Component<Props, State> {
   state = {
     muni: '',
+    county: '',
     email: '',
     password: '',
     cnfPassword: '',
@@ -154,7 +158,7 @@ class SignUp extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn, categories, municipalities } = this.props;
+    const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -179,7 +183,7 @@ class SignUp extends React.Component<Props, State> {
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {municipalities.map(name => (
+            {currentMunicipalities.map(name => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={this.state.entrepreneurMunies.indexOf(name) > -1} />
                 <ListItemText primary={name} />
@@ -229,14 +233,30 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             fullWidth
             margin="normal"
-            label="Kommune du er fra:"
+            label="Fylke: "
+            name="county"
+            value={this.state.county}
+            onChange={this.handleChange}
+            validators={['required']}
+            errorMessages={['this field is required']}
+          >
+            {counties.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </SelectValidator>
+          <SelectValidator
+            fullWidth
+            margin="normal"
+            label="Kommune: "
             name="muni"
             value={this.state.muni}
             onChange={this.handleChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {municipalities.map((option, index) => (
+            {currentMunicipalities.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
@@ -312,6 +332,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
+    this.props.getCounties();
   }
 }
 
@@ -320,14 +341,17 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
     categories: state.category.categories,
-    municipalities: state.muni.municipalities
+    currentMunicipalities: state.muni.currentMunicipalities,
+    counties: state.muni.counties
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     signUpUser: newUser => dispatch(signUpUser(newUser)),
-    signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur))
+    signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur)),
+    getCounties: () => dispatch(getCounties()),
+    getMunicipalitiesByCounty: (county: string) => dispatch(getMunicipalitiesByCounty(county))
   };
 };
 
