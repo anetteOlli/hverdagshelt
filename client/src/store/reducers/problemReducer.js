@@ -46,11 +46,13 @@ const initState = {
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
+      latitude: '63.42656212314987',
+      longitude: '10.393969503996345',
       support: -1
     }
   ],
   errorMessage: '',
-  currentProblemId: 0,
+  currentProblemId: 2,
   editMode: false
 };
 

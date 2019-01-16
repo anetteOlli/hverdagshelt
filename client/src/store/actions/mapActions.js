@@ -30,6 +30,16 @@ export const updateMarker = (lat: string, lng: string) => {
     });
   };
 };
+export const changeCenter = (lat: string, lng: string) => {
+  console.log('....data');
+  let center = { lat, lng };
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: 'UPDATE_CENTER',
+      payload: { center: center }
+    });
+  };
+};
 
 export const changePlaceName = (street: string, muni: string, county: string, city: string) => {
   console.log('...data');
