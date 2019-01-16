@@ -40,7 +40,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'GET_CATEGORIES_SUCCESS':
-      console.log('%c GET_CATEGORIES_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c GET_CATEGORIES_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         categories: action.payload
