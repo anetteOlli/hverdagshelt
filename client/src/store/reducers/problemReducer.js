@@ -42,11 +42,13 @@ const initState = {
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
-      category_fk: 'Vei og kjørebane'
+      category_fk: 'Vei og kjørebane',
+      latitude: '63.42656212314987',
+      longitude: '10.393969503996345'
     }
   ],
   errorMessage: '',
-  currentProblemId: 0,
+  currentProblemId: -1,
   editMode: false
 };
 
@@ -125,14 +127,14 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'GO_TO_PROBLEM_DETAIL':
-      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
         editMode: false
       };
     case 'GO_TO_PROBLEM_EDIT':
-      console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_EDIT', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
