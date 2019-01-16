@@ -5,7 +5,7 @@ import SearchBox from '../layout/SearchBox';
 
 const AnyReactComponent = ({ img_src, text }) => (
   <div>
-    <img src={img_src} style={{ height: '10px', width: '10px' }} />
+    <img src={img_src} style={{ height: '10px', width: '10px', top: '-10px', left: '-5px', position: 'absolute' }} />
     <p> {text} </p>
   </div>
 );

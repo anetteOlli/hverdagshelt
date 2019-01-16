@@ -19,7 +19,7 @@ export const updateMap = (lat: string, lng: string) => {
   };
 };
 
-export const placeChanged = (lat: string, lng: string) => {
+export const updateMarker = (lat: string, lng: string) => {
   return (dispatch: Dispatch) => {
     dispatch({
       type: 'UPDATE_MAP',
@@ -27,6 +27,16 @@ export const placeChanged = (lat: string, lng: string) => {
         lat: lat,
         lng: lng
       }
+    });
+  };
+};
+export const changeCenter = (lat: string, lng: string) => {
+  console.log('....data');
+  let center = { lat, lng };
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: 'UPDATE_CENTER',
+      payload: { center: center }
     });
   };
 };
