@@ -13,4 +13,8 @@ module.exports = class CategoryDao extends Dao {
   deleteOne(name, callback) {
     super.query('delete from category where category=?', [name], callback);
   }
+
+  createOne(name,callback) {
+    super.query('INSERT INTO category VALUES(?)',[name],callback)
+  }
 };

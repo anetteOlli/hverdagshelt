@@ -1,0 +1,44 @@
+image: node:8
+
+# Set up MySQL test-database
+services:
+- mysql:5.5
+
+# Configure test-database
+variables:
+  MYSQL_DATABASE: testdb
+  MYSQL_ROOT_PASSWORD: abc123
+
+before_script:
+  - npm install -g flow-bin
+  - cd server && npm install
+  - cd ../client && npm install
+
+run_tests:
+  stage: test
+  image: node:latest
+  script:
+    - npm test
+    - cd ../server && npm test
+  artifacts:
+    paths:
+      - client/coverage
+      - server/coverage
+
+
+pages:
+  stage: deploy
+  dependencies:
+  - run_tests
+  script:
+    - cd ../
+    - mkdir .public
+    - cp -r client/* .public
+    - cp -r server/* .public
+    - mv .public public
+
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
