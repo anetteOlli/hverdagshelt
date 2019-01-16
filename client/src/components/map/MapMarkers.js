@@ -19,7 +19,8 @@ type Props = {
   center: {
     lat: number,
     lng: number
-  }
+  },
+  currentProblem: problem
 };
 type problem = {
   latitude: string,
@@ -68,7 +69,14 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.getProblemsByMuni('Nord-Fron', 'Oppland').then(() => this.setState({ hasLoaded: true }));
+    console.log('MapMarker componentDidMount this.props', this.props);
+    if (this.props.currentProblem) {
+      console.log('MapMarker componentDidMount this.props', this.props);
+      this.setState({
+        hasLoaded: true
+      });
+    }
+    // this.props.getProblemsByMuni('Nord-Fron', 'Oppland').then(() => this.setState({ hasLoaded: true }));
   }
 
   apiHasLoaded = (map, maps) => {
@@ -129,16 +137,23 @@ class MapMarkers extends React.Component<Props, State> {
 const mapStateToProps = state => {
   const problems = state.problem.problems;
   const currentProblemId = state.problem.currentProblemId;
-  const center = problems
-    ? { lat: problems[0].latitude, lng: problems[0].longitude }
+  const currentProblem = problems.filter(problem => {
+    console.log(problem);
+    if (problem.problem_id == currentProblemId) {
+      return problem;
+    }
+  })[0];
+  console.log('currentProblem', currentProblem);
+  const center = currentProblem
+    ? { lat: parseFloat(currentProblem.latitude), lng: parseFloat(currentProblem.longitude) }
     : {
         lat: 69.6489,
         lng: 18.95508
       };
-  console.log(center);
   return {
     problems,
     center,
+    currentProblem,
     currentProblemId
   };
 };
@@ -146,7 +161,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: currentProblemId => dispatch(goToProblemDetail(currentProblemId)),
-    getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county)),
+
     changeCenter: (lat: string, lng: string) => dispatch(changeCenter(lat, lng))
   };
 };

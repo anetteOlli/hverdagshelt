@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
-import Map from '../map/maptest';
+import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById } from '../../store/actions/problemActions';
 
@@ -99,10 +99,10 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log(this.state.currentProblemId);
   };
 
-  toggleHidden () {
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
-    })
+    });
   }
 
   render() {
@@ -165,9 +165,7 @@ class ProblemDetails extends React.Component<Props, State> {
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Typography variant="body1">
-                        {problem.problem_description}
-                      </Typography>
+                      <Typography variant="body1">{problem.problem_description}</Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
@@ -191,9 +189,7 @@ class ProblemDetails extends React.Component<Props, State> {
                       <Typography className={classes.heading}>Beskrivelse</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Typography variant="body1">
-                        {problem.description_entrepreneur}
-                      </Typography>
+                      <Typography variant="body1">{problem.description_entrepreneur}</Typography>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 
@@ -213,7 +209,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
             <Grid item xs={12}>
               <div className="mapPlaceholder">
-                <Map />
+                <MapMarkers />
               </div>
             </Grid>
           </Grid>
