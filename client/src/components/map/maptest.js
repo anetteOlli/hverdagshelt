@@ -8,7 +8,6 @@ import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 import { Pointer } from './pointer';
 
-let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {

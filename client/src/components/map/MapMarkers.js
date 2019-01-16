@@ -8,7 +8,6 @@ import withRoot from '../../withRoot';
 import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
 import { Pointer, PointerCurrent } from './pointer';
 
-let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
