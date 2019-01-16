@@ -37,12 +37,25 @@ module.exports = class EventDao extends Dao {
     );
   }
 
-/**Må oppdateres før den kan brukes!*/
   patch(id, json, callback) {
-    const values = [json.event_name, json.event_description, json.status_fk, json.user_fk, json.location_fk, id];
+    const values = [
+      json.event_name,
+      json.event_description,
+      json.event_img,
+      json.date_starting,
+      json.date_ending,
+      json.status_fk,
+      json.county_fk,
+      json.municipality_fk,
+      json.city_fk,
+      json.street_fk,
+      json.latitude,
+      json.longitude,
+      id
+    ];
 
     super.query(
-      'update event set event_name = ?, event_description = ?, status_fk = ?,  user_fk = ?, location_fk = ? where event_id = ?',
+      'update event set event_name = ?, event_description = ?, event_img = ?, date_starting = ?, date_ending = ?, status_fk = ?, county_fk = ?, municipality_fk = ?, city_fk = ?, street_fk = ?, latitude = ?, longitude = ? where event_id = ?',
       values,
       callback
     );
