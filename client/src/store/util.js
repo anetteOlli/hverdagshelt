@@ -47,10 +47,6 @@ export const deleteData = (endpoint: string): any => {
   });
 };
 
-export const validateEmail = (email: string): any => {
-  return axios.post(url + 'users/validate_email', { email });
-};
-
 export const signInAxios = (creds: { email: string, password: string }): any => {
   return axios.post(url + 'users/login', creds);
 };

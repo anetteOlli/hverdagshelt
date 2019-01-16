@@ -14,8 +14,8 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
-import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
-import { getCategories } from '../../store/actions/categoryActions';
+
+const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
 
 type Props = {
   classes: Object,
@@ -75,14 +75,14 @@ class EditProblem extends React.Component<Props, State> {
     console.log(this.state);
   };
 
-  handleUpload = (e) => {
+  handleUpload = e => {
     this.setState({
       displayImg: e
-    })
-  }
+    });
+  };
 
   render() {
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes, problem, isLoggedIn } = this.props;
     // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
@@ -102,7 +102,7 @@ class EditProblem extends React.Component<Props, State> {
                   name="status_fk"
                   value={'status'}
                 >
-                  {'Status:   ' + problem.status_fk}
+                  {'Status:   ' + this.state.status_fk}
                 </Paper>
 
                 <TextValidator
@@ -111,7 +111,7 @@ class EditProblem extends React.Component<Props, State> {
                   multiline
                   label="Beskrivelse"
                   name="problem_description"
-                  value={problem.problem_description}
+                  value={this.state.problem_description}
                   onChange={this.handleChange}
                   validators={['required', 'minStringLength:1']}
                   errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
@@ -121,7 +121,7 @@ class EditProblem extends React.Component<Props, State> {
                   margin="normal"
                   label="Kategori"
                   name="category_fk"
-                  value={problem.category_fk}
+                  value={this.state.category_fk}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
@@ -132,7 +132,7 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {problem.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.props.date_made} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -144,16 +144,7 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img
-                          id="img"
-                          top
-                          width="100%"
-                          src={
-                            problem.displayImg ||
-                            problem.img_user
-                          }
-                          alt="Bilde"
-                        />
+                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -163,7 +154,7 @@ class EditProblem extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Kart: </Typography>
+                    <Typography>Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.mapExpansion}>
@@ -183,31 +174,25 @@ class EditProblem extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log("Categories loaded in editproblemA: ",this.props.categories));
+    this.setState({
+      ...this.props.problem
+    });
   }
 }
 
 const mapStateToProps = state => {
-  const problems = state.problem.problems;
-  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
-
   return {
-    currentProblemId: state.problem.currentProblemId,
-    problem,
-    userPriority: state.user.priority,
-    isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    problem: state.problem
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProblemById: (id: number) => dispatch(getProblemById(id)),
-    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
-    getCategories: () => dispatch(getCategories())
+    signIn: creds => dispatch(signIn(creds))
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
