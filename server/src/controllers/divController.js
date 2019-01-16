@@ -5,7 +5,21 @@ let divDao = new DivDao(pool);
 
 exports.municipalities_get_all = (req, res) => {
   console.log('Handling GET requests to /div/municipalities/');
-  divDao.getAllMunis((status, data) => {
+  divDao.getAllMunicipalities((status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.counties_get_all = (req, res) => {
+  console.log('Handling GET requests to /div/counties/');
+  divDao.getAllCounties((status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.get_municipalities_by_county = (req, res) => {
+  console.log('Handling GET requests to /div/county/municipalities');
+  divDao.getMunicipalitiesByCounty((status, data) => {
     res.status(status).json(data);
   });
 };
