@@ -24,6 +24,9 @@ import {createProblem, getProblemsByStreet} from '../../store/actions/problemAct
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 import MuiTable2 from '../util/MuiTable-2';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 /**
  * @fileOverview Create Problem Component
@@ -31,6 +34,16 @@ import MuiTable2 from '../util/MuiTable-2';
  * */
 
 const styles = theme => ({
+  "@global": {
+     html: {
+       [theme.breakpoints.down("sm")]: {
+         fontSize: 10
+       },
+       [theme.breakpoints.up("sm")]: {
+         fontSize: 20
+       }
+    }
+  },
   root: {
     width: '90%',
   },
@@ -70,7 +83,7 @@ const styles = theme => ({
 
 /** @return the title for a specific step in the stepper */
 function getSteps() {
-  return ['Hvor er problemet?', 'Forslag til like problemer', 'Beskriv problemet'];
+  return ['Hvor er problemet?', 'Nærliggende problemer', 'Beskriv problemet'];
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper
@@ -114,7 +127,7 @@ function getStepContent(step: number, state: State,
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
-              errorMessages={['Du må skrive inn en kommune']}
+              errorMessages={['Du må velge en kommune']}
             />
             {console.log('state in createProblem', state)}
             <TextValidator
@@ -126,7 +139,7 @@ function getStepContent(step: number, state: State,
               value={state.street}
               onChange={handleChange}
               validators={['required']}
-              errorMessages={['Du må skrive inn en gate']}
+              errorMessages={['Du må velge en gate']}
             />
             <div className="mapPlaceholder">
               <Map />
@@ -135,91 +148,93 @@ function getStepContent(step: number, state: State,
         </Card>
       );
     case 1:
-      const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
+      //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
+      const rows = (state.similarProblems == null ? [] : state.similarProblems);
       //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
-            <Card>
-              <MuiTable
-              rows={rows}
-              onClick={e => {
-                let myProblem = state.similarProblems.filter(a => e.rowData.eId == a.id)[0];
-                handleChangeSpec("cur_id", myProblem.id);
-                handleChangeSpec("cur_title", myProblem.title);
-                handleChangeSpec("cur_municipality", myProblem.municipality);
-                handleChangeSpec("cur_street", myProblem.street);
-                handleChangeSpec("cur_description", myProblem.description);
-                handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                handleChangeSpec("cur_status", myProblem.status);
-                handleChangeSpec("cur_imageURL", myProblem.imageURL);
-                }}
-              columnContent={state.similarProblems}
-              />
-            </Card>
-            <Grid container spacing={24}>
+            <Grid container
+            spacing={8}
+            direction="row"
+            >
               <Grid item
-              xs container
-              direction="column"
-              alignItems="flex-start"
-              lg={5} md={6} sm={12} sx={12}
+              md={4} xs={12}
               >
+                <Typography variant="h5" align="center" color="secondary">
+                  Nærliggende problemer
+                </Typography>
+                <Paper style={{height: '40%', width: '100%', overflow: 'auto'}}>
+                  <MuiTable2
+                  rows={rows}
+                  onClick={e => {
+                    let myProblem = e;
+                    handleChangeSpec("cur_id", myProblem.id);
+                    handleChangeSpec("cur_title", myProblem.title);
+                    handleChangeSpec("cur_description", myProblem.description);
+                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
+                    handleChangeSpec("cur_status", myProblem.status);
+                    handleChangeSpec("cur_imageURL", myProblem.imageURL);
+                    }}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item container
+              direction="column"
+              md={4}
+              xs={12}
+              alignItems="center"
+              >
+                <Typography variant="h5" align="center" color="secondary">
+                    {state.municipality},
+                </Typography>
+                <Typography variant="h5" align="center" color="secondary">
+                    {state.street}
+                </Typography>
                 <Grid item xs>
-                  <h4>Beskrivelse</h4>
+                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_description}</Typography>
+                  <Typography align="center">{state.cur_description}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <h4>Kommune</h4>
+                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_municipality}</Typography>
+                  <Typography align="center">{state.cur_entrepreneur}</Typography>
                 </Grid>
                 <Grid item xs>
-                <h4>Gate</h4>
+                <Typography variant="subtitle2" align="center">Status</Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{state.cur_street}</Typography>
+                  <Typography align="center" color="error">{state.cur_status}</Typography>
                 </Grid>
                 <Grid item xs>
-                  <h4>Entreprenør</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{state.cur_entrepreneur}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <h4>Status</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{state.cur_status}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Button variant="contained" color="secondary" className="{classes.button}"
-                  onClick={e => handleSupport(state.cur_id)}>
-                     Støtt problemet
-                   </Button>
+                  <Button
+                  variant="contained" color="primary"
+                  size="small"
+                  onClick={e => handleSupport(state.cur_id)}
+                  >
+                     <Typography>Støtt problemet</Typography>
+                  </Button>
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item container
+            direction="row"
+            >
               <Grid item
-              xs container
-              direction="column"
-              alignItems="center"
-              justify="center"
-              lg={5} md={6} sm={12} sx={1}
+              lg={12}
+              xs={12}
               >
-                <Grid item lg={6} md={6} sm={6} sx={6}>
-                  <Card>
-                    <CardMedia
-                    component="img"
-                    alt="problem img"
-                    height="300"
-                    width="300"
-                    image={state.cur_imageURL}
-                    title="problem image"
-                    />
-                  </Card>
-                </Grid>
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                      <Typography align="center">Bilde</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL || "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5"|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
               </Grid>
             </Grid>
           </CardContent>
@@ -279,7 +294,7 @@ function getStepContent(step: number, state: State,
               <label htmlFor="contained-button-file">
                 <Button variant="contained" component="span">
                   <CloudUploadIcon className="icon-button" />
-                  {'  '}Last opp bilde
+                  Last opp bilde
                 </Button>
               </label>
             </FormControl>
@@ -287,7 +302,7 @@ function getStepContent(step: number, state: State,
         </Card>
       );
     default:
-      return 'Unknown step';
+      return 'How\'d you get to this step boi?';
   }
 }
 
@@ -312,7 +327,6 @@ type State = {
   activeStep: number,
   title: string,
   category: string,
-  muni: string,
   municipality: string,
   street: string,
   description: string,
@@ -372,9 +386,20 @@ class CreateProblem extends React.Component<Props, State> {
     cur_entrepreneur: 'defaultEntrepreneur',
     cur_status: 'defaultStatus',
 
-    similarProblems: [{id:1, title: 'default', category: 'default', municipality: 'default',
+    similarProblems: [
+                    {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
                       street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-                      {id:2, title: 'default2', category: 'default2', municipality: 'default2',
+                      {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+                      {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
                       street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
                       ],
     categories: ['Default']
@@ -385,8 +410,8 @@ class CreateProblem extends React.Component<Props, State> {
     this.getCategories();
   }
 
-  componentWillReceiveProps(nextProps : Props){
-    console.log("HEEEER")
+  componentWillReceiveProps(nextProps: Props){
+    //console.log("HEEEER")
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
@@ -395,10 +420,10 @@ class CreateProblem extends React.Component<Props, State> {
         municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
-        })
+      })
     }
     //this.getSimilarProblems("", "");
-    this.getCategories();
+    //this.getCategories();
   }
 
   /** Gets problems in vicinity
@@ -413,40 +438,50 @@ class CreateProblem extends React.Component<Props, State> {
       {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
     ]
     */
-    let simProbs = this.props.getProblemsByStreet(municipality, street)
-    .then(e => this.props.enqueueSnackbar('error',{variant: 'warning'})
-    );
+    let simProbs = this.props.getProblemsByStreet(municipality, street).payload;
 
-    if(simProbs[0] != null){
+    if(simProbs != null){
       this.setState({
         similarProblems: simProbs
       });
-      //this.state.similarProblems = simProbs;
+      //tahis.state.similarProblems = simProbs;
     }
+    else{
+      this.props.enqueueSnackbar('Error: Cannot get simprobs',{variant: 'warning'});
+    }
+    this.handleChangeSpec("cur_id", this.state.similarProblems[0].id);
+    this.handleChangeSpec("cur_title", this.state.similarProblems[0].title);
+    this.handleChangeSpec("cur_description", this.state.similarProblems[0].description);
+    this.handleChangeSpec("cur_entrepreneur", this.state.similarProblems[0].entrepreneur);
+    this.handleChangeSpec("cur_status", this.state.similarProblems[0].status);
+    this.handleChangeSpec("cur_imageURL", this.state.similarProblems[0].imageURL);
   }
 
   /** Gets ALL problem categories*/
   getCategories(){
     //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
-     let categories = this.props.getCategories();
-
-    if(categories[0] != null){
+    let categories = this.props.getCategories().payload;
+    if(categories != null){
       this.setState({
-        getCategories: categories
+        categories: categories
       });
       //this.state.categories = categories;
     }
+    else{
+      this.props.enqueueSnackbar('Error: Cannot get cats',{variant: 'warning'});
+    }
+    this.handleChangeSpec("category", this.state.categories[0]);
   }
 
   /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
+    if(activeStep == 0){
+      this.getSimilarProblems(this.state.municipality, this.state.street);
+    }
     this.setState({
       activeStep: activeStep + 1
     });
-    if(activeStep == 1){
-      this.getSimilarProblems(this.state.municipality, this.state.street);
-    }
   };
 
   /** Handles clicking "Back" button */
@@ -480,9 +515,10 @@ class CreateProblem extends React.Component<Props, State> {
     console.log(this.state);
     if(this.state.activeStep > 1){
       //Save in DB/Redux
-      this.props.createProblem(this.state).then( e =>
-        this.props.enqueueSnackbar('error',{variant: 'warning'})
-      );
+      let load = this.props.createProblem(this.state).payload;
+      if(load == null){
+        this.props.enqueueSnackbar('Error: Cannot create problem',{variant: 'warning'})
+      }
     }
     this.handleNext();
   };
@@ -499,7 +535,6 @@ class CreateProblem extends React.Component<Props, State> {
       image: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])
     });
-
   }
 
   render() {
@@ -509,7 +544,12 @@ class CreateProblem extends React.Component<Props, State> {
     const { activeStep } = this.state;
     return (
       <div>
-        <Typography>Registrer Problem</Typography>
+        <Typography variant="h2"
+        color="primary"
+        align="center"
+        >
+          Registrer Problem
+        </Typography>
         <div className=" Stepper">
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -526,7 +566,7 @@ class CreateProblem extends React.Component<Props, State> {
             {activeStep === steps.length ? (
               <Card className="create-problem-done" align="center">
                 <CardContent>
-                  <Typography className="{classes.instructions}">
+                  <Typography>
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
                   <Button variant="contained" color="primary"
