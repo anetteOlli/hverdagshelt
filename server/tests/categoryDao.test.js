@@ -15,7 +15,7 @@ let pool = mysql.createPool({
 });
 let dao = new CategoryDAO(pool);
 
-jest.setTimeout(3000);
+jest.setTimeout(30000);
 
 beforeAll(done => {
   runsqlfile('../src/dao/SQL/CREATE_TABLE.sql', pool, () => {
