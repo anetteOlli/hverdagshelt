@@ -407,7 +407,7 @@ class CreateProblem extends React.Component<Props, State> {
 
   componentWillMount(){
     //this.getSimilarProblems("", "");
-    //this.getCategories();
+    this.getCategories();
   }
 
   componentWillReceiveProps(nextProps: Props){
@@ -423,7 +423,7 @@ class CreateProblem extends React.Component<Props, State> {
       })
     }
     //this.getSimilarProblems("", "");
-    this.getCategories();
+    //this.getCategories();
   }
 
   /** Gets problems in vicinity
