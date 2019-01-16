@@ -132,7 +132,7 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.props.date_made} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -201,6 +201,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

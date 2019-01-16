@@ -13,6 +13,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import connect from 'react-redux/es/connect/connect';
 import withRoot from '../../withRoot';
 import { withSnackbar } from 'notistack';
+import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 
 let id = 0;
 function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
@@ -125,9 +126,8 @@ class Tabletest extends React.Component {
   };
 
   handleClick = (id) => {
+     this.props.goToProblemDetail(id);
 
-    // endre problem i problemReducer til problem med id = this.id
-    console.log(id);
   };
 
   handleChangePage = (event, page) => {
@@ -143,7 +143,7 @@ class Tabletest extends React.Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return (
       <Paper className={classes.paper} name="Main paper in table">
-        <div className={classes.tableWrapper} name="Main div in table">
+        <div name="Main div in table">
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
@@ -214,4 +214,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));
+const mapDispatchToProps = dispatch => {
+  return {
+    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));

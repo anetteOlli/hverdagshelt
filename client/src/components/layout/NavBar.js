@@ -73,7 +73,7 @@ class NavBar extends React.Component<Props, State> {
     const { classes, isLoggedIn, signOut, hasCheckedJWT } = this.props;
     return (
       <div>
-        <AppBar position="sticky" className={classes.appBar}>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               onClick={this.handleOpen}
@@ -113,6 +113,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

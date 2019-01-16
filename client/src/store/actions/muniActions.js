@@ -10,11 +10,11 @@ type GetState = () => State;
 
 export const getMunicipalities = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData('municipalities')
+    return getData('div/municipalities')
       .then(response =>
         dispatch({
           type: 'GET_MUNICIPALITIES_SUCCESS',
-          payload: response.data.municipalities
+          payload: response.data
         })
       )
       .catch((error: Error) =>

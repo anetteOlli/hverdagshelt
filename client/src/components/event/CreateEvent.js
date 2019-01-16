@@ -456,6 +456,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   null,
   mapStateToProps,

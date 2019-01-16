@@ -133,7 +133,7 @@ class SignUp extends React.Component<Props, State> {
    */
 
   render() {
-    const { classes, isLoggedIn, categories } = this.props;
+    const { classes, isLoggedIn, categories, municipalities } = this.props;
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -147,19 +147,18 @@ class SignUp extends React.Component<Props, State> {
           validators={['required']}
           errorMessages={['Feltet kan ikke være tomt']}
         />
-
         <FormControl fullWidth margin="normal" className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple-checkbox">Kommuner entrepenøren jobber i lol:</InputLabel>
+          <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i lol:</InputLabel>
           <Select
             multiple
             value={this.state.entrepreneurMuni}
             name="entrepreneurMuni"
             onChange={this.handleChange}
-            input={<Input id="select-multiple-checkbox" />}
+            input={<Input id="muni-checkbox" />}
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {categories.map(name => (
+            {municipalities.map(name => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
                 <ListItemText primary={name} />
@@ -167,24 +166,25 @@ class SignUp extends React.Component<Props, State> {
             ))}
           </Select>
         </FormControl>
-
-        <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurCategories"
-          value={this.state.entrepreneurCategories}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
-        </SelectValidator>
+        <FormControl fullWidth margin="normal" className={classes.formControl}>
+          <InputLabel htmlFor="category-checkbox">Kategorier entrepenøren jobber innenfor lol:</InputLabel>
+          <Select
+            multiple
+            value={this.state.entrepreneurCategories}
+            name="entrepreneurCategories"
+            onChange={this.handleChange}
+            input={<Input id="category-checkbox" />}
+            renderValue={selected => selected.join(', ')}
+            MenuProps={MenuProps}
+          >
+            {categories.map(name => (
+              <MenuItem key={name} value={name}>
+                <Checkbox checked={this.state.entrepreneurCategories.indexOf(name) > -1} />
+                <ListItemText primary={name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
     if (isLoggedIn) return <Redirect to="/" />;
@@ -254,7 +254,7 @@ class SignUp extends React.Component<Props, State> {
             validators={['required', 'isPasswordMatch']}
             errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
           />
-          <Button fullWidth variant="contained" className={classes.button} type="submit">
+          <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
             Register
           </Button>
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
@@ -275,7 +275,8 @@ class SignUp extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    categories: state.category.categories,
+    municipalities: state.muni.municipalities
   };
 };
 
@@ -285,7 +286,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles, { withTheme: true })(withSnackbar(SignUp))));
+)(withStyles(styles)(withSnackbar(SignUp)));

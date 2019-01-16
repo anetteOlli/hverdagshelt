@@ -30,7 +30,6 @@ import {getProblemsByMuni} from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 
 var bool = false;
-var user_id;
 
 type Props = {
   classes: Object,
@@ -46,9 +45,10 @@ type State = {
   last_edited: Date,
   entrepreneur_fk: number,
   location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
+  status_fk: 'Standard'|'Municipality'|'Entrepreneur'|'Administrator',
   category_fk: string,
-  user_fk: number
+  user_fk: number,
+  priority_fk: string
 };
 
 const styles = (theme: Object) => ({
@@ -71,7 +71,8 @@ const styles = (theme: Object) => ({
   grid: {
     height: '100%',
     paddingBottom: 20,
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'display-end'
   },
   grid2: {
     paddingBottom: 20,
@@ -84,34 +85,34 @@ const styles = (theme: Object) => ({
   },
   gridLeft: {
     paddingBottom: 20,
-    paddingLeft: 20,
+    paddingLeft: 200,
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   MUI: {
     height: '100%'
   }
 });
 
-function getView(bool: boolean, user_fk: number) {
+function getView(bool: boolean, p) {
   var view;
     if (bool) {
-      view = getUserPri(user_fk);
+      if(p === 'standard'){
+        view = 0;
+      } else if(p === 'Entrepreneur'){
+        view = 1;
+      } else if(p === 'Administrator' || 'Municipality'){
+        view = 2;
+      }
     } else {
       view = 3;
     }
   return view;
 }
 
-function getUserPri(user_fk: number) {
-  var prio;
-  prio = 2;
-  // get user priority
-  return prio;
-}
-
 function getEditView(priority: number) {
   switch (priority) {
+
     case 0:
       return <EditProblem />;
     case 1:
@@ -126,7 +127,6 @@ function getEditView(priority: number) {
 }
 
 class EditProblemMain extends React.Component<Props, State> {
-  bool = true;
 
   state = {
     problem_id: null,
@@ -141,21 +141,9 @@ class EditProblemMain extends React.Component<Props, State> {
     category_fk: '',
     user_fk: '',
 
+    priority_fk: '',
     similarProblems: [],
     categories: []
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  handleSubmit = e => {
-    // gå videre til å lagre endringer
-    this.state.last_edited = new Date();
-    e.preventDefault();
-    console.log(this.state);
   };
 
   handleTableClick = e => {
@@ -164,13 +152,10 @@ class EditProblemMain extends React.Component<Props, State> {
   };
 
   render() {
-    console.log(this.props.problem.currentProblemId);
-    const { classes, problem, isLoggedIn } = this.props;
+    const { classes, problem, isLoggedIn, priority_fk} = this.props;
     var a = this.state.user_fk;
-    bool =  this.props.editMode || true;
-    //const rows = this.similarProblems == null ? [] : createMTableData(this.similarProblems);
+    bool =  this.props.editMode;
 
-    console.log(this.similarProblems )
     return (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -180,53 +165,25 @@ class EditProblemMain extends React.Component<Props, State> {
             }
           </Grid>
           <Grid item sm md={9} xs>
-            {getEditView(getView(bool, a))}
+            {getEditView(getView(bool, this.props.priority_fk))}
           </Grid>
         </Grid>
       </div>
     );
   }
 
-  getSimilarProblems(municipality: string, location: string) {
-    //@TODO AXIOS GET SIMILAR PROBLEMS
-    this.similarProblems = [
-      {
-        id: 1,
-        title: 'Hull i vei',
-        category: 'Veier',
-        municipality: 'Vestby',
-        location: 'Kongens Gate',
-        description: 'abc',
-        status: 'Unchecked'
-      },
-      {
-        id: 2,
-        title: 'Dårlig',
-        category: 'Veier',
-        municipality: 'Trondheim',
-        location: 'Jørunds Gate',
-        description: 'def',
-        status: 'Checked'
-      },
-      {
-        id: 3,
-        title: 'Problem',
-        category: 'Veier',
-        municipality: 'Ås',
-        location: 'Torget',
-        description: 'mnl',
-        status: 'Working'
-      }
-    ];
-  }
-
-
   componentDidMount() {
-    this.getSimilarProblems();
+
     this.setState({
-      ...this.props.problem
+      ...this.props.problem,
     });
     this.props.getProblemsByMuni(this.props.match.params.muni, this.props.match.params.county)
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.currentProblemId !== nextProps.currentProblemId){
+
+    }
   }
 }
 
@@ -234,6 +191,7 @@ const mapStateToProps = state => {
   return {
     problem: state.problem,
     userId: state.user.userID,
+    priority_fk: state.user.priority,
     currentProblemId: state.problem.currentProblemId,
     editMode: state.problem.editMode
   };
@@ -246,6 +204,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

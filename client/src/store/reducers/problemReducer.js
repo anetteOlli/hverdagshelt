@@ -131,7 +131,7 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         currentProblemId: action.payload,
-        editMode: false,
+        editMode: false
       };
     case 'GO_TO_PROBLEM_EDIT':
       console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
