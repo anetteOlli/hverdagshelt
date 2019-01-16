@@ -408,6 +408,7 @@ class CreateProblem extends React.Component<Props, State> {
   };
 
   componentDidMount(){
+    //this.props.getCategories();
     this.getCategories();
   }
 
@@ -421,8 +422,12 @@ class CreateProblem extends React.Component<Props, State> {
         municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
-      })
+      });
     }
+    this.setState({
+      categories: nextProps.categories
+    });
+    //this.handleChangeSpec("category", nextProps.categories[0]);
   }
 
   /** Gets problems in vicinity
@@ -430,47 +435,59 @@ class CreateProblem extends React.Component<Props, State> {
    * @params street: string, the inputted street
    * */
    getSimilarProblems(street: string, municipality: string, county: string){
-    this.props.getProblemsByStreet(street, municipality, county)
-    .then(() => {
-      //console.log("Ferdiog!!")
-      let myProbs = [];
-      this.props.similarProblems.map(e => {
-        myProbs.push({
-          id: e.problem_id,
-          title: e.problem_title,
-          description: e.problem_description,
-          status: e.status_fk,
-          entrepreneur: e.entrepreneur || "N/A",
-          imgURL: e.img_user
-        })
-      });
-      console.log("My probs");
-      console.log(myProbs);
+     this.props.getProblemsByStreet(street, municipality, county)
+     .then(() => {
+        //console.log("Ferdiog!!")
+        let myProbs = [];
+        this.props.similarProblems.map(e => {
+          myProbs.push({
+            id: e.problem_id,
+            title: e.problem_title,
+            description: e.problem_description,
+            status: e.status_fk,
+            entrepreneur: e.entrepreneur || "N/A",
+            imgURL: e.img_user
+          })
+        });
+        console.log("My probs");
+        console.log(myProbs);
 
-      //Set default to first
-      if(myProbs[0] != null){
-        this.handleChangeSpec("cur_id", myProbs[0].id);
-        this.handleChangeSpec("cur_title", myProbs[0].title);
-        this.handleChangeSpec("cur_description", myProbs[0].description);
-        this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
-        this.handleChangeSpec("cur_status", myProbs[0].status);
-        this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
-      }
-      else{
-        //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
-      }
+        //Set default to first
+        if(myProbs[0] != null){
+          this.handleChangeSpec("cur_id", myProbs[0].id);
+          this.handleChangeSpec("cur_title", myProbs[0].title);
+          this.handleChangeSpec("cur_description", myProbs[0].description);
+          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
+          this.handleChangeSpec("cur_status", myProbs[0].status);
+          this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
+        }
+        else{
+          //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
+        }
 
-      this.setState({similarProblems: myProbs});
+        this.setState({similarProblems: myProbs});
     });
   }
 
   /** Gets ALL problem categories*/
   getCategories(){
-    this.props.getCategories();
+    /*
+    this.props.getCategories()
+    .then(e => {
+      console.log("Props after get");
+      console.log(this.props.categories);
+      this.handleChangeSpec("category", this.props.categories[0]);
+      this.setState({
+          categories: this.props.categories
+      });
+    });*/
+    //console.log("Props");
+    //console.log(this.props.categories);
     this.setState({categories: this.props.categories});
-
+    console.log("State");
+    console.log(this.state.categories);
     //Set default to first
-    this.handleChangeSpec("category", this.props.categories[0])
+    this.handleChangeSpec("category", this.props.categories[0]);
   }
 
   /** Handles clicking "Next" button */
@@ -516,22 +533,23 @@ class CreateProblem extends React.Component<Props, State> {
     if(this.state.activeStep > 1){
       //Save in DB/Redux
       console.log(this.props.cords);
-      let myProb = {
-        problem_title: this.state.title,
-        problem_description: this.state.description,
-        img_user: this.state.image,
-        category_fk: this.state.category,
-        status_fk: 'Unchecked',
-        user_fk: this.state.user,
-        latitude: this.props.cords.lat,
-        longitude: this.props.cords.lng,
-        county_fk: this.state.county,
-        municipality_fk: this.state.municipality,
-        city_fk: this.state.city,
-        street_fk: this.state.street
-      };
+      let k = new FormData();
+      k.append("image",this.state.image);
 
-      this.props.createProblem(myProb);
+      k.append("problem_title", this.state.title);
+      k.append("problem_description", this.state.description);
+      k.append("category_fk", this.state.category);
+      k.append("status_fk", 'Unchecked');
+      k.append("user_fk", this.state.user);
+      k.append("latitude", this.props.cords.lat);
+      k.append("longitude", this.props.cords.lng);
+      k.append("county_fk", this.state.county);
+      k.append("municipality_fk", this.state.municipality);
+      k.append("city_fk", this.state.city);
+      k.append("street_fk", this.state.street);
+
+
+      this.props.createProblem(k);
     }
     this.handleNext();
   };

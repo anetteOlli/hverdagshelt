@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const ProblemController = require('../controllers/problemController');
+const multer = require('multer');
+
+let upload = multer({storage: multer.memoryStorage()});
 
 router.get('/', ProblemController.problems_get_all);
 
@@ -9,7 +12,7 @@ router.post('/municipality', ProblemController.problems_get_from_municipality);
 
 router.post('/municipality/street', ProblemController.problems_get_from_municipality_and_street);
 
-router.post('/', ProblemController.problems_create_problem);
+router.post('/', upload.any() ,ProblemController.problems_create_problem);
 
 router.delete('/:id', ProblemController.problems_delete_problem);
 
