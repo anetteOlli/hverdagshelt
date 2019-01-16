@@ -41,6 +41,9 @@ const styles = theme => ({
     flexGrow: 1,
     width: '100%'
   },
+  cardPage: {
+    marginTop: 30
+  },
   tittel: {
     [theme.breakpoints.down('lg')]: {
       fontSize: '150%'
@@ -88,109 +91,6 @@ const styles = theme => ({
     marginBottom: 20
   }
 });
-
-/**Event replacement*/
-const eventsG = [
-  {
-    event_id: 0,
-    event_name: 'Konsert på tunet',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'KOMMER!',
-    location_fk: 'tunet',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1'
-  },
-  {
-    event_id: 1,
-    event_name: 'Høytlesning på biblioteket',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'FOREGÅR NÅ!',
-    location_fk: 'biblioteket',
-    event_img: 'https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg'
-  },
-  {
-    event_id: 2,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  },
-  {
-    event_id: 3,
-    event_name: 'Høytlesning på biblioteket',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'FOREGÅR NÅ!',
-    location_fk: 'biblioteket',
-    event_img: 'https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg'
-  },
-  {
-    event_id: 4,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  },
-  {
-    event_id: 5,
-    event_name: 'Konsert på tunet',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'KOMMER!',
-    location_fk: 'tunet',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1'
-  },
-  {
-    event_id: 6,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  }
-];
-
-/**Event replacement*/
-const problemsG = [
-  {
-    problem_id: 0,
-    problem_title: 'Biblioteket raste ned',
-    problem_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_made: '12-14-2356',
-    last_edited: '12-14-2356',
-    status_fk: 'UNDER BEHANDLING',
-    location_fk: 'rådhusplassen',
-    img_user:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffarm3.staticflickr.com%2F2372%2F2520041294_a67c6bd12b_z.jpg&f=1',
-    category_fk: 'Ødeleggelse'
-  }
-];
 
 function TabContainer(props) {
   return (
@@ -292,7 +192,7 @@ class MuniPage extends React.Component<Props, State> {
 
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {event.location_fk}</Typography>
+                                <Typography component="p">Lokasjon: {event.street_fk}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>

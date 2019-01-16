@@ -51,7 +51,7 @@ class SearchBox extends Component {
     const {
       mapsapi: { places }
     } = this.props;
-    if (this.searchBox) {
+    if (this.searchInput.current) {
       this.searchBox = new places.SearchBox(this.searchInput.current);
       this.searchBox.addListener('places_changed', this.onPlacesChanged);
     }

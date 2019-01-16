@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 
 
 import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 /**Props og State*/
 type Props = {
@@ -112,25 +113,6 @@ const styles = theme => ({
    height: theme.spacing.unit * 2,
  },
 });
-
-/**Municipality placeholder*/
-const municipalitiesPPP = [
-  {
-    label: 'Rogaland'
-  },
-  {
-    label: 'Hordaland'
-  },
-  {
-    label: 'Sør-Trøndelag'
-  },
-  {
-    label: 'Finnmark'
-  }
-].map(municipality => ({
-  value: municipality.label,
-  label: municipality.label,
-}));
 
 /**Function handeling the select searchfield no options message
 *@return a message
@@ -323,7 +305,7 @@ class MainPage extends React.Component<Props, State> {
 
   /**User will be pushed to the registerProblem page */
   registerProblem() {
-    this.props.history.push('/lagproblem');
+    history.push('/lagproblem');
   }
 
   /**Mount the municipalities from database*/
@@ -332,18 +314,18 @@ class MainPage extends React.Component<Props, State> {
   }
 
   /** Gets ALL problem categories*/
-  getMunicipalities(){
-    let municipalities = this.props.municipalities;
-    if(municipalities != null){
-      this.setState({
-        getMunicipalities: municipalities
-      });
-      municipalities.map(municipality => ({
-        value: municipality.municipality,
-        label: municipality.municipality,
-      }));
-    }
-  }
+  // getMunicipalities(){
+  //   let municipalities = this.props.municipalities;
+  //   if(municipalities != null){
+  //     this.setState({
+  //       getMunicipalities: municipalities
+  //     });
+  //     municipalities.map(municipality => ({
+  //       value: municipality.municipality,
+  //       label: municipality.municipality,
+  //     }));
+  //   }
+  // }
 }//class
 
 const mapStateToProps = state => {
@@ -363,6 +345,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps,
+export default connect(
+  mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(MainPage)));

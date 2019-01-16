@@ -19,18 +19,25 @@ module.exports = class EventDao extends Dao {
     const newContent = [
       json.event_name,
       json.event_description,
+      json.event_img,
+      json.date_starting,
+      json.date_ending,
       json.status_fk,
-      json.category_fk,
-      json.user_fk,
-      json.location_fk
+      json.county_fk,
+      json.municipality_fk,
+      json.city_fk,
+      json.street_fk,
+      json.latitude,
+      json.longitude
     ];
     super.query(
-      'insert into event (event_name,event_description,status_fk,user_fk,location_fk) values (?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, status_fk, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
   }
 
+/**Må oppdateres før den kan brukes!*/
   patch(id, json, callback) {
     const values = [json.event_name, json.event_description, json.status_fk, json.user_fk, json.location_fk, id];
 
