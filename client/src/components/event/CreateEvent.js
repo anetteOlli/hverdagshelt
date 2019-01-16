@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel,} from '@material-ui/core';
+import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel, Input, InputLabel } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
@@ -15,6 +15,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
 import Map from '../map/maptest';
+import MaskedInput from 'react-text-mask';
+
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
@@ -34,6 +36,8 @@ type State = {
   dateEnd: string,
   imageURL: string,
   status: string,
+
+  textmask: string,
 
   displayImg: string,
   picture: any,
@@ -88,32 +92,12 @@ const styles = theme => ({
   },
   mapText:{
     marginTop: 40,
-  }
+  },
 });
-
-/**Municipality placeholder*/
-const municipalities = [
-  {
-    value: 'Rogaland',
-    label: 'Rogaland',
-  },
-  {
-    value: 'Hordaland',
-    label: 'Hordaland',
-  },
-  {
-    value: 'Sør-Trøndelag',
-    label: 'Sør-Trøndelag',
-  },
-  {
-    value: 'Finnmark',
-    label: 'Finnmark',
-  },
-];
 
 /** @return the title for a specific step in the stepper */
 function getSteps() {
-  return ['Hvor er arrangementet?', 'Beskriv problemet'];
+  return ['Hvor er arrangementet?', 'Beskriv arrangementet'];
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper
@@ -135,7 +119,7 @@ function getStepContent(step: number,
       return (
         <Card className={classes.contentNull}>
           <CardContent>
-          <Typography>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
+          <Typography variant="body1" className={classes.info}>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -199,7 +183,7 @@ function getStepContent(step: number,
               <TextValidator
                 fullWidth
                 margin="normal"
-                label="Dato arrangementet starter"
+                label="Dato arrangementet starter (DD-MM-ÅÅÅÅ)"
                 name="dateStart"
                 autoComplete="DD-MM-ÅÅÅÅ"
                 value={state.dateStart}
@@ -207,10 +191,19 @@ function getStepContent(step: number,
                 validators={['required']}
                 errorMessages={['Du må skrive inn en start-dato']}
               />
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="formatted-text-mask-input">react-text-mask</InputLabel>
+                <Input
+                  value={state.textmask}
+                  onChange={handleChange}
+                  id="formatted-text-mask-input"
+                  inputComponent={TextMaskCustom}
+                />
+              </FormControl>
               <TextValidator
                 fullWidth
                 margin="normal"
-                label="Dato arrangementet slutter"
+                label="Dato arrangementet slutter (DD-MM-ÅÅÅÅ)"
                 name="dateEnd"
                 autoComplete="DD-MM-ÅÅÅÅ"
                 value={state.dateEnd}
@@ -283,6 +276,8 @@ class CreateEvent extends React.Component<Props, State>{
     status: '',
     imageURL: '',
 
+    textmask: 'DD - MM - ÅÅÅÅ',
+
     picture: '',
     displayImg: '',
 
@@ -294,12 +289,12 @@ class CreateEvent extends React.Component<Props, State>{
     const { classes } = this.props;
     //const { enqueueSnackbar } = this.props;
     const steps = getSteps();
-    const { activeStep } = this.state;
+    const { activeStep, textmask } = this.state;
 
     return (
       <div>
         <div className={classes.Stepper}>
-          <Typography variant="h3" className={classes.title}>Opprett et arrangement</Typography>
+          <Typography variant="h2" className={classes.title} align="center" color="primary">Opprett et arrangement</Typography>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
               const props = {};
@@ -385,19 +380,17 @@ class CreateEvent extends React.Component<Props, State>{
   handleSubmit = e => {
     e.preventDefault();
     const { picture, title} = this.state;
-    //console.log(this.state);
 
     if(this.state.activeStep > 0){
-      if (!picture) {
-        this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
-        return;
-      }
+      // if (!picture) {
+      //   this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
+      //   return;
+      // }
       /*--- Need formdata so multer module in backend can store the image ---*/
       const formData = new FormData();
       formData.append('title', title);
       formData.append('picture', picture);
       console.log(formData);
-      //@TODO Save in DB/Redux
       this.props.createEvent(this.state).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
       );
     }
@@ -417,36 +410,52 @@ class CreateEvent extends React.Component<Props, State>{
     });
   };
 
-  componentWillMount(){
-    // this.getMunicipalities();
-  }
-
   componentWillReceiveProps(nextProps){
-    console.log("HEEEER")
+    console.log("HEEEER");
     console.log(nextProps);
-    if(this.state.street !== nextProps.street){
-      this.setState({
-        cords: nextProps.cords,
-        street: nextProps.street,
-        municipality: nextProps.muni,
-        county: nextProps.county,
-        city: nextProps.city
-        })
-    }
-    // this.getMunicipalities();
+    // if(this.state.street !== nextProps.street){
+    //   this.setState({
+    //     cords: nextProps.cords,
+    //     street: nextProps.street,
+    //     municipality: nextProps.muni,
+    //     county: nextProps.county,
+    //     city: nextProps.city
+    //     })
+    // }
   }
-}//CreateEvent
+}//Class
+
+/**Format date inputs*/
+function TextMaskCustom(props) {
+  const { inputRef, ...other } = props;
+
+  return (
+    <MaskedInput
+      {...other}
+      ref={ref => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={[/[1-9]/, /\d/, ' ', '-', ' ', /\d/, /\d/,' ', '-', ' ', /\d/, /\d/, /\d/, /\d/]}
+      placeholderChar={'\u2000'}
+      showMask
+    />
+  );
+}
+TextMaskCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+};
+
 
 /**Handles map information after choosing location*/
 const mapStateToProps = state => {
   return {
-    errorMessage: state.events.errorMessage,
-    //street, county, municipality, cords
-    street: state.map.street,
-    county: state.map.county,
-    municipality: state.map.muni,
-    city: state.map.city,
-    cords: state.map.cords
+    // errorMessage: state.events.errorMessage,
+    // //street, county, municipality, cords
+    // street: state.map.street,
+    // county: state.map.county,
+    // municipality: state.map.muni,
+    // city: state.map.city,
+    // cords: state.map.cords
   };
 };
 
@@ -457,7 +466,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
   mapStateToProps,
   mapDispatchToProps
   )(withRoot(withStyles(styles)(withSnackbar(CreateEvent))));
