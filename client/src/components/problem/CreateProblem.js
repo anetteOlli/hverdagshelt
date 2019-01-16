@@ -127,7 +127,7 @@ function getStepContent(step: number, state: State,
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
-              errorMessages={['Du må skrive inn en kommune']}
+              errorMessages={['Du må velge en kommune']}
             />
             {console.log('state in createProblem', state)}
             <TextValidator
@@ -139,7 +139,7 @@ function getStepContent(step: number, state: State,
               value={state.street}
               onChange={handleChange}
               validators={['required']}
-              errorMessages={['Du må skrive inn en gate']}
+              errorMessages={['Du må velge en gate']}
             />
             <div className="mapPlaceholder">
               <Map />
@@ -327,7 +327,6 @@ type State = {
   activeStep: number,
   title: string,
   category: string,
-  muni: string,
   municipality: string,
   street: string,
   description: string,
@@ -408,10 +407,10 @@ class CreateProblem extends React.Component<Props, State> {
 
   componentWillMount(){
     //this.getSimilarProblems("", "");
-    this.getCategories();
+    //this.getCategories();
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps: Props){
     //console.log("HEEEER")
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
@@ -421,7 +420,7 @@ class CreateProblem extends React.Component<Props, State> {
         municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
-        })
+      })
     }
     //this.getSimilarProblems("", "");
     this.getCategories();
@@ -617,7 +616,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.municipality,
+    municipality: state.map.muni,
     city: state.map.city,
     cords: state.map.cords
   };
