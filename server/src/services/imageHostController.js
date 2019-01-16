@@ -15,14 +15,14 @@ cloudinary.config({
 );
 
 class ImageHostController {
-  dataUri = req => dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
+  dataUri = req => dUri.format(path.extname(req.files[0].originalname).toString(), req.files[0].buffer);
 
   uploadImage(req,callback) {
+
     let file = this.dataUri(req);
-    cloudinary.v2.uploader.upload(file,
+    cloudinary.v2.uploader.upload(file.content,
       function(error, result) {
         if(!error){
-          console.log(result);
           callback(result.url);
         }else {
           console.log(error);

@@ -7,8 +7,12 @@
     "test": "jest --forceExit"
   },
   "jest": {
-    "testRegex": "./tests/.+Test\\.js$",
-    "testURL": "http://localhost"
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   },
   "dependencies": {
     "@google-cloud/storage": "^2.3.4",
