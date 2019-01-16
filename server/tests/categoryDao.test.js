@@ -31,15 +31,15 @@ test("Tester getAll fra categoryDao", (done) => {
     expect(data.length).toBeLessThanOrEqual(4);
     //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
     //expect(data[0]).toBeArray();
-    expect(data[0]).toEqual('Hole in road');
+    expect(data[0]).toEqual({"category":'Hole in road'});
     done();
   });
 });
 
 
 test("Tester getOne fra categoryDao", (done) => {
-  let catName = "Hole in road";
-  dao.getOne(catName, (status,data) => {
+  let catName = {"category": "Hole in road"};
+  dao.getOne(catName.category, (status,data) => {
    expect(status).toEqual(200);
    expect(data[0]).toEqual(catName);
    //expect(data).toBeArray(); Not a function, but is a void function to check if the element is a array
