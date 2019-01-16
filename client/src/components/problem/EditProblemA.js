@@ -163,7 +163,7 @@ class EditProblemA extends React.Component<Props, State> {
                   <ExpansionPanelDetails>
                     <div />
                     <div>
-                      <img id="img" top width="100%" src={problem.img_user || 'http://placehold.it/180'} alt="Bilde" />
+                      <img id="img" width="100%" src={problem.img_user || 'http://placehold.it/180'} alt="Bilde" />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -211,7 +211,6 @@ class EditProblemA extends React.Component<Props, State> {
                         <div>
                           <img
                             id="img"
-                            top
                             width="100%"
                             src={
                               problem.img_entrepreneur ||

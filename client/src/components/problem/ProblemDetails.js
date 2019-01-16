@@ -6,20 +6,16 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Popover from '@material-ui/core/Popover/Popover';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 
 import EnhancedTableHead from '../util/SelectTable';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
