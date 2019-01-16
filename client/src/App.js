@@ -40,9 +40,7 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: Object,
-  refresh: Function,
-  hasCheckedJWT: boolean
+  classes: Object
 };
 
 const App = (props: Props) => {
@@ -83,5 +81,4 @@ const App = (props: Props) => {
   );
 };
 
-// $FlowFixMe
 export default withRoot(withStyles(styles)(App));

@@ -93,9 +93,6 @@ class EditProblemA extends React.Component<Props, State> {
     goToProblemDetail(this.state.problem_id);
   };
 
-  handleSubmitClick = e => {
-    this.refs.problemForm.submit();
-  };
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];

@@ -1,11 +1,11 @@
 // @flow
 export type State = { municipalities: string[], errorMessage: string };
 export type Action =
-| { type: 'GET_MUNICIPALITIES_SUCCESS', payload: string[] }
-| { type: 'GET_MUNICIPALITIES_ERROR', payload: Error };
+  | { type: 'GET_MUNICIPALITIES_SUCCESS', payload: string[] }
+  | { type: 'GET_MUNICIPALITIES_ERROR', payload: Error };
 
 const initState = {
-  municipalities: ['Test','test2'],
+  municipalities: ['Test', 'test2'],
   errorMessage: ''
 };
 

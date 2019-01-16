@@ -76,11 +76,11 @@ class EditProblem extends React.Component<Props, State> {
     console.log(this.state);
   };
 
-  handleUpload = (e) => {
+  handleUpload = e => {
     this.setState({
       displayImg: e
-    })
-  }
+    });
+  };
 
   render() {
     const { classes, problem, isLoggedIn, categories } = this.props;
@@ -144,16 +144,7 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img
-                          id="img"
-                          top
-                          width="100%"
-                          src={
-                            this.state.displayImg ||
-                            this.state.img_user
-                          }
-                          alt="Bilde"
-                        />
+                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -163,7 +154,7 @@ class EditProblem extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Kart: </Typography>
+                    <Typography>Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.mapExpansion}>

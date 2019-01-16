@@ -11,9 +11,20 @@ import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
-import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon,
-        ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails
-      } from '@material-ui/core';
+import {
+  MenuItem,
+  Button,
+  Typography,
+  Grid,
+  Paper,
+  Card,
+  CardContent,
+  SvgIcon,
+  Icon,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
@@ -68,21 +79,21 @@ class MuiVirtualizedTable extends React.PureComponent {
     });
   };
 
-  getRowIndex = ({index}) => {
+  getRowIndex = ({ index }) => {
     return index;
-  }
+  };
 
   //const [expanded, setExpanded] = React.useState(null);
   expanded = false;
 
   handleChange = panel => (event, isExpanded) => {
     //setExpanded(isExpanded ? panel : false);
-    this.expanded = (isExpanded ? panel : false);
+    this.expanded = isExpanded ? panel : false;
   };
 
   cellRenderer = ({ cellData, columnIndex = null, rowIndex }) => {
     const { columns, classes, rowHeight, onRowClick, isExpandable } = this.props;
-    let icon = (cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1);
+    let icon = cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1;
     let status = icon >= 0 ? true : false;
 
     //console.log(rowIndex);
@@ -98,32 +109,29 @@ class MuiVirtualizedTable extends React.PureComponent {
         style={{ height: rowHeight }}
         align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
       >
-        { isExpandable ? (
+        {isExpandable ? (
           <ExpansionPanel expanded={this.expanded === rowIndex} onChange={this.handleChange(rowIndex)}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className="heading">{cellData}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                maximus est, id dignissim quam.
+                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
+                dignissim quam.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+        ) : status ? (
+          icon == 0 ? (
+            <CheckCircle className="material-icons" color="disabled" />
+          ) : icon == 1 ? (
+            <CheckCircle className="material-icons" color="primary" />
           ) : (
-          status ? (
-            icon == 0 ? (
-              <CheckCircle className="material-icons" color="disabled" />
-            ) : icon == 1 ? (
-              <CheckCircle className="material-icons" color="primary" />
-            ) : (
-              <CheckCircle className="material-icons" color="error" />
-            )
-          ) : (
-            cellData
-            )
+            <CheckCircle className="material-icons" color="error" />
           )
-        }
+        ) : (
+          cellData
+        )}
       </TableCell>
     );
   };
@@ -272,7 +280,7 @@ function MuiTable(props) {
       dataKey: 'title'
     }
   ];
-  if(isExpandable){
+  if (isExpandable) {
     columns = [
       {
         width: 100,
@@ -290,7 +298,7 @@ function MuiTable(props) {
         onRowClick={props.onClick}
         isExpandable={isExpandable}
         columns={columns}
-        columnContent={({index}) => props.columnContent[index]}
+        columnContent={({ index }) => props.columnContent[index]}
       />
     </Paper>
   );
