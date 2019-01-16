@@ -29,7 +29,8 @@ test("Tester getAll fra categoryDao", (done) => {
     expect(status).toEqual(200);
     expect(data.length).toBeGreaterThanOrEqual(2);
     expect(data.length).toBeLessThanOrEqual(4);
-    expect(data[0]).toBeString();
+    //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
+    //expect(data[0]).toBeArray();
     expect(data[0]).toEqual('Hole in road');
     done();
   });
@@ -41,6 +42,7 @@ test("Tester getOne fra categoryDao", (done) => {
   dao.getOne(catName, (status,data) => {
    expect(status).toEqual(200);
    expect(data[0]).toEqual(catName);
+   //expect(data).toBeArray(); Not a function, but is a void function to check if the element is a array
    done();
   });
 });
