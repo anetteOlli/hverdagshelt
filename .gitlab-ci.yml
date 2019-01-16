@@ -2,7 +2,7 @@ image: node:8
 
 # Set up MySQL test-database
 services:
-- mysql:latest
+- mysql
 
 # Configure test-database
 variables:
