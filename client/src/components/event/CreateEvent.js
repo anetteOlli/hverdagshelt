@@ -19,6 +19,7 @@ import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
 import 'date-fns';
+import DateFormat from 'dateformat';
 
 
 import createHashHistory from 'history/createHashHistory';
@@ -59,6 +60,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%'
+  },
+  title: {
+    marginTop: 30,
   },
   container: {
     display: 'flex',
@@ -193,8 +197,9 @@ function getStepContent(step: number,
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container className={classes.grid} justify="space-around">
                   <DatePicker
+                    fullWidth
                     margin="normal"
-                    label="Date picker"
+                    label="Dato arrangementet starter"
                     value={state.dateStart}
                     onChange={handleStartDateChange}
                   />
@@ -203,8 +208,9 @@ function getStepContent(step: number,
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container className={classes.grid} justify="space-around">
                   <DatePicker
+                    fullWidth
                     margin="normal"
-                    label="Date picker"
+                    label="Dato arrangementet slutter"
                     value={state.dateEnd}
                     onChange={handleEndDateChange}
                   />
@@ -270,8 +276,8 @@ class CreateEvent extends React.Component<Props, State>{
 
     title: '',
     description: '',
-    dateStart: new Date('2014-08-18T21:11:54'),
-    dateEnd: new Date('2014-08-18T21:11:55'),
+    dateStart: new Date('2014-08-18T00:00:00'),
+    dateEnd: new Date('2014-08-18T00:00:00'),
     status: '',
     imageURL: '',
 
@@ -357,17 +363,18 @@ class CreateEvent extends React.Component<Props, State>{
 
   /**Handles the dates*/
   handleStartDateChange = date => {
-    console.log("Changes start date to " + date);
+    var dateFormat = require('dateformat');
+    console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
     this.setState({
-      dateStart: date,
+      dateStart: dateFormat(date, "isoDateTime").slice(0,19)
       });
   };
   /**Handles the dates*/
   handleEndDateChange = date => {
-    console.log("Changes end date to " + date);
-
+    var dateFormat = require('dateformat');
+    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
     this.setState({
-      dateEnd: date,
+      dateEnd: dateFormat(date, "isoDateTime").slice(0,19),
       });
   };
 
