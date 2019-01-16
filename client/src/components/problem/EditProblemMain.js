@@ -75,7 +75,7 @@ const styles = (theme: Object) => ({
   },
   grid2: {
     paddingBottom: 20,
-    height: '100%'
+    height: '100%',
   },
   grid3: {
     paddingBottom: 20,
@@ -94,9 +94,10 @@ const styles = (theme: Object) => ({
 });
 
 function getView(bool: boolean, p) {
+  console.log("priority in get view: " + p)
   var view;
   if (bool) {
-    if (p === 'standard') {
+    if (p === 'Standard') {
       view = 0;
     } else if (p === 'Entrepreneur') {
       view = 1;
@@ -110,6 +111,7 @@ function getView(bool: boolean, p) {
 }
 
 function getEditView(priority: number) {
+
   switch (priority) {
     case 0:
       return <EditProblem />;

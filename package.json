@@ -14,7 +14,9 @@
     "nettavis",
     "mini prosjekt"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "dateformat": "^3.0.3"
+  },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/del": "^3.0.1",
