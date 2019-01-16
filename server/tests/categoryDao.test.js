@@ -27,7 +27,6 @@ afterAll(() => pool.end());
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toEqual(200);
-    expect(data).toBeArray();
     expect(data.length).toBeGreaterThanOrEqual(2);
     expect(data.length).toBeLessThanOrEqual(4);
     expect(data[0]).toBeString();
@@ -41,7 +40,6 @@ test("Tester getOne fra categoryDao", (done) => {
   let catName = "Hole in road";
   dao.getOne(catName, (status,data) => {
    expect(status).toEqual(200);
-   expect(data).toBeArray();
    expect(data[0]).toEqual(catName);
    done();
   });
