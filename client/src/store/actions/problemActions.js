@@ -94,7 +94,7 @@ export const getProblemsByStreet = (municipality: string, street: string) => {
       .then(problems =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',
-          payload: problems
+          payload: respone.data
         })
       )
       .catch((error: Error) =>

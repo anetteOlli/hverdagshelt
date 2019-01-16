@@ -7,8 +7,8 @@ const history = createHashHistory();
 // Material-ui
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
         Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
-        Icon, Fab, Switch,
-        FormControl, FormControlLabel, FormHelperText,
+        Icon, Fab, Switch, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,
+        FormControl, FormControlLabel, FormHelperText, Divider,
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,17 +16,16 @@ import PropTypes from 'prop-types';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import MuiTable from '../util/MuiTable';
-import createMuiData from '../util/createMuiData';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
+
+//Created by us
 import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 import MuiTable2 from '../util/MuiTable-2';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import MuiTable from '../util/MuiTable';
+import createMuiData from '../util/createMuiData';
 
 /**
  * @fileOverview Create Problem Component
@@ -67,6 +66,7 @@ const styles = theme => ({
   },
   Card:{
     textAlign: 'center',
+    padding: 10
   },
   media:{
     objectFit: 'cover',
@@ -97,7 +97,10 @@ function getSteps() {
 */
 function getStepContent(step: number, state: State,
                       handleChange: function, handleChangeSpec: function, handleUpload: function,
-                      similarProblems: [], categories: [], props) {
+                      props: any) {
+  //console.log(props.categories[0]);
+  //props.categories.map((e,i) => console.log(e + " / " + i));
+  //console.log(state.categories);
   switch (step) {
     case 0:
       return (
@@ -116,7 +119,7 @@ function getStepContent(step: number, state: State,
             >
             {state.categories.map((e,i) => (
               <MenuItem key={i} value={e}>{e}</MenuItem>
-              ))}
+            ))}
             </SelectValidator>
             <TextValidator
               fullWidth
@@ -150,7 +153,8 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      //console.log(rows);
+      console.log("rows");
+      console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
@@ -181,7 +185,7 @@ function getStepContent(step: number, state: State,
               </Grid>
               <Grid item container
               direction="column"
-              md={4}
+              md={8}
               xs={12}
               alignItems="center"
               >
@@ -213,6 +217,7 @@ function getStepContent(step: number, state: State,
                   <Button
                   variant="contained" color="primary"
                   size="small"
+                  align="center"
                   onClick={e => handleSupport(state.cur_id)}
                   >
                      <Typography>Støtt problemet</Typography>
@@ -349,8 +354,7 @@ type State = {
   cur_entrepreneur: 'Default',
   cur_status: 'Default',
 
-  similarProblems: [],
-  categories: []
+  similarProblems: []
 };
 
 /** CreateProblem Component */
@@ -373,45 +377,40 @@ class CreateProblem extends React.Component<Props, State> {
       lng: ''
     },
     displayImg: '',
-    entrepreneur: '',
-    status: 'Unchecked',
 
     cur_id: -1,
     cur_title: 'defaultTitle',
-    cur_category: 'defaultCat',
-    cur_municipality: 'defaultMuni',
-    cur_street: 'defaultStreet',
     cur_description: 'defaultDesc',
     cur_imageURL: 'defaultImgUrl',
     cur_entrepreneur: 'defaultEntrepreneur',
     cur_status: 'defaultStatus',
 
-    similarProblems: [
-                    {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
-                      street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-                      {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-                      {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-                      street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
-                      ],
-    categories: ['Default']
+    similarProblems:
+      [
+        {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
+        street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
+        {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+        {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+        {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+        {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+        {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
+        {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
+        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
+      ],
+    categories:['Default']
   };
 
-  componentWillMount(){
-    //this.getSimilarProblems("", "");
+  componentDidMount(){
     this.getCategories();
   }
 
   componentWillReceiveProps(nextProps: Props){
-    //console.log("HEEEER")
+    console.log("NextProps")
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
@@ -422,8 +421,6 @@ class CreateProblem extends React.Component<Props, State> {
         city: nextProps.city
       })
     }
-    //this.getSimilarProblems("", "");
-    //this.getCategories();
   }
 
   /** Gets problems in vicinity
@@ -431,46 +428,38 @@ class CreateProblem extends React.Component<Props, State> {
    * @params street: string, the inputted street
    * */
    getSimilarProblems(municipality: string, street: string){
-    /*
-    [
-      {id:1, title: 'Hull i vei', category: 'Veier', municipality: 'Vestby', street: 'Kongens Gate', description: 'abc', status: 'Unchecked', imageURL: "https://frontnews.eu/contents/news/7936/images/resize_g0fGyc2N8zYuO6kVZUKI3hqe7mWn45Tv_980x590.jpg"},
-      {id:2, title: 'Dårlig rengjøring', category: 'Bygninger', municipality: 'Trondheim', street: 'Jørunds Gate', description: 'def', status: 'Checked', imageURL: "https://previews.123rf.com/images/metrue/metrue1412/metrue141200013/34190474-abandoned-overgrown-building-exterior-urban-industrial-construction.jpg" },
-      {id:3, title: 'Problem?', category: 'Annet', municipality: 'Ås', street: 'Torget', description: 'mnl', status: 'Working', imageURL: "https://i.kym-cdn.com/photos/images/newsfeed/000/096/044/trollface.jpg?1296494117" }
-    ]
-    */
-    let simProbs = this.props.getProblemsByStreet(municipality, street).payload;
+    this.props.getProblemsByStreet(municipality, street);
+    let myProbs = [];
+    this.props.similarProblems.map(e => {
+      myProbs.push({
+        id: e.problem_id,
+        title: e.problem_title,
+        description: e.problem_description,
+        status: e.status_fk,
+        entrepreneur: e.entrepreneur || "N/A",
+        imgURL: e.img_user
+      })
+    });
+    console.log("My probs");
+    console.log(myProbs);
+    this.setState({similarProblems: myProbs});
 
-    if(simProbs != null){
-      this.setState({
-        similarProblems: simProbs
-      });
-      //tahis.state.similarProblems = simProbs;
-    }
-    else{
-      this.props.enqueueSnackbar('Error: Cannot get simprobs',{variant: 'warning'});
-    }
-    this.handleChangeSpec("cur_id", this.state.similarProblems[0].id);
-    this.handleChangeSpec("cur_title", this.state.similarProblems[0].title);
-    this.handleChangeSpec("cur_description", this.state.similarProblems[0].description);
-    this.handleChangeSpec("cur_entrepreneur", this.state.similarProblems[0].entrepreneur);
-    this.handleChangeSpec("cur_status", this.state.similarProblems[0].status);
-    this.handleChangeSpec("cur_imageURL", this.state.similarProblems[0].imageURL);
+    //Set default to first
+    this.handleChangeSpec("cur_id", myProbs[0].id);
+    this.handleChangeSpec("cur_title", myProbs[0].title);
+    this.handleChangeSpec("cur_description", myProbs[0].description);
+    this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
+    this.handleChangeSpec("cur_status", myProbs[0].status);
+    this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
   }
 
   /** Gets ALL problem categories*/
   getCategories(){
-    //this.state.categories = ['Veier', 'Bygninger', 'Annet'];
-    let categories = this.props.getCategories().payload;
-    if(categories != null){
-      this.setState({
-        categories: categories
-      });
-      //this.state.categories = categories;
-    }
-    else{
-      this.props.enqueueSnackbar('Error: Cannot get cats',{variant: 'warning'});
-    }
-    this.handleChangeSpec("category", this.state.categories[0]);
+    this.props.getCategories();
+    this.setState({categories: this.props.categories});
+
+    //Set default to first
+    this.handleChangeSpec("category", this.props.categories[0])
   }
 
   /** Handles clicking "Next" button */
@@ -515,10 +504,23 @@ class CreateProblem extends React.Component<Props, State> {
     console.log(this.state);
     if(this.state.activeStep > 1){
       //Save in DB/Redux
-      let load = this.props.createProblem(this.state).payload;
-      if(load == null){
-        this.props.enqueueSnackbar('Error: Cannot create problem',{variant: 'warning'})
-      }
+      console.log(this.props.cords);
+      let myProb = {
+        problem_title: this.state.title,
+        problem_description: this.state.description,
+        img_user: this.state.image,
+        category_fk: this.state.category,
+        status_fk: 'Unchecked',
+        user_fk: '1',
+        latitude: this.props.cords.lat,
+        longitude: this.props.cords.lng,
+        county_fk: this.state.county,
+        municipality_fk: this.state.municipality,
+        city_fk: this.state.city,
+        street_fk: this.state.street
+      };
+
+      this.props.createProblem(myProb);
     }
     this.handleNext();
   };
@@ -612,20 +614,23 @@ class CreateProblem extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.errorMessage,
+    errorMessage: state.problem.errorMessage,
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
     municipality: state.map.muni,
     city: state.map.city,
-    cords: state.map.cords
+    cords: state.map.currentMarker,
+    //Cats, problems
+    categories: state.category.categories,
+    similarProblems: state.problem.problems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
-    getCategories: categories => dispatch(getCategories()),
+    getCategories: () => dispatch(getCategories()),
     getProblemsByStreet: (muni, street) => dispatch(getProblemsByStreet(muni, street))
   };
 };

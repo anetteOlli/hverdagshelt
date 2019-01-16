@@ -44,7 +44,7 @@ export const getCategories = () => {
       .then(response =>
         dispatch({
           type: 'GET_CATEGORIES_SUCCESS',
-          payload: response.data.categories
+          payload: response.data
         })
       )
       .catch((error: Error) =>

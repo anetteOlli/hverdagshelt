@@ -31,7 +31,7 @@ exports.problems_get_from_municipality = (req, res) => {
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  console.log(req.body);
+  console.log(req.body, req.files[0]);
   if (req.body.img_user !== undefined && req.files[0] === undefined) {
     problemDao.createOne(req.body, (status, data) => {
       res.status(status);
@@ -40,6 +40,7 @@ exports.problems_create_problem = (req, res) => {
   } else {
     ImageHostController.uploadImage(req.files[0], url => {
       req.body.img_user = url;
+      console.log(req.body);
       problemDao.createOne(req.body, (status, data) => {
         res.status(status);
         res.json(data);

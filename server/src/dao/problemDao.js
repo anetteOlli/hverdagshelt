@@ -58,7 +58,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   createOne(json, callback) {
-
+    console.log(json);
     const newContent = [
       json.problem_title,
       json.problem_description,
