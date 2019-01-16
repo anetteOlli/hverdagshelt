@@ -19,7 +19,8 @@ run_tests:
   script:
     - npm test
   artifacts:
-    paths:      - server/coverage
+    paths:
+      - server/coverage
 
 
 pages:
