@@ -16,7 +16,6 @@ DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS street;
 set foreign_key_checks = 1;
 
-
 CREATE TABLE county (
   name VARCHAR(255) PRIMARY KEY NOT NULL
 );
