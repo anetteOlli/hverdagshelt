@@ -27,6 +27,15 @@ CREATE TABLE municipality (
                             PRIMARY KEY (municipality,county)
 );
 
+CREATE TABLE city (
+  cityName VARCHAR(30) PRIMARY KEY
+);
+
+CREATE TABLE street (
+  streetName VARCHAR(30) PRIMARY KEY
+);
+
+
 CREATE TABLE status (
   status VARCHAR(30) NOT NULL PRIMARY KEY
 );
@@ -43,7 +52,7 @@ CREATE TABLE problem (
                        description_entrepreneur VARCHAR(300),
                        img_user VARCHAR(300),
                        img_entrepreneur VARCHAR(300),
-                       date_made DATETIME DEFAULT NOW(),
+                       date_made DATETIME DEFAULT CURRENT_TIMESTAMP,
                        last_edited DATETIME,
                        date_finished DATETIME,
                        category_fk VARCHAR(50) NOT NULL,
@@ -67,7 +76,7 @@ CREATE TABLE user (
                     user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
                     email VARCHAR(100) NOT NULL UNIQUE,
                     password VARCHAR(100) NOT NULL,
-                    created DATETIME NOT NULL DEFAULT NOW(),
+                    created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     municipality_fk VARCHAR(30) NOT NULL,
                     priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
 );
@@ -100,13 +109,6 @@ CREATE TABLE user_event (
                           event_id INTEGER NOT NULL
 );
 
-CREATE TABLE city (
-  cityName VARCHAR(30) PRIMARY KEY
-);
-
-CREATE TABLE street (
-  streetName VARCHAR(30) PRIMARY KEY
-);
 
 CREATE TABLE entrepreneur (
                             entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
