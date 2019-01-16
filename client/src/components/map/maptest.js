@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from '../layout/SearchBox';
+import SearchBox from './SearchBox';
 import { updateMap, changePlaceName } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
+import { Pointer } from './pointer';
 
-let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
@@ -20,7 +20,8 @@ type Props = {
     lng: number
   },
   street: string,
-  municipality: string
+  municipality: string,
+  city: string
 };
 
 type State = {
@@ -72,24 +73,25 @@ class SimpleMap extends React.Component<Props, State> {
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        console.log('length', responseJson.results.length);
+        console.log('responseJson, fromCordsToPlace()', responseJson.results[2].address_components);
         if (responseJson.results.length > 5) {
           if (responseJson.results[2].address_components.length > 6) {
+            //chosing responseJson.results[2].address_components because it has the most accurate results
+            let address_components = responseJson.results[2].address_components;
             let place = {
-              street: responseJson.results[2].address_components[1].long_name,
-              city: responseJson.results[2].address_components[2].long_name,
-              municipality: responseJson.results[2].address_components[3].long_name,
-              county: responseJson.results[2].address_components[4].long_name,
-              country: responseJson.results[2].address_components[5].long_name
+              street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
+              city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
+              municipality: address_components.filter(e => e.types[0] == 'administrative_area_level_2')[0].long_name,
+              county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
+              country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
-            this.updateMapName(place.street, place.municipality, place.county);
-            console.log(place);
+            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
+            console.log('place', place);
           }
         }
       });
   }
 
-  //        {apiReady && <SearchBox map={map} mapsapi={mapsapi} googlemaps={googlemaps} />}
   render() {
     const { apiReady, googlemaps, map, mapsapi, center, zoom } = this.state;
     return (
@@ -103,7 +105,7 @@ class SimpleMap extends React.Component<Props, State> {
           onClick={this.onRecievingLocation}
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-          {this.props.lat && <Marker lat={this.props.lat} lng={this.props.lng} />}
+          {this.props.lat && <Pointer lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
       </div>
     );
@@ -120,7 +122,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateMap: cords => dispatch(updateMap(cords.lat, cords.lng)),
-    updateMapName: (street, municipality, county) => dispatch(changePlaceName(street, municipality, county))
+    updateMapName: (street, municipality, county, city) => dispatch(changePlaceName(street, municipality, county, city))
   };
 };
 

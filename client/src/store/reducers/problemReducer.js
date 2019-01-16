@@ -9,7 +9,8 @@ export type Problem = {
   last_edited: string,
   location_fk: string,
   status_fk: string,
-  category_fk: string
+  category_fk: string,
+  support: number
 };
 
 export type State = {
@@ -44,11 +45,12 @@ const initState = {
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
       latitude: '63.42656212314987',
-      longitude: '10.393969503996345'
+      longitude: '10.393969503996345',
+      support: -1
     }
   ],
   errorMessage: '',
-  currentProblemId: 0,
+  currentProblemId: 2,
   editMode: false
 };
 
@@ -127,14 +129,14 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'GO_TO_PROBLEM_DETAIL':
-      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
         editMode: false
       };
     case 'GO_TO_PROBLEM_EDIT':
-      console.log('%c GO_TO_PROBLEM_EDIT', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GO_TO_PROBLEM_EDIT', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
