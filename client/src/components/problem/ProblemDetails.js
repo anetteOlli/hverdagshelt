@@ -109,8 +109,6 @@ class ProblemDetails extends React.Component<Props, State> {
   onClickEdit = () => {
     console.log("Trykte på edit");
     this.props.goToProblemEdit(this.props.problem_id);
-
-
   };
 
   toggleHidden() {
@@ -128,8 +126,6 @@ class ProblemDetails extends React.Component<Props, State> {
   handleClose = () => {
     this.setState({ open: false });
   };
-
-
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
