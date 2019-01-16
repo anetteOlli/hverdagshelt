@@ -78,6 +78,7 @@ CREATE TABLE user (
                     password VARCHAR(100) NOT NULL,
                     created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     municipality_fk VARCHAR(30) NOT NULL,
+                    county_fk VARCHAR(30) NOT NULL,
                     priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
 );
 
@@ -143,7 +144,7 @@ ALTER TABLE problem
 
 ALTER TABLE user
   ADD FOREIGN KEY(priority_fk) REFERENCES priority(power),
-  ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);
+  ADD FOREIGN KEY(municipality_fk,county_fk) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
   ADD FOREIGN KEY(problem_id) REFERENCES problem(problem_id),

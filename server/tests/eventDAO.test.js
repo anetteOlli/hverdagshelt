@@ -1,6 +1,5 @@
 // @flow
-
-import eventDAO from '../src/dao/eventDao';
+import EventDAO from '../src/dao/eventDao';
 const mysql = require('mysql');
 const runsqlfile = require('../src/dao/SQL/runsqlfile');
 
@@ -14,7 +13,7 @@ let pool = mysql.createPool({
   debug: false,
   multipleStatements: true
 });
-let dao = new eventDAO(pool);
+let dao = new EventDAO(pool);
 
 jest.setTimeout(30000);
 
