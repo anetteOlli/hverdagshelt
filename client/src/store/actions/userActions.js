@@ -2,7 +2,7 @@
 import type { Action } from '../reducers/userReducer';
 import type { State } from '../reducers';
 import type { Action as AppAction } from '../reducers/appReducer';
-import { setToken, clearToken, signInAxios, postData, getData, getToken } from '../util';
+import { setToken, clearToken, postData, getData, getToken } from '../util';
 import { loading, hasCheckedJWT } from './appActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -12,9 +12,10 @@ type GetState = () => State;
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
     dispatch(loading());
-    return signInAxios(creds)
+    return postData('users/login', creds)
       .then(response => {
-        setToken(response.data.token);
+        console.log(response);
+        setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
           payload: { userId: response.data.id, priority: response.data.priority }
@@ -42,17 +43,18 @@ export const refresh = () => {
     } else {
       getData('users/refresh')
         .then(response => {
-          setToken(response.data.token);
+          console.log(response);
+          setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
             payload: { userId: response.data.id, priority: response.data.priority }
           });
           dispatch(hasCheckedJWT());
         })
-        .catch(() => {
+        .catch((error: Error) => {
           dispatch({
             type: 'REFRESH_ERROR',
-            payload: 'WRONG JWT'
+            payload: error.message
           });
           dispatch(hasCheckedJWT());
         });

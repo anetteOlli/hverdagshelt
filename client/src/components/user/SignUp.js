@@ -34,7 +34,8 @@ type Props = {
   categories: string[],
   counties: string[],
   currentMunicipalities: string[],
-  errorMessage: string
+  errorMessage: string,
+  getCounties: Function
 };
 
 type State = {
@@ -92,6 +93,15 @@ class SignUp extends React.Component<Props, State> {
     this.setState({
       [e.target.name]: e.target.value
     });
+  };
+
+  handleCountyChange = e => {
+    this.setState({
+      county: e.target.value,
+      muni: '',
+      entrepreneurMunies: []
+    });
+    this.props.getMunicipalitiesByCounty(e.target.value);
   };
 
   handleChecked = e => {
@@ -159,7 +169,7 @@ class SignUp extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
-    const muniNotReady = (this.state.county === '');
+    const muniNotReady = this.state.county === '';
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -237,7 +247,7 @@ class SignUp extends React.Component<Props, State> {
             label="Fylke: "
             name="county"
             value={this.state.county}
-            onChange={this.handleChange}
+            onChange={this.handleCountyChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
@@ -362,24 +372,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
-
-/*         <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          renderValue={selected => selected.join(', ')}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-*/

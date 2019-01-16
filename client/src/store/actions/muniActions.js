@@ -46,7 +46,7 @@ export const getCounties = () => {
 
 export const getMunicipalitiesByCounty = (county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`div/${county}/municipality`)
+    return getData(`div/${county}/municipalities`)
       .then(response =>
         dispatch({
           type: 'GET_COUNTIES_BY_MUNI_SUCCESS',

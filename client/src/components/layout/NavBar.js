@@ -45,7 +45,8 @@ type Props = {
   categories: string[],
   isLoggedIn: boolean,
   signOut: Function,
-  refresh: Function
+  refresh: Function,
+  hasCheckedJWT: boolean
 };
 
 type State = {
@@ -86,8 +87,8 @@ class NavBar extends React.Component<Props, State> {
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
-            <div className={classes.grow}/>
-            {hasCheckedJWT && isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
+            <div className={classes.grow} />
+            {hasCheckedJWT && (isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />)}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose} />
