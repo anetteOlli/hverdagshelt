@@ -1,15 +1,13 @@
 // @flow
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from '../layout/SearchBox';
-import { updateMap, changePlaceName } from '../../store/actions/mapActions';
+import SearchBox from './SearchBox';
+import { changeCenter } from '../../store/actions/mapActions';
 import { connect } from 'react-redux';
-import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
-import { changeCenter } from '../../store/actions/mapActions';
+import { Pointer, PointerCurrent } from './pointer';
 
-let imgsrc = './geotag.png';
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
@@ -17,7 +15,11 @@ type Props = {
   currentProblemId: number,
   getProblemsByMuni: Function,
   match: { params: { municipality: string } },
-  goToProblemDetail: Function
+  goToProblemDetail: Function,
+  center: {
+    lat: number,
+    lng: number
+  }
 };
 type problem = {
   latitude: string,
@@ -83,7 +85,7 @@ class MapMarkers extends React.Component<Props, State> {
 
   render() {
     const { apiReady, googlemaps, map, mapsapi, zoom, hasLoaded } = this.state;
-    const { problems } = this.props;
+    const { problems, currentProblemId } = this.props;
     if (hasLoaded) {
       return (
         <div style={{ height: '80vh', width: '100%' }}>
@@ -95,17 +97,27 @@ class MapMarkers extends React.Component<Props, State> {
             onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
           >
             {problems &&
-              problems.map(problem => (
-                <Marker
-                  onClick={() => this.props.goToProblemDetail(problem.problem_id)}
-                  key={problem.problem_id}
-                  lat={problem.latitude}
-                  lng={problem.longitude}
-                  hover={() => console.log('hover')}
-                />
-              ))}
+              problems.map(problem =>
+                problem.problem_id == currentProblemId ? (
+                  <PointerCurrent
+                    onClick={() => this.props.goToProblemDetail(problem.problem_id)}
+                    key={problem.problem_id}
+                    lat={problem.latitude}
+                    lng={problem.longitude}
+                    text={problem.problem_id}
+                  />
+                ) : (
+                  <Pointer
+                    onClick={() => this.props.goToProblemDetail(problem.problem_id)}
+                    key={problem.problem_id}
+                    lat={problem.latitude}
+                    lng={problem.longitude}
+                    text={problem.problem_id}
+                  />
+                )
+              )}
           </GoogleMapReact>
-          {console.log('this.props', this.props)}
+          {console.log('this.props when hasLoaded=true', this.props)}
         </div>
       );
     } else {
@@ -116,6 +128,7 @@ class MapMarkers extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   const problems = state.problem.problems;
+  const currentProblemId = state.problem.currentProblemId;
   const center = problems
     ? { lat: problems[0].latitude, lng: problems[0].longitude }
     : {
@@ -125,13 +138,14 @@ const mapStateToProps = state => {
   console.log(center);
   return {
     problems,
-    center
+    center,
+    currentProblemId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    goToProblemDetail: id => dispatch(goToProblemDetail(id)),
+    goToProblemDetail: currentProblemId => dispatch(goToProblemDetail(currentProblemId)),
     getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county)),
     changeCenter: (lat: string, lng: string) => dispatch(changeCenter(lat, lng))
   };
