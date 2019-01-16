@@ -26,7 +26,7 @@ import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
 import Tabletest from '../util/Tabletest';
-import {getProblemsByMuni} from '../../store/actions/problemActions';
+import { getProblemsByMuni } from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 
 var bool = false;
@@ -45,7 +45,7 @@ type State = {
   last_edited: Date,
   entrepreneur_fk: number,
   location_fk: Geolocation,
-  status_fk: 'Standard'|'Municipality'|'Entrepreneur'|'Administrator',
+  status_fk: 'Standard' | 'Municipality' | 'Entrepreneur' | 'Administrator',
   category_fk: string,
   user_fk: number,
   priority_fk: string
@@ -72,7 +72,6 @@ const styles = (theme: Object) => ({
     height: '100%',
     paddingBottom: 20,
     display: 'flex',
-    alignItems: 'display-end'
   },
   grid2: {
     paddingBottom: 20,
@@ -87,7 +86,7 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     paddingLeft: 200,
     height: '100%',
-    width: '100%',
+    width: '100%'
   },
   MUI: {
     height: '100%'
@@ -96,23 +95,22 @@ const styles = (theme: Object) => ({
 
 function getView(bool: boolean, p) {
   var view;
-    if (bool) {
-      if(p === 'standard'){
-        view = 0;
-      } else if(p === 'Entrepreneur'){
-        view = 1;
-      } else if(p === 'Administrator' || 'Municipality'){
-        view = 2;
-      }
-    } else {
-      view = 3;
+  if (bool) {
+    if (p === 'standard') {
+      view = 0;
+    } else if (p === 'Entrepreneur') {
+      view = 1;
+    } else if (p === 'Administrator' || 'Municipality') {
+      view = 2;
     }
+  } else {
+    view = 3;
+  }
   return view;
 }
 
 function getEditView(priority: number) {
   switch (priority) {
-
     case 0:
       return <EditProblem />;
     case 1:
@@ -120,14 +118,13 @@ function getEditView(priority: number) {
     case 2:
       return <EditProblemA />;
     case 3:
-      return <ProblemDetails/>;
+      return <ProblemDetails />;
     default:
       return 'Unknown view';
   }
 }
 
 class EditProblemMain extends React.Component<Props, State> {
-
   state = {
     problem_id: null,
     problem_description: '',
@@ -146,23 +143,15 @@ class EditProblemMain extends React.Component<Props, State> {
     categories: []
   };
 
-  handleTableClick = e => {
-    let myProblem = this.similarProblems.filter(a => e.rowData.eId == a.id)[0];
-    this.props.goToProblemDetail(myProblem.id);
-  };
-
   render() {
-    const { classes, problem, isLoggedIn, priority_fk} = this.props;
-    var a = this.state.user_fk;
-    bool =  this.props.editMode;
+    const { classes, problem, isLoggedIn, priority_fk } = this.props;
+    bool = this.props.editMode;
 
     return (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
-            {
-              <Tabletest className={classes.MUI} onClick={this.handleTableClick} />
-            }
+            <Tabletest className={classes.MUI} />
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority_fk))}
@@ -173,16 +162,15 @@ class EditProblemMain extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-
     this.setState({
-      ...this.props.problem,
+      ...this.props.problem
     });
-    this.props.getProblemsByMuni(this.props.match.params.muni, this.props.match.params.county)
+    console.log(this.props.match.params.muni, this.props.match.params.county);
+    this.props.getProblemsByMuni(this.props.match.params.muni, this.props.match.params.county);
   }
 
-  componentWillReceiveProps(nextProps){
-    if(this.props.currentProblemId !== nextProps.currentProblemId){
-
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentProblemId !== nextProps.currentProblemId) {
     }
   }
 }
@@ -197,7 +185,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county))

@@ -76,12 +76,11 @@ export const getProblemsByMuni = (municipality: string, county: string) => {
       dispatch({
         type: 'PROBLEMS_BY_MUNI_SUCCESS',
         payload: response.data
-      }).catch((error: Error) =>
+      })).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
           payload: error
         })
-      )
     );
   };
 };
@@ -89,10 +88,10 @@ export const getProblemsByMuni = (municipality: string, county: string) => {
 export const getProblemsByStreet = (municipality: string, street: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData(`problems`, { municipality, street })
-      .then(problems =>
+      .then(response =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',
-          payload: problems
+          payload: response.data
         })
       )
       .catch((error: Error) =>

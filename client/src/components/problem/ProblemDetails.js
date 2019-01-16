@@ -131,8 +131,6 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
-    //console.log(problem);
-
     if (problem) {
       return (
         <div className={classes.main}>
@@ -161,7 +159,6 @@ class ProblemDetails extends React.Component<Props, State> {
             <div className={classes.title}>
               <Grid item xs={12}>
                 <Typography variant="h2" gutterBottom align="left">
-                  TITTEL DEFAULT
                   {problem.problem_title}
                 </Typography>
               </Grid>
@@ -267,31 +264,13 @@ class ProblemDetails extends React.Component<Props, State> {
       return <div>LOADING PROBLEM...</div>;
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentProblemId !== this.props.currentProblemId)
-      this.props.getProblemById(nextProps.currentProblemId);
-
-  }
-
-  componentDidMount() {
-    if(this.props.isLoggedIn !== undefined) {
-      console.log("kom hit.");
-      this.setState({
-        power: this.props.userPriority
-      });
-    }
-    console.log(this.props.userPriority); //undefined
-    console.log(this.props.isLoggedIn);
-  }
-
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const problems = state.problem.problems;
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
 
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
-  const problem = problems;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
