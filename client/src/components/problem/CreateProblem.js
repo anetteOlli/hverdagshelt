@@ -159,8 +159,7 @@ function getStepContent(step: number, state: State,
             direction="row"
             >
               <Grid item
-              md={4}
-              xs={12}
+              md={4} xs={12}
               >
                 <Typography variant="h5" align="center" color="secondary">
                   Nærliggende problemer
