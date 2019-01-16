@@ -115,13 +115,7 @@ class MapMarkers extends React.Component<Props, State> {
                     text={problem.problem_id}
                   />
                 ) : (
-                  <Pointer
-                    onClick={() => this.props.goToProblemDetail(problem.problem_id)}
-                    key={problem.problem_id}
-                    lat={problem.latitude}
-                    lng={problem.longitude}
-                    text={problem.problem_id}
-                  />
+null
                 )
               )}
           </GoogleMapReact>
