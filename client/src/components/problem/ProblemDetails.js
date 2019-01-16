@@ -131,6 +131,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
+    console.log(problem);
     if (problem) {
       return (
         <div className={classes.main}>
