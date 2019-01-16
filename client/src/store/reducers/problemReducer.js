@@ -42,7 +42,9 @@ const initState = {
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
-      category_fk: 'Vei og kjørebane'
+      category_fk: 'Vei og kjørebane',
+      latitude: '63.42656212314987',
+      longitude: '10.393969503996345'
     }
   ],
   errorMessage: '',
