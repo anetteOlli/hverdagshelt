@@ -18,7 +18,7 @@ import { getProblemById, goToProblemDetail } from '../../store/actions/problemAc
 let id = 0;
 function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
   id += 1;
-  return { id, problem_id, problem_title, status_fk, support };
+  return { id, problem_id, problem_title, status_fk, support};
 }
 
 function desc(a, b, orderBy) {

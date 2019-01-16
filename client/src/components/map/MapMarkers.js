@@ -69,9 +69,9 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    console.log('MapMarker componentDidMount this.props', this.props);
+    //console.log('MapMarker componentDidMount this.props', this.props);
     if (this.props.currentProblem) {
-      console.log('MapMarker componentDidMount this.props', this.props);
+      //console.log('MapMarker componentDidMount this.props', this.props);
       this.setState({
         hasLoaded: true
       });
@@ -80,7 +80,7 @@ class MapMarkers extends React.Component<Props, State> {
   }
 
   apiHasLoaded = (map, maps) => {
-    console.log('apiHasLoaded', map);
+    //console.log('apiHasLoaded', map);
     if (map && maps) {
       this.setState({
         apiReady: true,
@@ -119,7 +119,7 @@ null
                 )
               )}
           </GoogleMapReact>
-          {console.log('this.props when hasLoaded=true', this.props)}
+
         </div>
       );
     } else {
@@ -132,12 +132,12 @@ const mapStateToProps = state => {
   const problems = state.problem.problems;
   const currentProblemId = state.problem.currentProblemId;
   const currentProblem = problems.filter(problem => {
-    console.log(problem);
+   // console.log(problem);
     if (problem.problem_id == currentProblemId) {
       return problem;
     }
   })[0];
-  console.log('currentProblem', currentProblem);
+  //console.log('currentProblem', currentProblem);
   const center = currentProblem
     ? { lat: parseFloat(currentProblem.latitude), lng: parseFloat(currentProblem.longitude) }
     : {
