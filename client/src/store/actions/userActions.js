@@ -38,6 +38,7 @@ export const refresh = () => {
         type: 'REFRESH_ERROR',
         payload: 'NO JWT'
       });
+      dispatch(hasCheckedJWT());
     } else {
       getData('users/refresh')
         .then(response => {
@@ -46,21 +47,41 @@ export const refresh = () => {
             type: 'REFRESH_SUCCESS',
             payload: { userId: response.data.id, priority: response.data.priority }
           });
+          dispatch(hasCheckedJWT());
         })
         .catch(() => {
           dispatch({
             type: 'REFRESH_ERROR',
             payload: 'WRONG JWT'
           });
+          dispatch(hasCheckedJWT());
         });
     }
-    return dispatch(hasCheckedJWT());
   };
 };
 
-export const signUp = (newUser: JSON) => {
+export const signUpUser = (newUser: JSON) => {
+  console.log('SignUpUser', newUser);
   return (dispatch: Dispatch) => {
     return postData('users', newUser)
+      .then(() => {
+        return dispatch({
+          type: 'SIGN_UP_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'SIGN_UP_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+
+export const signUpEntrepreneur = (newUser: JSON, newEntrepreneur: JSON) => {
+  console.log('SignUpEnt', newUser, newEntrepreneur);
+  return (dispatch: Dispatch) => {
+    return postData('users/en', { newUser, newEntrepreneur })
       .then(() => {
         return dispatch({
           type: 'SIGN_UP_SUCCESS'

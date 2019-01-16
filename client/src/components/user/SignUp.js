@@ -16,10 +16,10 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signUp } from '../../store/actions/userActions';
+import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { validateEmail } from '../../store/util';
+import { postData } from '../../store/util';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -27,10 +27,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
-  signUp: Function,
+  signUpUser: Function,
+  signUpEntrepreneur: Function,
   enqueueSnackbar: Function,
   categories: string[],
-  municipalities: string[]
+  municipalities: string[],
+  errorMessage: string
 };
 
 type State = {
@@ -43,7 +45,7 @@ type State = {
   isUniqueEmail: boolean,
   isEntrepreneur: boolean,
   entrepreneurCategories: string[],
-  entrepreneurMuni: string[]
+  entrepreneurMunies: string[]
 };
 
 const styles = (theme: Object) => ({
@@ -76,9 +78,8 @@ class SignUp extends React.Component<Props, State> {
     isUniqueEmail: false,
     isEntrepreneur: false,
     entrepreneurName: '',
-    entrepreneurCategories: [],
-    entrepreneurMuni: [],
-    isEntrepreneur: false
+    entrepreneurMunies: [],
+    entrepreneurCategories: []
   };
 
   handleChange = e => {
@@ -99,23 +100,41 @@ class SignUp extends React.Component<Props, State> {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { muni, email, password } = this.state;
+    const {
+      muni,
+      email,
+      password,
+      isEntrepreneur,
+      entrepreneurMunies,
+      entrepreneurCategories,
+      entrepreneurName
+    } = this.state;
     console.log(this.state);
-    this.props
-      .signUp({
-        muni,
-        email,
-        password
-      })
-      .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+    if (!isEntrepreneur)
+      this.props
+        .signUpUser({
+          muni,
+          email,
+          password
+        })
+        .then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+        });
+    else {
+      this.props
+        .signUpEntrepreneur({ muni, email, password }, { entrepreneurName, entrepreneurMunies, entrepreneurCategories })
+        .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+    }
   };
 
   handleValidateEmail = () => {
-    validateEmail(this.state.email).then(response =>
+    postData('users/validate_email', { email: this.state.email }).then(response => {
+      console.log(response);
       this.setState({
-        isUniqueEmail: !response.data.emailExist
-      })
-    );
+        isUniqueEmail: response.data.emailExist
+      });
+    });
   };
 
   render() {
@@ -137,8 +156,8 @@ class SignUp extends React.Component<Props, State> {
           <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
           <Select
             multiple
-            value={this.state.entrepreneurMuni}
-            name="entrepreneurMuni"
+            value={this.state.entrepreneurMunies}
+            name="entrepreneurMunies"
             onChange={this.handleChange}
             input={<Input id="muni-checkbox" />}
             renderValue={selected => selected.join(', ')}
@@ -146,7 +165,7 @@ class SignUp extends React.Component<Props, State> {
           >
             {municipalities.map(name => (
               <MenuItem key={name} value={name}>
-                <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
+                <Checkbox checked={this.state.entrepreneurMunies.indexOf(name) > -1} />
                 <ListItemText primary={name} />
               </MenuItem>
             ))}
@@ -242,7 +261,12 @@ class SignUp extends React.Component<Props, State> {
           />
           <FormControlLabel
             control={
-              <Switch checked={this.state.isEntrepreneur} name="isEntrepreneur" onChange={this.handleChecked} color="primary" />
+              <Switch
+                checked={this.state.isEntrepreneur}
+                name="isEntrepreneur"
+                onChange={this.handleChecked}
+                color="primary"
+              />
             }
             label="Er du entrepenør?"
           />
@@ -267,6 +291,7 @@ class SignUp extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    errorMessage: state.user.errorMessage,
     categories: state.category.categories,
     municipalities: state.muni.municipalities
   };
@@ -274,7 +299,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: newUser => dispatch(signUp(newUser))
+    signUpUser: newUser => dispatch(signUpUser(newUser)),
+    signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur))
   };
 };
 
@@ -284,7 +310,7 @@ export default connect(
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
 
-/*          <SelectValidator
+/*         <SelectValidator
           fullWidth
           margin="normal"
           multiple
