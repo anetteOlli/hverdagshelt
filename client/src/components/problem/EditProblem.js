@@ -16,6 +16,7 @@ import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
 import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
+import MapMarkers from '../map/MapMarkers';
 
 type Props = {
   classes: Object,
@@ -83,7 +84,6 @@ class EditProblem extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn, categories } = this.props;
-    // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
         <Grid container spacing={24}>
@@ -102,7 +102,7 @@ class EditProblem extends React.Component<Props, State> {
                   name="status_fk"
                   value={'status'}
                 >
-                  {'Status:   ' + problem.status_fk}
+                  {'Status:   ' + this.state.status_fk}
                 </Paper>
 
                 <TextValidator
@@ -111,7 +111,7 @@ class EditProblem extends React.Component<Props, State> {
                   multiline
                   label="Beskrivelse"
                   name="problem_description"
-                  value={problem.problem_description}
+                  value={this.state.problem_description}
                   onChange={this.handleChange}
                   validators={['required', 'minStringLength:1']}
                   errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
@@ -121,18 +121,18 @@ class EditProblem extends React.Component<Props, State> {
                   margin="normal"
                   label="Kategori"
                   name="category_fk"
-                  value={problem.category_fk}
+                  value={this.state.category_fk}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
                 >
                   {categories.map((option, index) => (
-                    <MenuItem key={index} value={option}>
-                      {option}
+                    <MenuItem key={index} value={option.category}>
+                      {option.category}
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {problem.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -149,8 +149,8 @@ class EditProblem extends React.Component<Props, State> {
                           top
                           width="100%"
                           src={
-                            problem.displayImg ||
-                            problem.img_user
+                            this.state.displayImg ||
+                            this.state.img_user
                           }
                           alt="Bilde"
                         />
@@ -168,7 +168,7 @@ class EditProblem extends React.Component<Props, State> {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.mapExpansion}>
                   <div className="mapPlaceholder">
-                    <Map />
+                    <MapMarkers />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
@@ -182,8 +182,22 @@ class EditProblem extends React.Component<Props, State> {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.problem !== this.props.problem) {
+      this.setState({
+        ...nextProps.problem
+      });
+      console.log('REEE', this.state);
+    }
+    console.log(this.state);
+  }
+
   componentDidMount() {
-    this.props.getCategories().then(() => console.log("Categories loaded in editproblemA: ",this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.setState({
+      ...this.props.problem
+    });
+    console.log(this.state);
   }
 }
 

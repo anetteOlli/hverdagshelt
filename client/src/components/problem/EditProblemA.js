@@ -11,8 +11,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/Expan
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
-import Map from '../map/maptest';
-import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import MapMarkers from '../map/MapMarkers';
+import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 
 type Props = {
@@ -85,26 +85,32 @@ class EditProblemA extends React.Component<Props, State> {
 
   handleSubmit = e => {
     // gå videre til å lagre endringer
-    this.state.last_edited = new Date();
-   // e.preventDefault();
+
     console.log(this.state);
+    const date = new Date();
+
+
+    goToProblemDetail(this.state.problem_id);
+  };
+
+  handleSubmitClick = e => {
+    this.refs.problemForm.submit();
   };
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
     const { classes, problem, isLoggedIn, categories } = this.props;
-    // if (!isLoggedIn) return <Redirect to="/" />;
 
     if (problem) {
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-            <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
-              <Paper className={classes.paper2} name={'Paper for UserProblem'}>
-                <Typography variant="h2" gutterBottom align="center">
-                  Bruker beskrivelse:
-                </Typography>
-                <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+            <ValidatorForm ref="problemForm" onSubmit={this.handleSubmit}>
+              <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
+                <Paper className={classes.paper2} name={'Paper for UserProblem'}>
+                  <Typography variant="h2" gutterBottom align="center">
+                    Bruker beskrivelse:
+                  </Typography>
                   <SelectValidator
                     fullWidth
                     margin="normal"
@@ -151,37 +157,34 @@ class EditProblemA extends React.Component<Props, State> {
                       </MenuItem>
                     ))}
                   </SelectValidator>
-                </ValidatorForm>
-                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                  <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Typography>Bilde</Typography>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div />
-                    <div>
-                      <img
-                        id="img"
-                        top
-                        width="100%"
-                        src={this.state.img_user || 'http://placehold.it/180'}
-                        alt="Bilde"
-                      />
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </Paper>
-            </Grid>
-            <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
-              <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                <Typography variant="h2" gutterBottom align="center">
-                  Entreprenør beskrivelse:
-                </Typography>
-
-                <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+                  <ExpansionPanel>
+                    <ExpansionPanelSummary>
+                      <div>
+                        <Typography>Bilde</Typography>
+                      </div>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <div />
+                      <div>
+                        <img
+                          id="img"
+                          top
+                          width="100%"
+                          src={this.state.img_user || 'http://placehold.it/180'}
+                          alt="Bilde"
+                        />
+                      </div>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+                </Paper>
+              </Grid>
+              <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
+                <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
+                  <Typography variant="h2" gutterBottom align="center">
+                    Entreprenør beskrivelse:
+                  </Typography>
                   <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
                   <Paper
@@ -220,8 +223,7 @@ class EditProblemA extends React.Component<Props, State> {
                             width="100%"
                             src={
                               this.state.img_entrepreneur ||
-                              'https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg' ||
-                              'http://placehold.it/180'
+                              'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
                             }
                             alt="Bilde"
                           />
@@ -229,28 +231,35 @@ class EditProblemA extends React.Component<Props, State> {
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>
-                </ValidatorForm>
-              </Paper>
-            </Grid>
-          </Grid>
-          <div>
-            <ExpansionPanel>
-              <ExpansionPanelSummary>
+                </Paper>
+              </Grid>
+              <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
+                <Button type="submit" fullWidth variant="contained" className={classes.button}>
+                  {/*onClick={this.handleSubmit()}*/}
+                  Lagre endringer
+                </Button>
+
                 <div>
-                  <Typography>Kart: </Typography>
+                  <ExpansionPanel>
+                    <ExpansionPanelSummary>
+                      <div>
+                        <Typography>Kart: </Typography>
+                      </div>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      {
+                        // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
+                      }
+
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+                  <div className="mapPlaceholder">
+                  <MapMarkers />
                 </div>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.mapExpansion}>
-                <div className="mapPlaceholder">
-                  <Map />
                 </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-              <Button fullWidth variant="contained" className={classes.button} >
-                {/*onClick={this.handleSubmit()}*/}
-              Lagre endringer
-            </Button>
-          </div>
+              </Grid>
+            </ValidatorForm>
+          </Grid>
         </div>
       );
     } else {
@@ -258,12 +267,12 @@ class EditProblemA extends React.Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.problem !== this.props.problem){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.problem !== this.props.problem) {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE',this.state);
+      console.log('REEE', this.state);
     }
     console.log(this.state);
   }
@@ -273,7 +282,7 @@ class EditProblemA extends React.Component<Props, State> {
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state)
+    console.log(this.state);
   }
 }
 
@@ -294,7 +303,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    editProblem: (problem: problem) => dispatch(editProblem(problem))
   };
 };
 

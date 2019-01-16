@@ -13,7 +13,7 @@ const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Standard'
+  priority: 'Municipality'
 };
 
 export default (state: State = initState, action: Action) => {
@@ -21,6 +21,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_IN_SUCCESS':
       console.log('%c SIGN_IN_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: true,
         userID: action.payload,
         errorMessage: 'WRONG EMAIL'
@@ -28,6 +29,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_IN_ERROR':
       console.log('%c SIGN_IN_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: action.payload.message
@@ -41,6 +43,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_UP_ERROR':
       console.log('%c SIGN_UP_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: action.payload.message
@@ -48,6 +51,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_OUT_SUCCESS':
       console.log('%c SIGN_OUT_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: ''
@@ -55,6 +59,7 @@ export default (state: State = initState, action: Action) => {
     case 'REFRESH_SUCCESS':
       console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: true,
         userID: action.payload,
         errorMessage: ''
@@ -62,6 +67,7 @@ export default (state: State = initState, action: Action) => {
     case 'REFRESH_ERROR':
       console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: ''

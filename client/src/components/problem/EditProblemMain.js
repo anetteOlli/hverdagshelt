@@ -97,7 +97,7 @@ function getView(bool: boolean, p) {
   console.log("priority in get view: " + p)
   var view;
   if (bool) {
-    if (p === 'standard') {
+    if (p === 'Standard') {
       view = 0;
     } else if (p === 'Entrepreneur') {
       view = 1;
