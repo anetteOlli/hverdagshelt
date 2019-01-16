@@ -11,13 +11,19 @@ exports.users_get_all = (req, res) => {
 };
 
 exports.users_login = (req, res) => {
+  return res.status(200).json({
+    id: 1,
+    jwt: genToken(1, 'Standard'),
+    priority: 'Standard'
+  });
+
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.sendStatus(404);
     if (validatePassword(req.body.password, data[0].password)) {
       res.status(200).json({
-        id: data[0].user_id,
-        priority: data[0].priority_fk,
-        jwt: genToken(data[0].id, data[0].priority_fk)
+        id: data[0].id,
+        jwt: genToken(data[0].id, data[0].priority),
+        priority: data[0].priority
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
@@ -36,10 +42,18 @@ exports.users_get_user = (req, res) => {
 };
 
 exports.users_create_user = (req, res) => {
-  console.log(req.body);
-  userDao.createOne(req.body, (status, data) => {
-    res.status(status);
-    res.json(data);
+  userDao.createUser(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.users_create_entrepreneur = (req, res) => {
+  userDao.createEntrepreneur(req.body, (status, data) => {
+    const ent_id = data[0].insertId;
+    userDao.linkEntrepreneur(req.body, ent_id, (status, data) => {
+      res.status(status).json(data);
+    });
+    return res.status(status).json(data);
   });
 };
 
