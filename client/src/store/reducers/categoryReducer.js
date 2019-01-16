@@ -43,7 +43,7 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_CATEGORIES_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        categories: action.payload
+        categories: action.payload.map(category => category.category)
       };
     case 'GET_CATEGORIES_ERROR':
       console.log('%c GET_CATEGORIES_ERROR', 'color: red; font-weight: bold;', action.payload);

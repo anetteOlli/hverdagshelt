@@ -117,7 +117,7 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må velge en kategori']}
             >
-            {state.categories.map((e,i) => (
+            {props.categories.map((e,i) => (
               <MenuItem key={i} value={e}>{e}</MenuItem>
             ))}
             </SelectValidator>
@@ -471,23 +471,19 @@ class CreateProblem extends React.Component<Props, State> {
 
   /** Gets ALL problem categories*/
   getCategories(){
-    /*
     this.props.getCategories()
     .then(e => {
       console.log("Props after get");
       console.log(this.props.categories);
       this.handleChangeSpec("category", this.props.categories[0]);
-      this.setState({
-          categories: this.props.categories
-      });
-    });*/
+    });
     //console.log("Props");
     //console.log(this.props.categories);
-    this.setState({categories: this.props.categories});
-    console.log("State");
-    console.log(this.state.categories);
+    //this.setState({categories: this.props.categories});
+    //this.props.getCategories()
+    //console.log("State");
+    //console.log(this.state.categories);
     //Set default to first
-    this.handleChangeSpec("category", this.props.categories[0]);
   }
 
   /** Handles clicking "Next" button */
