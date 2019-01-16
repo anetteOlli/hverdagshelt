@@ -14,8 +14,8 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
-
-const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
+import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { getCategories } from '../../store/actions/categoryActions';
 
 type Props = {
   classes: Object,
@@ -82,7 +82,7 @@ class EditProblem extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
+    const { classes, problem, isLoggedIn, categories } = this.props;
     // if (!isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={classes.main}>
@@ -102,7 +102,7 @@ class EditProblem extends React.Component<Props, State> {
                   name="status_fk"
                   value={'status'}
                 >
-                  {'Status:   ' + this.state.status_fk}
+                  {'Status:   ' + problem.status_fk}
                 </Paper>
 
                 <TextValidator
@@ -111,7 +111,7 @@ class EditProblem extends React.Component<Props, State> {
                   multiline
                   label="Beskrivelse"
                   name="problem_description"
-                  value={this.state.problem_description}
+                  value={problem.problem_description}
                   onChange={this.handleChange}
                   validators={['required', 'minStringLength:1']}
                   errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
@@ -121,7 +121,7 @@ class EditProblem extends React.Component<Props, State> {
                   margin="normal"
                   label="Kategori"
                   name="category_fk"
-                  value={this.state.category_fk}
+                  value={problem.category_fk}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
@@ -132,7 +132,7 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {this.props.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {problem.date_made} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -149,8 +149,8 @@ class EditProblem extends React.Component<Props, State> {
                           top
                           width="100%"
                           src={
-                            this.state.displayImg ||
-                            this.state.img_user
+                            problem.displayImg ||
+                            problem.img_user
                           }
                           alt="Bilde"
                         />
@@ -183,25 +183,31 @@ class EditProblem extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.setState({
-      ...this.props.problem
-    });
+    this.props.getCategories().then(() => console.log("Categories loaded in editproblemA: ",this.props.categories));
   }
 }
 
 const mapStateToProps = state => {
+  const problems = state.problem.problems;
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
+
   return {
-    problem: state.problem
+    currentProblemId: state.problem.currentProblemId,
+    problem,
+    userPriority: state.user.priority,
+    isLoggedIn: state.user.isLoggedIn,
+    categories: state.category.categories
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    getProblemById: (id: number) => dispatch(getProblemById(id)),
+    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
+    getCategories: () => dispatch(getCategories())
   };
 };
 
-// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

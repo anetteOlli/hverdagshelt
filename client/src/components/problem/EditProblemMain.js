@@ -94,6 +94,7 @@ const styles = (theme: Object) => ({
 });
 
 function getView(bool: boolean, p) {
+  console.log("priority in get view: " + p)
   var view;
   if (bool) {
     if (p === 'standard') {
@@ -110,6 +111,7 @@ function getView(bool: boolean, p) {
 }
 
 function getEditView(priority: number) {
+
   switch (priority) {
     case 0:
       return <EditProblem />;

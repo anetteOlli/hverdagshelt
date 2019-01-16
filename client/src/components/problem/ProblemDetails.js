@@ -108,7 +108,8 @@ class ProblemDetails extends React.Component<Props, State> {
 
   onClickEdit = () => {
     console.log("Trykte på edit");
-    this.props.goToProblemEdit(this.props.problem_id);
+    console.log("handle clickonEdit. id: " + this.props.problem.problem_id)
+    this.props.goToProblemEdit(this.props.problem.problem_id);
 
   };
 
