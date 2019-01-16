@@ -1,7 +1,6 @@
 set foreign_key_checks = 0;
 DROP TABLE IF EXISTS user_event;
 DROP TABLE IF EXISTS user_problem;
-DROP TABLE IF EXISTS location;
 DROP TABLE IF EXISTS entrepreneur_municipality;
 DROP TABLE IF EXISTS entrepreneur_category;
 DROP TABLE IF EXISTS municipality;
@@ -15,6 +14,8 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS county;
 DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS street;
+set foreign_key_checks = 1;
+
 
 CREATE TABLE county (
   name VARCHAR(255) PRIMARY KEY NOT NULL
@@ -68,7 +69,7 @@ CREATE TABLE user (
                     password VARCHAR(100) NOT NULL,
                     created DATETIME NOT NULL DEFAULT NOW(),
                     municipality_fk VARCHAR(30) NOT NULL,
-                    priority_fk VARCHAR(30) NOT NULL
+                    priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
 );
 
 CREATE TABLE user_problem (
@@ -88,7 +89,9 @@ CREATE TABLE event (
                      municipality_fk VARCHAR(30),
                      county_fk VARCHAR(30),
                      city_fk VARCHAR(30),
-                     street_fk VARCHAR(30)
+                     street_fk VARCHAR(30),
+                     latitude DOUBLE NOT NULL,
+                     longitude DOUBLE NOT NULL
 );
 
 CREATE TABLE user_event (
@@ -115,7 +118,8 @@ CREATE TABLE entrepreneur (
 CREATE TABLE entrepreneur_municipality (
                                          ent_muni INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                          entrepreneur_fk INT NOT NULL,
-                                         municipality_fk VARCHAR(30) NOT NULL
+                                         municipality_fk VARCHAR(30) NOT NULL,
+                                         county_fk VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE entrepreneur_category (
@@ -144,7 +148,7 @@ ALTER TABLE user_problem
   ADD FOREIGN KEY(user_id) REFERENCES user(user_id);
 
 ALTER TABLE event
-  ADD FOREIGN KEY(county_fk, municipality_fk) REFERENCES municipality(municipality,county),
+  ADD FOREIGN KEY(municipality_fk, county_fk) REFERENCES municipality(municipality,county),
   ADD FOREIGN KEY(city_fk) REFERENCES city(cityName),
   ADD FOREIGN KEY(street_fk) REFERENCES street(streetName),
   ADD FOREIGN KEY(status_fk) REFERENCES status(status);
@@ -167,4 +171,3 @@ ALTER TABLE entrepreneur_category
   ADD FOREIGN KEY(entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
   ADD FOREIGN KEY(category_fk) REFERENCES category(category);
 
-set foreign_key_checks = 1;

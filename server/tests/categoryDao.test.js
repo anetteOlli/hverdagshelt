@@ -17,7 +17,7 @@ let dao = new CategoryDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeAll(done => {
+beforeEach(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
@@ -49,16 +49,18 @@ test("Tester getOne fra categoryDao", (done) => {
 
 test("Tester deleteOne fra categoryDao", (done) => {
   let catname = "Tree in road";
-  dao.deleteOne(catname, (status) => {
+  dao.deleteOne(catname, (status,data) => {
     expect(status).toEqual(200);
+    expect(data.affectedRows).toEqual(1);
     done();
   });
 });
 
 test("Tester createOne fra categoryDao", (done) => {
   let newCat = "yeeeeet";
-  dao.createOne(newCat,(status) => {
+  dao.createOne(newCat,(status,data) => {
     expect(status).toEqual(200);
+    expect(data.affectedRows).toBe(1);
     done();
   })
 });
