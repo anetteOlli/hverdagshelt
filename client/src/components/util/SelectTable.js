@@ -13,7 +13,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import connect from 'react-redux/es/connect/connect';
 import withRoot from '../../withRoot';
 import { withSnackbar } from 'notistack';
-import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { getAllEntrepreneur } from '../../store/actions/entrepreneurAction';
 
 let id = 0;
 function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
@@ -105,7 +105,7 @@ const styles = theme => ({
   }
 });
 
-class Tabletest extends React.Component {
+class SelectTable extends React.Component {
   state = {
     order: 'asc',
     orderBy: 'problem_title',
@@ -125,10 +125,6 @@ class Tabletest extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleClick = (id) => {
-    this.props.goToProblemDetail(id);
-  };
-
   handleChangePage = (event, page) => {
     this.setState({ page });
   };
@@ -143,6 +139,7 @@ class Tabletest extends React.Component {
     return (
       <Paper className={classes.paper} name="Main paper in table">
         <div name="Main div in table">
+          {this.props.entrepreneurs && this.props.entrepreneurs[0].bedriftnavn}
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
@@ -150,6 +147,7 @@ class Tabletest extends React.Component {
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
+
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -157,10 +155,10 @@ class Tabletest extends React.Component {
                   return (
                     <TableRow name={n.id} hover onClick={() => this.handleClick(n.problem_id)} tabIndex={-1}  key={n.problem_id}>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.problem_title}
+                        z
                       </TableCell>
-                      <TableCell align="right">{n.status_fk}</TableCell>
-                      <TableCell align="right">{n.support}</TableCell>
+                      <TableCell align="right">x</TableCell>
+                      <TableCell align="right">y</TableCell>
                     </TableRow>
                   );
                 })}
@@ -191,32 +189,21 @@ class Tabletest extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.problems !== nextProps.problems) {
-      const problems = nextProps.problems;
-      console.log(problems);
-      const data = problems
-        ? problems.map((problem, index: number) =>
-          createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status_fk, problem.support || 0)
-        )
-        : null;
-      this.setState({
-        data
-      });
-    }
+  componentDidMount(){
+    this.props.getAllEntrepreneur();
   }
 }
 
 const mapStateToProps = state => {
   return {
-    problems: state.problem.problems
+    entrepreneurs: state.entrepreneur.entrepreneurs
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id))
+    getAllEntrepreneur: () => dispatch(getAllEntrepreneur())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));
+export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(SelectTable))));

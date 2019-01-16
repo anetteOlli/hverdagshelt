@@ -15,7 +15,8 @@ import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 
-import EnhancedTableHead from '../util/SelectTable';
+
+import SelectTable from  '../util/SelectTable';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
@@ -232,10 +233,10 @@ class ProblemDetails extends React.Component<Props, State> {
           </Grid>
           <div>
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
-              <DialogTitle id="customized-dialog-title" onClose={this.handleClose} />
+
               <DialogContent>
                 <Typography gutterBottom />
-                <EnhancedTableHead />
+                <SelectTable/>
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
@@ -254,7 +255,6 @@ class ProblemDetails extends React.Component<Props, State> {
     console.log("PRIO:");
     console.log(this.state.userPriority);
   }
-
 
 }
 
