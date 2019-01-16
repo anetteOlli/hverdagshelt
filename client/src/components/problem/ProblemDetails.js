@@ -6,13 +6,10 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Popover from '@material-ui/core/Popover/Popover';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
@@ -275,14 +272,7 @@ class ProblemDetails extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if(this.props.isLoggedIn !== undefined) {
-      console.log("kom hit.");
-      this.setState({
-        power: this.props.userPriority
-      });
-    }
-    console.log(this.props.userPriority); //undefined
-    console.log(this.props.isLoggedIn);
+
   }
 
 }
