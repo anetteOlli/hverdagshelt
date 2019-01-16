@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
-
+import type {Problem} from '../../store/reducers/problemReducer';
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -149,8 +149,8 @@ class EditProblemA extends React.Component<Props, State> {
                     errorMessages={['this field is required']}
                   >
                     {categories.map((option, index) => (
-                      <MenuItem key={index} value={option.category}>
-                        {option.category}
+                      <MenuItem key={index} value={option}>
+                        {option}
                       </MenuItem>
                     ))}
                   </SelectValidator>
@@ -301,7 +301,7 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
     getCategories: () => dispatch(getCategories()),
-    editProblem: (problem: problem) => dispatch(editProblem(problem))
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
   };
 };
 
