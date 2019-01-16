@@ -6,8 +6,11 @@ export type Problem = {
   problem_locked: number,
   img_user: string,
   date_made: string,
+  county_fk: string,
+  municipality_fk: string,
+  city_fk: string,
+  street_fk: string,
   last_edited: string,
-  location_fk: string,
   status_fk: string,
   category_fk: string,
   support: number
@@ -44,6 +47,10 @@ const initState = {
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
+      county_fk: 'test',
+      municipality_fk: 'test',
+      city_fk: 'test',
+      street_fk: 'test',
       latitude: '63.42656212314987',
       longitude: '10.393969503996345',
       support: -1
