@@ -7,7 +7,6 @@ export type State = {
   isLoggedIn: boolean,
   errorMessage: string,
   priority: Priority,
-  hasCheckedJWT: boolean
 };
 
 export type Action =
@@ -24,7 +23,6 @@ const initState = {
   isLoggedIn: false,
   errorMessage: '',
   priority: 'Municipality',
-  hasCheckedJWT: false
 };
 
 export default (state: State = initState, action: Action) => {
@@ -76,7 +74,6 @@ export default (state: State = initState, action: Action) => {
         userID: action.payload.userId,
         priority: action.payload.priority,
         errorMessage: '',
-        hasCheckedJWT: true
       };
     case 'REFRESH_ERROR':
       console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
@@ -85,7 +82,6 @@ export default (state: State = initState, action: Action) => {
         isLoggedIn: false,
         userID: 0,
         errorMessage: '',
-        hasCheckedJWT: true
       };
     default:
       return state;

@@ -38,7 +38,7 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_COUNTIES_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        counties: action.payload.map((county: { name: string }) => county.name)
+        counties: (action.payload.map((county: { name: string }) => county.name): Array<string>)
       };
     case 'GET_COUNTIES_ERROR':
       console.log('%c GET_COUNTIES_ERROR', 'color: red; font-weight: bold;', action.payload);
@@ -50,7 +50,7 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_COUNTIES_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        currentMunicipalities: action.payload.map((muni: { municipality: string }) => muni.municipality)
+        currentMunicipalities: (action.payload.map((muni: { municipality: string }) => muni.municipality): Array<string>)
       };
     case 'GET_COUNTIES_BY_MUNI_ERROR':
       console.log('%c GET_COUNTIES_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);

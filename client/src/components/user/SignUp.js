@@ -20,7 +20,7 @@ import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions'
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { postData } from '../../store/util';
+import { postData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -35,7 +35,8 @@ type Props = {
   counties: string[],
   currentMunicipalities: string[],
   errorMessage: string,
-  getCounties: Function
+  getCounties: Function,
+  getMunicipalitiesByCounty: Function
 };
 
 type State = {
@@ -118,6 +119,7 @@ class SignUp extends React.Component<Props, State> {
     e.preventDefault();
     const {
       muni,
+      county,
       email,
       password,
       isEntrepreneur,
@@ -130,8 +132,8 @@ class SignUp extends React.Component<Props, State> {
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          municipality: 'Trondheim',
-          county: 'Trøndelag',
+          municipality: muni,
+          county,
           email,
           password
         })
@@ -146,15 +148,16 @@ class SignUp extends React.Component<Props, State> {
           {
             bedriftNavn: entrepreneurName,
             org_nr: entrepreneurId,
-            municipalities: [
-              { county: 'Trøndelag', municipality: 'Trondheim' },
-              { county: 'Trøndelag', municipality: 'Grong' },
-              { county: 'Trøndelag', municipality: 'Skaun' }
-            ],
-            categories: ['Snowplow', 'Tree in road']
+            municipalities: entrepreneurMunies.map(name => {
+              return { county, municipality: name };
+            }),
+            categories: entrepreneurCategories
           }
         )
-        .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+        .then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+        });
     }
   };
 

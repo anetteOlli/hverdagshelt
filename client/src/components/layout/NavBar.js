@@ -20,6 +20,8 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { refresh, signOut } from '../../store/actions/userActions';
+import type { ReduxState, Dispatch } from '../../store/reducers';
+
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20
@@ -100,14 +102,14 @@ class NavBar extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     hasCheckedJWT: state.app.hasCheckedJWT
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
     refresh: () => dispatch(refresh())

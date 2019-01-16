@@ -1,13 +1,13 @@
 // @flow
 import type { Action } from '../reducers/userReducer';
-import type { State } from '../reducers';
+import type { ReduxState } from '../reducers';
 import type { Action as AppAction } from '../reducers/appReducer';
-import { setToken, clearToken, postData, getData, getToken } from '../util';
+import { setToken, clearToken, postData, getData, getToken } from '../axios';
 import { loading, hasCheckedJWT } from './appActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction | AppAction) => any;
-type GetState = () => State;
+type GetState = () => ReduxState;
 
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
