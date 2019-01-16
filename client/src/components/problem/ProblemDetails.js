@@ -109,6 +109,7 @@ class ProblemDetails extends React.Component<Props, State> {
   onClickEdit = () => {
     console.log("Trykte på edit");
 
+
   };
 
   toggleHidden() {
