@@ -15,6 +15,6 @@ export const loading = (isLoading: boolean = true): Action => {
 
 export const hasCheckedJWT = (): Action => {
   return {
-    type: 'SET_CHECKED_JWT',
+    type: 'SET_CHECKED_JWT'
   };
 };

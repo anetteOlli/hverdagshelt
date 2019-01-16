@@ -19,8 +19,8 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {getEventsByMuni} from '../../store/actions/eventActions';
-import {getProblemsByMuni} from '../../store/actions/problemActions';
+import { getEventsByMuni } from '../../store/actions/eventActions';
+import { getProblemsByMuni } from '../../store/actions/problemActions';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
 
@@ -116,10 +116,9 @@ class MuniPage extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, events, problems, municounty} = this.props;
+    const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
-    const {municipality} = this.props.match.params;
-
+    const { municipality } = this.props.match.params;
     return (
       <main>
         <Grid container spacing={24}>
@@ -291,12 +290,9 @@ class MuniPage extends React.Component<Props, State> {
   /**Set state of municipality*/
   componentDidMount() {
     const municounty = this.props.match.params.municipality.split('&');
-    this.props.getEvents(municounty[0],municounty[1])
+    this.props.getEvents(municounty[0], municounty[1]);
   }
-
-
-
-}//class
+} //class
 
 const mapStateToProps = state => {
   return {
@@ -308,10 +304,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getEvents: (muni, county) => dispatch(getEventsByMuni(muni, county)),
-    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni,county))
+    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni, county))
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
