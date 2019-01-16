@@ -9,7 +9,7 @@ export type Action =
   | { type: 'GET_CATEGORIES_ERROR', payload: Error };
 
 const initState = {
-  categories: ['asfalt','ikke asfalt', 'støm', 'snø vei greie'],
+  categories: ['Hole in road','ikke asfalt', 'støm', 'snø vei greie'],
   errorMessage: ''
 };
 
@@ -40,10 +40,10 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'GET_CATEGORIES_SUCCESS':
-      console.log('%c GET_CATEGORIES_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c GET_CATEGORIES_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        categories: action.payload
+        categories: action.payload.map(category => category.category)
       };
     case 'GET_CATEGORIES_ERROR':
       console.log('%c GET_CATEGORIES_ERROR', 'color: red; font-weight: bold;', action.payload);

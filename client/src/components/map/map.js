@@ -1,11 +1,11 @@
 // @flow
 import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import SearchBox from '../layout/SearchBox';
+import SearchBox from './SearchBox';
 
 const AnyReactComponent = ({ img_src, text }) => (
   <div>
-    <img src={img_src} style={{ height: '10px', width: '10px', top:'-10px', left:'-5px', position:'absolute' }} />
+    <img src={img_src} style={{ height: '10px', width: '10px', top: '-10px', left: '-5px', position: 'absolute' }} />
     <p> {text} </p>
   </div>
 );

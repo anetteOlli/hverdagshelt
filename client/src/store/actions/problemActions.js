@@ -72,29 +72,26 @@ export const deleteProblem = (id: number) => {
 
 export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('problems/municipality', { municipality, county })
-      .then(response =>
-        dispatch({
-          type: 'PROBLEMS_BY_MUNI_SUCCESS',
-          payload: response.data
-        })
-      )
-      .catch((error: Error) =>
+    return postData('problems/municipality', { municipality, county }).then(response =>
+      dispatch({
+        type: 'PROBLEMS_BY_MUNI_SUCCESS',
+        payload: response.data
+      })).catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
           payload: error
         })
-      );
+    );
   };
 };
 
-export const getProblemsByStreet = (municipality: string, street: string) => {
+export const getProblemsByStreet = (street: string, municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData(`problems`, { municipality, street })
-      .then(problems =>
+    return postData(`problems/municipality/street`, { street, municipality, county })
+      .then(response =>
         dispatch({
           type: 'PROBLEMS_BY_STREET_SUCCESS',
-          payload: problems
+          payload: response.data
         })
       )
       .catch((error: Error) =>

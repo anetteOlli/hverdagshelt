@@ -30,11 +30,14 @@ export const getAllEvents = () => {
 
 export const getEventsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('events/municipality',{municipality, county}).then(response =>
-      dispatch({
-        type: 'EVENTS_BY_MUNI_SUCCESS',
-        payload: response.data
-      })).catch((error: Error) =>
+    return postData('events/municipality', { municipality, county })
+      .then(response =>
+        dispatch({
+          type: 'EVENTS_BY_MUNI_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'EVENTS_BY_MUNI_ERROR',
           payload: error

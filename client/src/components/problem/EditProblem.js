@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
-import Divider from '@material-ui/core/Divider/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
@@ -15,8 +14,9 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
-
-const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
+import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { getCategories } from '../../store/actions/categoryActions';
+import MapMarkers from '../map/MapMarkers';
 
 type Props = {
   classes: Object,
@@ -76,15 +76,14 @@ class EditProblem extends React.Component<Props, State> {
     console.log(this.state);
   };
 
-  handleUpload = (e) => {
+  handleUpload = e => {
     this.setState({
       displayImg: e
-    })
-  }
+    });
+  };
 
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
-    // if (!isLoggedIn) return <Redirect to="/" />;
+    const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24}>
@@ -128,8 +127,8 @@ class EditProblem extends React.Component<Props, State> {
                   errorMessages={['this field is required']}
                 >
                   {categories.map((option, index) => (
-                    <MenuItem key={index} value={option}>
-                      {option}
+                    <MenuItem key={index} value={option.category}>
+                      {option.category}
                     </MenuItem>
                   ))}
                 </SelectValidator>
@@ -145,16 +144,7 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img
-                          id="img"
-                          top
-                          width="100%"
-                          src={
-                            this.state.displayImg ||
-                            this.state.img_user
-                          }
-                          alt="Bilde"
-                        />
+                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -164,12 +154,12 @@ class EditProblem extends React.Component<Props, State> {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <div>
-                    <Typography >Kart: </Typography>
+                    <Typography>Kart: </Typography>
                   </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.mapExpansion}>
                   <div className="mapPlaceholder">
-                    <Map />
+                    <MapMarkers />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
@@ -183,22 +173,43 @@ class EditProblem extends React.Component<Props, State> {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.problem !== this.props.problem) {
+      this.setState({
+        ...nextProps.problem
+      });
+      console.log('REEE', this.state);
+    }
+    console.log(this.state);
+  }
+
   componentDidMount() {
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
+    console.log(this.state);
   }
 }
 
 const mapStateToProps = state => {
+  const problems = state.problem.problems;
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
+
   return {
-    problem: state.problem
+    currentProblemId: state.problem.currentProblemId,
+    problem,
+    userPriority: state.user.priority,
+    isLoggedIn: state.user.isLoggedIn,
+    categories: state.category.categories
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    getProblemById: (id: number) => dispatch(getProblemById(id)),
+    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
+    getCategories: () => dispatch(getCategories())
   };
 };
 
