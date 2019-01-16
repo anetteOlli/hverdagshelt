@@ -28,10 +28,9 @@ export const upload = multer({
 
 /*---      Verify token       ---*/
 export const checkAuth = (req: () => mixed, res: express$Response, next: express$NextFunction): void => {
-  req.userData = { user: { isAdmin: true } };
-  next();
   try {
     const token = req.headers.authorization.split(' ')[1];
+    console.log(token);
     req.userData = jwt.verify(token, process.env.JWT_KEY);
     next();
   } catch (err) {
@@ -45,39 +44,32 @@ export const checkAuth = (req: () => mixed, res: express$Response, next: express
 export const genToken = (id: number, priority: string) =>
   jwt.sign(
     {
-      user: {
-        id,
-        priority
-      }
+      id,
+      priority
     },
     process.env.JWT_KEY,
     {
-      expiresIn: '30s'
+      expiresIn: '1h'
     }
   );
 /**
  * A method for generating the token a user uses to verify his account
  * @param packageJson json with the packageInformation
  * @returns the token made specifically for the user
- *
  */
 export const genTokenEmail = (packageJson: object) => {
-  return jwt.sign(
-    packageJson,
-    process.env.EMAIL_KEY,
-    {
-      expiresIn: '24h'
-    }
-  );
+  return jwt.sign(packageJson, process.env.EMAIL_KEY, {
+    expiresIn: '24h'
+  });
 };
 
-export const verifyTokenEmail = (token: object ) => {
+export const verifyTokenEmail = (token: object) => {
   try {
     return {
       status: true,
       data: jwt.verify(token, process.env.EMAIL_KEY)
     };
-  } catch(error) {
+  } catch (error) {
     return {
       status: false,
       data: error

@@ -5,7 +5,7 @@ import type { State as UserState } from './userReducer';
 import type { State as EventState } from './eventReducer';
 import type { State as AppState } from './appReducer';
 import type { State as ProblemState } from './problemReducer';
-import type { State as MuniState } from './muniState';
+import type { State as MuniState } from './muniReducer';
 
 import userReducer from './userReducer';
 import problemReducer from './problemReducer';
