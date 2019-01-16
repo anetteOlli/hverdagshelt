@@ -16,7 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
-import { getProblemById } from '../../store/actions/problemActions';
+import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 
 import EnhancedTableHead from '../util/SelectTable';
 
@@ -108,6 +108,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
   onClickEdit = () => {
     console.log("Trykte på edit");
+    this.props.goToProblemEdit(this.props.problem_id);
 
 
   };
@@ -283,7 +284,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProblemById: (id: number) => dispatch(getProblemById(id))
+    getProblemById: (id: number) => dispatch(getProblemById(id)),
+    goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id))
   };
 };
 
