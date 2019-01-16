@@ -22,7 +22,7 @@ exports.problems_get_problem = (req, res) => {
 
 exports.problems_get_from_municipality = (req, res) => {
   console.log(
-    '/problems/municipality/' + req.body.municipality_fk + '(' + req.body.county_fk + ') fikk GET request fra klient'
+    '/problems/municipality/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
   problemDao.getFromMunicipality(req.body, (status, data) => {
     res.status(status).json(data);

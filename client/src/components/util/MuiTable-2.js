@@ -68,7 +68,7 @@ const ExpansionPanelDetails = withStyles(theme => ({
 //Own material start
 /** Props for MuiTable
 * The props are as following:
-* Rows are the item you want to show. Should contain id, title, description, status, entrepreneur
+* Rows are the item you want to show. Should have AT LEAST id, title, description, status, entrepreneur, imgURL
 * onClick is an OPTIONAL function
 */
 type Props = {
@@ -80,7 +80,7 @@ type Props = {
 /** Component Class for MuiTable
 * @see Props
 */
-class MuiTable2Base extends React.Component<Props> {
+class MuiTable2 extends React.Component<Props> {
   state = {
     expanded: '0',
   };
@@ -141,7 +141,7 @@ class MuiTable2Base extends React.Component<Props> {
   }
 }
 
-function MuiTable2() {
+function MuiTable2Wrapper() {
   let  rows = [
       {id: 1, title: "Title1", description: "abc1", imgURL: "imgURL", entrepreneur: "Bob1", status: "Done"},
       {id: 2, title: "Title2", description: "abc2", imgURL: "imgURL", entrepreneur: "Bob2", status: "Checked"},

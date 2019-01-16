@@ -16,7 +16,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
-import { getProblemById } from '../../store/actions/problemActions';
+import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+
+import EnhancedTableHead from '../util/SelectTable';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 
 const styles = (theme: Object) => ({
   main: {
@@ -35,15 +42,11 @@ const styles = (theme: Object) => ({
     flexDirection: 'row'
   },
 
-  btnContainer: {
-    //paddingRight: 30
-  },
-
   linkbtn: {
     margin: theme.spacing.unit,
-    minWidth: 400,
+    minWidth: '100%',
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '50%'
     }
   },
   grid: {
@@ -78,7 +81,7 @@ const styles = (theme: Object) => ({
   },
   wrapper1: {
     alignItems: 'flex-end',
-    minWidth: 400
+    minWidth: '100%'
   },
   title: {
     paddingTop: 25,
@@ -90,13 +93,21 @@ const styles = (theme: Object) => ({
 class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
-    isLoggedIn: false,
-    isHidden: true
+    isHidden: true,
+    power: '',
+    open: false
   };
 
   onClickAdd = () => {
-    // history.push('/lagproblem');
-    console.log(this.state.currentProblemId);
+    console.log('Trykte add knappen..');
+
+    this.handleClickOpen();
+    this.toggleHidden();
+  };
+
+  onClickEdit = () => {
+    console.log('Trykte på edit');
+    this.props.goToProblemEdit(this.props.problem_id);
   };
 
   toggleHidden() {
@@ -105,10 +116,19 @@ class ProblemDetails extends React.Component<Props, State> {
     });
   }
 
-  render() {
-    const { classes, problem, isLoggedIn, userPriority } = this.props;
-    console.log(problem);
+  handleClickOpen = () => {
+    this.setState({
+      open: true
+    });
+  };
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { classes, problem, isLoggedIn } = this.props;
+    console.log(problem);
     if (problem) {
       return (
         <div className={classes.main}>
@@ -213,35 +233,45 @@ class ProblemDetails extends React.Component<Props, State> {
               </div>
             </Grid>
           </Grid>
+          <div>
+            <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
+              <DialogTitle id="customized-dialog-title" onClose={this.handleClose} />
+              <DialogContent>
+                <Typography gutterBottom />
+                <EnhancedTableHead />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Save changes
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
         </div>
       );
     } else {
       return <div>LOADING PROBLEM...</div>;
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentProblemId !== this.props.currentProblemId)
-      this.props.getProblemById(nextProps.currentProblemId);
-  }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  //const id = ownProps.match.params.problem_id;
+const mapStateToProps = state => {
   const problems = state.problem.problems;
-  console.log(problems);
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
+
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
-  const problem = problems;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    userPriority: state.user.priority
+    userPriority: state.user.priority,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProblemById: (id: number) => dispatch(getProblemById(id))
+    getProblemById: (id: number) => dispatch(getProblemById(id)),
+    goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id))
   };
 };
 
@@ -249,3 +279,8 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+
+// bruker kan edit desciption hvis ikke locked
+// Admin kan gjøre alt
+// Kommuneansatt slett, add entrepreneur, edit
+// Entrepeneur edit
