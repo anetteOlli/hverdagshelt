@@ -366,6 +366,8 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
+    user: 1,
+
     municipality: '',
     title: '',
     category: '',
@@ -427,30 +429,39 @@ class CreateProblem extends React.Component<Props, State> {
    * @params municipality: string, the user-selected municipality
    * @params street: string, the inputted street
    * */
-   getSimilarProblems(municipality: string, street: string){
-    this.props.getProblemsByStreet(municipality, street);
-    let myProbs = [];
-    this.props.similarProblems.map(e => {
-      myProbs.push({
-        id: e.problem_id,
-        title: e.problem_title,
-        description: e.problem_description,
-        status: e.status_fk,
-        entrepreneur: e.entrepreneur || "N/A",
-        imgURL: e.img_user
-      })
-    });
-    console.log("My probs");
-    console.log(myProbs);
-    this.setState({similarProblems: myProbs});
+   getSimilarProblems(street: string, municipality: string, county: string){
+    this.props.getProblemsByStreet(street, municipality, county)
+    .then(() => {
+      //console.log("Ferdiog!!")
+      let myProbs = [];
+      this.props.similarProblems.map(e => {
+        myProbs.push({
+          id: e.problem_id,
+          title: e.problem_title,
+          description: e.problem_description,
+          status: e.status_fk,
+          entrepreneur: e.entrepreneur || "N/A",
+          imgURL: e.img_user
+        })
+      });
+      console.log("My probs");
+      console.log(myProbs);
 
-    //Set default to first
-    this.handleChangeSpec("cur_id", myProbs[0].id);
-    this.handleChangeSpec("cur_title", myProbs[0].title);
-    this.handleChangeSpec("cur_description", myProbs[0].description);
-    this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
-    this.handleChangeSpec("cur_status", myProbs[0].status);
-    this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
+      //Set default to first
+      if(myProbs[0] != null){
+        this.handleChangeSpec("cur_id", myProbs[0].id);
+        this.handleChangeSpec("cur_title", myProbs[0].title);
+        this.handleChangeSpec("cur_description", myProbs[0].description);
+        this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
+        this.handleChangeSpec("cur_status", myProbs[0].status);
+        this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
+      }
+      else{
+        //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
+      }
+
+      this.setState({similarProblems: myProbs});
+    });
   }
 
   /** Gets ALL problem categories*/
@@ -466,7 +477,7 @@ class CreateProblem extends React.Component<Props, State> {
   handleNext = () => {
     const { activeStep } = this.state;
     if(activeStep == 0){
-      this.getSimilarProblems(this.state.municipality, this.state.street);
+      this.getSimilarProblems(this.state.street, this.state.municipality, this.state.county);
     }
     this.setState({
       activeStep: activeStep + 1
@@ -511,7 +522,7 @@ class CreateProblem extends React.Component<Props, State> {
         img_user: this.state.image,
         category_fk: this.state.category,
         status_fk: 'Unchecked',
-        user_fk: '1',
+        user_fk: this.state.user,
         latitude: this.props.cords.lat,
         longitude: this.props.cords.lng,
         county_fk: this.state.county,
@@ -532,7 +543,6 @@ class CreateProblem extends React.Component<Props, State> {
 
   /** Handles uploading of image files */
   handleUpload = e => {
-    //@TODO make uploader for image
     this.setState({
       image: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])
@@ -631,7 +641,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
-    getProblemsByStreet: (muni, street) => dispatch(getProblemsByStreet(muni, street))
+    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county))
   };
 };
 

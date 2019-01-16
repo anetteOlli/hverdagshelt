@@ -7,6 +7,8 @@ router.get('/:id', ProblemController.problems_get_problem);
 
 router.post('/municipality', ProblemController.problems_get_from_municipality);
 
+router.post('/municipality/street', ProblemController.problems_get_from_municipality_and_street);
+
 router.post('/', ProblemController.problems_create_problem);
 
 router.delete('/:id', ProblemController.problems_delete_problem);

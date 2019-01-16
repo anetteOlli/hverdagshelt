@@ -29,6 +29,16 @@ exports.problems_get_from_municipality = (req, res) => {
   });
 };
 
+exports.problems_get_from_municipality_and_street = (req, res) => {
+  console.log(
+    '/problems/municipality/street: ' + req.body.street + ", " + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
+  );
+  problemDao.getFromStreet(req.body, (status, data) => {
+    res.status(status).json(data);
+    console.log(data);
+  });
+};
+
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   console.log(req.body, req.files[0]);
