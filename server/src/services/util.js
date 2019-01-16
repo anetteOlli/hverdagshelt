@@ -42,13 +42,12 @@ export const checkAuth = (req: () => mixed, res: express$Response, next: express
 };
 
 /*---     Generate token        ---*/
-export const genToken = (id: number, email: string, isAdmin: boolean) =>
+export const genToken = (id: number, priority: string) =>
   jwt.sign(
     {
       user: {
         id,
-        email,
-        isAdmin
+        priority
       }
     },
     process.env.JWT_KEY,
@@ -60,6 +59,7 @@ export const genToken = (id: number, email: string, isAdmin: boolean) =>
  * A method for generating the token a user uses to verify his account
  * @param packageJson json with the packageInformation
  * @returns the token made specifically for the user
+ *
  */
 export const genTokenEmail = (packageJson: object) => {
   return jwt.sign(

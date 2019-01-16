@@ -9,7 +9,8 @@ export type Problem = {
   last_edited: string,
   location_fk: string,
   status_fk: string,
-  category_fk: string
+  category_fk: string,
+  support: number
 };
 
 export type State = {
@@ -44,11 +45,12 @@ const initState = {
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
       latitude: '63.42656212314987',
-      longitude: '10.393969503996345'
+      longitude: '10.393969503996345',
+      support: -1
     }
   ],
   errorMessage: '',
-  currentProblemId: -1,
+  currentProblemId: 2,
   editMode: false
 };
 

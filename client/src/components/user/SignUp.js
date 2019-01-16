@@ -167,7 +167,7 @@ class SignUp extends React.Component<Props, State> {
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal" className={classes.formControl}>
-          <InputLabel htmlFor="category-checkbox">Kommuner entrepenøren jobber i lol:</InputLabel>
+          <InputLabel htmlFor="category-checkbox">Kategorier entrepenøren jobber innenfor lol:</InputLabel>
           <Select
             multiple
             value={this.state.entrepreneurCategories}
@@ -254,7 +254,7 @@ class SignUp extends React.Component<Props, State> {
             validators={['required', 'isPasswordMatch']}
             errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
           />
-          <Button fullWidth variant="contained" className={classes.button} type="submit">
+          <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
             Register
           </Button>
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
@@ -286,7 +286,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles, { withTheme: true })(withSnackbar(SignUp))));
+)(withStyles(styles)(withSnackbar(SignUp)));
