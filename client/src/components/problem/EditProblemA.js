@@ -86,7 +86,7 @@ class EditProblemA extends React.Component<Props, State> {
   handleSubmit = e => {
     // gå videre til å lagre endringer
     this.state.last_edited = new Date();
-    e.preventDefault();
+   // e.preventDefault();
     console.log(this.state);
   };
 
@@ -110,7 +110,7 @@ class EditProblemA extends React.Component<Props, State> {
                     margin="normal"
                     label="Status:"
                     name="status_fk"
-                    value={problem.status_fk}
+                    value={this.state.status_fk}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -129,7 +129,7 @@ class EditProblemA extends React.Component<Props, State> {
                     label="Beskrivelse"
                     rowsMax={10}
                     name="problem_description"
-                    value={problem.problem_description}
+                    value={this.state.problem_description}
                     onChange={this.handleChange}
                     validators={['required', 'minStringLength:1']}
                     errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
@@ -140,7 +140,7 @@ class EditProblemA extends React.Component<Props, State> {
                     margin="normal"
                     label="Kategori"
                     name="category_fk"
-                    value={problem.category_fk}
+                    value={this.state.category_fk}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -152,7 +152,7 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
                 </ValidatorForm>
-                <Paper className={classes.paper}> Dato startet: {problem.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
@@ -163,7 +163,13 @@ class EditProblemA extends React.Component<Props, State> {
                   <ExpansionPanelDetails>
                     <div />
                     <div>
-                      <img id="img" top width="100%" src={problem.img_user || 'http://placehold.it/180'} alt="Bilde" />
+                      <img
+                        id="img"
+                        top
+                        width="100%"
+                        src={this.state.img_user || 'http://placehold.it/180'}
+                        alt="Bilde"
+                      />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -176,7 +182,7 @@ class EditProblemA extends React.Component<Props, State> {
                 </Typography>
 
                 <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-                  <Paper className={classes.paper}> Entreprenør: {problem.entrepreneur_fk} </Paper>
+                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
                   <Paper
                     className={classes.paper}
@@ -186,18 +192,17 @@ class EditProblemA extends React.Component<Props, State> {
                     value={'Beskrivelse:'}
                     name="problem_description"
                   >
-                    {'Beskrivelse: \n ' + problem.description_entrepreneur}
+                    {'Beskrivelse: \n ' + this.state.description_entrepreneur}
                   </Paper>
 
                   <Paper className={classes.paper}>
-                    {' '}
                     Entreprenør kontakt informasjon:{' '}
                     {
                       // her kommer kontakt informasjon
-                    }{' '}
+                    }
                   </Paper>
 
-                  <Paper className={classes.paper}> Dato Endret: {problem.last_edited} </Paper>
+                  <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
 
                   <div>
                     <ExpansionPanel>
@@ -214,7 +219,7 @@ class EditProblemA extends React.Component<Props, State> {
                             top
                             width="100%"
                             src={
-                              problem.img_entrepreneur ||
+                              this.state.img_entrepreneur ||
                               'https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg' ||
                               'http://placehold.it/180'
                             }
@@ -241,7 +246,8 @@ class EditProblemA extends React.Component<Props, State> {
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <Button fullWidth variant="contained" className={classes.button} type="submit">
+              <Button fullWidth variant="contained" className={classes.button} >
+                {/*onClick={this.handleSubmit()}*/}
               Lagre endringer
             </Button>
           </div>
@@ -252,8 +258,22 @@ class EditProblemA extends React.Component<Props, State> {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.problem !== this.props.problem){
+      this.setState({
+        ...nextProps.problem
+      });
+      console.log('REEE',this.state);
+    }
+    console.log(this.state);
+  }
+
   componentDidMount() {
-    this.props.getCategories().then(() => console.log("Categories loaded in editproblemA: ",this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.setState({
+      ...this.props.problem
+    });
+    console.log(this.state)
   }
 }
 
