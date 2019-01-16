@@ -14,12 +14,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
-import Map from '../map/maptest';
+import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 
 import EnhancedTableHead from '../util/SelectTable';
-
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
@@ -96,18 +95,18 @@ class ProblemDetails extends React.Component<Props, State> {
     categories: [],
     isHidden: true,
     power: '',
-    open: false,
+    open: false
   };
 
   onClickAdd = () => {
-    console.log("Trykte add knappen..");
+    console.log('Trykte add knappen..');
 
     this.handleClickOpen();
     this.toggleHidden();
   };
 
   onClickEdit = () => {
-    console.log("Trykte på edit");
+    console.log('Trykte på edit');
     this.props.goToProblemEdit(this.props.problem_id);
   };
 
@@ -119,7 +118,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
   handleClickOpen = () => {
     this.setState({
-      open: true,
+      open: true
     });
   };
 
@@ -229,26 +228,17 @@ class ProblemDetails extends React.Component<Props, State> {
             </Grid>
 
             <Grid item xs={12}>
-              <div className="map">
-                <Map />
+              <div className="mapPlaceholder">
+                <MapMarkers />
               </div>
             </Grid>
           </Grid>
           <div>
-            <Dialog
-              onClose={this.handleClose}
-              aria-labelledby="customized-dialog-title"
-              open={this.state.open}
-            >
-              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-
-              </DialogTitle>
+            <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
+              <DialogTitle id="customized-dialog-title" onClose={this.handleClose} />
               <DialogContent>
-                <Typography gutterBottom>
-
-                </Typography>
-                <EnhancedTableHead/>
-
+                <Typography gutterBottom />
+                <EnhancedTableHead />
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
@@ -289,7 +279,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
-
 
 // bruker kan edit desciption hvis ikke locked
 // Admin kan gjøre alt

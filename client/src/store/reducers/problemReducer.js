@@ -50,7 +50,7 @@ const initState = {
     }
   ],
   errorMessage: '',
-  currentProblemId: -1,
+  currentProblemId: 2,
   editMode: false
 };
 
