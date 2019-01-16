@@ -43,9 +43,10 @@ type State = {
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
+  entrepreneurId: number,
   isEntrepreneur: boolean,
+  entrepreneurMunies: string[],
   entrepreneurCategories: string[],
-  entrepreneurMunies: string[]
 };
 
 const styles = (theme: Object) => ({
@@ -355,4 +356,4 @@ export default connect(
             </MenuItem>
           ))}
         </SelectValidator>
-   */
+*/

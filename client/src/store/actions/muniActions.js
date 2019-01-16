@@ -25,3 +25,39 @@ export const getMunicipalities = () => {
       );
   };
 };
+
+export const getCounties = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData('div/counties')
+      .then(response =>
+        dispatch({
+          type: 'GET_COUNTIES_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'GET_COUNTIES_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+
+export const getMunicipalitiesByCounty = (county: string) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`div/${county}/municipality`)
+      .then(response =>
+        dispatch({
+          type: 'GET_COUNTIES_BY_MUNI_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'GET_COUNTIES_BY_MUNI_ERROR',
+          payload: error
+        })
+      );
+  };
+};
