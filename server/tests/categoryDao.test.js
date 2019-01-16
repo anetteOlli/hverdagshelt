@@ -18,8 +18,8 @@ let dao = new CategoryDAO(pool);
 jest.setTimeout(30000);
 
 beforeAll(done => {
-  runsqlfile('../../src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('../../src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
+  runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
+    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
 afterAll(() => pool.end());
