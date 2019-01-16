@@ -79,7 +79,8 @@ class SignUp extends React.Component<Props, State> {
     isEntrepreneur: false,
     entrepreneurName: '',
     entrepreneurMunies: [],
-    entrepreneurCategories: []
+    entrepreneurCategories: [],
+    entrepreneurId: 0
   };
 
   handleChange = e => {
@@ -107,13 +108,15 @@ class SignUp extends React.Component<Props, State> {
       isEntrepreneur,
       entrepreneurMunies,
       entrepreneurCategories,
-      entrepreneurName
+      entrepreneurName,
+      entrepreneurId
     } = this.state;
     console.log(this.state);
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          muni,
+          municipality: 'Trondheim',
+          county: 'Trøndelag',
           email,
           password
         })
@@ -123,7 +126,19 @@ class SignUp extends React.Component<Props, State> {
         });
     else {
       this.props
-        .signUpEntrepreneur({ muni, email, password }, { entrepreneurName, entrepreneurMunies, entrepreneurCategories })
+        .signUpEntrepreneur(
+          { municipality: 'Trondheim', county: 'Trøndelag', email, password },
+          {
+            bedriftNavn: entrepreneurName,
+            org_nr: entrepreneurId,
+            municipalities: [
+              { county: 'Trøndelag', municipality: 'Trondheim' },
+              { county: 'Trøndelag', municipality: 'Grong' },
+              { county: 'Trøndelag', municipality: 'Skaun' }
+            ],
+            categories: ['Snowplow', 'Tree in road']
+          }
+        )
         .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
     }
   };
@@ -190,6 +205,17 @@ class SignUp extends React.Component<Props, State> {
             ))}
           </Select>
         </FormControl>
+
+        <TextValidator
+          fullWidth
+          margin="normal"
+          label="entrepreneurId"
+          name="entrepreneurId"
+          value={this.state.entrepreneurId}
+          onChange={this.handleChange}
+          validators={['required', 'isNumber']}
+          errorMessages={['Feltet kan ikke være tomt', 'må være tall']}
+        />
       </div>
     );
     if (isLoggedIn) return <Redirect to="/" />;

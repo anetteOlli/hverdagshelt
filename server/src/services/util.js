@@ -77,6 +77,6 @@ export const verifyTokenEmail = (token: object) => {
   }
 };
 /*--- Hashing and validation password ---*/
-export const hashPassword = (password: string) => bcrypt.hashSync(password, bcrypt.genSaltSync());
-export const validatePassword = (inputPassword: string, currentPassword: string) =>
+export const hashPassword = (password: string):string => bcrypt.hashSync(password, bcrypt.genSaltSync());
+export const validatePassword = (inputPassword: string, currentPassword: string): boolean =>
   bcrypt.compareSync(inputPassword, currentPassword);
