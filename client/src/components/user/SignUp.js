@@ -159,6 +159,7 @@ class SignUp extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
+    const muniNotReady = (this.state.county === '');
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -172,7 +173,7 @@ class SignUp extends React.Component<Props, State> {
           validators={['required']}
           errorMessages={['Feltet kan ikke være tomt']}
         />
-        <FormControl fullWidth margin="normal" className={classes.formControl}>
+        <FormControl fullWidth margin="normal" className={classes.formControl} disabled={muniNotReady}>
           <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
           <Select
             multiple
@@ -247,6 +248,7 @@ class SignUp extends React.Component<Props, State> {
             ))}
           </SelectValidator>
           <SelectValidator
+            disabled={muniNotReady}
             fullWidth
             margin="normal"
             label="Kommune: "
