@@ -6,10 +6,13 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import Popover from '@material-ui/core/Popover/Popover';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import Map from '../map/maptest';
 import Edit from '@material-ui/icons/BorderColor';
@@ -128,8 +131,6 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
-    //console.log(problem);
-
     if (problem) {
       return (
         <div className={classes.main}>
@@ -158,7 +159,6 @@ class ProblemDetails extends React.Component<Props, State> {
             <div className={classes.title}>
               <Grid item xs={12}>
                 <Typography variant="h2" gutterBottom align="left">
-                  TITTEL DEFAULT
                   {problem.problem_title}
                 </Typography>
               </Grid>
@@ -264,24 +264,13 @@ class ProblemDetails extends React.Component<Props, State> {
       return <div>LOADING PROBLEM...</div>;
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentProblemId !== this.props.currentProblemId)
-      this.props.getProblemById(nextProps.currentProblemId);
-
-  }
-
-  componentDidMount() {
-
-  }
-
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const problems = state.problem.problems;
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
 
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
-  const problem = problems;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,

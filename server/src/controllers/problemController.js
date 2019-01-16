@@ -25,7 +25,6 @@ exports.problems_get_from_municipality = (req, res) => {
     '/problems/municipality/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
   problemDao.getFromMunicipality(req.body, (status, data) => {
-    console.log(data)
     res.status(status).json(data);
   });
 };
