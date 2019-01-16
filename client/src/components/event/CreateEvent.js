@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel,} from '@material-ui/core';
+import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel, Input, InputLabel } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
@@ -15,6 +15,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
 import Map from '../map/maptest';
+import moment from 'moment';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
+import 'date-fns';
+import DateFormat from 'dateformat';
+
 
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
@@ -30,16 +36,22 @@ type State = {
 
   title: string,
   description: string,
-  dateStart: string,
-  dateEnd: string,
+  dateStart: Date,
+  dateEnd: Date,
   imageURL: string,
   status: string,
 
   displayImg: string,
   picture: any,
 
+  county: string,
   municipality: string,
+  city: string,
   street: string,
+  cords : {
+    lat: string,
+    lng: string
+  },
 
 };
 
@@ -48,6 +60,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%'
+  },
+  title: {
+    marginTop: 30,
   },
   container: {
     display: 'flex',
@@ -88,45 +103,27 @@ const styles = theme => ({
   },
   mapText:{
     marginTop: 40,
-  }
+  },
 });
-
-/**Municipality placeholder*/
-const municipalities = [
-  {
-    value: 'Rogaland',
-    label: 'Rogaland',
-  },
-  {
-    value: 'Hordaland',
-    label: 'Hordaland',
-  },
-  {
-    value: 'Sør-Trøndelag',
-    label: 'Sør-Trøndelag',
-  },
-  {
-    value: 'Finnmark',
-    label: 'Finnmark',
-  },
-];
 
 /** @return the title for a specific step in the stepper */
 function getSteps() {
-  return ['Hvor er arrangementet?', 'Beskriv problemet'];
+  return ['Hvor er arrangementet?', 'Beskriv arrangementet'];
 }
 
 /** @return the content (divs, buttons, etc) for a specific step in the stepper
 * @params step: number, current step in Stepper
 * @params state: State, CreateEvent's State
 * @params handleChange: @see handleChange
-* @params handleChangeSpec: @see handleChangeSpec
+* @params handleStartDateChange: @see handleStartDateChange
+* @params handleEndDateChange: @see handleEndDateChange
 * @params handleUpload: @see handleUpload
 */
 function getStepContent(step: number,
                         state: State,
                         handleChange: function,
-                        handleChangeSpec: function,
+                        handleStartDateChange: function,
+                        handleEndDateChange: function,
                         handleUpload: function,
                         classes: Props) {
 
@@ -135,7 +132,7 @@ function getStepContent(step: number,
       return (
         <Card className={classes.contentNull}>
           <CardContent>
-          <Typography>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
+          <Typography variant="body1" className={classes.info}>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -169,6 +166,7 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
+              <Typography variant="body1">Lokasjon:</Typography>
               <Typography>{state.municipality}</Typography>
               <Typography>{state.street}</Typography>
               <TextValidator
@@ -196,28 +194,28 @@ function getStepContent(step: number,
                 validators={['required']}
                 errorMessages={['Du må skrive inn en beskrivelse']}
               />
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Dato arrangementet starter"
-                name="dateStart"
-                autoComplete="DD-MM-ÅÅÅÅ"
-                value={state.dateStart}
-                onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en start-dato']}
-              />
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Dato arrangementet slutter"
-                name="dateEnd"
-                autoComplete="DD-MM-ÅÅÅÅ"
-                value={state.dateEnd}
-                onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en slutt-dato']}
-              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container className={classes.grid} justify="space-around">
+                  <DatePicker
+                    fullWidth
+                    margin="normal"
+                    label="Dato arrangementet starter"
+                    value={state.dateStart}
+                    onChange={handleStartDateChange}
+                  />
+                </Grid>
+              </MuiPickersUtilsProvider>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container className={classes.grid} justify="space-around">
+                  <DatePicker
+                    fullWidth
+                    margin="normal"
+                    label="Dato arrangementet slutter"
+                    value={state.dateEnd}
+                    onChange={handleEndDateChange}
+                  />
+                </Grid>
+              </MuiPickersUtilsProvider>
               <TextValidator
                 fullWidth
                 margin="normal"
@@ -278,29 +276,35 @@ class CreateEvent extends React.Component<Props, State>{
 
     title: '',
     description: '',
-    dateStart: '',
-    dateEnd: '',
+    dateStart: new Date('2014-08-18T00:00:00'),
+    dateEnd: new Date('2014-08-18T00:00:00'),
     status: '',
     imageURL: '',
 
     picture: '',
     displayImg: '',
 
+    county: '',
     municipality: '',
+    city: '',
     street: '',
+    cords : {
+      lat: '',
+      lng: ''
+    },
   };
 
   render() {
     const { classes } = this.props;
     //const { enqueueSnackbar } = this.props;
     const steps = getSteps();
-    const { activeStep } = this.state;
+    const { dateStart, dateEnd } = this.state;
 
     return (
       <div>
         <div className={classes.Stepper}>
-          <Typography variant="h3" className={classes.title}>Opprett et arrangement</Typography>
-          <Stepper activeStep={activeStep}>
+          <Typography variant="h2" className={classes.title} align="center" color="primary">Opprett et arrangement</Typography>
+          <Stepper activeStep={this.state.activeStep}>
             {steps.map((label, index) => {
               const props = {};
               const labelProps = {};
@@ -312,7 +316,7 @@ class CreateEvent extends React.Component<Props, State>{
             })}
           </Stepper>
           <div className={classes.bottomContent}>
-            {activeStep === steps.length ? (
+            {this.state.activeStep === steps.length ? (
               <Card className={classes.createeventdone} align="center">
                 <CardContent>
                   <Typography className={classes.instructions}>
@@ -328,12 +332,12 @@ class CreateEvent extends React.Component<Props, State>{
               </Card>
             ) : (
               <ValidatorForm ref="form" onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
-                {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload, classes)}
+                {getStepContent(this.state.activeStep, this.state, this.handleChange,
+                              this.handleStartDateChange, this.handleEndDateChange, this.handleUpload, this.props.classes)}
                 <Card className={classes.navigationbuttons} align="center">
                   <CardContent>
                     <Button
-                      disabled={activeStep === 0}
+                      disabled={this.state.activeStep === 0}
                       onClick={this.handleBack}
                       className={classes.button}
                     >
@@ -345,7 +349,7 @@ class CreateEvent extends React.Component<Props, State>{
                       className={classes.button}
                       type="submit"
                     >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                     </Button>
                 </CardContent>
               </Card>
@@ -356,6 +360,23 @@ class CreateEvent extends React.Component<Props, State>{
       </div>
     );
   }
+
+  /**Handles the dates*/
+  handleStartDateChange = date => {
+    var dateFormat = require('dateformat');
+    console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    this.setState({
+      dateStart: dateFormat(date, "isoDateTime").slice(0,19)
+      });
+  };
+  /**Handles the dates*/
+  handleEndDateChange = date => {
+    var dateFormat = require('dateformat');
+    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    this.setState({
+      dateEnd: dateFormat(date, "isoDateTime").slice(0,19),
+      });
+  };
 
   /** Handles clicking "Next" button */
   handleNext = () => {
@@ -385,20 +406,33 @@ class CreateEvent extends React.Component<Props, State>{
   handleSubmit = e => {
     e.preventDefault();
     const { picture, title} = this.state;
-    //console.log(this.state);
 
     if(this.state.activeStep > 0){
-      if (!picture) {
-        this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
-        return;
-      }
+      // if (!picture) {
+      //   this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
+      //   return;
+      // }
       /*--- Need formdata so multer module in backend can store the image ---*/
       const formData = new FormData();
-      formData.append('title', title);
-      formData.append('picture', picture);
+      //formData.append('title', title);
+      //formData.append('picture', picture);
+      const newEvent = {
+        event_name: this.state.title,
+        event_description: this.state.description,
+        date_starting: this.state.dateStart,
+        date_ending: this.state.dateEnd,
+        status_fk: this.state.status,
+        event_img: this.state.imageURL,
+
+        county_fk: this.state.county,
+        municipality_fk: this.state.municipality,
+        city_fk: this.state.city,
+        street_fk: this.state.street,
+        lat:  this.state.cords.lat,
+        lng:  this.state.cords.lng,
+      }
       console.log(formData);
-      //@TODO Save in DB/Redux
-      this.props.createEvent(this.state).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
+      this.props.createEvent(newEvent).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
       );
     }
     this.handleNext();
@@ -417,36 +451,31 @@ class CreateEvent extends React.Component<Props, State>{
     });
   };
 
-  componentWillMount(){
-    // this.getMunicipalities();
-  }
-
   componentWillReceiveProps(nextProps){
-    console.log("HEEEER")
+    console.log("HEEEER");
     console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
         cords: nextProps.cords,
         street: nextProps.street,
-        municipality: nextProps.muni,
+        municipality: nextProps.municipality,
         county: nextProps.county,
         city: nextProps.city
         })
     }
-    // this.getMunicipalities();
   }
-}//CreateEvent
+}//Class
 
 /**Handles map information after choosing location*/
 const mapStateToProps = state => {
   return {
-    errorMessage: state.events.errorMessage,
+    errorMessage: state.errorMessage,
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
     municipality: state.map.muni,
     city: state.map.city,
-    cords: state.map.cords
+    cords: state.map.currentMarker,
   };
 };
 
@@ -456,8 +485,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
-  null,
   mapStateToProps,
   mapDispatchToProps
   )(withRoot(withStyles(styles)(withSnackbar(CreateEvent))));

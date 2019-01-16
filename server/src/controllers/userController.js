@@ -1,6 +1,6 @@
 const UserDao = require('../dao/userDao');
 const pool = require('../services/database');
-import { validatePassword, genToken } from '../services/util';
+import { validatePassword, genToken, hashPassword } from '../services/util';
 let userDao = new UserDao(pool);
 
 exports.users_get_all = (req, res) => {
@@ -11,17 +11,13 @@ exports.users_get_all = (req, res) => {
 };
 
 exports.users_login = (req, res) => {
-  return res.status(200).json({
-    id: 1,
-    jwt: genToken(1, 'yaboie@lol.com')
-  });
-
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.sendStatus(404);
     if (validatePassword(req.body.password, data[0].password)) {
       res.status(200).json({
         id: data[0].id,
-        jwt: genToken(data[0].id, data[0].email)
+        jwt: genToken(data[0].id, data[0].priority),
+        priority: data[0].priority
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
@@ -40,10 +36,26 @@ exports.users_get_user = (req, res) => {
 };
 
 exports.users_create_user = (req, res) => {
-  console.log(req.body);
-  userDao.createOne(req.body, (status, data) => {
-    res.status(status);
-    res.json(data);
+  userDao.createUser(req.body, hashPassword(req.body.password), (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.users_create_entrepreneur = (req, res) => {
+  console.log('WE GOT HERE 1');
+  userDao.createUser(req.body.user, hashPassword(req.body.user.password), (status, data) => {
+    console.log('WE GOT HERE 2', status, data);
+    if (status !== 200) return res.status(status).json(data);
+    console.log('WE GOT HERE 2.5', status, data);
+    userDao.createEntrepreneur(req.body.entrepreneur, data.insertId, (status, data) => {
+      console.log('WE GOT HERE 3', status, data);
+      if (status !== 200) return res.status(status).json(data);
+      const ent_id = data.insertId;
+      userDao.linkEntrepreneur(req.body.entrepreneur, ent_id, (status, data) => {
+        if (status !== 200) return res.status(status).json(data);
+      });
+    });
+    return res.status(status).json(data);
   });
 };
 

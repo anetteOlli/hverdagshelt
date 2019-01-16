@@ -5,11 +5,13 @@ export type Problem = {
   problem_description: string,
   problem_locked: number,
   img_user: string,
+  img_entrepreneur: string,
   date_made: string,
   last_edited: string,
   location_fk: string,
   status_fk: string,
-  category_fk: string
+  category_fk: string,
+  support: number
 };
 
 export type State = {
@@ -39,16 +41,18 @@ const initState = {
       problem_description: 'Dette er krise kom og fiks!',
       problem_locked: 0,
       img_user: 'https://i.imgur.com/ykbz8hO.png',
+      img_entrepreneur: 'https://i.imgur.com/ykbz8hO.png',
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
       latitude: '63.42656212314987',
-      longitude: '10.393969503996345'
+      longitude: '10.393969503996345',
+      support: -1
     }
   ],
   errorMessage: '',
-  currentProblemId: -1,
+  currentProblemId: 2,
   editMode: false
 };
 

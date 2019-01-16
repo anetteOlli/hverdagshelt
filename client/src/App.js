@@ -40,9 +40,7 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: Object,
-  refresh: Function,
-  hasCheckedJWT: boolean
+  classes: Object
 };
 
 const App = (props: Props) => {
@@ -60,7 +58,7 @@ const App = (props: Props) => {
                 <Route exact path="/uploadfile" component={UploadFile} />
                 <Route exact path="/map" component={MapMarkers} />
                 <Route exact path="/registrer-bruker" component={SignUp} />
-                <Route exact path="/problem" component={EditProblemMain} />
+                <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
                 <Route exact path="/lagproblem" component={CreateProblem} />
                 <Route exact path="/problemdetails" component={ProblemDetails} />
                 <Route exact path="/opprArrangement" component={CreateEvent} />
@@ -83,5 +81,4 @@ const App = (props: Props) => {
   );
 };
 
-// $FlowFixMe
 export default withRoot(withStyles(styles)(App));

@@ -10,8 +10,7 @@ exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
   problemDao.getAll((status, data) => {
     console.log(data);
-    res.status(status);
-    res.json(data);
+    res.status(status).json(data);
   });
 };
 
@@ -24,7 +23,7 @@ exports.problems_get_problem = (req, res) => {
 
 exports.problems_get_from_municipality = (req, res) => {
   console.log(
-    '/problems/municipality/' + req.body.municipality_fk + '(' + req.body.county_fk + ') fikk GET request fra klient'
+    '/problems/municipality/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
   problemDao.getFromMunicipality(req.body, (status, data) => {
     res.status(status).json(data);
@@ -79,14 +78,15 @@ exports.problems_create_problem = (req, res) => {
 
 exports.problems_delete_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk delete request fra klient');
-  if (req.userData.user.isAdmin) {
+  console.log(req.userData);
+  if (req.userData.priority == 'Administrator' || req.userData.priority == 'Municipality') {
     problemDao.deleteOne(req.params.id, (status, data) => {
       return res.status(status).json(data);
     });
   }
   problemDao.getOne(req.params.id, (status, data) => {
     if (data[0].problem_locked) return res.status(400).json({ message: 'problem is locked' });
-    if (req.userData.user.id !== data[0].user_fk)
+    if (req.userData.id !== data[0].user_fk)
       return res.status(400).json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
     problemDao.deleteOne(req.params.id, (status, data) => {
       return res.status(status).json(data);
