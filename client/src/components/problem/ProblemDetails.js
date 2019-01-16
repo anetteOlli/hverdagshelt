@@ -128,7 +128,7 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn } = this.props;
-    console.log(problem);
+    //console.log(problem);
     if (problem) {
       return (
         <div className={classes.main}>
@@ -226,7 +226,6 @@ class ProblemDetails extends React.Component<Props, State> {
                 </Grid>
               </Grid>
             </Grid>
-
             <Grid item xs={12}>
               <div className="mapPlaceholder">
                 <MapMarkers />

@@ -127,7 +127,6 @@ class Tabletest extends React.Component {
 
   handleClick = (id) => {
      this.props.goToProblemDetail(id);
-
   };
 
   handleChangePage = (event, page) => {
