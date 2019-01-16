@@ -125,7 +125,6 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
 
-
   render() {
     const { classes, problem, isLoggedIn } = this.props;
     if (problem) {
@@ -251,7 +250,15 @@ class ProblemDetails extends React.Component<Props, State> {
       return <div>LOADING PROBLEM...</div>;
     }
   }
+  componentDidMount() {
+    console.log("PRIO:");
+    console.log(this.state.userPriority);
+  }
+
+
 }
+
+
 
 const mapStateToProps = state => {
   const problems = state.problem.problems;
