@@ -74,13 +74,13 @@ test("Testing createEntrepreneur from userDao", (done) => {
 
 test("Testing linkEntrepreneur from userDao", (done) => {
   let json = {
-    categories : ["Testing", "Tree in road"],
+    categories : ["Testing", "Hole in road"],
     municipalities: [
       {"municipality":"Nord-Fron", "county":"Oppland"},
-      {"municipality":"Sør-Fron", "county": "Oppland"}
+      {"municipality":"Sør-Fron", "county":"Oppland"}
     ]
   };
-  let id = 3;
+  let id = 1;
   dao.linkEntrepreneur(json,id,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(4);
@@ -103,7 +103,7 @@ test("Testing patchOne from userDao", (done) => {
 });
 
 test("Testing deleteOne from userDao", (done) => {
-  let id = 4;
+  let id = 2;
   dao.deleteOne(id,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
