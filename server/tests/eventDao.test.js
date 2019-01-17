@@ -74,13 +74,12 @@ test('Testing getOne from eventDao', (done) => {
   })
 });
 
-
-expect("Testing getAllMunicipalities from eventDao", (done) => {
+test("Testing getAllMunicipalities from eventDao", (done) => {
   let json = {
     municipality_fk: "Trondheim",
     county_fk: "Trøndelag"
   };
-  dao.getFromMunicipality(json,(status,data) => {
+  dao.getByMunicipality(json,(status,data) => {
     expect(status).toBe(200);
     expect(data).toBeArrayOfSize(2);
     expect(data[0]).toBe({
@@ -154,8 +153,15 @@ test("Testing patch from eventDao", (done) => {
   dao.patch(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
+    done();
   })
 });
 
-
-
+test("TESTING delete from eventDAO", (done) => {
+  let id = 1;
+  dao.deleteOne(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});

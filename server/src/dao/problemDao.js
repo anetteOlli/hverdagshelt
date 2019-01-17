@@ -57,27 +57,27 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? WHERE problem_id = ?',
       values,
       callback
     );
   }
 
-  patchKommuneAnsatt(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.status, json.last_edited, id];
+  patchMunicipality(id, json, callback) {
+    const values = [json.problem_title, json.problem_description, json.status, id];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? WHERE problem_id = ?',
       values,
       callback
     );
   }
 
-  patchBruker(id, json, callback) {
+  patchStandard(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.img_user];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?WHERE problem_id = ?',
       values,
       callback
     );
