@@ -1,4 +1,5 @@
 import { checkAuth } from '../services/util';
+let upload = require('../services/imageHostController');
 
 const router = require('express').Router();
 const EventController = require('../controllers/eventController');
@@ -9,7 +10,7 @@ router.get('/:id', EventController.events_get_event);
 
 router.post('/municipality', EventController.events_get_from_municipality);
 
-router.post('/', checkAuth, EventController.events_create_event);
+router.post('/', checkAuth, upload.uploader ,EventController.events_create_event);
 
 router.delete('/:id', checkAuth, EventController.events_delete_event);
 
