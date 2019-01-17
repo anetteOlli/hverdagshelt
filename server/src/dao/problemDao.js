@@ -47,7 +47,7 @@ module.exports = class ProblemDao extends Dao {
       json.street_fk
     ];
     super.query(
-      'INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk, last_edited) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW())',
+      'INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW())',
       newContent,
       callback
     );

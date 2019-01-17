@@ -28,28 +28,7 @@ test("Testing getAll from problem", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(3);
-    expect(data[0]).toBe({
-      problem_id:1,
-      problem_title:"Erlend tried his best",
-      problem_description: "A big hole has been found in the rear of Erlend",
-      problem_locked: false,
-      description_entrepreneur: null,
-      img_user: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5",
-      date_made:"2019-01-16T11:43:39.000Z",
-      last_edited: null,
-      date_finished: null,
-      category_fk: "Snowplow",
-      status_fk:"Unchecked",
-      user_fk:1,
-      entrepreneur_fk:null,
-      latitude:63.422724,
-      longitude: 10.395582,
-      support: 0,
-      municipality_fk: "Trondheim",
-      county_fk:"Trøndelag",
-      city_fk:"Trondheim",
-      street_fk:"Klostergata"
-    });
+    expect(data[0].problem_description).toBe("A big hole has been found in the rear of Erlend");
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
   })
@@ -60,29 +39,8 @@ test("Testing getOne from problemDao", (done) => {
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0]).toBe({
-      problem_id:1,
-      problem_title:"Erlend tried his best",
-      problem_description: "A big hole has been found in the rear of Erlend",
-      problem_locked: false,
-      description_entrepreneur: null,
-      img_user: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5",
-      date_made:"2019-01-16T11:43:39.000Z",
-      last_edited: null,
-      date_finished: null,
-      category_fk: "Snowplow",
-      status_fk:"Unchecked",
-      user_fk:1,
-      entrepreneur_fk:null,
-      latitude:63.422724,
-      longitude: 10.395582,
-      support: 0,
-      municipality_fk: "Trondheim",
-      county_fk:"Trøndelag",
-      city_fk:"Trondheim",
-      street_fk:"Klostergata"
-    });
     expect(data[0].problem_title).toBe("Erlend tried his best");
+    expect(data[0].problem_id).toBe(id);
     done();
   })
 });
@@ -95,28 +53,7 @@ test("Testing getFromMunicipality from problemDao", (done) => {
   dao.getFromMunicipality(json, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0]).toBe({
-      problem_id:1,
-      problem_title:"Erlend tried his best",
-      problem_description: "A big hole has been found in the rear of Erlend",
-      problem_locked: false,
-      description_entrepreneur: null,
-      img_user: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5",
-      date_made:"2019-01-16T11:43:39.000Z",
-      last_edited: null,
-      date_finished: null,
-      category_fk: "Snowplow",
-      status_fk:"Unchecked",
-      user_fk:1,
-      entrepreneur_fk:null,
-      latitude:63.422724,
-      longitude: 10.395582,
-      support: 0,
-      municipality_fk: "Trondheim",
-      county_fk:"Trøndelag",
-      city_fk:"Trondheim",
-      street_fk:"Klostergata"
-    });
+    expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].municipality_fk).toBe("Trondheim");
     expect(data[0].county_fk).toBe("Trøndelag");
     done();
