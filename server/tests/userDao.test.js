@@ -27,7 +27,7 @@ afterAll(() => pool.end());
 test("Testing getAll from userDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data[0].length).toBe(4);
+    expect(data.length).toBe(4);
     expect(data[0].email).toBe("user@user.user");
     done();
   });
@@ -62,7 +62,7 @@ test("Testing getCreateUser from userDao", (done) => {
 test("Testing createEntrepreneur from userDao", (done) => {
   let json = {
     bedriftNavn: "Test",
-    org_nr: 1010
+    org_nr: "01010"
   };
   let id = 3;
   dao.createEntrepreneur(json,id,(status,data) => {
@@ -76,8 +76,8 @@ test("Testing linkEntrepreneur from userDao", (done) => {
   let json = {
     categories : ["Testing", "Tree in road"],
     municipalities: [
-      {"Municipality":"Nord-Fron", "County":"Oppland"},
-      {"Municipality":"Sør-Fron", "County": "Oppland"}
+      {"municipality":"Nord-Fron", "county":"Oppland"},
+      {"municipality":"Sør-Fron", "county": "Oppland"}
     ]
   };
   let id = 3;
@@ -103,7 +103,7 @@ test("Testing patchOne from userDao", (done) => {
 });
 
 test("Testing deleteOne from userDao", (done) => {
-  let id = 1;
+  let id = 4;
   dao.deleteOne(id,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
@@ -116,7 +116,7 @@ test("Testing checkMail from userDao", (done) => {
   dao.checkEmail(email,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].id).toBe(1);
+    expect(data[0].user_id).toBe(1);
     expect(data[0].priority_fk).toBe("Standard");
     done();
   })
