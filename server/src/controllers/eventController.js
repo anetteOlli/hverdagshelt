@@ -31,12 +31,12 @@ exports.events_get_from_municipality = (req, res) => {
 exports.events_create_event = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag";
-  if (req.files[0] === undefined) {
+  if (req.file === undefined) {
     eventDao.createOne(req.body, (status, data) => {
       handleError(status,data);
     });
   } else {
-    image.uploadImage(req.files[0], url => {
+    image.uploadImage(req.file, url => {
       req.body.img_user = url;
       eventDao.createOne(req.body, (status, data) => {
         handleError(status,data,req,res);

@@ -43,5 +43,5 @@ class ImageHostController {
 }
 module.exports = {
   ImageHostController: new ImageHostController(),
-  uploader: upload.any()
+  uploader: upload.single('image')
 };
