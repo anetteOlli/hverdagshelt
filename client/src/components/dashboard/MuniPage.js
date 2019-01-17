@@ -119,6 +119,7 @@ class MuniPage extends React.Component<Props, State> {
     const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
     const { municipality } = this.props.match.params;
+    var moment = require('moment');
     return (
       <main>
         <Grid container spacing={24}>
@@ -188,8 +189,9 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">{event.event_description}</Typography>
                                 <Typography>
                                   <br />
-                                  Starter: {event.date_starting.toString()}<br />
-                                  Slutter: {event.date_ending.toString()}<br />
+                                  Starter: {moment().format(event.date_starting.toString())}<br />
+                                  Slutter: {moment().format(event.date_ending.toString())}<br />
+
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {event.street_fk}</Typography>
@@ -244,7 +246,7 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">{problem.problem_description}</Typography>
                                 <Typography>
                                   <br />
-                                  Dato lagt ut: {problem.date_made.toString()} <br />
+                                  Dato lagt ut: {moment(problem.date_made.toString()).calendar()} <br />
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {problem.street_fk}</Typography>
