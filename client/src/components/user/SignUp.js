@@ -49,10 +49,11 @@ type State = {
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
-  entrepreneurId: number,
+  orgNr: number,
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
-  entrepreneurCategories: string[]
+  entrepreneurCategories: string[],
+  isUniqueOrgNr: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -88,7 +89,8 @@ class SignUp extends React.Component<Props, State> {
     entrepreneurName: '',
     entrepreneurMunies: [],
     entrepreneurCategories: [],
-    entrepreneurId: 0
+    isUniqueOrgNr: false,
+    orgNr: 0
   };
 
   handleChange = e => {
@@ -127,7 +129,7 @@ class SignUp extends React.Component<Props, State> {
       entrepreneurMunies,
       entrepreneurCategories,
       entrepreneurName,
-      entrepreneurId
+      orgNr
     } = this.state;
     console.log(this.state);
     if (!isEntrepreneur)
@@ -148,7 +150,7 @@ class SignUp extends React.Component<Props, State> {
           { municipality: 'Trondheim', county: 'Trøndelag', email, password },
           {
             bedriftNavn: entrepreneurName,
-            org_nr: entrepreneurId,
+            org_nr: orgNr,
             municipalities: entrepreneurMunies.map(name => {
               return { county, municipality: name };
             }),
@@ -164,15 +166,32 @@ class SignUp extends React.Component<Props, State> {
 
   handleValidateEmail = () => {
     postData('users/validate_email', { email: this.state.email }).then(response => {
-      console.log(response);
+      const email = this.state.email;
       this.setState({
-        isUniqueEmail: response.data.emailExist
+        isUniqueEmail: response.data.emailExist,
+        email: email + ' '
+      });
+      this.setState({
+        email: email
+      });
+    });
+  };
+
+  handleValidateOrgNr = () => {
+    postData('div/validate_orgnr', { orgNr: this.state.orgNr }).then(response => {
+      const orgNr = this.state.orgNr;
+      this.setState({
+        isUniqueOrgNr: response.data.orgNrExist,
+        orgNr: orgNr + 1
+      });
+      this.setState({
+        orgNr: orgNr
       });
     });
   };
 
   render() {
-    const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
+    const { classes, isLoggedIn } = this.props;
     const muniNotReady = this.state.county === '';
     const EntrepenurSignUp = (
       <div>
@@ -198,7 +217,7 @@ class SignUp extends React.Component<Props, State> {
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {currentMunicipalities.map(name => (
+            {this.props.currentMunicipalities.map(name => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={this.state.entrepreneurMunies.indexOf(name) > -1} />
                 <ListItemText primary={name} />
@@ -217,7 +236,7 @@ class SignUp extends React.Component<Props, State> {
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {categories.map(name => (
+            {this.props.categories.map(name => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={this.state.entrepreneurCategories.indexOf(name) > -1} />
                 <ListItemText primary={name} />
@@ -225,17 +244,17 @@ class SignUp extends React.Component<Props, State> {
             ))}
           </Select>
         </FormControl>
-
         <TextValidator
           fullWidth
           margin="normal"
           label="entrepreneurId"
-          name="entrepreneurId"
+          name="orgNr"
           type="number"
-          value={this.state.entrepreneurId}
+          value={this.state.orgNr}
           onChange={this.handleChange}
-          validators={['required', 'isNumber']}
-          errorMessages={['Feltet kan ikke være tomt', 'må være tall']}
+          onBlur={this.handleValidateOrgNr}
+          validators={['required', 'isNumber', 'isOrgNr']}
+          errorMessages={['Feltet kan ikke være tomt', 'må være tall', 'Org nummeret finnes fra før']}
         />
       </div>
     );
@@ -256,7 +275,7 @@ class SignUp extends React.Component<Props, State> {
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {counties.map((option, index) => (
+            {this.props.counties.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
@@ -265,7 +284,7 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             disabled={muniNotReady}
             fullWidth
-            margin="no rmal"
+            margin="normal"
             label="Kommune: "
             name="muni"
             value={this.state.muni}
@@ -273,7 +292,7 @@ class SignUp extends React.Component<Props, State> {
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {currentMunicipalities.map((option, index) => (
+            {this.props.currentMunicipalities.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
@@ -351,6 +370,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
+    ValidatorForm.addValidationRule('isOrgNr', () => !this.state.isUniqueOrgNr);
     this.props.getCounties();
   }
 }

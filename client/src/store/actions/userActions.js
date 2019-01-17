@@ -106,3 +106,28 @@ export const signOut = () => {
     });
   };
 };
+
+export const clearError = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: 'CLEAR_ERROR'
+    });
+  };
+};
+
+export const forgotPassword = (email: string) => {
+  return (dispatch: Dispatch) => {
+    return postData('users/forgot', email)
+      .then(() => {
+        return dispatch({
+          type: 'TEMP_PASSWORD_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'TEMP_PASSWORD_ERROR',
+          payload: error
+        })
+      );
+  };
+};
