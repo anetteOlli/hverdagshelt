@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS county;
 DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS street;
-
+set foreign_key_checks = 1;
 
 CREATE TABLE county (
   name VARCHAR(255) PRIMARY KEY NOT NULL
@@ -128,13 +128,8 @@ CREATE TABLE entrepreneur_category (
                                      ent_cat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                      entrepreneur_fk INT NOT NULL,
                                      category_fk VARCHAR(30) NOT NULL
-)
+);
 
-
-
-ALTER TABLE user
-  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
-  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
 
 ALTER TABLE problem
   ADD FOREIGN KEY (status_fk) REFERENCES status(status),
@@ -144,6 +139,10 @@ ALTER TABLE problem
   ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
   ADD FOREIGN KEY (category_fk) REFERENCES category(category),
   ADD FOREIGN KEY (entrepreneur_fk) REFERENCES user(user_id);
+
+ALTER TABLE user
+  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
+  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
   ADD FOREIGN KEY (problem_id) REFERENCES problem(problem_id),
@@ -172,4 +171,3 @@ ALTER TABLE entrepreneur_category
   ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
   ADD FOREIGN KEY (category_fk) REFERENCES category(category);
 
-set foreign_key_checks = 1;
