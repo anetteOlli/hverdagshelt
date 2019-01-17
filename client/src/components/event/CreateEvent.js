@@ -427,26 +427,22 @@ class CreateEvent extends React.Component<Props, State>{
       //   return;
       // }
       /*--- Need formdata so multer module in backend can store the image ---*/
-      const formData = new FormData();
-      //formData.append('title', title);
-      //formData.append('picture', picture);
-      const newEvent = {
-        event_name: this.state.title,
-        event_description: this.state.description,
-        date_starting: this.state.dateStart,
-        date_ending: this.state.dateEnd,
-        status_fk: this.state.status,
-        event_img: this.state.imageURL,
+      let k = new FormData();
+      k.append("image",this.state.image);
+      k.append("event_name", this.state.title);
+      k.append("event_description", this.state.description);
+      k.append("date_starting", this.state.dateStart);
+      k.append("date_ending", this.state.dateEnd);
+      k.append("status_fk", 'Unchecked');
+      k.append("user_fk", this.state.user);
+      k.append("latitude", this.props.cords.lat);
+      k.append("longitude", this.props.cords.lng);
+      k.append("county_fk", this.state.county);
+      k.append("municipality_fk", this.state.municipality);
+      k.append("city_fk", this.state.city);
+      k.append("street_fk", this.state.street);
 
-        county_fk: this.state.county,
-        municipality_fk: this.state.municipality,
-        city_fk: this.state.city,
-        street_fk: this.state.street,
-        lat:  this.state.cords.lat,
-        lng:  this.state.cords.lng,
-      }
-      console.log(formData);
-      this.props.createEvent(newEvent).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
+      this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
       );
     }
     this.handleNext();

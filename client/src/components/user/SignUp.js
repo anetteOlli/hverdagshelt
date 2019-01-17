@@ -20,7 +20,7 @@ import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions'
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { postData } from '../../store/util';
+import { postData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -34,7 +34,9 @@ type Props = {
   categories: string[],
   counties: string[],
   currentMunicipalities: string[],
-  errorMessage: string
+  errorMessage: string,
+  getCounties: Function,
+  getMunicipalitiesByCounty: Function
 };
 
 type State = {
@@ -94,6 +96,15 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
+  handleCountyChange = e => {
+    this.setState({
+      county: e.target.value,
+      muni: '',
+      entrepreneurMunies: []
+    });
+    this.props.getMunicipalitiesByCounty(e.target.value);
+  };
+
   handleChecked = e => {
     this.setState({ [e.target.name]: e.target.checked });
   };
@@ -108,6 +119,7 @@ class SignUp extends React.Component<Props, State> {
     e.preventDefault();
     const {
       muni,
+      county,
       email,
       password,
       isEntrepreneur,
@@ -120,8 +132,8 @@ class SignUp extends React.Component<Props, State> {
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          municipality: 'Trondheim',
-          county: 'Trøndelag',
+          municipality: muni,
+          county,
           email,
           password
         })
@@ -136,15 +148,16 @@ class SignUp extends React.Component<Props, State> {
           {
             bedriftNavn: entrepreneurName,
             org_nr: entrepreneurId,
-            municipalities: [
-              { county: 'Trøndelag', municipality: 'Trondheim' },
-              { county: 'Trøndelag', municipality: 'Grong' },
-              { county: 'Trøndelag', municipality: 'Skaun' }
-            ],
-            categories: ['Snowplow', 'Tree in road']
+            municipalities: entrepreneurMunies.map(name => {
+              return { county, municipality: name };
+            }),
+            categories: entrepreneurCategories
           }
         )
-        .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+        .then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+        });
     }
   };
 
@@ -159,7 +172,7 @@ class SignUp extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
-    const muniNotReady = (this.state.county === '');
+    const muniNotReady = this.state.county === '';
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -237,7 +250,7 @@ class SignUp extends React.Component<Props, State> {
             label="Fylke: "
             name="county"
             value={this.state.county}
-            onChange={this.handleChange}
+            onChange={this.handleCountyChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
@@ -362,24 +375,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
-
-/*         <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          renderValue={selected => selected.join(', ')}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-*/

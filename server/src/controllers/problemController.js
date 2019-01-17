@@ -1,4 +1,4 @@
-import ImageHostController from '../services/imageHostController';
+const image = require('../services/imageHostController').ImageHostController;
 const ProblemDao = require('../dao/problemDao');
 const DivDao = require('../dao/divDao');
 
@@ -31,6 +31,7 @@ exports.problems_get_from_municipality = (req, res) => {
 };
 
 exports.problems_get_from_municipality_and_street = (req, res) => {
+  if(req.body.county === "Sør-Trøndelag" || req.body.county === "Nord-Trøndelag") req.body.county = "Trøndelag";
   console.log(
     '/problems/municipality/street: ' + req.body.street + ", " + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
@@ -43,12 +44,12 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag"; 
-  if (req.files[0] === undefined) {
+  if (req.file === undefined) {
     problemDao.createOne(req.body, (status, data) => {
       handleError(status,data);
     });
   } else {
-    ImageHostController.uploadImage(req, url => {
+    image.uploadImage(req.file, url => {
       req.body.img_user = url;
       problemDao.createOne(req.body, (status, data) => {
         handleError(status,data,req,res);
@@ -58,12 +59,9 @@ exports.problems_create_problem = (req, res) => {
 
   function handleError(status, data, req, res){
       if(status === 500) {
-        divDao.createCity(req.body.city_fk, (status,data) => {
-          console.log("her")
-          divDao.createStreet(req.body.street_fk, (status,data) => {
-            console.log("haer")
+        divDao.createCity(req.body.city_fk, () => {
+          divDao.createStreet(req.body.street_fk, () => {
             problemDao.createOne(req.body, (status,data) => {
-              console.log("haaer")
               res.status(status).json(data);
             })
           })
@@ -79,7 +77,7 @@ exports.problems_create_problem = (req, res) => {
 exports.problems_delete_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk delete request fra klient');
   console.log(req.userData);
-  if (req.userData.priority == 'Administrator' || req.userData.priority == 'Municipality') {
+  if (req.userData.priority === 'Administrator' || req.userData.priority === 'Municipality') {
     problemDao.deleteOne(req.params.id, (status, data) => {
       return res.status(status).json(data);
     });

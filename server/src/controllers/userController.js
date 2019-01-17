@@ -14,18 +14,22 @@ exports.users_login = (req, res) => {
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.sendStatus(404);
     if (validatePassword(req.body.password, data[0].password)) {
+      console.log(data);
       res.status(200).json({
-        id: data[0].id,
-        jwt: genToken(data[0].id, data[0].priority),
-        priority: data[0].priority
+        id: data[0].user_id,
+        jwt: genToken(data[0].user_id, data[0].priority_fk),
+        priority: data[0].priority_fk
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
 };
 
 exports.users_refresh = (req, res) => {
+  console.log(req.userData);
   res.status(200).json({
-    jwt: genToken(req.userData.user.id, req.userData.user.email)
+    id: req.userData.id,
+    jwt: genToken(req.userData.id, req.userData.priority),
+    priority: req.userData.priority
   });
 };
 
@@ -36,19 +40,15 @@ exports.users_get_user = (req, res) => {
 };
 
 exports.users_create_user = (req, res) => {
-  userDao.createUser(req.body, hashPassword(req.body.password), (status, data) => {
+  userDao.createUser(req.body, hashPassword(req.body.password), 'Standard', (status, data) => {
     res.status(status).json(data);
   });
 };
 
 exports.users_create_entrepreneur = (req, res) => {
-  console.log('WE GOT HERE 1');
-  userDao.createUser(req.body.user, hashPassword(req.body.user.password), (status, data) => {
-    console.log('WE GOT HERE 2', status, data);
+  userDao.createUser(req.body.user, hashPassword(req.body.user.password), 'Entrepreneur', (status, data) => {
     if (status !== 200) return res.status(status).json(data);
-    console.log('WE GOT HERE 2.5', status, data);
     userDao.createEntrepreneur(req.body.entrepreneur, data.insertId, (status, data) => {
-      console.log('WE GOT HERE 3', status, data);
       if (status !== 200) return res.status(status).json(data);
       const ent_id = data.insertId;
       userDao.linkEntrepreneur(req.body.entrepreneur, ent_id, (status, data) => {
