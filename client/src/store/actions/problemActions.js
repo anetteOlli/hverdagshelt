@@ -1,11 +1,11 @@
 // @flow
 import type { Action, Problem } from '../reducers/problemReducer';
-import type { State } from '../reducers';
-import { postData, putData, deleteData, getData } from '../util';
+import type { ReduxState } from '../reducers';
+import { postData, putData, deleteData, getData } from '../axios';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => State;
+type GetState = () => ReduxState;
 
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {

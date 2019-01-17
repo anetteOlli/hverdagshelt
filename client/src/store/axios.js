@@ -8,6 +8,7 @@ export const clearToken = (): void => localStorage.removeItem('token');
 const url: string = '';
 
 export const getData = (endpoint: string) => {
+  console.log(getToken());
   return axios.get(url + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -45,8 +46,4 @@ export const deleteData = (endpoint: string): any => {
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
-};
-
-export const signInAxios = (creds: { email: string, password: string }): any => {
-  return axios.post(url + 'users/login', creds);
 };
