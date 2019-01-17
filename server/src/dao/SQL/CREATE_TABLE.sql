@@ -131,6 +131,11 @@ CREATE TABLE entrepreneur_category (
 )
 
 
+
+ALTER TABLE user
+  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
+  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
+
 ALTER TABLE problem
   ADD FOREIGN KEY (status_fk) REFERENCES status(status),
   ADD FOREIGN KEY (user_fk) REFERENCES user(user_id),
@@ -139,10 +144,6 @@ ALTER TABLE problem
   ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
   ADD FOREIGN KEY (category_fk) REFERENCES category(category),
   ADD FOREIGN KEY (entrepreneur_fk) REFERENCES user(user_id);
-
-ALTER TABLE user
-  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
-  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
   ADD FOREIGN KEY (problem_id) REFERENCES problem(problem_id),
