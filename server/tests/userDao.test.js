@@ -67,7 +67,7 @@ test("Testing createEntrepreneur from userDao", (done) => {
   let id = 3;
   dao.createEntrepreneur(json,id,(status,data) => {
     expect(status).toBe(200);
-    expect(data[0].affectedRows).toBe(1);
+    expect(data.affectedRows).toBe(1);
     done();
   })
 });
@@ -106,7 +106,6 @@ test("Testing deleteOne from userDao", (done) => {
   let id = 2;
   dao.deleteOne(id,(status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
     done();
   })
 });
