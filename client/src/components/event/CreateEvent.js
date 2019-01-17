@@ -203,6 +203,12 @@ function getStepContent(step: number,
                     value={state.dateStart}
                     onChange={handleStartDateChange}
                   />
+                  <TimePicker
+                    margin="normal"
+                    label="Tid arrangementet starter"
+                    value={state.dateStart}
+                    onChange={handleStartDateChange}
+                  />
                 </Grid>
               </MuiPickersUtilsProvider>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -213,6 +219,12 @@ function getStepContent(step: number,
                     label="Dato arrangementet slutter"
                     value={state.dateEnd}
                     onChange={handleEndDateChange}
+                  />
+                  <TimePicker
+                    margin="normal"
+                    label="Tid arrangementet slutter"
+                    value={state.dateEnd}
+                    onChange={handleStartDateChange}
                   />
                 </Grid>
               </MuiPickersUtilsProvider>

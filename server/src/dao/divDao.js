@@ -23,5 +23,3 @@ module.exports = class DivDao extends Dao {
     super.query("INSERT INTO street VALUES(?)",[name],callback);
   }
 };
-
-};

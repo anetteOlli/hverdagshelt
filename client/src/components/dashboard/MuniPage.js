@@ -189,9 +189,8 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">{event.event_description}</Typography>
                                 <Typography>
                                   <br />
-                                  Starter: {moment().format(event.date_starting.toString())}<br />
-                                  Slutter: {moment().format(event.date_ending.toString())}<br />
-
+                                  Starter: {moment(event.date_starting.toString()).calendar()}<br />
+                                  Slutter: {moment(event.date_ending.toString()).calendar()}<br />
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {event.street_fk}</Typography>
