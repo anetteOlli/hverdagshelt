@@ -49,9 +49,9 @@ module.exports = class UserDao extends Dao {
   }
 
   patchOne(id, json, callback) {
-    const val = [json.email, json.password, json.problem, json.event, id];
+    const val = [json.email, json.password, id];
     super.query(
-      'update user set email = ?, password = ?, problem_fk = ?, event_fk = ? where user_id = ?',
+      'update user set email = ?, password = ? where user_id = ?',
       val,
       callback
     );

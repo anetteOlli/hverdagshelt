@@ -25,5 +25,100 @@ beforeEach(done => {
 afterAll(() => pool.end());
 
 test("Testing getAll from userDao", (done) => {
-  done();
-})
+  dao.getAll((status,data) => {
+    expect(status).toBe(200);
+    expect(data[0].length).toBe(4);
+    expect(data[0].email).toBe("user@user.user");
+    done();
+  });
+});
+
+test("Testing getOneById from userDao", (done) => {
+  let id = 3;
+  dao.getOneById(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(1);
+    expect(data[0].email).toBe('entr@entr.entr');
+    expect(data[0].priority_fk).toBe('Entrepreneur');
+    done();
+  })
+});
+
+test("Testing getCreateUser from userDao", (done) => {
+  let json = {
+    email:"rar@rar.rar",
+    municipality:"Nord-Fron",
+    county:"Oppland"
+  };
+  let password = 'test';
+  let standard = "standard";
+  dao.createUser(json,password,standard, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing createEntrepreneur from userDao", (done) => {
+  let json = {
+    bedriftNavn: "Test",
+    org_nr: 1010
+  };
+  let id = 3;
+  dao.createEntrepreneur(json,id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data[0].affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing linkEntrepreneur from userDao", (done) => {
+  let json = {
+    categories : ["Testing", "Tree in road"],
+    municipalities: [
+      {"Municipality":"Nord-Fron", "County":"Oppland"},
+      {"Municipality":"Sør-Fron", "County": "Oppland"}
+    ]
+  };
+  let id = 3;
+  dao.linkEntrepreneur(json,id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(4);
+    done();
+  })
+});
+
+
+test("Testing patchOne from userDao", (done) => {
+  let json = {
+    email:"yarra@yarra.yar",
+    password:"hacked"
+  };
+  let id = 1;
+  dao.patchOne(id,json,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing deleteOne from userDao", (done) => {
+  let id = 1;
+  dao.deleteOne(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing checkMail from userDao", (done) => {
+  let email = "user@user.user";
+  dao.checkEmail(email,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(1);
+    expect(data[0].id).toBe(1);
+    expect(data[0].priority_fk).toBe("Standard");
+    done();
+  })
+
+});

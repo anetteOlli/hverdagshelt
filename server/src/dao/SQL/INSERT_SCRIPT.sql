@@ -446,7 +446,7 @@ INSERT INTO municipality(municipality, county) VALUES('Rindal', 'Trøndelag');
 INSERT INTO category VALUES('Hole in road');
 INSERT INTO category VALUES('Tree in road');
 INSERT INTO category VALUES('Snowplow');
-
+INSERT INTO category VALUES('Testing');
 
 INSERT INTO city VALUES('Trondheim');
 INSERT INTO city VALUES('Vinstra');
