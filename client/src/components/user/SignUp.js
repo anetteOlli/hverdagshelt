@@ -250,7 +250,7 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             disabled={muniNotReady}
             fullWidth
-            margin="normal"
+            margin="no rmal"
             label="Kommune: "
             name="muni"
             value={this.state.muni}
