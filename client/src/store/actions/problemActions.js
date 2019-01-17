@@ -40,9 +40,9 @@ export const createProblem = (newProblem: Problem) => {
   };
 };
 
-export const editProblem = (problem: JSON) => {
+export const editProblem = (problem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return putData('problems', problem).then(() =>
+    return putData(`problems/${problem.problem_id}`, problem).then(() =>
       dispatch({
         type: 'EDIT_PROBLEM_SUCCESS'
       }).catch((error: Error) =>

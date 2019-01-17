@@ -14,7 +14,8 @@ import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
-import type {Problem} from '../../store/reducers/problemReducer';
+import type { Problem } from '../../store/reducers/problemReducer';
+import moment from 'moment';
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -22,15 +23,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
   entrepreneur_fk: number,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
@@ -66,15 +78,27 @@ const styles = (theme: Object) => ({
 class EditProblemA extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
     description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    entrepreneur_fk: '',
-    location_fk: '',
+    date_finished: '',
+    category_fk: '',
     status_fk: '',
-    category_fk: ''
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: '',
+
   };
 
   handleChange = e => {
@@ -85,14 +109,15 @@ class EditProblemA extends React.Component<Props, State> {
 
   handleSubmit = e => {
     // gå videre til å lagre endringer
-
-    console.log(this.state);
     const date = new Date();
+    console.log(this.state);
 
+    this.setState({
+      last_edited: date
+    })
 
-    goToProblemDetail(this.state.problem_id);
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id))
   };
-
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
@@ -154,7 +179,7 @@ class EditProblemA extends React.Component<Props, State> {
                       </MenuItem>
                     ))}
                   </SelectValidator>
-                  <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                  <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
 
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -167,7 +192,6 @@ class EditProblemA extends React.Component<Props, State> {
                       <div>
                         <img
                           id="img"
-                          top
                           width="100%"
                           src={this.state.img_user || 'http://placehold.it/180'}
                           alt="Bilde"
@@ -202,7 +226,7 @@ class EditProblemA extends React.Component<Props, State> {
                     }
                   </Paper>
 
-                  <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
+                  <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
 
                   <div>
                     <ExpansionPanel>
@@ -216,7 +240,6 @@ class EditProblemA extends React.Component<Props, State> {
                         <div>
                           <img
                             id="img"
-                            top
                             width="100%"
                             src={
                               this.state.img_entrepreneur ||
@@ -247,12 +270,11 @@ class EditProblemA extends React.Component<Props, State> {
                       {
                         // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
                       }
-
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                   <div className="mapPlaceholder">
-                  <MapMarkers />
-                </div>
+                    <MapMarkers />
+                  </div>
                 </div>
               </Grid>
             </ValidatorForm>
@@ -269,7 +291,6 @@ class EditProblemA extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
     console.log(this.state);
   }

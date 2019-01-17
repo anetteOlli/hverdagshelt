@@ -72,21 +72,30 @@ const styles = (theme: Object) => ({
     height: '100%',
     paddingBottom: 20,
     display: 'flex',
+    alignSelf:'stretch'
   },
   grid2: {
     paddingBottom: 20,
     height: '100%',
+    alignSelf:'stretch'
+
   },
   grid3: {
     paddingBottom: 20,
     Height: '100%',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    alignSelf:'stretch'
+
   },
   gridLeft: {
     paddingBottom: 20,
     paddingLeft: 200,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center',
+    alignSelf:'stretch'
   },
   MUI: {
     height: '100%'

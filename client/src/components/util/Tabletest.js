@@ -104,7 +104,19 @@ const styles = theme => ({
   paper: {
     height: '100%',
     width: '100%'
-  }
+  },
+  tableRow: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: '5%',
+  paddingRight: '5%'
+  },
+  tableRowBottom: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: '5%',
+    paddingRight: '5%'
+  },
 });
 
 class Tabletest extends React.Component {
@@ -144,7 +156,7 @@ class Tabletest extends React.Component {
     return (
       <div className={classes.main}>
         <Paper className={classes.paper} name="Main paper in table">
-          <div name="Main div in table">
+            <div name="Main div in table">
             <Table className={classes.table} aria-labelledby="tableTitle">
               <EnhancedTableHead
                 order={order}
@@ -164,23 +176,26 @@ class Tabletest extends React.Component {
                         tabIndex={-1}
                         key={n.problem_id}
                       >
-                        <TableCell component="th" scope="row" padding="none">
+                        <TableCell component="th" padding="none">
                           {n.problem_title}
                         </TableCell>
-                        <TableCell align="right">{n.status_fk}</TableCell>
-                        <TableCell align="right">{n.support}</TableCell>
+                        <TableCell className={classes.tableRow}>{n.status_fk}</TableCell>
+                        <TableCell className={classes.tableRow}>{n.support}</TableCell>
                       </TableRow>
                     );
                   })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 49 * emptyRows }}>
-                    <TableCell colSpan={6} />
+                {/*
+                  emptyRows > 0 && (
+                  <TableRow >
+                    <TableCell colSpan={3} />
                   </TableRow>
-                )}
+                )
+                */}
               </TableBody>
             </Table>
           </div>
           <TablePagination
+            className={classes.tableRowBottom}
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={data.length}
