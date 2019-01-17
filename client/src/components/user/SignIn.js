@@ -4,8 +4,15 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import withRoot from '../../withRoot';
-import { Checkbox, FormControlLabel, Paper, Typography, withStyles, CircularProgress } from '@material-ui/core';
+import {
+  Checkbox,
+  FormControlLabel,
+  Paper,
+  Typography,
+  withStyles,
+  CircularProgress,
+  DialogActions
+} from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
@@ -122,13 +129,14 @@ class SignIn extends React.Component<Props, State> {
                 validators={['required', 'isRightPassword']}
                 errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
               />
-              <DialogContent>
+                <DialogActions>
                 <FormControlLabel
                   control={<Checkbox onChange={this.handleRemember} color="primary" />}
-                  label="Remember me"
+                  label="Husk meg"
                 />
-                <Button onClick={this.handleGoToPassword}>Glemt passord</Button>
-              </DialogContent>
+                <div className={classes.grow}/>
+                <Button color="primary" onClick={this.handleGoToPassword}>Glemt passord</Button>
+                </DialogActions>
               <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
                 {isLoading && <CircularProgress size={20} className={classes.spinner} />}
                 Login
@@ -140,7 +148,7 @@ class SignIn extends React.Component<Props, State> {
                 className={classes.button}
                 onClick={this.handleClose}
               >
-                Cancel
+                Avbryt
               </Button>
             </ValidatorForm>
           ) : (
@@ -181,4 +189,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(SignIn))));
+)(withStyles(styles)(withSnackbar(SignIn)));

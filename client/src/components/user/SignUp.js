@@ -1,18 +1,21 @@
 // @flow
 import React from 'react';
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Typography,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-  FormControlLabel,
-  Switch,
-  Tooltip
-} from '@material-ui/core/';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core';
@@ -37,7 +40,8 @@ type Props = {
   currentMunicipalities: string[],
   errorMessage: string,
   getCounties: Function,
-  getMunicipalitiesByCounty: Function
+  getMunicipalitiesByCounty: Function,
+  history: Function
 };
 
 type State = {
@@ -53,7 +57,8 @@ type State = {
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
   entrepreneurCategories: string[],
-  isUniqueOrgNr: boolean
+  isUniqueOrgNr: boolean,
+  successDialog: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -90,7 +95,8 @@ class SignUp extends React.Component<Props, State> {
     entrepreneurMunies: [],
     entrepreneurCategories: [],
     isUniqueOrgNr: false,
-    orgNr: 0
+    orgNr: 0,
+    successDialog: false
   };
 
   handleChange = e => {
@@ -131,7 +137,6 @@ class SignUp extends React.Component<Props, State> {
       entrepreneurName,
       orgNr
     } = this.state;
-    console.log(this.state);
     if (!isEntrepreneur)
       this.props
         .signUpUser({
@@ -142,7 +147,12 @@ class SignUp extends React.Component<Props, State> {
         })
         .then(() => {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
-          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+          else {
+            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.setState({
+              successDialog: true
+            });
+          }
         });
     else {
       this.props
@@ -159,7 +169,12 @@ class SignUp extends React.Component<Props, State> {
         )
         .then(() => {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
-          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+          else {
+            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.setState({
+              successDialog: true
+            });
+          }
         });
     }
   };
@@ -188,6 +203,10 @@ class SignUp extends React.Component<Props, State> {
         orgNr: orgNr
       });
     });
+  };
+
+  handleSuccessDialogClose = () => {
+    this.props.history.push('/');
   };
 
   render() {
@@ -363,6 +382,24 @@ class SignUp extends React.Component<Props, State> {
             Cancel
           </Button>
         </ValidatorForm>
+        <Dialog
+          open={this.state.successDialog}
+          onClose={this.handleSuccessDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{'Du har nå lagd en bruker'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Gå til din e-post adresse på {this.state.email} for å logge inn.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleSuccessDialogClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

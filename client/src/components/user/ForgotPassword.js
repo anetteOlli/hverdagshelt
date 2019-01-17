@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import withRoot from '../../withRoot';
 import { Checkbox, FormControlLabel, Paper, Typography, withStyles, CircularProgress } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { withSnackbar } from 'notistack';
@@ -109,4 +108,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(ForgotPassword))));
+)(withStyles(styles)(withSnackbar(ForgotPassword)));
