@@ -12,7 +12,7 @@ module.exports = class UserDao extends Dao {
   createUser(json, password, standard, callback) {
     const val = [json.email, password, json.municipality, json.county, standard];
     super.query(
-      'insert into user (email, password, municipality_fk, county_fk, priority_fk) values (?,?,?,?,?)',
+      'insert into user (email, password, created,municipality_fk, county_fk, priority_fk) values (?,?,NOW(),?,?,?)',
       val,
       callback
     );
