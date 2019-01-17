@@ -23,7 +23,7 @@ import { getEventsByMuni } from '../../store/actions/eventActions';
 import { getProblemsByMuni } from '../../store/actions/problemActions';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
-
+import moment from 'moment';
 type Props = {
   classes: Object,
   match: { params: { municipality: string } }
@@ -152,16 +152,16 @@ class MuniPage extends React.Component<Props, State> {
                     indicatorColor="primary"
                     textColor="primary"
                   >
-                    <LinkTab
-                      variant="fullWidth"
-                      label={<span className={classes.labeltext}>Arrangementer</span>}
-                      href="arrangement"
-                    />
-                    <LinkTab
-                      variant="fullWidth"
-                      label={<span className={classes.labeltext}>Problemer</span>}
-                      href="problemer"
-                    />
+                  <LinkTab
+                    variant="fullWidth"
+                    label={<span className={classes.labeltext}>Arrangementer</span>}
+                    href="arrangement"
+                  />
+                  <LinkTab
+                    variant="fullWidth"
+                    label={<span className={classes.labeltext}>Problemer</span>}
+                    href="problemer"
+                  />
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
@@ -169,7 +169,6 @@ class MuniPage extends React.Component<Props, State> {
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
                             {console.log('Events', JSON.stringify(event))}
-
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -187,9 +186,10 @@ class MuniPage extends React.Component<Props, State> {
                                   {event.event_name}
                                 </Typography>
                                 <Typography component="p">{event.event_description}</Typography>
-                                <Typography component="p">
+                                <Typography>
                                   <br />
-
+                                  Starter: {event.date_starting.toString()}<br />
+                                  Slutter: {event.date_ending.toString()}<br />
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {event.street_fk}</Typography>
@@ -199,7 +199,7 @@ class MuniPage extends React.Component<Props, State> {
                                   <Grid item md={8} />
                                   <Grid item md={4}>
                                     <Button variant="contained" size="small" color="primary">
-                                      Kart
+                                      Info
                                     </Button>
                                   </Grid>
                                 </Grid>
@@ -210,14 +210,12 @@ class MuniPage extends React.Component<Props, State> {
                       </Grid>
                     </TabContainer>
                   )}
-
                   {value === 1 && (
                     <TabContainer>
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
                             {console.log('Problems', JSON.stringify(problem))}
-
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -244,19 +242,19 @@ class MuniPage extends React.Component<Props, State> {
                                   {problem.problem_title}
                                 </Typography>
                                 <Typography component="p">{problem.problem_description}</Typography>
-                                <Typography component="p">
+                                <Typography>
                                   <br />
-
+                                  Dato lagt ut: {problem.date_made.toString()} <br />
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {problem.location_fk}</Typography>
+                                <Typography component="p">Lokasjon: {problem.street_fk}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
                                   <Grid item md={4}>
                                     <Button variant="contained" size="small" color="primary">
-                                      Kart
+                                      Info
                                     </Button>
                                   </Grid>
                                 </Grid>
@@ -291,6 +289,8 @@ class MuniPage extends React.Component<Props, State> {
   componentDidMount() {
     const municounty = this.props.match.params.municipality.split('&');
     this.props.getEvents(municounty[0], municounty[1]);
+    this.props.getProblems(municounty[0], municounty[1]);
+
   }
 } //class
 

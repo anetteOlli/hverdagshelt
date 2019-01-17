@@ -1,35 +1,3 @@
-INSERT INTO CATEGORY VALUES('yeeet');
-INSERT INTO CITY VALUES('cityYeet');
-INSERT INTO street VALUES('STREETYEET');
-INSERT INTO status VALUES ('STATUSYEET');
-INSERT INTO priority VALUES ('1');
-INSERT INTO user (email, password, auz_url, priority_fk) VALUES('test@test.test', 'ok', 'test', '1');
-INSERT INTO problem VALUES (DEFAULT,"yeet","yeeeet", DEFAULT, NULL,null ,null,  DEFAULT, NULL, NULL, 'yeeet','STATUSYEET', 1, NULL, 2.13,3.13, 'Trøndelag', 'Trondheim', 'cityYeet','STREETYEET');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 INSERT INTO county VALUES ('Trøndelag');
 INSERT INTO county VALUES ('Oppland');
 INSERT INTO county VALUES ('Oslo');
@@ -473,3 +441,65 @@ INSERT INTO municipality(municipality, county) VALUES('Leka', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Inderøy', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Indre Fosen', 'Trøndelag');
 INSERT INTO municipality(municipality, county) VALUES('Rindal', 'Trøndelag');
+
+
+INSERT INTO category VALUES('Hole in road');
+INSERT INTO category VALUES('Tree in road');
+INSERT INTO category VALUES('Snowplow');
+
+
+INSERT INTO city VALUES('Trondheim');
+INSERT INTO city VALUES('Vinstra');
+INSERT INTO city VALUES('Tromsø');
+INSERT INTO city VALUES('Oslo');
+
+INSERT INTO street VALUES('Trondheimsveien');
+INSERT INTO street VALUES('Kjeldeveien');
+INSERT INTO street VALUES('Klostergata');
+INSERT INTO street VALUES('Sverresgate');
+INSERT INTO street VALUES('Mellomveien');
+INSERT INTO street VALUES('Bispegata');
+
+
+INSERT INTO status VALUES ('Unchecked');
+INSERT INTO status VALUES ('InProgress');
+INSERT INTO status VALUES ('Finished');
+
+
+
+INSERT INTO priority VALUES ("Standard");
+INSERT INTO priority VALUES ("Entrepreneur");
+INSERT INTO priority VALUES ("Municipality");
+INSERT INTO priority VALUES ("Administrator");
+
+
+INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk) VALUES('user@user.user', 'ok',"Trondheim", "Trøndelag" ,"Standard");
+INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk) VALUES('koma@koma.koma', 'ok',"Trondheim", "Trøndelag" ,"Municipality");
+INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk) VALUES('entr@entr.entr', 'ok',"Trondheim", "Trøndelag" ,"Entrepreneur");
+INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator");
+
+INSERT INTO entrepreneur(bedriftnavn, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
+
+INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Oslo", "Oslo");
+INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Tromsø", "Troms");
+
+INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Hole in road');
+INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Snowplow');
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Erlend tried his best", "A big hole has been found in the rear of Erlend", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 1, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata");
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien");
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, entrepreneur_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
+VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 3 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien");
+
+INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status_fk, municipality_fk, county_fk, city_fk, street_fk, latitude, longitude)
+VALUES("SNORRES FORTNITE DANSEKURS", "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Klostergata", 63.422724, 10.395582);
+
+INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status_fk, municipality_fk, county_fk, city_fk, street_fk, latitude, longitude)
+VALUES("Simen's skogtur", "Gutten skal på tur og nå er det din mulighet å bli med. Nei, dette har ingenting med skogtur filmen.", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/13892175_1012382942215365_2249318160119281179_n.jpg?_nc_cat=103&_nc_ht=scontent-arn2-1.xx&oh=a2e31243c4bf6a7871257b3421ceb301&oe=5CBF5E34", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Bispegata", 63.427619, 10.395435);
+
+INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status_fk, municipality_fk, county_fk, city_fk, street_fk, latitude, longitude)
+VALUES("ESA MØTER OPP PÅ BYFEST!!", "ÅRET ER NYTT OG DET ER PÅTIDE MED EN NY BYFEST! I år har vi gleden av å med dele at ESA kommer! Fantastisk er det ikke? Elisabeth, Sindre og Anette er klare for å skape fart,spenning og kjærleik med sin helt utrolige folke musikk. Sindre på banjo, Elisabeth på munnspill og Anette på munnharpe. To ord: GLED DERE", "https://i.pinimg.com/originals/8d/4e/4e/8d4e4ea8012c4c8dd6a9a4ba7f746422.jpg", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Nord-Fron", "Oppland",  "Vinstra", "Kjeldeveien", 61.593929, 9.751860);

@@ -2,6 +2,7 @@
 const Dao = require('./dao.js');
 
 module.exports = class ProblemDao extends Dao {
+
   getAll(callback) {
     super.query('SELECT * FROM problem', [], callback);
   }
