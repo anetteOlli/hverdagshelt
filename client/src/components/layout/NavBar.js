@@ -20,6 +20,8 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { refresh, signOut } from '../../store/actions/userActions';
+import type { ReduxState, Dispatch } from '../../store/reducers';
+
 const styles = (theme: Object) => ({
   appBar: {
     marginBottom: 20
@@ -45,7 +47,8 @@ type Props = {
   categories: string[],
   isLoggedIn: boolean,
   signOut: Function,
-  refresh: Function
+  refresh: Function,
+  hasCheckedJWT: boolean
 };
 
 type State = {
@@ -86,8 +89,8 @@ class NavBar extends React.Component<Props, State> {
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>
-            <div className={classes.grow}/>
-            {hasCheckedJWT && isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
+            <div className={classes.grow} />
+            {hasCheckedJWT && (isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />)}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose} />
@@ -99,14 +102,14 @@ class NavBar extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     hasCheckedJWT: state.app.hasCheckedJWT
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
     refresh: () => dispatch(refresh())
