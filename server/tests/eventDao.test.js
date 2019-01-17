@@ -30,7 +30,7 @@ test("Testing getAll from eventsDao", (done) => {
     expect(status).toBe(200);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
-    expect(data.length).toBe(2);
+    expect(data.length).toBe(3);
     done();
   })
 });
@@ -56,8 +56,8 @@ test("Testing getAllMunicipalities from eventDao", (done) => {
     expect(data.length).toBe(2);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
-    expect(data[0].county_fk && data[1].county_fk).toBe(json.county_fk);
-    expect(data[0].municipality_fk && data[1].municipality_fk).toBe(json.municipality_fk);
+    expect(data[0].county_fk && data[1].county_fk).toBe(json.county);
+    expect(data[0].municipality_fk && data[1].municipality_fk).toBe(json.municipality);
     done();
   })
 });

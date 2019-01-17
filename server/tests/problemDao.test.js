@@ -82,7 +82,7 @@ test("Testing getFromStreet from problemDao", (done) => {
     "county": "Oppland",
     "street":"Kjeldeveien"
   };
-  dao.getFromCity(json, (status,data) => {
+  dao.getFromStreet(json, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].street_fk).toBe("Kjeldeveien");
