@@ -10,7 +10,8 @@ import {
   InputLabel,
   Select,
   FormControlLabel,
-  Switch
+  Switch,
+  Tooltip
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
@@ -230,6 +231,7 @@ class SignUp extends React.Component<Props, State> {
           margin="normal"
           label="entrepreneurId"
           name="entrepreneurId"
+          type="number"
           value={this.state.entrepreneurId}
           onChange={this.handleChange}
           validators={['required', 'isNumber']}
@@ -241,7 +243,7 @@ class SignUp extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Typography variant="h2" gutterBottom align="center">
-          Register ny bruker
+          Registrer ny bruker
         </Typography>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
           <SelectValidator
@@ -280,19 +282,19 @@ class SignUp extends React.Component<Props, State> {
           <TextValidator
             fullWidth
             margin="normal"
-            label="Email"
+            label="E-post adresse"
             name="email"
             autoComplete="email"
             value={this.state.email}
             onChange={this.handleChange}
             onBlur={this.handleValidateEmail}
             validators={['required', 'isEmail', 'isUniqueEmail']}
-            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Epost-adressen finnes fra før']}
+            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig e-post adresse', 'E-post adressen finnes fra før']}
           />
           <TextValidator
             fullWidth
             margin="normal"
-            label="New password"
+            label="Passord"
             name="password"
             autoComplete="new-password"
             type={this.state.showPassword ? 'text' : 'password'}
@@ -303,9 +305,11 @@ class SignUp extends React.Component<Props, State> {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
+                  <Tooltip title="Vis passord">
+                    <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
+                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               )
             }}
@@ -313,7 +317,7 @@ class SignUp extends React.Component<Props, State> {
           <TextValidator
             fullWidth
             margin="normal"
-            label="Confirm password"
+            label="Bekreft passord"
             name="cnfPassword"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.cnfPassword}
@@ -330,7 +334,7 @@ class SignUp extends React.Component<Props, State> {
                 color="primary"
               />
             }
-            label="Er du entrepenør?"
+            label="Er du entreprenør?"
           />
           {this.state.isEntrepreneur && EntrepenurSignUp}
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">

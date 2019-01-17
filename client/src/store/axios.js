@@ -17,30 +17,20 @@ export const getData = (endpoint: string): any => {
   });
 };
 
-export const postFormData = (endpoint: string, formData: FormData): any => {
-  return axios.post(url + endpoint, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Accept: 'application/json',
-      Authorization: 'Bearer' + ' ' + getToken()
-    }
-  });
-};
-
-export const postData = (endpoint: string, data: any): any => {
+export const postData = (endpoint: string, data: any, media: boolean = false): any => {
   return axios.post(url + endpoint, data, {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': media ? 'multipart/form-data' : 'application/json',
       Accept: 'application/json',
       Authorization: 'Bearer' + ' ' + getToken()
     }
   });
 };
 
-export const patchData = (endpoint: string, data: any): any => {
+export const patchData = (endpoint: string, data: any, media: boolean = false): any => {
   return axios.patch(url + endpoint, data, {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': media ? 'multipart/form-data' : 'application/json',
       Accept: 'application/json',
       Authorization: 'Bearer' + ' ' + getToken()
     }
