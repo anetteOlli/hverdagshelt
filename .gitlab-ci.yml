@@ -10,7 +10,6 @@ variables:
   MYSQL_ROOT_PASSWORD: abc12345!
 
 before_script:
-  - mysql -v
   - npm install -g flow-bin
   - cd server && npm install
 
