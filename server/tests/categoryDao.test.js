@@ -38,7 +38,7 @@ test("Tester getAll fra categoryDao", (done) => {
 
 
 test("Tester getOne fra categoryDao", (done) => {
-  let catName = {"category": "Hole in road"};
+  let catName = "Hole in road";
   dao.getOne(catName.category, (status,data) => {
    expect(status).toEqual(200);
    expect(data[0]).toEqual(catName);
@@ -57,7 +57,7 @@ test("Tester deleteOne fra categoryDao", (done) => {
 });
 
 test("Tester createOne fra categoryDao", (done) => {
-  let newCat = "yeeeeet";
+  let newCat = {"category": "yeeeeet"};
   dao.createOne(newCat,(status,data) => {
     expect(status).toEqual(200);
     expect(data.affectedRows).toBe(1);

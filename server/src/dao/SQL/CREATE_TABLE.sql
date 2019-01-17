@@ -159,9 +159,6 @@ ALTER TABLE user_event
   ADD FOREIGN KEY(user_id) REFERENCES user(user_id),
   ADD FOREIGN KEY(event_id) REFERENCES event(event_id);
 
-ALTER TABLE municipality
-  ADD FOREIGN KEY(county) REFERENCES county(name);
-
 ALTER TABLE entrepreneur
   ADD FOREIGN KEY(user_fk) REFERENCES user(user_id);
 
