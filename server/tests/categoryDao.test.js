@@ -8,7 +8,7 @@ let pool = mysql.createPool({
   connectionLimit: 1000000,
   host: 'mysql',
   user: 'root',
-  password: 'abc123',
+  password: 'abc12345!',
   database: 'testdb',
   debug: false,
   multipleStatements: true

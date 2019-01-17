@@ -2,14 +2,15 @@ image: node:8
 
 # Set up MySQL test-database
 services:
-- mysql:5.5
+- mysql:latest
 
 # Configure test-database
 variables:
   MYSQL_DATABASE: testdb
-  MYSQL_ROOT_PASSWORD: abc123
+  MYSQL_ROOT_PASSWORD: abc12345!
 
 before_script:
+  - mysql -v
   - npm install -g flow-bin
   - cd server && npm install
 
