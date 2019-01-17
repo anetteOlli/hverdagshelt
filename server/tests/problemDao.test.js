@@ -27,7 +27,7 @@ afterAll(() => pool.end());
 test("Testing getAll from problem", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data).toBeArrayOfSize(3);
+    expect(data.length).toBe(3);
     expect(data[0]).toBe({
       problem_id:1,
       problem_title:"Erlend tried his best",
@@ -59,7 +59,7 @@ test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data).toBeArrayOfSize(1);
+    expect(data.length).toBe(1);
     expect(data[0]).toBe({
       problem_id:1,
       problem_title:"Erlend tried his best",
@@ -94,7 +94,7 @@ test("Testing getFromMunicipality from problemDao", (done) => {
   };
   dao.getFromMunicipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data).toBeArrayOfSize(1);
+    expect(data.length).toBe(1);
     expect(data[0]).toBe({
       problem_id:1,
       problem_title:"Erlend tried his best",
@@ -134,7 +134,7 @@ test("Testing getFromCity from problemDao", (done) => {
     expect(data[0].county_fk).toBe("Oppland");
     expect(data[0].city_fk).toBe("Vinstra");
     expect(data[0].municipality_fk).toBe("Nord-Fron");
-    expect(data).toBeArrayOfSize(1);
+    expect(data.length).toBe(1);
     done();
   })
 });
@@ -147,7 +147,7 @@ test("Testing getFromStreet from problemDao", (done) => {
   };
   dao.getFromCity(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data).toBeArrayOfSize(1);
+    expect(data.length).toBe(1);
     expect(data[0].street_fk).toBe("Kjeldeveien");
     expect(data[0].county_fk).toBe("Oppland");
     expect(data[0].municipality_fk).toBe("Nord-Fron");
@@ -180,7 +180,8 @@ test("Testing createOne from problemDao", (done) => {
 test("Testing patchEntrepreneur from problemDao", (done) => {
   let json = {
     description_entrepreneur:"yeeeeeeet",
-    img_entrepreneur: "yeeted"
+    img_entrepreneur: "yeeted",
+    status: "InProgress"
   };
   let id = 1;
   dao.patchEntrepreneur(id,json,(status,data) => {
@@ -194,7 +195,7 @@ test("Testing patchMunicipality from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"yeet",
-    problem_status:"Finished"
+    status:"Finished"
   };
   let id = 1;
   dao.patchMunicipality(id,json,(status,data) => {
@@ -207,7 +208,8 @@ test("Testing patchMunicipality from problemDao", (done) => {
 test("Testing patchStandard from problemDao", (done) => {
   let json = {
     problem_title:"test",
-    problem_description:"test"
+    problem_description:"test",
+    img_user: ''
   };
   let id = 1;
   dao.patchStandard(id,json, (status,data) => {

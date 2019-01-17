@@ -34,8 +34,8 @@ test("Testing getAll from eventsDao", (done) => {
       event_name: "SNORRES FORTNITE DANSEKURS",
       event_description: "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP",
       event_img: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28",
-      date_starting: "2019-01-18 10:30:00",
-      date_ending: "2019-01-20 23:59:59",
+      date_starting: "2019-01-20T23:59:59.000Z",
+      date_ending: "2019-01-18T10:30:00.000Z",
       status_fk: "InProgress",
       municipality_fk: "Trondheim",
       county_fk: "Trøndelag",
@@ -55,21 +55,21 @@ test('Testing getOne from eventDao', (done) => {
   dao.getOne(id,(status,data) => {
    expect(status).toBe(200);
    expect(data).toBeArrayOfSize(1);
-   expect(data[0]).toEqual({
-     event_id: 1,
-     event_name: "SNORRES FORTNITE DANSEKURS",
-     event_description: "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP",
-     event_img: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28",
-     date_starting: "2019-01-18 10:30:00",
-     date_ending: "2019-01-20 23:59:59",
-     status_fk: "InProgress",
-     municipality_fk: "Trondheim",
-     county_fk: "Trøndelag",
-     city_fk: "Trondheim",
-     street_fk: "Klostergata",
-     latitude: 63.422724,
-     longitude: 10.395582
-   });
+   expect(data[0]).toBe({
+      event_id: 1,
+      event_name: "SNORRES FORTNITE DANSEKURS",
+      event_description: "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP",
+      event_img: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28",
+      date_starting: "2019-01-20T23:59:59.000Z",
+      date_ending: "2019-01-18T10:30:00.000Z",
+      status_fk: "InProgress",
+      municipality_fk: "Trondheim",
+      county_fk: "Trøndelag",
+      city_fk: "Trondheim",
+      street_fk: "Klostergata",
+      latitude: 63.422724,
+      longitude: 10.395582
+  });
    done();
   })
 });
@@ -81,14 +81,14 @@ test("Testing getAllMunicipalities from eventDao", (done) => {
   };
   dao.getByMunicipality(json,(status,data) => {
     expect(status).toBe(200);
-    expect(data).toBeArrayOfSize(2);
+    expect(data.length).toBe(2);
     expect(data[0]).toBe({
       event_id: 1,
       event_name: "SNORRES FORTNITE DANSEKURS",
       event_description: "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP",
       event_img: "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28",
-      date_starting: "2019-01-18 10:30:00",
-      date_ending: "2019-01-20 23:59:59",
+      date_starting: "2019-01-20T23:59:59.000Z",
+      date_ending: "2019-01-18T10:30:00.000Z",
       status_fk: "InProgress",
       municipality_fk: "Trondheim",
       county_fk: "Trøndelag",

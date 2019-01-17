@@ -27,8 +27,7 @@ afterAll(() => pool.end());
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toEqual(200);
-    expect(data.length).toBeGreaterThanOrEqual(2);
-    expect(data.length).toBeLessThanOrEqual(4);
+    expect(data.length).toBe(3);
     //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
     //expect(data[0]).toBeArray();
     expect(data[0]).toEqual({"category":'Hole in road'});
@@ -38,7 +37,7 @@ test("Tester getAll fra categoryDao", (done) => {
 
 
 test("Tester getOne fra categoryDao", (done) => {
-  let catName = "Hole in road";
+  let catName = "Tree in road";
   dao.getOne(catName.category, (status,data) => {
    expect(status).toEqual(200);
    expect(data[0]).toEqual(catName);
@@ -48,7 +47,7 @@ test("Tester getOne fra categoryDao", (done) => {
 });
 
 test("Tester deleteOne fra categoryDao", (done) => {
-  let catname = "Tree in road";
+  let catname = "Hole in road";
   dao.deleteOne(catname, (status,data) => {
     expect(status).toEqual(200);
     expect(data.affectedRows).toEqual(1);
