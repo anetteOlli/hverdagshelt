@@ -1,7 +1,7 @@
 // @flow
 import type { Action } from '../reducers/eventReducer';
-import type { State } from '../reducers';
-import { postData, putData, deleteData, getData } from '../util';
+import type { ReduxState } from '../reducers';
+import { postData, patchData, deleteData, getData } from '../axios';
 
 /**
  * @fileOverview categoryActions: actions for categories in redux
@@ -10,7 +10,7 @@ import { postData, putData, deleteData, getData } from '../util';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => State;
+type GetState = () => ReduxState;
 
 export const getAllEvents = () => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -63,7 +63,7 @@ export const createEvent = (newEvent: JSON) => {
 
 export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch) => {
-    return putData('events', event).then(() =>
+    return patchData('events', event).then(() =>
       dispatch({
         type: 'EDIT_EVENT_SUCCESS'
       }).catch((error: Error) =>

@@ -40,7 +40,9 @@ export type Action =
   | { type: 'PROBLEMS_BY_MUNI_SUCCESS', payload: Problem[] }
   | { type: 'PROBLEMS_BY_MUNI_ERROR', payload: Error }
   | { type: 'PROBLEMS_BY_STREET_SUCCESS', payload: Problem[] }
-  | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error };
+  | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error }
+  | { type: 'GO_TO_PROBLEM_DETAIL', payload: number }
+  | { type: 'GO_TO_PROBLEM_EDIT', payload: number };
 
 const initState = {
   problems: [

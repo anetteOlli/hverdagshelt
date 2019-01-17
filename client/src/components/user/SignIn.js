@@ -67,10 +67,10 @@ class SignIn extends React.Component<Props, State> {
     }));
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.props.signIn(this.state).then(resp => {
-      console.log(resp);
+      console.log(this.props.errorMessage);
       if (resp.type === 'SIGN_IN_SUCCESS') this.props.enqueueSnackbar(' U in', { variant: 'success' });
       else this.refs.form.submit();
     });

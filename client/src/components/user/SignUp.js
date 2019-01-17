@@ -10,7 +10,8 @@ import {
   InputLabel,
   Select,
   FormControlLabel,
-  Switch
+  Switch,
+  Tooltip
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
@@ -20,7 +21,7 @@ import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions'
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { postData } from '../../store/util';
+import { postData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -34,7 +35,9 @@ type Props = {
   categories: string[],
   counties: string[],
   currentMunicipalities: string[],
-  errorMessage: string
+  errorMessage: string,
+  getCounties: Function,
+  getMunicipalitiesByCounty: Function
 };
 
 type State = {
@@ -94,6 +97,15 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
+  handleCountyChange = e => {
+    this.setState({
+      county: e.target.value,
+      muni: '',
+      entrepreneurMunies: []
+    });
+    this.props.getMunicipalitiesByCounty(e.target.value);
+  };
+
   handleChecked = e => {
     this.setState({ [e.target.name]: e.target.checked });
   };
@@ -108,6 +120,7 @@ class SignUp extends React.Component<Props, State> {
     e.preventDefault();
     const {
       muni,
+      county,
       email,
       password,
       isEntrepreneur,
@@ -120,8 +133,8 @@ class SignUp extends React.Component<Props, State> {
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          municipality: 'Trondheim',
-          county: 'Trøndelag',
+          municipality: muni,
+          county,
           email,
           password
         })
@@ -136,15 +149,16 @@ class SignUp extends React.Component<Props, State> {
           {
             bedriftNavn: entrepreneurName,
             org_nr: entrepreneurId,
-            municipalities: [
-              { county: 'Trøndelag', municipality: 'Trondheim' },
-              { county: 'Trøndelag', municipality: 'Grong' },
-              { county: 'Trøndelag', municipality: 'Skaun' }
-            ],
-            categories: ['Snowplow', 'Tree in road']
+            municipalities: entrepreneurMunies.map(name => {
+              return { county, municipality: name };
+            }),
+            categories: entrepreneurCategories
           }
         )
-        .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+        .then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+        });
     }
   };
 
@@ -159,7 +173,7 @@ class SignUp extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
-    const muniNotReady = (this.state.county === '');
+    const muniNotReady = this.state.county === '';
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -217,6 +231,7 @@ class SignUp extends React.Component<Props, State> {
           margin="normal"
           label="entrepreneurId"
           name="entrepreneurId"
+          type="number"
           value={this.state.entrepreneurId}
           onChange={this.handleChange}
           validators={['required', 'isNumber']}
@@ -228,7 +243,7 @@ class SignUp extends React.Component<Props, State> {
     return (
       <div className={classes.main}>
         <Typography variant="h2" gutterBottom align="center">
-          Register ny bruker
+          Registrer ny bruker
         </Typography>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
           <SelectValidator
@@ -237,7 +252,7 @@ class SignUp extends React.Component<Props, State> {
             label="Fylke: "
             name="county"
             value={this.state.county}
-            onChange={this.handleChange}
+            onChange={this.handleCountyChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
@@ -250,7 +265,7 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             disabled={muniNotReady}
             fullWidth
-            margin="normal"
+            margin="no rmal"
             label="Kommune: "
             name="muni"
             value={this.state.muni}
@@ -267,19 +282,19 @@ class SignUp extends React.Component<Props, State> {
           <TextValidator
             fullWidth
             margin="normal"
-            label="Email"
+            label="E-post adresse"
             name="email"
             autoComplete="email"
             value={this.state.email}
             onChange={this.handleChange}
             onBlur={this.handleValidateEmail}
             validators={['required', 'isEmail', 'isUniqueEmail']}
-            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Epost-adressen finnes fra før']}
+            errorMessages={['Feltet kan ikke være tomt', 'Ugyldig e-post adresse', 'E-post adressen finnes fra før']}
           />
           <TextValidator
             fullWidth
             margin="normal"
-            label="New password"
+            label="Passord"
             name="password"
             autoComplete="new-password"
             type={this.state.showPassword ? 'text' : 'password'}
@@ -290,9 +305,11 @@ class SignUp extends React.Component<Props, State> {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
+                  <Tooltip title="Vis passord">
+                    <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
+                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               )
             }}
@@ -300,7 +317,7 @@ class SignUp extends React.Component<Props, State> {
           <TextValidator
             fullWidth
             margin="normal"
-            label="Confirm password"
+            label="Bekreft passord"
             name="cnfPassword"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.cnfPassword}
@@ -317,7 +334,7 @@ class SignUp extends React.Component<Props, State> {
                 color="primary"
               />
             }
-            label="Er du entrepenør?"
+            label="Er du entreprenør?"
           />
           {this.state.isEntrepreneur && EntrepenurSignUp}
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
@@ -362,24 +379,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
-
-/*         <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          renderValue={selected => selected.join(', ')}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-*/

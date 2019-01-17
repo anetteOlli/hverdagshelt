@@ -48,7 +48,7 @@ class SignedOutLinks extends React.Component<Props, State> {
           size="small"
           color="inherit"
         >
-          Sign up
+          Registrer
         </Button>
         <Button onClick={this.handleOpen} variant="outlined" size="small" color="inherit">
           Login
