@@ -80,7 +80,7 @@ test("Testing getFromStreet from problemDao", (done) => {
   let json = {
     "municipality": "Nord-Fron",
     "county": "Oppland",
-    "city":"Kjeldeveien"
+    "street":"Kjeldeveien"
   };
   dao.getFromCity(json, (status,data) => {
     expect(status).toBe(200);

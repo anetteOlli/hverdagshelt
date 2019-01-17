@@ -74,7 +74,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchStandard(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.img_user];
+    const values = [json.problem_title, json.problem_description, json.img_user, id];
 
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
