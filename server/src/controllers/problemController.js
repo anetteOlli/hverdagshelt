@@ -110,6 +110,11 @@ exports.problems_edit_problem = (req, res) => {
   }
   problemDao.getOne(req.params.id, (status, data) => {
     if (req.userData.priority === 'Entrepreneur') {
+      if(!(req.file === undefined)){
+        image.uploadImage(req.file, url => {
+          req.body.img_entrepreneur = url;
+        })
+      }
       entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
         if (data[0].user_fk !== req.userData.id)
           return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
@@ -121,6 +126,11 @@ exports.problems_edit_problem = (req, res) => {
     }
     if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
     if (req.userData.user.id !== data[0].user_fk) return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+    if(!(req.file === undefined)){
+      image.uploadImage(req.file, url => {
+        req.body.img_user = url;
+      })
+    };
     problemDao.patchBruker(req.params.id, false, req.body, (status, data) => {
       return res.status(status).json(data);
     });

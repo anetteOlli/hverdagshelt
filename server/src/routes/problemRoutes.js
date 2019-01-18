@@ -16,6 +16,6 @@ router.post('/municipality/street', ProblemController.problems_get_from_municipa
 
 router.delete('/:id', checkAuth, ProblemController.problems_delete_problem);
 
-router.patch('/:id', checkAuth, ProblemController.problems_edit_problem);
+router.patch('/:id', checkAuth,upload.uploader, ProblemController.problems_edit_problem);
 
 module.exports = router;
