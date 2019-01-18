@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 //Created by us
 import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
-import Map from '../map/maptest';
+import Map from '../map/MapWithSearchBox';
 import MuiTable2 from '../util/MuiTable-2';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';

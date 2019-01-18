@@ -166,10 +166,10 @@ class MuniPage extends React.Component<Props, State> {
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
+                    {console.log("EVENTER: " + events)}
                       <Grid container spacing={24}>
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Events', JSON.stringify(event))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -213,10 +213,10 @@ class MuniPage extends React.Component<Props, State> {
                   )}
                   {value === 1 && (
                     <TabContainer>
+                    {console.log("PROBLEMER: " + problems)}
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Problems', JSON.stringify(problem))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
