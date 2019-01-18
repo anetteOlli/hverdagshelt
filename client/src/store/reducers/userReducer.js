@@ -6,8 +6,9 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority
+  priority: Priority,
 };
+
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', payload: { userId: number, priority: Priority } }
   | { type: 'SIGN_IN_ERROR', payload: Error }
@@ -21,7 +22,7 @@ const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Municipality'
+  priority: 'Municipality',
 };
 
 export default (state: State = initState, action: Action) => {
@@ -72,7 +73,7 @@ export default (state: State = initState, action: Action) => {
         isLoggedIn: true,
         userID: action.payload.userId,
         priority: action.payload.priority,
-        errorMessage: ''
+        errorMessage: '',
       };
     case 'REFRESH_ERROR':
       console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
@@ -80,7 +81,7 @@ export default (state: State = initState, action: Action) => {
         ...state,
         isLoggedIn: false,
         userID: 0,
-        errorMessage: ''
+        errorMessage: '',
       };
     default:
       return state;

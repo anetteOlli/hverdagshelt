@@ -1,12 +1,12 @@
 // @flow
 import type { Action } from '../reducers/categoryReducer';
-import type { State } from '../reducers';
-import { postData, deleteData, getData } from '../util';
+import type { ReduxState } from '../reducers';
+import { postData, deleteData, getData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => State;
+type GetState = () => ReduxState;
 
 export const createCategory = (newCategory: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {

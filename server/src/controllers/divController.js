@@ -19,7 +19,7 @@ exports.counties_get_all = (req, res) => {
 
 exports.get_municipalities_by_county = (req, res) => {
   console.log('Handling GET requests to /div/county/municipalities');
-  divDao.getMunicipalitiesByCounty((status, data) => {
+  divDao.getMunicipalitiesByCounty(req.params.county,(status, data) => {
     res.status(status).json(data);
   });
 };
