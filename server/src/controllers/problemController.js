@@ -21,6 +21,13 @@ exports.problems_get_problem = (req, res) => {
   });
 };
 
+exports.problems_support_problem = (req, res) => {
+  console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
+  problemDao.supportProblem(req.params.id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
 exports.problems_get_from_municipality = (req, res) => {
   console.log(
     '/problems/municipality/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
@@ -43,7 +50,7 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag"; 
+  if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag";
   if (req.file === undefined) {
     problemDao.createOne(req.body, (status, data) => {
       handleError(status,data);

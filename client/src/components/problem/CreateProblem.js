@@ -20,7 +20,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 
 //Created by us
-import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
+import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
 import Map from '../map/maptest';
 import MuiTable2 from '../util/MuiTable-2';
@@ -96,7 +96,7 @@ function getSteps() {
 * @params categories: [], array of ALL problem categories
 */
 function getStepContent(step: number, state: State,
-                      handleChange: function, handleChangeSpec: function, handleUpload: function,
+                      handleChange: function, handleChangeSpec: function, handleUpload: function, handleSupport: function,
                       props: any) {
   //console.log(props.categories[0]);
   //props.categories.map((e,i) => console.log(e + " / " + i));
@@ -124,25 +124,27 @@ function getStepContent(step: number, state: State,
             <TextValidator
               fullWidth
               margin="normal"
-              label="Kommune"
+              label="Kommune: Velg i kart"
               name="municipality"
               autoComplete="municipality"
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må velge en kommune']}
+              inputProps={{readOnly: true,}}
             />
             {console.log('state in createProblem', state)}
             <TextValidator
               fullWidth
               margin="normal"
-              label="Gate"
+              label="Gate: Velg i kart"
               name="street"
               autoComplete="street"
               value={state.street}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må velge en gate']}
+              inputProps={{readOnly: true,}}
             />
             <div className="mapPlaceholder">
               <Map />
@@ -153,8 +155,8 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      console.log("rows");
-      console.log(rows);
+      //console.log("rows");
+      //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
@@ -311,14 +313,6 @@ function getStepContent(step: number, state: State,
   }
 }
 
-/** Handles 'supporting' an existing problem
-* @params problemId: number, id of the problem to 'support'
-*/
-function handleSupport(problemId: number){
-  //@TODO Handle support a problem
-  console.log("Clicked updoot for " + problemId + "! Take me away hunny")
-}
-
 type Props = {
   municipality: string,
   street: string,
@@ -362,6 +356,7 @@ class CreateProblem extends React.Component<Props, State> {
   constructor() {
     super();
     this.handleChangeSpec = this.handleChangeSpec.bind(this);
+    this.handleSupport = this.handleSupport.bind(this);
   }
 
   state = {
@@ -564,6 +559,15 @@ class CreateProblem extends React.Component<Props, State> {
     });
   }
 
+  /** Handles 'supporting' an existing problem
+  * @params problemId: number, id of the problem to 'support'
+  */
+  handleSupport(id: number) {
+    //@TODO Handle support a problem
+    console.log("Clicked updoot for " + id + "! Take me away hunny")
+    this.props.supportProblem(id);
+  }
+
   render() {
     //const { classes } = this.props;
     //console.log(this.props);
@@ -607,7 +611,8 @@ class CreateProblem extends React.Component<Props, State> {
             ) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload, this.props)}
+                              this.handleChangeSpec, this.handleUpload, this.handleSupport,
+                              this.props)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
@@ -656,7 +661,8 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
-    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county))
+    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county)),
+    supportProblem: (id) => dispatch(supportProblem(id))
   };
 };
 

@@ -153,6 +153,18 @@ export default (state: State = initState, action: Action) => {
         currentProblemId: action.payload,
         editMode: true
       };
+    case 'SUPPORT_PROBLEM_SUCCESS':
+      console.log('%c SUPPORT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;') ;
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'SUPPORT_PROBLEM_ERROR':
+      console.log('%c SUPPORT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
     default:
       return state;
   }

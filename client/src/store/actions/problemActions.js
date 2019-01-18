@@ -120,3 +120,21 @@ export const goToProblemEdit = (id: number) => {
     });
   };
 };
+
+export const supportProblem = (id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return patchData(`problems/vote/${id}`, {id})
+      .then(response =>
+        dispatch({
+          type: 'SUPPORT_PROBLEM_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'SUPPORT_PROBLEM_ERROR',
+          payload: error
+        })
+      );
+  };
+};

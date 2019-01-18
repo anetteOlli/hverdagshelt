@@ -18,4 +18,6 @@ router.delete('/:id', checkAuth, ProblemController.problems_delete_problem);
 
 router.patch('/:id', checkAuth, ProblemController.problems_edit_problem);
 
+router.patch('/vote/:id', ProblemController.problems_support_problem);
+
 module.exports = router;
