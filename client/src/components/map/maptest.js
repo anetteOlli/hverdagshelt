@@ -29,7 +29,11 @@ type State = {
   map: any,
   googlemaps: any,
   apiReady: boolean,
-  zoom: number
+  zoom: number,
+  center: {
+    lat: number,
+    lng: number
+  }
 };
 
 /**
@@ -83,7 +87,9 @@ class SimpleMap extends React.Component<Props, State> {
             let place = {
               street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
               city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
-              municipality: address_components.filter(e => e.types[0] == 'administrative_area_level_2')[0].long_name.replace(' kommune',''),
+              municipality: address_components
+                .filter(e => e.types[0] == 'administrative_area_level_2')[0]
+                .long_name.replace(' kommune', ''),
               county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
