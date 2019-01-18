@@ -204,7 +204,7 @@ function getStepContent(step: number,
                     onChange={handleStartDateChange}
                   />
                   <TimePicker
-                     fullWidth
+                    fullWidth
                     margin="normal"
                     label="Tid arrangementet starter"
                     value={state.dateStart}
