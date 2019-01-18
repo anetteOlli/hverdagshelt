@@ -2,6 +2,7 @@
 const Dao = require('./dao.js');
 
 module.exports = class DivDao extends Dao {
+
   getAllMunicipalities(callback) {
     super.query('SELECT * FROM municipality', [], callback);
   }
