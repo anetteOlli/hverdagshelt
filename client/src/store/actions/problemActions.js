@@ -9,10 +9,10 @@ type GetState = () => ReduxState;
 
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/${id}`).then(respone =>
+    return getData(`problems/${id}`).then(respond =>
       dispatch({
         type: 'PROBLEM_BY_ID_SUCCESS',
-        payload: respone.data
+        payload: respond.data
       }).catch((error: Error) =>
         dispatch({
           type: 'PROBLEM_BY_ID_ERROR',
@@ -23,19 +23,88 @@ export const getProblemById = (id: number) => {
   };
 };
 
-export const getProblemByUser = (user_id: number) => {
+export const getProblemByUser = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`problems/user/${user_id}`).then(respond =>
-      dispatch({
-        type: 'PROBLEM_BY_USER_SUCCESS',
-        payload: respond.data
-      }).catch((error: Error) =>
+    const state = getState();
+    console.log('E: ' + state.user.priority);
+    switch (state.user.priority) {
+      case 'Standard':
+        return getData(`problems/user/${getState().user.userID}`)
+          .then(respond =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_SUCCESS',
+              payload: respond.data
+            })
+          )
+          .catch((error: Error) =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_ERROR',
+              payload: error
+            })
+          );
+      case 'Entrepreneur':
+        return getData('problems/entrepreneur/')
+          .then(respond =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_SUCCESS',
+              payload: respond.data
+            })
+          )
+          .catch((error: Error) =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_ERROR',
+              payload: error
+            })
+          );
+      case 'Administrator':
+        return postData('problems/municipality', { municipality: 'Trondheim', county: 'Trøndelag' })
+          .then(respond =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_SUCCESS',
+              payload: respond.data
+            })
+          )
+          .catch((error: Error) =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_ERROR',
+              payload: error
+            })
+          );
+      case 'Municipality':
+        return postData('problems/municipality', { muni: 'Trondheim', county: 'Trøndelag' })
+          .then(respond =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_SUCCESS',
+              payload: respond.data
+            })
+          )
+          .catch((error: Error) =>
+            dispatch({
+              type: 'PROBLEMS_BY_USER_ERROR',
+              payload: error
+            })
+          );
+      default:
+        return dispatch({ type: 'PROBLEMS_BY_USER_ERROR', payload: 'Feil' });
+    }
+  };
+};
+
+export const getProblemByEntrepreneur = (entrepreneur_id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`problems/entrepreneur/${entrepreneur_id}`)
+      .then(respond =>
         dispatch({
-          type: 'PROBLEM_BY_USER_ERROR',
-          payload: error
+          type: 'PROBLEM_BY_ENTREPRENEUR_SUCCESS',
+          payload: respond.data
         })
       )
-    );
+      .catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEM_BY_ENTREPRENEUR_ERROR',
+          payload: error
+        })
+      );
   };
 };
 
@@ -88,16 +157,19 @@ export const deleteProblem = (id: number) => {
 
 export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('problems/municipality', { municipality, county }).then(response =>
-      dispatch({
-        type: 'PROBLEMS_BY_MUNI_SUCCESS',
-        payload: response.data
-      })).catch((error: Error) =>
+    return postData('problems/municipality', { municipality, county })
+      .then(response =>
+        dispatch({
+          type: 'PROBLEMS_BY_MUNI_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
           payload: error
         })
-    );
+      );
   };
 };
 

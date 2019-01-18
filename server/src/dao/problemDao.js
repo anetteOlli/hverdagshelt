@@ -85,4 +85,12 @@ module.exports = class ProblemDao extends Dao {
   deleteOne(id, callback) {
     super.query("UPDATE problem SET status_fk = 'Archived' WHERE problem_id = ?", [id], callback);
   }
+
+  getByUser(user_id, callback) {
+    super.query("SELECT * FROM problem WHERE user_fk = ?", [user_id], callback);
+  }
+  getByEntrepreneur(entrepreneur_id, callback) {
+    super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
+  }
+
 };

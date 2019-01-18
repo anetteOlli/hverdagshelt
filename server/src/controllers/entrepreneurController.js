@@ -10,3 +10,4 @@ exports.entrepreneurs_get_all = (req, res) => {
     res.status(status).json(data);
   });
 };
+
