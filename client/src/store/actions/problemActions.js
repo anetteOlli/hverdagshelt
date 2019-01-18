@@ -120,3 +120,36 @@ export const goToProblemEdit = (id: number) => {
     });
   };
 };
+
+export const problemAddEntrepreneur = (problem: JSON) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    patchData('problems/add/entrepreneur', problem).then(()=>
+      dispatch({
+        type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR',
+          payload: error
+        })
+      )
+    );
+  };
+};
+
+export const supportProblem = (userId: number, problemId: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return patchData(`problems/vote/${problemId}`, {userId, problemId})
+      .then(response =>
+        dispatch({
+          type: 'SUPPORT_PROBLEM_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'SUPPORT_PROBLEM_ERROR',
+          payload: error
+        })
+      );
+  };
+};

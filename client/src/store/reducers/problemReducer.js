@@ -4,17 +4,23 @@ export type Problem = {
   problem_title: string,
   problem_description: string,
   problem_locked: number,
+  description_entrepreneur: string,
   img_user: string,
   img_entrepreneur: string,
-  date_made: string,
-  county_fk: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
+  entrepreneur_fk: number,
+  latitude: number,
+  longitude: number,
+  support: number,
   municipality_fk: string,
+  county_fk: string,
   city_fk: string,
   street_fk: string,
-  last_edited: string,
-  status_fk: string,
-  category_fk: string,
-  support: number
 };
 
 export type State = {
@@ -36,7 +42,9 @@ export type Action =
   | { type: 'PROBLEMS_BY_STREET_SUCCESS', payload: Problem[] }
   | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error }
   | { type: 'GO_TO_PROBLEM_DETAIL', payload: number }
-  | { type: 'GO_TO_PROBLEM_EDIT', payload: number };
+  | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
+  | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
+  | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' };
 
 const initState = {
   problems: [
@@ -152,6 +160,30 @@ export default (state: State = initState, action: Action) => {
         ...state,
         currentProblemId: action.payload,
         editMode: true
+      };
+    case 'SUPPORT_PROBLEM_SUCCESS':
+      console.log('%c SUPPORT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;') ;
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'SUPPORT_PROBLEM_ERROR':
+      console.log('%c SUPPORT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+    case 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS':
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'PROBLEM_ADD_ENTREPRENEUR_ERROR':
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: action.payload.message
       };
     default:
       return state;
