@@ -1,7 +1,7 @@
 // @flow
 import type { Action } from '../reducers/eventReducer';
 import type { ReduxState } from '../reducers';
-import { postData, putData, deleteData, getData } from '../axios';
+import { postData, patchData, deleteData, getData } from '../axios';
 
 /**
  * @fileOverview categoryActions: actions for categories in redux
@@ -63,7 +63,7 @@ export const createEvent = (newEvent: JSON) => {
 
 export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch) => {
-    return putData('events', event).then(() =>
+    return patchData('events', event).then(() =>
       dispatch({
         type: 'EDIT_EVENT_SUCCESS'
       }).catch((error: Error) =>

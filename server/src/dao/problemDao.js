@@ -55,7 +55,7 @@ module.exports = class ProblemDao extends Dao {
 
   supportProblem(id, callback) {
     super.query(
-      'UPDATE problem SET supports = supports + 1 WHERE problem_id = ?',
+      'UPDATE problem SET support = support + 1 WHERE problem_id = ?',
       id,
       callback
     );

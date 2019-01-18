@@ -1,7 +1,7 @@
 // @flow
 import type { Action, Problem } from '../reducers/problemReducer';
 import type { ReduxState } from '../reducers';
-import { postData, putData, deleteData, getData } from '../axios';
+import { postData, patchData, deleteData, getData } from '../axios';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -42,7 +42,7 @@ export const createProblem = (newProblem: Problem) => {
 
 export const editProblem = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return putData('problems', problem).then(() =>
+    return patchData('problems', problem).then(() =>
       dispatch({
         type: 'EDIT_PROBLEM_SUCCESS'
       }).catch((error: Error) =>

@@ -565,7 +565,8 @@ class CreateProblem extends React.Component<Props, State> {
   handleSupport(id: number) {
     //@TODO Handle support a problem
     console.log("Clicked updoot for " + id + "! Take me away hunny")
-    this.props.supportProblem(id);
+    let payload = this.props.supportProblem(id);
+    this.handleFinish();
   }
 
   render() {
