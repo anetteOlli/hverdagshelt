@@ -324,6 +324,8 @@ type Props = {
 
 type State = {
   activeStep: number,
+  userId: number,
+
   title: string,
   category: string,
   municipality: string,
@@ -348,7 +350,8 @@ type State = {
   cur_entrepreneur: 'Default',
   cur_status: 'Default',
 
-  similarProblems: []
+  similarProblems: [],
+  categories:[]
 };
 
 /** CreateProblem Component */
@@ -363,7 +366,6 @@ class CreateProblem extends React.Component<Props, State> {
     activeStep: 0,
     //User
     userId: 1,
-    isLoggedIn: false,
 
     municipality: '',
     title: '',
@@ -565,6 +567,24 @@ class CreateProblem extends React.Component<Props, State> {
     //console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
+    console.log("isLoggedIn");
+    console.log(this.props.isLoggedIn);
+    if(!this.props.isLoggedIn){
+      return (
+        <div>
+          <Card className="must-log-in-to-register" align="center">
+            <CardContent>
+              <Typography variant="h5" color="error">
+                Du må logge inn for å kunne registrere problem
+              </Typography>
+              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+                Tilbake til hovedmenyen
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div>
         <Typography variant="h2"

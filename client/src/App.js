@@ -64,7 +64,6 @@ const App = (props: Props) => {
                 <Route exact path="/lagproblem" component={CreateProblem} />
                 <Route exact path="/problemdetails" component={ProblemDetails} />
                 <Route exact path="/opprArrangement" component={CreateEvent} />
-                <Route exact path="/muiTable" component={MuiTable2Test} />
                 <Route exact path="/munipage" component={MuniPage} />
                 <Route exact path="/lagproblem" component={CreateProblem} />
                 <Route exact path="/uploadfile" component={UploadFile} />
