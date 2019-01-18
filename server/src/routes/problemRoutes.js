@@ -23,4 +23,6 @@ router.get('/user/:user_id', ProblemController.problems_get_problem_by_user);
 router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_problem_by_entrepreneur);
 
 
+router.patch('/vote/:id', checkAuth, ProblemController.problems_support_problem);
+
 module.exports = router;
