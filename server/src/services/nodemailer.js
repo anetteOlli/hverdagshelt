@@ -21,7 +21,7 @@ class MailController {
      * @param newUser userInformation
      * @param callback
      */
-    sendActivationLink(dataPackage: object, callback: function) {
+    sendSingleMail(dataPackage: object, callback: function) {
 
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",
@@ -41,8 +41,8 @@ class MailController {
             }
         });
     }
-    
-    
+
+
     /***
      * Method for sending bulk of emails to specific groups of recepients
      * @param notification  A string message that is sent out to the users/recepients
@@ -60,7 +60,7 @@ class MailController {
             transporter.sendMail(mailOptions, (err,res) => this.callbackHandler(err,res));
         });
     }
-    
+
     /***
      * Simple callbackHandler for sendMail function
      * @param err Error message if the mail wasn't sent

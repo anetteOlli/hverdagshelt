@@ -2,11 +2,14 @@ const image = require('../services/imageHostController').ImageHostController;
 const ProblemDao = require('../dao/problemDao');
 const DivDao = require('../dao/divDao');
 const EntDao = require('../dao/entrepreneurDao');
+const UserController = require('./problemController');
+const MailController = require('../services/nodemailer');
 
 const pool = require('../services/database');
 let problemDao = new ProblemDao(pool);
 let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
+let nodeMailer = new MailController();
 
 exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
@@ -120,6 +123,10 @@ exports.problems_edit_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
   if (req.userData.priority === 'Administrator') {
     problemDao.patchKommuneAnsatt(req.params.id, req.body, (status, data) => {
+      if(status === 200){
+        let data = UserController.users_from_problem(req.params.id);
+        console.log(data);
+      }
       return res.status(status).json(data);
     });
   }
