@@ -100,7 +100,7 @@ class App extends React.Component<Props> {
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    hasCheckedJWT: state.app.hasCheckedJW
+    hasCheckedJWT: state.app.hasCheckedJWT
   };
 };
 
