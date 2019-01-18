@@ -169,7 +169,6 @@ class MuniPage extends React.Component<Props, State> {
                       <Grid container spacing={24}>
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Events', JSON.stringify(event))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -216,7 +215,6 @@ class MuniPage extends React.Component<Props, State> {
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Problems', JSON.stringify(problem))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"

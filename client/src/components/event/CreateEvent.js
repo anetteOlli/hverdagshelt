@@ -132,7 +132,7 @@ function getStepContent(step: number,
       return (
         <Card className={classes.contentNull}>
           <CardContent>
-          <Typography variant="body1" className={classes.info}>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
+          <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -143,6 +143,9 @@ function getStepContent(step: number,
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextValidator
               fullWidth
@@ -154,9 +157,11 @@ function getStepContent(step: number,
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en gate']}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <div className={classes.mapPlaceholder}>
-            <Typography className={classes.mapText}>Her kan du velge lokasjonen på kartet:</Typography>
               <Map />
             </div>
           </CardContent>
@@ -230,17 +235,6 @@ function getStepContent(step: number,
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Status"
-                name="status"
-                autoComplete="status"
-                value={state.status}
-                onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en status på arrangementet']}
-              />
               <FormControl fullWidth margin="normal">
                 {state.displayImg != '' ?
                 (<CardMedia
