@@ -75,7 +75,6 @@ module.exports = class ProblemDao extends Dao {
 
   patchBruker(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.img_user];
-
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,

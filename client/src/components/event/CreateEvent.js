@@ -14,7 +14,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
-import Map from '../map/maptest';
+import Map from '../map/MapWithSearchBox';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
