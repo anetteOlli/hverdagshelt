@@ -13,12 +13,10 @@ router.get('/refresh', checkAuth, UserController.users_refresh);
 
 router.post('/', UserController.users_create_user);
 
-router.post('/entrepreneurs', UserController.users_create_entrepreneur);
-
 router.delete('/:id', UserController.user_delete_user);
 
 router.patch('/:id', UserController.user_patch_user);
 
-router.post('/validate_email', UserController.user_validate_email);
+router.get('/validate_email/:email', UserController.user_validate_email);
 
 module.exports = router;
