@@ -524,7 +524,7 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("problem_description", this.state.description);
       k.append("category_fk", this.state.category);
       k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.state.user);
+      k.append("user_fk", this.props.userId);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
       k.append("county_fk", this.state.county);
@@ -532,8 +532,15 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
 
-
-      this.props.createProblem(k);
+      this.props.createProblem(k)
+      .then((status) => {
+        if(this.props.errorMessage != ''){
+          this.props.enqueueSnackbar("Error: Kunne ikke lage problemet", {variant: 'warning'})
+        }
+        else{
+          this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
+        }
+      });
     }
     this.handleNext();
   };
