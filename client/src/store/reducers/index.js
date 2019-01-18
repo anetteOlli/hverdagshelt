@@ -7,6 +7,7 @@ import type { Action as AppAction, State as AppState } from './appReducer';
 import type { Action as ProblemAction, State as ProblemState } from './problemReducer';
 import type { Action as MuniAction, State as MuniState } from './muniReducer';
 import type { Action as EntrepreneurAction, State as EntrepreneurState } from './entrepreneurReducer';
+import type { Action as StatisticAction, State as StatisticState } from './statisticsReducer';
 
 import userReducer from './userReducer';
 import problemReducer from './problemReducer';
@@ -16,6 +17,7 @@ import appReducer from './appReducer';
 import categoryReducer from './categoryReducer';
 import muniReducer from './muniReducer';
 import entrepreneurReducer from './entrepreneurReducer';
+import statisticsReducer from './statisticsReducer';
 
 import { combineReducers } from 'redux';
 
@@ -27,7 +29,8 @@ export type ReduxState = {
   map: MapState,
   category: CategoryState,
   muni: MuniState,
-  entrepreneur: EntrepreneurState
+  entrepreneur: EntrepreneurState,
+  statistic: StatisticAction
 };
 type Action =
   | CategoryAction
@@ -37,7 +40,8 @@ type Action =
   | AppAction
   | ProblemAction
   | MuniAction
-  | EntrepreneurAction;
+  | EntrepreneurAction
+  | StatisticAction;
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -53,5 +57,6 @@ export default combineReducers({
   map: mapReducer,
   category: categoryReducer,
   muni: muniReducer,
-  entrepreneur: entrepreneurReducer
+  entrepreneur: entrepreneurReducer,
+  statistic: statisticsReducer
 });
