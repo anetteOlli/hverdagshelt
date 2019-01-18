@@ -226,7 +226,7 @@ function getStepContent(step: number,
                     margin="normal"
                     label="Tid arrangementet slutter"
                     value={state.dateEnd}
-                    onChange={handleStartDateChange}
+                    onChange={handleEndDateChange}
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
