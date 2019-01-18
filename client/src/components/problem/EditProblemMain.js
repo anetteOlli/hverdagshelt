@@ -22,6 +22,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import EditProblemA from './EditProblemA';
 import EditProblemB from './EditProblemE';
+import EditProblemM from './EditProblemM';
 import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
@@ -29,7 +30,7 @@ import { getProblemsByMuni } from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
-import EditProblemM from './EditProblemM';
+
 
 var bool = false;
 

@@ -7,7 +7,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   getAllFromUser(id: number, callback) {
-    super.query('SELECT * FROM problem WHERE user_id = ?', [id], callback);
+    super.query('SELECT * FROM problem WHERE user_fk = ?', [id], callback);
   }
 
   getOne(id, callback) {
@@ -89,7 +89,8 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchBruker(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.img_user];
+    const values = [json.problem_title, json.problem_description, json.img_user, id];
+    console.log(values);
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
