@@ -13,7 +13,7 @@ type Event = {
   street_fk: ''
 };
 
-export type State = { munies: [{ municipality_fk: string, events: Event[] }], errorMessage: string };
+export type State = { events: Event[], errorMessage: string };
 export type Action =
   | { type: 'CREATE_EVENT_SUCCESS' }
   | { type: 'CREATE_EVENT_ERROR', payload: Error }
@@ -33,8 +33,7 @@ const initState = {
       event_name: '',
       municipality_fk: '',
       event_description: '',
-      event_img:
-        'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7a%2FGeranium_sylvaticum_a1.jpg&f=1',
+      event_img: '',
       date_starting: new Date(),
       date_ending: new Date(),
       status_fk: '',

@@ -3,8 +3,6 @@ import path from 'path';
 
 const cloudinary = require('cloudinary');
 const multer = require('multer');
-
-let upload = multer({storage: multer.memoryStorage()});
 const dUri = new Datauri();
 
 cloudinary.config({
@@ -14,15 +12,26 @@ cloudinary.config({
   }
 );
 
-class ImageHostController {
-  dataUri = req => dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 
-  uploadImage(req,callback) {
-    let file = this.dataUri(req);
-    cloudinary.v2.uploader.upload(file,
+  const upload = multer({storage: multer.memoryStorage()});
+
+
+const imgFilter = (file: multer): void => {
+  //reject a file check if a file does not ends with jpg, jpeg, png or gif
+  return file.originalname.match(/\.(jpg|jpeg|png|gif)$/);
+};
+
+class ImageHostController {
+
+
+  dataUri = file => dUri.format(path.extname(file.originalname).toString(), file.buffer);
+
+  uploadImage(file,callback) {
+    if(!imgFilter(file)){callback({"Error":"File not accepted"})}
+    let bufferedFile = this.dataUri(file);
+    cloudinary.v2.uploader.upload(bufferedFile.content,
       function(error, result) {
         if(!error){
-          console.log(result);
           callback(result.url);
         }else {
           console.log(error);
@@ -32,4 +41,7 @@ class ImageHostController {
     );
   }
 }
-module.exports = new ImageHostController();
+module.exports = {
+  ImageHostController: new ImageHostController(),
+  uploader: upload.single('image')
+};

@@ -1,11 +1,12 @@
 // @flow
-import type { State as CategoryState } from './categoryReducer';
-import type { State as MapState } from './mapReducer';
-import type { State as UserState } from './userReducer';
-import type { State as EventState } from './eventReducer';
-import type { State as AppState } from './appReducer';
-import type { State as ProblemState } from './problemReducer';
-import type { State as MuniState } from './muniReducer';
+import type { Action as CategoryAction, State as CategoryState } from './categoryReducer';
+import type { Action as MapAction, State as MapState } from './mapReducer';
+import type { Action as UserAction, State as UserState } from './userReducer';
+import type { Action as EventAction, State as EventState } from './eventReducer';
+import type { Action as AppAction, State as AppState } from './appReducer';
+import type { Action as ProblemAction, State as ProblemState } from './problemReducer';
+import type { Action as MuniAction, State as MuniState } from './muniReducer';
+import type { Action as EntrepreneurAction, State as EntrepreneurState } from './entrepreneurReducer';
 
 import userReducer from './userReducer';
 import problemReducer from './problemReducer';
@@ -14,17 +15,34 @@ import mapReducer from './mapReducer';
 import appReducer from './appReducer';
 import categoryReducer from './categoryReducer';
 import muniReducer from './muniReducer';
+import entrepreneurReducer from './entrepreneurReducer';
+
 import { combineReducers } from 'redux';
 
-export type State = {
+export type ReduxState = {
   app: AppState,
   user: UserState,
   problem: ProblemState,
   event: EventState,
   map: MapState,
   category: CategoryState,
-  muni: MuniState
+  muni: MuniState,
+  entrepreneur: EntrepreneurState
 };
+type Action =
+  | CategoryAction
+  | MapAction
+  | UserAction
+  | EventAction
+  | AppAction
+  | ProblemAction
+  | MuniAction
+  | EntrepreneurAction;
+
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
+type PromiseAction = Promise<Action>;
+type GetState = () => ReduxState;
+export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 
 // $FlowFixMe
 export default combineReducers({
@@ -34,5 +52,6 @@ export default combineReducers({
   event: eventReducer,
   map: mapReducer,
   category: categoryReducer,
-  muni: muniReducer
+  muni: muniReducer,
+  entrepreneur: entrepreneurReducer
 });

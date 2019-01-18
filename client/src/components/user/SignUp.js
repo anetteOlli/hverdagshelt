@@ -17,9 +17,10 @@ import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
+import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { postData } from '../../store/util';
+import { postData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -31,21 +32,26 @@ type Props = {
   signUpEntrepreneur: Function,
   enqueueSnackbar: Function,
   categories: string[],
-  municipalities: string[],
-  errorMessage: string
+  counties: string[],
+  currentMunicipalities: string[],
+  errorMessage: string,
+  getCounties: Function,
+  getMunicipalitiesByCounty: Function
 };
 
 type State = {
   muni: string,
+  county: string,
   entrepreneurName: string,
   email: string,
   password: string,
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
+  entrepreneurId: number,
   isEntrepreneur: boolean,
-  entrepreneurCategories: string[],
-  entrepreneurMunies: string[]
+  entrepreneurMunies: string[],
+  entrepreneurCategories: string[]
 };
 
 const styles = (theme: Object) => ({
@@ -71,6 +77,7 @@ const MenuProps = {
 class SignUp extends React.Component<Props, State> {
   state = {
     muni: '',
+    county: '',
     email: '',
     password: '',
     cnfPassword: '',
@@ -89,6 +96,15 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
+  handleCountyChange = e => {
+    this.setState({
+      county: e.target.value,
+      muni: '',
+      entrepreneurMunies: []
+    });
+    this.props.getMunicipalitiesByCounty(e.target.value);
+  };
+
   handleChecked = e => {
     this.setState({ [e.target.name]: e.target.checked });
   };
@@ -103,6 +119,7 @@ class SignUp extends React.Component<Props, State> {
     e.preventDefault();
     const {
       muni,
+      county,
       email,
       password,
       isEntrepreneur,
@@ -115,8 +132,8 @@ class SignUp extends React.Component<Props, State> {
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          municipality: 'Trondheim',
-          county: 'Trøndelag',
+          municipality: muni,
+          county,
           email,
           password
         })
@@ -131,15 +148,16 @@ class SignUp extends React.Component<Props, State> {
           {
             bedriftNavn: entrepreneurName,
             org_nr: entrepreneurId,
-            municipalities: [
-              { county: 'Trøndelag', municipality: 'Trondheim' },
-              { county: 'Trøndelag', municipality: 'Grong' },
-              { county: 'Trøndelag', municipality: 'Skaun' }
-            ],
-            categories: ['Snowplow', 'Tree in road']
+            municipalities: entrepreneurMunies.map(name => {
+              return { county, municipality: name };
+            }),
+            categories: entrepreneurCategories
           }
         )
-        .then(() => this.props.enqueueSnackbar(' U in', { variant: 'success' }));
+        .then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+        });
     }
   };
 
@@ -153,7 +171,8 @@ class SignUp extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn, categories, municipalities } = this.props;
+    const { classes, isLoggedIn, categories, counties, currentMunicipalities } = this.props;
+    const muniNotReady = this.state.county === '';
     const EntrepenurSignUp = (
       <div>
         <TextValidator
@@ -167,7 +186,7 @@ class SignUp extends React.Component<Props, State> {
           validators={['required']}
           errorMessages={['Feltet kan ikke være tomt']}
         />
-        <FormControl fullWidth margin="normal" className={classes.formControl}>
+        <FormControl fullWidth margin="normal" className={classes.formControl} disabled={muniNotReady}>
           <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
           <Select
             multiple
@@ -178,7 +197,7 @@ class SignUp extends React.Component<Props, State> {
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {municipalities.map(name => (
+            {currentMunicipalities.map(name => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={this.state.entrepreneurMunies.indexOf(name) > -1} />
                 <ListItemText primary={name} />
@@ -228,14 +247,31 @@ class SignUp extends React.Component<Props, State> {
           <SelectValidator
             fullWidth
             margin="normal"
-            label="Kommune du er fra:"
+            label="Fylke: "
+            name="county"
+            value={this.state.county}
+            onChange={this.handleCountyChange}
+            validators={['required']}
+            errorMessages={['this field is required']}
+          >
+            {counties.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </SelectValidator>
+          <SelectValidator
+            disabled={muniNotReady}
+            fullWidth
+            margin="normal"
+            label="Kommune: "
             name="muni"
             value={this.state.muni}
             onChange={this.handleChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {municipalities.map((option, index) => (
+            {currentMunicipalities.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
@@ -311,6 +347,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
+    this.props.getCounties();
   }
 }
 
@@ -319,14 +356,17 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
     categories: state.category.categories,
-    municipalities: state.muni.municipalities
+    currentMunicipalities: state.muni.currentMunicipalities,
+    counties: state.muni.counties
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     signUpUser: newUser => dispatch(signUpUser(newUser)),
-    signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur))
+    signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur)),
+    getCounties: () => dispatch(getCounties()),
+    getMunicipalitiesByCounty: (county: string) => dispatch(getMunicipalitiesByCounty(county))
   };
 };
 
@@ -335,24 +375,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(withSnackbar(SignUp)));
-
-/*         <SelectValidator
-          fullWidth
-          margin="normal"
-          multiple
-          label="Kommuner entrepenøren jobber i lol:"
-          name="entrepreneurMuni"
-          value={this.state.entrepreneurMuni}
-          onChange={this.handleChange}
-          renderValue={selected => selected.join(', ')}
-          validators={['required']}
-          errorMessages={['Feltet kan ikke være tomt']}
-        >
-          {categories.map((name: string) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={this.state.entrepreneurMuni.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </SelectValidator>
-   */

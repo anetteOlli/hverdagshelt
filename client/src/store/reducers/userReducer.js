@@ -6,8 +6,9 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority
+  priority: Priority,
 };
+
 export type Action =
   | { type: 'SIGN_IN_SUCCESS', payload: { userId: number, priority: Priority } }
   | { type: 'SIGN_IN_ERROR', payload: Error }
@@ -21,7 +22,7 @@ const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Standard'
+  priority: 'Municipality',
 };
 
 export default (state: State = initState, action: Action) => {
@@ -29,6 +30,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_IN_SUCCESS':
       console.log('%c SIGN_IN_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: true,
         priority: action.payload.priority,
         userID: action.payload.userId,
@@ -37,6 +39,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_IN_ERROR':
       console.log('%c SIGN_IN_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: action.payload.message
@@ -50,6 +53,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_UP_ERROR':
       console.log('%c SIGN_UP_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: action.payload.message
@@ -57,6 +61,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_OUT_SUCCESS':
       console.log('%c SIGN_OUT_SUCCESS', 'color: green; font-weight: bold;');
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
         errorMessage: ''
@@ -64,17 +69,19 @@ export default (state: State = initState, action: Action) => {
     case 'REFRESH_SUCCESS':
       console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: true,
         userID: action.payload.userId,
         priority: action.payload.priority,
-        errorMessage: ''
+        errorMessage: '',
       };
     case 'REFRESH_ERROR':
       console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         isLoggedIn: false,
         userID: 0,
-        errorMessage: ''
+        errorMessage: '',
       };
     default:
       return state;

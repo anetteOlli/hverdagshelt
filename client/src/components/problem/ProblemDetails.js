@@ -6,20 +6,17 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Popover from '@material-ui/core/Popover/Popover';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 
-import EnhancedTableHead from '../util/SelectTable';
 
+import SelectTable from  '../util/SelectTable';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
@@ -106,8 +103,10 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit = () => {
-    console.log('Trykte på edit');
-    this.props.goToProblemEdit(this.props.problem_id);
+    console.log("Trykte på edit");
+    console.log("handle clickonEdit. id: " + this.props.problem.problem_id)
+    this.props.goToProblemEdit(this.props.problem.problem_id);
+
   };
 
   toggleHidden() {
@@ -126,9 +125,9 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({ open: false });
   };
 
+
   render() {
     const { classes, problem, isLoggedIn } = this.props;
-    console.log(problem);
     if (problem) {
       return (
         <div className={classes.main}>
@@ -226,7 +225,6 @@ class ProblemDetails extends React.Component<Props, State> {
                 </Grid>
               </Grid>
             </Grid>
-
             <Grid item xs={12}>
               <div className="mapPlaceholder">
                 <MapMarkers />
@@ -235,10 +233,10 @@ class ProblemDetails extends React.Component<Props, State> {
           </Grid>
           <div>
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
-              <DialogTitle id="customized-dialog-title" onClose={this.handleClose} />
+
               <DialogContent>
                 <Typography gutterBottom />
-                <EnhancedTableHead />
+                <SelectTable/>
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
@@ -253,7 +251,14 @@ class ProblemDetails extends React.Component<Props, State> {
       return <div>LOADING PROBLEM...</div>;
     }
   }
+  componentDidMount() {
+    console.log("PRIO:");
+    console.log(this.state.userPriority);
+  }
+
 }
+
+
 
 const mapStateToProps = state => {
   const problems = state.problem.problems;
@@ -279,6 +284,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
+
 
 // bruker kan edit desciption hvis ikke locked
 // Admin kan gjøre alt

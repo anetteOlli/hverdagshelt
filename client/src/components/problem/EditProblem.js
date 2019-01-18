@@ -14,8 +14,9 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
-
-const categories = ['Vei', 'vann', 'strøm', 'annen skade'];
+import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { getCategories } from '../../store/actions/categoryActions';
+import MapMarkers from '../map/MapMarkers';
 
 type Props = {
   classes: Object,
@@ -82,8 +83,7 @@ class EditProblem extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
-    // if (!isLoggedIn) return <Redirect to="/" />;
+    const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24}>
@@ -127,12 +127,12 @@ class EditProblem extends React.Component<Props, State> {
                   errorMessages={['this field is required']}
                 >
                   {categories.map((option, index) => (
-                    <MenuItem key={index} value={option}>
-                      {option}
+                    <MenuItem key={index} value={option.category}>
+                      {option.category}
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {this.props.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -159,7 +159,7 @@ class EditProblem extends React.Component<Props, State> {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.mapExpansion}>
                   <div className="mapPlaceholder">
-                    <Map />
+                    <MapMarkers />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
@@ -173,26 +173,46 @@ class EditProblem extends React.Component<Props, State> {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.problem !== this.props.problem) {
+      this.setState({
+        ...nextProps.problem
+      });
+      console.log('REEE', this.state);
+    }
+    console.log(this.state);
+  }
+
   componentDidMount() {
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
+    console.log(this.state);
   }
 }
 
 const mapStateToProps = state => {
+  const problems = state.problem.problems;
+  const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
+
   return {
-    problem: state.problem
+    currentProblemId: state.problem.currentProblemId,
+    problem,
+    userPriority: state.user.priority,
+    isLoggedIn: state.user.isLoggedIn,
+    categories: state.category.categories
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    getProblemById: (id: number) => dispatch(getProblemById(id)),
+    goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
+    getCategories: () => dispatch(getCategories())
   };
 };
 
-// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

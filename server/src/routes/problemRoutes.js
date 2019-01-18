@@ -1,7 +1,8 @@
 import { checkAuth } from '../services/util';
-
+let upload = require('../services/imageHostController');
 const router = require('express').Router();
 const ProblemController = require('../controllers/problemController');
+
 
 router.get('/', ProblemController.problems_get_all);
 
@@ -9,7 +10,9 @@ router.get('/:id', ProblemController.problems_get_problem);
 
 router.post('/municipality', ProblemController.problems_get_from_municipality);
 
-router.post('/', checkAuth, ProblemController.problems_create_problem);
+router.post('/', checkAuth, upload.uploader ,ProblemController.problems_create_problem);
+
+router.post('/municipality/street', ProblemController.problems_get_from_municipality_and_street);
 
 router.delete('/:id', checkAuth, ProblemController.problems_delete_problem);
 

@@ -23,7 +23,7 @@ import { getEventsByMuni } from '../../store/actions/eventActions';
 import { getProblemsByMuni } from '../../store/actions/problemActions';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
-
+import moment from 'moment';
 type Props = {
   classes: Object,
   match: { params: { municipality: string } }
@@ -40,6 +40,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%'
+  },
+  cardPage: {
+    marginTop: 30
   },
   tittel: {
     [theme.breakpoints.down('lg')]: {
@@ -88,109 +91,6 @@ const styles = theme => ({
     marginBottom: 20
   }
 });
-
-/**Event replacement*/
-const eventsG = [
-  {
-    event_id: 0,
-    event_name: 'Konsert på tunet',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'KOMMER!',
-    location_fk: 'tunet',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1'
-  },
-  {
-    event_id: 1,
-    event_name: 'Høytlesning på biblioteket',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'FOREGÅR NÅ!',
-    location_fk: 'biblioteket',
-    event_img: 'https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg'
-  },
-  {
-    event_id: 2,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  },
-  {
-    event_id: 3,
-    event_name: 'Høytlesning på biblioteket',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'FOREGÅR NÅ!',
-    location_fk: 'biblioteket',
-    event_img: 'https://cdn.cnn.com/cnnnext/dam/assets/130925122807-09-kids-books-0925-horizontal-large-gallery.jpg'
-  },
-  {
-    event_id: 4,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  },
-  {
-    event_id: 5,
-    event_name: 'Konsert på tunet',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'KOMMER!',
-    location_fk: 'tunet',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VigDKUTomMIUj8h6FODmWgHaFS%26pid%3D15.1&f=1'
-  },
-  {
-    event_id: 6,
-    event_name: 'Felles vårrengjøring av fotballbanen',
-    event_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_starting: '12-14-2356',
-    date_ending: '12-14-2356',
-    status_fk: 'AVSLUTTET',
-    location_fk: 'Fotballbanen',
-    event_img:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.fotballbanen.com%2Fwp-content%2Fuploads%2F2017%2F10%2Fatletico-madrid.jpg&f=1'
-  }
-];
-
-/**Event replacement*/
-const problemsG = [
-  {
-    problem_id: 0,
-    problem_title: 'Biblioteket raste ned',
-    problem_description:
-      'brabrabrabrabrabberbeewkfnefleirjglekrnfrlgjntkjtnfreregjernkjgnerkjgnrefkm v,djfenwlrkgmlrkgmvf,md r,kwelwøkflvbktmb',
-    date_made: '12-14-2356',
-    last_edited: '12-14-2356',
-    status_fk: 'UNDER BEHANDLING',
-    location_fk: 'rådhusplassen',
-    img_user:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffarm3.staticflickr.com%2F2372%2F2520041294_a67c6bd12b_z.jpg&f=1',
-    category_fk: 'Ødeleggelse'
-  }
-];
 
 function TabContainer(props) {
   return (
@@ -252,16 +152,16 @@ class MuniPage extends React.Component<Props, State> {
                     indicatorColor="primary"
                     textColor="primary"
                   >
-                    <LinkTab
-                      variant="fullWidth"
-                      label={<span className={classes.labeltext}>Arrangementer</span>}
-                      href="arrangement"
-                    />
-                    <LinkTab
-                      variant="fullWidth"
-                      label={<span className={classes.labeltext}>Problemer</span>}
-                      href="problemer"
-                    />
+                  <LinkTab
+                    variant="fullWidth"
+                    label={<span className={classes.labeltext}>Arrangementer</span>}
+                    href="arrangement"
+                  />
+                  <LinkTab
+                    variant="fullWidth"
+                    label={<span className={classes.labeltext}>Problemer</span>}
+                    href="problemer"
+                  />
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
@@ -269,7 +169,6 @@ class MuniPage extends React.Component<Props, State> {
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
                             {console.log('Events', JSON.stringify(event))}
-
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -287,19 +186,20 @@ class MuniPage extends React.Component<Props, State> {
                                   {event.event_name}
                                 </Typography>
                                 <Typography component="p">{event.event_description}</Typography>
-                                <Typography component="p">
+                                <Typography>
                                   <br />
-
+                                  Starter: {event.date_starting.toString()}<br />
+                                  Slutter: {event.date_ending.toString()}<br />
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {event.location_fk}</Typography>
+                                <Typography component="p">Lokasjon: {event.street_fk}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
                                   <Grid item md={4}>
                                     <Button variant="contained" size="small" color="primary">
-                                      Kart
+                                      Info
                                     </Button>
                                   </Grid>
                                 </Grid>
@@ -310,14 +210,12 @@ class MuniPage extends React.Component<Props, State> {
                       </Grid>
                     </TabContainer>
                   )}
-
                   {value === 1 && (
                     <TabContainer>
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
                             {console.log('Problems', JSON.stringify(problem))}
-
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -344,19 +242,19 @@ class MuniPage extends React.Component<Props, State> {
                                   {problem.problem_title}
                                 </Typography>
                                 <Typography component="p">{problem.problem_description}</Typography>
-                                <Typography component="p">
+                                <Typography>
                                   <br />
-
+                                  Dato lagt ut: {problem.date_made.toString()} <br />
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {problem.location_fk}</Typography>
+                                <Typography component="p">Lokasjon: {problem.street_fk}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
                                   <Grid item md={4}>
                                     <Button variant="contained" size="small" color="primary">
-                                      Kart
+                                      Info
                                     </Button>
                                   </Grid>
                                 </Grid>
@@ -391,6 +289,8 @@ class MuniPage extends React.Component<Props, State> {
   componentDidMount() {
     const municounty = this.props.match.params.municipality.split('&');
     this.props.getEvents(municounty[0], municounty[1]);
+    this.props.getProblems(municounty[0], municounty[1]);
+
   }
 } //class
 

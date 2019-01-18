@@ -5,9 +5,13 @@ export type Problem = {
   problem_description: string,
   problem_locked: number,
   img_user: string,
+  img_entrepreneur: string,
   date_made: string,
+  county_fk: string,
+  municipality_fk: string,
+  city_fk: string,
+  street_fk: string,
   last_edited: string,
-  location_fk: string,
   status_fk: string,
   category_fk: string,
   support: number
@@ -30,7 +34,9 @@ export type Action =
   | { type: 'PROBLEMS_BY_MUNI_SUCCESS', payload: Problem[] }
   | { type: 'PROBLEMS_BY_MUNI_ERROR', payload: Error }
   | { type: 'PROBLEMS_BY_STREET_SUCCESS', payload: Problem[] }
-  | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error };
+  | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error }
+  | { type: 'GO_TO_PROBLEM_DETAIL', payload: number }
+  | { type: 'GO_TO_PROBLEM_EDIT', payload: number };
 
 const initState = {
   problems: [
@@ -40,10 +46,15 @@ const initState = {
       problem_description: 'Dette er krise kom og fiks!',
       problem_locked: 0,
       img_user: 'https://i.imgur.com/ykbz8hO.png',
+      img_entrepreneur: 'https://i.imgur.com/ykbz8hO.png',
       date_made: '20-13-2018',
       last_edited: '20-14-2018',
       status_fk: 'Fixed',
       category_fk: 'Vei og kjørebane',
+      county_fk: 'test',
+      municipality_fk: 'test',
+      city_fk: 'test',
+      street_fk: 'test',
       latitude: '63.42656212314987',
       longitude: '10.393969503996345',
       support: -1
