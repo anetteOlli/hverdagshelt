@@ -2,9 +2,12 @@
 const Dao = require('./dao.js');
 
 module.exports = class ProblemDao extends Dao {
-
   getAll(callback) {
     super.query('SELECT * FROM problem', [], callback);
+  }
+
+  getAllFromUser(id: number, callback) {
+    super.query('SELECT * FROM problem WHERE user_id = ?', [id], callback);
   }
 
   getOne(id, callback) {
@@ -105,4 +108,10 @@ module.exports = class ProblemDao extends Dao {
     super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
   }
 
+
+  addEntrepreneur(json, callback) {
+    const values = [json.entrepreneur_fk, json.problem_id];
+    console.log(values);
+    super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
+  }
 };

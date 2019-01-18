@@ -25,4 +25,6 @@ router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_prob
 
 router.patch('/vote/:id', checkAuth, ProblemController.problems_support_problem);
 
+router.patch('/add/entrepreneur', ProblemController.problems_add_entrepreneur);
+
 module.exports = router;

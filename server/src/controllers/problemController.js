@@ -68,18 +68,21 @@ exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
-  if (req.file === undefined) {
-    problemDao.createOne(req.body, (status, data) => {
-      handleError(status,data,req,res);
-    });
-  } else {
-    image.uploadImage(req.file, url => {
-      req.body.img_user = url;
+  //Check if user has 10 problems already in DB
+  problemDao.getAllFromUser(req.body.userId, (status, data) =>{
+    if (req.file === undefined) {
       problemDao.createOne(req.body, (status, data) => {
         handleError(status,data,req,res);
       });
-    });
-  }
+    } else {
+      image.uploadImage(req.file, url => {
+        req.body.img_user = url;
+        problemDao.createOne(req.body, (status, data) => {
+          handleError(status,data,req,res);
+        });
+      });
+    }
+  })
 
   function handleError(status, data, req, res){
       if(status === 500) {
@@ -153,5 +156,11 @@ exports.problems_get_problem_by_entrepreneur = (req, res) => {
   console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
   problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
     res.status(status).json(data);
+  });
+};
+
+exports.problems_add_entrepreneur = (req, res) => {
+  problemDao.addEntrepreneur(req.body, (status, data) => {
+    return res.status(400).json(data);
   });
 };

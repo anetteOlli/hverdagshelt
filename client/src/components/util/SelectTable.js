@@ -13,12 +13,12 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import connect from 'react-redux/es/connect/connect';
 import withRoot from '../../withRoot';
 import { withSnackbar } from 'notistack';
-import { getAllEntrepreneur } from '../../store/actions/entrepreneurAction';
+import { getAllEntrepreneurs } from '../../store/actions/entrepreneurAction';
 
 let id = 0;
-function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
+function createSingleInstanceData(entrepreneur_id, bedriftnavn) {
   id += 1;
-  return { id, problem_id, problem_title, status_fk, support};
+  return { id, entrepreneur_id, bedriftnavn };
 }
 
 function desc(a, b, orderBy) {
@@ -45,11 +45,7 @@ function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-const rows = [
-  { id: 'problem_title', numeric: false, disablePadding: true, label: 'Tittel: ' },
-  { id: 'status_fk', numeric: false, disablePadding: true, label: 'Status: ' },
-  { id: 'support', numeric: true, disablePadding: false, label: 'Støtte: ' }
-];
+const rows = [{ id: 'bedriftnavn', numeric: false, disablePadding: true, label: 'Bedriftnavn ' }];
 
 class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
@@ -108,12 +104,17 @@ const styles = theme => ({
 class SelectTable extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'problem_title',
+    orderBy: 'bedriftsnavn',
     problem_id: 1,
-    data: [
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5
+  };
+
+  handleClick = (id) => {
+    
+
+
   };
 
   handleRequestSort = (event, property) => {
@@ -133,66 +134,100 @@ class SelectTable extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, entrepreneurs } = this.props;
     const { data, order, orderBy, rowsPerPage, page } = this.state;
+    console.log('LENGTH:');
+    console.log(data.length);
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-    return (
-      <Paper className={classes.paper} name="Main paper in table">
-        <div name="Main div in table">
-          {this.props.entrepreneurs && this.props.entrepreneurs[0].bedriftnavn}
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
-            />
+    console.log('Se her', this.props.entrepreneurs);
+    if (entrepreneurs && entrepreneurs.length > 0) {
+      return (
+        <Paper className={classes.paper} name="Main paper in table">
+          <div name="Main div in table">
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={this.handleRequestSort}
+                rowCount={data.length}
+              />
 
-            <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
-                  return (
-                    <TableRow name={n.id} hover onClick={() => this.handleClick(n.problem_id)} tabIndex={-1}  key={n.problem_id}>
-                      <TableCell component="th" scope="row" padding="none">
-                        z
-                      </TableCell>
-                      <TableCell align="right">x</TableCell>
-                      <TableCell align="right">y</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page'
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page'
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-      </Paper>
-    );
+              <TableBody>
+                {stableSort(data, getSorting(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(n => {
+                    return (
+                      <TableRow
+                        name={n.id}
+                        hover
+                        onClick={() => this.handleClick(n.entrepreneur_id)}
+                        tabIndex={-1}
+                        key={n.entrepreneur_id}
+                      >
+                        <TableCell component="th" scope="row" padding="none">
+                          {n.bedriftnavn}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 49 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page'
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page'
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+        </Paper>
+      );
+    } else {
+      return <div>LOADING...</div>;
+    }
   }
 
-  componentDidMount(){
-    this.props.getAllEntrepreneur();
+
+  componentDidMount() {
+    this.props.getAllEntrepreneurs();
+    //createSingleInstanceData(this.props.entrepreneur.entrepreneur_id, this.props.entrepreneur.bedriftnavn || 0)
   }
+
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.entrepreneurs !== nextProps.entrepreneurs) {
+      const entrepreneurs = nextProps.entrepreneurs;
+      console.log(entrepreneurs);
+      const data = entrepreneurs
+        ? entrepreneurs.map((entrepreneur, index: number) =>
+          createSingleInstanceData(entrepreneur.entrepreneur_id, entrepreneur.bedriftnavn || 0)
+        )
+        : null;
+      console.log("data:");
+      console.log(data);
+      this.setState({
+        data
+      });
+    }
+  }
+
+
 }
+
+
 
 const mapStateToProps = state => {
   return {
@@ -202,8 +237,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllEntrepreneur: () => dispatch(getAllEntrepreneur())
+    getAllEntrepreneurs: () => dispatch(getAllEntrepreneurs())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(SelectTable))));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(SelectTable))));
