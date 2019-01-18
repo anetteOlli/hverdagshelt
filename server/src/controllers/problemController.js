@@ -109,3 +109,9 @@ exports.problems_edit_problem = (req, res) => {
     });
   });
 };
+
+exports.problems_add_entrepreneur = (req, res) => {
+  problemDao.addEntrepreneur(req.body, (status, data) => {
+    return res.status(400).json(data);
+  });
+};

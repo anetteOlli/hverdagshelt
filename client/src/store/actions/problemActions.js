@@ -120,3 +120,15 @@ export const goToProblemEdit = (id: number) => {
     });
   };
 };
+
+export const problemAddEntrepreneur = (entrepreneur_fk: number, problem_id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    dispatch({
+      type: 'PROBLEM_ADD_ENTREPRENEUR',
+      payload:
+    })
+
+  }
+
+
+}
