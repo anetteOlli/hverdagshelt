@@ -83,6 +83,7 @@ module.exports = class ProblemDao extends Dao {
 
   patchStandard(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.img_user, id];
+  }
 
   patchBruker(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.img_user];

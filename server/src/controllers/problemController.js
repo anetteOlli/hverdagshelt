@@ -135,7 +135,7 @@ exports.problems_edit_problem = (req, res) => {
       });
     }
     if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
-    if (req.userData.user.id !== data[0].user_fk) return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+    if (req.userData.id !== data[0].user_fk) return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
     problemDao.patchBruker(req.params.id, false, req.body, (status, data) => {
       return res.status(status).json(data);
     });

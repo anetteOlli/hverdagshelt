@@ -290,7 +290,7 @@ class EditProblemE extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemE: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });

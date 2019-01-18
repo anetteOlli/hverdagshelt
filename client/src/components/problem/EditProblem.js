@@ -157,8 +157,8 @@ class EditProblem extends React.Component<Props, State> {
                   errorMessages={['this field is required']}
                 >
                   {categories.map((option, index) => (
-                    <MenuItem key={index} value={option.category}>
-                      {option.category}
+                    <MenuItem key={index} value={option}>
+                      {option}
                     </MenuItem>
                   ))}
                 </SelectValidator>
@@ -210,11 +210,10 @@ class EditProblem extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
