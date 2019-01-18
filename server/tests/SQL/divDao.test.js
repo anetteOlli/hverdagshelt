@@ -71,10 +71,3 @@ test("Testing createStreet from DivDao", (done) => {
     done();
   })
 });
-
-
-router('/',(req,res) => {
-  controller.post(req.body, (status,data) => {
-
-  })
-})
