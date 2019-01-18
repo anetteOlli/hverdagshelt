@@ -1,9 +1,10 @@
 const image = require('../services/imageHostController').ImageHostController;
 
 const EventDao = require('../dao/eventDao');
-const divDao = require('../dao/divDao');
+const DivDao = require('../dao/divDao');
 const pool = require('../services/database');
 let eventDao = new EventDao(pool);
+let divDao = new DivDao(pool);
 
 exports.events_get_all = (req, res) => {
   console.log('Handling GET requests to /events');
@@ -37,7 +38,7 @@ exports.events_create_event = (req, res) => {
     });
   } else {
     image.uploadImage(req.file, url => {
-      req.body.img_user = url;
+      req.body.event_img = url;
       eventDao.createOne(req.body, (status, data) => {
         handleError(status,data,req,res);
       });
@@ -56,7 +57,7 @@ exports.events_create_event = (req, res) => {
     } else if(status === 200) {
       res.status(status).json(data);
     } else {
-      res.status(404).json({"Error":"Couldn't add problem"});
+      res.status(404).json({"error":"Couldn't add problem"});
     }
   }
 };

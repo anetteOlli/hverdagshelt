@@ -282,8 +282,8 @@ class CreateEvent extends React.Component<Props, State>{
 
     title: '',
     description: '',
-    dateStart: new Date('2014-08-18T00:00:00'),
-    dateEnd: new Date('2014-08-18T00:00:00'),
+    dateStart: new Date('0000-00-00T00:00:00'),
+    dateEnd: new Date('0000-00-00T00:00:0'),
     dateEndInput: '',
     image: '',
 
@@ -428,6 +428,7 @@ class CreateEvent extends React.Component<Props, State>{
       // }
       /*--- Need formdata so multer module in backend can store the image ---*/
       let k = new FormData();
+      if(this.state.image){
       k.append("image",this.state.image);
       k.append("event_name", this.state.title);
       k.append("event_description", this.state.description);
@@ -439,8 +440,19 @@ class CreateEvent extends React.Component<Props, State>{
       k.append("municipality_fk", this.state.municipality);
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
-
-      this.props.createEvent(k);
+      this.props.createEvent(k,true);
+    } else this.props.createEvent({
+        event_name: this.state.title,
+        event_description: this.state.description,
+        date_starting: this.state.dateStart,
+        date_ending: this.state.dateEnd,
+        latitude: this.props.cords.lat,
+        longitude: this.props.cords.lng,
+        county_fk: this.state.county,
+        municipality_fk: this.state.municipality,
+        city_fk: this.state.city,
+        street_fk: this.state.street
+      },false)
       // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
     this.handleNext();
@@ -489,7 +501,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createEvent: newEvent => dispatch(createEvent(newEvent))
+    createEvent: (newEvent,bool) => dispatch(createEvent(newEvent,bool))
   };
 };
 
