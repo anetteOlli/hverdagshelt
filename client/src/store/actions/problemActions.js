@@ -121,14 +121,17 @@ export const goToProblemEdit = (id: number) => {
   };
 };
 
-export const problemAddEntrepreneur = (entrepreneur_fk: number, problem_id: number) => {
+export const problemAddEntrepreneur = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    dispatch({
-      type: 'PROBLEM_ADD_ENTREPRENEUR',
-      payload:
-    })
-
-  }
-
-
-}
+    patchData('problems/add/entrepreneur', problem).then(()=>
+      dispatch({
+        type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR',
+          payload: error
+        })
+      )
+    );
+  };
+};

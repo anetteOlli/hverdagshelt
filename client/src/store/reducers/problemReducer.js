@@ -36,7 +36,9 @@ export type Action =
   | { type: 'PROBLEMS_BY_STREET_SUCCESS', payload: Problem[] }
   | { type: 'PROBLEMS_BY_STREET_ERROR', payload: Error }
   | { type: 'GO_TO_PROBLEM_DETAIL', payload: number }
-  | { type: 'GO_TO_PROBLEM_EDIT', payload: number };
+  | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
+  | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
+  | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' };
 
 const initState = {
   problems: [
@@ -152,6 +154,18 @@ export default (state: State = initState, action: Action) => {
         ...state,
         currentProblemId: action.payload,
         editMode: true
+      };
+    case 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS':
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'PROBLEM_ADD_ENTREPRENEUR_ERROR':
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: action.payload.message
       };
     default:
       return state;

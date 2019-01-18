@@ -112,10 +112,9 @@ class SelectTable extends React.Component {
   };
 
   handleClick = (id) => {
+    
 
-    /** HEEEER MÅ VI UPDATE entrepreneur felt og sette locked til true **/
 
-    this.props.funccccc(id);
   };
 
   handleRequestSort = (event, property) => {
