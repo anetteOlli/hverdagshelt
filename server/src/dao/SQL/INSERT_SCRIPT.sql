@@ -446,7 +446,7 @@ INSERT INTO municipality(municipality, county) VALUES('Rindal', 'Trøndelag');
 INSERT INTO category VALUES('Hole in road');
 INSERT INTO category VALUES('Tree in road');
 INSERT INTO category VALUES('Snowplow');
-
+INSERT INTO category VALUES('Testing');
 
 INSERT INTO city VALUES('Trondheim');
 INSERT INTO city VALUES('Vinstra');
@@ -483,17 +483,17 @@ INSERT INTO entrepreneur(bedriftnavn, org_nr, user_fk) VALUES("Arbeidsjøinn", "
 INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Oslo", "Oslo");
 INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Tromsø", "Troms");
 
-INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Hole in road');
+INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Tree in road');
 INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Snowplow');
 
-INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
-VALUES("Erlend tried his best", "A big hole has been found in the rear of Erlend", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 1, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata");
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk, date_made)
+VALUES("Erlend tried his best", "A big hole has been found in the rear of Erlend", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 1, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata", NOW());
 
-INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
-VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien");
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk, date_made)
+VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien", NOW());
 
-INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, entrepreneur_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk)
-VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 3 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien");
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, entrepreneur_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk,date_made)
+VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 3 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien", NOW());
 
 INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status_fk, municipality_fk, county_fk, city_fk, street_fk, latitude, longitude)
 VALUES("SNORRES FORTNITE DANSEKURS", "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Klostergata", 63.422724, 10.395582);

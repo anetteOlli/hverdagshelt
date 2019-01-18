@@ -1,14 +1,14 @@
 // @flow
-import CategoryDAO from '../src/dao/categoryDao';
+import CategoryDAO from '../../src/dao/categoryDao';
 const mysql = require('mysql');
-const runsqlfile = require('../src/dao/SQL/runsqlfile');
+const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
 
 let pool = mysql.createPool({
   connectionLimit: 1000000,
   host: 'mysql',
   user: 'root',
-  password: 'abc123',
+  password: 'abc12345!',
   database: 'testdb',
   debug: false,
   multipleStatements: true
@@ -27,8 +27,7 @@ afterAll(() => pool.end());
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toEqual(200);
-    expect(data.length).toBeGreaterThanOrEqual(2);
-    expect(data.length).toBeLessThanOrEqual(4);
+    expect(data.length).toBe(4);
     //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
     //expect(data[0]).toBeArray();
     expect(data[0]).toEqual({"category":'Hole in road'});
@@ -38,7 +37,7 @@ test("Tester getAll fra categoryDao", (done) => {
 
 
 test("Tester getOne fra categoryDao", (done) => {
-  let catName = {"category": "Hole in road"};
+  let catName = {"category":"Tree in road"};
   dao.getOne(catName.category, (status,data) => {
    expect(status).toEqual(200);
    expect(data[0]).toEqual(catName);
@@ -48,7 +47,7 @@ test("Tester getOne fra categoryDao", (done) => {
 });
 
 test("Tester deleteOne fra categoryDao", (done) => {
-  let catname = "Tree in road";
+  let catname = "Hole in road";
   dao.deleteOne(catname, (status,data) => {
     expect(status).toEqual(200);
     expect(data.affectedRows).toEqual(1);
@@ -57,7 +56,7 @@ test("Tester deleteOne fra categoryDao", (done) => {
 });
 
 test("Tester createOne fra categoryDao", (done) => {
-  let newCat = "yeeeeet";
+  let newCat = {"category": "yeeeeet"};
   dao.createOne(newCat,(status,data) => {
     expect(status).toEqual(200);
     expect(data.affectedRows).toBe(1);
