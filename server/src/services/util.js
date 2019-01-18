@@ -1,30 +1,6 @@
 // @flow
-import multer from 'multer';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-
-/*---     Using multer to store image     ---*/
-const storage = multer.diskStorage({
-  destination: (req: express$Request, file: multer, callback: express$RenderCallback): void => {
-    //null = error.
-    callback(null, '../client/public/res/images/');
-  },
-  filename: (req: express$Request, file: multer, callback: express$RenderCallback): void => {
-    callback(null, Date.now() + '-' + file.originalname);
-  }
-});
-const imgFilter = (file: multer, callback: (?Error, boolean) => mixed): void => {
-  //reject a file check if a file does not ends with jpg, jpeg, png or gif
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) callback(new Error('Invalid file'), false);
-  callback(null, true);
-};
-export const upload = multer({
-  storage: storage,
-  fileFilter: (req: express$Request, file: express$SendFileOptions, callback: (?Error, boolean) => mixed): void => {
-    imgFilter(file, callback);
-  },
-  limits: { fileSize: 1024 * 1024 * 5 }
-});
 
 /*---      Verify token       ---*/
 export const checkAuth = (req: () => mixed, res: express$Response, next: express$NextFunction): void => {
