@@ -21,9 +21,9 @@ import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pic
 import 'date-fns';
 import DateFormat from 'dateformat';
 
-
+// Use history.push(...) to programmatically change path
 import createHashHistory from 'history/createHashHistory';
-const history = createHashHistory(); // Use history.push(...) to programmatically change path
+const history = createHashHistory();
 
 type Props = {
   classes: Object,

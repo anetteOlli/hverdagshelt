@@ -21,6 +21,10 @@ class SimpleMap extends Component {
           lng: 9.769488616282388
         }
       ],
+      curr_center: {
+        lat: null,
+        lng: null
+      },
       zoom: 17
     };
   }
