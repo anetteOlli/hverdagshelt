@@ -1,6 +1,6 @@
-import entrepreneurDAO from '../src/dao/entrepreneurDao';
+import entrepreneurDAO from '../../src/dao/entrepreneurDao';
 const mysql = require('mysql');
-const runsqlfile = require('../src/dao/SQL/runsqlfile');
+const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
 
 let pool = mysql.createPool({

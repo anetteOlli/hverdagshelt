@@ -1,6 +1,6 @@
-import DivDAO from '../src/dao/DivDao';
+import DivDAO from '../../src/dao/divDao';
 const mysql = require('mysql');
-const runsqlfile = require('../src/dao/SQL/runsqlfile');
+const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
 
 let pool = mysql.createPool({

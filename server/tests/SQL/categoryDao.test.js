@@ -1,7 +1,7 @@
 // @flow
-import CategoryDAO from '../src/dao/categoryDao';
+import CategoryDAO from '../../src/dao/categoryDao';
 const mysql = require('mysql');
-const runsqlfile = require('../src/dao/SQL/runsqlfile');
+const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
 
 let pool = mysql.createPool({

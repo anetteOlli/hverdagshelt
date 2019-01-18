@@ -1,7 +1,7 @@
 // @flow
-import ProblemDAO from '../src/dao/problemDao';
+import ProblemDAO from '../../src/dao/problemDao';
 const mysql = require('mysql');
-const runsqlfile = require('../src/dao/SQL/runsqlfile');
+const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
 
 let pool = mysql.createPool({
