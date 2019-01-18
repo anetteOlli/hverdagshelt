@@ -7,9 +7,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
-import { getLineChartData } from '../../store/actions/statisticsActions';
-import PieChart from 'recharts/lib/chart/PieChart';
-import Pie from 'recharts/lib/polar/Pie';
+import XAxis from 'recharts/lib/cartesian/XAxis';
+import YAxis from 'recharts/lib/cartesian/YAxis';
+import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
+import Legend from 'recharts/lib/component/Legend';
+import Bar from 'recharts/lib/cartesian/Bar';
+import BarChart from 'recharts/lib/chart/BarChart';
 
 const dataSimplePieChart = [
   { name: 'Group A', value: 400 },
@@ -32,10 +35,15 @@ class LineChart extends React.Component {
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <PieChart width={800} height={400}>
-            <Pie data={dataSimplePieChart} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
+          <BarChart width={600} height={300} data={dataDualLineChart} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
             <Tooltip />
-          </PieChart>
+            <Legend />
+            <Bar dataKey="pv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#82ca9d" />
+          </BarChart>
         </ResponsiveContainer>
         <FormGroup row>
           <FormControlLabel

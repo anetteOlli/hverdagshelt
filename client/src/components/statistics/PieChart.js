@@ -7,7 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
-import { getLineChartData } from '../../store/actions/statisticsActions';
+import { getPieChartData } from '../../store/actions/statisticsActions';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
 
