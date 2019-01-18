@@ -1,21 +1,22 @@
 // @flow
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
-import { postData, deleteData, getData } from '../axios';
+import { getData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const createCategory = (newCategory: JSON) => {
+export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('categories', newCategory).then(() =>
+    return getData(`statistics/lineChartData/${muni}`).then(response =>
       dispatch({
-        type: 'CREATE_CATEGORY_SUCCESS'
+        type: 'LINE_CHART_DATA_SUCCESS',
+        payload: response.data
       }).catch((error: Error) =>
         dispatch({
-          type: 'CREATE_CATEGORY_ERROR',
+          type: 'LINE_CHART_DATA_ERROR',
           payload: error
         })
       )
@@ -23,38 +24,34 @@ export const createCategory = (newCategory: JSON) => {
   };
 };
 
-export const deleteCategory = (id: number) => {
+export const getPieChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return deleteData(`categories/${id}`)
-      .then(() =>
+    return getData(`statistics/pieChartData/${muni}`).then(response =>
+      dispatch({
+        type: 'PIE_CHART_DATA_SUCCESS',
+        payload: response.data
+      }).catch((error: Error) =>
         dispatch({
-          type: 'DELETE_CATEGORY_SUCCESS'
-        })
-      )
-      .catch((error: Error) =>
-        dispatch({
-          type: 'DELETE_CATEGORY_ERROR',
+          type: 'PIE_CHART_DATA_ERROR',
           payload: error
         })
-      );
+      )
+    );
   };
 };
 
-export const getCategories = () => {
-  console.log('you got to category actions!');
+export const getBarChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData('categories')
-      .then(response =>
+    return getData(`statistics/barChartData/${muni}`).then(response =>
+      dispatch({
+        type: 'BAR_CHART_DATA_SUCCESS',
+        payload: response.data
+      }).catch((error: Error) =>
         dispatch({
-          type: 'GET_CATEGORIES_SUCCESS',
-          payload: response.data
-        })
-      )
-      .catch((error: Error) =>
-        dispatch({
-          type: 'GET_CATEGORIES_ERROR',
+          type: 'BAR_CHART_DATA_ERROR',
           payload: error
         })
-      );
+      )
+    );
   };
 };
