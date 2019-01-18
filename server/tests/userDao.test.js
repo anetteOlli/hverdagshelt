@@ -119,5 +119,4 @@ test("Testing checkMail from userDao", (done) => {
     expect(data[0].priority_fk).toBe("Standard");
     done();
   })
-
 });
