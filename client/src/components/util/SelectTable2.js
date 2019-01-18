@@ -10,19 +10,19 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
 import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon,
-        TableBody, TableHead, TableRow, TableCell, tableSortLabel,
-        List, ListItem, ListItemText, ListSubheader, CardMedia
-      } from '@material-ui/core';
+  TableBody, TableHead, TableRow, TableCell, tableSortLabel,
+  List, ListItem, ListItemText, ListSubheader, CardMedia
+} from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { CheckCircle, ThumbUp } from '@material-ui/icons';
+import { CheckCircle } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
-* Styles the expansionpanels!
-*/
+ * Styles the expansionpanels!
+ */
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0,0,0,.125)',
@@ -67,10 +67,10 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 //Own material start
 /** Props for MuiTable
-* The props are as following:
-* Rows are the item you want to show. Should have AT LEAST id, title, description, status, entrepreneur, imgURL
-* onClick is an OPTIONAL function
-*/
+ * The props are as following:
+ * Rows are the item you want to show. Should have AT LEAST id, title, description, status, entrepreneur, imgURL
+ * onClick is an OPTIONAL function
+ */
 type Props = {
   classes: PropTypes.object,
   rows: PropTypes.array,
@@ -78,8 +78,8 @@ type Props = {
 }
 
 /** Component Class for MuiTable
-* @see Props
-*/
+ * @see Props
+ */
 class MuiTable2 extends React.Component<Props> {
   state = {
     expanded: '0',
@@ -98,42 +98,25 @@ class MuiTable2 extends React.Component<Props> {
     return (
       <div>
         {rows.map(row => (
-          <ExpansionPanel expanded={expanded === row.problem_id}
-          onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
-            key={row.problem_id}>
+          <ExpansionPanel expanded={expanded === row.id}
+                          onChange={(onClick == null) ? this.handleChange(row.id) : e => onClick(row)}
+                          key={row.id}>
             <ExpansionPanelSummary>
-              <CheckCircle className="material-icons" color=
-              {row.status_fk == "Unchecked" ? "disabled"
-              : (row.status_fk == "Checked" ? "primary" : "error")}/>
-              <Typography style={{flexBasis:"100%", fontSize:"15"}}>{row.problem_title}</Typography>
-              <Typography style={{flexBasis:"40%", fontSize:10}}>{row.date_made}</Typography>
-              <ThumbUp className="material-icons" color="primary" size="50%"/>
-              <Typography align="right" style={{flexBasis:"10%", fontSize: 10}}>{row.support}</Typography>
 
-              <CheckCircle className="material-icons" color="disabled" size="50%"/>
+              <Typography>{row.bedriftnavn}</Typography>
+
+
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Grid item xs container
-              direction="column" alignItems="flex-start"
-              lg={5} md={6} sm={12} sx={12}
+                    direction="column" alignItems="flex-start"
+                    lg={5} md={6} sm={12} sx={12}
               >
                 <Grid item xs>
-                  <h4>Beskrivelse</h4>
+                  <h4>Bedriftsnavn</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.problem_description}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <h4>Entreprenør</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{row.entrepreneur_fk}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <h4>Status</h4>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{row.status_fk}</Typography>
+                  <Typography>{row.bedriftnavn}</Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelDetails>
@@ -142,6 +125,22 @@ class MuiTable2 extends React.Component<Props> {
       </div>
     );
   }
+}
+
+function MuiTable2Wrapper() {
+  let  rows = [
+    {id: 1, title: "Title1", description: "abc1", imgURL: "imgURL", entrepreneur: "Bob1", status: "Done"},
+    {id: 2, title: "Title2", description: "abc2", imgURL: "imgURL", entrepreneur: "Bob2", status: "Checked"},
+    {id: 3, title: "Title3", description: "abc3", imgURL: "imgURL", entrepreneur: "Bob3", status: "Unchecked"}
+  ];
+  return (
+    <Paper style={{ height: 250, width: '100%' }}>
+      <MuiTable2Base
+        rows={rows}
+        onClick={e => console.log(e)}
+      />
+    </Paper>
+  );
 }
 
 export default withRoot(MuiTable2);
