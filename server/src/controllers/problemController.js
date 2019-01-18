@@ -33,7 +33,7 @@ exports.problems_get_from_municipality = (req, res) => {
 };
 
 exports.problems_get_from_municipality_and_street = (req, res) => {
-  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+  if(req.body.county === "Sør-Trøndelag" || req.body.county === "Nord-Trøndelag") req.body.county = "Trøndelag";
   console.log(
     '/problems/municipality/street: ' +
       req.body.street +
@@ -51,9 +51,9 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag";
+  if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
+    req.body.county_fk = 'Trøndelag';
   if (req.file === undefined) {
-    req.body.img_user='https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Temp_plate.svg/1280px-Temp_plate.svg.png';
     problemDao.createOne(req.body, (status, data) => {
       handleError(status,data,req,res);
     });
@@ -61,25 +61,25 @@ exports.problems_create_problem = (req, res) => {
     image.uploadImage(req.file, url => {
       req.body.img_user = url;
       problemDao.createOne(req.body, (status, data) => {
-        handleError(status, data, req, res);
+        handleError(status,data,req,res);
       });
     });
   }
 
-  function handleError(status, data, req, res) {
-    if (status === 500) {
-      divDao.createCity(req.body.city_fk, () => {
-        divDao.createStreet(req.body.street_fk, () => {
-          problemDao.createOne(req.body, (status, data) => {
-            res.status(status).json(data);
-          });
+  function handleError(status, data, req, res){
+      if(status === 500) {
+        divDao.createCity(req.body.city_fk, () => {
+          divDao.createStreet(req.body.street_fk, () => {
+            problemDao.createOne(req.body, (status,data) => {
+              res.status(status).json(data);
+            })
+          })
         });
-      });
-    } else if (status === 200) {
-      res.status(status).json(data);
-    } else {
-      res.status(404).json({ Error: "Couldn't add problem" });
-    }
+      } else if(status === 200) {
+        res.status(status).json(data);
+      } else {
+        res.status(404).json({"Error":"Couldn't add problem"});
+      }
   }
 };
 
