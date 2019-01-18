@@ -73,7 +73,7 @@ exports.user_patch_user = (req, res) => {
 };
 
 exports.user_validate_email = (req, res) => {
-  userDao.checkEmail(req.body.email, (status, data) => {
+  userDao.checkEmail(req.params.email, (status, data) => {
     const emailExist = data.length > 0;
     res.json({ emailExist });
   });

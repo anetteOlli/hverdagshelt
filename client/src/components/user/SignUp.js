@@ -24,7 +24,7 @@ import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions'
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { postData } from '../../store/axios';
+import { getData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -180,7 +180,7 @@ class SignUp extends React.Component<Props, State> {
   };
 
   handleValidateEmail = () => {
-    postData('users/validate_email', { email: this.state.email }).then(response => {
+    getData(`users/validate_email/${this.state.email}`).then(response => {
       const email = this.state.email;
       this.setState({
         isUniqueEmail: response.data.emailExist,
@@ -193,7 +193,8 @@ class SignUp extends React.Component<Props, State> {
   };
 
   handleValidateOrgNr = () => {
-    postData('div/validate_orgnr', { orgNr: this.state.orgNr }).then(response => {
+    getData(`entrepreneurs/validate_org_nr/${this.state.orgNr}`).then(response => {
+      console.log(response);
       const orgNr = this.state.orgNr;
       this.setState({
         isUniqueOrgNr: response.data.orgNrExist,
