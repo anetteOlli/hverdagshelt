@@ -45,19 +45,7 @@ exports.users_create_user = (req, res) => {
   });
 };
 
-exports.users_create_entrepreneur = (req, res) => {
-  userDao.createUser(req.body.user, hashPassword(req.body.user.password), 'Entrepreneur', (status, data) => {
-    if (status !== 200) return res.status(status).json(data);
-    userDao.createEntrepreneur(req.body.entrepreneur, data.insertId, (status, data) => {
-      if (status !== 200) return res.status(status).json(data);
-      const ent_id = data.insertId;
-      userDao.linkEntrepreneur(req.body.entrepreneur, ent_id, (status, data) => {
-        if (status !== 200) return res.status(status).json(data);
-      });
-    });
-    return res.status(status).json(data);
-  });
-};
+
 
 exports.user_delete_user = (req, res) => {
   userDao.deleteOne(req.params.email, (status, data) => {

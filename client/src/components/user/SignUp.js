@@ -22,6 +22,7 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
+import { getCategories } from '../../store/actions/categoryActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { getData } from '../../store/axios';
@@ -41,7 +42,8 @@ type Props = {
   errorMessage: string,
   getCounties: Function,
   getMunicipalitiesByCounty: Function,
-  history: Function
+  history: Function,
+  getCategories: Function
 };
 
 type State = {
@@ -410,6 +412,7 @@ class SignUp extends React.Component<Props, State> {
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
     ValidatorForm.addValidationRule('isOrgNr', () => !this.state.isUniqueOrgNr);
     this.props.getCounties();
+    this.props.getCategories();
   }
 }
 
@@ -428,7 +431,8 @@ const mapDispatchToProps = dispatch => {
     signUpUser: newUser => dispatch(signUpUser(newUser)),
     signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur)),
     getCounties: () => dispatch(getCounties()),
-    getMunicipalitiesByCounty: (county: string) => dispatch(getMunicipalitiesByCounty(county))
+    getMunicipalitiesByCounty: (county: string) => dispatch(getMunicipalitiesByCounty(county)),
+    getCategories: () => dispatch(getCategories())
   };
 };
 

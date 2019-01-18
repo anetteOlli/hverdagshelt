@@ -83,7 +83,7 @@ export const signUpUser = (newUser: JSON) => {
 export const signUpEntrepreneur = (newUser: JSON, newEntrepreneur: JSON) => {
   console.log('SignUpEnt', newUser, newEntrepreneur);
   return (dispatch: Dispatch) => {
-    return postData('users/entrepreneurs', { user: newUser, entrepreneur: newEntrepreneur })
+    return postData('entrepreneurs', { user: newUser, entrepreneur: newEntrepreneur })
       .then(() => {
         return dispatch({
           type: 'SIGN_UP_SUCCESS'
