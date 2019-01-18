@@ -38,11 +38,9 @@ type State = {
   description: string,
   dateStart: Date,
   dateEnd: Date,
-  imageURL: string,
-  status: string,
-
+  dateEndInput: Date,
   displayImg: string,
-  picture: any,
+  image: any,
 
   county: string,
   municipality: string,
@@ -241,8 +239,8 @@ function getStepContent(step: number,
                   image={state.displayImg || ''}
                   title="Image title"
                   style={{
-                    height: 0,
-                    paddingTop: '56.25%'
+                    height: 400,
+                    paddingTop: '20%'
                   }}
                   />)
                   : (<i className={classes.imghere}></i>)}
@@ -286,8 +284,8 @@ class CreateEvent extends React.Component<Props, State>{
     description: '',
     dateStart: new Date('2014-08-18T00:00:00'),
     dateEnd: new Date('2014-08-18T00:00:00'),
-    status: '',
-    imageURL: '',
+    dateEndInput: '',
+    image: '',
 
     picture: '',
     displayImg: '',
@@ -372,18 +370,24 @@ class CreateEvent extends React.Component<Props, State>{
   /**Handles the dates*/
   handleStartDateChange = date => {
     var dateFormat = require('dateformat');
-    console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
     this.setState({
-      dateStart: dateFormat(date, "isoDateTime").slice(0,19)
+      dateStart: ""+ dateFormat(date, "isoDateTime").slice(0,19).toString()
       });
+    console.log(this.state.dateStart);
+
   };
   /**Handles the dates*/
   handleEndDateChange = date => {
     var dateFormat = require('dateformat');
-    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // var dateEndInput = ""+ dateFormat(date, "isoDateTime").slice(0,19);
+    // console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // console.log("dateEndInput: " + dateEndInput);
+    // console.log("dateEnd før: " + this.state.dateEnd);
     this.setState({
-      dateEnd: dateFormat(date, "isoDateTime").slice(0,19),
+      dateEnd: ""+ dateFormat(date, "isoDateTime").slice(0,19)
       });
+    console.log("dateEnd etter: " + this.state.dateEnd);
   };
 
   /** Handles clicking "Next" button */
@@ -415,6 +419,8 @@ class CreateEvent extends React.Component<Props, State>{
     e.preventDefault();
     const { picture, title} = this.state;
 
+    console.log(this.state);
+
     if(this.state.activeStep > 0){
       // if (!picture) {
       //   this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
@@ -427,8 +433,6 @@ class CreateEvent extends React.Component<Props, State>{
       k.append("event_description", this.state.description);
       k.append("date_starting", this.state.dateStart);
       k.append("date_ending", this.state.dateEnd);
-      k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.state.user);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
       k.append("county_fk", this.state.county);
@@ -436,8 +440,8 @@ class CreateEvent extends React.Component<Props, State>{
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
 
-      this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
-      );
+      this.props.createEvent(k);
+      // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
     this.handleNext();
   };
@@ -450,7 +454,7 @@ class CreateEvent extends React.Component<Props, State>{
   /** Handles uploading of image files */
   handleUpload = e => {
     this.setState({
-      picture: e.target.files[0],
+      image: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])
     });
   };
