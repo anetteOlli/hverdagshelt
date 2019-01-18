@@ -9,7 +9,6 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import MapMarkers from '../../../src/components/map/MapMarkers';
 import GoogleMapReact from 'google-map-react';
-import { problems } from './testData';
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
