@@ -14,9 +14,10 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import Map from '../map/maptest';
-import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
+import type { Problem } from '../../store/reducers/problemReducer';
 
 type Props = {
   classes: Object,
@@ -25,13 +26,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
+  description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
+  entrepreneur_fk: number,
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string
 };
 
 const styles = (theme: Object) => ({
@@ -53,14 +67,26 @@ const styles = (theme: Object) => ({
 class EditProblem extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
+    description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    location_fk: '',
-    status_fk: '',
+    date_finished: '',
     category_fk: '',
-    displayImg: ''
+    status_fk: '',
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: ''
   };
 
   handleChange = e => {
@@ -70,10 +96,14 @@ class EditProblem extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    // gå videre til å lagre endringer
-    this.state.last_edited = new Date();
-    e.preventDefault();
+    const date = new Date();
     console.log(this.state);
+
+    this.setState({
+      last_edited: date
+    });
+
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
   handleUpload = e => {
@@ -89,10 +119,10 @@ class EditProblem extends React.Component<Props, State> {
         <Grid container spacing={24}>
           <Grid item xs>
             <Paper className={classes.paper}>
-              <Typography variant="h2" gutterBottom align="center">
-                Endre på problem
-              </Typography>
               <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+                <Typography variant="h2" gutterBottom align="center">
+                  Endre på problem
+                </Typography>
                 <Paper
                   className={classes.paper}
                   fullWidth
@@ -144,28 +174,29 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
+
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                    <div>
+                      <Typography>Kart: </Typography>
+                    </div>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div className="mapPlaceholder">
+                      <MapMarkers />
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <Button fullWidth variant="contained" className={classes.button} type="submit">
+                  Lagre endringer
+                </Button>
               </ValidatorForm>
-              <ExpansionPanel>
-                <ExpansionPanelSummary>
-                  <div>
-                    <Typography>Kart: </Typography>
-                  </div>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.mapExpansion}>
-                  <div className="mapPlaceholder">
-                    <MapMarkers />
-                  </div>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-              <Button fullWidth variant="contained" className={classes.button} type="submit">
-                Lagre endringer
-              </Button>
             </Paper>
           </Grid>
         </Grid>
@@ -178,7 +209,6 @@ class EditProblem extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
     console.log(this.state);
   }
@@ -209,7 +239,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
   };
 };
 

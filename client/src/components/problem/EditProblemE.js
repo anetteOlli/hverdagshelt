@@ -12,7 +12,6 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
-import Map from '../map/maptest';
 import { CardContent } from './CreateProblem';
 import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
@@ -27,15 +26,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
   entrepreneur_fk: number,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
@@ -68,18 +78,30 @@ const styles = (theme: Object) => ({
   }
 });
 
-class EditProblemB extends React.Component<Props, State> {
+class EditProblemE extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
     description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    entrepreneur_fk: '',
-    location_fk: '',
+    date_finished: '',
+    category_fk: '',
     status_fk: '',
-    category_fk: ''
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: '',
+
   };
 
   handleChange = e => {
@@ -244,7 +266,6 @@ class EditProblemB extends React.Component<Props, State> {
                     {
                       // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
                     }
-
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <div className="mapPlaceholder">
@@ -301,4 +322,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(EditProblemB))));
+)(withRoot(withStyles(styles)(withSnackbar(EditProblemE))));

@@ -23,6 +23,22 @@ export const getProblemById = (id: number) => {
   };
 };
 
+export const getProblemByUser = (user_id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`problems/user/${user_id}`).then(respond =>
+      dispatch({
+        type: 'PROBLEM_BY_USER_SUCCESS',
+        payload: respond.data
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'PROBLEM_BY_USER_ERROR',
+          payload: error
+        })
+      )
+    );
+  };
+};
+
 export const createProblem = (newProblem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems', newProblem)
@@ -42,7 +58,7 @@ export const createProblem = (newProblem: Problem) => {
 
 export const editProblem = (problem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return putData(`problems/${problem.problem_id}`, problem).then(() =>
+    return patchData(`problems/${problem.problem_id}`, problem).then(() =>
       dispatch({
         type: 'EDIT_PROBLEM_SUCCESS'
       }).catch((error: Error) =>

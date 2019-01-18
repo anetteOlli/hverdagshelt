@@ -22,7 +22,7 @@ const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Municipality',
+  priority: 'Administrator',
 };
 
 export default (state: State = initState, action: Action) => {

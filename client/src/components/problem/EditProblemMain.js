@@ -21,34 +21,48 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import EditProblemA from './EditProblemA';
-import EditProblemB from './EditProblemB';
+import EditProblemB from './EditProblemE';
 import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
 import Tabletest from '../util/Tabletest';
 import { getProblemsByMuni } from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
+import MuiTable2 from '../util/MuiTable-2';
+import PropTypes from "prop-types";
+import EditProblemM from './EditProblemM';
 
 var bool = false;
+let rows = [];
 
 type Props = {
   classes: Object,
+  rows: PropTypes.array,
   isLoggedIn: boolean
 };
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
-  entrepreneur_fk: number,
-  location_fk: Geolocation,
-  status_fk: 'Standard' | 'Municipality' | 'Entrepreneur' | 'Administrator',
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
   category_fk: string,
+  status_fk: string,
   user_fk: number,
-  priority_fk: string
+  entrepreneur_fk: number,
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
@@ -110,13 +124,38 @@ function getView(bool: boolean, p) {
       view = 0;
     } else if (p === 'Entrepreneur') {
       view = 1;
-    } else if (p === 'Administrator' || 'Municipality') {
+    } else if (p === 'Administrator') {
       view = 2;
+    } else if (p === 'Municipality'){
+      view = 3;
     }
   } else {
-    view = 3;
+    view = 4;
   }
   return view;
+}
+
+function getRows(priority: string){
+  switch(priority){
+    case 'Standard':
+      rows = [] // get problems belonging to user
+      return
+    case 'Entrepreneur':
+      rows = [] // get problems belonging to entrepreneur
+      return
+    case 'Administrator':
+      rows = [] // get all problems in municipality that the admin is a part of
+      return
+    case 'Municipality':
+      rows = [] // if statements for deciding which user priority you have
+      return
+    default:
+      return [] // get all problems
+
+
+
+
+  }
 }
 
 function getEditView(priority: number) {
@@ -129,6 +168,8 @@ function getEditView(priority: number) {
     case 2:
       return <EditProblemA />;
     case 3:
+      return <EditProblemM/>
+    case 4:
       return <ProblemDetails />;
     default:
       return 'Unknown view';
@@ -138,21 +179,36 @@ function getEditView(priority: number) {
 class EditProblemMain extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
     description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    entrepreneur_fk: '',
-    location_fk: '',
-    status_fk: '',
+    date_finished: '',
     category_fk: '',
+    status_fk: '',
     user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: '',
 
     priority_fk: '',
     similarProblems: [],
     categories: []
   };
+
+  handleChangeSpec(name, value){
+    this.setState({ [name]: value });
+  };
+
 
   render() {
     const { classes, problem, isLoggedIn, priority_fk } = this.props;
@@ -162,10 +218,10 @@ class EditProblemMain extends React.Component<Props, State> {
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
-            <Tabletest className={classes.MUI} />
+            <Tabletest/>
           </Grid>
           <Grid item sm md={9} xs>
-            {getEditView(getView(bool, this.props.priority_fk))}
+            {getEditView(getView(bool, 'Administrator')) /* this.props.priority_fk*/}
           </Grid>
         </Grid>
       </div>

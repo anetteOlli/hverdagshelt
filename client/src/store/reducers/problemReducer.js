@@ -125,6 +125,18 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload.message
       };
+    case 'PROBLEMS_BY_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_USER_ERROR':
+      console.log('%c PROBLEMS_BY_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
     case 'PROBLEMS_BY_STREET_SUCCESS':
       console.log('%c PROBLEMS_BY_STREET_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {

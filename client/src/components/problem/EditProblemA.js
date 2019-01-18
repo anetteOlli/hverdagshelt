@@ -16,6 +16,7 @@ import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from 
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
 import moment from 'moment';
+import PictureUpload from '../util/PictureUpload';
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -206,27 +207,38 @@ class EditProblemA extends React.Component<Props, State> {
                   <Typography variant="h2" gutterBottom align="center">
                     Entreprenør beskrivelse:
                   </Typography>
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
-                  <Paper
-                    className={classes.paper}
-                    readOnly
+                  <SelectValidator
+                    fullWidth
+                    margin="normal"
+                    label="Status:"
+                    name="status_fk"
+                    value={this.state.status_fk}
+                    onChange={this.handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  >
+                    {statuss.map((option, index) => (
+                      <MenuItem key={index} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+
+                  <TextValidator
+                    fullWidth
+                    multiline
+                    rowsMax={10}
                     margin="normal"
                     label="Beskrivelse"
                     value={'Beskrivelse:'}
-                    name="problem_description"
-                  >
-                    {'Beskrivelse: \n ' + this.state.description_entrepreneur}
-                  </Paper>
+                    name="description_entrepreneur"
+                    value={this.state.description_entrepreneur}
+                    onChange={this.handleChange}
+                  />
+                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
-                  <Paper className={classes.paper}>
-                    Entreprenør kontakt informasjon:{' '}
-                    {
-                      // her kommer kontakt informasjon
-                    }
-                  </Paper>
-
-                  <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
+                  <h3> Dato Endret: {this.state.last_edited} </h3>
 
                   <div>
                     <ExpansionPanel>
@@ -238,15 +250,8 @@ class EditProblemA extends React.Component<Props, State> {
                       <ExpansionPanelDetails>
                         <div />
                         <div>
-                          <img
-                            id="img"
-                            width="100%"
-                            src={
-                              this.state.img_entrepreneur ||
-                              'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
-                            }
-                            alt="Bilde"
-                          />
+                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                          <PictureUpload uploadImg={this.handleUpload} />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
