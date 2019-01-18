@@ -9,7 +9,7 @@ export type Action =
   | { type: 'GET_CATEGORIES_ERROR', payload: Error };
 
 const initState = {
-  categories: ['Hole in road', 'ikke asfalt', 'støm', 'snø vei greie'],
+  categories: [],
   errorMessage: ''
 };
 

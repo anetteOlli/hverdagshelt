@@ -17,6 +17,8 @@ import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
+import Settings from './components/user/Settings';
+import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 const styles = () => ({
@@ -27,7 +29,7 @@ const styles = () => ({
   },
   site: {
     flex: '1 0 auto',
-    padding: '2em 0 2em 0',
+    paddingTop: 80,
     width: '100%',
     '&::after': {
       content: '|\\00a0\\00a0',
@@ -69,6 +71,8 @@ const App = (props: Props) => {
                 <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
                 <Route exact path="/map_simpel" component={SimpleMap} />
                 <Route exact path="/stati" component={Stati} />
+                <Route exact path="/innstillinger" component={Settings} />
+                <Route exact path="/profil" component={Profile} />
                 <Route exact path="/:municipality" component={MuniPage} />
                 {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
               </Switch>
