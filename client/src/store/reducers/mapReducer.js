@@ -8,7 +8,7 @@ export type State = {
 };
 export type Action =
   | { type: 'UPDATE_MAP', payload: { lat: string, lng: string } }
-  | { type: 'UPDATE_CENTER', payload: { lat: string, lng: string } }
+  | { type: 'UPDATE_CENTER', payload: { center: { lat: string, lng: string } } }
   | { type: 'UPDATE_PLACE_NAME', payload: { street: string, muni: string, county: string, city: string } }
   | { type: 'UPDATE_STREET', payload: { street: string } };
 

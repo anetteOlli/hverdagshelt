@@ -13,7 +13,7 @@ type Event = {
   street_fk: ''
 };
 
-export type State = { munies: [{ municipality_fk: string, events: Event[] }], errorMessage: string };
+export type State = { events: Event[], errorMessage: string };
 export type Action =
   | { type: 'CREATE_EVENT_SUCCESS' }
   | { type: 'CREATE_EVENT_ERROR', payload: Error }
@@ -27,21 +27,21 @@ export type Action =
   | { type: 'EVENTS_BY_MUNI_ERROR', payload: Error };
 
 const initState = {
-      events: [
-        {
-          event_id: -1,
-          event_name: '',
-          municipality_fk: '',
-          event_description: '',
-          event_img: '',
-          date_starting: new Date(),
-          date_ending: new Date(),
-          status_fk: '',
-          county_fk: '',
-          city_fk: '',
-          street_fk: ''
-        }
-      ],
+  events: [
+    {
+      event_id: -1,
+      event_name: '',
+      municipality_fk: '',
+      event_description: '',
+      event_img: '',
+      date_starting: new Date(),
+      date_ending: new Date(),
+      status_fk: '',
+      county_fk: '',
+      city_fk: '',
+      street_fk: ''
+    }
+  ],
   errorMessage: ''
 };
 

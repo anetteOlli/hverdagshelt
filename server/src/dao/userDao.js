@@ -9,10 +9,10 @@ module.exports = class UserDao extends Dao {
     super.query('select * from user where user_id = ?', [id], callback);
   }
 
-  createUser(json, password, callback) {
-    const val = [json.email, password, json.municipality, json.county, 'Standard'];
+  createUser(json, password, standard, callback) {
+    const val = [json.email, password, json.municipality, json.county, standard];
     super.query(
-      'insert into user (email, password, municipality_fk, county_fk, priority_fk) values (?,?,?,?,?)',
+      'insert into user (email, password, created,municipality_fk, county_fk, priority_fk) values (?,?,NOW(),?,?,?)',
       val,
       callback
     );
@@ -49,9 +49,9 @@ module.exports = class UserDao extends Dao {
   }
 
   patchOne(id, json, callback) {
-    const val = [json.email, json.password, json.problem, json.event, id];
+    const val = [json.email, json.password, id];
     super.query(
-      'update user set email = ?, password = ?, problem_fk = ?, event_fk = ? where user_id = ?',
+      'update user set email = ?, password = ? where user_id = ?',
       val,
       callback
     );

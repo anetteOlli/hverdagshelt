@@ -51,8 +51,8 @@ CREATE TABLE problem (
                        description_entrepreneur VARCHAR(300),
                        img_user VARCHAR(300),
                        img_entrepreneur VARCHAR(300),
-                       date_made DATETIME DEFAULT CURRENT_TIMESTAMP,
-                       last_edited DATETIME,
+                       date_made DATETIME,
+                       last_edited DATETIME ,
                        date_finished DATETIME,
                        category_fk VARCHAR(50) NOT NULL,
                        status_fk VARCHAR(30) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE problem (
                        entrepreneur_fk INTEGER,
                        latitude DOUBLE NOT NULL,
                        longitude DOUBLE NOT NULL,
-                       support INT,
+                       support INT DEFAULT 0,
                        municipality_fk VARCHAR(30) NOT NULL,
                        county_fk VARCHAR(30) NOT NULL,
                        city_fk VARCHAR(30) NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE user (
                     user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
                     email VARCHAR(100) NOT NULL UNIQUE,
                     password VARCHAR(100) NOT NULL,
-                    created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    created DATETIME NOT NULL,
                     municipality_fk VARCHAR(30) NOT NULL,
                     county_fk VARCHAR(30) NOT NULL,
                     priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
@@ -128,48 +128,46 @@ CREATE TABLE entrepreneur_category (
                                      ent_cat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                      entrepreneur_fk INT NOT NULL,
                                      category_fk VARCHAR(30) NOT NULL
-)
+);
 
-ALTER TABLE municipality ADD FOREIGN KEY(county) REFERENCES county(name);
 
 ALTER TABLE problem
-  ADD FOREIGN KEY(status_fk) REFERENCES status(status),
-  ADD FOREIGN KEY(user_fk) REFERENCES user(user_id),
-  ADD FOREIGN KEY(municipality_fk, county_fk) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY(city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY(street_fk) REFERENCES street(streetName),
-  ADD FOREIGN KEY(category_fk) REFERENCES category(category),
-  ADD FOREIGN KEY(entrepreneur_fk) REFERENCES user(user_id);
+  ADD FOREIGN KEY (status_fk) REFERENCES status(status),
+  ADD FOREIGN KEY (user_fk) REFERENCES user(user_id),
+  ADD FOREIGN KEY (municipality_fk, county_fk) REFERENCES municipality(municipality,county),
+  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
+  ADD FOREIGN KEY (category_fk) REFERENCES category(category),
+  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES user(user_id);
 
 ALTER TABLE user
-  ADD FOREIGN KEY(priority_fk) REFERENCES priority(power),
-  ADD FOREIGN KEY(municipality_fk,county_fk) REFERENCES municipality(municipality,county);
+  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
+  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
-  ADD FOREIGN KEY(problem_id) REFERENCES problem(problem_id),
-  ADD FOREIGN KEY(user_id) REFERENCES user(user_id);
+  ADD FOREIGN KEY (problem_id) REFERENCES problem(problem_id),
+  ADD FOREIGN KEY (user_id) REFERENCES user(user_id);
 
 ALTER TABLE event
-  ADD FOREIGN KEY(municipality_fk, county_fk) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY(city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY(street_fk) REFERENCES street(streetName),
-  ADD FOREIGN KEY(status_fk) REFERENCES status(status);
+  ADD FOREIGN KEY (municipality_fk, county_fk) REFERENCES municipality(municipality,county),
+  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
+  ADD FOREIGN KEY (status_fk) REFERENCES status(status);
 
 ALTER TABLE user_event
-  ADD FOREIGN KEY(user_id) REFERENCES user(user_id),
-  ADD FOREIGN KEY(event_id) REFERENCES event(event_id);
+  ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
+  ADD FOREIGN KEY (event_id) REFERENCES event(event_id);
 
-ALTER TABLE municipality
-  ADD FOREIGN KEY(county) REFERENCES county(name);
+ALTER TABLE municipality ADD FOREIGN KEY (county) REFERENCES county(name);
 
 ALTER TABLE entrepreneur
-  ADD FOREIGN KEY(user_fk) REFERENCES user(user_id);
+  ADD FOREIGN KEY (user_fk) REFERENCES user(user_id);
 
 ALTER TABLE entrepreneur_municipality
-  ADD FOREIGN KEY(entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
-  ADD FOREIGN KEY(municipality_fk) REFERENCES municipality(municipality);
+  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
+  ADD FOREIGN KEY (municipality_fk) REFERENCES municipality(municipality);
 
 ALTER TABLE entrepreneur_category
-  ADD FOREIGN KEY(entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
-  ADD FOREIGN KEY(category_fk) REFERENCES category(category);
+  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
+  ADD FOREIGN KEY (category_fk) REFERENCES category(category);
 

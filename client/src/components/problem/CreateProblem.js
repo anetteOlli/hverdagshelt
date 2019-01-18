@@ -178,7 +178,7 @@ function getStepContent(step: number, state: State,
                     handleChangeSpec("cur_description", myProblem.description);
                     handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
                     handleChangeSpec("cur_status", myProblem.status);
-                    handleChangeSpec("cur_imageURL", myProblem.imageURL);
+                    handleChangeSpec("cur_imageURL", myProblem.imgURL);
                     }}
                   />
                 </Paper>
@@ -237,7 +237,7 @@ function getStepContent(step: number, state: State,
                       <Typography align="center">Bilde</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
-                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL || "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5"|| "https://iso.500px.com/wp-content/uploads/2014/04/20482.jpg" ||"http://placehold.it/180" } alt="Bilde" />
+                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL } alt="Bilde" />
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </Grid>
@@ -440,6 +440,7 @@ class CreateProblem extends React.Component<Props, State> {
         //console.log("Ferdiog!!")
         let myProbs = [];
         this.props.similarProblems.map(e => {
+          console.log(this.props.similarProblems);
           myProbs.push({
             id: e.problem_id,
             title: e.problem_title,
@@ -459,7 +460,7 @@ class CreateProblem extends React.Component<Props, State> {
           this.handleChangeSpec("cur_description", myProbs[0].description);
           this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
           this.handleChangeSpec("cur_status", myProbs[0].status);
-          this.handleChangeSpec("cur_imageURL", myProbs[0].imageURL);
+          this.handleChangeSpec("cur_imageURL", myProbs[0].imgURL);
         }
         else{
           //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
