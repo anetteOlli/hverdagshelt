@@ -64,7 +64,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchKommuneAnsatt(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.status, json.last_edited, id];
+    const values = [json.problem_title, json.problem_description, json.status, id];
 
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?',
@@ -75,7 +75,6 @@ module.exports = class ProblemDao extends Dao {
 
   patchBruker(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.img_user];
-
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,

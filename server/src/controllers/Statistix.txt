@@ -1,0 +1,11 @@
+Statistikk:
+
+Hvor lang tid tar det fra problemer er meldt inn til de er fikset?
+
+Hvilke områder har flest meldinger?
+
+Hvilke bedriftsbrukere fikser flest meldinger?
+
+Hvilke kategorier får flest meldinger?
+
+kygjelle@stud.ntnu.no
