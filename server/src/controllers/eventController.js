@@ -33,7 +33,7 @@ exports.events_create_event = (req, res) => {
   if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag";
   if (req.file === undefined) {
     eventDao.createOne(req.body, (status, data) => {
-      handleError(status,data);
+      handleError(status,data,req,res);
     });
   } else {
     image.uploadImage(req.file, url => {
