@@ -197,34 +197,38 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Grid item xs>
-                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_description}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_entrepreneur}</Typography>
-                </Grid>
-                <Grid item xs>
-                <Typography variant="subtitle2" align="center">Status</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center" color="error">{state.cur_status}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Button
-                  variant="contained" color="primary"
-                  size="small"
-                  align="center"
-                  onClick={e => handleSupport(state.cur_id)}
-                  >
-                     <Typography>Støtt problemet</Typography>
-                  </Button>
-                </Grid>
+                <Card style={{width:'100%'}} align="center">
+                  <CardContent>
+                    <Grid item xs>
+                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_description}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_entrepreneur}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                    <Typography variant="subtitle2" align="center">Status</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center" color="error">{state.cur_status}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Button
+                      variant="contained" color="primary"
+                      size="small"
+                      align="center"
+                      onClick={e => handleSupport(state.cur_id)}
+                      >
+                         <Typography>Støtt problemet</Typography>
+                      </Button>
+                    </Grid>
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
             <Grid item container
@@ -567,8 +571,8 @@ class CreateProblem extends React.Component<Props, State> {
     //console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
-    console.log("isLoggedIn");
-    console.log(this.props.isLoggedIn);
+    //console.log("isLoggedIn");
+    //console.log(this.props.isLoggedIn);
     if(!this.props.isLoggedIn){
       return (
         <div>

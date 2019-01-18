@@ -13,7 +13,7 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
-import MuiTable2Test from './components/util/MuiTable-2';
+import MuiTable2 from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
@@ -72,6 +72,7 @@ const App = (props: Props) => {
                 <Route exact path="/stati" component={Stati} />
                 <Route exact path="/innstillinger" component={Settings} />
                 <Route exact path="/profil" component={Profile} />
+                <Route exact path="/abc" component={MuiTable2}/>
                 <Route exact path="/:municipality" component={MuniPage} />
                 {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
               </Switch>
