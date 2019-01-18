@@ -27,7 +27,7 @@ test("Testing getAllMunicipalities from DivDao", (done) => {
   dao.getAllMunicipalities((status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(422);
-    expect(data[0].municipality).toBe("Halden");
+    expect(data[0].municipality).toBe("Asker");
     expect(data[47].municipality).toBe("Eidskog");
     done();
   })
@@ -38,7 +38,7 @@ test("Testing getAllCounties from DivDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(18);
     expect(data[0].name).toBe("Akershus");
-    expect(data[14].name).toBe("Buskerud");
+    expect(data[14].name).toBe("Trøndelag");
     done();
   })
 });
