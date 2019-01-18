@@ -52,6 +52,14 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
+  supportProblem(id, callback) {
+    super.query(
+      'UPDATE problem SET support = support + 1 WHERE problem_id = ?',
+      id,
+      callback
+    );
+  }
+
   patchEntrepreneur(id, json, callback) {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
 
