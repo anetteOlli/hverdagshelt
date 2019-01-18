@@ -1,12 +1,6 @@
 import React from 'react';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
-import LineChart from 'recharts/lib/chart/LineChart';
-import Line from 'recharts/lib/cartesian/Line';
-import XAxis from 'recharts/lib/cartesian/XAxis';
-import YAxis from 'recharts/lib/cartesian/YAxis';
-import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
-import Legend from 'recharts/lib/component/Legend';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -14,10 +8,22 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
 import { getLineChartData } from '../../store/actions/statisticsActions';
+import PieChart from 'recharts/lib/chart/PieChart';
+import Pie from 'recharts/lib/polar/Pie';
+
+const dataSimplePieChart = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+  { name: 'Group E', value: 278 },
+  { name: 'Group F', value: 189 }
+];
 
 class LineChart extends React.Component {
   state = {
-    showUserData: false
+    showData1: false,
+    showData2: false
   };
 
   handleDataChange = (name: string): void => (): void => {};
@@ -26,27 +32,25 @@ class LineChart extends React.Component {
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={dataSimpleLineChart}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <PieChart width={800} height={400}>
+            <Pie data={dataSimplePieChart} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
             <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="Visits" stroke="#82ca9d" />
-            <Line type="monotone" dataKey="Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
-          </LineChart>
+          </PieChart>
         </ResponsiveContainer>
         <FormGroup row>
           <FormControlLabel
-            control={<Switch checked={this.state.checkedA} onChange={this.handleChange('checkedA')} value="checkedA" />}
+            control={
+              <Switch name="showData1" checked={this.state.showData1} onChange={this.handleChange} value="showData1" />
+            }
             label="Secondary"
           />
           <FormControlLabel
             control={
               <Switch
-                checked={this.state.checkedB}
-                onChange={this.handleChange('checkedB')}
-                value="checkedB"
+                name="showData2"
+                checked={this.state.showData2}
+                onChange={this.handleChange}
+                value="showData2"
                 color="primary"
               />
             }
@@ -57,7 +61,9 @@ class LineChart extends React.Component {
     );
   }
 
-  componentDidMount(): void {}
+  componentDidMount(): void {
+    this.props.getPieChartData();
+  }
 }
 
 const mapStateToProps = (state: ReduxState) => {
@@ -68,7 +74,7 @@ const mapStateToProps = (state: ReduxState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLineChartData: (muni: string) => dispatch(getLineChartData(muni))
+    getPieChartData: () => dispatch(getPieChartData())
   };
 };
 

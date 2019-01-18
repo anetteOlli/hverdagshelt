@@ -1,28 +1,57 @@
 // @flow
-export type State = { categories: string[], errorMessage: string };
+export type State = { lineChartData: [], pieChartData: [], barChartData: [], errorMessage: string };
 export type Action =
-  | { type: 'CREATE_CATEGORY_SUCCESS' }
-  | { type: 'CREATE_CATEGORY_ERROR', payload: Error }
-  | { type: 'DELETE_CATEGORY_SUCCESS' }
-  | { type: 'DELETE_CATEGORY_ERROR', payload: Error }
-  | { type: 'GET_CATEGORIES_SUCCESS', payload: { category: string }[] }
-  | { type: 'GET_CATEGORIES_ERROR', payload: Error };
+  | { type: 'LINE_CHART_DATA_SUCCESS', payload: [] }
+  | { type: 'LINE_CHART_DATA_ERROR', payload: Error }
+  | { type: 'PIE_CHART_DATA_SUCCESS', payload: [] }
+  | { type: 'PIE_CHART_DATA_ERROR', payload: Error }
+  | { type: 'BAR_CHART_DATA_SUCCESS', payload: [] }
+  | { type: 'BAR_CHART_DATA_ERROR', payload: Error };
 
 const initState = {
-  categories: [],
+  lineChartData: [],
+  pieChartData: [],
+  barChartData: [],
   errorMessage: ''
 };
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
-    case 'CREATE_CATEGORY_SUCCESS':
-      console.log('%c CREATE_CATEGORY_SUCCESS', 'color: green; font-weight: bold;');
+    case 'LINE_CHART_DATA_SUCCESS':
+      console.log('%c LINE_CHART_DATA_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
+        lineChartData: action.payload,
         errorMessage: ''
       };
-    case 'CREATE_CATEGORY_ERROR':
-      console.log('%c CREATE_EVENT_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'LINE_CHART_DATA_ERROR':
+      console.log('%c LINE_CHART_DATA_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+    case 'PIE_CHART_DATA_SUCCESS':
+      console.log('%c PIE_CHART_DATA_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        pieChartData: action.payload,
+        errorMessage: ''
+      };
+    case 'PIE_CHART_DATA_ERROR':
+      console.log('%c PIE_CHART_DATA_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+    case 'BAR_CHART_DATA_SUCCESS':
+      console.log('%c BAR_CHART_DATA_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        barChartData: action.payload,
+        errorMessage: ''
+      };
+    case 'BAR_CHART_DATA_ERROR':
+      console.log('%c BAR_CHART_DATA_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message

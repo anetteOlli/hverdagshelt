@@ -30,7 +30,7 @@ export type ReduxState = {
   category: CategoryState,
   muni: MuniState,
   entrepreneur: EntrepreneurState,
-  statistic: StatisticAction
+  statistic: StatisticState
 };
 type Action =
   | CategoryAction
