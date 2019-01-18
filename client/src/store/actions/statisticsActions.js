@@ -1,7 +1,7 @@
 // @flow
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
-import { getData } from '../axios';
+import { postData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -10,7 +10,7 @@ type GetState = () => ReduxState;
 
 export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`statistics/lineChartData/${muni}`).then(response =>
+    return postData('statistics/lineChartData',getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'LINE_CHART_DATA_SUCCESS',
         payload: response.data
@@ -26,7 +26,7 @@ export const getLineChartData = () => {
 
 export const getPieChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`statistics/pieChartData/${muni}`).then(response =>
+    return postData('statistics/pieChartData',getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'PIE_CHART_DATA_SUCCESS',
         payload: response.data
@@ -42,7 +42,7 @@ export const getPieChartData = () => {
 
 export const getBarChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`statistics/barChartData/${muni}`).then(response =>
+    return postData('statistics/barChartData',getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'BAR_CHART_DATA_SUCCESS',
         payload: response.data

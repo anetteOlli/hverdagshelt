@@ -1,5 +1,11 @@
 // @flow
-export type State = { lineChartData: [], pieChartData: [], barChartData: [], errorMessage: string };
+export type State = {
+  lineChartData: [],
+  pieChartData: [],
+  barChartData: [],
+  errorMessage: string,
+  selectedMuni: { municipality: string, county: string }
+};
 export type Action =
   | { type: 'LINE_CHART_DATA_SUCCESS', payload: [] }
   | { type: 'LINE_CHART_DATA_ERROR', payload: Error }
@@ -12,7 +18,8 @@ const initState = {
   lineChartData: [],
   pieChartData: [],
   barChartData: [],
-  errorMessage: ''
+  errorMessage: '',
+  selectedMuni: { municipality: '', county: '' }
 };
 
 export default (state: State = initState, action: Action) => {
