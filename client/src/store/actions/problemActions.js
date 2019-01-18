@@ -121,9 +121,9 @@ export const goToProblemEdit = (id: number) => {
   };
 };
 
-export const supportProblem = (id: number) => {
+export const supportProblem = (userId: number, problemId: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return patchData(`problems/vote/${id}`, {id})
+    return patchData(`problems/vote/${problemId}`, {userId, problemId})
       .then(response =>
         dispatch({
           type: 'SUPPORT_PROBLEM_SUCCESS',

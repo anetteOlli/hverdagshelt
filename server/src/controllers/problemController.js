@@ -25,8 +25,16 @@ exports.problems_get_problem = (req, res) => {
 
 exports.problems_support_problem = (req, res) => {
   console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  problemDao.supportProblem(req.params.id, (status, data) => {
-    res.status(status).json(data);
+  console.log("UserID/ProblemID:" + req.body.userId + "/" + req.body.problemId);
+  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) =>{
+    if(status == 200){
+      problemDao.supportProblem(req.params.id, (status, data) => {
+        res.status(status).json(data);
+      });
+    }
+    else{
+      res.status(status).json(data);
+    }
   });
 };
 

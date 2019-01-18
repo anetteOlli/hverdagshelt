@@ -361,7 +361,9 @@ class CreateProblem extends React.Component<Props, State> {
 
   state = {
     activeStep: 0,
-    user: 1,
+    //User
+    userId: 1,
+    isLoggedIn: false,
 
     municipality: '',
     title: '',
@@ -562,11 +564,16 @@ class CreateProblem extends React.Component<Props, State> {
   /** Handles 'supporting' an existing problem
   * @params problemId: number, id of the problem to 'support'
   */
-  handleSupport(id: number) {
-    //@TODO Handle support a problem
-    console.log("Clicked updoot for " + id + "! Take me away hunny")
-    let payload = this.props.supportProblem(id);
-    this.handleFinish();
+  handleSupport(problemId: number) {
+    console.log("Clicked updoot for " + problemId + "/" + this.state.userId + "! Take me away hunny")
+    this.props.supportProblem(this.state.userId, problemId)
+    .then((status) => {
+      //console.log(status);
+      if(this.props.errorMessage != ''){
+        this.props.enqueueSnackbar("Error: Kunne ikke støtte problemet", {variant: 'warning'});
+      }
+      this.handleFinish();
+    });
   }
 
   render() {
@@ -654,7 +661,11 @@ const mapStateToProps = state => {
     cords: state.map.currentMarker,
     //Cats, problems
     categories: state.category.categories,
-    similarProblems: state.problem.problems
+    similarProblems: state.problem.problems,
+
+    //id
+    userId: state.user.userID,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
@@ -663,7 +674,7 @@ const mapDispatchToProps = dispatch => {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
     getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county)),
-    supportProblem: (id) => dispatch(supportProblem(id))
+    supportProblem: (userId, problemId) => dispatch(supportProblem(userId, problemId))
   };
 };
 
