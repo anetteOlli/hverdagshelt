@@ -23,6 +23,9 @@ const styles = theme => ({
   }
 });
 
+const charts = (chart)
+
+
 class Dashboard extends React.Component {
   render() {
     const { classes } = this.props;
