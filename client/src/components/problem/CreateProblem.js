@@ -170,17 +170,17 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                   Nærliggende problemer
                 </Typography>
-                <Paper style={{height: '40%', width: '100%', overflow: 'auto'}}>
+                <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
                   <MuiTable2
                   rows={rows}
                   onClick={e => {
                     let myProblem = e;
-                    handleChangeSpec("cur_id", myProblem.id);
-                    handleChangeSpec("cur_title", myProblem.title);
-                    handleChangeSpec("cur_description", myProblem.description);
-                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                    handleChangeSpec("cur_status", myProblem.status);
-                    handleChangeSpec("cur_imageURL", myProblem.imgURL);
+                    handleChangeSpec("cur_id", myProblem.problem_id);
+                    handleChangeSpec("cur_title", myProblem.problem_title);
+                    handleChangeSpec("cur_description", myProblem.problem_description);
+                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_fk);
+                    handleChangeSpec("cur_status", myProblem.status_fk);
+                    handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
                 </Paper>
@@ -386,21 +386,9 @@ class CreateProblem extends React.Component<Props, State> {
 
     similarProblems:
       [
-        {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
-        street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-        {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
-      ],
+        {problem_id:1, problem_title: 'default', category_fk: 'default', municipality_fk: 'default', entrepreneur_fk: 'Bob1',
+        street_fk: 'default', problem_description: 'default', status_fk: 'Unchecked', img_user: "default"}
+        ],
     categories:['Default']
   };
 
@@ -435,29 +423,25 @@ class CreateProblem extends React.Component<Props, State> {
      this.props.getProblemsByStreet(street, municipality, county)
      .then(() => {
         //console.log("Ferdiog!!")
-        let myProbs = [];
+        let myProbs = this.props.similarProblems;
+        /*
         this.props.similarProblems.map(e => {
           console.log(this.props.similarProblems);
           myProbs.push({
-            id: e.problem_id,
-            title: e.problem_title,
-            description: e.problem_description,
-            status: e.status_fk,
-            entrepreneur: e.entrepreneur || "N/A",
-            imgURL: e.img_user
+              similarProblems
           })
-        });
+        });*/
         console.log("My probs");
         console.log(myProbs);
 
         //Set default to first
         if(myProbs[0] != null){
-          this.handleChangeSpec("cur_id", myProbs[0].id);
-          this.handleChangeSpec("cur_title", myProbs[0].title);
-          this.handleChangeSpec("cur_description", myProbs[0].description);
-          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
-          this.handleChangeSpec("cur_status", myProbs[0].status);
-          this.handleChangeSpec("cur_imageURL", myProbs[0].imgURL);
+          this.handleChangeSpec("cur_id", myProbs[0].problem_id);
+          this.handleChangeSpec("cur_title", myProbs[0].problem_title);
+          this.handleChangeSpec("cur_description", myProbs[0].problem_description);
+          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur_fk);
+          this.handleChangeSpec("cur_status", myProbs[0].status_fk);
+          this.handleChangeSpec("cur_imageURL", myProbs[0].img_user);
         }
         else{
           //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]

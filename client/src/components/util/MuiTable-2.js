@@ -17,7 +17,7 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { CheckCircle } from '@material-ui/icons';
+import { CheckCircle, ThumbUp } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
@@ -98,16 +98,19 @@ class MuiTable2 extends React.Component<Props> {
     return (
       <div>
         {rows.map(row => (
-          <ExpansionPanel expanded={expanded === row.id}
-          onChange={(onClick == null) ? this.handleChange(row.id) : e => onClick(row)}
-            key={row.id}>
+          <ExpansionPanel expanded={expanded === row.problem_id}
+          onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
+            key={row.problem_id}>
             <ExpansionPanelSummary>
               <CheckCircle className="material-icons" color=
-              {row.status == "Unchecked" ? "disabled"
-              : (row.status == "Checked" ? "primary" : "error")}/>
-              <Typography>{row.title}</Typography>
+              {row.status_fk == "Unchecked" ? "disabled"
+              : (row.status_fk == "Checked" ? "primary" : "error")}/>
+              <Typography style={{flexBasis:"100%", fontSize:"15"}}>{row.problem_title}</Typography>
+              <Typography style={{flexBasis:"40%", fontSize:10}}>{row.date_made}</Typography>
+              <ThumbUp className="material-icons" color="primary" size="50%"/>
+              <Typography align="right" style={{flexBasis:"10%", fontSize: 10}}>{row.support}</Typography>
 
-              <CheckCircle className="material-icons" color="disabled"/>
+              <CheckCircle className="material-icons" color="disabled" size="50%"/>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Grid item xs container
@@ -118,19 +121,19 @@ class MuiTable2 extends React.Component<Props> {
                   <h4>Beskrivelse</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.description}</Typography>
+                  <Typography>{row.problem_description}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Entreprenør</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.entrepreneur}</Typography>
+                  <Typography>{row.entrepreneur_fk}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Status</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.status}</Typography>
+                  <Typography>{row.status_fk}</Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelDetails>
@@ -139,22 +142,6 @@ class MuiTable2 extends React.Component<Props> {
       </div>
     );
   }
-}
-
-function MuiTable2Wrapper() {
-  let  rows = [
-      {id: 1, title: "Title1", description: "abc1", imgURL: "imgURL", entrepreneur: "Bob1", status: "Done"},
-      {id: 2, title: "Title2", description: "abc2", imgURL: "imgURL", entrepreneur: "Bob2", status: "Checked"},
-      {id: 3, title: "Title3", description: "abc3", imgURL: "imgURL", entrepreneur: "Bob3", status: "Unchecked"}
-    ];
-  return (
-    <Paper style={{ height: 250, width: '100%' }}>
-      <MuiTable2Base
-      rows={rows}
-      onClick={e => console.log(e)}
-      />
-    </Paper>
-  );
 }
 
 export default withRoot(MuiTable2);
