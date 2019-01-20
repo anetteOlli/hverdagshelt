@@ -28,7 +28,7 @@ test("Testing getAllMunicipalities from DivDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(422);
     expect(data[0].municipality).toBe("Asker");
-    expect(data[47].municipality).toBe("Eidskog");
+    expect(data[47].municipality).toBe("Lier");
     done();
   })
 });
@@ -48,7 +48,7 @@ test("Testing getMunicipalitiesByCounty from DivDao", (done) => {
   dao.getMunicipalitiesByCounty(county,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(48);
-    expect(data[2].municipality).toBe("Namsos");
+    expect(data[2].municipality).toBe("Flatanger");
     expect(data[9].municipality).toBe("Agdenes");
     done();
   })

@@ -13,7 +13,7 @@ module.exports = class EntrepreneurDao extends Dao {
   }
 
   createEntrepreneur(json, userID, callback) {
-    const val = [json.bedriftNavn, json.org_nr, userID];
+    const val = [json.businessName, json.org_nr, userID];
     super.query('insert into entrepreneur (businessName, org_nr, user_fk) values (?,?,?)', val, callback);
   }
 

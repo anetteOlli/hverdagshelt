@@ -132,7 +132,7 @@ test("Testing patchMunicipality from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"yeet",
-    status:"Finished"
+    status:"Archived"
   };
   let id = 1;
   dao.patchMunicipality(id,json,(status,data) => {
