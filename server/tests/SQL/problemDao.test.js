@@ -36,11 +36,13 @@ test("Testing getAll from problem", (done) => {
 
 test("Testing getAllFromUser from problemDao", (done) => {
   let id = 1;
-  expect(status).toBe(200);
-  expect(data.length).toBe(3);
-  expect(data[0].user_fk).toBe(1);
-  expect(data[0].problem_title).toBe("Erlend tried his best");
-  done();
+  dao.getAllFromUser(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(3);
+    expect(data[0].user_fk).toBe(1);
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    done();
+  })
 });
 
 test("Testing getOne from problemDao", (done) => {
