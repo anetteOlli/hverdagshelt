@@ -6,6 +6,10 @@ module.exports = class ProblemDao extends Dao {
     super.query('SELECT * FROM problem', [], callback);
   }
 
+  getAllFromUser(id: number, callback) {
+    super.query('SELECT * FROM problem WHERE user_fk = ?', [id], callback);
+  }
+
   getOne(id, callback) {
     super.query('SELECT * FROM problem WHERE problem_id = ?', [id], callback);
   }
