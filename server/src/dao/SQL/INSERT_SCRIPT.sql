@@ -463,7 +463,7 @@ INSERT INTO street VALUES('Bispegata');
 
 INSERT INTO status VALUES ('Unchecked');
 INSERT INTO status VALUES ('InProgress');
-INSERT INTO status VALUES ('Finished');
+INSERT INTO status VALUES ('Archived');
 
 
 
@@ -473,7 +473,7 @@ INSERT INTO priority VALUES ("Municipality");
 INSERT INTO priority VALUES ("Administrator");
 
 
-INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('user@user.user', 'ok',"Trondheim", "Trøndelag" ,"Standard", NOW(), 1);
+INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('user@user.user', 'ok',"Trondheim", "Trøndelag" ,"Standard", NOW(), 0);
 INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('koma@koma.koma', 'ok',"Trondheim", "Trøndelag" ,"Municipality", NOW(), 1);
 INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('entr@entr.entr', 'ok',"Trondheim", "Trøndelag" ,"Entrepreneur", NOW(), 1);
 INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);

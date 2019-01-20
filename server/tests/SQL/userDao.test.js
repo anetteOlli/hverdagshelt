@@ -59,34 +59,6 @@ test("Testing getCreateUser from userDao", (done) => {
   })
 });
 
-test("Testing createEntrepreneur from userDao", (done) => {
-  let json = {
-    bedriftNavn: "Test",
-    org_nr: "01010"
-  };
-  let id = 3;
-  dao.createEntrepreneur(json,id,(status,data) => {
-    expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
-    done();
-  })
-});
-
-test("Testing linkEntrepreneur from userDao", (done) => {
-  let json = {
-    categories : ["Testing", "Hole in road"],
-    municipalities: [
-      {"municipality":"Nord-Fron", "county":"Oppland"},
-      {"municipality":"Sør-Fron", "county":"Oppland"}
-    ]
-  };
-  let id = 1;
-  dao.linkEntrepreneur(json,id,(status,data) => {
-    expect(status).toBe(200);
-    done();
-  })
-});
-
 
 test("Testing patchOne from userDao", (done) => {
   let json = {
@@ -120,3 +92,12 @@ test("Testing checkMail from userDao", (done) => {
     done();
   })
 });
+
+test("Testing activateUser from userDao", (done) => {
+  let email = "user@user.user";
+  dao.activateUser(email, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+})
