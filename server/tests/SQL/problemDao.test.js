@@ -34,6 +34,15 @@ test("Testing getAll from problem", (done) => {
   })
 });
 
+test("Testing getAllFromUser from problemDao", (done) => {
+  let id = 1;
+  expect(status).toBe(200);
+  expect(data.length).toBe(3);
+  expect(data[0].user_fk).toBe(1);
+  expect(data[0].problem_title).toBe("Erlend tried his best");
+  done();
+});
+
 test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
@@ -165,3 +174,24 @@ test("Testing deleteOne from problemDao", (done) => {
   })
 });
 
+
+test("Testing supportProblem from problemDao", (done) => {
+  let id = 1;
+  dao.supportProblem(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing addEntrepreneur from problemDao", (done) => {
+  let json = {
+    entrepreneur_fk:1,
+    problem_id:1
+  };
+  dao.addEntrepreneur(json, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
