@@ -49,7 +49,7 @@ test("Testing getMunicipalitiesByCounty from DivDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(48);
     expect(data[2].municipality).toBe("Flatanger");
-    expect(data[9].municipality).toBe("Agdenes");
+    expect(data[9].municipality).toBe("Holtålen");
     done();
   })
 });
