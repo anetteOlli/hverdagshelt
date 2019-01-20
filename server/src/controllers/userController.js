@@ -1,7 +1,9 @@
 const UserDao = require('../dao/userDao');
 const pool = require('../services/database');
-import { validatePassword, genToken, hashPassword } from '../services/util';
+import { validatePassword, genToken, hashPassword, genTokenEmail } from '../services/util';
+let mail = require('../services/nodemailer');
 let userDao = new UserDao(pool);
+
 
 exports.users_get_all = (req, res) => {
   userDao.getAll((status, data) => {
@@ -41,11 +43,29 @@ exports.users_get_user = (req, res) => {
 
 exports.users_create_user = (req, res) => {
   userDao.createUser(req.body, hashPassword(req.body.password), 'Standard', (status, data) => {
-    res.status(status).json(data);
+    if(status === 200){
+      let link = "https://localhost:3001/div/verifyEmail/"+genTokenEmail({"email":req.body.email});
+      let datapackage = {
+        email: req.body.email,
+        text: link,
+        html: link
+      };
+      mail.sendSingleMail(datapackage, (json) => {
+        console.log(json);
+      });
+      res.status(status).json(data);
+    }else {
+      res.status(status).json(data);
+    }
   });
 };
 
-
+exports.user_activate = (req,res,email) => {
+  console.log(email.data.email);
+  userDao.activateUser(email.data.email, (status,data) => {
+    res.status(status).json(data);
+  })
+};
 
 exports.user_delete_user = (req, res) => {
   userDao.deleteOne(req.params.email, (status, data) => {

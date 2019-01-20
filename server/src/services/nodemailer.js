@@ -21,7 +21,7 @@ class MailController {
      * @param newUser userInformation
      * @param callback
      */
-    sendActivationLink(dataPackage: object, callback: function) {
+    sendSingleMail(dataPackage: object, callback: function) {
 
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",

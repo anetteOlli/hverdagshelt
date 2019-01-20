@@ -18,7 +18,6 @@ module.exports = class UserDao extends Dao {
     );
   }
 
-
   patchOne(id, json, callback) {
     const val = [json.email, json.password, id];
     super.query(
@@ -34,5 +33,12 @@ module.exports = class UserDao extends Dao {
 
   checkEmail(email, callback) {
     super.query('select user_id, password, priority_fk from user where email = ?', [email], callback);
+  }
+
+  activateUser(email, callback){
+    super.query('UPDATE user SET active = TRUE WHERE email = ?',
+      [email],
+      callback
+    );
   }
 };

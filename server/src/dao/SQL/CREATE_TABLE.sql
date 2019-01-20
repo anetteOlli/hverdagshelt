@@ -76,6 +76,7 @@ CREATE TABLE user (
                     email VARCHAR(100) NOT NULL UNIQUE,
                     password VARCHAR(100) NOT NULL,
                     created DATETIME NOT NULL,
+                    active TINYINT NOT NULL DEFAULT 0,
                     municipality_fk VARCHAR(30) NOT NULL,
                     county_fk VARCHAR(30) NOT NULL,
                     priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
@@ -112,7 +113,7 @@ CREATE TABLE user_event (
 
 CREATE TABLE entrepreneur (
                             entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                            bedriftnavn VARCHAR(255) NOT NULL,
+                            businessName VARCHAR(255) NOT NULL,
                             org_nr VARCHAR(45) NOT NULL UNIQUE,
                             user_fk INT NOT NULL
 );
