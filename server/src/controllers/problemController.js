@@ -103,6 +103,12 @@ exports.problems_delete_problem = (req, res) => {
 
 exports.problems_edit_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
+
+
+
+
+
+
   if (req.userData.priority === 'Administrator') {
     problemDao.patchKommuneAnsatt(req.params.id, req.body, (status, data) => {
       return res.status(status).json(data);
