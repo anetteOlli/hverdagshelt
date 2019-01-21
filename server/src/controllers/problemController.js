@@ -9,7 +9,6 @@ const pool = require('../services/database');
 let problemDao = new ProblemDao(pool);
 let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
-// let nodeMailer = new MailController();
 
 exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
@@ -129,41 +128,34 @@ exports.problems_delete_problem = (req, res) => {
 
 exports.problems_edit_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
-  //Administrator changes a problem:
-
   switch (req.userData.priority) {
     case 'Administrator':
-      problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
-        //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
-
-        /*
-        if(status === 200){
-          let data = UserController.users_from_problem(req.params.id);
-          console.log(data);
-          //Sends email to users
-          dataPackage.recepients = data;
-          dataPackage.text = 'Dette er en testmail!';
-          dataPackage.html = '';
-          MailController.sendMassMail(dataPackage);
+      problemDao.patchAdministrator(req.params.id, req.body, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
+            console.log('DATA ADMINISTRATOR', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
+              html: ''
+            });
+          });
         }
-        */
-
         return res.status(status).json(data);
       });
       break;
     case 'Municipality':
       problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
         if (status === 200) {
-          problemDao.getAllbyProblemId(req.params.id, (status, data) => {
-            console.log('DATAAAAAAAAAAA', data);
+          problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
+            console.log('DATA MUNICIPALITY', data);
             MailController.sendMassMail({
               recepients: data,
-              text: 'Dette er en test mail',
+              text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
               html: ''
             });
           });
         }
-        //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
         return res.status(status).json(data);
       });
       break;
@@ -175,13 +167,13 @@ exports.problems_edit_problem = (req, res) => {
         else
           problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
             if (status === 200) {
-              problemDao.getAllbyProblemId(req.params.id, (status, data) => {
-                console.log(data);
-                //Sends email to users
-                dataPackage.recepients = data;
-                dataPackage.text = 'Dette er en testmail!';
-                dataPackage.html = '';
-                MailController.sendMassMail(dataPackage);
+              problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
+                console.log('DATA ENTREPENEUR', data);
+                MailController.sendMassMail({
+                  recepients: data,
+                  text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
+                  html: ''
+                });
               });
             }
             return res.status(status).json(data);
@@ -192,7 +184,6 @@ exports.problems_edit_problem = (req, res) => {
       if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
       if (req.userData.user.id !== data[0].user_fk)
         return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
-      //User changes its own problem:
       else
         problemDao.patchStandard(req.params.id, false, req.body, (status, data) => {
           return res.status(status).json(data);
@@ -221,11 +212,11 @@ exports.problems_add_entrepreneur = (req, res) => {
 };
 
 /*
-      
-    
+
+
   }
-  
-  
+
+
   if (req.userData.priority === 'Administrator') {
     problemDao.patchMunicipality(req.params.id, req.body, (status, data) => { //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
       if(status === 200){

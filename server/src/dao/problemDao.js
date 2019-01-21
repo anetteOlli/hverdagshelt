@@ -103,9 +103,12 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchAdministrator(id, json, callback) {
-    const values = [];
-    //Skal kunne endre alt
-    super.query('');
+    const values = [json.problem_title, json.problem_description, json.description_entrepreneur, json.img_user, json.img_entrepreneur, json.category_fk, json.status_fk];
+
+    super.query('UPDATE problem SET problem_title = ?, problem_description = ?, description_entrepreneur = ?, img_user = ?, img_entrepreneur = ?, category_fk = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
+    values,
+    callback
+    );
   }
 
   patchMunicipality(id, json, callback) {
@@ -149,7 +152,7 @@ module.exports = class ProblemDao extends Dao {
     super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
   }
 
-  getAllbyProblemId(id, callback) {
+  getAllUsersbyProblemId(id, callback) {
     super.query(
       'select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?',
       [id],
