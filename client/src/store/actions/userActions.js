@@ -120,7 +120,7 @@ export const signOut = () => {
     clearToken();
     dispatch({
       type: 'SIGN_OUT_SUCCESS'
-    });
+     });
   };
 };
 
