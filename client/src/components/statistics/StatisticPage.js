@@ -1,8 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { SimpleLineChart, SimpleAreaChart, DualLineChart, SimplePieChart } from './Charts';
-import SimpleTable from './SimpleTable';
+import BarChart from './BarChartPage';
+import PieChart from './PieChartPage';
+import LineChart from './LineChartPage';
+
 import withRoot from '../../withRoot';
 const styles = theme => ({
   root: {
@@ -31,35 +33,23 @@ class Dashboard extends React.Component {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
-            SimpleLineChart
+            LineChart
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <SimpleLineChart/>
+            <LineChart/>
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            SimpleAreaChart
+            PieChart
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <SimpleAreaChart />
+            <PieChart />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            DualLineChart
+            BarChart
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <DualLineChart />
+            <BarChart />
           </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            SimplePieChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimplePieChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            Products
-          </Typography>
-          <div className={classes.tableContainer}>
-            <SimpleTable />
-          </div>
         </main>
       </div>
     );
@@ -69,6 +59,13 @@ class Dashboard extends React.Component {
 export default withRoot(withStyles(styles)(Dashboard));
 
 /*
+
+          <Typography variant="h4" gutterBottom component="h2">
+            Products
+          </Typography>
+          <div className={classes.tableContainer}>
+            <SimpleTable />
+          </div>
         <CssBaseline />
         <AppBar
           position="absolute"
