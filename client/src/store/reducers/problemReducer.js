@@ -49,23 +49,27 @@ export type Action =
 const initState = {
   problems: [
     {
-      problem_id: 2,
-      problem_title: 'Hull i veien',
-      problem_description: 'Dette er krise kom og fiks!',
+      problem_id: 1,
+      problem_title: 'Erlend tried his best',
+      problem_description: 'A big hole has been found in the rear of Erlend',
       problem_locked: 0,
-      img_user: 'https://i.imgur.com/ykbz8hO.png',
-      img_entrepreneur: 'https://i.imgur.com/ykbz8hO.png',
-      date_made: '20-13-2018',
-      last_edited: '20-14-2018',
-      status_fk: 'Fixed',
-      category_fk: 'Vei og kjørebane',
-      county_fk: 'test',
-      municipality_fk: 'test',
-      city_fk: 'test',
-      street_fk: 'test',
-      latitude: '63.42656212314987',
-      longitude: '10.393969503996345',
-      support: -1
+      description_entrepreneur: null,
+      img_user: 'https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5',
+      img_entrepreneur: null,
+      date_made: '2019-01-16 11:43:39',
+      last_edited: '2019-01-17 10:17:16',
+      date_finished: null,
+      category_fk: 'Snowplow',
+      status_fk: 'Unchecked',
+      user_fk: 1,
+      entrepreneur_fk: null,
+      latitude: 63.422724,
+      longitude: 10.395582,
+      support: 1,
+      municipality_fk: 'Trondheim',
+      county_fk: 'Trøndelag',
+      city_fk: 'Trondheim',
+      street_fk: 'Klostergata',
     }
   ],
   errorMessage: '',
@@ -119,6 +123,18 @@ export default (state: State = initState, action: Action) => {
       };
     case 'PROBLEMS_BY_MUNI_ERROR':
       console.log('%c PROBLEMS_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+    case 'PROBLEMS_BY_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_USER_ERROR':
+      console.log('%c PROBLEMS_BY_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message

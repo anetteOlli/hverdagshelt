@@ -20,7 +20,6 @@ import { problemAddEntrepreneur } from '../../store/actions/problemActions';
 import SelectTable from '../util/SelectTable';
 import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 
