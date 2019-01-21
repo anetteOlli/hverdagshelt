@@ -25,7 +25,8 @@ export type Problem = {
 
 export type State = {
   problems: Problem[],
-  errorMessage: string
+  errorMessage: string,
+  currentMuni: {municipality_fk: string, county_fk: string}
 };
 
 export type Action =
@@ -44,7 +45,9 @@ export type Action =
   | { type: 'GO_TO_PROBLEM_DETAIL', payload: number }
   | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
-  | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' };
+  | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
+  | { type: 'SET_MUNI' };
+
 
 const initState = {
   problems: [
@@ -75,7 +78,8 @@ const initState = {
   ],
   errorMessage: '',
   currentProblemId: 2,
-  editMode: false
+  editMode: false,
+  currentMuni: ''
 };
 
 export default (state: State = initState, action: Action) => {
@@ -208,6 +212,13 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         errorMessage: action.payload.message
+      };
+    case 'SET_MUNI':
+      console.log('%c GET_MUNI', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        currentMuni: action.payload,
+        errorMessage: ''
       };
     default:
       return state;

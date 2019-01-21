@@ -1,7 +1,12 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { getProblemByEntrepreneur, getProblemByUser, goToProblemDetail } from '../../store/actions/problemActions';
+import {
+  getProblemByEntrepreneur,
+  getProblemByUser,
+  goToProblemDetail,
+  setMuni
+} from '../../store/actions/problemActions';
 
 // Material-ui
 import {

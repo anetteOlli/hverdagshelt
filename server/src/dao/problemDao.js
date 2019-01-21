@@ -131,4 +131,6 @@ module.exports = class ProblemDao extends Dao {
     console.log(values);
     super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
   }
+  
+
 };

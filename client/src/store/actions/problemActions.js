@@ -216,6 +216,11 @@ export const goToProblemEdit = (id: number) => {
   };
 };
 
+export const setMuni = (county_fk: string, municipality_fk: string) => ({
+  type: 'SET_MUNI',
+  payload: {county_fk, municipality_fk}
+});
+
 export const problemAddEntrepreneur = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
     patchData('problems/add/entrepreneur', problem)
