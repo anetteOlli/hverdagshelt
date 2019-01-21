@@ -73,7 +73,7 @@ export const getProblemByUser = () => {
             })
           );
       case 'Municipality':
-        return postData('problems/municipality', { muni: 'Trondheim', county: 'Trøndelag' })
+        return postData('problems/municipality', { municipality: 'Trondheim', county: 'Trøndelag' })
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_USER_SUCCESS',

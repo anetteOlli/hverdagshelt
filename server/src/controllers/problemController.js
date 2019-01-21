@@ -153,7 +153,7 @@ exports.problems_edit_problem = (req, res) => {
       if(status === 200){
         let data = UserController.users_from_problem(req.params.id);
         console.log(data);
-        //Sends email to users 
+        //Sends email to users
         dataPackage.recepients = data;
         dataPackage.text = 'Dette er en testmail!';
         dataPackage.html = '';
@@ -188,7 +188,7 @@ exports.problems_edit_problem = (req, res) => {
       return res.status(status).json(data);
     });
   });
-};
+}; 
 
 exports.problems_get_problem_by_user = (req, res) => {
   console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
