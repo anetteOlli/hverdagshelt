@@ -102,6 +102,8 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit = () => {
+
+
     this.props.goToProblemEdit(this.props.problem.problem_id);
   };
 

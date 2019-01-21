@@ -65,7 +65,6 @@ class App extends React.Component<Props> {
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/uploadfile" component={UploadFile} />
-                    <Route exact path="/map" component={MapMarkers} />
                     <Route exact path="/registrer-bruker" component={SignUp} />
                     <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
@@ -76,7 +75,6 @@ class App extends React.Component<Props> {
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/uploadfile" component={UploadFile} />
                     <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-                    <Route exact path="/map_simpel" component={SimpleMap} />
                     <Route exact path="/stati" component={Stati} />
                     <Route exact path="/innstillinger" component={Settings} />
                     <Route exact path="/profil" component={Profile} />

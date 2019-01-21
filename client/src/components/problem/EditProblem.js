@@ -5,7 +5,6 @@ import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
@@ -58,6 +57,11 @@ const styles = (theme: Object) => ({
     marginTop: 10,
     color: theme.palette.text.secondary
   },
+  paper2: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10
+  },
   button: {
     marginTop: theme.spacing.unit
   }
@@ -95,13 +99,6 @@ class EditProblem extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    const date = new Date();
-    console.log(this.state);
-
-    this.setState({
-      last_edited: date
-    });
-
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
@@ -122,17 +119,17 @@ class EditProblem extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Endre på problem
                 </Typography>
-                <Paper
-                  className={classes.paper}
+
+                <TextValidator
                   fullWidth
-                  readOnly
                   margin="normal"
-                  label="Status:"
-                  name="status_fk"
-                  value={'status'}
-                >
-                  {'Status:   ' + this.state.status_fk}
-                </Paper>
+                  label="Tittel: "
+                  name="problem_title"
+                  value={this.state.problem_title}
+                  onChange={this.handleChange}
+                  validators={['required', 'minStringLength:1']}
+                  errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                />
 
                 <TextValidator
                   fullWidth
@@ -161,6 +158,19 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
+
+                <Paper
+                  className={classes.paper2}
+                  fullWidth
+                  readOnly
+                  margin="normal"
+                  label="Status:"
+                  name="status_fk"
+                  value={'status'}
+                >
+                  {'Status:   ' + this.state.status_fk}
+                </Paper>
+
                 <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <div>
