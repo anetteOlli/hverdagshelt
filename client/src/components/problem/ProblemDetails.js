@@ -278,14 +278,13 @@ class ProblemDetails extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.currentProblemId !== nextProps.currentProblemId)
-    this.props.getEntrepreneursByMuniAndCat(nextProps.problem.category_fk);
+    this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
   }
 }
 
 const mapStateToProps = state => {
   const problems = state.problem.problems;
   const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
-  //const problem = problems ? problems.find(problem => problem.id === id) : null;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
@@ -300,7 +299,6 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getAllEntrepreneurs: () => dispatch(getAllEntrepreneurs()),
     getEntrepreneursByMuniAndCat: (category_fk) => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals)),
 
@@ -311,8 +309,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
-
-// bruker kan edit desciption hvis ikke locked
-// Admin kan gjøre alt
-// Kommuneansatt slett, add entrepreneur, edit
-// Entrepeneur edit

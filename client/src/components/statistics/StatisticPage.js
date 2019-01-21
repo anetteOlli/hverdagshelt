@@ -6,7 +6,7 @@ import PieChart from './PieChartPage';
 import LineChart from './LineChartPage';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { getUsersMuni, getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
+import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
 
 const styles = theme => ({
   root: {

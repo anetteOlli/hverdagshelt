@@ -176,10 +176,6 @@ class EditProblemMain extends React.Component<Props, State> {
     categories: []
   };
 
-  handleChangeSpec(name, value) {
-    this.setState({ [name]: value });
-  }
-
   render() {
     const { classes, problems } = this.props;
     bool = this.props.editMode;
