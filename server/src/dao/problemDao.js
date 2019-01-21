@@ -64,6 +64,7 @@ module.exports = class ProblemDao extends Dao {
     );
   }
   patchAdministrator(id, json, callback) {
+    console.log("patch admin: " + json.problem_title)
     const values = [json.problem_title, json.problem_description, json.status, json.category_fk, json.img_user, json.description_entrepreneur, json.img_entrepreneur, id];
 
     super.query(

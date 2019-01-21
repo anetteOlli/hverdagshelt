@@ -109,15 +109,14 @@ class EditProblemA extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    // gå videre til å lagre endringer
     const date = new Date();
     console.log(this.state);
 
     this.setState({
       last_edited: date
-    })
+    });
 
-    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id))
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
   render() {
@@ -248,7 +247,7 @@ class EditProblemA extends React.Component<Props, State> {
                   />
                   <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
-                  <h3> Dato Endret: {this.state.last_edited} </h3>
+                  <Paper> Dato Endret: {this.state.last_edited} </Paper>
 
                   <div>
                     <ExpansionPanel>
