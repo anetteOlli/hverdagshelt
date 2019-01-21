@@ -11,7 +11,6 @@ let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
 // let nodeMailer = new MailController();
 
-
 exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
   problemDao.getAll((status, data) => {
@@ -131,6 +130,102 @@ exports.problems_delete_problem = (req, res) => {
 exports.problems_edit_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
   //Administrator changes a problem:
+
+  switch (req.userData.priority) {
+    case 'Administrator':
+      problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
+        //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
+
+        /*
+        if(status === 200){
+          let data = UserController.users_from_problem(req.params.id);
+          console.log(data);
+          //Sends email to users
+          dataPackage.recepients = data;
+          dataPackage.text = 'Dette er en testmail!';
+          dataPackage.html = '';
+          MailController.sendMassMail(dataPackage);
+        }
+        */
+
+        return res.status(status).json(data);
+      });
+      break;
+    case 'Municipality':
+      problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllbyProblemId(req.params.id, (status, data) => {
+            console.log('DATAAAAAAAAAAA', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Dette er en test mail',
+              html: ''
+            });
+          });
+        }
+        //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
+        return res.status(status).json(data);
+      });
+      break;
+
+    case 'Entrepreneur':
+      entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
+        if (data[0].user_fk !== req.userData.id)
+          return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
+        else
+          problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
+            if (status === 200) {
+              problemDao.getAllbyProblemId(req.params.id, (status, data) => {
+                console.log(data);
+                //Sends email to users
+                dataPackage.recepients = data;
+                dataPackage.text = 'Dette er en testmail!';
+                dataPackage.html = '';
+                MailController.sendMassMail(dataPackage);
+              });
+            }
+            return res.status(status).json(data);
+          });
+      });
+      break;
+    default:
+      if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
+      if (req.userData.user.id !== data[0].user_fk)
+        return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+      //User changes its own problem:
+      else
+        problemDao.patchStandard(req.params.id, false, req.body, (status, data) => {
+          return res.status(status).json(data);
+        });
+  }
+};
+
+exports.problems_get_problem_by_user = (req, res) => {
+  console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
+  problemDao.getByUser(req.params.user_id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.problems_get_problem_by_entrepreneur = (req, res) => {
+  console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
+  problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.problems_add_entrepreneur = (req, res) => {
+  problemDao.addEntrepreneur(req.body, (status, data) => {
+    return res.status(400).json(data);
+  });
+};
+
+/*
+      
+    
+  }
+  
+  
   if (req.userData.priority === 'Administrator') {
     problemDao.patchMunicipality(req.params.id, req.body, (status, data) => { //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
       if(status === 200){
@@ -196,23 +291,4 @@ exports.problems_edit_problem = (req, res) => {
     });
   });
 };
-
-exports.problems_get_problem_by_user = (req, res) => {
-  console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
-  problemDao.getByUser(req.params.user_id, (status, data) => {
-    res.status(status).json(data);
-  });
-};
-
-exports.problems_get_problem_by_entrepreneur = (req, res) => {
-  console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
-  problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
-    res.status(status).json(data);
-  });
-};
-
-exports.problems_add_entrepreneur = (req, res) => {
-  problemDao.addEntrepreneur(req.body, (status, data) => {
-    return res.status(400).json(data);
-  });
-};
+ */

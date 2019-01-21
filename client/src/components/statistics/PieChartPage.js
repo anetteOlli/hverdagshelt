@@ -7,14 +7,11 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
-import XAxis from 'recharts/lib/cartesian/XAxis';
-import YAxis from 'recharts/lib/cartesian/YAxis';
-import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
-import Legend from 'recharts/lib/component/Legend';
-import Bar from 'recharts/lib/cartesian/Bar';
-import BarChart from 'recharts/lib/chart/BarChart';
+import { getPieChartData } from '../../store/actions/statisticsActions';
+import PieChart from 'recharts/lib/chart/PieChart';
+import Pie from 'recharts/lib/polar/Pie';
 
-const dataSimplePieChart = [
+const pieChartData = [
   { name: 'Group A', value: 400 },
   { name: 'Group B', value: 300 },
   { name: 'Group C', value: 300 },
@@ -23,32 +20,31 @@ const dataSimplePieChart = [
   { name: 'Group F', value: 189 }
 ];
 
-class LineChart extends React.Component {
+class PieChartPage extends React.Component {
   state = {
     showData1: false,
     showData2: false
   };
 
-  handleDataChange = (name: string): void => (): void => {};
+  handleDataChange = (e: SyntheticInputEvent<HTMLInputElement>): void => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  };
 
   render() {
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <BarChart width={600} height={300} data={dataDualLineChart} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+          <PieChart width={800} height={400}>
+            <Pie data={pieChartData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
             <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
-          </BarChart>
+          </PieChart>
         </ResponsiveContainer>
         <FormGroup row>
           <FormControlLabel
             control={
-              <Switch name="showData1" checked={this.state.showData1} onChange={this.handleChange} value="showData1" />
+              <Switch name="showData1" checked={this.state.showData1} onChange={this.handleDataChange} value="showData1" />
             }
             label="Secondary"
           />
@@ -57,7 +53,7 @@ class LineChart extends React.Component {
               <Switch
                 name="showData2"
                 checked={this.state.showData2}
-                onChange={this.handleChange}
+                onChange={this.handleDataChange}
                 value="showData2"
                 color="primary"
               />
@@ -70,19 +66,19 @@ class LineChart extends React.Component {
   }
 
   componentDidMount(): void {
-    this.props.getBarChartData();
+    this.props.getPieChartData();
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    data: state.statistic.barChartData
+    data: state.statistic.lineChartData
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBarChartData: () => dispatch(getBarChartData())
+    getPieChartData: () => dispatch(getPieChartData())
   };
 };
 
@@ -90,4 +86,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSnackbar(LineChart));
+)(withSnackbar(PieChartPage));

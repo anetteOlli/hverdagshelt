@@ -9,11 +9,6 @@ module.exports = class UserDao extends Dao {
     super.query('select * from user where user_id = ?', [id], callback);
   }
 
-  getAllbyProblemId(id, callback) {
-    super.query('select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?'),
-    [id], callback
-  }
-
   createUser(json, password, standard, callback) {
     const val = [json.email, password, json.municipality, json.county, standard];
     super.query(
