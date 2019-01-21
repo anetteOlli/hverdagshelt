@@ -69,9 +69,10 @@ exports.problems_create_problem = (req, res) => {
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUser(req.body.userId, (status, data) =>{
+  problemDao.getAllFromUser(req.body.user_fk, (status, data) =>{
     console.log(status);
-    console.log(data);
+    //console.log(data);
+    console.log(data.length);
     if(data.length < 10){
       if (req.file === undefined) {
         problemDao.createOne(req.body, (status, data) => {
@@ -87,7 +88,8 @@ exports.problems_create_problem = (req, res) => {
       }
     }
     else{
-      res.status('Cannot add more problems').json(data);
+      res.status(429).json(data);
+      //console.log("Cannot add more prolbmes for: " + req.body.userId);
     }
   });
 

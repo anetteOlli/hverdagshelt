@@ -384,18 +384,18 @@ class CreateProblem extends React.Component<Props, State> {
     displayImg: '',
 
     cur_id: -1,
-    cur_title: 'defaultTitle',
-    cur_description: 'defaultDesc',
-    cur_imageURL: 'defaultImgUrl',
-    cur_entrepreneur: 'defaultEntrepreneur',
-    cur_status: 'defaultStatus',
+    cur_title: '',
+    cur_description: '',
+    cur_imageURL: '',
+    cur_entrepreneur: '',
+    cur_status: '',
 
     similarProblems:
       [
-        {problem_id:1, problem_title: 'default', category_fk: 'default', municipality_fk: 'default', entrepreneur_fk: 'Bob1',
-        street_fk: 'default', problem_description: 'default', status_fk: 'Unchecked', img_user: "default"}
+        {problem_id:1, problem_title: '', category_fk: '', municipality_fk: '', entrepreneur_fk: '',
+        street_fk: '', problem_description: '', status_fk: 'Unchecked', img_user: ""}
         ],
-    categories:['Default']
+    categories:['Error']
   };
 
   componentDidMount(){
@@ -535,7 +535,16 @@ class CreateProblem extends React.Component<Props, State> {
       this.props.createProblem(k)
       .then((status) => {
         if(this.props.errorMessage != ''){
-          this.props.enqueueSnackbar("Error: Kunne ikke lage problemet", {variant: 'warning'})
+          //console.log(this.props.errorMessage);
+          let res = "Error: Kunne ikke lage problemet";
+          switch(this.props.errorMessage){
+            case "Request failed with status code 429":
+              res = "Error: Du har nådd maksgrensen til antall problem man kan ha"
+              break;
+            default:
+              break;
+          }
+          this.props.enqueueSnackbar(res, {variant: 'warning'})
         }
         else{
           this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
