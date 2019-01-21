@@ -64,9 +64,3 @@ exports.user_validate_email = (req, res) => {
     res.json({ emailExist });
   });
 };
-
-exports.users_from_problem = (id) => {
-  userDao.getAllbyProblemId(id, (status, data) => {
-    return {'status': status, 'data': data};
-  });
-};

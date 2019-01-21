@@ -1,16 +1,32 @@
 // @flow
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
-import { postData } from '../axios';
+import { postData, getData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
+export const getAllProblemsFromMuni = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
+      dispatch({
+        type: 'GET_ALL_PROBLEMS_SUCCESS',
+        payload: response.data
+      }).catch((error: Error) =>
+        dispatch({
+          type: 'GET_ALL_PROBLEMS_ERROR',
+          payload: error
+        })
+      )
+    );
+  };
+};
+
 export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/lineChartData',getState().statistic.selectedMuni).then(response =>
+    return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'LINE_CHART_DATA_SUCCESS',
         payload: response.data
@@ -26,7 +42,7 @@ export const getLineChartData = () => {
 
 export const getPieChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/pieChartData',getState().statistic.selectedMuni).then(response =>
+    return postData('statistics/pieChartData', getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'PIE_CHART_DATA_SUCCESS',
         payload: response.data
@@ -42,7 +58,7 @@ export const getPieChartData = () => {
 
 export const getBarChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/barChartData',getState().statistic.selectedMuni).then(response =>
+    return postData('statistics/barChartData', getState().statistic.selectedMuni).then(response =>
       dispatch({
         type: 'BAR_CHART_DATA_SUCCESS',
         payload: response.data
