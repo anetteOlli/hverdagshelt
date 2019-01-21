@@ -422,10 +422,10 @@ class CreateProblem extends React.Component<Props, State> {
   }
 
   /** Gets problems in vicinity
-   * @params municipality: string, the user-selected municipality
-   * @params street: string, the inputted street
-   * */
-   getSimilarProblems(street: string, municipality: string, county: string){
+  * @params municipality: string, the user-selected municipality
+  * @params street: string, the inputted street
+  * */
+  getSimilarProblems(street: string, municipality: string, county: string){
      this.props.getProblemsByStreet(street, municipality, county)
      .then(() => {
         //console.log("Ferdiog!!")
@@ -610,6 +610,7 @@ class CreateProblem extends React.Component<Props, State> {
         <Typography variant="h2"
         color="primary"
         align="center"
+        id="title"
         >
           Registrer Problem
         </Typography>

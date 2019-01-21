@@ -1,3 +1,4 @@
 node_modules
 client/public/bundle.js
 server/src/services/database.js
+package-lock
