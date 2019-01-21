@@ -296,7 +296,6 @@ class EditProblemM extends React.Component<Props, State> {
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

@@ -26,7 +26,6 @@ import EditProblemM from './EditProblemM';
 import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
-import { getProblemsByMuni } from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
@@ -203,6 +202,9 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getProblemByUser();
+    this.setState({
+      ...this.props.problem
+    });
   }
 
   componentWillReceiveProps(nextProps) {
