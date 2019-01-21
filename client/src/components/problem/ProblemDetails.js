@@ -87,6 +87,35 @@ const styles = (theme: Object) => ({
   }
 });
 
+function getPriorityView(priority: string) {
+
+  if(priority == "Standard" || priority == "Entrepreneur"){
+    return <div></div>
+  } else {
+    return (
+      <SelectTable2
+        rows={this.props.entrepreneurs}
+        onClick={e => {
+          let myEntrepreneur = e;
+          console.log('EEEEEE', e);
+          this.setState({
+            entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+          });
+          this.handleClose();
+          console.log(myEntrepreneur);
+          let vals = {
+            entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+            problem_id: problem.problem_id
+          };
+          this.props.problemAddEntrepreneur(vals);
+        }}
+      />
+    )
+  }
+
+
+}
+
 class ProblemDetails extends React.Component<Props, State> {
   state = {
     categories: [],
@@ -234,23 +263,8 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                <SelectTable2
-                  rows={this.props.entrepreneurs}
-                  onClick={e => {
-                    let myEntrepreneur = e;
-                    console.log('EEEEEE', e);
-                    this.setState({
-                      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
-                    });
-                    this.handleClose();
-                    console.log(myEntrepreneur);
-                    let vals = {
-                      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
-                      problem_id: problem.problem_id
-                    };
-                    this.props.problemAddEntrepreneur(vals);
-                  }}
-                />
+                {getPriorityView(this.props.userPriority)}
+
               </DialogContent>
               <DialogActions />
             </Dialog>
@@ -279,7 +293,6 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    user
   };
 };
 
