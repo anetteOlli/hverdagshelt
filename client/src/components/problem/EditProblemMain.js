@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { getProblemByEntrepreneur, getProblemByUser, goToProblemDetail } from '../../store/actions/problemActions';
+import { getProblemByEntrepreneur, getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
 
 // Material-ui
 import {
@@ -176,6 +176,10 @@ class EditProblemMain extends React.Component<Props, State> {
     categories: []
   };
 
+  handleChangeSpec(name, value) {
+    this.setState({ [name]: value });
+  }
+
   render() {
     const { classes, problems } = this.props;
     bool = this.props.editMode;
@@ -191,7 +195,6 @@ class EditProblemMain extends React.Component<Props, State> {
                 this.props.goToProblemDetail(myProblem.problem_id)
               }}
             />
-            {console.log('kjk',this.props.problems)}
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority_fk))}
@@ -206,6 +209,8 @@ class EditProblemMain extends React.Component<Props, State> {
     this.setState({
       ...this.props.problem
     });
+    console.log()
+    this.props.setMuni(this.props.match.params.county,this.props.match.params.muni);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -229,6 +234,7 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
+    setMuni: (county,muni) => dispatch(setMuni(county,muni))
   };
 };
 

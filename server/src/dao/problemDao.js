@@ -57,7 +57,11 @@ module.exports = class ProblemDao extends Dao {
   }
 
   supportProblem(id, callback) {
-    super.query('UPDATE problem SET support = support + 1 WHERE problem_id = ?', id, callback);
+    super.query(
+      'UPDATE problem SET support = support + 1 WHERE problem_id = ?',
+      id,
+      callback
+    );
   }
   patchAdministrator(id, json, callback) {
     const values = [
@@ -100,12 +104,6 @@ module.exports = class ProblemDao extends Dao {
       values,
       callback
     );
-  }
-
-  patchAdministrator(id, json, callback) {
-    const values = [];
-    //Skal kunne endre alt
-    super.query('');
   }
 
   patchMunicipality(id, json, callback) {
