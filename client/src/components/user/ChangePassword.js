@@ -16,7 +16,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
+import { setNewPassword } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -64,6 +64,7 @@ class ChangePassword extends React.Component<Props, State> {
     email: '',
     password: '',
     cnfPassword: '',
+    userID: '',
     showPassword: false
   };
   handleChange = e => {
@@ -78,7 +79,7 @@ class ChangePassword extends React.Component<Props, State> {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password } = this.state;
+    const { userID, password } = this.state;
     console.log(this.state);
   };
 
@@ -139,12 +140,15 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
-    userID: state.user.userID
+    userID: state.user.userID,
+    email: state.user.email
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    setNewPassword: (userId, password) => dispatch(setNewPassword(userId, password))
+  };
 };
 
 // $FlowFixMe

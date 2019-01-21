@@ -6,7 +6,8 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority
+  priority: Priority,
+  email: string
 };
 
 export type Action =
@@ -19,13 +20,16 @@ export type Action =
   | { type: 'REFRESH_SUCCESS', payload: { userId: number, priority: Priority } }
   | { type: 'REFRESH_ERROR', payload: string }
   | { type: 'TEMP_PASSWORD_SUCCESS' }
+  | { type: 'NEW_PASSWORD_SUCCESS' }
+  | { type: 'NEW_PASSWORD_ERROR', payload: Error }
   | { type: 'TEMP_PASSWORD_ERROR', payload: Error };
 
 const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Standard'
+  priority: 'Standard',
+  email: ''
 };
 
 export default (state: State = initState, action: Action) => {
@@ -93,6 +97,18 @@ export default (state: State = initState, action: Action) => {
       };
     case 'TEMP_PASSWORD_ERROR':
       console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload
+      };
+    case 'NEW_PASSWORD_SUCCESS':
+      console.log('%c NEW_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'NEW_PASSWORD_ERROR':
+      console.log('%c NEW_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload

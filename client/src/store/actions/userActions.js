@@ -2,7 +2,7 @@
 import type { Action } from '../reducers/userReducer';
 import type { ReduxState } from '../reducers';
 import type { Action as AppAction } from '../reducers/appReducer';
-import { setToken, clearToken, postData, getData, getToken } from '../axios';
+import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
 import { loading, hasCheckedJWT } from './appActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -126,6 +126,22 @@ export const forgotPassword = (email: string) => {
       .catch((error: Error) =>
         dispatch({
           type: 'TEMP_PASSWORD_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+export const setNewPassword = (userId: number, password: string) => {
+  return (dispatch: Dispatch) => {
+    return patchData('users/newPassword', { userId, password })
+      .then(() => {
+        return dispatch({
+          type: 'NEW_PASSWORD_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'NEW_PASSWORD_ERROR',
           payload: error
         })
       );
