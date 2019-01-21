@@ -70,19 +70,26 @@ exports.problems_create_problem = (req, res) => {
     req.body.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
   problemDao.getAllFromUser(req.body.userId, (status, data) =>{
-    if (req.file === undefined) {
-      problemDao.createOne(req.body, (status, data) => {
-        handleError(status,data,req,res);
-      });
-    } else {
-      image.uploadImage(req.file, url => {
-        req.body.img_user = url;
+    console.log(status);
+    console.log(data);
+    if(data.length < 10){
+      if (req.file === undefined) {
         problemDao.createOne(req.body, (status, data) => {
           handleError(status,data,req,res);
         });
-      });
+      } else {
+        image.uploadImage(req.file, url => {
+          req.body.img_user = url;
+          problemDao.createOne(req.body, (status, data) => {
+            handleError(status,data,req,res);
+          });
+        });
+      }
     }
-  })
+    else{
+      res.status('Cannot add more problems').json(data);
+    }
+  });
 
   function handleError(status, data, req, res){
       if(status === 500) {

@@ -97,6 +97,7 @@ class MuiTable2 extends React.Component<Props> {
     let color = "disabled";
     return (
       <div>
+        <Typography>Trykk på en entrepreneur for å legge den til problemet</Typography>
         {rows.map(row => (
           <ExpansionPanel expanded={expanded === row.id}
                           onChange={(onClick == null) ? this.handleChange(row.id) : e => onClick(row)}
@@ -125,22 +126,6 @@ class MuiTable2 extends React.Component<Props> {
       </div>
     );
   }
-}
-
-function MuiTable2Wrapper() {
-  let  rows = [
-    {id: 1, title: "Title1", description: "abc1", imgURL: "imgURL", entrepreneur: "Bob1", status: "Done"},
-    {id: 2, title: "Title2", description: "abc2", imgURL: "imgURL", entrepreneur: "Bob2", status: "Checked"},
-    {id: 3, title: "Title3", description: "abc3", imgURL: "imgURL", entrepreneur: "Bob3", status: "Unchecked"}
-  ];
-  return (
-    <Paper style={{ height: 250, width: '100%' }}>
-      <MuiTable2Base
-        rows={rows}
-        onClick={e => console.log(e)}
-      />
-    </Paper>
-  );
 }
 
 export default withRoot(MuiTable2);

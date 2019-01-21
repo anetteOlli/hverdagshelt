@@ -235,6 +235,7 @@ class ProblemDetails extends React.Component<Props, State> {
           <div>
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
               <DialogContent>
+                <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
                 <SelectTable2
                   rows={this.props.entrepreneurs}
@@ -264,8 +265,6 @@ class ProblemDetails extends React.Component<Props, State> {
     }
   }
   componentDidMount() {
-    console.log('PRIO:');
-    console.log(this.state.userPriority);
     this.props.getAllEntrepreneurs();
   }
 }
@@ -288,7 +287,7 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
     getAllEntrepreneurs: () => dispatch(getAllEntrepreneurs()),
-    problemAddEntrepreneur: (vals) => dispatch(problemAddEntrepreneur(vals))
+    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };
 
