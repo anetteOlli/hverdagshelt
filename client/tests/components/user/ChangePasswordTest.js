@@ -72,6 +72,11 @@ const options = {
 //   expect(inputPassword.prop('error')).toBe('');
 // });
 
+// må lage et store objekt, i dette tilfellet er det våres ekte reducers som fores inn
+//Invariant Violation: Could not find "store" in either the context or props of "Connect(WithStyles(Component))".
+//Either wrap the root component in a <Provider>,
+//or explicitly pass "store" as a prop to "Connect(WithStyles(Component))"
+
 // DETTE ER EN INTEGRASJONSTEST, IKKE EN ENHETSTEST: PGA AT DEN IKKE BRUKER MOCK REDUX.
 
 describe('ChangePassword', () => {

@@ -8,6 +8,7 @@ import MainPage from './components/dashboard/MainPage';
 import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
+import MapMarkers from './components/map/MapMarkers';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
@@ -49,40 +50,61 @@ type Props = {
   refresh: Function
 };
 
-const App = (props: Props) => {
-  const { classes } = props;
-  return (
-    <SnackbarProvider maxSnack={3}>
-      <HashRouter>
-        <Fragment>
-          <CssBaseline />
-          <div className={classes.root}>
-            <NavBar />
-            <div className={classes.site}>
-              <Switch>
-                <Route exact path="/" component={MainPage} />
-                <Route exact path="/uploadfile" component={UploadFile} />
-                <Route exact path="/registrer-bruker" component={SignUp} />
-                <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
-                <Route exact path="/lagproblem" component={CreateProblem} />
-                <Route exact path="/problemdetails" component={ProblemDetails} />
-                <Route exact path="/opprArrangement" component={CreateEvent} />
-                <Route exact path="/muiTable" component={MuiTable2Test} />
-                <Route exact path="/munipage" component={MuniPage} />
-                <Route exact path="/lagproblem" component={CreateProblem} />
-                <Route exact path="/uploadfile" component={UploadFile} />
-                <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-                <Route exact path="/stati" component={Stati} />
-                <Route exact path="/:municipality" component={MuniPage} />
-                {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
-              </Switch>
-            </div>
-            <Footer />
-          </div>
-        </Fragment>
-      </HashRouter>
-    </SnackbarProvider>
-  );
+class App extends React.Component<Props> {
+  render() {
+    const { classes, hasCheckedJWT } = this.props;
+    if (hasCheckedJWT) {
+      return (
+        <SnackbarProvider maxSnack={3}>
+          <HashRouter>
+            <Fragment>
+              <CssBaseline />
+              <div className={classes.root}>
+                <NavBar />
+                <div className={classes.site}>
+                  <Switch>
+                    <Route exact path="/" component={MainPage} />
+                    <Route exact path="/uploadfile" component={UploadFile} />
+                    <Route exact path="/registrer-bruker" component={SignUp} />
+                    <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
+                    <Route exact path="/lagproblem" component={CreateProblem} />
+                    <Route exact path="/problemdetails" component={ProblemDetails} />
+                    <Route exact path="/opprArrangement" component={CreateEvent} />
+                    <Route exact path="/muiTable" component={MuiTable2Test} />
+                    <Route exact path="/munipage" component={MuniPage} />
+                    <Route exact path="/lagproblem" component={CreateProblem} />
+                    <Route exact path="/uploadfile" component={UploadFile} />
+                    <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
+                    <Route exact path="/stati" component={Stati} />
+                    <Route exact path="/innstillinger" component={Settings} />
+                    <Route exact path="/profil" component={Profile} />
+                    <Route exact path="/:municipality" component={MuniPage} />
+                    {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+                  </Switch>
+                </div>
+                <Footer />
+              </div>
+            </Fragment>
+          </HashRouter>
+        </SnackbarProvider>
+      );
+    } else return <div />;
+  }
+  componentDidMount(): void {
+    this.props.refresh();
+  }
+}
+
+const mapStateToProps = (state: ReduxState) => {
+  return {
+    hasCheckedJWT: state.app.hasCheckedJWT
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    refresh: () => dispatch(refresh())
+  };
 };
 
 // $FlowFixMe
