@@ -31,7 +31,6 @@ export const getProblemByUser = () => {
     console.log('E: ' + state.user.priority);
     switch (state.user.priority) {
       case 'Standard':
-        console.log('Yo mackaflow, this the getState().user.userID yo: ' + getState().user.userID);
         return getData(`problems/user/${getState().user.userID}`)
           .then(respond =>
             dispatch({

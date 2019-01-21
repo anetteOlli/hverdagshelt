@@ -134,6 +134,16 @@ class EditProblemA extends React.Component<Props, State> {
                   <Typography variant="h2" gutterBottom align="center">
                     Bruker beskrivelse:
                   </Typography>
+                  <TextValidator
+                    fullWidth
+                    margin="normal"
+                    label="Tittel"
+                    name="problem_title"
+                    value={this.state.problem_title}
+                    onChange={this.handleChange}
+                    validators={['required', 'minStringLength:1']}
+                    errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                  />
                   <SelectValidator
                     fullWidth
                     margin="normal"
@@ -250,7 +260,7 @@ class EditProblemA extends React.Component<Props, State> {
                       <ExpansionPanelDetails>
                         <div />
                         <div>
-                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
                           <PictureUpload uploadImg={this.handleUpload} />
                         </div>
                       </ExpansionPanelDetails>
@@ -260,7 +270,6 @@ class EditProblemA extends React.Component<Props, State> {
               </Grid>
               <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
-                  {/*onClick={this.handleSubmit()}*/}
                   Lagre endringer
                 </Button>
 
@@ -301,7 +310,6 @@ class EditProblemA extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
