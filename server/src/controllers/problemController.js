@@ -129,8 +129,8 @@ exports.problems_delete_problem = (req, res) => {
 exports.problems_edit_problem = (req, res) => {
   console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
   if (req.userData.priority === 'Administrator') {
-    problemDao.patchKommuneAnsatt(req.params.id, req.body, (status, data) => {
-      return res.status(status).json(data);
+    problemDao.patchAdministrator(req.params.id, req.body, (status, data) => {
+
     });
   }
   problemDao.getOne(req.params.id, (status, data) => {
@@ -139,16 +139,30 @@ exports.problems_edit_problem = (req, res) => {
         if (data[0].user_fk !== req.userData.id)
           return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
-          problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
+          problemDao.patchBruker(req.params.id, req.body, (status, data) => {
             return res.status(status).json(data);
           });
       });
     }
     if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
-    if (req.userData.user.id !== data[0].user_fk) return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
-    problemDao.patchBruker(req.params.id, false, req.body, (status, data) => {
+    if (req.userData.id !== data[0].user_fk) return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+    problemDao.patchBruker(req.params.id, req.body, (status, data) => {
       return res.status(status).json(data);
     });
+  });
+};
+
+exports.problems_get_problem_by_user = (req, res) => {
+  console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
+  problemDao.getByUser(req.params.user_id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.problems_get_problem_by_entrepreneur = (req, res) => {
+  console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
+  problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
+    res.status(status).json(data);
   });
 };
 

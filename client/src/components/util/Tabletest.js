@@ -89,6 +89,11 @@ class EnhancedTableHead extends React.Component {
 }
 
 const styles = theme => ({
+
+  main: {
+    width: '100%',
+    height: '100%'
+  },
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3
@@ -96,13 +101,22 @@ const styles = theme => ({
   table: {
     width: '100%'
   },
-  tableWrapper: {
-    overflowX: 'auto'
-  },
   paper: {
     height: '100%',
     width: '100%'
-  }
+  },
+  tableRow: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: '5%',
+  paddingRight: '5%'
+  },
+  tableRowBottom: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: '5%',
+    paddingRight: '5%'
+  },
 });
 
 class Tabletest extends React.Component {
@@ -110,8 +124,7 @@ class Tabletest extends React.Component {
     order: 'asc',
     orderBy: 'problem_title',
     problem_id: 1,
-    data: [
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5
   };
@@ -125,8 +138,8 @@ class Tabletest extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleClick = (id) => {
-     this.props.goToProblemDetail(id);
+  handleClick = id => {
+    this.props.goToProblemDetail(id);
   };
 
   handleChangePage = (event, page) => {
@@ -141,53 +154,64 @@ class Tabletest extends React.Component {
     const { data, order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return (
-      <Paper className={classes.paper} name="Main paper in table">
-        <div name="Main div in table">
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
-            />
-            <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
-                  return (
-                    <TableRow name={n.id} hover onClick={() => this.handleClick(n.problem_id)} tabIndex={-1}  key={n.problem_id}>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.problem_title}
-                      </TableCell>
-                      <TableCell align="right">{n.status_fk}</TableCell>
-                      <TableCell align="right">{n.support}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6}/>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page'
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page'
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-      </Paper>
+      <div className={classes.main}>
+        <Paper className={classes.paper} name="Main paper in table">
+            <div name="Main div in table">
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={this.handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {stableSort(data, getSorting(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(n => {
+                    return (
+                      <TableRow
+                        name={n.id}
+                        hover
+                        onClick={() => this.handleClick(n.problem_id)}
+                        tabIndex={-1}
+                        key={n.problem_id}
+                      >
+                        <TableCell component="th" padding="none">
+                          {n.problem_title}
+                        </TableCell>
+                        <TableCell className={classes.tableRow}>{n.status_fk}</TableCell>
+                        <TableCell className={classes.tableRow}>{n.support}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {/*
+                  emptyRows > 0 && (
+                  <TableRow >
+                    <TableCell colSpan={3} />
+                  </TableRow>
+                )
+                */}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            className={classes.tableRowBottom}
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page'
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page'
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+        </Paper>
+      </div>
     );
   }
 
@@ -219,4 +243,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(Tabletest))));
