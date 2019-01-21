@@ -3,12 +3,14 @@ const ProblemDao = require('../dao/problemDao');
 const DivDao = require('../dao/divDao');
 const EntDao = require('../dao/entrepreneurDao');
 const UserController = require('./problemController');
+const UserDao = require('../dao/userDao');
 const MailController = require('../services/nodemailer');
 
 const pool = require('../services/database');
 let problemDao = new ProblemDao(pool);
 let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
+let userDao = new UserDao(pool);
 
 exports.problems_get_all = (req, res) => {
   console.log('Handling GET requests to /problems');
@@ -30,9 +32,24 @@ exports.problems_support_problem = (req, res) => {
   console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
   divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
     if (status == 200) {
-      problemDao.supportProblem(req.params.id, (status, data) => {
-        res.status(status).json(data);
-      });
+        //Send email to the user who created the problem
+        userDao.getOneById(req.body.user_fk, (status, data) => { //Her kan jeg hente fra userDao eller fra userController for å få emailen
+          console.log('!!!!!!!!!!!!!!!!!!!Før ifsetningen', data);
+
+          //Hvis det er den første som liker så sendes en mail
+          if(data.length === 1){
+            console.log('!!!!!!!!!!!!!!!!!!!Datalengde er lik 1, mail skal sendes');
+            MailController.sendSingleMail({
+              recepients: data.email,
+              text: 'Et problem du har opprettet "' + req.body.problem_title + '" er blitt liket. Problemet er nå ikke mulig å endre lengre.',
+              html: ''
+            }, (status,data));
+          }
+          console.log('!!!!!!!!!!!!!!!!Etter ifsetningen');
+          problemDao.supportProblem(req.params.id, (status, data) => { //Denne burde være ytters slik at denne gjøres før email blir sendt
+            res.status(status).json(data);
+          });
+        });
     } else {
       res.status(status).json(data);
     }
