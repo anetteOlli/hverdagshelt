@@ -45,8 +45,6 @@ exports.users_create_user = (req, res) => {
   });
 };
 
-
-
 exports.user_delete_user = (req, res) => {
   userDao.deleteOne(req.params.email, (status, data) => {
     res.status(status).json(data);

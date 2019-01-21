@@ -46,17 +46,16 @@ export const getEventsByMuni = (municipality: string, county: string) => {
   };
 };
 
-export const createEvent = (newEvent: JSON) => {
+export const createEvent = (newEvent: JSON, bool: boolean) => {
   return (dispatch: Dispatch) => {
-    return postData('events', newEvent).then(() =>
+    return postData('events', newEvent, bool).then(() =>
       dispatch({
         type: 'CREATE_EVENT_SUCCESS'
-      }).catch((error: Error) =>
+      })).catch((error: Error) =>
         dispatch({
           type: 'CREATE_EVENT_ERROR',
           payload: error
-        })
-      )
+        }) 
     );
   };
 };

@@ -62,7 +62,7 @@ const styles = theme => ({
     marginTop: 50,
     marginBottom: 50,
     size: 200,
-    padding: 30
+    //padding: 30
   },
   // input: {
   //   display: 'none'
