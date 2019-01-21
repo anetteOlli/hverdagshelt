@@ -8,22 +8,6 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getUsersMuni = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id${getState().user.userID}`).then(response =>
-      dispatch({
-        type: 'GET_USERS_MUNI_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'GET_USERS_MUNI_ERROR',
-          payload: error
-        })
-      )
-    );
-  };
-};
-
 export const getAllProblemsFromMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
