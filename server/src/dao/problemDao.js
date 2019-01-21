@@ -47,7 +47,7 @@ module.exports = class ProblemDao extends Dao {
       json.street_fk
     ];
     super.query(
-      'INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+      'INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW())',
       newContent,
       callback
     );
@@ -57,7 +57,7 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
@@ -67,14 +67,15 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.problem_title, json.problem_description, json.status, id];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ? , last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
       values,
       callback
     );
   }
 
-  patchBruker(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.img_user];
+  patchStandard(id, json, callback) {
+    const values = [json.problem_title, json.problem_description, json.img_user, id];
+
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,

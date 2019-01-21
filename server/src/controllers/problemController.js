@@ -43,10 +43,11 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag"; 
+  if(req.body.county_fk === "Nord-Trøndelag" || req.body.county_fk === "Sør-Trøndelag") req.body.county_fk = "Trøndelag";
   if (req.file === undefined) {
+    req.body.img_user='https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Temp_plate.svg/1280px-Temp_plate.svg.png';
     problemDao.createOne(req.body, (status, data) => {
-      handleError(status,data);
+      handleError(status,data,req,res);
     });
   } else {
     image.uploadImage(req.file, url => {
