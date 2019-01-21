@@ -16,19 +16,19 @@ module.exports = class ProblemDao extends Dao {
 
   getFromMunicipality(json, callback) {
     const values = [json.municipality, json.county];
-    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ?', values, callback);
+    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL', values, callback);
   }
 
   getFromCity(json, callback) {
     const values = [json.municipality, json.county, json.city];
-    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ?', values, callback);
+    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ? AND date_finished IS NULL', values, callback);
   }
 
   getFromStreet(json, callback) {
     const values = [json.municipality, json.county, json.street];
 
     super.query(
-      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ?',
+      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ? AND date_finished IS NULL',
       values,
       callback
     );

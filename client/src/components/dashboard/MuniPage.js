@@ -120,6 +120,7 @@ class MuniPage extends React.Component<Props, State> {
     const { value } = this.state;
     const { municipality } = this.props.match.params;
     var moment = require('moment');
+    if(events == undefined) return (<div/>);
     return (
       <main>
         <Grid container spacing={24}>
