@@ -166,7 +166,7 @@ class Tabletest extends React.Component {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={6}/>
                 </TableRow>
               )}
             </TableBody>
