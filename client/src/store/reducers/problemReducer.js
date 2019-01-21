@@ -123,30 +123,57 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload.message
       };
-    case 'PROBLEMS_BY_MUNI_SUCCESS':
-      console.log('%c PROBLEMS_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_MUNICIPALITY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
-    case 'PROBLEMS_BY_MUNI_ERROR':
-      console.log('%c PROBLEMS_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'PROBLEMS_BY_MUNICIPALITY_USER_ERROR':
+      console.log('%c PROBLEMS_BY_MUNICIPALITY_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
-    case 'PROBLEMS_BY_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'PROBLEMS_BY_STANDARD_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_STANDARD_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
-    case 'PROBLEMS_BY_USER_ERROR':
-      console.log('%c PROBLEMS_BY_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'PROBLEMS_BY_STANDARD_USER_ERROR':
+      console.log('%c PROBLEMS_BY__STANDARD_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
+
+    case 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_ENTREPRENEUR_USER_ERROR':
+      console.log('%c PROBLEMS_BY_ENTREPRENEUR_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+
+    case 'PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS':
+      console.log('%c PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_ADMINISTRATOR_USER_ERROR':
+      console.log('%c PROBLEMS_BY_ADMINISTRATOR_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+
     case 'PROBLEMS_BY_STREET_SUCCESS':
       console.log('%c PROBLEMS_BY_STREET_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
