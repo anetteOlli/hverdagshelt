@@ -128,6 +128,7 @@ export const createProblem = (newProblem: Problem) => {
 };
 
 export const editProblem = (problem: Problem) => {
+  console.log("the problem inn data: " + problem)
   return (dispatch: Dispatch, getState: GetState) => {
     return patchData(`problems/${problem.problem_id}`, problem)
       .then(() =>
