@@ -1,7 +1,12 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import { getProblemByEntrepreneur, getProblemByUser, goToProblemDetail } from '../../store/actions/problemActions';
+import {
+  getProblemByEntrepreneur,
+  getProblemByUser,
+  goToProblemDetail,
+  setMuni
+} from '../../store/actions/problemActions';
 
 // Material-ui
 import {
@@ -231,6 +236,8 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getProblemByUser();
+    console.log()
+    this.props.setMuni(this.props.match.params.county,this.props.match.params.muni);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -253,6 +260,7 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
+    setMuni: (county,muni) => dispatch(setMuni(county,muni))
     //getProblemByEntrepreneur: entrepreneur_fk => dispatch(getProblemByEntrepreneur(entrepreneur_fk))
     // getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county)),
   };
