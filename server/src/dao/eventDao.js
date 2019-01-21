@@ -22,7 +22,6 @@ module.exports = class EventDao extends Dao {
       json.event_img,
       json.date_starting,
       json.date_ending,
-      json.status_fk,
       json.county_fk,
       json.municipality_fk,
       json.city_fk,
@@ -31,12 +30,13 @@ module.exports = class EventDao extends Dao {
       json.longitude
     ];
     super.query(
-      'insert into event (event_name,event_description, event_img, date_starting, date_ending, status_fk, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
   }
 
+  //status skal vel bort her?
   patch(id, json, callback) {
     const values = [
       json.event_name,

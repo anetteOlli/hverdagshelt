@@ -14,11 +14,12 @@ import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import { getAllEntrepreneurs } from '../../store/actions/entrepreneurAction';
+import { problemAddEntrepreneur } from '../../store/actions/problemActions';
 
-
-import SelectTable from  '../util/SelectTable';
+import SelectTable from '../util/SelectTable';
+import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 
@@ -92,7 +93,8 @@ class ProblemDetails extends React.Component<Props, State> {
     categories: [],
     isHidden: true,
     power: '',
-    open: false
+    open: false,
+    entrepreneur_chosen: -1
   };
 
   onClickAdd = () => {
@@ -103,10 +105,9 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit = () => {
-    console.log("Trykte på edit");
-    console.log("handle clickonEdit. id: " + this.props.problem.problem_id)
-    this.props.goToProblemEdit(this.props.problem.problem_id);
 
+
+    this.props.goToProblemEdit(this.props.problem.problem_id);
   };
 
   toggleHidden() {
@@ -125,9 +126,9 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({ open: false });
   };
 
-
   render() {
-    const { classes, problem, isLoggedIn } = this.props;
+    const { classes, problem, isLoggedIn, rows } = this.props;
+    console.log(this.props.entrepreneurs);
     if (problem) {
       return (
         <div className={classes.main}>
@@ -233,16 +234,28 @@ class ProblemDetails extends React.Component<Props, State> {
           </Grid>
           <div>
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
-
               <DialogContent>
+                <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                <SelectTable/>
+                <SelectTable2
+                  rows={this.props.entrepreneurs}
+                  onClick={e => {
+                    let myEntrepreneur = e;
+                    console.log('EEEEEE', e);
+                    this.setState({
+                      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+                    });
+                    this.handleClose();
+                    console.log(myEntrepreneur);
+                    let vals = {
+                      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+                      problem_id: problem.problem_id
+                    };
+                    this.props.problemAddEntrepreneur(vals);
+                  }}
+                />
               </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                  Save changes
-                </Button>
-              </DialogActions>
+              <DialogActions />
             </Dialog>
           </div>
         </div>
@@ -252,31 +265,29 @@ class ProblemDetails extends React.Component<Props, State> {
     }
   }
   componentDidMount() {
-    console.log("PRIO:");
-    console.log(this.state.userPriority);
+    this.props.getAllEntrepreneurs();
   }
-
 }
-
-
 
 const mapStateToProps = state => {
   const problems = state.problem.problems;
   const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
-
   //const problem = problems ? problems.find(problem => problem.id === id) : null;
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
     userPriority: state.user.priority,
-    isLoggedIn: state.user.isLoggedIn
+    isLoggedIn: state.user.isLoggedIn,
+    entrepreneurs: state.entrepreneur.entrepreneurs
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
-    goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id))
+    goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
+    getAllEntrepreneurs: () => dispatch(getAllEntrepreneurs()),
+    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };
 
@@ -284,7 +295,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
-
 
 // bruker kan edit desciption hvis ikke locked
 // Admin kan gjøre alt

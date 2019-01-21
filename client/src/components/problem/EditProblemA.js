@@ -14,7 +14,9 @@ import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
-
+import type { Problem } from '../../store/reducers/problemReducer';
+import moment from 'moment';
+import PictureUpload from '../util/PictureUpload';
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -22,15 +24,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
   entrepreneur_fk: number,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
@@ -66,15 +79,27 @@ const styles = (theme: Object) => ({
 class EditProblemA extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
     description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    entrepreneur_fk: '',
-    location_fk: '',
+    date_finished: '',
+    category_fk: '',
     status_fk: '',
-    category_fk: ''
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: '',
+
   };
 
   handleChange = e => {
@@ -84,15 +109,8 @@ class EditProblemA extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    // gå videre til å lagre endringer
-
-    console.log(this.state);
-    const date = new Date();
-
-
-    goToProblemDetail(this.state.problem_id);
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
-
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
@@ -108,6 +126,16 @@ class EditProblemA extends React.Component<Props, State> {
                   <Typography variant="h2" gutterBottom align="center">
                     Bruker beskrivelse:
                   </Typography>
+                  <TextValidator
+                    fullWidth
+                    margin="normal"
+                    label="Tittel"
+                    name="problem_title"
+                    value={this.state.problem_title}
+                    onChange={this.handleChange}
+                    validators={['required', 'minStringLength:1']}
+                    errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                  />
                   <SelectValidator
                     fullWidth
                     margin="normal"
@@ -149,11 +177,12 @@ class EditProblemA extends React.Component<Props, State> {
                     errorMessages={['this field is required']}
                   >
                     {categories.map((option, index) => (
-                      <MenuItem key={index} value={option.category}>
-                        {option.category}
+                      <MenuItem key={index} value={option}>
+                        {option}
                       </MenuItem>
                     ))}
                   </SelectValidator>
+
                   <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                   <ExpansionPanel>
@@ -167,7 +196,6 @@ class EditProblemA extends React.Component<Props, State> {
                       <div>
                         <img
                           id="img"
-                          top
                           width="100%"
                           src={this.state.img_user || 'http://placehold.it/180'}
                           alt="Bilde"
@@ -182,27 +210,38 @@ class EditProblemA extends React.Component<Props, State> {
                   <Typography variant="h2" gutterBottom align="center">
                     Entreprenør beskrivelse:
                   </Typography>
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
-                  <Paper
-                    className={classes.paper}
-                    readOnly
+                  <SelectValidator
+                    fullWidth
+                    margin="normal"
+                    label="Status:"
+                    name="status_fk"
+                    value={this.state.status_fk}
+                    onChange={this.handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  >
+                    {statuss.map((option, index) => (
+                      <MenuItem key={index} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+
+                  <TextValidator
+                    fullWidth
+                    multiline
+                    rowsMax={10}
                     margin="normal"
                     label="Beskrivelse"
                     value={'Beskrivelse:'}
-                    name="problem_description"
-                  >
-                    {'Beskrivelse: \n ' + this.state.description_entrepreneur}
-                  </Paper>
+                    name="description_entrepreneur"
+                    value={this.state.description_entrepreneur}
+                    onChange={this.handleChange}
+                  />
+                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
-                  <Paper className={classes.paper}>
-                    Entreprenør kontakt informasjon:{' '}
-                    {
-                      // her kommer kontakt informasjon
-                    }
-                  </Paper>
-
-                  <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
+                  <Paper> Dato Endret: {this.state.last_edited} </Paper>
 
                   <div>
                     <ExpansionPanel>
@@ -214,16 +253,8 @@ class EditProblemA extends React.Component<Props, State> {
                       <ExpansionPanelDetails>
                         <div />
                         <div>
-                          <img
-                            id="img"
-                            top
-                            width="100%"
-                            src={
-                              this.state.img_entrepreneur ||
-                              'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
-                            }
-                            alt="Bilde"
-                          />
+                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
+                          <PictureUpload uploadImg={this.handleUpload} />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -232,7 +263,6 @@ class EditProblemA extends React.Component<Props, State> {
               </Grid>
               <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
-                  {/*onClick={this.handleSubmit()}*/}
                   Lagre endringer
                 </Button>
 
@@ -247,12 +277,11 @@ class EditProblemA extends React.Component<Props, State> {
                       {
                         // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
                       }
-
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                   <div className="mapPlaceholder">
-                  <MapMarkers />
-                </div>
+                    <MapMarkers />
+                  </div>
                 </div>
               </Grid>
             </ValidatorForm>
@@ -269,13 +298,12 @@ class EditProblemA extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
     console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
@@ -301,7 +329,7 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
     getCategories: () => dispatch(getCategories()),
-    editProblem: (problem: problem) => dispatch(editProblem(problem))
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
   };
 };
 

@@ -17,7 +17,7 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { CheckCircle } from '@material-ui/icons';
+import { CheckCircle, ThumbUp } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
@@ -83,6 +83,22 @@ type Props = {
 class MuiTable2 extends React.Component<Props> {
   state = {
     expanded: '0',
+    sort: 'nothing',
+    direction: 'asc',
+    rows: [
+            {problem_id: 1, problem_title: "Title1", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done", support: 1, date_made: "18-01-2019"},
+            {problem_id: 2, problem_title: "Title2", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 0, date_made: "20-02-2019"},
+            {problem_id: 3, problem_title: "Title3", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 5, date_made: "25-02-2019"},
+            {problem_id: 4, problem_title: "Title4", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 2, date_made: "01-02-2019"},
+            {problem_id: 5, problem_title: "Title5", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 12, date_made: "03-03-2019"},
+            {problem_id: 6, problem_title: "Title6", problem_description: "abc1", image_user: "imgURL",
+            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 7, date_made: "01-01-2019"}
+          ]
   };
 
   handleChange = panel => (event, expanded) => {
@@ -91,23 +107,104 @@ class MuiTable2 extends React.Component<Props> {
     });
   };
 
+  sortSupport  = e =>{
+    console.log("Sorting by support");
+    if(this.state.sort == 'support'){
+      if(this.state.direction == 'asc'){
+        this.setState({
+          direction: 'desc'
+        });
+      }
+      else{
+        console.log("setting asc");
+        this.setState({
+          direction: 'asc'
+        });
+      }
+    }
+    this.setState({
+        sort: "support"
+    });
+  }
+
+  sortDate = e =>{
+    console.log("Sorting by date");
+    if(this.state.sort == 'date'){
+      if(this.state.direction == 'asc'){
+        this.setState({
+          direction: 'desc'
+        });
+      }
+      else{
+        this.setState({
+          direction: 'asc'
+        });
+      }
+    }
+    this.setState({
+        sort: "date"
+    });
+  }
+
+  getSorted(rows){
+    let sort = rows;
+    if(this.state.sort == 'support'){
+      if(this.state.direction == 'asc'){
+        sort.sort(function(a, b){ return a.support - b.support}).reverse();
+      }
+      else{
+        sort.sort(function(a, b){ return a.support - b.support});
+      }
+    }
+    else if(this.state.sort == 'date'){
+      if(this.state.direction == 'asc'){
+        sort.sort(function(a,b){return a.date_made.localeCompare(b.date_made)}).reverse();
+      }
+      else{
+        sort.sort(function(a,b){return a.date_made.localeCompare(b.date_made)});
+      }
+    }
+    return sort;
+  }
+
   render() {
     const { expanded } = this.state;
     const { classes, rows, onSupportClick, onClick } = this.props;
     let color = "disabled";
+    let myRows = [];
+    if(rows == undefined){
+      myRows = this.getSorted(this.state.rows);
+    }
+    else{
+      myRows = this.getSorted(rows);
+    }
+    //console.log("My Rows after sort:");
+    //console.log(myRows);
+    //console.log("My state");
+    //console.log(this.state);
     return (
       <div>
-        {rows.map(row => (
-          <ExpansionPanel expanded={expanded === row.id}
-          onChange={(onClick == null) ? this.handleChange(row.id) : e => onClick(row)}
-            key={row.id}>
+        <Card align="center">
+          <CardContent>
+            <Button onClick={this.sortDate} variant="contained" size="small"> <Typography variant="button" style={{fontSize:10}}> Sorter på dato </Typography> </Button>
+            <Button onClick={this.sortSupport} variant="contained" size="small"> <Typography variant="button" style={{fontSize:10}}> Sorter på støtte </Typography> </Button>
+          </CardContent>
+        </Card>
+        {myRows.map(row => (
+          <ExpansionPanel expanded={expanded === row.problem_id}
+          onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
+            key={row.problem_id}>
             <ExpansionPanelSummary>
+              {}
               <CheckCircle className="material-icons" color=
-              {row.status == "Unchecked" ? "disabled"
-              : (row.status == "Checked" ? "primary" : "error")}/>
-              <Typography>{row.title}</Typography>
+              {row.status_fk == "Unchecked" ? "disabled"
+              : (row.status_fk == "Checked" ? "primary" : "error")}/>
+              <Typography style={{flexBasis:"100%", fontSize:"15"}}>{row.problem_title}</Typography>
+              <Typography style={{flexBasis:"40%", fontSize:10}}>{row.date_made}</Typography>
+              <ThumbUp className="material-icons" color="primary" size="50%"/>
+              <Typography align="right" style={{flexBasis:"10%", fontSize: 10}}>{row.support}</Typography>
 
-              <CheckCircle className="material-icons" color="disabled"/>
+              <CheckCircle className="material-icons" color="disabled" size="50%"/>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Grid item xs container
@@ -118,19 +215,19 @@ class MuiTable2 extends React.Component<Props> {
                   <h4>Beskrivelse</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.description}</Typography>
+                  <Typography>{row.problem_description}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Entreprenør</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.entrepreneur}</Typography>
+                  <Typography>{row.entrepreneur_fk}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Status</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.status}</Typography>
+                  <Typography>{row.status_fk}</Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelDetails>
@@ -139,22 +236,6 @@ class MuiTable2 extends React.Component<Props> {
       </div>
     );
   }
-}
-
-function MuiTable2Wrapper() {
-  let  rows = [
-      {id: 1, title: "Title1", description: "abc1", imgURL: "imgURL", entrepreneur: "Bob1", status: "Done"},
-      {id: 2, title: "Title2", description: "abc2", imgURL: "imgURL", entrepreneur: "Bob2", status: "Checked"},
-      {id: 3, title: "Title3", description: "abc3", imgURL: "imgURL", entrepreneur: "Bob3", status: "Unchecked"}
-    ];
-  return (
-    <Paper style={{ height: 250, width: '100%' }}>
-      <MuiTable2Base
-      rows={rows}
-      onClick={e => console.log(e)}
-      />
-    </Paper>
-  );
 }
 
 export default withRoot(MuiTable2);

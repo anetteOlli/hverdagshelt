@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/server.js",
     "start-prod": "cross-env NODE_ENV=production babel-node src/server.js",
-    "test": "jest --forceExit"
+    "test": "jest --runInBand --forceExit"
   },
   "jest": {
     "verbose": true,
@@ -25,7 +25,7 @@
     "jsonwebtoken": "8.3.0",
     "multer": "1.4.1",
     "mysql": "2.16.0",
-    "nodemailer": "^5.0.0",
+    "nodemailer": "^5.1.1",
     "reload": "2.3.1"
   },
   "devDependencies": {

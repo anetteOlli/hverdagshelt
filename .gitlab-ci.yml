@@ -7,7 +7,7 @@ services:
 # Configure test-database
 variables:
   MYSQL_DATABASE: testdb
-  MYSQL_ROOT_PASSWORD: abc123
+  MYSQL_ROOT_PASSWORD: abc12345!
 
 before_script:
   - npm install -g flow-bin

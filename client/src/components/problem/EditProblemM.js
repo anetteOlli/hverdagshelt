@@ -12,10 +12,14 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
+import { CardContent } from './CreateProblem';
 import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
+import moment from 'moment';
 import type { Problem } from '../../store/reducers/problemReducer';
+
+const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
 
 type Props = {
   classes: Object,
@@ -43,13 +47,16 @@ type State = {
   municipality_fk: string,
   county_fk: string,
   city_fk: string,
-  street_fk: string
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20
+  },
+  button: {
+    marginTop: theme.spacing.unit
   },
   paper: {
     paddingTop: 20,
@@ -58,16 +65,22 @@ const styles = (theme: Object) => ({
     color: theme.palette.text.secondary
   },
   paper2: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10
+    height: '100%'
   },
-  button: {
-    marginTop: theme.spacing.unit
+  grid: {
+    height: '100%',
+    paddingBottom: 20,
+    display: 'flex',
+    alignItems: 'flex-end'
+  },
+  grid2: {
+    paddingBottom: 20,
+    height: '100%',
+    alignItems: 'flex-end'
   }
 });
 
-class EditProblem extends React.Component<Props, State> {
+class EditProblemM extends React.Component<Props, State> {
   state = {
     problem_id: null,
     problem_title: '',
@@ -89,7 +102,8 @@ class EditProblem extends React.Component<Props, State> {
     municipality_fk: '',
     county_fk: '',
     city_fk: '',
-    street_fk: ''
+    street_fk: '',
+
   };
 
   handleChange = e => {
@@ -101,7 +115,6 @@ class EditProblem extends React.Component<Props, State> {
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
-
   handleUpload = e => {
     this.setState({
       displayImg: e
@@ -112,36 +125,43 @@ class EditProblem extends React.Component<Props, State> {
     const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
-        <Grid container spacing={24}>
-          <Grid item xs>
-            <Paper className={classes.paper}>
-              <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+        <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
+          <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+            <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
+              <Paper className={classes.paper2} name={'Paper for UserProblem'}>
                 <Typography variant="h2" gutterBottom align="center">
-                  Endre på problem
+                  Bruker beskrivelse:
                 </Typography>
-
-                <TextValidator
+                <SelectValidator
                   fullWidth
                   margin="normal"
-                  label="Tittel: "
-                  name="problem_title"
-                  value={this.state.problem_title}
+                  label="Status:"
+                  name="status_fk"
+                  value={this.state.status_fk}
                   onChange={this.handleChange}
-                  validators={['required', 'minStringLength:1']}
-                  errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
-                />
+                  validators={['required']}
+                  errorMessages={['this field is required']}
+                >
+                  {statuss.map((option, index) => (
+                    <MenuItem key={index} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </SelectValidator>
 
                 <TextValidator
                   fullWidth
                   margin="normal"
                   multiline
                   label="Beskrivelse"
+                  rowsMax={10}
                   name="problem_description"
                   value={this.state.problem_description}
                   onChange={this.handleChange}
                   validators={['required', 'minStringLength:1']}
                   errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
                 />
+
                 <SelectValidator
                   fullWidth
                   margin="normal"
@@ -158,20 +178,54 @@ class EditProblem extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
+                <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
+
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                    <div>
+                      <Typography>Bilde</Typography>
+                    </div>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div />
+                    <div>
+                      <img
+                        id="img"
+                        width="100%"
+                        src={this.state.img_user || 'http://placehold.it/180'}
+                        alt="Bilde"
+                      />
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </Paper>
+            </Grid>
+            <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
+              <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
+                <Typography variant="h2" gutterBottom align="center">
+                  Entreprenør beskrivelse:
+                </Typography>
+                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
 
                 <Paper
-                  className={classes.paper2}
-                  fullWidth
+                  className={classes.paper}
                   readOnly
                   margin="normal"
-                  label="Status:"
-                  name="status_fk"
-                  value={'status'}
+                  label="Beskrivelse"
+                  value={'Beskrivelse:'}
+                  name="problem_description"
                 >
-                  {'Status:   ' + this.state.status_fk}
+                  {'Beskrivelse: \n ' + this.state.description_entrepreneur}
                 </Paper>
 
-                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                <Paper className={classes.paper}>
+                  Entreprenør kontakt informasjon:{' '}
+                  {
+                    // her kommer kontakt informasjon
+                  }
+                </Paper>
+
+                <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -183,13 +237,28 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
-                        <PictureUpload uploadImg={this.handleUpload} />
+                        <img
+                          id="img"
+                          width="100%"
+                          src={
+                            this.state.img_entrepreneur ||
+                            'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
+                          }
+                          alt="Bilde"
+                        />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
+              </Paper>
+            </Grid>
+            <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
+              <Button type="submit" fullWidth variant="contained" className={classes.button}>
+                {/*onClick={this.handleSubmit()}*/}
+                Lagre endringer
+              </Button>
 
+              <div>
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
                     <div>
@@ -197,17 +266,17 @@ class EditProblem extends React.Component<Props, State> {
                     </div>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
-                    <div className="mapPlaceholder">
-                      <MapMarkers />
-                    </div>
+                    {
+                      // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
+                    }
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
-                <Button fullWidth variant="contained" className={classes.button} type="submit">
-                  Lagre endringer
-                </Button>
-              </ValidatorForm>
-            </Paper>
-          </Grid>
+                <div className="mapPlaceholder">
+                  <MapMarkers />
+                </div>
+              </div>
+            </Grid>
+          </ValidatorForm>
         </Grid>
       </div>
     );
@@ -219,14 +288,14 @@ class EditProblem extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
+    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 
@@ -255,4 +324,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(EditProblem))));
+)(withRoot(withStyles(styles)(withSnackbar(EditProblemM))));

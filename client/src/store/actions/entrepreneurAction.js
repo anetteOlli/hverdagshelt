@@ -8,7 +8,7 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getAllEntrepreneur = () => {
+export const getAllEntrepreneurs = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('entrepreneurs')
       .then(response =>
@@ -25,3 +25,5 @@ export const getAllEntrepreneur = () => {
       );
   };
 };
+
+

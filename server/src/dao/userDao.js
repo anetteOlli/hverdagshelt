@@ -9,10 +9,15 @@ module.exports = class UserDao extends Dao {
     super.query('select * from user where user_id = ?', [id], callback);
   }
 
+  getAllbyProblemId(id, callback) {
+    super.query('select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?'),
+    [id], callback
+  }
+
   createUser(json, password, standard, callback) {
     const val = [json.email, password, json.municipality, json.county, standard];
     super.query(
-      'insert into user (email, password, municipality_fk, county_fk, priority_fk) values (?,?,?,?,?)',
+      'insert into user (email, password, created,municipality_fk, county_fk, priority_fk) values (?,?,NOW(),?,?,?)',
       val,
       callback
     );
@@ -20,9 +25,9 @@ module.exports = class UserDao extends Dao {
 
 
   patchOne(id, json, callback) {
-    const val = [json.email, json.password, json.problem, json.event, id];
+    const val = [json.email, json.password, id];
     super.query(
-      'update user set email = ?, password = ?, problem_fk = ?, event_fk = ? where user_id = ?',
+      'update user set email = ?, password = ? where user_id = ?',
       val,
       callback
     );
