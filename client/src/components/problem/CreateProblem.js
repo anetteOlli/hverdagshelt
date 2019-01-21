@@ -197,34 +197,38 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Grid item xs>
-                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_description}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_entrepreneur}</Typography>
-                </Grid>
-                <Grid item xs>
-                <Typography variant="subtitle2" align="center">Status</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center" color="error">{state.cur_status}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Button
-                  variant="contained" color="primary"
-                  size="small"
-                  align="center"
-                  onClick={e => handleSupport(state.cur_id)}
-                  >
-                     <Typography>Støtt problemet</Typography>
-                  </Button>
-                </Grid>
+                <Card style={{width:'100%'}} align="center">
+                  <CardContent>
+                    <Grid item xs>
+                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_description}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_entrepreneur}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                    <Typography variant="subtitle2" align="center">Status</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center" color="error">{state.cur_status}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Button
+                      variant="contained" color="primary"
+                      size="small"
+                      align="center"
+                      onClick={e => handleSupport(state.cur_id)}
+                      >
+                         <Typography>Støtt problemet</Typography>
+                      </Button>
+                    </Grid>
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
             <Grid item container
@@ -324,6 +328,8 @@ type Props = {
 
 type State = {
   activeStep: number,
+  userId: number,
+
   title: string,
   category: string,
   municipality: string,
@@ -348,7 +354,8 @@ type State = {
   cur_entrepreneur: 'Default',
   cur_status: 'Default',
 
-  similarProblems: []
+  similarProblems: [],
+  categories:[]
 };
 
 /** CreateProblem Component */
@@ -363,7 +370,6 @@ class CreateProblem extends React.Component<Props, State> {
     activeStep: 0,
     //User
     userId: 1,
-    isLoggedIn: false,
 
     municipality: '',
     title: '',
@@ -518,7 +524,7 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("problem_description", this.state.description);
       k.append("category_fk", this.state.category);
       k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.state.user);
+      k.append("user_fk", this.props.userId);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
       k.append("county_fk", this.state.county);
@@ -526,8 +532,15 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
 
-
-      this.props.createProblem(k);
+      this.props.createProblem(k)
+      .then((status) => {
+        if(this.props.errorMessage != ''){
+          this.props.enqueueSnackbar("Error: Kunne ikke lage problemet", {variant: 'warning'})
+        }
+        else{
+          this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
+        }
+      });
     }
     this.handleNext();
   };
@@ -565,6 +578,24 @@ class CreateProblem extends React.Component<Props, State> {
     //console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
+    //console.log("isLoggedIn");
+    //console.log(this.props.isLoggedIn);
+    if(!this.props.isLoggedIn){
+      return (
+        <div>
+          <Card className="must-log-in-to-register" align="center">
+            <CardContent>
+              <Typography variant="h5" color="error">
+                Du må logge inn for å kunne registrere problem
+              </Typography>
+              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+                Tilbake til hovedmenyen
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div>
         <Typography variant="h2"

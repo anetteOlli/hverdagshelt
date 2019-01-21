@@ -71,18 +71,28 @@ exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
-  if (req.file === undefined) {
-    problemDao.createOne(req.body, (status, data) => {
-      handleError(status,data,req,res);
-    });
-  } else {
-    image.uploadImage(req.file, url => {
-      req.body.img_user = url;
-      problemDao.createOne(req.body, (status, data) => {
-        handleError(status,data,req,res);
-      });
-    });
-  }
+  //Check if user has 10 problems already in DB
+  problemDao.getAllFromUser(req.body.userId, (status, data) =>{
+    console.log(status);
+    console.log(data);
+    if(data.length < 10){
+      if (req.file === undefined) {
+        problemDao.createOne(req.body, (status, data) => {
+          handleError(status,data,req,res);
+        });
+      } else {
+        image.uploadImage(req.file, url => {
+          req.body.img_user = url;
+          problemDao.createOne(req.body, (status, data) => {
+            handleError(status,data,req,res);
+          });
+        });
+      }
+    }
+    else{
+      res.status('Cannot add more problems').json(data);
+    }
+  });
 
   function handleError(status, data, req, res){
       if(status === 500) {
