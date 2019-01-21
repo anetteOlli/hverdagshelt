@@ -20,16 +20,16 @@ export type Action =
   | { type: 'REFRESH_SUCCESS', payload: { userId: number, priority: Priority } }
   | { type: 'REFRESH_ERROR', payload: string }
   | { type: 'TEMP_PASSWORD_SUCCESS' }
-  | { type: 'NEW_PASSWORD_SUCCESS' }
-  | { type: 'NEW_PASSWORD_ERROR', payload: Error }
-  | { type: 'TEMP_PASSWORD_ERROR', payload: Error };
-
+  | { type: 'TEMP_PASSWORD_ERROR', payload: Error }
+  | { type: 'GET_USER_INFO_SUCESS', payload: any }
+  | { type: 'GET_USER_INFO_ERROR', payload: Error };
 const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
   priority: 'Standard',
-  email: ''
+  email: '',
+  currentMuni: { municipality: '', county: '' }
 };
 
 export default (state: State = initState, action: Action) => {
@@ -101,18 +101,20 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload
       };
-    case 'NEW_PASSWORD_SUCCESS':
-      console.log('%c NEW_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
+    case 'GET_USER_INFO_SUCESS':
+      console.log('%c GET_USER_INFO_SUCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        errorMessage: ''
+        email: action.payload.email,
+        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk }
       };
-    case 'NEW_PASSWORD_ERROR':
-      console.log('%c NEW_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'GET_USER_INFO_ERROR':
+      console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload
       };
+
     default:
       return state;
   }
