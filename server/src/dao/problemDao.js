@@ -74,6 +74,12 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
+  patchAdministrator(id, json, callback){
+    const values = [];
+    //Skal kunne endre alt
+    super.query('');
+  }
+
   patchMunicipality(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.status, id];
 
