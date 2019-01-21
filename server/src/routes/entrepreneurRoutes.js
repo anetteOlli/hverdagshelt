@@ -2,12 +2,28 @@ const router = require('express').Router();
 
 const EntrepreneurController = require('../controllers/entrepreneurController');
 
-router.get('/', EntrepreneurController.entrepreneurs_get_all);
+router.get('/', (req,res) => {
+  EntrepreneurController.entrepreneurs_get_all((status,data)=> {
+    res.status(status).json(data);
+  })
+});
 
-router.get('/:id', EntrepreneurController.entrepreneurs_get_one);
+router.get('/:id', (req,res) => {
+  EntrepreneurController.entrepreneurs_get_one(req.params.id, (status,data)=> {
+    res.status(status).json(data);
+  })
+});
 
-router.get('/validate_org_nr/:org_nr', EntrepreneurController.validate_org_nr);
+router.get('/validate_org_nr/:org_nr', (req,res) => {
+  EntrepreneurController.validate_org_nr(org_nr, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.post('/', EntrepreneurController.entrepreneurs_create_entrepreneur);
+router.post('/', (req,res) => {
+  EntrepreneurController.entrepreneurs_create_entrepreneur(req.body, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
 module.exports = router;
