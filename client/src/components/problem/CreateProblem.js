@@ -674,7 +674,6 @@ class CreateProblem extends React.Component<Props, State> {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     errorMessage: state.problem.errorMessage,
