@@ -18,8 +18,6 @@ import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
 import type { Problem } from '../../store/reducers/problemReducer';
 
-const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
-
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -121,6 +119,7 @@ class EditProblemE extends React.Component<Props, State> {
   };
 
   render() {
+    const statuss = ['Finished', 'InProgress', 'Unchecked'];
     const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
@@ -131,7 +130,7 @@ class EditProblemE extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
-
+                <Paper>{this.state.problem_title}</Paper>
                 <Paper
                   className={classes.paper}
                   fullWidth

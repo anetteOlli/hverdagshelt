@@ -19,8 +19,6 @@ import MapMarkers from '../map/MapMarkers';
 import moment from 'moment';
 import type { Problem } from '../../store/reducers/problemReducer';
 
-const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
-
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -122,6 +120,7 @@ class EditProblemM extends React.Component<Props, State> {
   };
 
   render() {
+    const statuss = ['Finished', 'InProgress', 'Unchecked'];
     const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
@@ -132,6 +131,16 @@ class EditProblemM extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Tittel"
+                  name="problem_title"
+                  value={this.state.problem_title}
+                  onChange={this.handleChange}
+                  validators={['required', 'minStringLength:1']}
+                  errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                />
                 <SelectValidator
                   fullWidth
                   margin="normal"
