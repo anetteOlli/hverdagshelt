@@ -45,8 +45,6 @@ exports.users_create_user = (req, res) => {
   });
 };
 
-
-
 exports.user_delete_user = (req, res) => {
   userDao.deleteOne(req.params.email, (status, data) => {
     res.status(status).json(data);
@@ -64,5 +62,11 @@ exports.user_validate_email = (req, res) => {
   userDao.checkEmail(req.params.email, (status, data) => {
     const emailExist = data.length > 0;
     res.json({ emailExist });
+  });
+};
+
+exports.users_from_problem = (id) => {
+  userDao.getAllbyProblemId(id, (status, data) => {
+    return {'status': status, 'data': data};
   });
 };
