@@ -28,7 +28,6 @@ export const getProblemById = (id: number) => {
 export const getProblemByUser = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
-    console.log('E: ' + state.user.priority);
     switch (state.user.priority) {
       case 'Standard':
         return getData(`problems/user/${getState().user.userID}`)
@@ -128,7 +127,6 @@ export const createProblem = (newProblem: Problem) => {
 };
 
 export const editProblem = (problem: Problem) => {
-  console.log("the problem inn data: " + problem)
   return (dispatch: Dispatch, getState: GetState) => {
     return patchData(`problems/${problem.problem_id}`, problem)
       .then(() =>
