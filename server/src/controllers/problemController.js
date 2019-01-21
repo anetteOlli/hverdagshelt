@@ -153,6 +153,16 @@ exports.problems_edit_problem = (req, res) => {
       break;
     case 'Municipality':
       problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllbyProblemId(req.params.id, (status, data) => {
+            console.log('DATAAAAAAAAAAA', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Dette er en test mail',
+              html: ''
+            });
+          });
+        }
         //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
         return res.status(status).json(data);
       });
@@ -164,17 +174,16 @@ exports.problems_edit_problem = (req, res) => {
           return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
           problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
-            /*
             if (status === 200) {
-              let data = UserController.users_from_problem(req.params.id);
-              console.log(data);
-              //Sends email to users
-              dataPackage.recepients = data;
-              dataPackage.text = 'Dette er en testmail!';
-              dataPackage.html = '';
-              MailController.sendMassMail(dataPackage);
+              problemDao.getAllbyProblemId(req.params.id, (status, data) => {
+                console.log(data);
+                //Sends email to users
+                dataPackage.recepients = data;
+                dataPackage.text = 'Dette er en testmail!';
+                dataPackage.html = '';
+                MailController.sendMassMail(dataPackage);
+              });
             }
-            */
             return res.status(status).json(data);
           });
       });
