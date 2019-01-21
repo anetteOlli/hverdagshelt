@@ -191,6 +191,7 @@ class EditProblemMain extends React.Component<Props, State> {
                 this.props.goToProblemDetail(myProblem.problem_id)
               }}
             />
+            {console.log('kjk',this.props.problems)}
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority_fk))}
@@ -208,7 +209,8 @@ class EditProblemMain extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentProblemId !== nextProps.currentProblemId) {
+    if (this.props.problems !== nextProps.problems) {
+
     }
   }
 }

@@ -57,21 +57,39 @@ module.exports = class ProblemDao extends Dao {
   }
 
   supportProblem(id, callback) {
-    super.query(
-      'UPDATE problem SET support = support + 1 WHERE problem_id = ?',
-      id,
-      callback
-    );
+    super.query('UPDATE problem SET support = support + 1 WHERE problem_id = ?', id, callback);
   }
-    patchAdministrator(id, json, callback) {
+  patchAdministrator(id, json, callback) {
+    const values = [
+      json.problem_title,
+      json.problem_description,
+      json.status_fk,
+      json.category_fk,
+      json.img_user,
+      json.description_entrepreneur,
+      json.img_entrepreneur,
+      id
+    ];
+    patchAdministrator(id, json, callback);
+    {
+      console.log('patch admin: ' + json.problem_title);
+      const values = [
+        json.problem_title,
+        json.problem_description,
+        json.status_fk,
+        json.category_fk,
+        json.img_user,
+        json.description_entrepreneur,
+        json.img_entrepreneur,
+        id
+      ];
 
-    const values = [json.problem_title, json.problem_description, json.status_fk, json.category_fk, json.img_user, json.description_entrepreneur, json.img_entrepreneur, id];
-
-    super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
-      values,
-      callback
-    );
+      super.query(
+        'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+        values,
+        callback
+      );
+    }
   }
 
   patchEntrepreneur(id, json, callback) {
@@ -82,6 +100,12 @@ module.exports = class ProblemDao extends Dao {
       values,
       callback
     );
+  }
+
+  patchAdministrator(id, json, callback) {
+    const values = [];
+    //Skal kunne endre alt
+    super.query('');
   }
 
   patchMunicipality(id, json, callback) {
@@ -113,16 +137,23 @@ module.exports = class ProblemDao extends Dao {
   }
 
   getByUser(user_id, callback) {
-    super.query("SELECT * FROM problem WHERE user_fk = ?", [user_id], callback);
+    super.query('SELECT * FROM problem WHERE user_fk = ?', [user_id], callback);
   }
   getByEntrepreneur(entrepreneur_id, callback) {
-    super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
+    super.query('SELECT * FROM problem WHERE entrepreneur_fk = ?', [entrepreneur_id], callback);
   }
-
 
   addEntrepreneur(json, callback) {
     const values = [json.entrepreneur_fk, json.problem_id];
     console.log(values);
     super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
+  }
+
+  getAllbyProblemId(id, callback) {
+    super.query(
+      'select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?',
+      [id],
+      callback
+    );
   }
 };

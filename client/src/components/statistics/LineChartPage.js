@@ -14,19 +14,37 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
 import { getLineChartData } from '../../store/actions/statisticsActions';
+import { Typography } from '@material-ui/core';
 
-class LineChart extends React.Component {
+const lineChartData = [
+  { name: 'Mon', Visits: 2200, Orders: 3400 },
+  { name: 'Tue', Visits: 1280, Orders: 2398 },
+  { name: 'Wed', Visits: 5000, Orders: 4300 },
+  { name: 'Thu', Visits: 4780, Orders: 2908 },
+  { name: 'Fri', Visits: 5890, Orders: 4800 },
+  { name: 'Sat', Visits: 4390, Orders: 3800 },
+  { name: 'Sun', Visits: 4490, Orders: 4300 }
+];
+
+class LineChartPage extends React.Component {
   state = {
-    showUserData: false
+    showData1: false,
+    showData2: false,
+    showData3: false,
+    showData4: false
   };
 
-  handleDataChange = (name: string): void => (): void => {};
+  handleDataChange = (name: string) => (e: SyntheticInputEvent<HTMLInputElement>): void => {
+    this.setState({
+      [name]: e.target.checked
+    });
+  };
 
   render() {
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={dataSimpleLineChart}>
+          <LineChart data={lineChartData}>
             <XAxis dataKey="name" />
             <YAxis />
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -36,23 +54,24 @@ class LineChart extends React.Component {
             <Line type="monotone" dataKey="Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
-        <FormGroup row>
-          <FormControlLabel
-            control={<Switch checked={this.state.checkedA} onChange={this.handleChange('checkedA')} value="checkedA" />}
-            label="Secondary"
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.checkedB}
-                onChange={this.handleChange('checkedB')}
-                value="checkedB"
-                color="primary"
-              />
-            }
-            label="Primary"
-          />
-        </FormGroup>
+          <FormGroup row>
+            <FormControlLabel
+              control={<Switch checked={this.state.showData1} onChange={this.handleDataChange('showData1')} />}
+              label="Data1"
+            />
+            <FormControlLabel
+              control={<Switch checked={this.state.showData2} onChange={this.handleDataChange('showData2')} />}
+              label="Data2"
+            />
+            <FormControlLabel
+              control={<Switch checked={this.state.showData3} onChange={this.handleDataChange('showData3')} />}
+              label="Data3"
+            />
+            <FormControlLabel
+              control={<Switch checked={this.state.showData4} onChange={this.handleDataChange('showData4')} />}
+              label="Data4"
+            />
+          </FormGroup>
       </div>
     );
   }
@@ -68,7 +87,7 @@ const mapStateToProps = (state: ReduxState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLineChartData: (muni: string) => dispatch(getLineChartData(muni))
+    getLineChartData: () => dispatch(getLineChartData())
   };
 };
 
@@ -76,4 +95,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSnackbar(LineChart));
+)(withSnackbar(LineChartPage));
