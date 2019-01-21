@@ -58,6 +58,13 @@ exports.user_patch_user = (req, res) => {
   });
 };
 
+exports.user_change_password = (req, res) => {
+  let id = req.params.id;
+  userDao.changePassword(id, req.body, hashPassword(req.body.password), (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
 exports.user_validate_email = (req, res) => {
   userDao.checkEmail(req.params.email, (status, data) => {
     const emailExist = data.length > 0;
