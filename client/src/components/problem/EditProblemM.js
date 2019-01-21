@@ -13,10 +13,11 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
 import { CardContent } from './CreateProblem';
-import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
 import moment from 'moment';
+import type { Problem } from '../../store/reducers/problemReducer';
 
 const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
 
@@ -112,10 +113,7 @@ class EditProblemM extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    // gå videre til å lagre endringer
-    this.state.last_edited = new Date();
-    e.preventDefault();
-    console.log(this.state);
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
   handleUpload = e => {
     this.setState({
@@ -289,7 +287,6 @@ class EditProblemM extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
     console.log(this.state);
   }
@@ -320,7 +317,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
   };
 };
 

@@ -20,7 +20,7 @@ export type Problem = {
   municipality_fk: string,
   county_fk: string,
   city_fk: string,
-  street_fk: string,
+  street_fk: string
 };
 
 export type State = {
@@ -31,7 +31,7 @@ export type State = {
 export type Action =
   | { type: 'CREATE_PROBLEM_SUCCESS' }
   | { type: 'CREATE_PROBLEM_ERROR', payload: Error }
-  | { type: 'EDIT_PROBLEM_SUCCESS' }
+  | { type: 'EDIT_PROBLEM_SUCCESS', payload: Problem }
   | { type: 'EDIT_PROBLEM_ERROR', payload: Error }
   | { type: 'DELETE_PROBLEM_SUCCESS' }
   | { type: 'DELETE_PROBLEM_ERROR', payload: Error }
@@ -54,7 +54,8 @@ const initState = {
       problem_description: 'A big hole has been found in the rear of Erlend',
       problem_locked: 0,
       description_entrepreneur: null,
-      img_user: 'https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5',
+      img_user:
+        'https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5',
       img_entrepreneur: null,
       date_made: '2019-01-16 11:43:39',
       last_edited: '2019-01-17 10:17:16',
@@ -69,7 +70,7 @@ const initState = {
       municipality_fk: 'Trondheim',
       county_fk: 'Trøndelag',
       city_fk: 'Trondheim',
-      street_fk: 'Klostergata',
+      street_fk: 'Klostergata'
     }
   ],
   errorMessage: '',
@@ -92,9 +93,16 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
-      console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
+        problems: state.problems.map((problem: Problem) => {
+          if (problem.problem_id === action.payload.problem_id) {
+            return action.payload;
+          } else {
+            return problem;
+          }
+        }),
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
@@ -178,7 +186,7 @@ export default (state: State = initState, action: Action) => {
         editMode: true
       };
     case 'SUPPORT_PROBLEM_SUCCESS':
-      console.log('%c SUPPORT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;') ;
+      console.log('%c SUPPORT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
