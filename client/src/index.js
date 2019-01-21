@@ -4,14 +4,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './store/reducers';
 import { SnackbarProvider } from 'notistack';
-import { HashRouter } from 'react-router-dom';
-import ScrollToTop from './components/util/ScrollToTop';
-// $FlowFixMe
-const store = createStore(rootReducer, applyMiddleware(thunk));
+import configureStore from './store/configStore';
+
+const store = configureStore();
 const root = document.getElementById('root');
 
 if (root) {
