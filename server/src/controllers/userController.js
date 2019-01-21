@@ -12,7 +12,7 @@ exports.users_get_all = (req, res) => {
 
 exports.users_login = (req, res) => {
   userDao.checkEmail(req.body.email, (status, data) => {
-    if (data.length < 1) return res.sendStatus(404);
+    if (data.length < 1) return res.status(404);
     if (validatePassword(req.body.password, data[0].password)) {
       console.log(data);
       res.status(200).json({
@@ -61,7 +61,7 @@ exports.user_patch_user = (req, res) => {
 };
 
 exports.user_validate_email = (req, res) => {
-  userDao.checkEmail(req.body.email, (status, data) => {
+  userDao.checkEmail(req.params.email, (status, data) => {
     const emailExist = data.length > 0;
     res.json({ emailExist });
   });

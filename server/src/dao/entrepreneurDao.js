@@ -4,12 +4,18 @@ module.exports = class EntrepreneurDao extends Dao {
   getAll(callback) {
     super.query('select * from entrepreneur', [], callback);
   }
+  getEntrepreneur(id, callback) {
+    super.query('select * from entrepreneur WHERE entrepreneur_id = ?', [id], callback);
+  }
+
+  checkEntrepreneur(org_nr, callback) {
+    super.query('select * from entrepreneur WHERE org_nr = ?', [org_nr], callback);
+  }
 
   createEntrepreneur(json, userID, callback) {
     const val = [json.bedriftNavn, json.org_nr, userID];
     super.query('insert into entrepreneur (bedriftnavn, org_nr, user_fk) values (?,?,?)', val, callback);
   }
-
 
   linkEntrepreneur(json, id, callback) {
     const catLength = json.categories.length;
