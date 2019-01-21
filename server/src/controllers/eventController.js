@@ -9,8 +9,9 @@ let divDao = new DivDao(pool);
 exports.events_get_all = (req, res) => {
   console.log('Handling GET requests to /events');
   eventDao.getAll((status, data) => {
-    console.log(data);
+    //console.log(data);
     res.status(status).json(data);
+    eventDao.updateStatus(() => {});
   });
 };
 
@@ -26,6 +27,7 @@ exports.events_get_from_municipality = (req, res) => {
   );
   eventDao.getByMunicipality(req.body, (status, data) => {
     res.status(status).json(data);
+    eventDao.updateStatus(() => {});
   });
 };
 
