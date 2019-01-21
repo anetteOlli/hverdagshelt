@@ -2,7 +2,7 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByEntrepreneur, getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
-
+import {entrepreneurs_get_one_by_User_fk} from '../../store/actions/entrepreneurAction';
 // Material-ui
 import {
   Select,
@@ -201,12 +201,10 @@ class EditProblemMain extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getProblemByUser();
-    this.setState({
-      ...this.props.problem
+    this.props.entrepreneurs_get_one_by_User_fk().then(()=>{
+      this.props.getProblemByUser();
+      this.props.setMuni(this.props.match.params.county, this.props.match.params.muni);
     });
-    console.log()
-    this.props.setMuni(this.props.match.params.county,this.props.match.params.muni);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -222,7 +220,8 @@ const mapStateToProps = state => {
     userId: state.user.userID,
     priority_fk: state.user.priority,
     currentProblemId: state.problem.currentProblemId,
-    editMode: state.problem.editMode
+    editMode: state.problem.editMode,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 
@@ -230,7 +229,8 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
-    setMuni: (county,muni) => dispatch(setMuni(county,muni))
+    setMuni: (county,muni) => dispatch(setMuni(county,muni)),
+    entrepreneurs_get_one_by_User_fk: () => dispatch(entrepreneurs_get_one_by_User_fk()),
   };
 };
 

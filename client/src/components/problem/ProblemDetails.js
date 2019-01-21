@@ -87,34 +87,7 @@ const styles = (theme: Object) => ({
   }
 });
 
-function getPriorityView(priority: string) {
 
-  if(priority == "Standard" || priority == "Entrepreneur"){
-    return <div></div>
-  } else {
-    return (
-      <SelectTable2
-        rows={this.props.entrepreneurs}
-        onClick={e => {
-          let myEntrepreneur = e;
-          console.log('EEEEEE', e);
-          this.setState({
-            entrepreneur_chosen: myEntrepreneur.entrepreneur_id
-          });
-          this.handleClose();
-          console.log(myEntrepreneur);
-          let vals = {
-            entrepreneur_fk: myEntrepreneur.entrepreneur_id,
-            problem_id: problem.problem_id
-          };
-          this.props.problemAddEntrepreneur(vals);
-        }}
-      />
-    )
-  }
-
-
-}
 
 class ProblemDetails extends React.Component<Props, State> {
   state = {
@@ -122,7 +95,8 @@ class ProblemDetails extends React.Component<Props, State> {
     isHidden: true,
     power: '',
     open: false,
-    entrepreneur_chosen: -1
+    entrepreneur_chosen: -1,
+    userPriority: ''
   };
 
   onClickAdd = () => {
@@ -151,7 +125,31 @@ class ProblemDetails extends React.Component<Props, State> {
   handleClose = () => {
     this.setState({ open: false });
   };
+  getPriorityView(priority: string) {
 
+    if(priority == "Standard" || priority == "Entrepreneur"){
+      return <div></div>
+    } else {
+      return (
+        <SelectTable2
+          rows={this.props.entrepreneurs}
+          onClick={e => {
+            let myEntrepreneur = e;
+            this.setState({
+              entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+            });
+            this.handleClose();
+            console.log(myEntrepreneur);
+            let vals = {
+              entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+              problem_id: this.props.currentProblemId
+            };
+            this.props.problemAddEntrepreneur(vals);
+          }}
+        />
+      )
+    }
+  }
   render() {
     const { classes, problem, isLoggedIn, rows } = this.props;
     if (problem) {
@@ -263,7 +261,7 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {getPriorityView(this.props.userPriority)}
+                {this.getPriorityView(this.props.userPriority)}
 
               </DialogContent>
               <DialogActions />
