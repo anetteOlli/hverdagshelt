@@ -28,61 +28,60 @@ export const getProblemById = (id: number) => {
 export const getProblemByUser = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
-    console.log('E: ' + state.user.priority);
     switch (state.user.priority) {
       case 'Standard':
         return getData(`problems/user/${getState().user.userID}`)
           .then(respond =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_SUCCESS',
+              type: 'PROBLEMS_BY_STANDARD_USER_SUCCESS',
               payload: respond.data
             })
           )
           .catch((error: Error) =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_ERROR',
+              type: 'PROBLEMS_BY_STANDARD_USER_ERROR',
               payload: error
             })
           );
       case 'Entrepreneur':
-        return getData('problems/entrepreneur/')
+        return getData(`problems/entrepreneur/${getState}`)
           .then(respond =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_SUCCESS',
+              type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',
               payload: respond.data
             })
           )
           .catch((error: Error) =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_ERROR',
+              type: 'PROBLEMS_BY_ENTREPRENEUR_USER_ERROR',
               payload: error
             })
           );
       case 'Administrator':
-        return postData('problems/municipality', { municipality: 'Trondheim', county: 'Trøndelag' })
+        return getData('problems/')
           .then(respond =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_SUCCESS',
+              type: 'PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS',
               payload: respond.data
             })
           )
           .catch((error: Error) =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_ERROR',
+              type: 'PROBLEMS_BY_ADMINISTRATOR_USER_ERROR',
               payload: error
             })
           );
       case 'Municipality':
-        return postData('problems/municipality', { muni: 'Trondheim', county: 'Trøndelag' })
+        return postData('problems/municipality', { municipality: 'Trondheim', county: 'Trøndelag' })
           .then(respond =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_SUCCESS',
+              type: 'PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS',
               payload: respond.data
             })
           )
           .catch((error: Error) =>
             dispatch({
-              type: 'PROBLEMS_BY_USER_ERROR',
+              type: 'PROBLEMS_BY_MUNICIPALITY_USER_ERROR',
               payload: error
             })
           );
@@ -132,7 +131,8 @@ export const editProblem = (problem: Problem) => {
     return patchData(`problems/${problem.problem_id}`, problem)
       .then(() =>
         dispatch({
-          type: 'EDIT_PROBLEM_SUCCESS'
+          type: 'EDIT_PROBLEM_SUCCESS',
+          payload: problem
         })
       )
       .catch((error: Error) =>

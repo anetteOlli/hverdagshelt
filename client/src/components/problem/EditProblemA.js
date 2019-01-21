@@ -109,13 +109,6 @@ class EditProblemA extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    const date = new Date();
-    console.log(this.state);
-
-    this.setState({
-      last_edited: date
-    });
-
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
@@ -189,7 +182,8 @@ class EditProblemA extends React.Component<Props, State> {
                       </MenuItem>
                     ))}
                   </SelectValidator>
-                  <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
+
+                  <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -309,6 +303,7 @@ class EditProblemA extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });

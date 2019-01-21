@@ -45,8 +45,6 @@ exports.users_create_user = (req, res) => {
   });
 };
 
-
-
 exports.user_delete_user = (req, res) => {
   userDao.deleteOne(req.params.email, (status, data) => {
     res.status(status).json(data);
@@ -56,6 +54,13 @@ exports.user_delete_user = (req, res) => {
 exports.user_patch_user = (req, res) => {
   let id = req.params.id;
   userDao.patchOne(id, req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.user_change_password = (req, res) => {
+  let id = req.params.id;
+  userDao.changePassword(id, req.body, hashPassword(req.body.password), (status, data) => {
     res.status(status).json(data);
   });
 };
