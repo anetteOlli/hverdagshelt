@@ -23,7 +23,7 @@ beforeEach(done => {
 
 test("Testing municipalities_get_all",(done) => {
   DivController.municipalities_get_all((status,data) => {
-    expect(data).toBe("yet");
+    expect(data.length).toBe(422);
     expect(status).toBe(200);
     done();
   })
