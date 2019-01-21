@@ -147,18 +147,27 @@ exports.problems_edit_problem = (req, res) => {
   }
   //Worker in the municipality changes a problem:
   if (req.userData.priority === 'Municipality') {
+    console.log('muni ')
     problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
       if(status === 200){
+        /*
         let data = UserController.users_from_problem(req.params.id);
         console.log(data);
         //Sends email to users
+        /*
         dataPackage.recepients = data;
         dataPackage.text = 'Dette er en testmail!';
         dataPackage.html = '';
-        MailController.sendMassMail(dataPackage);      }
+        MailController.sendMassMail(dataPackage);
+        */
+      }
+      console.log("1")
       return res.status(status).json(data);
+      console.log("2")
     });
   }
+  console.log("3")
+
   //Entrepreneur changes a problem:
   problemDao.getOne(req.params.id, (status, data) => {
     if (req.userData.priority === 'Entrepreneur') {
