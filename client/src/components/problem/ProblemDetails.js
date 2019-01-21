@@ -293,8 +293,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRoot(withStyles(styles)(withSnackbar(ProblemDetails))));
-
-// bruker kan edit desciption hvis ikke locked
-// Admin kan gjøre alt
-// Kommuneansatt slett, add entrepreneur, edit
-// Entrepeneur edit
