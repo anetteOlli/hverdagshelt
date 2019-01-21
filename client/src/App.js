@@ -8,7 +8,6 @@ import MainPage from './components/dashboard/MainPage';
 import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
-import MapMarkers from './components/map/MapMarkers';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
@@ -16,7 +15,6 @@ import CreateEvent from './components/event/CreateEvent';
 import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
-import SimpleMap from './components/map/GoogleMap';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 const styles = () => ({
@@ -56,7 +54,6 @@ const App = (props: Props) => {
               <Switch>
                 <Route exact path="/" component={MainPage} />
                 <Route exact path="/uploadfile" component={UploadFile} />
-                <Route exact path="/map" component={MapMarkers} />
                 <Route exact path="/registrer-bruker" component={SignUp} />
                 <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
                 <Route exact path="/lagproblem" component={CreateProblem} />
@@ -67,7 +64,6 @@ const App = (props: Props) => {
                 <Route exact path="/lagproblem" component={CreateProblem} />
                 <Route exact path="/uploadfile" component={UploadFile} />
                 <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-                <Route exact path="/map_simpel" component={SimpleMap} />
                 <Route exact path="/stati" component={Stati} />
                 <Route exact path="/:municipality" component={MuniPage} />
                 {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}

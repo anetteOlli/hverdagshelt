@@ -129,7 +129,7 @@ class ChangePassword extends React.Component<Props, State> {
       </div>
     );
 
-    return form;
+    return isLoggedIn ? form : <div />;
   }
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
@@ -138,7 +138,8 @@ class ChangePassword extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
+    userID: state.user.userID
   };
 };
 

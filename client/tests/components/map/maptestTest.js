@@ -22,7 +22,7 @@ describe('MapMarkers', () => {
   store.dispatch(getProblemsByMuni('Trondheim', 'Trøndelag'));
   const wrapper = shallow(<MapMarkers includedProp="store" store={store} />);
 
-  it('will start with currentProblemId= 1', () => {
+  it('will start with currentProblemId= 2', () => {
     expect(wrapper.props().currentProblemId).toEqual(2);
   });
 
