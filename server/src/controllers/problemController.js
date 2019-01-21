@@ -190,6 +190,20 @@ exports.problems_edit_problem = (req, res) => {
   });
 };
 
+exports.problems_get_problem_by_user = (req, res) => {
+  console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
+  problemDao.getByUser(req.params.user_id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
+exports.problems_get_problem_by_entrepreneur = (req, res) => {
+  console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
+  problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
 exports.problems_add_entrepreneur = (req, res) => {
   problemDao.addEntrepreneur(req.body, (status, data) => {
     return res.status(400).json(data);

@@ -12,11 +12,11 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
-import Map from '../map/MapWithSearchBox';
 import { CardContent } from './CreateProblem';
 import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
+import moment from 'moment';
 
 const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
 
@@ -27,15 +27,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
   description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
   entrepreneur_fk: number,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string,
 };
 
 const styles = (theme: Object) => ({
@@ -68,18 +79,30 @@ const styles = (theme: Object) => ({
   }
 });
 
-class EditProblemB extends React.Component<Props, State> {
+class EditProblemM extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
     description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    entrepreneur_fk: '',
-    location_fk: '',
+    date_finished: '',
+    category_fk: '',
     status_fk: '',
-    category_fk: ''
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: '',
+
   };
 
   handleChange = e => {
@@ -111,72 +134,6 @@ class EditProblemB extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
-
-                <Paper
-                  className={classes.paper}
-                  fullWidth
-                  readOnly
-                  margin="normal"
-                  label="Status:"
-                  name="status_fk"
-                  value={'status'}
-                >
-                  {'Status:   ' + this.state.status_fk}
-                </Paper>
-                <Paper
-                  className={classes.paper}
-                  readOnly
-                  fullWidth
-                  margin="normal"
-                  multiline
-                  label="Beskrivelse"
-                  rowsMax={10}
-                  name="problem_description"
-                  value={'Beskrivelse:'}
-                >
-                  {'Beskrivelse: \n' + this.state.problem_description}
-                </Paper>
-                <Paper
-                  className={classes.paper}
-                  readOnly
-                  fullWidth
-                  margin="normal"
-                  label="Kategori"
-                  name="category_fk"
-                  value={'Kategori:   '}
-                >
-                  {'Kategori:   ' + this.state.category_fk}
-                </Paper>
-
-                <h3> Dato startet: {this.state.date_made} </h3>
-
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Typography>Bilde</Typography>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div>
-                      <img
-                        id="img"
-                        top
-                        width="100%"
-                        src={this.state.img_user || 'http://placehold.it/180'}
-                        alt="Bilde"
-                      />
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </Paper>
-            </Grid>
-
-            <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
-              <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                <Typography variant="h2" gutterBottom align="center">
-                  Entreprenør beskrivelse:
-                </Typography>
-
                 <SelectValidator
                   fullWidth
                   margin="normal"
@@ -196,18 +153,81 @@ class EditProblemB extends React.Component<Props, State> {
 
                 <TextValidator
                   fullWidth
+                  margin="normal"
                   multiline
+                  label="Beskrivelse"
                   rowsMax={10}
+                  name="problem_description"
+                  value={this.state.problem_description}
+                  onChange={this.handleChange}
+                  validators={['required', 'minStringLength:1']}
+                  errorMessages={['Du må skrive inn en beskrivelse', 'Ugyldig beksrivelse']}
+                />
+
+                <SelectValidator
+                  fullWidth
+                  margin="normal"
+                  label="Kategori"
+                  name="category_fk"
+                  value={this.state.category_fk}
+                  onChange={this.handleChange}
+                  validators={['required']}
+                  errorMessages={['this field is required']}
+                >
+                  {categories.map((option, index) => (
+                    <MenuItem key={index} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </SelectValidator>
+                <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
+
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                    <div>
+                      <Typography>Bilde</Typography>
+                    </div>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div />
+                    <div>
+                      <img
+                        id="img"
+                        width="100%"
+                        src={this.state.img_user || 'http://placehold.it/180'}
+                        alt="Bilde"
+                      />
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </Paper>
+            </Grid>
+            <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
+              <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
+                <Typography variant="h2" gutterBottom align="center">
+                  Entreprenør beskrivelse:
+                </Typography>
+                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+
+                <Paper
+                  className={classes.paper}
+                  readOnly
                   margin="normal"
                   label="Beskrivelse"
                   value={'Beskrivelse:'}
-                  name="description_entrepreneur"
-                  value={this.state.description_entrepreneur}
-                  onChange={this.handleChange}
-                />
-                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+                  name="problem_description"
+                >
+                  {'Beskrivelse: \n ' + this.state.description_entrepreneur}
+                </Paper>
 
-                <h3> Dato Endret: {this.state.last_edited} </h3>
+                <Paper className={classes.paper}>
+                  Entreprenør kontakt informasjon:{' '}
+                  {
+                    // her kommer kontakt informasjon
+                  }
+                </Paper>
+
+                <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -219,8 +239,15 @@ class EditProblemB extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
-                        <PictureUpload uploadImg={this.handleUpload} />
+                        <img
+                          id="img"
+                          width="100%"
+                          src={
+                            this.state.img_entrepreneur ||
+                            'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
+                          }
+                          alt="Bilde"
+                        />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -244,7 +271,6 @@ class EditProblemB extends React.Component<Props, State> {
                     {
                       // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
                     }
-
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <div className="mapPlaceholder">
@@ -301,4 +327,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(EditProblemB))));
+)(withRoot(withStyles(styles)(withSnackbar(EditProblemM))));

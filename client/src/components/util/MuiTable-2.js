@@ -195,6 +195,7 @@ class MuiTable2 extends React.Component<Props> {
           onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
             key={row.problem_id}>
             <ExpansionPanelSummary>
+              {}
               <CheckCircle className="material-icons" color=
               {row.status_fk == "Unchecked" ? "disabled"
               : (row.status_fk == "Checked" ? "primary" : "error")}/>
