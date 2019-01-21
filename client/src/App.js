@@ -15,8 +15,14 @@ import CreateEvent from './components/event/CreateEvent';
 import MuiTable2Test from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
+import SimpleMap from './components/map/GoogleMap';
+import Settings from './components/user/Settings';
+import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
+import type { Dispatch, ReduxState } from './store/reducers';
+import { refresh } from './store/actions/userActions';
+import { connect } from 'react-redux';
 const styles = () => ({
   root: {
     display: 'flex',
@@ -25,7 +31,7 @@ const styles = () => ({
   },
   site: {
     flex: '1 0 auto',
-    padding: '2em 0 2em 0',
+    paddingTop: 80,
     width: '100%',
     '&::after': {
       content: '|\\00a0\\00a0',
@@ -38,7 +44,9 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: Object
+  classes: Object,
+  hasCheckedJWT: boolean,
+  refresh: Function
 };
 
 const App = (props: Props) => {
@@ -77,4 +85,8 @@ const App = (props: Props) => {
   );
 };
 
-export default withRoot(withStyles(styles)(App));
+// $FlowFixMe
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(App)));

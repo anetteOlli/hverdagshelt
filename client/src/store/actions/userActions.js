@@ -83,7 +83,7 @@ export const signUpUser = (newUser: JSON) => {
 export const signUpEntrepreneur = (newUser: JSON, newEntrepreneur: JSON) => {
   console.log('SignUpEnt', newUser, newEntrepreneur);
   return (dispatch: Dispatch) => {
-    return postData('users/entrepreneurs', { user: newUser, entrepreneur: newEntrepreneur })
+    return postData('entrepreneurs', { user: newUser, entrepreneur: newEntrepreneur })
       .then(() => {
         return dispatch({
           type: 'SIGN_UP_SUCCESS'
@@ -104,5 +104,30 @@ export const signOut = () => {
     dispatch({
       type: 'SIGN_OUT_SUCCESS'
     });
+  };
+};
+
+export const clearError = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: 'CLEAR_ERROR'
+    });
+  };
+};
+
+export const forgotPassword = (email: string) => {
+  return (dispatch: Dispatch) => {
+    return postData('users/forgot', email)
+      .then(() => {
+        return dispatch({
+          type: 'TEMP_PASSWORD_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'TEMP_PASSWORD_ERROR',
+          payload: error
+        })
+      );
   };
 };

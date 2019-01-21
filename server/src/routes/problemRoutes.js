@@ -18,4 +18,13 @@ router.delete('/:id', checkAuth, ProblemController.problems_delete_problem);
 
 router.patch('/:id', checkAuth, ProblemController.problems_edit_problem);
 
+router.get('/user/:user_id', ProblemController.problems_get_problem_by_user);
+
+router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_problem_by_entrepreneur);
+
+
+router.patch('/vote/:id', checkAuth, ProblemController.problems_support_problem);
+
+router.patch('/add/entrepreneur', ProblemController.problems_add_entrepreneur);
+
 module.exports = router;

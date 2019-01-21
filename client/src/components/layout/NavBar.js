@@ -47,8 +47,6 @@ type Props = {
   categories: string[],
   isLoggedIn: boolean,
   signOut: Function,
-  refresh: Function,
-  hasCheckedJWT: boolean
 };
 
 type State = {
@@ -73,7 +71,7 @@ class NavBar extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn, signOut, hasCheckedJWT } = this.props;
+    const { classes, isLoggedIn, signOut } = this.props;
     return (
       <div>
         <AppBar className={classes.appBar}>
@@ -90,29 +88,24 @@ class NavBar extends React.Component<Props, State> {
               HverdagsHelt
             </Button>
             <div className={classes.grow} />
-            {hasCheckedJWT && (isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />)}
+            {isLoggedIn ? <SignedInLinks handleSignOut={signOut} /> : <SignedOutLinks />}
           </Toolbar>
         </AppBar>
         <SideBar open={this.state.drawer} onClose={this.handleClose} />
       </div>
     );
   }
-  componentDidMount(): void {
-    this.props.refresh();
-  }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    isLoggedIn: state.user.isLoggedIn,
-    hasCheckedJWT: state.app.hasCheckedJWT
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    signOut: () => dispatch(signOut()),
-    refresh: () => dispatch(refresh())
+    signOut: () => dispatch(signOut())
   };
 };
 

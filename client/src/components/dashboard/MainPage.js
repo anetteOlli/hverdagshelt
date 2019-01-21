@@ -3,13 +3,9 @@ import React from 'react';
 import withRoot from '../../withRoot';
 import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField, MenuItem, Button, NoSsr } from '@material-ui/core';
 import Select from 'react-select';
-import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
-
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
 
@@ -66,7 +62,7 @@ const styles = theme => ({
     marginTop: 50,
     marginBottom: 50,
     size: 200,
-    padding: 30
+    //padding: 30
   },
   // input: {
   //   display: 'none'

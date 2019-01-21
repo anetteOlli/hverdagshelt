@@ -41,7 +41,6 @@ export const deleteCategory = (id: number) => {
 };
 
 export const getCategories = () => {
-  console.log('you got to category actions!');
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('categories')
       .then(response =>

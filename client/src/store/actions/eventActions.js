@@ -1,7 +1,7 @@
 // @flow
 import type { Action } from '../reducers/eventReducer';
 import type { ReduxState } from '../reducers';
-import { postData, putData, deleteData, getData } from '../axios';
+import { postData, patchData, deleteData, getData } from '../axios';
 
 /**
  * @fileOverview categoryActions: actions for categories in redux
@@ -46,24 +46,23 @@ export const getEventsByMuni = (municipality: string, county: string) => {
   };
 };
 
-export const createEvent = (newEvent: JSON) => {
+export const createEvent = (newEvent: JSON, bool: boolean) => {
   return (dispatch: Dispatch) => {
-    return postData('events', newEvent).then(() =>
+    return postData('events', newEvent, bool).then(() =>
       dispatch({
         type: 'CREATE_EVENT_SUCCESS'
-      }).catch((error: Error) =>
+      })).catch((error: Error) =>
         dispatch({
           type: 'CREATE_EVENT_ERROR',
           payload: error
-        })
-      )
+        }) 
     );
   };
 };
 
 export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch) => {
-    return putData('events', event).then(() =>
+    return patchData('events', event).then(() =>
       dispatch({
         type: 'EDIT_EVENT_SUCCESS'
       }).catch((error: Error) =>

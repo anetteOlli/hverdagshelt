@@ -6,7 +6,7 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority,
+  priority: Priority
 };
 
 export type Action =
@@ -14,15 +14,18 @@ export type Action =
   | { type: 'SIGN_IN_ERROR', payload: Error }
   | { type: 'SIGN_OUT_SUCCESS' }
   | { type: 'SIGN_UP_SUCCESS' }
+  | { type: 'CLEAR_ERROR' }
   | { type: 'SIGN_UP_ERROR', payload: Error }
   | { type: 'REFRESH_SUCCESS', payload: { userId: number, priority: Priority } }
-  | { type: 'REFRESH_ERROR', payload: string };
+  | { type: 'REFRESH_ERROR', payload: string }
+  | { type: 'TEMP_PASSWORD_SUCCESS' }
+  | { type: 'TEMP_PASSWORD_ERROR', payload: Error };
 
 const initState = {
   userID: 0,
   isLoggedIn: false,
   errorMessage: '',
-  priority: 'Municipality',
+  priority: 'Standard'
 };
 
 export default (state: State = initState, action: Action) => {
@@ -37,11 +40,9 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'SIGN_IN_ERROR':
-      console.log('%c SIGN_IN_ERROR', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c SIGN_IN_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
-        isLoggedIn: false,
-        userID: 0,
         errorMessage: action.payload.message
       };
     case 'SIGN_UP_SUCCESS':
@@ -53,9 +54,6 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_UP_ERROR':
       console.log('%c SIGN_UP_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
-        ...state,
-        isLoggedIn: false,
-        userID: 0,
         errorMessage: action.payload.message
       };
     case 'SIGN_OUT_SUCCESS':
@@ -73,15 +71,31 @@ export default (state: State = initState, action: Action) => {
         isLoggedIn: true,
         userID: action.payload.userId,
         priority: action.payload.priority,
-        errorMessage: '',
+        errorMessage: ''
       };
     case 'REFRESH_ERROR':
       console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
-        isLoggedIn: false,
-        userID: 0,
-        errorMessage: '',
+        errorMessage: ''
+      };
+    case 'CLEAR_ERROR':
+      console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'TEMP_PASSWORD_SUCCESS':
+      console.log('%c TEMP_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'TEMP_PASSWORD_ERROR':
+      console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload
       };
     default:
       return state;

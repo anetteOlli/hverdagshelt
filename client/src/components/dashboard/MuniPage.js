@@ -119,6 +119,7 @@ class MuniPage extends React.Component<Props, State> {
     const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
     const { municipality } = this.props.match.params;
+    var moment = require('moment');
     return (
       <main>
         <Grid container spacing={24}>
@@ -165,10 +166,10 @@ class MuniPage extends React.Component<Props, State> {
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
+                    {console.log("EVENTER: " + events)}
                       <Grid container spacing={24}>
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Events', JSON.stringify(event))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -188,8 +189,8 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">{event.event_description}</Typography>
                                 <Typography>
                                   <br />
-                                  Starter: {event.date_starting.toString()}<br />
-                                  Slutter: {event.date_ending.toString()}<br />
+                                  Starter: {moment(event.date_starting.toString()).calendar()}<br />
+                                  Slutter: {moment(event.date_ending.toString()).calendar()}<br />
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {event.street_fk}</Typography>
@@ -212,10 +213,10 @@ class MuniPage extends React.Component<Props, State> {
                   )}
                   {value === 1 && (
                     <TabContainer>
+                    {console.log("PROBLEMER: " + problems)}
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
-                            {console.log('Problems', JSON.stringify(problem))}
                             <Card className={classes.card}>
                               <CardMedia
                                 component="img"
@@ -244,7 +245,7 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">{problem.problem_description}</Typography>
                                 <Typography>
                                   <br />
-                                  Dato lagt ut: {problem.date_made.toString()} <br />
+                                  Dato lagt ut: {moment(problem.date_made.toString()).calendar()} <br />
                                   <br />
                                 </Typography>
                                 <Typography component="p">Lokasjon: {problem.street_fk}</Typography>

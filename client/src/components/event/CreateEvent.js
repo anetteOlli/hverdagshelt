@@ -14,7 +14,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
-import Map from '../map/maptest';
+import Map from '../map/MapWithSearchBox';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
@@ -38,11 +38,9 @@ type State = {
   description: string,
   dateStart: Date,
   dateEnd: Date,
-  imageURL: string,
-  status: string,
-
+  dateEndInput: Date,
   displayImg: string,
-  picture: any,
+  image: any,
 
   county: string,
   municipality: string,
@@ -132,7 +130,7 @@ function getStepContent(step: number,
       return (
         <Card className={classes.contentNull}>
           <CardContent>
-          <Typography variant="body1" className={classes.info}>Skriv inn lokasjon til eventet eller velg lokasjonen på kartet</Typography>
+          <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -143,6 +141,9 @@ function getStepContent(step: number,
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en kommune']}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextValidator
               fullWidth
@@ -154,9 +155,11 @@ function getStepContent(step: number,
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må skrive inn en gate']}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <div className={classes.mapPlaceholder}>
-            <Typography className={classes.mapText}>Her kan du velge lokasjonen på kartet:</Typography>
               <Map />
             </div>
           </CardContent>
@@ -203,6 +206,13 @@ function getStepContent(step: number,
                     value={state.dateStart}
                     onChange={handleStartDateChange}
                   />
+                  <TimePicker
+                    fullWidth
+                    margin="normal"
+                    label="Tid arrangementet starter"
+                    value={state.dateStart}
+                    onChange={handleStartDateChange}
+                  />
                 </Grid>
               </MuiPickersUtilsProvider>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -214,27 +224,23 @@ function getStepContent(step: number,
                     value={state.dateEnd}
                     onChange={handleEndDateChange}
                   />
+                  <TimePicker
+                    fullWidth
+                    margin="normal"
+                    label="Tid arrangementet slutter"
+                    value={state.dateEnd}
+                    onChange={handleEndDateChange}
+                  />
                 </Grid>
               </MuiPickersUtilsProvider>
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Status"
-                name="status"
-                autoComplete="status"
-                value={state.status}
-                onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en status på arrangementet']}
-              />
               <FormControl fullWidth margin="normal">
                 {state.displayImg != '' ?
                 (<CardMedia
                   image={state.displayImg || ''}
                   title="Image title"
                   style={{
-                    height: 0,
-                    paddingTop: '56.25%'
+                    height: 400,
+                    paddingTop: '20%'
                   }}
                   />)
                   : (<i className={classes.imghere}></i>)}
@@ -276,10 +282,10 @@ class CreateEvent extends React.Component<Props, State>{
 
     title: '',
     description: '',
-    dateStart: new Date('2014-08-18T00:00:00'),
-    dateEnd: new Date('2014-08-18T00:00:00'),
-    status: '',
-    imageURL: '',
+    dateStart: new Date('0000-00-00T00:00:00'),
+    dateEnd: new Date('0000-00-00T00:00:0'),
+    dateEndInput: '',
+    image: '',
 
     picture: '',
     displayImg: '',
@@ -364,18 +370,24 @@ class CreateEvent extends React.Component<Props, State>{
   /**Handles the dates*/
   handleStartDateChange = date => {
     var dateFormat = require('dateformat');
-    console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
     this.setState({
-      dateStart: dateFormat(date, "isoDateTime").slice(0,19)
+      dateStart: ""+ dateFormat(date, "isoDateTime").slice(0,19).toString()
       });
+    console.log(this.state.dateStart);
+
   };
   /**Handles the dates*/
   handleEndDateChange = date => {
     var dateFormat = require('dateformat');
-    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // var dateEndInput = ""+ dateFormat(date, "isoDateTime").slice(0,19);
+    // console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    // console.log("dateEndInput: " + dateEndInput);
+    // console.log("dateEnd før: " + this.state.dateEnd);
     this.setState({
-      dateEnd: dateFormat(date, "isoDateTime").slice(0,19),
+      dateEnd: ""+ dateFormat(date, "isoDateTime").slice(0,19)
       });
+    console.log("dateEnd etter: " + this.state.dateEnd);
   };
 
   /** Handles clicking "Next" button */
@@ -407,6 +419,8 @@ class CreateEvent extends React.Component<Props, State>{
     e.preventDefault();
     const { picture, title} = this.state;
 
+    console.log(this.state);
+
     if(this.state.activeStep > 0){
       // if (!picture) {
       //   this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
@@ -414,22 +428,32 @@ class CreateEvent extends React.Component<Props, State>{
       // }
       /*--- Need formdata so multer module in backend can store the image ---*/
       let k = new FormData();
+      if(this.state.image){
       k.append("image",this.state.image);
       k.append("event_name", this.state.title);
       k.append("event_description", this.state.description);
       k.append("date_starting", this.state.dateStart);
       k.append("date_ending", this.state.dateEnd);
-      k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.state.user);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
       k.append("county_fk", this.state.county);
       k.append("municipality_fk", this.state.municipality);
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
-
-      this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'})
-      );
+      this.props.createEvent(k,true);
+    } else this.props.createEvent({
+        event_name: this.state.title,
+        event_description: this.state.description,
+        date_starting: this.state.dateStart,
+        date_ending: this.state.dateEnd,
+        latitude: this.props.cords.lat,
+        longitude: this.props.cords.lng,
+        county_fk: this.state.county,
+        municipality_fk: this.state.municipality,
+        city_fk: this.state.city,
+        street_fk: this.state.street
+      },false)
+      // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
     this.handleNext();
   };
@@ -442,7 +466,7 @@ class CreateEvent extends React.Component<Props, State>{
   /** Handles uploading of image files */
   handleUpload = e => {
     this.setState({
-      picture: e.target.files[0],
+      image: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])
     });
   };
@@ -477,7 +501,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createEvent: newEvent => dispatch(createEvent(newEvent))
+    createEvent: (newEvent,bool) => dispatch(createEvent(newEvent,bool))
   };
 };
 

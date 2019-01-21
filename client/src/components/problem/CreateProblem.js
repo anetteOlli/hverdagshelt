@@ -20,9 +20,9 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 
 //Created by us
-import {createProblem, getProblemsByStreet} from '../../store/actions/problemActions';
+import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
 import {getCategories} from '../../store/actions/categoryActions';
-import Map from '../map/maptest';
+import Map from '../map/MapWithSearchBox';
 import MuiTable2 from '../util/MuiTable-2';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
@@ -96,7 +96,7 @@ function getSteps() {
 * @params categories: [], array of ALL problem categories
 */
 function getStepContent(step: number, state: State,
-                      handleChange: function, handleChangeSpec: function, handleUpload: function,
+                      handleChange: function, handleChangeSpec: function, handleUpload: function, handleSupport: function,
                       props: any) {
   //console.log(props.categories[0]);
   //props.categories.map((e,i) => console.log(e + " / " + i));
@@ -124,25 +124,27 @@ function getStepContent(step: number, state: State,
             <TextValidator
               fullWidth
               margin="normal"
-              label="Kommune"
+              label="Kommune: Velg i kart"
               name="municipality"
               autoComplete="municipality"
               value={state.municipality}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må velge en kommune']}
+              inputProps={{readOnly: true,}}
             />
             {console.log('state in createProblem', state)}
             <TextValidator
               fullWidth
               margin="normal"
-              label="Gate"
+              label="Gate: Velg i kart"
               name="street"
               autoComplete="street"
               value={state.street}
               onChange={handleChange}
               validators={['required']}
               errorMessages={['Du må velge en gate']}
+              inputProps={{readOnly: true,}}
             />
             <div className="mapPlaceholder">
               <Map />
@@ -153,8 +155,8 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      console.log("rows");
-      console.log(rows);
+      //console.log("rows");
+      //console.log(rows);
       return (
         <Card className="content-1">
           <CardContent>
@@ -168,17 +170,17 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                   Nærliggende problemer
                 </Typography>
-                <Paper style={{height: '40%', width: '100%', overflow: 'auto'}}>
+                <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
                   <MuiTable2
                   rows={rows}
                   onClick={e => {
                     let myProblem = e;
-                    handleChangeSpec("cur_id", myProblem.id);
-                    handleChangeSpec("cur_title", myProblem.title);
-                    handleChangeSpec("cur_description", myProblem.description);
-                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur);
-                    handleChangeSpec("cur_status", myProblem.status);
-                    handleChangeSpec("cur_imageURL", myProblem.imgURL);
+                    handleChangeSpec("cur_id", myProblem.problem_id);
+                    handleChangeSpec("cur_title", myProblem.problem_title);
+                    handleChangeSpec("cur_description", myProblem.problem_description);
+                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_fk);
+                    handleChangeSpec("cur_status", myProblem.status_fk);
+                    handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
                 </Paper>
@@ -195,34 +197,38 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Grid item xs>
-                  <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_description}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center">{state.cur_entrepreneur}</Typography>
-                </Grid>
-                <Grid item xs>
-                <Typography variant="subtitle2" align="center">Status</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography align="center" color="error">{state.cur_status}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Button
-                  variant="contained" color="primary"
-                  size="small"
-                  align="center"
-                  onClick={e => handleSupport(state.cur_id)}
-                  >
-                     <Typography>Støtt problemet</Typography>
-                  </Button>
-                </Grid>
+                <Card style={{width:'100%'}} align="center">
+                  <CardContent>
+                    <Grid item xs>
+                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_description}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center">{state.cur_entrepreneur}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                    <Typography variant="subtitle2" align="center">Status</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography align="center" color="error">{state.cur_status}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Button
+                      variant="contained" color="primary"
+                      size="small"
+                      align="center"
+                      onClick={e => handleSupport(state.cur_id)}
+                      >
+                         <Typography>Støtt problemet</Typography>
+                      </Button>
+                    </Grid>
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
             <Grid item container
@@ -311,14 +317,6 @@ function getStepContent(step: number, state: State,
   }
 }
 
-/** Handles 'supporting' an existing problem
-* @params problemId: number, id of the problem to 'support'
-*/
-function handleSupport(problemId: number){
-  //@TODO Handle support a problem
-  console.log("Clicked updoot for " + problemId + "! Take me away hunny")
-}
-
 type Props = {
   municipality: string,
   street: string,
@@ -330,6 +328,8 @@ type Props = {
 
 type State = {
   activeStep: number,
+  userId: number,
+
   title: string,
   category: string,
   municipality: string,
@@ -354,7 +354,8 @@ type State = {
   cur_entrepreneur: 'Default',
   cur_status: 'Default',
 
-  similarProblems: []
+  similarProblems: [],
+  categories:[]
 };
 
 /** CreateProblem Component */
@@ -362,11 +363,13 @@ class CreateProblem extends React.Component<Props, State> {
   constructor() {
     super();
     this.handleChangeSpec = this.handleChangeSpec.bind(this);
+    this.handleSupport = this.handleSupport.bind(this);
   }
 
   state = {
     activeStep: 0,
-    user: 1,
+    //User
+    userId: 1,
 
     municipality: '',
     title: '',
@@ -389,21 +392,9 @@ class CreateProblem extends React.Component<Props, State> {
 
     similarProblems:
       [
-        {id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1',
-        street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"},
-        {id:2, title: 'default1', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:3, title: 'default2', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:4, title: 'default3', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:5, title: 'default4', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:6, title: 'default5', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"},
-        {id:7, title: 'default6', category: 'default2', municipality: 'default2', entrepreneur: 'Bob2',
-        street: 'default2', description: 'default2', status: 'Unchecked', imageURL: "default2"}
-      ],
+        {problem_id:1, problem_title: 'default', category_fk: 'default', municipality_fk: 'default', entrepreneur_fk: 'Bob1',
+        street_fk: 'default', problem_description: 'default', status_fk: 'Unchecked', img_user: "default"}
+        ],
     categories:['Default']
   };
 
@@ -438,29 +429,25 @@ class CreateProblem extends React.Component<Props, State> {
      this.props.getProblemsByStreet(street, municipality, county)
      .then(() => {
         //console.log("Ferdiog!!")
-        let myProbs = [];
+        let myProbs = this.props.similarProblems;
+        /*
         this.props.similarProblems.map(e => {
           console.log(this.props.similarProblems);
           myProbs.push({
-            id: e.problem_id,
-            title: e.problem_title,
-            description: e.problem_description,
-            status: e.status_fk,
-            entrepreneur: e.entrepreneur || "N/A",
-            imgURL: e.img_user
+              similarProblems
           })
-        });
+        });*/
         console.log("My probs");
         console.log(myProbs);
 
         //Set default to first
         if(myProbs[0] != null){
-          this.handleChangeSpec("cur_id", myProbs[0].id);
-          this.handleChangeSpec("cur_title", myProbs[0].title);
-          this.handleChangeSpec("cur_description", myProbs[0].description);
-          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur);
-          this.handleChangeSpec("cur_status", myProbs[0].status);
-          this.handleChangeSpec("cur_imageURL", myProbs[0].imgURL);
+          this.handleChangeSpec("cur_id", myProbs[0].problem_id);
+          this.handleChangeSpec("cur_title", myProbs[0].problem_title);
+          this.handleChangeSpec("cur_description", myProbs[0].problem_description);
+          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur_fk);
+          this.handleChangeSpec("cur_status", myProbs[0].status_fk);
+          this.handleChangeSpec("cur_imageURL", myProbs[0].img_user);
         }
         else{
           //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
@@ -537,7 +524,7 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("problem_description", this.state.description);
       k.append("category_fk", this.state.category);
       k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.state.user);
+      k.append("user_fk", this.props.userId);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
       k.append("county_fk", this.state.county);
@@ -545,8 +532,15 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("city_fk", this.state.city);
       k.append("street_fk", this.state.street);
 
-
-      this.props.createProblem(k);
+      this.props.createProblem(k)
+      .then((status) => {
+        if(this.props.errorMessage != ''){
+          this.props.enqueueSnackbar("Error: Kunne ikke lage problemet", {variant: 'warning'})
+        }
+        else{
+          this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
+        }
+      });
     }
     this.handleNext();
   };
@@ -564,11 +558,44 @@ class CreateProblem extends React.Component<Props, State> {
     });
   }
 
+  /** Handles 'supporting' an existing problem
+  * @params problemId: number, id of the problem to 'support'
+  */
+  handleSupport(problemId: number) {
+    console.log("Clicked updoot for " + problemId + "/" + this.state.userId + "! Take me away hunny")
+    this.props.supportProblem(this.state.userId, problemId)
+    .then((status) => {
+      //console.log(status);
+      if(this.props.errorMessage != ''){
+        this.props.enqueueSnackbar("Error: Kunne ikke støtte problemet", {variant: 'warning'});
+      }
+      this.handleFinish();
+    });
+  }
+
   render() {
     //const { classes } = this.props;
     //console.log(this.props);
     const steps = getSteps();
     const { activeStep } = this.state;
+    //console.log("isLoggedIn");
+    //console.log(this.props.isLoggedIn);
+    if(!this.props.isLoggedIn){
+      return (
+        <div>
+          <Card className="must-log-in-to-register" align="center">
+            <CardContent>
+              <Typography variant="h5" color="error">
+                Du må logge inn for å kunne registrere problem
+              </Typography>
+              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+                Tilbake til hovedmenyen
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div>
         <Typography variant="h2"
@@ -607,7 +634,8 @@ class CreateProblem extends React.Component<Props, State> {
             ) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
-                              this.handleChangeSpec, this.handleUpload, this.props)}
+                              this.handleChangeSpec, this.handleUpload, this.handleSupport,
+                              this.props)}
                 <Card className="navigation-buttons" align="center">
                   <CardContent>
                     <Button
@@ -648,7 +676,11 @@ const mapStateToProps = state => {
     cords: state.map.currentMarker,
     //Cats, problems
     categories: state.category.categories,
-    similarProblems: state.problem.problems
+    similarProblems: state.problem.problems,
+
+    //id
+    userId: state.user.userID,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
@@ -656,7 +688,8 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
-    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county))
+    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county)),
+    supportProblem: (userId, problemId) => dispatch(supportProblem(userId, problemId))
   };
 };
 
