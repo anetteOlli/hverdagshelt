@@ -51,6 +51,10 @@ type State = {
     lng: string
   },
 
+  //User
+  userId: number,
+  isLoggedIn: boolean,
+  priority: string
 };
 
 /**Styling*/
@@ -298,6 +302,11 @@ class CreateEvent extends React.Component<Props, State>{
       lat: '',
       lng: ''
     },
+
+    //User
+    userId: -1,
+    isLoggedIn: false,
+    priority: ''
   };
 
   render() {
@@ -305,7 +314,47 @@ class CreateEvent extends React.Component<Props, State>{
     //const { enqueueSnackbar } = this.props;
     const steps = getSteps();
     const { dateStart, dateEnd } = this.state;
+    console.log("this.props");
+    console.log(this.props);
 
+    if(!this.props.isLoggedIn){
+      return (
+        <div>
+          <Card className="must-log-in-to-create-event" align="center">
+            <CardContent>
+              <Typography variant="h5" color="error">
+                Du må logge inn for å kunne lage et arrangement
+              </Typography>
+              <Typography variant="h6" color="error">
+                Merk: Bare kommuneansatte kan legge til arrangementer
+              </Typography>
+              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+                Tilbake til hovedmenyen
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
+    if(this.props.priority != 'Municipality' && this.props.priority != 'Administrator'){
+      return (
+        <div>
+          <Card className="must-log-in-to-create-event" align="center">
+            <CardContent>
+              <Typography variant="h5" color="error">
+                Du har ikke lov til å legge til arrangementer
+              </Typography>
+              <Typography variant="h5" color="error">
+                Merk: Bare kommuneansatte kan legge til arrangementer
+              </Typography>
+              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+                Tilbake til hovedmenyen
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div>
         <div className={classes.Stepper}>
@@ -496,6 +545,11 @@ const mapStateToProps = state => {
     municipality: state.map.muni,
     city: state.map.city,
     cords: state.map.currentMarker,
+
+    //user
+    userId: state.user.userID,
+    isLoggedIn: state.user.isLoggedIn,
+    priority: state.user.priority
   };
 };
 
