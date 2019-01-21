@@ -29,14 +29,13 @@ exports.problems_get_problem = (req, res) => {
 
 exports.problems_support_problem = (req, res) => {
   console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  console.log("UserID/ProblemID:" + req.body.userId + "/" + req.body.problemId);
-  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) =>{
-    if(status == 200){
+  console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
+  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
+    if (status == 200) {
       problemDao.supportProblem(req.params.id, (status, data) => {
         res.status(status).json(data);
       });
-    }
-    else{
+    } else {
       res.status(status).json(data);
     }
   });
@@ -52,7 +51,7 @@ exports.problems_get_from_municipality = (req, res) => {
 };
 
 exports.problems_get_from_municipality_and_street = (req, res) => {
-  if(req.body.county === "Sør-Trøndelag" || req.body.county === "Nord-Trøndelag") req.body.county = "Trøndelag";
+  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
   console.log(
     '/problems/municipality/street: ' +
       req.body.street +
@@ -73,42 +72,41 @@ exports.problems_create_problem = (req, res) => {
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUser(req.body.userId, (status, data) =>{
+  problemDao.getAllFromUser(req.body.userId, (status, data) => {
     console.log(status);
     console.log(data);
-    if(data.length < 10){
+    if (data.length < 10) {
       if (req.file === undefined) {
         problemDao.createOne(req.body, (status, data) => {
-          handleError(status,data,req,res);
+          handleError(status, data, req, res);
         });
       } else {
         image.uploadImage(req.file, url => {
           req.body.img_user = url;
           problemDao.createOne(req.body, (status, data) => {
-            handleError(status,data,req,res);
+            handleError(status, data, req, res);
           });
         });
       }
-    }
-    else{
+    } else {
       res.status('Cannot add more problems').json(data);
     }
   });
 
-  function handleError(status, data, req, res){
-      if(status === 500) {
-        divDao.createCity(req.body.city_fk, () => {
-          divDao.createStreet(req.body.street_fk, () => {
-            problemDao.createOne(req.body, (status,data) => {
-              res.status(status).json(data);
-            })
-          })
+  function handleError(status, data, req, res) {
+    if (status === 500) {
+      divDao.createCity(req.body.city_fk, () => {
+        divDao.createStreet(req.body.street_fk, () => {
+          problemDao.createOne(req.body, (status, data) => {
+            res.status(status).json(data);
+          });
         });
-      } else if(status === 200) {
-        res.status(status).json(data);
-      } else {
-        res.status(404).json({"Error":"Couldn't add problem"});
-      }
+      });
+    } else if (status === 200) {
+      res.status(status).json(data);
+    } else {
+      res.status(404).json({ Error: "Couldn't add problem" });
+    }
   }
 };
 
@@ -188,7 +186,7 @@ exports.problems_edit_problem = (req, res) => {
       return res.status(status).json(data);
     });
   });
-}; 
+};
 
 exports.problems_get_problem_by_user = (req, res) => {
   console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');

@@ -26,7 +26,6 @@ import EditProblemM from './EditProblemM';
 import EditProblem from './EditProblem';
 import connect from 'react-redux/es/connect/connect';
 import { withSnackbar } from 'notistack';
-import { getProblemsByMuni } from '../../store/actions/problemActions';
 import ProblemDetails from './ProblemDetails';
 import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
@@ -130,27 +129,7 @@ function getView(bool: boolean, p) {
   }
   return view;
 }
-/*
-function getRows(priority: string, props, state) {
-  let rows;
-  switch (priority) {
-    case 'Standard':
-      rows = props.getProblemByUser(props.user_fk);
-      return;
-    case 'Entrepreneur':
-      rows = props.getProblemByEntrepreneur(props.entrepreneur_fk);
-      return;
-    case 'Administrator':
-      rows = props.getProblemsByMuni(props.match.params.muni, props.match.params.county);
-      return;
-    case 'Municipality':
-      rows = props.getProblemsByMuni(props.match.params.muni, props.match.params.county);
-      return;
-    default:
-      return []; // get all problems
-  }
-}
-*/
+
 function getEditView(priority: number) {
   switch (priority) {
     case 0:
@@ -197,10 +176,6 @@ class EditProblemMain extends React.Component<Props, State> {
     categories: []
   };
 
-  handleChangeSpec(name, value) {
-    this.setState({ [name]: value });
-  }
-
   render() {
     const { classes, problems } = this.props;
     bool = this.props.editMode;
@@ -213,10 +188,6 @@ class EditProblemMain extends React.Component<Props, State> {
               rows={problems}
               onClick={e => {
                 let myProblem = e;
-                /*
-                this.handleChangeSpec('problem_id', myProblem.id).then(() =>
-                );
-                */
                 this.props.goToProblemDetail(myProblem.problem_id)
               }}
             />
@@ -232,6 +203,9 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getProblemByUser();
+    this.setState({
+      ...this.props.problem
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -255,8 +229,6 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
-    //getProblemByEntrepreneur: entrepreneur_fk => dispatch(getProblemByEntrepreneur(entrepreneur_fk))
-    // getProblemsByMuni: (muni, county) => dispatch(getProblemsByMuni(muni, county)),
   };
 };
 
