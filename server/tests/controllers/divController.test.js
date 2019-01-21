@@ -52,7 +52,7 @@ test("Testing get_municipalities_by_county from DivController", (done) => {
 
 test("Testing verifyMail from DivController", (done) => {
   DivController.verify_email("102492350345023450234",(status,data) => {
-    expect(status).toBe(500);
+    expect(status).toBe(200);
     done();
   })
 });

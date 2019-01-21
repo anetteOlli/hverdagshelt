@@ -32,7 +32,7 @@ test("Testing get_all_categories", (done) => {
 });
 
 test("Testing create_category", (done) => {
- categoryController.categories_create_category("Yeeet", (status,data) => {
+ categoryController.categories_create_category({category:"Yeeet"}, (status,data) => {
    expect(status).toBe(200);
    expect(data.affectedRows).toBe(1);
    done();
@@ -40,7 +40,7 @@ test("Testing create_category", (done) => {
 });
 
 test("Testing delete_category", (done) => {
-  categoryController.categories_delete_category("Hole in road", (status,data) => {
+  categoryController.categories_delete_category({category:"Hole in road"}, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
     done();
