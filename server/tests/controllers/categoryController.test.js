@@ -20,11 +20,12 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
+afterAll(() => pool.end());
 
 test("Testing get_all_categories", (done) => {
   categoryController.categories_get_all((status,data) => {
    expect(status).toBe(200);
-   expect(data.length).toBe(3);
+   expect(data.length).toBe(4);
    expect(data[3]).toBe("Snowplow");
    expect(data[0]).toBe("Tree in road");
    done();
@@ -40,7 +41,7 @@ test("Testing create_category", (done) => {
 });
 
 test("Testing delete_category", (done) => {
-  categoryController.categories_delete_category({category:"Hole in road"}, (status,data) => {
+  categoryController.categories_delete_category("Hole in road", (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
     done();
