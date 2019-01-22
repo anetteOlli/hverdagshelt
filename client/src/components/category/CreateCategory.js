@@ -15,155 +15,97 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField/TextField';
 import { withSnackbar } from 'notistack';
-
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import { Typography } from '@material-ui/core';
 
 const variantIcon = {
-  success: CheckCircleIcon,
+  success: CheckCircleIcon
 };
 
 const styles = (theme: Object) => ({
   wrapper: {
     minWidth: 300,
     minHeight: 250,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    minWidth: '100%',
+    minWidth: '100%'
   },
   sendInnBtn: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
-    minWidth: '100%',
+    minWidth: '100%'
   },
-
-  success: {
-    backgroundColor: green[600],
-  },
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  warning: {
-    backgroundColor: amber[700],
-  },
-  icon: {
-    fontSize: 20,
-  },
-  iconVariant: {
-    opacity: 0.9,
+  closeBtn: {
+    marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-  },
-  message: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
+    marginTop: theme.spacing.unit,
+    minWidth: '100%'
+  }
 });
 
-
-function MySnackbarContent(props) {
-  const { classes, className, message, onClose, variant, ...other } = props;
-  const Icon = variantIcon[variant];
-
-  return (
-    <SnackbarContent
-      className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
-      message={
-        <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.icon, classes.iconVariant)} />
-          {message}
-        </span>
-      }
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className={classes.close}
-          onClick={onClose}
-        >
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
-      ]}
-      {...other}
-    />
-  );
-}
-
-MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-};
-
-const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);
-
-
-
-
 class CreateCategory extends React.Component<Props, State> {
-
   state = {
-    open: false,
+    category: ''
   };
 
   handleClick = () => {
-    this.setState({ open: true });
+    const vals = {
+      category: this.state.category
+    };
+
+    this.props.createCategory(vals).then(respone => {
+      if (respone.type === 'CREATE_CATEGORY_ERROR') this.props.enqueueSnackbar('Noe gikk galt', { variant: 'error' });
+      else
+        this.props.enqueueSnackbar(`'${this.state.category}' added to categories.`, {
+          variant: 'success'
+        });
+      this.props.onClose();
+    });
   };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({ open: false });
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
-
-
-
 
   render() {
     const { classes } = this.props;
 
-    return <div className={classes.wrapper}>
-      <h2 className = {classes.textField}>Legg til ny kategori</h2>
+    return (
+      <Dialog onClose={this.props.onClose} aria-labelledby="customized-dialog-title" open={this.props.open}>
+        <DialogContent>
+          <Typography gutterBottom />
+          <div className={classes.wrapper}>
+            <h2 className={classes.textField}>Legg til ny kategori</h2>
 
-      <TextField
-        id="outlined-with-placeholder"
-        label="Kategori"
-        placeholder="Ny kategori"
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <Button onClick={this.handleClick} variant="contained" color="primary" className={classes.sendInnBtn}>
-        Send inn
-      </Button>
-
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={this.state.open}
-        autoHideDuration={6000}
-        onClose={this.handleClose}
-      >
-        <MySnackbarContentWrapper
-          onClose={this.handleClose}
-          variant="success"
-          message="This is a success message!"
-        />
-      </Snackbar>
-    </div>;
+            <TextField
+              id="outlined-with-placeholder"
+              label="Kategori"
+              placeholder="Ny kategori"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              name="category"
+              onChange={this.handleChange}
+            />
+            <Button onClick={this.handleClick} variant="contained" color="primary" className={classes.sendInnBtn}>
+              Send inn
+            </Button>
+            <Button onClick={this.props.onClose} variant="contained" color="secondary" className={classes.sendInnBtn}>
+              Avbryt
+            </Button>
+          </div>
+        </DialogContent>
+        <DialogActions />
+      </Dialog>
+    );
   }
   componentDidMount() {}
 }
@@ -174,7 +116,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createCategory: () => Dispatch(createCategory())
+    createCategory: vals => dispatch(createCategory(vals))
   };
 };
 

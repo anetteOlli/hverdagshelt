@@ -30,7 +30,7 @@ exports.problems_support_problem = (req, res) => {
   console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
   console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
   divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
-    if (status == 200) {
+    if (status === 200) {
       problemDao.supportProblem(req.params.id, (status, data) => {
         res.status(status).json(data);
       });
@@ -88,7 +88,7 @@ exports.problems_create_problem = (req, res) => {
         });
       }
     } else {
-      res.status('Cannot add more problems').json(data);
+      res.status(status).json(data);
     }
   });
 
@@ -216,7 +216,7 @@ exports.problems_get_problem_by_entrepreneur = (req, res) => {
 
 exports.problems_add_entrepreneur = (req, res) => {
   problemDao.addEntrepreneur(req.body, (status, data) => {
-    return res.status(400).json(data);
+    return res.status(status).json(data);
   });
 };
 

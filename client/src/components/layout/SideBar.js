@@ -51,7 +51,7 @@ class TemporaryDrawer extends React.Component<Props> {
   }
 
   checkUser(user) {
-    if (user === 'Administrator' || user === 'Municipality') {
+    if (user === 'Administrator') {
       this.toggleButtonVisible();
       return true;
     } else {
@@ -145,16 +145,7 @@ class TemporaryDrawer extends React.Component<Props> {
             {sideList}
           </div>
         </Drawer>
-
-        <div>
-          <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.openPopup}>
-            <DialogContent>
-              <Typography gutterBottom />
-              <CreateCategory onClick={e => {}} />
-            </DialogContent>
-            <DialogActions />
-          </Dialog>
-        </div>
+        <CreateCategory onClose={this.handleClose} open={this.state.openPopup} />
       </div>
     );
   }

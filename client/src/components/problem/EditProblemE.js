@@ -80,6 +80,7 @@ const styles = (theme: Object) => ({
 });
 
 class EditProblemE extends React.Component<Props, State> {
+
   state = {
     problem_id: null,
     problem_title: '',
@@ -102,7 +103,6 @@ class EditProblemE extends React.Component<Props, State> {
     county_fk: '',
     city_fk: '',
     street_fk: '',
-
   };
 
   handleChange = e => {

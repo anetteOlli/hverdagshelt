@@ -222,7 +222,7 @@ export const setMuni = (county_fk: string, municipality_fk: string) => ({
 
 export const problemAddEntrepreneur = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    patchData('problems/add/entrepreneur', problem)
+    return patchData('problems/add/entrepreneur', problem)
       .then(() =>
         dispatch({
           type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'
