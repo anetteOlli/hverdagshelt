@@ -321,48 +321,74 @@ type Props = {
   municipality: string,
   street: string,
   cords : {
-    lat: number,
-    lng: number
-  }
-};
-
-type State = {
-  activeStep: number,
-  userId: number,
-
-  title: string,
-  category: string,
-  municipality: string,
-  street: string,
-  description: string,
-  image: any,
-  displayImg: string,
-  entrepreneur: string,
-  status: string,
-  cords : {
     lat: string,
     lng: string
   },
-
-  cur_id: -1,
-  cur_title: 'Default',
-  cur_category: 'Default',
-  cur_municipality: 'Default',
-  cur_street: 'Default',
-  cur_description: 'Default',
-  cur_imageURL: 'Default',
-  cur_entrepreneur: 'Default',
-  cur_status: 'Default',
-
-  similarProblems: [],
-  categories:[]
+  county: string,
+  city: string,
+  categories: string,
+  similarProblems: string,
+  similarProblems: Problem[],
+  getProblemsByStreet: Function,
+  getCategories: Function,
+  userId: string,
+  createProblem: Function,
+  errorMessage: string,
+  enqueueSnackbar: Function,
+  supportProblem: Function,
+  isLoggedIn: boolean
 };
+type Problem = {
+  problem_id: number,
+  problem_title: string,
+  problem_description: string,
+  entrepreneur_fk: string,
+  status_fk: string,
+  img_user: string
+
+
+};
+
+type   state = {
+    activeStep: number,
+    //User
+    userId: number,
+
+    municipality: string,
+    title: string,
+    category: string,
+    street: string,
+    description: string,
+    image: string,
+    cords : {
+      lat: string,
+      lng: string
+    },
+    displayImg: string,
+
+    cur_id: number,
+    cur_title: string,
+    cur_description: string,
+    cur_imageURL: string,
+    cur_entrepreneur: string,
+    cur_status: string,
+
+    similarProblems:
+      [
+        {problem_id: number, problem_title: string, category_fk: string, municipality_fk: string, entrepreneur_fk: string,
+        street_fk: string, problem_description: string, status_fk: string, img_user: string}
+        ],
+    categories:['Default']
+  };
+
 
 /** CreateProblem Component */
 class CreateProblem extends React.Component<Props, State> {
   constructor() {
     super();
+    // $FlowFixMe
     this.handleChangeSpec = this.handleChangeSpec.bind(this);
+    // $FlowFixMe
     this.handleSupport = this.handleSupport.bind(this);
   }
 
@@ -370,7 +396,8 @@ class CreateProblem extends React.Component<Props, State> {
     activeStep: 0,
     //User
     userId: 1,
-
+    city: '',
+    county: '',
     municipality: '',
     title: '',
     category: '',

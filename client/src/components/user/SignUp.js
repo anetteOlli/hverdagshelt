@@ -269,7 +269,7 @@ class SignUp extends React.Component<Props, State> {
         <TextValidator
           fullWidth
           margin="normal"
-          label="entrepreneurId"
+          label="Org nr"
           name="orgNr"
           type="number"
           value={this.state.orgNr}

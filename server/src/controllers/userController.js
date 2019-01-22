@@ -27,7 +27,6 @@ exports.users_login = (req, res) => {
 };
 
 exports.users_refresh = (req, res) => {
-  console.log(req.userData);
   res.status(200).json({
     id: req.userData.id,
     jwt: genToken(req.userData.id, req.userData.priority),
@@ -36,8 +35,9 @@ exports.users_refresh = (req, res) => {
 };
 
 exports.users_get_user = (req, res) => {
+  console.log(req.params);
   userDao.getOneById(req.params.id, (status, data) => {
-    res.status(status).json(data);
+    res.status(status).json(data[0]);
   });
 };
 
@@ -61,9 +61,19 @@ exports.user_patch_user = (req, res) => {
 };
 
 exports.user_change_password = (req, res) => {
-  let id = req.params.id;
-  userDao.changePassword(id, req.body, hashPassword(req.body.password), (status, data) => {
+  userDao.changePassword(req.body, hashPassword(req.body.password), (status, data) => {
     res.status(status).json(data);
+  });
+};
+exports.user_is_not_old_password = (req, res) => {
+  userDao.checkEmail(req.params.email, (status, data) => {
+    let isOldPassword = true;
+    if (data.length > 0) {
+      if (!validatePassword(req.params.password, data[0].password)) {
+        isOldPassword = false;
+      }
+    }
+    res.json({ isOldPassword });
   });
 };
 
