@@ -137,6 +137,7 @@ class TemporaryDrawer extends React.Component<Props> {
         </List>
       </div>
     );
+
     return (
       <div>
         <Drawer open={open} onClose={onClose}>

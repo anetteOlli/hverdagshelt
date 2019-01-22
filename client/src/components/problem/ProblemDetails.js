@@ -30,10 +30,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const variantIcon = {
-  success: CheckCircleIcon,
+  success: CheckCircleIcon
 };
 
 const styles = (theme: Object) => ({
@@ -100,28 +100,28 @@ const styles = (theme: Object) => ({
     paddingLeft: 15
   },
   success: {
-    backgroundColor: green[600],
+    backgroundColor: green[600]
   },
   error: {
-    backgroundColor: theme.palette.error.dark,
+    backgroundColor: theme.palette.error.dark
   },
   info: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.dark
   },
   warning: {
-    backgroundColor: amber[700],
+    backgroundColor: amber[700]
   },
   icon: {
-    fontSize: 20,
+    fontSize: 20
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
   message: {
     display: 'flex',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });
 
 function MySnackbarContent(props) {
@@ -139,15 +139,9 @@ function MySnackbarContent(props) {
         </span>
       }
       action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className={classes.close}
-          onClick={onClose}
-        >
+        <IconButton key="close" aria-label="Close" color="inherit" className={classes.close} onClick={onClose}>
           <CloseIcon className={classes.icon} />
-        </IconButton>,
+        </IconButton>
       ]}
       {...other}
     />
@@ -159,11 +153,10 @@ MySnackbarContent.propTypes = {
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
 };
 
 const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);
-
 
 class ProblemDetails extends React.Component<Props, State> {
   state = {
@@ -173,7 +166,7 @@ class ProblemDetails extends React.Component<Props, State> {
     open: false,
     visible: false,
     openSnack: false,
-    locked: false,
+    locked: false
   };
 
   toggleButtonVisible() {
@@ -188,11 +181,11 @@ class ProblemDetails extends React.Component<Props, State> {
   }
 
   checkLocked(bool) {
-    if(bool) {
+    if (bool) {
       this.setState({
         locked: true
       });
-    }else{
+    } else {
       this.setState({
         locked: false
       });
@@ -235,10 +228,10 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   handleCloseSnack = () => {
-    this.setState({ openSnack: false})
+    this.setState({ openSnack: false });
   };
   handleClickSnack = () => {
-    this.setState({ openSnack: true})
+    this.setState({ openSnack: true });
   };
 
   render() {
@@ -250,17 +243,18 @@ class ProblemDetails extends React.Component<Props, State> {
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {this.state.visible && !this.state.locked && (
-                  <Button
-                    variant="contained"
-                    size="small"
-                    color="secondary"
-                    className={classes.linkbtn}
-                    onClick={this.onClickAdd}
-                  >
-                    Legg til entrepreneur
-                  </Button>
-                )}
+                {this.state.visible &&
+                  !this.state.locked && (
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="secondary"
+                      className={classes.linkbtn}
+                      onClick={this.onClickAdd}
+                    >
+                      Legg til entrepreneur
+                    </Button>
+                  )}
 
                 <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
@@ -354,24 +348,27 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                <SelectTable2
-                  rows={this.props.entrepreneurs}
-                  onClick={e => {
-                    let myEntrepreneur = e;
-                    console.log('EEEEEE', e);
-                    this.setState({
-                      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
-                    });
-                    this.handleClickSnack();
-                    this.handleClose();
-                    console.log(myEntrepreneur);
-                    let vals = {
-                      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
-                      problem_id: problem.problem_id
-                    };
-                    this.props.problemAddEntrepreneur(vals);
-                  }}
-                />
+                {this.props.entrepreneurs.length > 0 ? (
+                  <SelectTable2
+                    rows={this.props.entrepreneurs}
+                    onClick={e => {
+                      let myEntrepreneur = e;
+                      this.setState({
+                        entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+                      });
+                      this.handleClickSnack();
+                      this.handleClose();
+                      console.log(myEntrepreneur);
+                      let vals = {
+                        entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+                        problem_id: problem.problem_id
+                      };
+                      this.props.problemAddEntrepreneur(vals);
+                    }}
+                  />
+                ) : (
+                  <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>
+                )}
               </DialogContent>
               <DialogActions />
             </Dialog>
@@ -379,7 +376,7 @@ class ProblemDetails extends React.Component<Props, State> {
           <Snackbar
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'left',
+              horizontal: 'left'
             }}
             open={this.state.openSnack}
             autoHideDuration={6000}
@@ -405,8 +402,6 @@ class ProblemDetails extends React.Component<Props, State> {
       this.checkLocked(nextProps.problem.problem_locked);
     }
   }
-
-
 }
 
 const mapStateToProps = state => {
@@ -418,7 +413,7 @@ const mapStateToProps = state => {
     priority_fk: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
-    currentMuni: state.problem.currentMuni,
+    currentMuni: state.problem.currentMuni
   };
 };
 
