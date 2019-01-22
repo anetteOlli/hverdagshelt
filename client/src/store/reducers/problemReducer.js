@@ -79,7 +79,7 @@ const initState = {
   errorMessage: '',
   currentProblemId: 2,
   editMode: false,
-  currentMuni: ''
+  currentMuni: '' //{municipality: '', county: ''}
 };
 
 export default (state: State = initState, action: Action) => {
@@ -241,7 +241,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'SET_MUNI':
-      console.log('%c GET_MUNI', 'color: green; font-weight: bold;', action.payload);
+      console.log('%c SET_MUNI', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentMuni: action.payload,

@@ -89,7 +89,9 @@ class EditProblem extends React.Component<Props, State> {
     municipality_fk: '',
     county_fk: '',
     city_fk: '',
-    street_fk: ''
+    street_fk: '',
+    displayImg: '',
+
   };
 
   handleChange = e => {
@@ -104,7 +106,7 @@ class EditProblem extends React.Component<Props, State> {
 
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_user: e
     });
   };
 

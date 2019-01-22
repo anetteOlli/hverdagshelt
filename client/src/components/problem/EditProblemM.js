@@ -101,6 +101,7 @@ class EditProblemM extends React.Component<Props, State> {
     county_fk: '',
     city_fk: '',
     street_fk: '',
+    displayImg: '',
 
   };
 
@@ -115,7 +116,7 @@ class EditProblemM extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_user: e
     });
   };
 
@@ -187,7 +188,7 @@ class EditProblemM extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
@@ -196,14 +197,9 @@ class EditProblemM extends React.Component<Props, State> {
                     </div>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
-                    <div />
                     <div>
-                      <img
-                        id="img"
-                        width="100%"
-                        src={this.state.img_user || 'http://placehold.it/180'}
-                        alt="Bilde"
-                      />
+                      <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                      <PictureUpload uploadImg={this.handleUpload} />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -234,7 +230,7 @@ class EditProblemM extends React.Component<Props, State> {
                   }
                 </Paper>
 
-                <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
+                <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
 
                 <div>
                   <ExpansionPanel>

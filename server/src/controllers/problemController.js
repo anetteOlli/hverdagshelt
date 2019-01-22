@@ -136,7 +136,7 @@ exports.problems_edit_problem = (req, res) => {
 
   switch (req.userData.priority) {
     case 'Administrator':
-      problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
+      problemDao.patchAdministrator(req.params.id, req.body, (status, data) => {
         //ENDRE DENNE TIL PATCHADMINISTRATOR!! Lag den i problemDao
 
         /*
@@ -172,10 +172,12 @@ exports.problems_edit_problem = (req, res) => {
       break;
 
     case 'Entrepreneur':
-      entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
+    //  entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
+        /*
         if (data[0].user_fk !== req.userData.id)
           return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
+          */
           problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
             if (status === 200) {
               problemDao.getAllbyProblemId(req.params.id, (status, data) => {
@@ -189,15 +191,15 @@ exports.problems_edit_problem = (req, res) => {
             }
             return res.status(status).json(data);
           });
-      });
+     // });
       break;
     default:
-      if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
-      if (req.userData.user.id !== data[0].user_fk)
-        return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+      //if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
+      //if (req.userData.user.id !== data[0].user_fk)
+        //return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
       //User changes its own problem:
-      else
-        problemDao.patchStandard(req.params.id, false, req.body, (status, data) => {
+     // else
+        problemDao.patchStandard(req.params.id, req.body, (status, data) => {
           return res.status(status).json(data);
         });
   }

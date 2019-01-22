@@ -153,7 +153,6 @@ class ProblemDetails extends React.Component<Props, State> {
   render() {
     const { classes, problem, isLoggedIn, rows } = this.props;
     if (problem) {
-      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>

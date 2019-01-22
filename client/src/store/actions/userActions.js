@@ -9,20 +9,21 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction | AppAction) => any;
 type GetState = () => ReduxState;
 
-
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id${getState().user.userID}`).then(response =>
-      dispatch({
-        type: 'GET_USER_INFO_SUCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    return getData(`users/id/${getState().user.userID}`)
+      .then(response =>
+        dispatch({
+          type: 'GET_USER_INFO_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'GET_USER_INFO_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
 

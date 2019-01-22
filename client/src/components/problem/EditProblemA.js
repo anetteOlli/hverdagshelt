@@ -43,7 +43,7 @@ type State = {
   municipality_fk: string,
   county_fk: string,
   city_fk: string,
-  street_fk: string,
+  street_fk: string
 };
 
 const styles = (theme: Object) => ({
@@ -99,7 +99,8 @@ class EditProblemA extends React.Component<Props, State> {
     county_fk: '',
     city_fk: '',
     street_fk: '',
-
+    displayImg: '',
+    displayImg2: ''
   };
 
   handleChange = e => {
@@ -108,8 +109,21 @@ class EditProblemA extends React.Component<Props, State> {
     });
   };
 
+  handleUpload = e => {
+    this.setState({
+      img_user: e
+    });
+  };
+
+  handleUpload2 = e => {
+    this.setState({
+      img_entrepreneur: e
+    });
+  };
+
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
+
   };
 
   render() {
@@ -192,14 +206,9 @@ class EditProblemA extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div />
                       <div>
-                        <img
-                          id="img"
-                          width="100%"
-                          src={this.state.img_user || 'http://placehold.it/180'}
-                          alt="Bilde"
-                        />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -251,10 +260,9 @@ class EditProblemA extends React.Component<Props, State> {
                         </div>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <div />
                         <div>
-                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
-                          <PictureUpload uploadImg={this.handleUpload} />
+                          <img id="img" width="100%" src={this.state.displayImg2 ||this.state.img_entrepreneur} alt="Bilde" />
+                          <PictureUpload uploadImg={this.handleUpload2} />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>

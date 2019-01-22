@@ -100,6 +100,7 @@ class EditProblemE extends React.Component<Props, State> {
     county_fk: '',
     city_fk: '',
     street_fk: '',
+    displayImg: '',
 
   };
 
@@ -114,7 +115,7 @@ class EditProblemE extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_entrepreneurF: e
     });
   };
 
@@ -179,7 +180,6 @@ class EditProblemE extends React.Component<Props, State> {
                     <div>
                       <img
                         id="img"
-                        top
                         width="100%"
                         src={this.state.img_user || 'http://placehold.it/180'}
                         alt="Bilde"
@@ -238,7 +238,7 @@ class EditProblemE extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>

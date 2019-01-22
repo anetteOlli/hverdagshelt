@@ -20,7 +20,7 @@ export type Action =
   | { type: 'REFRESH_ERROR', payload: string }
   | { type: 'TEMP_PASSWORD_SUCCESS' }
   | { type: 'TEMP_PASSWORD_ERROR', payload: Error }
-  | { type: 'GET_USER_INFO_SUCESS', payload: any }
+  | { type: 'GET_USER_INFO_SUCCESS', payload: any }
   | { type: 'GET_USER_INFO_ERROR', payload: Error };
 
 const initState = {
@@ -101,15 +101,15 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload
       };
-    case 'GET_USER_INFO_SUCESS':
-      console.log('%c GET_USER_INFO_SUCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'GET_USER_INFO_SUCCESS':
+      console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk }
+        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk },
       };
     case 'GET_USER_INFO_ERROR':
-      console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload

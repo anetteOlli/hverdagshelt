@@ -16,12 +16,20 @@ module.exports = class ProblemDao extends Dao {
 
   getFromMunicipality(json, callback) {
     const values = [json.municipality, json.county];
-    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL', values, callback);
+    super.query(
+      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL',
+      values,
+      callback
+    );
   }
 
   getFromCity(json, callback) {
     const values = [json.municipality, json.county, json.city];
-    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ? AND date_finished IS NULL', values, callback);
+    super.query(
+      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ? AND date_finished IS NULL',
+      values,
+      callback
+    );
   }
 
   getFromStreet(json, callback) {
@@ -57,12 +65,9 @@ module.exports = class ProblemDao extends Dao {
   }
 
   supportProblem(id, callback) {
-    super.query(
-      'UPDATE problem SET support = support + 1 WHERE problem_id = ?',
-      id,
-      callback
-    );
+    super.query('UPDATE problem SET support = support + 1 WHERE problem_id = ?', id, callback);
   }
+
   patchAdministrator(id, json, callback) {
     const values = [
       json.problem_title,
@@ -74,26 +79,11 @@ module.exports = class ProblemDao extends Dao {
       json.img_entrepreneur,
       id
     ];
-    patchAdministrator(id, json, callback);
-    {
-      console.log('patch admin: ' + json.problem_title);
-      const values = [
-        json.problem_title,
-        json.problem_description,
-        json.status_fk,
-        json.category_fk,
-        json.img_user,
-        json.description_entrepreneur,
-        json.img_entrepreneur,
-        id
-      ];
-
-      super.query(
-        'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
-        values,
-        callback
-      );
-    }
+    super.query(
+      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+      values,
+      callback
+    );
   }
 
   patchEntrepreneur(id, json, callback) {
@@ -107,22 +97,18 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchMunicipality(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.category_fk, json.status_fk, id];
+    const values = [json.problem_title, json.problem_description, json.category_fk, json.status_fk, json.img_user, id];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, img_user = ?, last_edited = NOW()  WHERE problem_id = ?',
       values,
       callback
     );
   }
 
   patchStandard(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.img_user, id];
-  }
-
-  patchBruker(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.category_fk, json.img_user, id];
-    console.log(values);
+    console.log('the values are: ' + values);
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
