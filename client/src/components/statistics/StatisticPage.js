@@ -7,6 +7,7 @@ import LineChart from './LineChartPage';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
+import { getUserInfo } from '../../store/actions/userActions';
 
 const styles = theme => ({
   root: {
@@ -53,13 +54,13 @@ class StatisticPage extends React.Component {
   }
 
   componentDidMount(): void {
-    this.props.getUsersMuni().then(() => this.props.getAllProblemsFromMuni());
+    this.props.getUserInfo().then(() => this.props.getAllProblemsFromMuni());
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUsersMuni: () => dispatch(getUsersMuni()),
+    getUserInfo: () => dispatch(getUserInfo()),
     getAllProblemsFromMuni: () => dispatch(getAllProblemsFromMuni())
   };
 };
