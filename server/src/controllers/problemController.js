@@ -33,42 +33,31 @@ exports.problems_support_problem = (req, res) => {
   divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
     if (status == 200) {
 
-      problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+      problemDao.supportProblem(req.params.id, (status, data) => {
 
-        console.log('data = ' + data);
-        console.log('data.email = ' + data.email);
-        //Send email if its the firs time someone supports the problem
-        if(data.length === 1){
-          const email = data.email;
-        }
-
-        problemDao.supportProblem(req.params.id, (status, data) => {
-
-          console.log('req.params.id = ' + req.params.id); //ProblemID
-          console.log('req.body.problemId = ' + req.body.problemId); //ProblemID
-          console.log('req.body.userId = ' + req.body.userId);//User som liker ID
-          console.log('req body.user_fk = ' + req.body.user_fk); //undefined
-          console.log('req params.user_fk = ' + req.params.user_fk); //undefined
-          console.log('req body problem_title = ' + req.body.problem_title);
-          console.log('email = ' + email);
-
-          //Send email to the user who created the problem
-          if(email){
+        problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+          console.log('data.length = ' + data.length);
+          console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
+          //Send email to the user who created the problem if its the firs time someone supports the problem
+          if(data.length <= 2){
             console.log('---Mail skal sendes!');
             MailController.sendSingleMail({
-              recepients: data.email,
-              text: 'Et problem du har opprettet "' + req.body.problem_title + '" er blitt liket. Problemet er nå ikke mulig å endre lengre.',
+              recepients: data[0].email,
+              text: 'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
               html: ''
             }, (status,data));
-          }
-          console.log('---Etter getOne');
-          res.status(status).json(data);
-        });
+          }//if
+
+        });//getAllUsersbyProblemId
+
+        res.status(status).json(data);
+    });//support
+
     } else {
       console.log('---ELSE altså ikke status 200');
       res.status(status).json(data);
     }
-  });
+  });//createSupportUser
 };
 
 exports.problems_get_from_municipality = (req, res) => {
