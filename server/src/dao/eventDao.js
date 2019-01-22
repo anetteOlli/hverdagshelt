@@ -27,10 +27,11 @@ module.exports = class EventDao extends Dao {
       json.city_fk,
       json.street_fk,
       json.latitude,
-      json.longitude
+      json.longitude,
+      "Unchecked"
     ];
     super.query(
-      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude, status_fk) values (?,?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
@@ -64,6 +65,8 @@ module.exports = class EventDao extends Dao {
     super.query('delete from event where event_id=?', [id], callback);
   }
   updateStatus(callback){
-    super.query('update event set status_fk = ? where date_ending < CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status_fk = ? where date_ending <= CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status_fk = ? where date_starting >= CURRENT_TIMESTAMP', ["Unchecked"], callback);
+    super.query('update event set status_fk = ? where date_starting <= CURRENT_TIMESTAMP AND date_ending >= CURRENT_TIMESTAMP', ["InProgress"], callback);
   }
 };

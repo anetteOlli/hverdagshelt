@@ -7,12 +7,10 @@ export default () => (
       Profil
     </Typography>
     <Typography variant="h4" gutterBottom align="center">
-      Mine problemer
-      ....
+      Mine problemer ....
     </Typography>
     <Typography variant="h4" gutterBottom align="center">
-      Mine abonenter
-      ....
+      Mine abonnementer ....
     </Typography>
   </div>
 );

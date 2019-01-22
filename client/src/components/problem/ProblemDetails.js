@@ -2,7 +2,6 @@
 import React from 'react';
 import { Button, Typography, MenuItem } from '@material-ui/core/';
 import withRoot from '../../withRoot';
-import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +20,21 @@ import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import CloseIcon from '@material-ui/icons/Close';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { withStyles } from '@material-ui/core/styles';
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+
+const variantIcon = {
+  success: CheckCircleIcon,
+};
 
 const styles = (theme: Object) => ({
   main: {
@@ -84,9 +98,71 @@ const styles = (theme: Object) => ({
     paddingTop: 25,
     paddingBottom: 15,
     paddingLeft: 15
-  }
+  },
+  success: {
+    backgroundColor: green[600],
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  info: {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  warning: {
+    backgroundColor: amber[700],
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing.unit,
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
 
+function MySnackbarContent(props) {
+  const { classes, className, message, onClose, variant, ...other } = props;
+  const Icon = variantIcon[variant];
+
+  return (
+    <SnackbarContent
+      className={classNames(classes[variant], className)}
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={classNames(classes.icon, classes.iconVariant)} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          className={classes.close}
+          onClick={onClose}
+        >
+          <CloseIcon className={classes.icon} />
+        </IconButton>,
+      ]}
+      {...other}
+    />
+  );
+}
+
+MySnackbarContent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  message: PropTypes.node,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
+
+const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);
 
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -95,9 +171,43 @@ class ProblemDetails extends React.Component<Props, State> {
     isHidden: true,
     power: '',
     open: false,
-    entrepreneur_chosen: -1,
-    userPriority: ''
+    visible: false,
+    openSnack: false,
+    locked: false,
   };
+
+  toggleButtonVisible() {
+    this.setState({
+      visible: true
+    });
+  }
+  toggleButtonHidden() {
+    this.setState({
+      visible: false
+    });
+  }
+
+  checkLocked(bool) {
+    if(bool) {
+      this.setState({
+        locked: true
+      });
+    }else{
+      this.setState({
+        locked: false
+      });
+    }
+  }
+
+  checkUser(user) {
+    if (user === 'Administrator' || user === 'Municipality') {
+      this.toggleButtonVisible();
+      return true;
+    } else {
+      this.toggleButtonHidden();
+      return false;
+    }
+  }
 
   onClickAdd = () => {
     this.handleClickOpen();
@@ -105,8 +215,6 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickEdit = () => {
-
-
     this.props.goToProblemEdit(this.props.problem.problem_id);
   };
 
@@ -125,48 +233,34 @@ class ProblemDetails extends React.Component<Props, State> {
   handleClose = () => {
     this.setState({ open: false });
   };
-  getPriorityView(priority: string) {
 
-    if(priority == "Standard" || priority == "Entrepreneur"){
-      return <div></div>
-    } else {
-      return (
-        <SelectTable2
-          rows={this.props.entrepreneurs}
-          onClick={e => {
-            let myEntrepreneur = e;
-            this.setState({
-              entrepreneur_chosen: myEntrepreneur.entrepreneur_id
-            });
-            this.handleClose();
-            console.log(myEntrepreneur);
-            let vals = {
-              entrepreneur_fk: myEntrepreneur.entrepreneur_id,
-              problem_id: this.props.currentProblemId
-            };
-            this.props.problemAddEntrepreneur(vals);
-          }}
-        />
-      )
-    }
-  }
+  handleCloseSnack = () => {
+    this.setState({ openSnack: false})
+  };
+  handleClickSnack = () => {
+    this.setState({ openSnack: true})
+  };
+
   render() {
-    const { classes, problem, isLoggedIn, rows } = this.props;
+    const { classes, problem, priority_fk } = this.props;
     if (problem) {
+      console.log('locked: ' + problem.problem_locked);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="secondary"
-                  className={classes.linkbtn}
-                  onClick={this.onClickAdd}
-                >
-                  Legg til entrepreneur
-                </Button>
+                {this.state.visible && !this.state.locked && (
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    className={classes.linkbtn}
+                    onClick={this.onClickAdd}
+                  >
+                    Legg til entrepreneur
+                  </Button>
+                )}
 
                 <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
@@ -260,12 +354,43 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {this.getPriorityView(this.props.userPriority)}
-
+                <SelectTable2
+                  rows={this.props.entrepreneurs}
+                  onClick={e => {
+                    let myEntrepreneur = e;
+                    console.log('EEEEEE', e);
+                    this.setState({
+                      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+                    });
+                    this.handleClickSnack();
+                    this.handleClose();
+                    console.log(myEntrepreneur);
+                    let vals = {
+                      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+                      problem_id: problem.problem_id
+                    };
+                    this.props.problemAddEntrepreneur(vals);
+                  }}
+                />
               </DialogContent>
               <DialogActions />
             </Dialog>
           </div>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={this.state.openSnack}
+            autoHideDuration={6000}
+            onClose={this.handleCloseSnack}
+          >
+            <MySnackbarContentWrapper
+              onClose={this.handleCloseSnack}
+              variant="success"
+              message="Entrepreneur added! Problem is now locked and in progress."
+            />
+          </Snackbar>
         </div>
       );
     } else {
@@ -274,9 +399,14 @@ class ProblemDetails extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.currentProblemId !== nextProps.currentProblemId)
-    this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
+    if (this.props.currentProblemId !== nextProps.currentProblemId) {
+      this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
+      this.checkUser(this.props.priority_fk);
+      this.checkLocked(nextProps.problem.problem_locked);
+    }
   }
+
+
 }
 
 const mapStateToProps = state => {
@@ -285,10 +415,10 @@ const mapStateToProps = state => {
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    userPriority: state.user.priority,
+    priority_fk: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
-    currentMuni: state.problem.currentMuni,
+    currentMuni: state.problem.currentMuni
   };
 };
 
@@ -296,9 +426,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: (category_fk) => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
-    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals)),
-
+    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };
 

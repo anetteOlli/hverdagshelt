@@ -16,27 +16,42 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
+import { setNewPassword, getUserInfo } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { postData } from '../../store/axios';
+import { getData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
   enqueueSnackbar: Function,
-  errorMessage: string
+  errorMessage: string,
+  getUserInfo: Function,
+  password: string,
+  email: string,
+  userID: number,
+  setNewPassword: Function,
+  history: Function
 };
 
 type State = {
   email: string,
   password: string,
   cnfPassword: string,
-  showPassword: boolean
+  showPassword: boolean,
+  userID: number,
+  successDialog: boolean,
+  isOldPassword: boolean,
+  failureDialog: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -64,7 +79,11 @@ class ChangePassword extends React.Component<Props, State> {
     email: '',
     password: '',
     cnfPassword: '',
-    showPassword: false
+    userID: -1,
+    showPassword: false,
+    successDialog: false,
+    isOldPassword: false,
+    failureDialog: false
   };
   handleChange = e => {
     this.setState({
@@ -78,12 +97,62 @@ class ChangePassword extends React.Component<Props, State> {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password } = this.state;
-    console.log(this.state);
+    const { email, userID, password } = this.state;
+
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      this.setState({
+        isOldPassword: response.data.isOldPassword
+      });
+
+      if (this.state.isOldPassword) {
+        this.setState({
+          failureDialog: true
+        });
+      } else {
+        this.props.setNewPassword(userID, password, email).then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else {
+            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.setState({
+              successDialog: true
+            });
+          }
+        });
+      }
+    });
+  };
+  handleSuccessDialogClose = () => {
+    this.setState({
+      successDialog: false
+    });
+    this.props.history.push('/');
+  };
+  checkOldPassword = () => {
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      this.setState({
+        isOldPassword: response.data.isOldPassword
+      });
+    });
+  };
+
+  handlePasswordInputChange = e => {
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      if (response.status != 404) {
+        this.setState({
+          isOldPassword: response.data.isOldPassword,
+          [e.target.name]: e.target.value
+        });
+      }
+    });
+  };
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
+    });
   };
 
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, email, userID, password } = this.props;
     const form = (
       <div className={classes.main}>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
@@ -122,33 +191,66 @@ class ChangePassword extends React.Component<Props, State> {
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
             Endre passord
           </Button>
-          <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
-            Cancel
-          </Button>
         </ValidatorForm>
+        <Dialog
+          open={this.state.successDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{'Du har nå endret passord'}</DialogTitle>
+
+          <DialogActions>
+            <Button onClick={this.handleSuccessDialogClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.failureDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{'Nytt passord kan ikke være likt gammelt passord'}</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
 
     return isLoggedIn ? form : <div />;
   }
   componentDidMount() {
+    this.props.getUserInfo().then(() => {
+      this.setState({
+        email: this.props.email,
+        userID: this.props.userID
+      });
+    });
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
+    ValidatorForm.addValidationRule('isOldPassword', () => !this.state.isOldPassword);
   }
 }
 const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
-    userID: state.user.userID
+    userID: state.user.userID,
+    email: state.user.email
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    setNewPassword: (userId, password, email) => dispatch(setNewPassword(userId, password, email)),
+    getUserInfo: () => dispatch(getUserInfo())
+  };
 };
 
 // $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(withSnackbar(ChangePassword)));
+)(withRouter(withStyles(styles)(withSnackbar(ChangePassword))));
