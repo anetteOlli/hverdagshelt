@@ -6,7 +6,8 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority
+  priority: Priority,
+  currentMuni: {municipality_fk: string, county_fk: string}
 };
 
 export type Action =
@@ -103,10 +104,12 @@ export default (state: State = initState, action: Action) => {
       };
     case 'GET_USER_INFO_SUCCESS':
       console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      console.log("Action payload in user info: " + action.payload[0].municipality_fk)
+
       return {
         ...state,
         email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk },
+        currentMuni: { municipality: action.payload[0].municipality_fk, county: action.payload[0].county_fk },
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);

@@ -46,7 +46,7 @@ export type Action =
   | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
-  | { type: 'SET_MUNI' };
+  | { type: 'SET_MUNI', payload: any };
 
 
 const initState = {
@@ -79,7 +79,7 @@ const initState = {
   errorMessage: '',
   currentProblemId: 2,
   editMode: false,
-  currentMuni: '' //{municipality: '', county: ''}
+  currentMuni: {municipality: '', county: ''}
 };
 
 export default (state: State = initState, action: Action) => {

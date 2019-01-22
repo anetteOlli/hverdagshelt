@@ -209,10 +209,10 @@ class EditProblemMain extends React.Component<Props, State> {
     this.props.getUserInfo().then(() => {
     this.props.entrepreneurs_get_one_by_User_fk().then(() => {
       this.props.getProblemByUser();
-      console.log("current muni: " + this.props.currentMunicipality.county)
-      this.props.setMuni(this.props.currentMunicipality.county, this.props.currentMunicipality.municipality);
+      console.log("current muni: " + this.props.currentMuni.county)
+      this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
     })
-   })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -226,7 +226,7 @@ const mapStateToProps = state => {
     problems: state.problem.problems,
     userId: state.user.userID,
     priority_fk: state.user.priority,
-    currentMunicipality: state.user.currentMuni,
+    currentMuni: state.user.currentMuni,
     currentProblemId: state.problem.currentProblemId,
     editMode: state.problem.editMode,
     currentEntrepreneur: state.entrepreneur.currentEntrepreneur
