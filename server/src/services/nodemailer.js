@@ -22,10 +22,12 @@ class MailController {
      * @param callback
      */
     sendSingleMail(dataPackage: object, callback: function) {
-
+        console.log('---Inne i sendSingleMail');
+        console.log('---DataPackage er:' + dataPackage);
+        console.log('---Email er:' + dataPackage.recepients);
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",
-          to: dataPackage.email,
+          to: dataPackage.recepients,
           subject: "Your problem has been registered",
           text: dataPackage.text,
           html: dataPackage.html

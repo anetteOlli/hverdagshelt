@@ -6,3 +6,6 @@ INSERT INTO user (email, password, auz_url, priority_fk) VALUES('test@test.test'
 INSERT INTO category VALUE ('Testing');
 
 UPDATE problem SET problem_description = 'Han vant hele driten' WHERE problem_id = 27;
+
+UPDATE user SET priority_fk = 'Administrator' WHERE user_id = 15;
+
