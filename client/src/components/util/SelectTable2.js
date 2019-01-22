@@ -108,8 +108,6 @@ class MuiTable2 extends React.Component<Props> {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
-
-
       </div>
     );
   }

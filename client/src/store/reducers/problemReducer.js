@@ -247,13 +247,13 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'PROBLEM_ADD_ENTREPRENEUR_ERROR':
-      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: green; font-weight: bold;');
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'SET_MUNI':
-      console.log('%c SET_MUNI', 'color: green; font-weight: bold;', action.payload);
+      console.log('%c GET_MUNI', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentMuni: action.payload,
