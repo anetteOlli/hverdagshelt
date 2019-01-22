@@ -1,3 +1,9 @@
+//import moment from '../../../store/reducers/statisticsReducer';
+
+console.log(Date.now());
+
+
+
 const allProblems = [
   {
     problem_id: 1,
@@ -174,7 +180,7 @@ var dateEnd = moment('2015-3-30');
 var timeValues = [];
 
 while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
-  timeValues.push({dateStart.format('YYYY-MM'));
+  timeValues.push(dateStart.format('YYYY-MM'));
   dateStart.add(1,'month');
 }
 
@@ -209,3 +215,43 @@ problems.map(p => result[p.date_made.getDate() - 1].problems++);
 
 console.log('Du har "ett" problem', result);
 //const result = [{ name: 'dag 1', problems: 20 }, { name: 'dag 2', problems: 10 }, { name: 'dag 3', problems: 14 }];
+
+/*
+const setLineChartData = (year: number, month: number) =>{
+
+  const dateStart = moment('2013-8-31');
+  const dateEnd = moment('2015-3-30');
+
+  while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+    timeValues.push(dateStart.format('YYYY-MM'));
+    dateStart.add(1,'month');
+  }
+
+
+  let array = [
+    {name: '2017 mars', value: {year: 2017, month: 2}},
+    {name: '2017 april', value: {year: 2017, month: 3}},
+    {name: '2017 mai', value: {year: 2017, month: 4}},
+  ];
+
+  const year = 2016;
+  const month = 1;
+
+  console.log(allProblems[0].date_made.getFullYear());
+  console.log(allProblems[0].date_made.getMonth());
+
+  const problems = allProblems.filter(p => p.date_made.getFullYear() === year && p.date_made.getMonth() === month);
+  console.log(problems);
+
+  console.log(new Date(year, month+1, 0).getDate());
+
+  const result = Array(new Date(year, month+1, 0).getDate())
+    .fill(null)
+    .map((u, i) => ({ name: i, problems: 0 }));
+
+  problems.map(p => result[p.date_made.getDate() - 1].problems++);
+
+  console.log('Du har "ett" problem', result);
+};
+*/
+

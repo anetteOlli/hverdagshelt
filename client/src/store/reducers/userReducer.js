@@ -23,7 +23,9 @@ export type Action =
   | { type: 'TEMP_PASSWORD_SUCCESS' }
   | { type: 'TEMP_PASSWORD_ERROR', payload: Error }
   | { type: 'GET_USER_INFO_SUCESS', payload: any }
-  | { type: 'GET_USER_INFO_ERROR', payload: Error };
+  | { type: 'GET_USER_INFO_ERROR', payload: Error }
+  | { type: 'NEW_PASSWORD_SUCCESS' }
+  | { type: 'NEW_PASSWORD_ERROR', payload: Error };
 
 const initState = {
   userID: 0,
@@ -60,6 +62,7 @@ export default (state: State = initState, action: Action) => {
     case 'SIGN_UP_ERROR':
       console.log('%c SIGN_UP_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'SIGN_OUT_SUCCESS':
@@ -112,6 +115,18 @@ export default (state: State = initState, action: Action) => {
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload
+      };
+    case 'NEW_PASSWORD_SUCCESS':
+      console.log('%c NEW_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
+      return {
+        ...state,
+        errorMessage: ''
+      };
+    case 'NEW_PASSWORD_ERROR':
+      console.log('%c NEW_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload

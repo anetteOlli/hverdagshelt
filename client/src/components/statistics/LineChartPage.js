@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import LineChart from 'recharts/lib/chart/LineChart';
@@ -9,90 +10,120 @@ import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
-import { getLineChartData } from '../../store/actions/statisticsActions';
+import { getProblemsByMonth } from '../../store/actions/statisticsActions';
 import { Typography } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
+import moment from 'moment';
 
 const lineChartData = [
-  { name: 'Mon', Visits: 2200, Orders: 3400 },
-  { name: 'Tue', Visits: 1280, Orders: 2398 },
-  { name: 'Wed', Visits: 5000, Orders: 4300 },
-  { name: 'Thu', Visits: 4780, Orders: 2908 },
-  { name: 'Fri', Visits: 5890, Orders: 4800 },
-  { name: 'Sat', Visits: 4390, Orders: 3800 },
-  { name: 'Sun', Visits: 4490, Orders: 4300 }
+  { name: 'Mon', Problems: 2200 },
+  { name: 'Tue', Problems: 1200 },
+  { name: 'Wed', Problems: 5000 },
+  { name: 'Thu', Problems: 4780 },
+  { name: 'Fri', Problems: 5890 },
+  { name: 'Sat', Problems: 4390 },
+  { name: 'Sun', Problems: 4490 }
 ];
 
-class LineChartPage extends React.Component {
+type Props = {
+  dropDownMonths: { value: string, name: string }[],
+  getProblemsByMonth: (selectedMonth: string) => void,
+  lineChartData: any
+};
+type State = {
+  selectedMonth: string
+};
+
+class LineChartPage extends React.Component<Props, State> {
   state = {
-    showData1: false,
-    showData2: false,
-    showData3: false,
-    showData4: false
+    selectedMonth: moment(Date.now()).format('YYYY-M')
   };
 
-  handleDataChange = (name: string) => (e: SyntheticInputEvent<HTMLInputElement>): void => {
+  handleChange = (e: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({
-      [name]: e.target.checked
+      selectedMonth: e.target.value
     });
+    this.props.getProblemsByMonth(e.target.value);
   };
 
   render() {
+    console.log(this.props.lineChartData);
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={lineChartData}>
+          <LineChart data={this.props.lineChartData}>
             <XAxis dataKey="name" />
             <YAxis />
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="Visits" stroke="#82ca9d" />
-            <Line type="monotone" dataKey="Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="problemer" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
-        <FormGroup row>
-          <FormControlLabel
-            control={<Switch checked={this.state.showData1} onChange={this.handleDataChange('showData1')} />}
-            label="Data1"
-          />
-          <FormControlLabel
-            control={<Switch checked={this.state.showData2} onChange={this.handleDataChange('showData2')} />}
-            label="Data2"
-          />
-          <FormControlLabel
-            control={<Switch checked={this.state.showData3} onChange={this.handleDataChange('showData3')} />}
-            label="Data3"
-          />
-          <FormControlLabel
-            control={<Switch checked={this.state.showData4} onChange={this.handleDataChange('showData4')} />}
-            label="Data4"
-          />
-        </FormGroup>
+        <ValidatorForm onSubmit={() => console.log('')}>
+          <SelectValidator
+            fullWidth
+            margin="normal"
+            label="Fylke: "
+            name="county"
+            value={this.state.selectedMonth}
+            onChange={this.handleChange}
+            validators={['required']}
+            errorMessages={['this field is required']}
+          >
+            {this.props.dropDownMonths.map((option, index) => (
+              <MenuItem key={index} value={option.value}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </SelectValidator>
+        </ValidatorForm>
       </div>
     );
   }
 
-  componentDidMount(): void {}
+  componentDidMount(): void {
+    this.props.getProblemsByMonth(this.state.selectedMonth);
+  }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    data: state.statistic.lineChartData
+    dropDownMonths: state.statistic.dropDownMonths,
+    lineChartData: state.statistic.lineChartData
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getLineChartData: () => dispatch(getLineChartData())
-  };
+const action = {
+  getProblemsByMonth
 };
 
 // $FlowFixMe
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  action
 )(withSnackbar(LineChartPage));
+
+/*
+  <InputLabel shrink htmlFor="age-label-placeholder">
+              Age
+            </InputLabel>
+            <Select
+              value={this.state.age}
+              onChange={this.handleChange}
+              input={<Input name="age" id="age-label-placeholder" />}
+              displayEmpty
+              name="age"
+              className={classes.selectEmpty}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+
+ */

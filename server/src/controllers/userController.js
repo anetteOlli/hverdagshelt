@@ -59,8 +59,7 @@ exports.user_patch_user = (req, res) => {
 };
 
 exports.user_change_password = (req, res) => {
-  let id = req.params.id;
-  userDao.changePassword(id, req.body, hashPassword(req.body.password), (status, data) => {
+  userDao.changePassword(req.body, hashPassword(req.body.password), (status, data) => {
     res.status(status).json(data);
   });
 };

@@ -11,19 +11,29 @@ type GetState = () => ReduxState;
 export const getAllProblemsFromMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
-    return postData('problems/municipality/sorted', state.statistic.selectedMuni || getState().user.currentMuni).then(response =>
-      dispatch({
-        type: 'GET_ALL_PROBLEMS_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    return postData('problems/municipality/sorted', state.statistic.selectedMuni || getState().user.currentMuni)
+      .then(response =>
+        dispatch({
+          type: 'GET_ALL_PROBLEMS_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'GET_ALL_PROBLEMS_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
+
+export const getProblemsByMonth = (selectedMonth: string): Action => ({
+  type: 'GET_PROBLEMS_BY_MONTH',
+  payload: selectedMonth
+});
+
+/*
+
 
 export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -72,3 +82,5 @@ export const getBarChartData = () => {
     );
   };
 };
+
+ */

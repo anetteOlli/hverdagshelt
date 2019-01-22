@@ -13,7 +13,6 @@ import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Legend from 'recharts/lib/component/Legend';
 import Bar from 'recharts/lib/cartesian/Bar';
 import BarChart from 'recharts/lib/chart/BarChart';
-import { getBarChartData } from '../../store/actions/statisticsActions';
 
 const barChartData = [
   { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -74,7 +73,6 @@ class BarChartPage extends React.Component {
   }
 
   componentDidMount(): void {
-    this.props.getBarChartData();
   }
 }
 
@@ -83,7 +81,6 @@ const mapStateToProps = (state: ReduxState) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBarChartData: () => dispatch(getBarChartData())
 });
 
 // $FlowFixMe
