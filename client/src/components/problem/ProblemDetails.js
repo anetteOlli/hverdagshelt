@@ -279,7 +279,7 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    user
+    user: state.user
   };
 };
 
