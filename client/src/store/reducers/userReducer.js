@@ -6,7 +6,9 @@ export type State = {
   userID: number,
   isLoggedIn: boolean,
   errorMessage: string,
-  priority: Priority
+  priority: Priority,
+  currentMuni: { municipality: string, county: string } | null,
+  email: string | null
 };
 
 export type Action =
@@ -28,8 +30,8 @@ const initState = {
   isLoggedIn: false,
   errorMessage: '',
   priority: 'Standard',
-  email: '',
-  currentMuni: { municipality: '', county: '' }
+  email: null,
+  currentMuni: null
 };
 
 export default (state: State = initState, action: Action) => {

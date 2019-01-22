@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
 import { getUserInfo } from '../../store/actions/userActions';
+import type { ReduxState } from '../../store/reducers';
 
 const styles = theme => ({
   root: {
@@ -26,37 +27,52 @@ const styles = theme => ({
   }
 });
 
-class StatisticPage extends React.Component {
+type Props = {
+  ready: boolean,
+  classes: Object
+};
+
+class StatisticPage extends React.Component<Props> {
   render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.content}>
-        <Typography variant="h4" gutterBottom component="h2">
-          LineChart
-        </Typography>
-        <Typography component="div" className={classes.chartContainer}>
-          <LineChart />
-        </Typography>
-        <Typography variant="h4" gutterBottom component="h2">
-          PieChart
-        </Typography>
-        <Typography component="div" className={classes.chartContainer}>
-          <PieChart />
-        </Typography>
-        <Typography variant="h4" gutterBottom component="h2">
-          BarChart
-        </Typography>
-        <Typography component="div" className={classes.chartContainer}>
-          <BarChart />
-        </Typography>
-      </div>
-    );
+    const { classes, ready } = this.props;
+    if (ready) {
+      return (
+        <div className={classes.content}>
+          <Typography variant="h4" gutterBottom component="h2">
+            LineChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <LineChart />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            PieChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <PieChart />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            BarChart
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <BarChart />
+          </Typography>
+        </div>
+      );
+    } else {
+      return <div>LOADING........</div>;
+    }
   }
 
   componentDidMount(): void {
     this.props.getUserInfo().then(() => this.props.getAllProblemsFromMuni());
   }
 }
+
+const mapStateToProps = (state: ReduxState) => {
+  return {
+    ready: state.statistic.ready
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -67,7 +83,7 @@ const mapDispatchToProps = dispatch => {
 
 // $FlowFixMe
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withSnackbar(withStyles(styles)(StatisticPage)));
 

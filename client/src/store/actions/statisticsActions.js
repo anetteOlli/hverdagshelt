@@ -1,7 +1,7 @@
 // @flow
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
-import { postData, getData } from '../axios';
+import { postData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
@@ -10,7 +10,8 @@ type GetState = () => ReduxState;
 
 export const getAllProblemsFromMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
+    const state = getState();
+    return postData('problems/municipality/sorted', state.statistic.selectedMuni || getState().user.currentMuni).then(response =>
       dispatch({
         type: 'GET_ALL_PROBLEMS_SUCCESS',
         payload: response.data

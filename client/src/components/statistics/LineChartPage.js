@@ -54,24 +54,24 @@ class LineChartPage extends React.Component {
             <Line type="monotone" dataKey="Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
-          <FormGroup row>
-            <FormControlLabel
-              control={<Switch checked={this.state.showData1} onChange={this.handleDataChange('showData1')} />}
-              label="Data1"
-            />
-            <FormControlLabel
-              control={<Switch checked={this.state.showData2} onChange={this.handleDataChange('showData2')} />}
-              label="Data2"
-            />
-            <FormControlLabel
-              control={<Switch checked={this.state.showData3} onChange={this.handleDataChange('showData3')} />}
-              label="Data3"
-            />
-            <FormControlLabel
-              control={<Switch checked={this.state.showData4} onChange={this.handleDataChange('showData4')} />}
-              label="Data4"
-            />
-          </FormGroup>
+        <FormGroup row>
+          <FormControlLabel
+            control={<Switch checked={this.state.showData1} onChange={this.handleDataChange('showData1')} />}
+            label="Data1"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showData2} onChange={this.handleDataChange('showData2')} />}
+            label="Data2"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showData3} onChange={this.handleDataChange('showData3')} />}
+            label="Data3"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showData4} onChange={this.handleDataChange('showData4')} />}
+            label="Data4"
+          />
+        </FormGroup>
       </div>
     );
   }
