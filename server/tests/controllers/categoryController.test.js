@@ -26,8 +26,8 @@ test("Testing get_all_categories", (done) => {
   categoryController.categories_get_all((status,data) => {
    expect(status).toBe(200);
    expect(data.length).toBe(4);
-   expect(data[3]).toBe("Snowplow");
-   expect(data[0]).toBe("Tree in road");
+   expect(data[3].category).toBe("Tree in road");
+   expect(data[0].category).toBe("Hole in road");
    done();
   })
 });

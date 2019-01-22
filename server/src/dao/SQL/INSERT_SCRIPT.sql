@@ -465,8 +465,6 @@ INSERT INTO status VALUES ('Unchecked');
 INSERT INTO status VALUES ('InProgress');
 INSERT INTO status VALUES ('Archived');
 
-
-
 INSERT INTO priority VALUES ("Standard");
 INSERT INTO priority VALUES ("Entrepreneur");
 INSERT INTO priority VALUES ("Municipality");

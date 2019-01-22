@@ -47,9 +47,9 @@ exports.events_create_event = (file,json, callback) => {
 
   function handleError(status, data, json, callback){
     if(status === 500) {
-      divDao.createCity(req.body.city_fk, () => {
-        divDao.createStreet(req.body.street_fk, () => {
-          eventDao.createOne(req.body, (status,data) => {
+      divDao.createCity(json.city_fk, () => {
+        divDao.createStreet(json.street_fk, () => {
+          eventDao.createOne(json, (status,data) => {
             callback(status,data);
           })
         })
