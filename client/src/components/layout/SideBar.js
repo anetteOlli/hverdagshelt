@@ -13,11 +13,19 @@ import SettingIcon from '@material-ui/icons/Settings';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import EventIcon from '@material-ui/icons/Event';
 import { NavLink } from 'react-router-dom';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import { Typography } from '@material-ui/core';
+import SelectTable2 from '../util/SelectTable2';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import CreateCategory from '../category/CreateCategory';
+import Button from '@material-ui/core/Button/Button';
 
 type Props = {
   classes: Object,
   open: any,
-  onClose: any
+  onClose: any,
+  popupOpen: any
 };
 
 const styles = {
@@ -30,6 +38,24 @@ const styles = {
 };
 
 class TemporaryDrawer extends React.Component<Props> {
+  state = {
+    openPopup: false
+  };
+
+  onClickCat = () => {
+    this.handleClickOpen();
+  };
+
+  handleClickOpen = () => {
+    this.setState({
+      openPopup: true
+    });
+  };
+
+  handleClose = () => {
+    this.setState({ openPopup: false });
+  };
+
   render() {
     const { classes, open, onClose } = this.props;
     const sideList = (
@@ -77,6 +103,16 @@ class TemporaryDrawer extends React.Component<Props> {
             </ListItemIcon>
             <ListItemText primary="editproblem" />
           </ListItem>
+          <Button onClick={this.onClickCat}>
+          <ListItem>
+
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="Legg til kategori" />
+
+          </ListItem>
+          </Button>
         </List>
         <Divider />
         <List>
@@ -98,15 +134,34 @@ class TemporaryDrawer extends React.Component<Props> {
             </ListItemIcon>
             <ListItemText primary="map_simpel" />
           </ListItem>
+          <ListItem button component={NavLink} to={'/map_simpel'}>
+            <ListItemIcon>
+              <SettingIcon />
+            </ListItemIcon>
+            <ListItemText primary="map_simpel" />
+          </ListItem>
         </List>
       </div>
     );
     return (
-      <Drawer open={open} onClose={onClose}>
-        <div tabIndex={0} role="button" onClick={onClose} onKeyDown={onClose}>
-          {sideList}
+      <div>
+        <Drawer open={open} onClose={onClose}>
+          <div tabIndex={0} role="button" onClick={onClose} onKeyDown={onClose}>
+            {sideList}
+          </div>
+        </Drawer>
+
+        <div>
+          <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.openPopup}>
+            <DialogContent>
+              <h3>Legg til kategori</h3>
+              <Typography gutterBottom />
+              <CreateCategory onClick={e => {}} />
+            </DialogContent>
+            <DialogActions />
+          </Dialog>
         </div>
-      </Drawer>
+      </div>
     );
   }
 }

@@ -93,8 +93,29 @@ class ProblemDetails extends React.Component<Props, State> {
     isHidden: true,
     power: '',
     open: false,
-    entrepreneur_chosen: -1
+    visible: false,
   };
+
+  toggleButtonVisible() {
+    this.setState({
+      visible: true
+    });
+  }
+  toggleButtonHidden() {
+    this.setState({
+      visible: false
+    });
+  }
+
+  checkUser(user) {
+    if(user === 'Administrator' || user === 'Municipality') {
+      this.toggleButtonVisible();
+      return true;
+    }else{
+      this.toggleButtonHidden();
+      return false;
+    }
+  }
 
   onClickAdd = () => {
     this.handleClickOpen();
@@ -122,15 +143,15 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, isLoggedIn, rows } = this.props;
+    const { classes, problem, priority_fk } = this.props;
     if (problem) {
-      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                <Button
+
+                {this.state.visible &&<Button
                   variant="contained"
                   size="small"
                   color="secondary"
@@ -138,7 +159,7 @@ class ProblemDetails extends React.Component<Props, State> {
                   onClick={this.onClickAdd}
                 >
                   Legg til entrepreneur
-                </Button>
+                </Button>}
 
                 <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
@@ -263,6 +284,8 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if(this.props.currentProblemId !== nextProps.currentProblemId)
     this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
+
+    this.checkUser(this.props.priority_fk);
   }
 }
 
@@ -272,7 +295,7 @@ const mapStateToProps = state => {
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    userPriority: state.user.priority,
+    priority_fk: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
@@ -285,7 +308,6 @@ const mapDispatchToProps = dispatch => {
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
     getEntrepreneursByMuniAndCat: (category_fk) => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals)),
-
   };
 };
 
