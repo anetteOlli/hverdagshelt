@@ -67,8 +67,8 @@ exports.user_activate = (json,callback) => {
   })
 };
 
-exports.user_delete_user = (email, callback) => {
-  userDao.deleteOne(email, (status, data) => {
+exports.user_delete_user = (id, callback) => {
+  userDao.deleteOne(id, (status, data) => {
     callback(status,data);
   });
 };

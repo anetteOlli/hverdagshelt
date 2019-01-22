@@ -100,4 +100,4 @@ test("Testing activateUser from userDao", (done) => {
     expect(data.affectedRows).toBe(1);
     done();
   })
-})
+});

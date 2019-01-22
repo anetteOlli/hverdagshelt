@@ -117,7 +117,7 @@ exports.problems_delete_problem = (id,json,user,callback) => {
     });
   }
   problemDao.getOne(id, (status, data) => {
-    if (data[0].problem_locked) callback({status:400},{ message: 'problem is locked' });
+    if (data[0].problem_locked) callback(400,{ message: 'problem is locked' });
     if (user.id !== data[0].user_fk)
       callback(400,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
     problemDao.deleteOne(id, (status, data) => {
