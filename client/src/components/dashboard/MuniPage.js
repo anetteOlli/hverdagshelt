@@ -49,10 +49,10 @@ const styles = theme => ({
   },
   labeltext: {
     [theme.breakpoints.down('lg')]: {
-      fontSize: '60%'
+      fontSize: '100%'
     },
     [theme.breakpoints.up('sm')]: {
-      fontSize: '180%'
+      fontSize: '60%'
     }
   },
   tabRoot: {

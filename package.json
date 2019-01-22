@@ -15,7 +15,9 @@
     "prosjekt",
     "SCRUM"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "jspdf": "^1.5.3"
+  },
   "devDependencies": {
     "concurrently": "^4.0.1"
   }
