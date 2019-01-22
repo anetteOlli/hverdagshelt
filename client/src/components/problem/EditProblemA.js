@@ -12,10 +12,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
-import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail} from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
-import moment from 'moment';
 import PictureUpload from '../util/PictureUpload';
 type Props = {
   classes: Object,
@@ -128,7 +127,7 @@ class EditProblemA extends React.Component<Props, State> {
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes, problem, categories } = this.props;
 
     if (problem) {
       return (
@@ -273,20 +272,7 @@ class EditProblemA extends React.Component<Props, State> {
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
                   Lagre endringer
                 </Button>
-
                 <div>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary>
-                      <div>
-                        <Typography>Kart: </Typography>
-                      </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      {
-                        // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
-                      }
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
                   <div className="mapPlaceholder">
                     <MapMarkers />
                   </div>
@@ -307,15 +293,13 @@ class EditProblemA extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

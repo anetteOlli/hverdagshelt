@@ -121,7 +121,7 @@ class EditProblemE extends React.Component<Props, State> {
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes} = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -134,8 +134,6 @@ class EditProblemE extends React.Component<Props, State> {
                 <Paper>{this.state.problem_title}</Paper>
                 <Paper
                   className={classes.paper}
-                  fullWidth
-                  readOnly
                   margin="normal"
                   label="Status:"
                   name="status_fk"
@@ -145,8 +143,6 @@ class EditProblemE extends React.Component<Props, State> {
                 </Paper>
                 <Paper
                   className={classes.paper}
-                  readOnly
-                  fullWidth
                   margin="normal"
                   multiline
                   label="Beskrivelse"
@@ -158,8 +154,6 @@ class EditProblemE extends React.Component<Props, State> {
                 </Paper>
                 <Paper
                   className={classes.paper}
-                  readOnly
-                  fullWidth
                   margin="normal"
                   label="Kategori"
                   name="category_fk"
@@ -238,7 +232,7 @@ class EditProblemE extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -281,17 +275,14 @@ class EditProblemE extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemE: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

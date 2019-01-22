@@ -116,7 +116,7 @@ class EditProblemM extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      img_user: e
+      img_entrepreneur: e
     });
   };
 
@@ -240,17 +240,9 @@ class EditProblemM extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div />
                       <div>
-                        <img
-                          id="img"
-                          width="100%"
-                          src={
-                            this.state.img_entrepreneur ||
-                            'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
-                          }
-                          alt="Bilde"
-                        />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
+                        <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -293,11 +285,10 @@ class EditProblemM extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });

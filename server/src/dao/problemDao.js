@@ -72,7 +72,7 @@ module.exports = class ProblemDao extends Dao {
       id
     ];
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?, img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
@@ -82,7 +82,7 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.description_entrepreneur, json.img_entrepreneur, json.status_fk, id];
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?, img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
@@ -100,7 +100,6 @@ module.exports = class ProblemDao extends Dao {
 
   patchStandard(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.category_fk, json.img_user, id];
-    console.log('the values are: ' + values);
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,

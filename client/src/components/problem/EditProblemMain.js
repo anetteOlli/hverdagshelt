@@ -149,29 +149,6 @@ function getEditView(priority: number) {
 
 class EditProblemMain extends React.Component<Props, State> {
   state = {
-    /*
-    problem_id: null,
-    problem_title: '',
-    problem_description: '',
-    problem_locked: '',
-    description_entrepreneur: '',
-    img_user: '',
-    img_entrepreneur: '',
-    date_made: '',
-    last_edited: '',
-    date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
-    latitude: '',
-    longitude: '',
-    support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
-    */
 
     municipality: '',
     county: '',
@@ -209,7 +186,6 @@ class EditProblemMain extends React.Component<Props, State> {
     this.props.getUserInfo().then(() => {
     this.props.entrepreneurs_get_one_by_User_fk().then(() => {
       this.props.getProblemByUser();
-      console.log("current muni: " + this.props.currentMuni.county)
       this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
     })
     })

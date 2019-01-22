@@ -104,8 +104,6 @@ export default (state: State = initState, action: Action) => {
       };
     case 'GET_USER_INFO_SUCCESS':
       console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
-      console.log("Action payload in user info: " + action.payload[0].municipality_fk)
-
       return {
         ...state,
         email: action.payload.email,
