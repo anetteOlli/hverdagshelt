@@ -16,7 +16,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { setNewPassword } from '../../store/actions/userActions';
+import { setNewPassword, getUserInfo } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -29,7 +29,11 @@ type Props = {
   classes: Object,
   isLoggedIn: boolean,
   enqueueSnackbar: Function,
-  errorMessage: string
+  errorMessage: string,
+  getUserInfo: Function,
+  password: string,
+  email: string,
+  userID: number
 };
 
 type State = {
@@ -79,12 +83,12 @@ class ChangePassword extends React.Component<Props, State> {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { userID, password } = this.state;
+    const { email, userID, password } = this.state;
     console.log(this.state);
   };
 
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, email, userID, password } = this.props;
     const form = (
       <div className={classes.main}>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
@@ -133,6 +137,9 @@ class ChangePassword extends React.Component<Props, State> {
     return isLoggedIn ? form : <div />;
   }
   componentDidMount() {
+    this.props.getUserInfo().then(() => {
+      console.log('this.props in componentDidMount', this.props, 'this.state', this.state);
+    });
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
   }
 }
@@ -147,7 +154,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setNewPassword: (userId, password) => dispatch(setNewPassword(userId, password))
+    setNewPassword: (userId, password) => dispatch(setNewPassword(userId, password)),
+    getUserInfo: () => dispatch(getUserInfo())
   };
 };
 

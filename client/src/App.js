@@ -19,6 +19,7 @@ import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
 import Settings from './components/user/Settings';
 import Profile from './components/user/Profile';
+import ChangePassword from './components/user/ChangePassword';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import type { Dispatch, ReduxState } from './store/reducers';
@@ -78,6 +79,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/stati" component={Stati} />
                     <Route exact path="/innstillinger" component={Settings} />
                     <Route exact path="/profil" component={Profile} />
+                    <Route exact path="/users/profile" component={ChangePassword} />
                     <Route exact path="/:municipality" component={MuniPage} />
                     {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
                   </Switch>
