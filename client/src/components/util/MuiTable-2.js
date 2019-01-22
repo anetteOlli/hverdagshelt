@@ -173,7 +173,8 @@ class MuiTable2 extends React.Component<Props> {
     let color = "disabled";
     let myRows = [];
     if(rows == undefined){
-      myRows = this.getSorted(this.state.rows);
+      //myRows = this.getSorted(this.state.rows);
+      myRows = undefined;
     }
     else{
       myRows = this.getSorted(rows);
@@ -190,12 +191,17 @@ class MuiTable2 extends React.Component<Props> {
             <Button onClick={this.sortSupport} variant="contained" size="small"> <Typography variant="button" style={{fontSize:10}}> Sorter på støtte </Typography> </Button>
           </CardContent>
         </Card>
-        {myRows.map(row => (
+        {myRows == undefined ?
+        (<Card>
+          <CardContent>
+            <Typography align="center"> Ingen problemer å vise </Typography>
+          </CardContent>
+        </Card>)
+        : (myRows.map(row => (
           <ExpansionPanel expanded={expanded === row.problem_id}
           onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
             key={row.problem_id}>
             <ExpansionPanelSummary>
-              {}
               <CheckCircle className="material-icons" color=
               {row.status_fk == "Unchecked" ? "disabled"
               : (row.status_fk == "Checked" ? "primary" : "error")}/>
@@ -232,7 +238,7 @@ class MuiTable2 extends React.Component<Props> {
               </Grid>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-        ))}
+        )))}
       </div>
     );
   }
