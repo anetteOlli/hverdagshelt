@@ -20,6 +20,9 @@ import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import CreateCategory from '../category/CreateCategory';
 import Button from '@material-ui/core/Button/Button';
+import connect from 'react-redux/es/connect/connect';
+import withRoot from '../../withRoot';
+import { withSnackbar } from 'notistack';
 
 type Props = {
   classes: Object,
@@ -28,19 +31,34 @@ type Props = {
   popupOpen: any
 };
 
-const styles = {
-  list: {
-    width: 250
-  },
-  fullList: {
-    width: 'auto'
-  }
-};
+const styles = {};
 
 class TemporaryDrawer extends React.Component<Props> {
   state = {
-    openPopup: false
+    openPopup: false,
+    visible: false
   };
+
+  toggleButtonVisible() {
+    this.setState({
+      visible: true
+    });
+  }
+  toggleButtonHidden() {
+    this.setState({
+      visible: false
+    });
+  }
+
+  checkUser(user) {
+    if (user === 'Administrator' || user === 'Municipality') {
+      this.toggleButtonVisible();
+      return true;
+    } else {
+      this.toggleButtonHidden();
+      return false;
+    }
+  }
 
   onClickCat = () => {
     this.handleClickOpen();
@@ -103,43 +121,19 @@ class TemporaryDrawer extends React.Component<Props> {
             </ListItemIcon>
             <ListItemText primary="editproblem" />
           </ListItem>
-          <Button onClick={this.onClickCat}>
-          <ListItem>
-
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Legg til kategori" />
-
-          </ListItem>
-          </Button>
         </List>
         <Divider />
         <List>
-          <ListItem button component={NavLink} to={'/muiTable'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="muiTable" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/lagproblem'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="lagproblem" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/map_simpel'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="map_simpel" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/map_simpel'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="map_simpel" />
-          </ListItem>
+          {this.state.visible && (
+            <Button onClick={this.onClickCat}>
+              <ListItem>
+                <ListItemIcon>
+                  <SettingIcon />
+                </ListItemIcon>
+                <ListItemText primary="Legg til kategori" />
+              </ListItem>
+            </Button>
+          )}
         </List>
       </div>
     );
@@ -154,7 +148,6 @@ class TemporaryDrawer extends React.Component<Props> {
         <div>
           <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.openPopup}>
             <DialogContent>
-              <h3>Legg til kategori</h3>
               <Typography gutterBottom />
               <CreateCategory onClick={e => {}} />
             </DialogContent>
@@ -164,5 +157,23 @@ class TemporaryDrawer extends React.Component<Props> {
       </div>
     );
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkUser(this.props.priority_fk);
+  }
 }
-export default withStyles(styles)(TemporaryDrawer);
+
+const mapStateToProps = state => {
+  return {
+    priority_fk: state.user.priority
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(withStyles(styles)(withSnackbar(TemporaryDrawer))));

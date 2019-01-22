@@ -15,6 +15,7 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { CheckCircle } from '@material-ui/icons';
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 
 const ExpansionPanel = withStyles({
   root: {
@@ -107,6 +108,8 @@ class MuiTable2 extends React.Component<Props> {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
+
+
       </div>
     );
   }
