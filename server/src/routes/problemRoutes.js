@@ -22,6 +22,7 @@ router.get('/user/:user_id', ProblemController.problems_get_problem_by_user);
 
 router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_problem_by_entrepreneur);
 
+router.post('/municipality/sorted', ProblemController.problems_get_from_municipality_sorted);
 
 router.patch('/vote/:id', checkAuth, ProblemController.problems_support_problem);
 

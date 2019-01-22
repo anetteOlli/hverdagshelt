@@ -23,6 +23,15 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
+  getFromMunicipalitySorted(json, callback) {
+    const values = [json.municipality, json.county];
+    super.query(
+      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? ORDER BY date_made',
+      values,
+      callback
+    );
+  }
+
   getFromCity(json, callback) {
     const values = [json.municipality, json.county, json.city];
     super.query(
