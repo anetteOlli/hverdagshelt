@@ -13,17 +13,19 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
-import MuiTable2Test from './components/util/MuiTable-2';
+import MuiTable2 from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
 import Settings from './components/user/Settings';
 import Profile from './components/user/Profile';
+import ChangePassword from './components/user/ChangePassword';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import type { Dispatch, ReduxState } from './store/reducers';
 import { refresh } from './store/actions/userActions';
 import { connect } from 'react-redux';
+
 const styles = () => ({
   root: {
     display: 'flex',
@@ -70,7 +72,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />
-                    <Route exact path="/muiTable" component={MuiTable2Test} />
+                    <Route exact path="/muiTable" component={MuiTable2} />
                     <Route exact path="/munipage" component={MuniPage} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/uploadfile" component={UploadFile} />
@@ -78,6 +80,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/stati" component={Stati} />
                     <Route exact path="/innstillinger" component={Settings} />
                     <Route exact path="/profil" component={Profile} />
+                    <Route exact path="/users/profile" component={ChangePassword} />
                     <Route exact path="/:municipality" component={MuniPage} />
                     {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
                   </Switch>

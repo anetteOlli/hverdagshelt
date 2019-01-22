@@ -19,6 +19,7 @@ import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle, ThumbUp } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
+import { easyDateFormat } from '../util/DateFormater';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
 * Styles the expansionpanels!
@@ -173,7 +174,8 @@ class MuiTable2 extends React.Component<Props> {
     let color = "disabled";
     let myRows = [];
     if(rows == undefined){
-      myRows = this.getSorted(this.state.rows);
+      //myRows = this.getSorted(this.state.rows);
+      myRows = undefined;
     }
     else{
       myRows = this.getSorted(rows);
@@ -190,18 +192,23 @@ class MuiTable2 extends React.Component<Props> {
             <Button onClick={this.sortSupport} variant="contained" size="small"> <Typography variant="button" style={{fontSize:10}}> Sorter på støtte </Typography> </Button>
           </CardContent>
         </Card>
-        {myRows.map(row => (
+        {myRows == undefined ?
+        (<Card>
+          <CardContent>
+            <Typography align="center"> Ingen problemer å vise </Typography>
+          </CardContent>
+        </Card>)
+        : (myRows.map(row => (
           <ExpansionPanel expanded={expanded === row.problem_id}
           onChange={(onClick == null) ? this.handleChange(row.problem_id) : e => onClick(row)}
             key={row.problem_id}>
             <ExpansionPanelSummary>
-              {}
               <CheckCircle className="material-icons" color=
               {row.status_fk == "Unchecked" ? "disabled"
               : (row.status_fk == "Checked" ? "primary" : "error")}/>
-              <Typography style={{flexBasis:"100%", fontSize:"15"}}>{row.problem_title}</Typography>
-              <Typography style={{flexBasis:"40%", fontSize:10}}>{row.date_made}</Typography>
-              <ThumbUp className="material-icons" color="primary" size="50%"/>
+              <Typography style={{flexBasis:"100%", fontSize:15}}>{row.problem_title}</Typography>
+              <Typography style={{flexBasis:"30%", fontSize:12}}>{easyDateFormat(row.date_made)}</Typography>
+              <ThumbUp  className="material-icons" color="primary" size="50%"/>
               <Typography align="right" style={{flexBasis:"10%", fontSize: 10}}>{row.support}</Typography>
 
               <CheckCircle className="material-icons" color="disabled" size="50%"/>
@@ -232,7 +239,7 @@ class MuiTable2 extends React.Component<Props> {
               </Grid>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-        ))}
+        )))}
       </div>
     );
   }

@@ -1,4 +1,3 @@
-// @flow
 import React, { PropTypes, Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import SearchBox from './SearchBox';

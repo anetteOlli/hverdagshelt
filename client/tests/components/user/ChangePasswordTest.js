@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -14,6 +14,8 @@ import { createShallow } from '@material-ui/core/test-utils';
 import { shape } from 'prop-types';
 
 //denne må brukes hvis du får feilmelding, om at den krever en Router:
+//Warning: Failed context type: The context `router` is marked as required in `Link`, but its value is `undefined`.
+
 const options = {
   context: {
     router: {
@@ -77,30 +79,18 @@ const options = {
 //Either wrap the root component in a <Provider>,
 //or explicitly pass "store" as a prop to "Connect(WithStyles(Component))"
 
-// DETTE ER EN INTEGRASJONSTEST, IKKE EN ENHETSTEST: PGA AT DEN IKKE BRUKER MOCK REDUX.
-
 describe('ChangePassword', () => {
   it('should not allow users that is not signed in to changepassword', () => {
     // $FlowFixMe
     const store = createStore(rootReducer, applyMiddleware(thunk));
-    const wrapper = mount(<ChangePassword store={store} />);
+    const wrapper = mount(<ChangePassword store={store} />, options);
     expect(wrapper.find('TextValidator')).toHaveLength(0);
   });
 
   it('should render if user is signed in', () => {
     const store = createStore(rootReducer, applyMiddleware(thunk));
-    let fungerer = false;
-    store.dispatch(signIn({ email: 'a@a.a', password: 'aaaaaa', remember: 'false' })).then(resp => {
-      if (resp.type === 'SIGN_IN_SUCCESS') {
-        const wrapper = mount(<ChangePassword store={store} />);
-        console.log('wrapper.debug()', wrapper.debug());
-        fungerer = true;
-        expect(wrapper.find('TextValidator')).toHaveLength(2);
-      } else {
-        console.log('resp.type', resp.type);
-      }
-      console.log('skriv ut noe da!');
-      expect(fungerer).toBe(true);
-    });
+    store.dispatch({ type: 'SIGN_IN_SUCCESS', payload: { userId: 1, priority: 'Administrator' } });
+    const wrapper = mount(<ChangePassword store={store} />, options);
+    expect(wrapper.find('TextValidator')).toHaveLength(2);
   });
 });

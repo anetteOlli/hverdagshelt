@@ -366,7 +366,8 @@ const mapStateToProps = (state: ReduxState) => {
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    errorMessage: state.problem.errorMessage
+    errorMessage: state.problem.errorMessage,
+
   };
 };
 
