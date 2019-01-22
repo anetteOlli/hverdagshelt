@@ -5,6 +5,9 @@ const UserController = require('../controllers/userController');
 
 router.get('/', UserController.users_get_all);
 
+router.post('/f/forgot', UserController.user_forgot_password);
+
+
 router.post('/login', UserController.users_login);
 router.get('/refresh', checkAuth, UserController.users_refresh);
 

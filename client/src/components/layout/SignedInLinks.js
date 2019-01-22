@@ -63,11 +63,6 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
     );
     return (
       <div className={classes.sectionDesktop}>
-        <IconButton color="inherit">
-          <Badge badgeContent={17} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
         <IconButton
           aria-owns={isMenuOpen ? 'material-appbar' : undefined}
           aria-haspopup="true"

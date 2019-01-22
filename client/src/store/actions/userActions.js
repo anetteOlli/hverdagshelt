@@ -136,7 +136,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/forgot', email)
+    return postData('users/f/forgot', {email})
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
