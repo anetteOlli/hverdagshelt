@@ -2,16 +2,20 @@ const Dao = require('./dao.js');
 
 module.exports = class UserDao extends Dao {
   getAll(callback) {
-    super.query('select * from user', [], callback);
+    super.query(
+      'select user_id, email, created, active, municipality_fk, county_fk, priority_fk from user',
+      [],
+      callback
+    );
   }
 
   getOneById(id, callback) {
-    super.query('select * from user where user_id = ?', [id], callback);
-  }
-
-  getAllbyProblemId(id, callback) {
-    super.query('select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?'),
-    [id], callback
+    console.log(id);
+    super.query(
+      'select user_id, email, created, active, municipality_fk, county_fk, priority_fk from user where user_id = ?',
+      [id],
+      callback
+    );
   }
 
   createUser(json, password, standard, callback) {
@@ -23,14 +27,14 @@ module.exports = class UserDao extends Dao {
     );
   }
 
-
   patchOne(id, json, callback) {
-    const val = [json.email, json.password, id];
-    super.query(
-      'update user set email = ?, password = ? where user_id = ?',
-      val,
-      callback
-    );
+    const val = [json.email, id];
+    super.query('update user set email = ? where user_id = ?', val, callback);
+  }
+
+  changePassword(json, password, callback) {
+    const val = [json.email, password, json.userId];
+    super.query('update user set email = ?, password = ? where user_id = ?', val, callback);
   }
 
   deleteOne(id, callback) {

@@ -1,10 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import BarChart from './BarChartPage';
+import PieChart from './PieChartPage';
+import LineChart from './LineChartPage';
+import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
+import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
 import { Button } from '@material-ui/core';
 import { SimpleLineChart, SimpleAreaChart, DualLineChart, SimplePieChart } from './Charts';
-import SimpleTable from './SimpleTable';
-import withRoot from '../../withRoot';
 import {convertSingleToPDF, convertMultipleToPDF} from '../util/ConvertPDF'
 
 const styles = theme => ({
@@ -14,9 +18,7 @@ const styles = theme => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    height: '100vh',
-    overflow: 'auto'
+    padding: theme.spacing.unit * 3
   },
   chartContainer: {
     marginLeft: -22
@@ -26,68 +28,60 @@ const styles = theme => ({
   }
 });
 
-class Dashboard extends React.Component {
+class StatisticPage extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <Button variant="contained" onClick={ () =>{
-          const input = [
-            document.getElementById('5/5'),
-            document.getElementById('4/5'),
-            document.getElementById('2/5')
-          ];
-          convertMultipleToPDF(input, "All");
-          }}>
-          Convert me to PDF
-        </Button>
-        <main className={classes.content} id="statisticsPage">
-          <div id="2/5">
-            <div className={classes.appBarSpacer} />
-            <Typography variant="h4" gutterBottom component="h2">
-              SimpleLineChart
-            </Typography>
-            <Typography component="div" className={classes.chartContainer} id="lineChart">
-              <SimpleLineChart/>
-            </Typography>
-            <Typography variant="h4" gutterBottom component="h2">
-              SimpleAreaChart
-            </Typography>
-            <Typography component="div" className={classes.chartContainer} id="areaChart">
-              <SimpleAreaChart />
-            </Typography>
-          </div>
-          <div id="4/5">
-            <Typography variant="h4" gutterBottom component="h2">
-              DualLineChart
-            </Typography>
-            <Typography component="div" className={classes.chartContainer}>
-              <DualLineChart />
-            </Typography>
-            <Typography variant="h4" gutterBottom component="h2">
-              SimplePieChart
-            </Typography>
-            <Typography component="div" className={classes.chartContainer}>
-              <SimplePieChart />
-            </Typography>
-          </div>
-          <div id="5/5">
-            <Typography variant="h4" gutterBottom component="h2">
-              Products
-            </Typography>
-            <div className={classes.tableContainer}>
-              <SimpleTable />
-            </div>
-          </div>
-        </main>
+      <div className={classes.content}>
+        <Typography variant="h4" gutterBottom component="h2">
+          LineChart
+        </Typography>
+        <Typography component="div" className={classes.chartContainer}>
+          <LineChart />
+        </Typography>
+        <Typography variant="h4" gutterBottom component="h2">
+          PieChart
+        </Typography>
+        <Typography component="div" className={classes.chartContainer}>
+          <PieChart />
+        </Typography>
+        <Typography variant="h4" gutterBottom component="h2">
+          BarChart
+        </Typography>
+        <Typography component="div" className={classes.chartContainer}>
+          <BarChart />
+        </Typography>
       </div>
     );
   }
+
+  componentDidMount(): void {
+    this.props.getUsersMuni().then(() => this.props.getAllProblemsFromMuni());
+  }
 }
 
-export default withRoot(withStyles(styles)(Dashboard));
+const mapDispatchToProps = dispatch => {
+  return {
+    getUsersMuni: () => dispatch(getUsersMuni()),
+    getAllProblemsFromMuni: () => dispatch(getAllProblemsFromMuni())
+  };
+};
 
+// $FlowFixMe
+export default connect(
+  null,
+  mapDispatchToProps
+)(withSnackbar(withStyles(styles)(StatisticPage)));
+
+//export default withRoot(withStyles(styles)(Dashboard));
 /*
+
+          <Typography variant="h4" gutterBottom component="h2">
+            Products
+          </Typography>
+          <div className={classes.tableContainer}>
+            <SimpleTable />
+          </div>
         <CssBaseline />
         <AppBar
           position="absolute"
