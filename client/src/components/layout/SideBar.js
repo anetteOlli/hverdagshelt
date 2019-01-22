@@ -35,18 +35,6 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem button component={NavLink} to={'/map'}>
-            <ListItemIcon>
-              <NewIcon />
-            </ListItemIcon>
-            <ListItemText primary="Map" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/munipage'}>
-            <ListItemIcon>
-              <TrendingIcon />
-            </ListItemIcon>
-            <ListItemText primary="munipage" />
-          </ListItem>
           <ListItem button component={NavLink} to={'/opprArrangement'}>
             <ListItemIcon>
               <EventIcon />
@@ -57,7 +45,7 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="stati" />
+            <ListItemText primary="statistikk" />
           </ListItem>
           <ListItem button component={NavLink} to={'/problemdetails/2'}>
             <ListItemIcon>
@@ -69,36 +57,17 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="lagproblem" />
+            <ListItemText primary="registrer problem" />
           </ListItem>
           <ListItem button component={NavLink} to={'/editp'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="editproblem" />
+            <ListItemText primary="rediger problem" />
           </ListItem>
         </List>
         <Divider />
-        <List>
-          <ListItem button component={NavLink} to={'/muiTable'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="muiTable" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/lagproblem'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="lagproblem" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/map_simpel'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="map_simpel" />
-          </ListItem>
-        </List>
+        <List />
       </div>
     );
     return (
