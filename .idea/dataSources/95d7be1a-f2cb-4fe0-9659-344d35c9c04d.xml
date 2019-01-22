@@ -1344,7 +1344,7 @@ county</ColNames>
     <column id="318" parent="235" name="support">
       <Position>17</Position>
       <DataType>int(11)|0s</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="319" parent="235" name="municipality_fk">
@@ -1500,7 +1500,7 @@ county</RefColNames>
       <Position>5</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="347" parent="238" name="municipality_fk">
