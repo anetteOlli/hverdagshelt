@@ -139,6 +139,7 @@ module.exports = class ProblemDao extends Dao {
   getByUser(user_id, callback) {
     super.query('SELECT * FROM problem WHERE user_fk = ?', [user_id], callback);
   }
+
   getByEntrepreneur(entrepreneur_id, callback) {
     super.query('SELECT * FROM problem WHERE entrepreneur_fk = ?', [entrepreneur_id], callback);
   }
