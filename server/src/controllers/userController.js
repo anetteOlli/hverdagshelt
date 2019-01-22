@@ -2,6 +2,8 @@ const UserDao = require('../dao/userDao');
 const pool = require('../services/database');
 import { validatePassword, genToken, hashPassword } from '../services/util';
 let userDao = new UserDao(pool);
+const MailController = require('../services/nodemailer');
+
 
 exports.users_get_all = (req, res) => {
   userDao.getAll((status, data) => {
@@ -71,3 +73,36 @@ exports.user_validate_email = (req, res) => {
     res.json({ emailExist });
   });
 };
+
+exports.user_forgot_password = (req, res) => {
+  console.log("dd");
+
+  userDao.checkEmail(req.body.mail, (status, data) => {
+    if(data.length > 0) {
+      const id = data[0].user_id;
+      const email = data[0].email;
+      const tempPassword = Math.random().toString(36).slice(-8);
+
+      userDao.changePassword(id, email, hashPassword(tempPassword), (status, data) => {
+        if (status === 200) {
+          MailController.sendSingleMail({
+            recepients: email,
+            text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
+            html: ''
+          }, (status,data) => {
+            return res.staus(status).json(data)
+          })
+        }else {
+         return res.status(status).json(data);
+      }
+      });//changePassword
+
+    }//if
+    else {
+      return res.status(status).json(data)
+      //feilmelding om at epost ikke finnes
+    }
+  });//checkEmail
+
+
+}
