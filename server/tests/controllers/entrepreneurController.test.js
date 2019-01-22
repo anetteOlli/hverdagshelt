@@ -71,7 +71,6 @@ test("Testing checkEntrepreneur from entrepreneurDao", (done)=> {
   entrepreneurController.validate_org_nr(orgNr, (status,data) => {
     expect(status).toBe(200);
     expect(data.orgNrExist).toBe(true);
-    expect(data[0].businessName).toBe("Arbeidsjøinn");
     done();
   })
 });
