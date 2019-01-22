@@ -32,25 +32,40 @@ exports.problems_support_problem = (req, res) => {
   console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
   divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
     if (status == 200) {
-        //Send email to the user who created the problem
-        userDao.getOneById(req.body.user_fk, (status, data) => { //Her kan jeg hente fra userDao eller fra userController for å få emailen
-          console.log('!!!!!!!!!!!!!!!!!!!Før ifsetningen', data);
 
-          //Hvis det er den første som liker så sendes en mail
-          if(data.length === 1){
-            console.log('!!!!!!!!!!!!!!!!!!!Datalengde er lik 1, mail skal sendes');
+      problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+
+        console.log('data = ' + data);
+        console.log('data.email = ' + data.email);
+        //Send email if its the firs time someone supports the problem
+        if(data.length === 1){
+          const email = data.email;
+        }
+
+        problemDao.supportProblem(req.params.id, (status, data) => {
+
+          console.log('req.params.id = ' + req.params.id); //ProblemID
+          console.log('req.body.problemId = ' + req.body.problemId); //ProblemID
+          console.log('req.body.userId = ' + req.body.userId);//User som liker ID
+          console.log('req body.user_fk = ' + req.body.user_fk); //undefined
+          console.log('req params.user_fk = ' + req.params.user_fk); //undefined
+          console.log('req body problem_title = ' + req.body.problem_title);
+          console.log('email = ' + email);
+
+          //Send email to the user who created the problem
+          if(email){
+            console.log('---Mail skal sendes!');
             MailController.sendSingleMail({
               recepients: data.email,
               text: 'Et problem du har opprettet "' + req.body.problem_title + '" er blitt liket. Problemet er nå ikke mulig å endre lengre.',
               html: ''
             }, (status,data));
           }
-          console.log('!!!!!!!!!!!!!!!!Etter ifsetningen');
-          problemDao.supportProblem(req.params.id, (status, data) => { //Denne burde være ytters slik at denne gjøres før email blir sendt
-            res.status(status).json(data);
-          });
+          console.log('---Etter getOne');
+          res.status(status).json(data);
         });
     } else {
+      console.log('---ELSE altså ikke status 200');
       res.status(status).json(data);
     }
   });
