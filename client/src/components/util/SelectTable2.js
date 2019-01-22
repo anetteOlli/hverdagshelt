@@ -104,7 +104,7 @@ class MuiTable2 extends React.Component<Props> {
                           key={row.id}>
             <ExpansionPanelSummary>
 
-              <Typography>{row.bedriftnavn}</Typography>
+              <Typography>{row.businessName}</Typography>
 
 
             </ExpansionPanelSummary>
@@ -117,7 +117,7 @@ class MuiTable2 extends React.Component<Props> {
                   <h4>Bedriftsnavn</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.bedriftnavn}</Typography>
+                  <Typography>{row.businessName}</Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelDetails>

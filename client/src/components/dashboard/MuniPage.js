@@ -3,19 +3,8 @@ import React from 'react';
 import withRoot from '../../withRoot';
 import {
   withStyles,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  CardActions,
-  Paper,
-  Grid,
-  Typography,
-  TextField,
-  MenuItem,
-  Button,
-  Tabs,
-  Tab
+  Card, CardContent, CardMedia, CardActionArea, CardActions,
+  Paper, Grid, Typography, TextField, MenuItem, Button, Tabs, Tab
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,6 +13,8 @@ import { getProblemsByMuni } from '../../store/actions/problemActions';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
 import moment from 'moment';
+import { CheckCircle, ThumbUp } from '@material-ui/icons';
+
 type Props = {
   classes: Object,
   match: { params: { municipality: string } }
@@ -120,6 +111,7 @@ class MuniPage extends React.Component<Props, State> {
     const { value } = this.state;
     const { municipality } = this.props.match.params;
     var moment = require('moment');
+    if(events == undefined) return (<div/>);
     return (
       <main>
         <Grid container spacing={24}>
@@ -251,12 +243,13 @@ class MuniPage extends React.Component<Props, State> {
                                 <Typography component="p">Lokasjon: {problem.street_fk}</Typography>
                               </CardContent>
                               <CardActions>
-                                <Grid container spacing={24}>
-                                  <Grid item md={8} />
-                                  <Grid item md={4}>
-                                    <Button variant="contained" size="small" color="primary">
-                                      Info
-                                    </Button>
+                                <Grid container direction="row" spacing={0}>
+                                  <Grid item md={8}/>
+                                  <Grid item md={2}>
+                                    <ThumbUp className="material-icons" color="primary" size="50%"/>
+                                  </Grid>
+                                  <Grid item md={2}>
+                                    <Typography>{problem.support}</Typography>
                                   </Grid>
                                 </Grid>
                               </CardActions>

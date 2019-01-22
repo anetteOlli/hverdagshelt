@@ -78,7 +78,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'EVENTS_BY_ALL_SUCCESS':
-      console.log('%c EVENTS_BY_ALL_SUCCESS', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c EVENTS_BY_ALL_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         events: action.payload
       };
@@ -88,7 +88,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'EVENTS_BY_MUNI_SUCCESS':
-      console.log('%c EVENTS_BY_MUNI_SUCCESS', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c EVENTS_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         events: action.payload
       };

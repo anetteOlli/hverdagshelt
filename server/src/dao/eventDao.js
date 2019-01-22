@@ -12,7 +12,7 @@ module.exports = class EventDao extends Dao {
 
   getByMunicipality(json, callback) {
     const values = [json.municipality, json.county];
-    super.query('SELECT * FROM event WHERE municipality_fk = ? AND county_fk = ?', values, callback);
+    super.query('SELECT * FROM event WHERE municipality_fk = ? AND county_fk = ? AND date_ending >= CURRENT_TIMESTAMP', values, callback);
   }
 
   createOne(json, callback) {
@@ -62,5 +62,8 @@ module.exports = class EventDao extends Dao {
   }
   deleteOne(id, callback) {
     super.query('delete from event where event_id=?', [id], callback);
+  }
+  updateStatus(callback){
+    super.query('update event set status_fk = ? where date_ending < CURRENT_TIMESTAMP', ["Finished"], callback);
   }
 };
