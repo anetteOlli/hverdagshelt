@@ -62,7 +62,20 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
   );
   problemDao.getFromStreet(req.body, (status, data) => {
     res.status(status).json(data);
-    console.log(data);
+  });
+};
+
+exports.problems_get_from_municipality_sorted = (req, res) => {
+  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+  console.log(
+    '/problems/municipality/sorted: ' +
+    req.body.municipality +
+    '(' +
+    req.body.county +
+    ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
+    res.status(status).json(data);
   });
 };
 
