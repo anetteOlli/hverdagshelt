@@ -150,9 +150,9 @@ export const forgotPassword = (email: string) => {
       );
   };
 };
-export const setNewPassword = (userId: number, password: string) => {
+export const setNewPassword = (userId: number, password: string, email: string) => {
   return (dispatch: Dispatch) => {
-    return patchData('users/newPassword', { userId, password })
+    return patchData('users/changePassword', { userId, password, email })
       .then(() => {
         return dispatch({
           type: 'NEW_PASSWORD_SUCCESS'
