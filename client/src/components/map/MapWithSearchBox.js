@@ -113,7 +113,8 @@ class SimpleMap extends React.Component<Props, State> {
           onClick={this.onRecievingLocation}
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-          {this.props.lat && <Pointer lat={this.props.lat} lng={this.props.lng} />}
+          {// $FlowFixMe
+          this.props.lat && <Pointer lat={this.props.lat} lng={this.props.lng} />}
         </GoogleMapReact>
       </div>
     );
@@ -133,7 +134,7 @@ const mapDispatchToProps = dispatch => {
     updateMapName: (street, municipality, county, city) => dispatch(changePlaceName(street, municipality, county, city))
   };
 };
-
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

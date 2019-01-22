@@ -111,7 +111,7 @@ export default (state: State = initState, action: Action) => {
         currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk }
       };
     case 'GET_USER_INFO_ERROR':
-      console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload

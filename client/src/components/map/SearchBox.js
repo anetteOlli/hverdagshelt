@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { updateMarker, changePlaceName } from '../../store/actions/mapActions';
@@ -14,7 +13,8 @@ type Props = {
 
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
-class SearchBox extends Component {
+type State = {};
+class SearchBox extends Component<Props, State> {
   static propTypes = {
     mapsapi: PropTypes.shape({
       places: PropTypes.shape({

@@ -21,6 +21,11 @@ module.exports = class ProblemDao extends Dao {
       values,
       callback
     );
+    super.query(
+      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL',
+      values,
+      callback
+    );
   }
 
   getFromMunicipalitySorted(json, callback) {
@@ -98,7 +103,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchEntrepreneur(id, json, callback) {
-    const values = [json.description_entrepreneur, json.img_entrepreneur, json.status, id];
+    const values = [json.description_entrepreneur, json.img_entrepreneur, json.status_fk, id];
 
     super.query(
       'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
@@ -114,7 +119,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchMunicipality(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.category_fk, json.status, id];
+    const values = [json.problem_title, json.problem_description, json.category_fk, json.status_fk, id];
 
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
@@ -152,5 +157,13 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.entrepreneur_fk, json.problem_id];
     console.log(values);
     super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
+  }
+
+  getAllbyProblemId(id, callback) {
+    super.query(
+      'select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?',
+      [id],
+      callback
+    );
   }
 };

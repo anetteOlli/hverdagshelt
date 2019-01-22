@@ -2,27 +2,29 @@
 import type { Action } from '../reducers/userReducer';
 import type { ReduxState } from '../reducers';
 import type { Action as AppAction } from '../reducers/appReducer';
-import { setToken, clearToken, postData, getData, getToken } from '../axios';
+import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
 import { loading, hasCheckedJWT } from './appActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction | AppAction) => any;
 type GetState = () => ReduxState;
 
-
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id${getState().user.userID}`).then(response =>
-      dispatch({
-        type: 'GET_USER_INFO_SUCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    console.log(getState());
+    return getData(`users/${getState().user.userID}`)
+      .then(response =>
+        dispatch({
+          type: 'GET_USER_INFO_SUCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'GET_USER_INFO_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
 
@@ -120,7 +122,7 @@ export const signOut = () => {
     clearToken();
     dispatch({
       type: 'SIGN_OUT_SUCCESS'
-     });
+    });
   };
 };
 
@@ -143,6 +145,22 @@ export const forgotPassword = (email: string) => {
       .catch((error: Error) =>
         dispatch({
           type: 'TEMP_PASSWORD_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+export const setNewPassword = (userId: number, password: string) => {
+  return (dispatch: Dispatch) => {
+    return patchData('users/newPassword', { userId, password })
+      .then(() => {
+        return dispatch({
+          type: 'NEW_PASSWORD_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'NEW_PASSWORD_ERROR',
           payload: error
         })
       );
