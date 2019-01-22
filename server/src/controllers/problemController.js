@@ -231,6 +231,17 @@ exports.problems_get_problem_by_entrepreneur = (req, res) => {
 
 exports.problems_add_entrepreneur = (req, res) => {
   problemDao.addEntrepreneur(req.body, (status, data) => {
-    return res.status(400).json(data);
+    console.log('problem_id = ' + req.body.problem_id);
+    if (status == 200) {
+      problemDao.getAllUsersbyProblemId(req.body.problem_id, (status,data) => {
+        MailController.sendMassMail({
+          recepients: data,
+          text: 'En bedrift jobber nå med et problem du abonnerer på.',
+          html: ''
+        }, (status,data));
+      });
+
+      return res.status(400).json(data);
+    }
   });
 };
