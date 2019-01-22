@@ -150,6 +150,7 @@ class MuniPage extends React.Component<Props, State> {
     const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
     const { municipality } = this.props.match.params;
+    //console.log("Propbs", problems);
     var moment = require('moment');
     if(events == undefined) return (<div/>);
     return (
