@@ -19,8 +19,9 @@ import { withSnackbar } from 'notistack';
 import { setNewPassword, getUserInfo } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { postData } from '../../store/axios';
+import { getData } from '../../store/axios';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -29,7 +30,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
@@ -49,7 +49,9 @@ type State = {
   cnfPassword: string,
   showPassword: boolean,
   userID: number,
-  successDialog: boolean
+  successDialog: boolean,
+  isOldPassword: boolean,
+  failureDialog: boolean
 };
 
 const styles = (theme: Object) => ({
@@ -79,7 +81,9 @@ class ChangePassword extends React.Component<Props, State> {
     cnfPassword: '',
     userID: -1,
     showPassword: false,
-    successDialog: false
+    successDialog: false,
+    isOldPassword: false,
+    failureDialog: false
   };
   handleChange = e => {
     this.setState({
@@ -95,18 +99,56 @@ class ChangePassword extends React.Component<Props, State> {
     e.preventDefault();
     const { email, userID, password } = this.state;
 
-    this.props.setNewPassword(userID, password, email).then(() => {
-      if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
-      else {
-        this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      this.setState({
+        isOldPassword: response.data.isOldPassword
+      });
+
+      if (this.state.isOldPassword) {
         this.setState({
-          successDialog: true
+          failureDialog: true
+        });
+      } else {
+        this.props.setNewPassword(userID, password, email).then(() => {
+          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          else {
+            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.setState({
+              successDialog: true
+            });
+          }
         });
       }
     });
   };
   handleSuccessDialogClose = () => {
+    this.setState({
+      successDialog: false
+    });
     this.props.history.push('/');
+  };
+  checkOldPassword = () => {
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      this.setState({
+        isOldPassword: response.data.isOldPassword
+      });
+    });
+  };
+
+  handlePasswordInputChange = e => {
+    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+      if (response.status != 404) {
+        this.setState({
+          isOldPassword: response.data.isOldPassword,
+          [e.target.name]: e.target.value
+        });
+      }
+    });
+  };
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
+    });
   };
 
   render() {
@@ -149,13 +191,9 @@ class ChangePassword extends React.Component<Props, State> {
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
             Endre passord
           </Button>
-          <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
-            Cancel
-          </Button>
         </ValidatorForm>
         <Dialog
           open={this.state.successDialog}
-          onClose={this.handleSuccessDialogClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
@@ -163,6 +201,18 @@ class ChangePassword extends React.Component<Props, State> {
 
           <DialogActions>
             <Button onClick={this.handleSuccessDialogClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.failureDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{'Nytt passord kan ikke være likt gammelt passord'}</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
               Ok
             </Button>
           </DialogActions>
@@ -180,6 +230,7 @@ class ChangePassword extends React.Component<Props, State> {
       });
     });
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
+    ValidatorForm.addValidationRule('isOldPassword', () => !this.state.isOldPassword);
   }
 }
 const mapStateToProps = state => {
@@ -202,4 +253,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(withSnackbar(ChangePassword)));
+)(withRouter(withStyles(styles)(withSnackbar(ChangePassword))));

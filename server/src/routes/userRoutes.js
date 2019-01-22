@@ -18,6 +18,8 @@ router.patch('/:id', UserController.user_patch_user);
 
 router.get('/validate_email/:email', UserController.user_validate_email);
 
+router.get('/check_pass/:email/:password', checkAuth, UserController.user_is_not_old_password);
+
 router.get('/:id', UserController.users_get_user);
 
 module.exports = router;

@@ -63,6 +63,17 @@ exports.user_change_password = (req, res) => {
     res.status(status).json(data);
   });
 };
+exports.user_is_not_old_password = (req, res) => {
+  userDao.checkEmail(req.params.email, (status, data) => {
+    let isOldPassword = true;
+    if (data.length > 0) {
+      if (!validatePassword(req.params.password, data[0].password)) {
+        isOldPassword = false;
+      }
+    }
+    res.json({ isOldPassword });
+  });
+};
 
 exports.user_validate_email = (req, res) => {
   userDao.checkEmail(req.params.email, (status, data) => {
