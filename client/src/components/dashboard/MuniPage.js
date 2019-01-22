@@ -173,7 +173,11 @@ class MuniPage extends React.Component<Props, State> {
                               />
                               <CardContent>
                                 <Typography component="p" className={classes.statustext}>
-                                  <b>{event.status_fk}</b>
+                                {console.log(new Date(event.date_ending))}
+                                {console.log(new Date())}
+                                  <b>{new Date(event.date_ending) <= new Date() ? "Finished" :
+                                     (new Date(event.date_starting) <= new Date() ? "In Progress" : "Not Started")
+                                  }</b>
                                 </Typography>
                                 <Typography gutterBottom variant="h5" component="h2">
                                   {event.event_name}

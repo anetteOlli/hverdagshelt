@@ -1,6 +1,6 @@
 {
-  "name": "nettavis-prosjekt",
-  "version": "1.0.2",
+  "name": "Hverdagshelt SCRUM-prosjekt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -11,8 +11,9 @@
   },
   "keywords": [
     "restful",
-    "nettavis",
-    "mini prosjekt"
+    "kommune",
+    "prosjekt",
+    "SCRUM"
   ],
   "dependencies": {},
   "devDependencies": {

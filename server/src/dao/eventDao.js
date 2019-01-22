@@ -64,6 +64,8 @@ module.exports = class EventDao extends Dao {
     super.query('delete from event where event_id=?', [id], callback);
   }
   updateStatus(callback){
-    super.query('update event set status_fk = ? where date_ending < CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status_fk = ? where date_ending <= CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status_fk = ? where date_starting >= CURRENT_TIMESTAMP', ["Unchecked"], callback);
+    super.query('update event set status_fk = ? where date_starting <= CURRENT_TIMESTAMP AND date_ending >= CURRENT_TIMESTAMP', ["InProgress"], callback);
   }
 };
