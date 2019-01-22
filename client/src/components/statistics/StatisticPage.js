@@ -1,9 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
 import { SimpleLineChart, SimpleAreaChart, DualLineChart, SimplePieChart } from './Charts';
 import SimpleTable from './SimpleTable';
 import withRoot from '../../withRoot';
+import {convertSingleToPDF, convertMultipleToPDF} from '../util/ConvertPDF'
+
 const styles = theme => ({
   root: {
     display: 'flex'
@@ -28,37 +31,53 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Typography variant="h4" gutterBottom component="h2">
-            SimpleLineChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimpleLineChart/>
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            SimpleAreaChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimpleAreaChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            DualLineChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <DualLineChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            SimplePieChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimplePieChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            Products
-          </Typography>
-          <div className={classes.tableContainer}>
-            <SimpleTable />
+        <Button variant="contained" onClick={ () =>{
+          const input = [
+            document.getElementById('5/5'),
+            document.getElementById('4/5'),
+            document.getElementById('2/5')
+          ];
+          convertMultipleToPDF(input, "All");
+          }}>
+          Convert me to PDF
+        </Button>
+        <main className={classes.content} id="statisticsPage">
+          <div id="2/5">
+            <div className={classes.appBarSpacer} />
+            <Typography variant="h4" gutterBottom component="h2">
+              SimpleLineChart
+            </Typography>
+            <Typography component="div" className={classes.chartContainer} id="lineChart">
+              <SimpleLineChart/>
+            </Typography>
+            <Typography variant="h4" gutterBottom component="h2">
+              SimpleAreaChart
+            </Typography>
+            <Typography component="div" className={classes.chartContainer} id="areaChart">
+              <SimpleAreaChart />
+            </Typography>
+          </div>
+          <div id="4/5">
+            <Typography variant="h4" gutterBottom component="h2">
+              DualLineChart
+            </Typography>
+            <Typography component="div" className={classes.chartContainer}>
+              <DualLineChart />
+            </Typography>
+            <Typography variant="h4" gutterBottom component="h2">
+              SimplePieChart
+            </Typography>
+            <Typography component="div" className={classes.chartContainer}>
+              <SimplePieChart />
+            </Typography>
+          </div>
+          <div id="5/5">
+            <Typography variant="h4" gutterBottom component="h2">
+              Products
+            </Typography>
+            <div className={classes.tableContainer}>
+              <SimpleTable />
+            </div>
           </div>
         </main>
       </div>

@@ -243,7 +243,7 @@ class MuniPage extends React.Component<Props, State> {
                   )}
                   {value === 1 && (
                     <TabContainer>
-                    {console.log("PROBLEMER: " + problems)}
+                    {console.log("PROBLEMER: ", problems)}
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>

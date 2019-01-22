@@ -16,7 +16,9 @@
     "SCRUM"
   ],
   "dependencies": {
-    "jspdf": "^1.5.3"
+    "html2canvas": "^1.0.0-alpha.12",
+    "jspdf": "^1.5.3",
+    "react-to-pdf": "0.0.6"
   },
   "devDependencies": {
     "concurrently": "^4.0.1"
