@@ -85,16 +85,28 @@ exports.user_validate_email = (req, res) => {
 };
 
 exports.user_forgot_password = (req, res) => {
-  console.log("dd");
+  console.log("user_forgot_password");
 
-  userDao.checkEmail(req.body.mail, (status, data) => {
+  userDao.checkEmail(req.body.email, (status, data) => {
+    console.log("checkEmail email = " + req.body.email);
+    console.log("data.length = " + data.length);
     if(data.length > 0) {
       const id = data[0].user_id;
-      const email = data[0].email;
+      const email = req.body.email;
       const tempPassword = Math.random().toString(36).slice(-8);
+      console.log("id = " + id);
+      console.log("email = " + email);
+      console.log("tempPassword = " + tempPassword);
 
-      userDao.changePassword(id, email, hashPassword(tempPassword), (status, data) => {
+      const userinfo = {
+        user_id: id,
+        email: email
+      }
+
+      userDao.changePassword(userinfo, hashPassword(tempPassword), (status, data) => {
+        console.log("changePassword");
         if (status === 200) {
+          console.log("Will send mail");
           MailController.sendSingleMail({
             recepients: email,
             text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
@@ -103,12 +115,14 @@ exports.user_forgot_password = (req, res) => {
             return res.staus(status).json(data)
           })
         }else {
+          console.log("changePassword not success");
          return res.status(status).json(data);
       }
       });//changePassword
 
     }//if
     else {
+      console.log("data.length is 0 or below");
       return res.status(status).json(data)
       //feilmelding om at epost ikke finnes
     }
