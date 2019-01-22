@@ -27,10 +27,11 @@ module.exports = class EventDao extends Dao {
       json.city_fk,
       json.street_fk,
       json.latitude,
-      json.longitude
+      json.longitude,
+      "Unchecked"
     ];
     super.query(
-      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude, status_fk) values (?,?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
