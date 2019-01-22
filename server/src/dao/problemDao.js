@@ -2,19 +2,19 @@
 const Dao = require('./dao.js');
 
 module.exports = class ProblemDao extends Dao {
-  getAll(callback) {
+  getAll(callback: function) {
     super.query('SELECT * FROM problem', [], callback);
   }
 
-  getAllFromUser(id: number, callback) {
-    super.query('SELECT * FROM problem WHERE user_fk = ?', [id], callback);
+  getAllFromUserUnchecked(id: number, callback: function) {
+    super.query('SELECT * FROM problem WHERE user_fk = ? AND status_fk = ?', [id, "Unchecked"], callback);
   }
 
-  getOne(id, callback) {
+  getOne(id: number, callback: function) {
     super.query('SELECT * FROM problem WHERE problem_id = ?', [id], callback);
   }
 
-  getFromMunicipality(json, callback) {
+  getFromMunicipality(json: any, callback: function) {
     const values = [json.municipality, json.county];
     super.query(
       'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL',
@@ -23,7 +23,7 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
-  getFromCity(json, callback) {
+  getFromCity(json: any, callback: function) {
     const values = [json.municipality, json.county, json.city];
     super.query(
       'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ? AND date_finished IS NULL',
@@ -32,7 +32,7 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
-  getFromStreet(json, callback) {
+  getFromStreet(json: any, callback: function) {
     const values = [json.municipality, json.county, json.street];
 
     super.query(
@@ -42,7 +42,7 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
-  createOne(json, callback) {
+  createOne(json: any, callback: function) {
     const newContent = [
       json.problem_title,
       json.problem_description,
@@ -136,18 +136,19 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
-  deleteOne(id, callback) {
+  deleteOne(id: number, callback: function) {
     super.query("UPDATE problem SET status_fk = 'Archived' WHERE problem_id = ?", [id], callback);
   }
 
-  getByUser(user_id, callback) {
-    super.query('SELECT * FROM problem WHERE user_fk = ?', [user_id], callback);
+  getByUser(user_id: number, callback: function) {
+    super.query("SELECT * FROM problem WHERE user_fk = ?", [user_id], callback);
   }
-  getByEntrepreneur(entrepreneur_id, callback) {
-    super.query('SELECT * FROM problem WHERE entrepreneur_fk = ?', [entrepreneur_id], callback);
+  getByEntrepreneur(entrepreneur_id: number, callback: function) {
+    super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
   }
 
-  addEntrepreneur(json, callback) {
+
+  addEntrepreneur(json: any, callback: function) {
     const values = [json.entrepreneur_fk, json.problem_id];
     console.log(values);
     super.query("UPDATE problem SET problem_locked = 1, status_fk = 'InProgress', entrepreneur_fk = ? WHERE problem_id = ?", values, callback);

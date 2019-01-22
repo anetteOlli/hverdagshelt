@@ -7,6 +7,8 @@ import LineChart from './LineChartPage';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
+import { Button } from '@material-ui/core';
+import {convertSingleToPDF, convertMultipleToPDF} from '../util/ConvertPDF'
 
 const styles = theme => ({
   root: {

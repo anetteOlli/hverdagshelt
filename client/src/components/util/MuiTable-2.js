@@ -19,6 +19,7 @@ import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle, ThumbUp } from '@material-ui/icons';
 import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
+import { easyDateFormat } from '../util/DateFormater';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
 * Styles the expansionpanels!
@@ -205,9 +206,9 @@ class MuiTable2 extends React.Component<Props> {
               <CheckCircle className="material-icons" color=
               {row.status_fk == "Unchecked" ? "disabled"
               : (row.status_fk == "Checked" ? "primary" : "error")}/>
-              <Typography style={{flexBasis:"100%", fontSize:"15"}}>{row.problem_title}</Typography>
-              <Typography style={{flexBasis:"40%", fontSize:10}}>{row.date_made}</Typography>
-              <ThumbUp className="material-icons" color="primary" size="50%"/>
+              <Typography style={{flexBasis:"100%", fontSize:15}}>{row.problem_title}</Typography>
+              <Typography style={{flexBasis:"30%", fontSize:12}}>{easyDateFormat(row.date_made)}</Typography>
+              <ThumbUp  className="material-icons" color="primary" size="50%"/>
               <Typography align="right" style={{flexBasis:"10%", fontSize: 10}}>{row.support}</Typography>
 
               <CheckCircle className="material-icons" color="disabled" size="50%"/>

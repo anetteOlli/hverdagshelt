@@ -25,6 +25,7 @@ import withRoot from './withRoot';
 import type { Dispatch, ReduxState } from './store/reducers';
 import { refresh } from './store/actions/userActions';
 import { connect } from 'react-redux';
+
 const styles = () => ({
   root: {
     display: 'flex',

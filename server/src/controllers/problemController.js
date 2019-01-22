@@ -91,7 +91,7 @@ exports.problems_create_problem = (req, res) => {
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUser(req.body.user_fk, (status, data) =>{
+  problemDao.getAllFromUserUnchecked(req.body.user_fk, (status, data) =>{
     console.log(status);
     //console.log(data);
     console.log(data.length);
