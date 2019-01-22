@@ -13,7 +13,7 @@ import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
 import CreateEvent from './components/event/CreateEvent';
-import MuiTable2Test from './components/util/MuiTable-2';
+import MuiTable2 from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
 import SimpleMap from './components/map/GoogleMap';
@@ -71,7 +71,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/problemdetails" component={ProblemDetails} />
                     <Route exact path="/opprArrangement" component={CreateEvent} />
-                    <Route exact path="/muiTable" component={MuiTable2Test} />
+                    <Route exact path="/muiTable" component={MuiTable2} />
                     <Route exact path="/munipage" component={MuniPage} />
                     <Route exact path="/lagproblem" component={CreateProblem} />
                     <Route exact path="/uploadfile" component={UploadFile} />

@@ -14,10 +14,9 @@ import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
-import { getAllEntrepreneurs } from '../../store/actions/entrepreneurAction';
+import { getAllEntrepreneurs, getEntrepreneursByMuniAndCat } from '../../store/actions/entrepreneurAction';
 import { problemAddEntrepreneur } from '../../store/actions/problemActions';
 
-import SelectTable from '../util/SelectTable';
 import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
@@ -98,8 +97,6 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   onClickAdd = () => {
-    console.log('Trykte add knappen..');
-
     this.handleClickOpen();
     this.toggleHidden();
   };
@@ -128,8 +125,8 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, isLoggedIn, rows } = this.props;
-    console.log(this.props.entrepreneurs);
     if (problem) {
+      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -264,8 +261,10 @@ class ProblemDetails extends React.Component<Props, State> {
       return <div>LOADING PROBLEM...</div>;
     }
   }
-  componentDidMount() {
-    this.props.getAllEntrepreneurs();
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.currentProblemId !== nextProps.currentProblemId)
+    this.props.getEntrepreneursByMuniAndCat(nextProps.problem.category_fk);
   }
 }
 
@@ -278,7 +277,9 @@ const mapStateToProps = state => {
     problem,
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
-    entrepreneurs: state.entrepreneur.entrepreneurs
+    entrepreneurs: state.entrepreneur.entrepreneurs,
+    currentMuni: state.problem.currentMuni,
+    user
   };
 };
 
@@ -287,7 +288,9 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
     getAllEntrepreneurs: () => dispatch(getAllEntrepreneurs()),
-    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
+    getEntrepreneursByMuniAndCat: (category_fk) => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals)),
+
   };
 };
 
