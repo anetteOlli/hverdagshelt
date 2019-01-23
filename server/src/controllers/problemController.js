@@ -145,7 +145,7 @@ exports.problems_create_problem = (file,json, callback) => {
   }
 };
 
-exports.problems_delete_problem = (id,json,user,callback) => {
+exports.problems_delete_problem = (id,user,callback) => {
   console.log('/problems/' + id + ' fikk delete request fra klient');
   console.log(user);
   if (user.priority === 'Administrator' || user.priority === 'Municipality') {

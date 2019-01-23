@@ -118,7 +118,7 @@ test("Testing problems_create_problem from problemController", (done) => {
 
 
 test("Testing problems_support_problem from problemController", (done) => {
-  let id = 1;
+  let id = 4;
   let json = {
     user_id: 4,
     problem_id: 4,
@@ -126,6 +126,53 @@ test("Testing problems_support_problem from problemController", (done) => {
   problemController.problems_support_problem(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing problems_delete_problem  from problemController", (done) => {
+  let id = 2;
+  let json = {
+    priority: "Administrator"
+  };
+  problemController.problems_delete_problem(id,json,(status,data) => {
+    expect(status).toBe(status);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing problems_get_problem_by_entrepreneur  from problemcontroller", (done) => {
+  let id = 3;
+  problemController.problems_get_problem_by_entrepreneur(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(2);
+    done();
+  })
+});
+
+test("Testing problems_get_problem_by_user from problemcontroller", (done) => {
+  let id = 1;
+  problemController.problems_get_problem_by_user(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(4);
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    expect(data[0].user_id).toBe(id);
+    done();
+  })
+});
+
+test("Testing problems_ from problemcontroller", (done) => {
+  let json = {
+    county:"Trøndelag",
+    municipality: "Trondheim"
+  };
+  problemController.problems_get_from_municipality_sorted(json, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(2);
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    expect(data[0].county).toBe(json.county);
+    expect(data[0].municipality).toBe(json.municipality);
     done();
   })
 });
