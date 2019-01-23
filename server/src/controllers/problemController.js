@@ -33,7 +33,7 @@ exports.problems_support_problem = (id,json,callback) => {
   divDao.createSupportUser(json.user_id, json.problemId, (status, data) => {
     if (status === 200) {
       problemDao.supportProblem(id, (status, data) => {
-
+        if(status !== 200 ) callback(status,data);
         problemDao.getAllUsersbyProblemId(json.problemId, (status,data) => {
           console.log('data.length = ' + data.length);
           console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
@@ -49,7 +49,6 @@ exports.problems_support_problem = (id,json,callback) => {
 
         });//getAllUsersbyProblemId
 
-        callback(status,data);
     });//support
 
     } else {

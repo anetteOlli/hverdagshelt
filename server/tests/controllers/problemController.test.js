@@ -111,7 +111,7 @@ test("Testing problems_create_problem from problemController", (done) => {
   };
   problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
-    expect(data).toBe(1);
+    expect(data[0].affectedRows).toBe(1);
     done();
   })
 });
