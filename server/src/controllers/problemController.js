@@ -181,6 +181,7 @@ exports.problems_edit_problem = (id,json,user,file, callback) => {
         callback(status,data);
       });
       break;
+
     case 'Municipality':
       problemDao.patchMunicipality(id, json, (status, data) => {
         if (status === 200) {
