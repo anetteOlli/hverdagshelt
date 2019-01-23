@@ -153,7 +153,7 @@ class EditProblemMain extends React.Component<Props, State> {
     municipality: '',
     county: '',
 
-    priority_fk: '',
+    priority: '',
     similarProblems: [],
     categories: []
   };
@@ -175,7 +175,7 @@ class EditProblemMain extends React.Component<Props, State> {
             />
           </Grid>
           <Grid item sm md={9} xs>
-            {getEditView(getView(bool, this.props.priority_fk))}
+            {getEditView(getView(bool, this.props.priority))}
           </Grid>
         </Grid>
       </div>
@@ -201,7 +201,7 @@ const mapStateToProps = state => {
   return {
     problems: state.problem.problems,
     user_id: state.user.user_id,
-    priority_fk: state.user.priority,
+    priority: state.user.priority,
     currentMuni: state.user.currentMuni,
     currentProblemId: state.problem.currentProblemId,
     editMode: state.problem.editMode,
