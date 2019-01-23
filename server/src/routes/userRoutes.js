@@ -3,6 +3,8 @@ import { checkAuth } from '../services/util';
 const router = require('express').Router();
 const UserController = require('../controllers/userController');
 
+//@TODO should checkAuth for getting users! (Private info like county & municipality)
+
 router.get('/', UserController.users_get_all);
 
 router.post('/f/forgot', UserController.user_forgot_password);
@@ -11,7 +13,7 @@ router.post('/f/forgot', UserController.user_forgot_password);
 router.post('/login', UserController.users_login);
 router.get('/refresh', checkAuth, UserController.users_refresh);
 
-router.patch('/changePassword/', UserController.user_change_password);
+router.patch('/changePassword/', checkAuth, UserController.user_change_password);
 
 router.post('/', UserController.users_create_user);
 

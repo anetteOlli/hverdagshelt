@@ -16,28 +16,33 @@ exports.users_login = (req, res) => {
   userDao.checkEmail(req.body.email, (status, data) => {
     if (data.length < 1) return res.status(404);
     if (validatePassword(req.body.password, data[0].password)) {
-      console.log(data);
+      console.log("Data: ", data);
       res.status(200).json({
         id: data[0].user_id,
         jwt: genToken(data[0].user_id, data[0].priority_fk),
-        priority: data[0].priority_fk
+        priority: data[0].priority_fk,
+        municipality: data[0].municipality_fk,
+        county: data[0].county_fk
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
 };
 
 exports.users_refresh = (req, res) => {
+  console.log("Req refrsh: ", req.userData);
   res.status(200).json({
     id: req.userData.id,
     jwt: genToken(req.userData.id, req.userData.priority),
-    priority: req.userData.priority
+    priority: req.userData.priority,
+    municipality: req.userData.municipality_fk,
+    county: req.userData.county_fk
   });
 };
 
 exports.users_get_user = (req, res) => {
-  console.log(req.params);
+  console.log("Get user params: ", req.params);
   userDao.getOneById(req.params.id, (status, data) => {
-    res.status(status).json(data[0]);
+    res.status(status).json(data);
   });
 };
 
@@ -127,6 +132,4 @@ exports.user_forgot_password = (req, res) => {
       //feilmelding om at epost ikke finnes
     }
   });//checkEmail
-
-
 }

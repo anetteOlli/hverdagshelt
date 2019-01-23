@@ -5,6 +5,7 @@ import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField
 import Select from 'react-select';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
+import { getUserInfo } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
@@ -241,6 +242,7 @@ class MainPage extends React.Component<Props, State> {
     municipality: '',
     single: null,
     municipalities: ['Default'],
+    isLoggedIn: false,
   };
   render() {
     const { classes,municipalities } = this.props;
@@ -269,6 +271,22 @@ class MainPage extends React.Component<Props, State> {
                     isClearable
                   />
                 </NoSsr>
+                {this.props.isLoggedIn ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={classes.button}
+                    onClick={() => {
+                        this.props.getUserInfo()
+                        .then(() =>
+                          history.push("/" + this.props.userMuni.municipality + "&" + this.props.userMuni.county)
+                        );
+                    }}
+                  >
+                    Ta meg til min kommune
+                  </Button>) : <div/>
+                }
                 <Typography variant="h5" className={classes.tekst}>
                   Eller
                 </Typography>
@@ -276,7 +294,6 @@ class MainPage extends React.Component<Props, State> {
                   variant="contained"
                   color="primary"
                   size="large"
-                  className={classes.button}
                   onClick={this.registerProblem}
                 >
                   Registrer et problem
@@ -325,19 +342,24 @@ class MainPage extends React.Component<Props, State> {
 }//class
 
 const mapStateToProps = state => {
-const municipalitiesFromRedux = state.municipality.municipalities;
-const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(municipality => {
-  const value = `${municipality.municipality}&${municipality.county}`;
-  const label = `${municipality.municipality} i  ${municipality.county}`;
-  return {value, label}})) : null
+  const municipalitiesFromRedux = state.municipality.municipalities;
+  const municipalities = municipalitiesFromRedux ?
+    (municipalitiesFromRedux.map(municipality => {
+      const value = `${municipality.municipality}&${municipality.county}`;
+      const label = `${municipality.municipality} i  ${municipality.county}`;
+      return {value, label}
+  })) : null;
   return {
-    municipalities
+    municipalities: municipalities,
+    isLoggedIn: state.user.isLoggedIn,
+    userMuni: state.user.currentMuni
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMunicipalities: () => dispatch(getMunicipalities())
+    getMunicipalities: () => dispatch(getMunicipalities()),
+    getUserInfo: () => dispatch(getUserInfo())
   };
 };
 
