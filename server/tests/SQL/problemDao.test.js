@@ -51,7 +51,7 @@ test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data[0]).toBe(1);
+    expect(data[0].length).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].problem_id).toBe(id);
     done();
@@ -122,7 +122,7 @@ test("Testing createOne from problemDao", (done) => {
   };
   dao.createOne(problem,(status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
+    expect(data).toBe(1);
     done();
   })
 });

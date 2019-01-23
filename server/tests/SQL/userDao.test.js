@@ -78,6 +78,8 @@ test("Testing patchOne from userDao", (done) => {
 test("Testing deleteOne from userDao", (done) => {
   let id = 3;
   dao.deleteOne(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
     done();
   })
 });
@@ -97,7 +99,6 @@ test("Testing activateUser from userDao", (done) => {
   let email = "user@user.user";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
     done();
   })
 });
@@ -110,7 +111,6 @@ test("Testing changePassword from userDao", (done) => {
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);
-   expect(data.affectedRows).toBe(1);
    done();
   });
 });

@@ -46,7 +46,7 @@ module.exports = class UserDao extends Dao {
   }
 
   activateUser(email, callback){
-    super.query('UPDATE user SET active = TRUE WHERE email = ?',
+    super.query('UPDATE user SET active = 1 WHERE email = ?',
       [email],
       callback
     );
