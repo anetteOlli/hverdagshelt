@@ -28,10 +28,11 @@ export type ReduxState = {
   event: EventState,
   map: MapState,
   category: CategoryState,
-  muni: MuniState,
+  municipality: MuniState,
   entrepreneur: EntrepreneurState,
   statistic: StatisticState
 };
+
 type Action =
   | CategoryAction
   | MapAction
@@ -56,7 +57,7 @@ export default combineReducers({
   event: eventReducer,
   map: mapReducer,
   category: categoryReducer,
-  muni: muniReducer,
+  municipality: muniReducer,
   entrepreneur: entrepreneurReducer,
   statistic: statisticsReducer
 });

@@ -30,7 +30,7 @@ export const getProblemByUser = () => {
     const state = getState();
     switch (state.user.priority) {
       case 'Standard':
-        return getData(`problems/user/${getState().user.userID}`)
+        return getData(`problems/user/${getState().user.user_id}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_STANDARD_USER_SUCCESS',
@@ -44,7 +44,8 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        return getData(`problems/entrepreneur/${getState}`)
+        console.log("entrepreneur_id in problemAction: ")
+        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',
@@ -217,14 +218,14 @@ export const goToProblemEdit = (id: number) => {
   };
 };
 
-export const setMuni = (county_fk: string, municipality_fk: string) => ({
+export const setMuni = (county: string, municipality: string) => ({
   type: 'SET_MUNI',
-  payload: {county_fk, municipality_fk}
+  payload: {county, municipality}
 });
 
 export const problemAddEntrepreneur = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    patchData('problems/add/entrepreneur', problem)
+    return patchData('problems/add/entrepreneur', problem)
       .then(() =>
         dispatch({
           type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'
@@ -239,9 +240,9 @@ export const problemAddEntrepreneur = (problem: JSON) => {
   };
 };
 
-export const supportProblem = (userId: number, problemId: number) => {
+export const supportProblem = (user_id: number, problemId: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return patchData(`problems/vote/${problemId}`, { userId, problemId })
+    return patchData(`problems/vote/${problemId}`, { user_id, problemId })
       .then(response =>
         dispatch({
           type: 'SUPPORT_PROBLEM_SUCCESS',

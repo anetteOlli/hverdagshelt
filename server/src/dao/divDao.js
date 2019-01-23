@@ -23,8 +23,8 @@ module.exports = class DivDao extends Dao {
     super.query('INSERT INTO street VALUES(?)', [name], callback);
   }
 
-  createSupportUser(userId: number, problemId: number, callback){
-    super.query('SELECT * FROM user_problem WHERE user_id = ? AND problem_id = ?', [userId, problemId],
+  createSupportUser(user_id: number, problemId: number, callback){
+    super.query('SELECT * FROM user_problem WHERE user_id = ? AND problem_id = ?', [user_id, problemId],
       (status, data) => {
         console.log(data);
         if(data[0] != null){
@@ -32,7 +32,7 @@ module.exports = class DivDao extends Dao {
           callback(500, { message: 'cannot support problem twice' });
         }
         else{
-          super.query('INSERT INTO user_problem (user_id, problem_id) VALUES(?,?)', [userId, problemId], callback);
+          super.query('INSERT INTO user_problem (user_id, problem_id) VALUES(?,?)', [user_id, problemId], callback);
         }
       }
     );

@@ -1371,7 +1371,11 @@ county</ColNames>
     <column id="323" parent="236" name="support">
       <Position>17</Position>
       <DataType>int(11)|0s</DataType>
+<<<<<<< HEAD
+      <DefaultExpression>0</DefaultExpression>
+=======
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
+>>>>>>> f19a12b04022893174110e993e1b58b52adf868e
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="324" parent="236" name="municipality_fk">
@@ -1527,7 +1531,11 @@ county</RefColNames>
       <Position>5</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
+<<<<<<< HEAD
+      <DefaultExpression>0</DefaultExpression>
+=======
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
+>>>>>>> f19a12b04022893174110e993e1b58b52adf868e
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="352" parent="239" name="municipality_fk">

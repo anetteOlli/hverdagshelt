@@ -179,8 +179,8 @@ function getStepContent(step: number, state: State,
                     handleChangeSpec("cur_id", myProblem.problem_id);
                     handleChangeSpec("cur_title", myProblem.problem_title);
                     handleChangeSpec("cur_description", myProblem.problem_description);
-                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_fk);
-                    handleChangeSpec("cur_status", myProblem.status_fk);
+                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_id);
+                    handleChangeSpec("cur_status", myProblem.status);
                     handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
@@ -332,7 +332,7 @@ type Props = {
   similarProblems: Problem[],
   getProblemsByStreet: Function,
   getCategories: Function,
-  userId: string,
+  user_id: string,
   createProblem: Function,
   errorMessage: string,
   enqueueSnackbar: Function,
@@ -343,8 +343,8 @@ type Problem = {
   problem_id: number,
   problem_title: string,
   problem_description: string,
-  entrepreneur_fk: string,
-  status_fk: string,
+  entrepreneur_id: string,
+  status: string,
   img_user: string
 
 
@@ -353,7 +353,7 @@ type Problem = {
 type   state = {
     activeStep: number,
     //User
-    userId: number,
+    user_id: number,
 
     municipality: string,
     title: string,
@@ -376,8 +376,8 @@ type   state = {
 
     similarProblems:
       [
-        {problem_id: number, problem_title: string, category_fk: string, municipality_fk: string, entrepreneur_fk: string,
-        street_fk: string, problem_description: string, status_fk: string, img_user: string}
+        {problem_id: number, problem_title: string, category: string, municipality: string, entrepreneur_id: string,
+        street: string, problem_description: string, status: string, img_user: string}
         ],
     categories:['Default']
   };
@@ -396,7 +396,7 @@ class CreateProblem extends React.Component<Props, State> {
   state = {
     activeStep: 0,
     //User
-    userId: 1,
+    user_id: 1,
     city: '',
     county: '',
     municipality: '',
@@ -420,8 +420,8 @@ class CreateProblem extends React.Component<Props, State> {
 
     similarProblems:
       [
-        {problem_id:1, problem_title: '', category_fk: '', municipality_fk: '', entrepreneur_fk: '',
-        street_fk: '', problem_description: '', status_fk: 'Unchecked', img_user: ""}
+        {problem_id:1, problem_title: '', category: '', municipality: '', entrepreneur_id: '',
+        street: '', problem_description: '', status: 'Unchecked', img_user: ""}
         ],
     categories:['Error']
   };
@@ -473,8 +473,8 @@ class CreateProblem extends React.Component<Props, State> {
           this.handleChangeSpec("cur_id", myProbs[0].problem_id);
           this.handleChangeSpec("cur_title", myProbs[0].problem_title);
           this.handleChangeSpec("cur_description", myProbs[0].problem_description);
-          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur_fk);
-          this.handleChangeSpec("cur_status", myProbs[0].status_fk);
+          this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur_id);
+          this.handleChangeSpec("cur_status", myProbs[0].status);
           this.handleChangeSpec("cur_imageURL", myProbs[0].img_user);
         }
         else{
@@ -550,15 +550,15 @@ class CreateProblem extends React.Component<Props, State> {
 
       k.append("problem_title", this.state.title);
       k.append("problem_description", this.state.description);
-      k.append("category_fk", this.state.category);
-      k.append("status_fk", 'Unchecked');
-      k.append("user_fk", this.props.userId);
+      k.append("category", this.state.category);
+      k.append("status", 'Unchecked');
+      k.append("user_id", this.props.user_id);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
-      k.append("county_fk", this.state.county);
-      k.append("municipality_fk", this.state.municipality);
-      k.append("city_fk", this.state.city);
-      k.append("street_fk", this.state.street);
+      k.append("county", this.state.county);
+      k.append("municipality", this.state.municipality);
+      k.append("city", this.state.city);
+      k.append("street", this.state.street);
 
       this.props.createProblem(k)
       .then((status) => {
@@ -599,8 +599,8 @@ class CreateProblem extends React.Component<Props, State> {
   * @params problemId: number, id of the problem to 'support'
   */
   handleSupport(problemId: number) {
-    console.log("Clicked updoot for " + problemId + "/" + this.props.userId + "! Take me away hunny")
-    this.props.supportProblem(this.props.userId, problemId)
+    console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
+    this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
       //console.log(status);
       if(this.props.errorMessage != ''){
@@ -713,7 +713,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.currentMarker,
     //Cats, problems
@@ -721,7 +721,7 @@ const mapStateToProps = state => {
     similarProblems: state.problem.problems,
 
     //id
-    userId: state.user.userID,
+    user_id: state.user.user_id,
     isLoggedIn: state.user.isLoggedIn
   };
 };
@@ -730,8 +730,8 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
-    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county)),
-    supportProblem: (userId, problemId) => dispatch(supportProblem(userId, problemId))
+    getProblemsByStreet: (street, municipality, county) => dispatch(getProblemsByStreet(street, municipality, county)),
+    supportProblem: (user_id, problemId) => dispatch(supportProblem(user_id, problemId))
   };
 };
 

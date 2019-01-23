@@ -30,10 +30,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import type { ReduxState } from '../../store/reducers';
 
 const variantIcon = {
-  success: CheckCircleIcon,
+  success: CheckCircleIcon
 };
 
 const styles = (theme: Object) => ({
@@ -99,70 +100,9 @@ const styles = (theme: Object) => ({
     paddingBottom: 15,
     paddingLeft: 15
   },
-  success: {
-    backgroundColor: green[600],
-  },
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  warning: {
-    backgroundColor: amber[700],
-  },
-  icon: {
-    fontSize: 20,
-  },
-  iconVariant: {
-    opacity: 0.9,
-    marginRight: theme.spacing.unit,
-  },
-  message: {
-    display: 'flex',
-    alignItems: 'center',
-  },
+
 });
 
-function MySnackbarContent(props) {
-  const { classes, className, message, onClose, variant, ...other } = props;
-  const Icon = variantIcon[variant];
-
-  return (
-    <SnackbarContent
-      className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
-      message={
-        <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.icon, classes.iconVariant)} />
-          {message}
-        </span>
-      }
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className={classes.close}
-          onClick={onClose}
-        >
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
-      ]}
-      {...other}
-    />
-  );
-}
-
-MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-};
-
-const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);
 
 
 class ProblemDetails extends React.Component<Props, State> {
@@ -172,8 +112,8 @@ class ProblemDetails extends React.Component<Props, State> {
     power: '',
     open: false,
     visible: false,
-    openSnack: false,
     locked: false,
+    editVisible: true
   };
 
   toggleButtonVisible() {
@@ -187,12 +127,32 @@ class ProblemDetails extends React.Component<Props, State> {
     });
   }
 
+  //locked og vanlig bruker
+  toggleEditBtnVisible() {
+    this.setState({
+      editVisible: true
+    });
+  }
+  toggleEditBtnHidden() {
+    this.setState({
+      editVisible: false
+    });
+  }
+
+  checkEdit(bool) {
+    if (bool === 'Standard' && this.state.locked) {
+      this.toggleEditBtnHidden();
+    } else {
+      this.toggleEditBtnVisible();
+    }
+  }
+
   checkLocked(bool) {
-    if(bool) {
+    if (bool) {
       this.setState({
         locked: true
       });
-    }else{
+    } else {
       this.setState({
         locked: false
       });
@@ -234,33 +194,50 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({ open: false });
   };
 
-  handleCloseSnack = () => {
-    this.setState({ openSnack: false})
-  };
-  handleClickSnack = () => {
-    this.setState({ openSnack: true})
+
+  handleAddEntrepreneur = e => {
+    let myEntrepreneur = e;
+    this.setState({
+      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
+    });
+    //this.handleClickSnack();
+    this.handleClose();
+    console.log(myEntrepreneur);
+    let vals = {
+      entrepreneur_id: myEntrepreneur.entrepreneur_id,
+      problem_id: this.props.problem.problem_id
+    };
+    this.props.problemAddEntrepreneur(vals).then(() => {
+      if (this.props.errorMessage !== '') this.props.enqueueSnackbar('Noe gikk galt', { variant: 'error' });
+      else
+        this.props.enqueueSnackbar('Entrepreneør lagt til! Problemet er nå lukket og under behandling.', {
+          variant: 'success'
+        });
+    });
   };
 
   render() {
     const { classes, problem, priority_fk } = this.props;
     if (problem) {
       console.log('locked: ' + problem.problem_locked);
+      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {this.state.visible && !this.state.locked && (
-                  <Button
-                    variant="contained"
-                    size="small"
-                    color="secondary"
-                    className={classes.linkbtn}
-                    onClick={this.onClickAdd}
-                  >
-                    Legg til entrepreneur
-                  </Button>
-                )}
+                {this.state.visible &&
+                  !this.state.locked && (
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="secondary"
+                      className={classes.linkbtn}
+                      onClick={this.onClickAdd}
+                    >
+                      Legg til entrepreneur
+                    </Button>
+                  )}
 
                 <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
@@ -279,12 +256,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kontaktinfo: {problem.user_id}
                 </Typography>
               </Grid>
             </div>
@@ -354,43 +331,15 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                <SelectTable2
-                  rows={this.props.entrepreneurs}
-                  onClick={e => {
-                    let myEntrepreneur = e;
-                    console.log('EEEEEE', e);
-                    this.setState({
-                      entrepreneur_chosen: myEntrepreneur.entrepreneur_id
-                    });
-                    this.handleClickSnack();
-                    this.handleClose();
-                    console.log(myEntrepreneur);
-                    let vals = {
-                      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
-                      problem_id: problem.problem_id
-                    };
-                    this.props.problemAddEntrepreneur(vals);
-                  }}
-                />
+                {this.props.entrepreneurs && this.props.entrepreneurs.length > 0 ? (
+                  <SelectTable2 rows={this.props.entrepreneurs} onClick={this.handleAddEntrepreneur} />
+                ) : (
+                  <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>
+                )}
               </DialogContent>
               <DialogActions />
             </Dialog>
           </div>
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={this.state.openSnack}
-            autoHideDuration={6000}
-            onClose={this.handleCloseSnack}
-          >
-            <MySnackbarContentWrapper
-              onClose={this.handleCloseSnack}
-              variant="success"
-              message="Entrepreneur added! Problem is now locked and in progress."
-            />
-          </Snackbar>
         </div>
       );
     } else {
@@ -403,13 +352,12 @@ class ProblemDetails extends React.Component<Props, State> {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
       this.checkUser(this.props.priority_fk);
       this.checkLocked(nextProps.problem.problem_locked);
+      this.checkEdit(this.props.priority_fk);
     }
   }
-
-
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   const problems = state.problem.problems;
   const problem = problems ? problems.find(p => p.problem_id === state.problem.currentProblemId) : null;
   return {
@@ -418,7 +366,9 @@ const mapStateToProps = state => {
     priority_fk: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
-    currentMuni: state.problem.currentMuni
+    currentMuni: state.problem.currentMuni,
+    errorMessage: state.problem.errorMessage,
+
   };
 };
 
@@ -426,7 +376,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };

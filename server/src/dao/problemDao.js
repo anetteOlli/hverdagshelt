@@ -7,7 +7,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   getAllFromUserUnchecked(id: number, callback: function) {
-    super.query('SELECT * FROM problem WHERE user_fk = ? AND status_fk = ?', [id, "Unchecked"], callback);
+    super.query('SELECT * FROM problem WHERE user_id = ? AND status = ?', [id, "Unchecked"], callback);
   }
 
   getOne(id: number, callback: function) {
@@ -17,7 +17,7 @@ module.exports = class ProblemDao extends Dao {
   getFromMunicipality(json: any, callback: function) {
     const values = [json.municipality, json.county];
     super.query(
-      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND date_finished IS NULL',
+      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND date_finished IS NULL',
       values,
       callback
     );
@@ -26,7 +26,7 @@ module.exports = class ProblemDao extends Dao {
   getFromCity(json: any, callback: function) {
     const values = [json.municipality, json.county, json.city];
     super.query(
-      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND city_fk = ? AND date_finished IS NULL',
+      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND city_fk = ? AND date_finished IS NULL',
       values,
       callback
     );
@@ -36,7 +36,7 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.municipality, json.county, json.street];
 
     super.query(
-      'SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ? AND street_fk = ? AND date_finished IS NULL',
+      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND street_fk = ? AND date_finished IS NULL',
       values,
       callback
     );
@@ -47,19 +47,19 @@ module.exports = class ProblemDao extends Dao {
       json.problem_title,
       json.problem_description,
       json.img_user,
-      json.category_fk,
-      json.status_fk,
-      json.user_fk,
+      json.category,
+      json.status,
+      json.user_id,
       json.latitude,
       json.longitude,
-      json.county_fk,
-      json.municipality_fk,
+      json.county,
+      json.municipality,
       json.city_fk,
       json.street_fk,
-      json.user_fk
+      json.user_id
     ];
     super.query(
-      'INSERT INTO problem (problem_title,problem_description,img_user,category_fk,status_fk,user_fk,latitude,longitude,county_fk,municipality_fk,city_fk,street_fk, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW()); INSERT INTO user_problem (user_id, problem_id) VALUES (?, LAST_INSERT_ID())',
+      'INSERT INTO problem (problem_title,problem_description,img_user,category,status,user_id,latitude,longitude,county,municipality,city_fk,street_fk, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW()); INSERT INTO user_problem (user_id, problem_id) VALUES (?, LAST_INSERT_ID())',
       newContent,
       callback
     );
@@ -75,15 +75,15 @@ module.exports = class ProblemDao extends Dao {
     const values = [
       json.problem_title,
       json.problem_description,
-      json.status_fk,
-      json.category_fk,
+      json.status,
+      json.category,
       json.img_user,
       json.description_entrepreneur,
       json.img_entrepreneur,
       id
       ];
       super.query(
-        'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
         values,
         callback
       );
@@ -94,12 +94,12 @@ module.exports = class ProblemDao extends Dao {
     const values = [
     json.description_entrepreneur,
     json.img_entrepreneur,
-    json.status_fk,
+    json.status,
     id
     ];
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?, img_entrepreneur = ?, status = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
@@ -109,13 +109,13 @@ module.exports = class ProblemDao extends Dao {
     const values = [
     json.problem_title,
     json.problem_description,
-    json.category_fk,
-    json.status_fk,
+    json.category,
+    json.status,
     id
     ];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, category = ?, status = ?, img_user = ?, last_edited = NOW()  WHERE problem_id = ?',
       values,
       callback
     );
@@ -125,33 +125,33 @@ module.exports = class ProblemDao extends Dao {
     const values = [
     json.problem_title,
     json.problem_description,
-    json.category_fk,
+    json.category,
     json.img_user,
     id];
     console.log(values);
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, category = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
   }
 
   deleteOne(id: number, callback: function) {
-    super.query("UPDATE problem SET status_fk = 'Archived' WHERE problem_id = ?", [id], callback);
+    super.query("UPDATE problem SET status = 'Archived' WHERE problem_id = ?", [id], callback);
   }
 
   getByUser(user_id: number, callback: function) {
-    super.query("SELECT * FROM problem WHERE user_fk = ?", [user_id], callback);
+    super.query("SELECT * FROM problem WHERE user_id = ?", [user_id], callback);
   }
   getByEntrepreneur(entrepreneur_id: number, callback: function) {
-    super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
+    super.query("SELECT * FROM problem WHERE entrepreneur_id = ?", [entrepreneur_id], callback);
   }
 
 
   addEntrepreneur(json: any, callback: function) {
-    const values = [json.entrepreneur_fk, json.problem_id];
+    const values = [json.entrepreneur_id, json.problem_id];
     console.log(values);
-    super.query("UPDATE problem SET problem_locked = 1, status_fk = 'InProgress', entrepreneur_fk = ? WHERE problem_id = ?", values, callback);
+    super.query("UPDATE problem SET problem_locked = 1, status = 'InProgress', entrepreneur_id = ? WHERE problem_id = ?", values, callback);
   }
 
   getAllUsersbyProblemId(id, callback) {
