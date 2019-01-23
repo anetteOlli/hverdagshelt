@@ -22,7 +22,7 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
-afterAll(() => pool.end());
+
 
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {

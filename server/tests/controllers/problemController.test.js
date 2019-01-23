@@ -20,7 +20,6 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
-afterAll(() => pool.end());
 
 est("Testing problems_get_all from problemcontroller", (done) => {
   problemController.problems_get_all((status,data) => {

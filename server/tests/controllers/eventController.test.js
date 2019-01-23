@@ -20,7 +20,6 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
-afterAll(() => pool.end());
 
 test("Testing events_create_event from eventController", (done) => {
   let json = {
