@@ -44,10 +44,6 @@ module.exports = class UserDao extends Dao {
   }
 
   checkEmail(email, callback) {
-<<<<<<< HEAD
-    super.query('select user_id, password, priority, municipality, county from user where email = ?', [email], callback);
-=======
     super.query('select user_id, password from user where email = ?', [email], callback);
->>>>>>> cb2e84ab747b0fd08c03c14ed01abf335473a6e5
   }
 };
