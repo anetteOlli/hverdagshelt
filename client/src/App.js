@@ -20,6 +20,7 @@ import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import ScrollToTop from './components/util/ScrollToTop';
+import Notifier from './components/util/Notifier';
 
 const styles = () => ({
   root: {
@@ -42,49 +43,45 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: Object,
+  classes: Object
 };
 
-class App extends React.Component<Props> {
-  render() {
-    const { classes} = this.props;
-      return (
-        <SnackbarProvider maxSnack={3}>
-          <HashRouter>
-            <Fragment>
-              <CssBaseline />
-              <div className={classes.root}>
-                <NavBar />
-                <div className={classes.site}>
-                  <ScrollToTop>
-                    <Switch>
-                      <Route exact path="/" component={MainPage} />
-                      <Route exact path="/uploadfile" component={UploadFile} />
-                      <Route exact path="/registrer-bruker" component={SignUp} />
-                      <Route exact path="/problems/:county/:municipality" component={EditProblemMain} />
-                      <Route exact path="/lagproblem" component={CreateProblem} />
-                      <Route exact path="/problemdetails" component={ProblemDetails} />
-                      <Route exact path="/opprArrangement" component={CreateEvent} />
-                      <Route exact path="/muiTable" component={MuiTable2} />
-                      <Route exact path="/munipage" component={MuniPage} />
-                      <Route exact path="/lagproblem" component={CreateProblem} />
-                      <Route exact path="/uploadfile" component={UploadFile} />
-                      <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-                      <Route exact path="/stati" component={Stati} />
-                      <Route exact path="/innstillinger" component={Settings} />
-                      <Route exact path="/profil" component={Profile} />
-                      <Route exact path="/:municipality" component={MuniPage} />
-                      {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
-                    </Switch>
-                  </ScrollToTop>
-                </div>
-                <Footer />
-              </div>
-            </Fragment>
-          </HashRouter>
-        </SnackbarProvider>
-      );
-  }
-}
+const App = ({ classes }: Props) => (
+  <SnackbarProvider maxSnack={3}>
+    <Notifier />
+    <HashRouter>
+      <Fragment>
+        <CssBaseline />
+        <div className={classes.root}>
+          <NavBar />
+          <div className={classes.site}>
+            <ScrollToTop>
+              <Switch>
+                <Route exact path="/" component={MainPage} />
+                <Route exact path="/uploadfile" component={UploadFile} />
+                <Route exact path="/registrer-bruker" component={SignUp} />
+                <Route exact path="/problems/:county/:municipality" component={EditProblemMain} />
+                <Route exact path="/lagproblem" component={CreateProblem} />
+                <Route exact path="/problemdetails" component={ProblemDetails} />
+                <Route exact path="/opprArrangement" component={CreateEvent} />
+                <Route exact path="/muiTable" component={MuiTable2} />
+                <Route exact path="/munipage" component={MuniPage} />
+                <Route exact path="/lagproblem" component={CreateProblem} />
+                <Route exact path="/uploadfile" component={UploadFile} />
+                <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
+                <Route exact path="/stati" component={Stati} />
+                <Route exact path="/innstillinger" component={Settings} />
+                <Route exact path="/profil" component={Profile} />
+                <Route exact path="/:municipality" component={MuniPage} />
+                {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+              </Switch>
+            </ScrollToTop>
+          </div>
+          <Footer />
+        </div>
+      </Fragment>
+    </HashRouter>
+  </SnackbarProvider>
+);
 
 export default withRoot(withStyles(styles)(App));

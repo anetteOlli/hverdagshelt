@@ -161,7 +161,7 @@ class SignUp extends React.Component<Props, State> {
         .signUpEntrepreneur(
           { municipality: 'Trondheim', county: 'Trøndelag', email, password },
           {
-            bedriftNavn: entrepreneurName,
+            business_name: entrepreneurName,
             org_nr: org_nr,
             municipalities: entrepreneurMunies.map(name => {
               return { county, municipality: name };
