@@ -47,7 +47,7 @@ type Props = {
 };
 
 type State = {
-  muni: string,
+  municipality: string,
   county: string,
   entrepreneurName: string,
   email: string,
@@ -55,11 +55,11 @@ type State = {
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
-  orgNr: number,
+  org_nr: number,
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
   entrepreneurCategories: string[],
-  isUniqueOrgNr: boolean,
+  isUniqueorg_nr: boolean,
   successDialog: boolean
 };
 
@@ -85,7 +85,7 @@ const MenuProps = {
 
 class SignUp extends React.Component<Props, State> {
   state = {
-    muni: '',
+    municipality: '',
     county: '',
     email: '',
     password: '',
@@ -96,8 +96,8 @@ class SignUp extends React.Component<Props, State> {
     entrepreneurName: '',
     entrepreneurMunies: [],
     entrepreneurCategories: [],
-    isUniqueOrgNr: false,
-    orgNr: 0,
+    isUniqueorg_nr: false,
+    org_nr: 0,
     successDialog: false
   };
 
@@ -110,7 +110,7 @@ class SignUp extends React.Component<Props, State> {
   handleCountyChange = e => {
     this.setState({
       county: e.target.value,
-      muni: '',
+      municipality: '',
       entrepreneurMunies: []
     });
     this.props.getMunicipalitiesByCounty(e.target.value);
@@ -129,7 +129,7 @@ class SignUp extends React.Component<Props, State> {
   handleSubmit = e => {
     e.preventDefault();
     const {
-      muni,
+      municipality,
       county,
       email,
       password,
@@ -137,12 +137,12 @@ class SignUp extends React.Component<Props, State> {
       entrepreneurMunies,
       entrepreneurCategories,
       entrepreneurName,
-      orgNr
+      org_nr
     } = this.state;
     if (!isEntrepreneur)
       this.props
         .signUpUser({
-          municipality: muni,
+          municipality: municipality,
           county,
           email,
           password
@@ -161,8 +161,8 @@ class SignUp extends React.Component<Props, State> {
         .signUpEntrepreneur(
           { municipality: 'Trondheim', county: 'Trøndelag', email, password },
           {
-            bedriftNavn: entrepreneurName,
-            org_nr: orgNr,
+            business_name: entrepreneurName,
+            org_nr: org_nr,
             municipalities: entrepreneurMunies.map(name => {
               return { county, municipality: name };
             }),
@@ -194,16 +194,16 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
-  handleValidateOrgNr = () => {
-    getData(`entrepreneurs/validate_org_nr/${this.state.orgNr}`).then(response => {
+  handleValidateorg_nr = () => {
+    getData(`entrepreneurs/validate_org_nr/${this.state.org_nr}`).then(response => {
       console.log(response);
-      const orgNr = this.state.orgNr;
+      const org_nr = this.state.org_nr;
       this.setState({
-        isUniqueOrgNr: response.data.orgNrExist,
-        orgNr: orgNr + 1
+        isUniqueorg_nr: response.data.org_nrExist,
+        org_nr: org_nr + 1
       });
       this.setState({
-        orgNr: orgNr
+        org_nr: org_nr
       });
     });
   };
@@ -229,13 +229,13 @@ class SignUp extends React.Component<Props, State> {
           errorMessages={['Feltet kan ikke være tomt']}
         />
         <FormControl fullWidth margin="normal" className={classes.formControl} disabled={muniNotReady}>
-          <InputLabel htmlFor="muni-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
+          <InputLabel htmlFor="municipality-checkbox">Kommuner entrepenøren jobber i:</InputLabel>
           <Select
             multiple
             value={this.state.entrepreneurMunies}
             name="entrepreneurMunies"
             onChange={this.handleChange}
-            input={<Input id="muni-checkbox" />}
+            input={<Input id="municipality-checkbox" />}
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
@@ -270,12 +270,12 @@ class SignUp extends React.Component<Props, State> {
           fullWidth
           margin="normal"
           label="Org nr"
-          name="orgNr"
+          name="org_nr"
           type="number"
-          value={this.state.orgNr}
+          value={this.state.org_nr}
           onChange={this.handleChange}
-          onBlur={this.handleValidateOrgNr}
-          validators={['required', 'isNumber', 'isOrgNr']}
+          onBlur={this.handleValidateorg_nr}
+          validators={['required', 'isNumber', 'isorg_nr']}
           errorMessages={['Feltet kan ikke være tomt', 'må være tall', 'Org nummeret finnes fra før']}
         />
       </div>
@@ -308,8 +308,8 @@ class SignUp extends React.Component<Props, State> {
             fullWidth
             margin="normal"
             label="Kommune: "
-            name="muni"
-            value={this.state.muni}
+            name="municipality"
+            value={this.state.municipality}
             onChange={this.handleChange}
             validators={['required']}
             errorMessages={['this field is required']}
@@ -410,7 +410,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
-    ValidatorForm.addValidationRule('isOrgNr', () => !this.state.isUniqueOrgNr);
+    ValidatorForm.addValidationRule('isorg_nr', () => !this.state.isUniqueorg_nr);
     this.props.getCounties();
     this.props.getCategories();
   }
@@ -421,8 +421,8 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
     categories: state.category.categories,
-    currentMunicipalities: state.muni.currentMunicipalities,
-    counties: state.muni.counties
+    currentMunicipalities: state.municipality.currentMunicipalities,
+    counties: state.municipality.counties
   };
 };
 

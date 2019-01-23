@@ -32,17 +32,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string
+  municipality: string,
+  county: string,
+  city: string,
+  street: string
 };
 
 const styles = (theme: Object) => ({
@@ -99,17 +99,17 @@ class EditProblemA extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
+    category: '',
+    status: '',
+    user_id: '',
+    entrepreneur_id: '',
     latitude: '',
     longitude: '',
     support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
+    municipality: '',
+    county: '',
+    city: '',
+    street: '',
     displayImg: '',
     displayImg2: ''
   };
@@ -199,7 +199,7 @@ class EditProblemA extends React.Component<Props, State> {
                     fullWidth
                     label="Kategori"
                     margin="normal"
-                    name="category_fk"
+                    name="category"
                     value={this.state.category_fk}
                     onChange={this.handleChange}
                     validators={['required']}
@@ -240,8 +240,8 @@ class EditProblemA extends React.Component<Props, State> {
                     fullWidth
                     label="Status:"
                     margin="normal"
-                    name="status_fk"
-                    value={this.state.status_fk}
+                    name="status"
+                    value={this.state.status}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -265,7 +265,7 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Typography variant = 'i' className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Typography>
+                  <Typography variant = 'i' className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Typography>
 
                   <Typography variant = 'i' className ={classes.paper}> Dato Endret: {this.state.last_edited} </Typography>
 

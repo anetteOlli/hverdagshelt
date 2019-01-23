@@ -2,7 +2,7 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
-import { entrepreneurs_get_one_by_User_fk } from '../../store/actions/entrepreneurAction';
+import { entrepreneurs_get_one_by_user_id } from '../../store/actions/entrepreneurAction';
 // Material-ui
 import {
   Select,
@@ -50,17 +50,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string
+  municipality: string,
+  county: string,
+  city: string,
+  street: string
 };
 
 const styles = (theme: Object) => ({
@@ -136,7 +136,7 @@ class EditProblemMain extends React.Component<Props, State> {
     municipality: '',
     county: '',
 
-    priority_fk: '',
+    priority: '',
     similarProblems: [],
     categories: []
   };
@@ -162,7 +162,7 @@ class EditProblemMain extends React.Component<Props, State> {
             </Paper>
           </Grid>
           <Grid item sm md={9} xs>
-            {getEditView(getView(bool, this.props.priority_fk))}
+            {getEditView(getView(bool, this.props.priority))}
           </Grid>
         </Grid>
       </div>
@@ -171,7 +171,7 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-    this.props.entrepreneurs_get_one_by_User_fk().then(() => {
+    this.props.entrepreneurs_get_one_by_user_id().then(() => {
       this.props.getProblemByUser();
       this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
     })
@@ -187,8 +187,8 @@ class EditProblemMain extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     problems: state.problem.problems,
-    userId: state.user.userID,
-    priority_fk: state.user.priority,
+    user_id: state.user.user_id,
+    priority: state.user.priority,
     currentMuni: state.user.currentMuni,
     currentProblemId: state.problem.currentProblemId,
     editMode: state.problem.editMode,
@@ -200,8 +200,8 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
-    setMuni: (county, muni) => dispatch(setMuni(county, muni)),
-    entrepreneurs_get_one_by_User_fk: () => dispatch(entrepreneurs_get_one_by_User_fk()),
+    setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
+    entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
     getUserInfo: () => dispatch(getUserInfo())
   };
 };

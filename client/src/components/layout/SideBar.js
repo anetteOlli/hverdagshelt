@@ -133,13 +133,13 @@ class TemporaryDrawer extends React.Component<Props> {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkUser(this.props.priority_fk);
+    this.checkUser(this.props.priority);
   }
 }
 
 const mapStateToProps = state => {
   return {
-    priority_fk: state.user.priority
+    priority: state.user.priority
   };
 };
 
