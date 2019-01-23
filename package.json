@@ -1,6 +1,6 @@
 {
-  "name": "nettavis-prosjekt",
-  "version": "1.0.2",
+  "name": "hverdagshelt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -11,10 +11,15 @@
   },
   "keywords": [
     "restful",
-    "nettavis",
-    "mini prosjekt"
+    "kommune",
+    "prosjekt",
+    "SCRUM"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "html2canvas": "^1.0.0-alpha.12",
+    "jspdf": "^1.5.3",
+    "react-to-pdf": "0.0.6"
+  },
   "devDependencies": {
     "concurrently": "^4.0.1"
   }

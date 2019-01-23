@@ -598,8 +598,8 @@ class CreateProblem extends React.Component<Props, State> {
   * @params problemId: number, id of the problem to 'support'
   */
   handleSupport(problemId: number) {
-    console.log("Clicked updoot for " + problemId + "/" + this.state.userId + "! Take me away hunny")
-    this.props.supportProblem(this.state.userId, problemId)
+    console.log("Clicked updoot for " + problemId + "/" + this.props.userId + "! Take me away hunny")
+    this.props.supportProblem(this.props.userId, problemId)
     .then((status) => {
       //console.log(status);
       if(this.props.errorMessage != ''){

@@ -7,8 +7,8 @@ export type State = {
   isLoggedIn: boolean,
   errorMessage: string,
   priority: Priority,
-  currentMuni: { municipality: string, county: string } | null,
-  email: string | null
+  email: string,
+  currentMuni: {municipality_fk: string, county_fk: string}
 };
 
 export type Action =
@@ -22,7 +22,7 @@ export type Action =
   | { type: 'REFRESH_ERROR', payload: string }
   | { type: 'TEMP_PASSWORD_SUCCESS' }
   | { type: 'TEMP_PASSWORD_ERROR', payload: Error }
-  | { type: 'GET_USER_INFO_SUCESS', payload: any }
+  | { type: 'GET_USER_INFO_SUCCESS', payload: any }
   | { type: 'GET_USER_INFO_ERROR', payload: Error }
   | { type: 'NEW_PASSWORD_SUCCESS' }
   | { type: 'NEW_PASSWORD_ERROR', payload: Error };
@@ -32,8 +32,8 @@ const initState = {
   isLoggedIn: false,
   errorMessage: '',
   priority: 'Standard',
-  email: null,
-  currentMuni: null
+  email: '',
+  currentMuni: { municipality: '', county: '' }
 };
 
 export default (state: State = initState, action: Action) => {
@@ -106,12 +106,12 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload
       };
-    case 'GET_USER_INFO_SUCESS':
-      console.log('%c GET_USER_INFO_SUCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'GET_USER_INFO_SUCCESS':
+      console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk }
+        currentMuni: { municipality: action.payload[0].municipality_fk, county: action.payload[0].county_fk },
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);

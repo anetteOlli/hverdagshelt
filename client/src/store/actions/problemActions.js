@@ -44,7 +44,8 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        return getData(`problems/entrepreneur/${getState}`)
+        console.log("Entrepreneur_fk in problemAction: ")
+        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',
@@ -164,11 +165,13 @@ export const deleteProblem = (id: number) => {
 export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems/municipality', { municipality, county })
-      .then(response =>
+      .then(response => {
+        // console.log("Respojnse: ", response.data); //OK
         dispatch({
           type: 'PROBLEMS_BY_MUNI_SUCCESS',
           payload: response.data
-        })
+        });
+      }
       )
       .catch((error: Error) =>
         dispatch({
@@ -222,7 +225,7 @@ export const setMuni = (county_fk: string, municipality_fk: string) => ({
 
 export const problemAddEntrepreneur = (problem: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    patchData('problems/add/entrepreneur', problem)
+    return patchData('problems/add/entrepreneur', problem)
       .then(() =>
         dispatch({
           type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'

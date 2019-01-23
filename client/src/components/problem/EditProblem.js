@@ -89,7 +89,9 @@ class EditProblem extends React.Component<Props, State> {
     municipality_fk: '',
     county_fk: '',
     city_fk: '',
-    street_fk: ''
+    street_fk: '',
+    displayImg: '',
+
   };
 
   handleChange = e => {
@@ -104,12 +106,12 @@ class EditProblem extends React.Component<Props, State> {
 
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_user: e
     });
   };
 
   render() {
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes, categories } = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24}>
@@ -161,8 +163,6 @@ class EditProblem extends React.Component<Props, State> {
 
                 <Paper
                   className={classes.paper2}
-                  fullWidth
-                  readOnly
                   margin="normal"
                   label="Status:"
                   name="status_fk"
@@ -189,19 +189,9 @@ class EditProblem extends React.Component<Props, State> {
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
-
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Typography>Kart: </Typography>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div className="mapPlaceholder">
-                      <MapMarkers />
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
+                <div className="mapPlaceholder">
+                  <MapMarkers />
+                </div>
                 <Button fullWidth variant="contained" className={classes.button} type="submit">
                   Lagre endringer
                 </Button>
@@ -222,11 +212,10 @@ class EditProblem extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

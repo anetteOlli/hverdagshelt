@@ -11,11 +11,10 @@ type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    console.log(getState());
-    return getData(`users/${getState().user.userID}`)
+    return getData(`users/id/${getState().user.userID}`)
       .then(response =>
         dispatch({
-          type: 'GET_USER_INFO_SUCESS',
+          type: 'GET_USER_INFO_SUCCESS',
           payload: response.data
         })
       )
@@ -136,7 +135,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/forgot', email)
+    return postData('users/f/forgot', {email})
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'

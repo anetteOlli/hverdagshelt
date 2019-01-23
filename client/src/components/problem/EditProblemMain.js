@@ -1,13 +1,8 @@
 // @flow
 import React from 'react';
 import withRoot from '../../withRoot';
-import {
-  getProblemByEntrepreneur,
-  getProblemByUser,
-  goToProblemDetail,
-  setMuni
-} from '../../store/actions/problemActions';
-
+import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
+import { entrepreneurs_get_one_by_User_fk } from '../../store/actions/entrepreneurAction';
 // Material-ui
 import {
   Select,
@@ -34,7 +29,7 @@ import { withSnackbar } from 'notistack';
 import ProblemDetails from './ProblemDetails';
 import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
-
+import { getUserInfo } from '../../store/actions/userActions';
 
 var bool = false;
 
@@ -154,27 +149,9 @@ function getEditView(priority: number) {
 
 class EditProblemMain extends React.Component<Props, State> {
   state = {
-    problem_id: null,
-    problem_title: '',
-    problem_description: '',
-    problem_locked: '',
-    description_entrepreneur: '',
-    img_user: '',
-    img_entrepreneur: '',
-    date_made: '',
-    last_edited: '',
-    date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
-    latitude: '',
-    longitude: '',
-    support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
+
+    municipality: '',
+    county: '',
 
     priority_fk: '',
     similarProblems: [],
@@ -193,10 +170,9 @@ class EditProblemMain extends React.Component<Props, State> {
               rows={problems}
               onClick={e => {
                 let myProblem = e;
-                this.props.goToProblemDetail(myProblem.problem_id)
+                this.props.goToProblemDetail(myProblem.problem_id);
               }}
             />
-            {console.log('kjk',this.props.problems)}
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority_fk))}
@@ -207,15 +183,16 @@ class EditProblemMain extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.getProblemByUser();
-    this.setState({
-      ...this.props.problem
-    });
+    this.props.getUserInfo().then(() => {
+    this.props.entrepreneurs_get_one_by_User_fk().then(() => {
+      this.props.getProblemByUser();
+      this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+    })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.problems !== nextProps.problems) {
-
     }
   }
 }
@@ -225,8 +202,10 @@ const mapStateToProps = state => {
     problems: state.problem.problems,
     userId: state.user.userID,
     priority_fk: state.user.priority,
+    currentMuni: state.user.currentMuni,
     currentProblemId: state.problem.currentProblemId,
-    editMode: state.problem.editMode
+    editMode: state.problem.editMode,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 
@@ -234,6 +213,9 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
+    setMuni: (county, muni) => dispatch(setMuni(county, muni)),
+    entrepreneurs_get_one_by_User_fk: () => dispatch(entrepreneurs_get_one_by_User_fk()),
+    getUserInfo: () => dispatch(getUserInfo())
   };
 };
 

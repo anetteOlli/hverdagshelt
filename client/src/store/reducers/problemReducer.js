@@ -46,7 +46,7 @@ export type Action =
   | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
-  | { type: 'SET_MUNI' };
+  | { type: 'SET_MUNI', payload: any };
 
 
 const initState = {
@@ -79,7 +79,7 @@ const initState = {
   errorMessage: '',
   currentProblemId: 2,
   editMode: false,
-  currentMuni: ''
+  currentMuni: {municipality: '', county: ''}
 };
 
 export default (state: State = initState, action: Action) => {
@@ -128,12 +128,24 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
     case 'PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_MUNICIPALITY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      console.log('%c PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_MUNICIPALITY_USER_ERROR':
+      console.log('%c PROBLEMS_BY_MUNICIPALITY_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        errorMessage: action.payload.message
+      };
+    case 'PROBLEMS_BY_MUNI_SUCCESS':
+      console.log('%c PROBLEMS_BY_MUNICIPALITY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        problems: action.payload
+      };
+    case 'PROBLEMS_BY_MUNI_ERROR':
       console.log('%c PROBLEMS_BY_MUNICIPALITY_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
@@ -235,7 +247,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'PROBLEM_ADD_ENTREPRENEUR_ERROR':
-      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: green; font-weight: bold;');
+      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
