@@ -22,10 +22,12 @@ class MailController {
      * @param callback
      */
     sendSingleMail(dataPackage: object, callback: function) {
-
+        console.log('---Inne i sendSingleMail');
+        console.log('---DataPackage er:' + dataPackage);
+        console.log('---Email er:' + dataPackage.recepients);
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",
-          to: dataPackage.email,
+          to: dataPackage.recepients,
           subject: "Your problem has been registered",
           text: dataPackage.text,
           html: dataPackage.html
@@ -41,8 +43,8 @@ class MailController {
             }
         });
     }
-    
-    
+
+
     /***
      * Method for sending bulk of emails to specific groups of recepients
      * @param notification  A string message that is sent out to the users/recepients
@@ -60,7 +62,7 @@ class MailController {
             transporter.sendMail(mailOptions, (err,res) => this.callbackHandler(err,res));
         });
     }
-    
+
     /***
      * Simple callbackHandler for sendMail function
      * @param err Error message if the mail wasn't sent

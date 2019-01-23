@@ -5,7 +5,6 @@ import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import { signIn } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary';
@@ -13,10 +12,10 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import PictureUpload from '../util/PictureUpload';
-import Map from '../map/MapWithSearchBox';
-import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
+import type { Problem } from '../../store/reducers/problemReducer';
 
 type Props = {
   classes: Object,
@@ -25,13 +24,26 @@ type Props = {
 
 type State = {
   problem_id: number,
+  problem_title: string,
   problem_description: string,
+  problem_locked: number,
+  description_entrepreneur: string,
   img_user: string,
-  date_made: Date,
-  last_edited: Date,
-  location_fk: Geolocation,
-  status_fk: 'active' | 'inacitve' | 'happening',
-  category_fk: string
+  img_entrepreneur: string,
+  date_made: date,
+  last_edited: date,
+  date_finished: date,
+  category_fk: string,
+  status_fk: string,
+  user_fk: number,
+  entrepreneur_fk: number,
+  latitude: number,
+  longitude: number,
+  support: number,
+  municipality_fk: string,
+  county_fk: string,
+  city_fk: string,
+  street_fk: string
 };
 
 const styles = (theme: Object) => ({
@@ -45,6 +57,11 @@ const styles = (theme: Object) => ({
     marginTop: 10,
     color: theme.palette.text.secondary
   },
+  paper2: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10
+  },
   button: {
     marginTop: theme.spacing.unit
   }
@@ -53,14 +70,26 @@ const styles = (theme: Object) => ({
 class EditProblem extends React.Component<Props, State> {
   state = {
     problem_id: null,
+    problem_title: '',
     problem_description: '',
+    problem_locked: '',
+    description_entrepreneur: '',
     img_user: '',
+    img_entrepreneur: '',
     date_made: '',
     last_edited: '',
-    location_fk: '',
-    status_fk: '',
+    date_finished: '',
     category_fk: '',
-    displayImg: ''
+    status_fk: '',
+    user_fk: '',
+    entrepreneur_fk: '',
+    latitude: '',
+    longitude: '',
+    support: '',
+    municipality_fk: '',
+    county_fk: '',
+    city_fk: '',
+    street_fk: ''
   };
 
   handleChange = e => {
@@ -70,10 +99,7 @@ class EditProblem extends React.Component<Props, State> {
   };
 
   handleSubmit = e => {
-    // gå videre til å lagre endringer
-    this.state.last_edited = new Date();
-    e.preventDefault();
-    console.log(this.state);
+    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
   handleUpload = e => {
@@ -89,21 +115,21 @@ class EditProblem extends React.Component<Props, State> {
         <Grid container spacing={24}>
           <Grid item xs>
             <Paper className={classes.paper}>
-              <Typography variant="h2" gutterBottom align="center">
-                Endre på problem
-              </Typography>
               <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-                <Paper
-                  className={classes.paper}
+                <Typography variant="h2" gutterBottom align="center">
+                  Endre på problem
+                </Typography>
+
+                <TextValidator
                   fullWidth
-                  readOnly
                   margin="normal"
-                  label="Status:"
-                  name="status_fk"
-                  value={'status'}
-                >
-                  {'Status:   ' + this.state.status_fk}
-                </Paper>
+                  label="Tittel: "
+                  name="problem_title"
+                  value={this.state.problem_title}
+                  onChange={this.handleChange}
+                  validators={['required', 'minStringLength:1']}
+                  errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                />
 
                 <TextValidator
                   fullWidth
@@ -127,11 +153,24 @@ class EditProblem extends React.Component<Props, State> {
                   errorMessages={['this field is required']}
                 >
                   {categories.map((option, index) => (
-                    <MenuItem key={index} value={option.category}>
-                      {option.category}
+                    <MenuItem key={index} value={option}>
+                      {option}
                     </MenuItem>
                   ))}
                 </SelectValidator>
+
+                <Paper
+                  className={classes.paper2}
+                  fullWidth
+                  readOnly
+                  margin="normal"
+                  label="Status:"
+                  name="status_fk"
+                  value={'status'}
+                >
+                  {'Status:   ' + this.state.status_fk}
+                </Paper>
+
                 <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <div>
@@ -144,28 +183,29 @@ class EditProblem extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
+
+                <ExpansionPanel>
+                  <ExpansionPanelSummary>
+                    <div>
+                      <Typography>Kart: </Typography>
+                    </div>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div className="mapPlaceholder">
+                      <MapMarkers />
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <Button fullWidth variant="contained" className={classes.button} type="submit">
+                  Lagre endringer
+                </Button>
               </ValidatorForm>
-              <ExpansionPanel>
-                <ExpansionPanelSummary>
-                  <div>
-                    <Typography>Kart: </Typography>
-                  </div>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.mapExpansion}>
-                  <div className="mapPlaceholder">
-                    <MapMarkers />
-                  </div>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-              <Button fullWidth variant="contained" className={classes.button} type="submit">
-                Lagre endringer
-              </Button>
             </Paper>
           </Grid>
         </Grid>
@@ -178,13 +218,11 @@ class EditProblem extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
     this.setState({
       ...this.props.problem
     });
@@ -209,7 +247,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
   };
 };
 

@@ -463,7 +463,9 @@ INSERT INTO street VALUES('Bispegata');
 
 INSERT INTO status VALUES ('Unchecked');
 INSERT INTO status VALUES ('InProgress');
-INSERT INTO status VALUES ('Archived');
+INSERT INTO status VALUES ('Finished');
+
+
 
 INSERT INTO priority VALUES ("Standard");
 INSERT INTO priority VALUES ("Entrepreneur");
@@ -477,6 +479,8 @@ INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, creat
 INSERT INTO user(email, password, municipality_fk, county_fk ,priority_fk, created, active) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);
 
 INSERT INTO entrepreneur(businessName, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
+INSERT INTO entrepreneur(businessName, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
+INSERT INTO entrepreneur(businessName, org_nr, user_fk) VALUES("Arbeidsjøinn", "01", 4);
 
 INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Oslo", "Oslo");
 INSERT INTO entrepreneur_municipality(entrepreneur_fk, municipality_fk, county_fk) VALUES(1,"Tromsø", "Troms");
@@ -486,6 +490,9 @@ INSERT INTO entrepreneur_category(entrepreneur_fk, category_fk) VALUES(1,'Snowpl
 
 INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk, date_made)
 VALUES("Erlend tried his best", "A big hole has been found in the rear of Erlend", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 1, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata", NOW());
+
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk, date_made)
+VALUES("Try", "Try try, much try - why no work? try try, so much try - hopw it will work...", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Snowplow", "Unchecked", 5, 63.422724, 10.395582 ,"Trøndelag", "Trondheim", "Trondheim", "Klostergata", NOW());
 
 INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category_fk, status_fk, user_fk, latitude, longitude, county_fk, municipality_fk, city_fk, street_fk, date_made)
 VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien", NOW());

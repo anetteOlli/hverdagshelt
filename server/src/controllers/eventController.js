@@ -9,8 +9,8 @@ let divDao = new DivDao(pool);
 exports.events_get_all = (callback) => {
   console.log('Handling GET requests to /events');
   eventDao.getAll((status, data) => {
-    console.log(data);
     callback(status,data);
+    eventDao.updateStatus(() => {});
   });
 };
 
@@ -26,6 +26,7 @@ exports.events_get_from_municipality = (json,callback) => {
   );
   eventDao.getByMunicipality(json, (status, data) => {
     callback(status,data);
+    eventDao.updateStatus(() => {});
   });
 };
 
@@ -45,7 +46,7 @@ exports.events_create_event = (file,json, callback) => {
     });
   }
 
-  function handleError(status, data, json, callback){
+  function handleError(status, data, req, res){
     if(status === 500) {
       divDao.createCity(json.city_fk, () => {
         divDao.createStreet(json.street_fk, () => {
@@ -57,7 +58,7 @@ exports.events_create_event = (file,json, callback) => {
     } else if(status === 200) {
       callback(status,data)
     } else {
-      callback({"status":404}, {"data": {"error":"Couldn't add problem"}});
+      callback(404, {"data": {"error":"Couldn't add problem"}});
     }
   }
 };

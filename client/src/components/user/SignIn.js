@@ -82,7 +82,7 @@ class SignIn extends React.Component<Props, State> {
       remember: !prevState.remember
     }));
   };
-b
+
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
@@ -129,14 +129,16 @@ b
                 validators={['required', 'isRightPassword']}
                 errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
               />
-                <DialogActions>
+              <DialogActions>
                 <FormControlLabel
                   control={<Checkbox onChange={this.handleRemember} color="primary" />}
                   label="Husk meg"
                 />
-                <div className={classes.grow}/>
-                <Button color="primary" onClick={this.handleGoToPassword}>Glemt passord</Button>
-                </DialogActions>
+                <div className={classes.grow} />
+                <Button color="primary" onClick={this.handleGoToPassword}>
+                  Glemt passord
+                </Button>
+              </DialogActions>
               <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
                 {isLoading && <CircularProgress size={20} className={classes.spinner} />}
                 Login

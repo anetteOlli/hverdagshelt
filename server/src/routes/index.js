@@ -8,6 +8,7 @@ router.use('/events', require('./eventRoutes'));
 router.use('/div', require('./divRoutes'));
 router.use('/categories', require('./categoryRoutes'));
 router.use('/entrepreneurs', require('./entrepreneurRoutes'));
+//router.use('/statistics', require('./statisticsRoutes'));
 
 module.exports = router;
 

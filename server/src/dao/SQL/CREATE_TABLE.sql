@@ -21,9 +21,9 @@ CREATE TABLE county (
 );
 
 CREATE TABLE municipality (
-                            municipality VARCHAR(255) NOT NULL,
-                            county varchar(255) NOT NULL REFERENCES county(name),
-                            PRIMARY KEY (municipality,county)
+  municipality VARCHAR(255) NOT NULL,
+  county varchar(255) NOT NULL REFERENCES county(name),
+  PRIMARY KEY (municipality,county)
 );
 
 CREATE TABLE city (
@@ -44,27 +44,27 @@ CREATE TABLE category (
 );
 
 CREATE TABLE problem (
-                       problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                       problem_title VARCHAR(50) NOT NULL,
-                       problem_description VARCHAR(300) NOT NULL,
-                       problem_locked TINYINT(1) DEFAULT 0,
-                       description_entrepreneur VARCHAR(300),
-                       img_user VARCHAR(300),
-                       img_entrepreneur VARCHAR(300),
-                       date_made DATETIME,
-                       last_edited DATETIME ,
-                       date_finished DATETIME,
-                       category_fk VARCHAR(50) NOT NULL,
-                       status_fk VARCHAR(30) NOT NULL,
-                       user_fk INTEGER NOT NULL,
-                       entrepreneur_fk INTEGER,
-                       latitude DOUBLE NOT NULL,
-                       longitude DOUBLE NOT NULL,
-                       support INT DEFAULT 0,
-                       municipality_fk VARCHAR(30) NOT NULL,
-                       county_fk VARCHAR(30) NOT NULL,
-                       city_fk VARCHAR(30) NOT NULL,
-                       street_fk VARCHAR(30) NOT NULL
+  problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  problem_title VARCHAR(50) NOT NULL,
+  problem_description VARCHAR(300) NOT NULL,
+  problem_locked TINYINT(1) DEFAULT 0,
+  description_entrepreneur VARCHAR(300),
+  img_user VARCHAR(300),
+  img_entrepreneur VARCHAR(300),
+  date_made DATETIME,
+  last_edited DATETIME ,
+  date_finished DATETIME,
+  category_fk VARCHAR(50) NOT NULL,
+  status_fk VARCHAR(30) NOT NULL DEFAULT "Unchecked",
+  user_fk INTEGER NOT NULL,
+  entrepreneur_fk INTEGER,
+  latitude DOUBLE NOT NULL,
+  longitude DOUBLE NOT NULL,
+  support INT DEFAULT 0,
+  municipality_fk VARCHAR(30) NOT NULL,
+  county_fk VARCHAR(30) NOT NULL,
+  city_fk VARCHAR(30) NOT NULL,
+  street_fk VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE priority (
@@ -72,42 +72,42 @@ CREATE TABLE priority (
 );
 
 CREATE TABLE user (
-                    user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                    email VARCHAR(100) NOT NULL UNIQUE,
-                    password VARCHAR(100) NOT NULL,
-                    created DATETIME NOT NULL,
-                    active TINYINT NOT NULL DEFAULT 0,
-                    municipality_fk VARCHAR(30) NOT NULL,
-                    county_fk VARCHAR(30) NOT NULL,
-                    priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
+  user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL,
+  created DATETIME NOT NULL,
+  municipality_fk VARCHAR(30) NOT NULL,
+  county_fk VARCHAR(30) NOT NULL,
+  priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
+  active TINYINT NOT NULL DEFAULT 0,
 );
 
 CREATE TABLE user_problem (
-                            user_problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                            user_id INTEGER,
-                            problem_id INTEGER
+  user_problem_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id INTEGER,
+  problem_id INTEGER
 );
 
 CREATE TABLE event (
-                     event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                     event_name VARCHAR(100) NOT NULL,
-                     event_description VARCHAR(500),
-                     event_img VARCHAR(300),
-                     date_starting DATETIME,
-                     date_ending DATETIME,
-                     status_fk VARCHAR(30),
-                     municipality_fk VARCHAR(30),
-                     county_fk VARCHAR(30),
-                     city_fk VARCHAR(30),
-                     street_fk VARCHAR(30),
-                     latitude DOUBLE NOT NULL,
-                     longitude DOUBLE NOT NULL
+  event_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  event_name VARCHAR(100) NOT NULL,
+  event_description VARCHAR(500),
+  event_img VARCHAR(300),
+  date_starting DATETIME,
+  date_ending DATETIME,
+  status_fk VARCHAR(30) DEFAULT "Unchecked",
+  municipality_fk VARCHAR(30),
+  county_fk VARCHAR(30),
+  city_fk VARCHAR(30),
+  street_fk VARCHAR(30),
+  latitude DOUBLE NOT NULL,
+  longitude DOUBLE NOT NULL
 );
 
 CREATE TABLE user_event (
-                          user_event_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                          user_id INTEGER NOT NULL,
-                          event_id INTEGER NOT NULL
+  user_event_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  user_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL
 );
 
 
@@ -119,16 +119,16 @@ CREATE TABLE entrepreneur (
 );
 
 CREATE TABLE entrepreneur_municipality (
-                                         ent_muni INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                         entrepreneur_fk INT NOT NULL,
-                                         municipality_fk VARCHAR(30) NOT NULL,
-                                         county_fk VARCHAR(30) NOT NULL
+   ent_muni INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   entrepreneur_fk INT NOT NULL,
+   municipality_fk VARCHAR(30) NOT NULL,
+   county_fk VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE entrepreneur_category (
-                                     ent_cat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                     entrepreneur_fk INT NOT NULL,
-                                     category_fk VARCHAR(30) NOT NULL
+   ent_cat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   entrepreneur_fk INT NOT NULL,
+   category_fk VARCHAR(30) NOT NULL
 );
 
 
@@ -171,4 +171,3 @@ ALTER TABLE entrepreneur_municipality
 ALTER TABLE entrepreneur_category
   ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
   ADD FOREIGN KEY (category_fk) REFERENCES category(category);
-

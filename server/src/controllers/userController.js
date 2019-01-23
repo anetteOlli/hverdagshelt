@@ -3,6 +3,8 @@ const pool = require('../services/database');
 import { validatePassword, genToken, hashPassword, genTokenEmail } from '../services/util';
 let mail = require('../services/nodemailer');
 let userDao = new UserDao(pool);
+const MailController = require('../services/nodemailer');
+
 
 
 exports.users_get_all = (callback) => {
@@ -79,9 +81,73 @@ exports.user_patch_user = (id,json,callback) => {
   });
 };
 
+exports.user_change_password = (req, res) => {
+  userDao.changePassword(req.body, hashPassword(req.body.password), (status, data) => {
+    res.status(status).json(data);
+  });
+};
+exports.user_is_not_old_password = (json,callback) => {
+  userDao.checkEmail(json.email, (status, data) => {
+    let isOldPassword = true;
+    if (data.length > 0) {
+      if (!validatePassword(json.password, data[0].password)) {
+        isOldPassword = false;
+      }
+    }
+    callback(status,{ isOldPassword });
+  });
+};
+
 exports.user_validate_email = (email,callback) => {
   userDao.checkEmail(email, (status, data) => {
     const emailExist = data.length > 0;
     callback(status,{ emailExist });
   });
 };
+
+exports.user_forgot_password = (json,callback) => {
+  console.log("user_forgot_password");
+
+  userDao.checkEmail(json.email, (status, data) => {
+    console.log("checkEmail email = " + json.email);
+    console.log("data.length = " + data.length);
+    if(data.length > 0) {
+      const id = data[0].user_id;
+      const email = json.email;
+      const tempPassword = Math.random().toString(36).slice(-8);
+      console.log("id = " + id);
+      console.log("email = " + email);
+      console.log("tempPassword = " + tempPassword);
+
+      const userinfo = {
+        user_id: id,
+        email: email
+      };
+
+      userDao.changePassword(userinfo, hashPassword(tempPassword), (status, data) => {
+        console.log("changePassword");
+        if (status === 200) {
+          console.log("Will send mail");
+          MailController.sendSingleMail({
+            recepients: email,
+            text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
+            html: ''
+          }, (status,data) => {
+            callback(status,data);
+          })
+        }else {
+          console.log("changePassword not success");
+         callback(status,data);
+      }
+      });//changePassword
+
+    }//if
+    else {
+      console.log("data.length is 0 or below");
+      callback(status,data);
+      //feilmelding om at epost ikke finnes
+    }
+  });//checkEmail
+
+
+}

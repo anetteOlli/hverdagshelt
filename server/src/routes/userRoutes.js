@@ -9,6 +9,8 @@ router.get('/', (req,res) => {
   })
 });
 
+router.post('/f/forgot', UserController.user_forgot_password);
+
 router.post('/login', (req,res) => {
   UserController.users_login(req.body,(status,data) => {
     res.status(status).json(data);
@@ -26,6 +28,9 @@ router.get('/refresh', checkAuth, (req,res) => {
     res.status(status).json(data);
   })
 });
+
+router.patch('/changePassword/', UserController.user_change_password);
+
 
 router.post('/', (req,res) => {
   UserController.users_create_user(req.body,(status,data) => {
@@ -50,5 +55,9 @@ router.get('/validate_email/:email', (req,res) => {
     res.status(status).json(data);
   })
 });
+
+router.get('/check_pass/:email/:password', checkAuth, UserController.user_is_not_old_password);
+
+router.get('/:id', UserController.users_get_user);
 
 module.exports = router;

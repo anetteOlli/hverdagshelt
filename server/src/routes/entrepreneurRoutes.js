@@ -26,4 +26,6 @@ router.post('/', (req,res) => {
   })
 });
 
+router.post('/getcatmuni/', EntrepreneurController.entrepreneurs_get_cat_muni);
+
 module.exports = router;

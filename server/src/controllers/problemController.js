@@ -2,11 +2,15 @@ const image = require('../services/imageHostController').ImageHostController;
 const ProblemDao = require('../dao/problemDao');
 const DivDao = require('../dao/divDao');
 const EntDao = require('../dao/entrepreneurDao');
+const UserController = require('./problemController');
+const UserDao = require('../dao/userDao');
+const MailController = require('../services/nodemailer');
 
 const pool = require('../services/database');
 let problemDao = new ProblemDao(pool);
 let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
+let userDao = new UserDao(pool);
 
 exports.problems_get_all = (callback) => {
   console.log('Handling GET requests to /problems');
@@ -23,16 +27,33 @@ exports.problems_get_problem = (id, callback) => {
   });
 };
 
-exports.problems_support_problem = (id,json, callback) => {
-  console.log('/problems/' + id + 'fikk PATCH request fra klient');
-  console.log("UserID/ProblemID:" + json.userId + "/" + json.problemId);
-  divDao.createSupportUser(json.userId, json.problemId, (status, data) =>{
-    if(status === 200){
-      problemDao.supportProblem(id, (status, data) => {
+exports.problems_support_problem = (req, res) => {
+  console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
+  console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
+  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
+    if (status === 200) {
+      problemDao.supportProblem(req.params.id, (status, data) => {
+
+        problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+          console.log('data.length = ' + data.length);
+          console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
+          //Send email to the user who created the problem if its the firs time someone supports the problem
+          if(data.length <= 2){
+            console.log('---Mail skal sendes!');
+            MailController.sendSingleMail({
+              recepients: data[0].email,
+              text: 'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
+              html: ''
+            }, (status,data));
+          }//if
+
+        });//getAllUsersbyProblemId
+
         callback(status,data);
-      });
-    }
-    else{
+    });//support
+
+    } else {
+      console.log('---ELSE altså ikke status 200');
       callback(status,data);
     }
   });
@@ -69,7 +90,7 @@ exports.problems_create_problem = (file,json, callback) => {
   if (json.county_fk === 'Nord-Trøndelag' || json.county_fk === 'Sør-Trøndelag')
     json.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUser(json.userId, (status, data) =>{
+  problemDao.getAllFromUserUnchecked(json.userId, (status, data) =>{
     console.log(status);
     console.log(data);
     if(data.length < 10){
@@ -87,7 +108,7 @@ exports.problems_create_problem = (file,json, callback) => {
       }
     }
     else{
-      callback(500).json(data);
+      callback(429,data);
     }
   });
 
@@ -127,43 +148,105 @@ exports.problems_delete_problem = (id,json,user,callback) => {
 };
 
 exports.problems_edit_problem = (id,json,user,file, callback) => {
-  console.log('/problems/' + id + ' fikk edit request fra klient');
-  if (user.priority === 'Administrator') {
-    problemDao.patchMunicipality(id, json, (status, data) => {
-      callback(status,data);
-    });
-  }
-  problemDao.getOne(id, (status, data) => {
-    if (user.priority === 'Entrepreneur') {
-      if(!(file === undefined)){
-        image.uploadImage(file, url => {
-          json.img_entrepreneur = url;
-        })
-      }
+  console.log('/problems/' + json.id + ' fikk edit request fra klient');
+  switch (user.priority) {
+    case 'Administrator':
+      problemDao.patchAdministrator(id, json, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllUsersbyProblemId(id, (status, data) => {
+            console.log('DATA ADMINISTRATOR', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+              html: ''
+            });
+          });
+        }
+        callback(status,data);
+      });
+      break;
+    case 'Municipality':
+      problemDao.patchMunicipality(id, json, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllUsersbyProblemId(id, (status, data) => {
+            console.log('DATA MUNICIPALITY', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+              html: ''
+            });
+          });
+        }
+        callback(status,data)
+      });
+      break;
+
+    case 'Entrepreneur':
       entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
         if (data[0].user_fk !== user.id)
           callback(400,{ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
+        if(!(file === undefined)){
+          image.uploadImage(file, url => {
+            json.img_entrepreneur = url;
+          })
+        }
           problemDao.patchEntrepreneur(id, json, (status, data) => {
+            if (status === 200) {
+              problemDao.getAllUsersbyProblemId(id, (status, data) => {
+                console.log('DATA ENTREPRENEUR', data);
+                MailController.sendMassMail({
+                  recepients: data,
+                  text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+                  html: ''
+                });
+              });
+            }
             callback(status,data);
           });
       });
-    }
-    if (data[0].problem_locked) callback(400,{ message: 'problem is locked' });
-    if (user.user.id !== data[0].user_fk) callback({status:status},{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
-    if(!(file === undefined)){
-      image.uploadImage(file, url => {
-        json.img_user = url;
-      })
-    };
-    problemDao.patchStandard(id, false, json, (status, data) => {
-      callback(status,data);
-    });
+      break;
+    default:
+      if (data[0].problem_locked) callback(300,{ message: 'problem is locked' });
+      if (user.user.id !== data[0].user_fk)
+        callback(420,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+      else
+      if(!(file === undefined)){
+        image.uploadImage(file, url => {
+          json.user_img = url;
+        })
+      }
+        problemDao.patchStandard(id, false, json, (status, data) => {
+          callback(status,data);
+        });
+  }
+};
+
+exports.problems_get_problem_by_user = (id, callback) => {
+  console.log('/problems/' + id + ' fikk GET request fra klient');
+  problemDao.getByUser(id, (status, data) => {
+    callback(status,data);
+  });
+};
+
+exports.problems_get_problem_by_entrepreneur = (id,callback) => {
+  console.log('/problems/' + id + ' fikk GET request fra klient');
+  problemDao.getByEntrepreneur(id, (status, data) => {
+    callback(status,data);
   });
 };
 
 exports.problems_add_entrepreneur = (json,callback) => {
   problemDao.addEntrepreneur(json, (status, data) => {
-    callback(400,data);
+    if (status === 200) {
+      problemDao.getAllUsersbyProblemId(json.problem_id, (status,data) => {
+        MailController.sendMassMail({
+          recepients: data,
+          text: 'En bedrift jobber nå med et problem du abonnerer på.',
+          html: ''
+        }, (status,data));
+      });
+      callback(400,data)
+    }
   });
 };

@@ -41,3 +41,11 @@ exports.entrepreneurs_create_entrepreneur = (json,callback) => {
     callback(status,data);
   });
 };
+
+exports.entrepreneurs_get_cat_muni = (json, callback) => {
+  console.log('Handling POST requests to /entrepreneurs/getcatmuni',json);
+  entrepreneurDao.getByCatAndMuni(json, (status, data) => {
+    console.log('data',data);
+    callback(status,data);
+  });
+};

@@ -51,6 +51,10 @@ router.patch('/vote/:id', checkAuth, (req,res) => {
     res.status(status).json(data);
   })
 });
+router.get('/user/:user_id', ProblemController.problems_get_problem_by_user);
+
+router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_problem_by_entrepreneur);
+
 
 router.patch('/add/entrepreneur', (req,res) => {
   ProblemController.problems_add_entrepreneur(req.body, (status,data) => {
