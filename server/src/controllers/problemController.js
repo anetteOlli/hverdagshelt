@@ -37,7 +37,7 @@ exports.problems_support_problem = (id,json,callback) => {
         problemDao.getAllUsersbyProblemId(json.problemId, (status,data) => {
 
           //Send email to the user who created the problem if its the firs time someone supports the problem
-          if(data.length <= 2){
+          if(data.length === 1){
             console.log('---Mail skal sendes!');
             MailController.sendSingleMail({
               recepients: data[0].email,
