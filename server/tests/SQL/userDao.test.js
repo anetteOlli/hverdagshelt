@@ -39,7 +39,7 @@ test("Testing getOneById from userDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].email).toBe('entr@entr.entr');
-    expect(data[0].priority_fk).toBe('Entrepreneur');
+    expect(data[0].priority).toBe('Entrepreneur');
     done();
   })
 });
@@ -88,7 +88,7 @@ test("Testing checkMail from userDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].user_id).toBe(1);
-    expect(data[0].priority_fk).toBe("Standard");
+    expect(data[0].priority).toBe("Standard");
     done();
   })
 });

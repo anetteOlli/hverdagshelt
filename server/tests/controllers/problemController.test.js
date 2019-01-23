@@ -55,8 +55,8 @@ test("Testing problems_get_from_municipality from problemController", (done) => 
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
-    expect(data[0].municipality_fk).toBe("Trondheim");
-    expect(data[0].county_fk).toBe("Trøndelag");
+    expect(data[0].municipality).toBe("Trondheim");
+    expect(data[0].county).toBe("Trøndelag");
     done();
   })
 });
@@ -71,16 +71,16 @@ test("Testing problems_get_from_municipality_and_street from problemController",
   problemController.problems_get_from_municipality_and_street(json, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].street_fk).toBe("Kjeldeveien");
-    expect(data[0].county_fk).toBe("Oppland");
-    expect(data[0].municipality_fk).toBe("Nord-Fron");
+    expect(data[0].street).toBe("Kjeldeveien");
+    expect(data[0].county).toBe("Oppland");
+    expect(data[0].municipality).toBe("Nord-Fron");
     done();
   })
 });
 
 test("Testing problems_add_entrepreneur from problemController", (done) => {
   let json = {
-    entrepreneur_fk:1,
+    entrepreneur_id:1,
     problem_id:1
   };
   problemController.problems_add_entrepreneur(json,(status,data) => {
@@ -96,15 +96,15 @@ test("Testing problems_create_problem from problemController", (done) => {
     "problem_title":"test",
     "problem_description":"test",
     "img_user":"test",
-    "category_fk":"Snowplow",
-    "status_fk":"Unchecked",
-    "user_fk":1,
+    "category":"Snowplow",
+    "status":"Unchecked",
+    "user_id":1,
     "latitude":2.00,
     "longitude":2.00,
-    "county_fk":"Oppland",
-    "municipality_fk":"Nord-Fron",
-    "city_fk":"Vinstra",
-    "street_fk":"Kjeldeveien"
+    "county":"Oppland",
+    "municipality":"Nord-Fron",
+    "city":"Vinstra",
+    "street":"Kjeldeveien"
   };
   problemController.problems_create_problem(file,problem,(status,data) => {
     expect(status).toBe(200);

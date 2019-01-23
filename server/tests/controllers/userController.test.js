@@ -37,7 +37,7 @@ test("Testing users_get_user from userController", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].email).toBe('entr@entr.entr');
-    expect(data[0].priority_fk).toBe('Entrepreneur');
+    expect(data[0].priority).toBe('Entrepreneur');
     done();
   })
 });
@@ -61,7 +61,7 @@ test("Testing users_validate_Email from userController", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].user_id).toBe(1);
-    expect(data[0].priority_fk).toBe("Standard");
+    expect(data[0].priority).toBe("Standard");
     done();
   })
 });

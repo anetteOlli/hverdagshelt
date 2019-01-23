@@ -39,7 +39,7 @@ test("Testing getAllFromUser from problemDao", (done) => {
   dao.getAllFromUserUnchecked(id, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(3);
-    expect(data[0].user_fk).toBe(1);
+    expect(data[0].user_id).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
   })
@@ -65,8 +65,8 @@ test("Testing getFromMunicipality from problemDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
-    expect(data[0].municipality_fk).toBe("Trondheim");
-    expect(data[0].county_fk).toBe("Trøndelag");
+    expect(data[0].municipality).toBe("Trondheim");
+    expect(data[0].county).toBe("Trøndelag");
     done();
   })
 });
@@ -79,9 +79,9 @@ test("Testing getFromCity from problemDao", (done) => {
   };
   dao.getFromCity(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data[0].county_fk).toBe("Oppland");
-    expect(data[0].city_fk).toBe("Vinstra");
-    expect(data[0].municipality_fk).toBe("Nord-Fron");
+    expect(data[0].county).toBe("Oppland");
+    expect(data[0].city).toBe("Vinstra");
+    expect(data[0].municipality).toBe("Nord-Fron");
     expect(data.length).toBe(1);
     done();
   })
@@ -96,9 +96,9 @@ test("Testing getFromStreet from problemDao", (done) => {
   dao.getFromStreet(json, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].street_fk).toBe("Kjeldeveien");
-    expect(data[0].county_fk).toBe("Oppland");
-    expect(data[0].municipality_fk).toBe("Nord-Fron");
+    expect(data[0].street).toBe("Kjeldeveien");
+    expect(data[0].county).toBe("Oppland");
+    expect(data[0].municipality).toBe("Nord-Fron");
     done();
   })
 });
@@ -108,15 +108,15 @@ test("Testing createOne from problemDao", (done) => {
     "problem_title":"test",
     "problem_description":"test",
     "img_user":"test",
-    "category_fk":"Snowplow",
-    "status_fk":"Unchecked",
-    "user_fk":1,
+    "category":"Snowplow",
+    "status":"Unchecked",
+    "user_id":1,
     "latitude":2.00,
     "longitude":2.00,
-    "county_fk":"Oppland",
-    "municipality_fk":"Nord-Fron",
-    "city_fk":"Vinstra",
-    "street_fk":"Kjeldeveien"
+    "county":"Oppland",
+    "municipality":"Nord-Fron",
+    "city":"Vinstra",
+    "street":"Kjeldeveien"
   };
   dao.createOne(problem,(status,data) => {
     expect(status).toBe(200);
@@ -197,7 +197,7 @@ test("Testing supportProblem from problemDao", (done) => {
 
 test("Testing addEntrepreneur from problemDao", (done) => {
   let json = {
-    entrepreneur_fk:1,
+    entrepreneur:1,
     problem_id:1
   };
   dao.addEntrepreneur(json, (status,data) => {
