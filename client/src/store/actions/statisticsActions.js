@@ -1,44 +1,39 @@
 // @flow
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
-import { postData, getData } from '../axios';
+import { postData } from '../axios';
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getUsersMuni = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id${getState().user.userID}`).then(response =>
-      dispatch({
-        type: 'GET_USERS_MUNI_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'GET_USERS_MUNI_ERROR',
-          payload: error
-        })
-      )
-    );
-  };
-};
-
 export const getAllProblemsFromMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
-      dispatch({
-        type: 'GET_ALL_PROBLEMS_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    const state = getState();
+    return postData('problems/municipality/sorted', state.statistic.selectedMuni || getState().user.currentMuni)
+      .then(response =>
+        dispatch({
+          type: 'GET_ALL_PROBLEMS_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'GET_ALL_PROBLEMS_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
+
+export const getProblemsByMonth = (selectedMonth: string): Action => ({
+  type: 'GET_PROBLEMS_BY_MONTH',
+  payload: selectedMonth
+});
+
+/*
+
 
 export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -87,3 +82,5 @@ export const getBarChartData = () => {
     );
   };
 };
+
+ */

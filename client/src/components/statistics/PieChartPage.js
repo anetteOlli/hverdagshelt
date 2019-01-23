@@ -7,7 +7,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
-import { getPieChartData } from '../../store/actions/statisticsActions';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
 
@@ -23,13 +22,15 @@ const pieChartData = [
 class PieChartPage extends React.Component {
   state = {
     showData1: false,
-    showData2: false
+    showData2: false,
+    showData3: false,
+    showData4: false
   };
 
-  handleDataChange = (e: SyntheticInputEvent<HTMLInputElement>): void => {
+  handleDataChange = (name: string) => (e: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [name]: e.target.checked
+    });
   };
 
   render() {
@@ -37,28 +38,26 @@ class PieChartPage extends React.Component {
       <div>
         <ResponsiveContainer width="99%" height={320}>
           <PieChart width={800} height={400}>
-            <Pie data={pieChartData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
+            <Pie dataKey={1} data={pieChartData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
         <FormGroup row>
           <FormControlLabel
-            control={
-              <Switch name="showData1" checked={this.state.showData1} onChange={this.handleDataChange} value="showData1" />
-            }
-            label="Secondary"
+            control={<Switch checked={this.state.showData1} onChange={this.handleDataChange('showData1')} />}
+            label="Data1"
           />
           <FormControlLabel
-            control={
-              <Switch
-                name="showData2"
-                checked={this.state.showData2}
-                onChange={this.handleDataChange}
-                value="showData2"
-                color="primary"
-              />
-            }
-            label="Primary"
+            control={<Switch checked={this.state.showData2} onChange={this.handleDataChange('showData2')} />}
+            label="Data2"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showData3} onChange={this.handleDataChange('showData3')} />}
+            label="Data3"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showData4} onChange={this.handleDataChange('showData4')} />}
+            label="Data4"
           />
         </FormGroup>
       </div>
@@ -66,7 +65,6 @@ class PieChartPage extends React.Component {
   }
 
   componentDidMount(): void {
-    this.props.getPieChartData();
   }
 }
 
@@ -78,7 +76,6 @@ const mapStateToProps = (state: ReduxState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getPieChartData: () => dispatch(getPieChartData())
   };
 };
 
