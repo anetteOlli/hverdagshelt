@@ -24,6 +24,8 @@ import connect from 'react-redux/es/connect/connect';
 import withRoot from '../../withRoot';
 import { withSnackbar } from 'notistack';
 import HomeOutlined from '@material-ui/icons/HomeOutlined';
+import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
+import Folder from '@material-ui/icons/Folder';
 
 type Props = {
   classes: Object,
@@ -37,7 +39,8 @@ const styles = {};
 class TemporaryDrawer extends React.Component<Props> {
   state = {
     openPopup: false,
-    visible: false
+    visible: false,
+    createEventVisible: false
   };
 
   toggleButtonVisible() {
@@ -55,6 +58,10 @@ class TemporaryDrawer extends React.Component<Props> {
     if (user === 'Administrator') {
       this.toggleButtonVisible();
       return true;
+    } else if(user === 'Municipality'){
+      this.setState({
+        createEventVisible: true
+      });
     } else {
       this.toggleButtonHidden();
       return false;
@@ -84,42 +91,44 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
-            <ListItemText primary="Hverdagshelt" />
+            <ListItemText primary="Hovedsiden" />
           </ListItem>
           <Divider />
-          <ListItem button component={NavLink} to={'/opprArrangement'}>
-            <ListItemIcon>
-              <EventIcon />
-            </ListItemIcon>
-            <ListItemText primary="Opprett Arrangement" />
-          </ListItem>
           <ListItem activeClassName={classes.selected} button component={NavLink} to={'/stati'}>
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="statistikk" />
+            <ListItemText primary="Statistikk" />
           </ListItem>
           <ListItem button component={NavLink} to={'/problemdetails/2'}>
             <ListItemIcon>
-              <SettingIcon />
+              <Folder />
             </ListItemIcon>
-            <ListItemText primary="ProblemDetails" />
+            <ListItemText primary="Mine Problem" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>
-              <SettingIcon />
+              <AddCircleOutlined />
             </ListItemIcon>
-            <ListItemText primary="registrer problem" />
+            <ListItemText primary="Registrer Problem" />
           </ListItem>
           <ListItem button component={NavLink} to={'/editp'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="rediger problem" />
+            <ListItemText primary="Rediger Problem" />
           </ListItem>
         </List>
         <Divider />
         <List>
+          {this.state.createEventVisible ? (
+            <ListItem button component={NavLink} to={'/opprArrangement'}>
+              <ListItemIcon>
+                <EventIcon />
+              </ListItemIcon>
+              <ListItemText primary="Opprett Arrangement" />
+            </ListItem>
+          ) : (<div/>)}
           {this.state.visible && (
             <Button onClick={this.onClickCat}>
               <ListItem>
