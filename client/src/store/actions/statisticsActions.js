@@ -27,11 +27,15 @@ export const getAllProblemsFromMuni = () => {
   };
 };
 
+export const setSelectedMuni = (selectedMonth): Action => ({
+  type: 'SET_SELECTED_MUNI',
+  payload: selectedMonth
+});
+
 export const getProblemsByMonth = (selectedMonth: string): Action => ({
   type: 'GET_PROBLEMS_BY_MONTH',
   payload: selectedMonth
 });
-
 
 export const getProblemsByCategory = () => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -39,13 +43,21 @@ export const getProblemsByCategory = () => {
     dispatch({
       type: 'GET_PROBLEMS_BY_CATEGORY',
       payload: state.category.categories
-    })
+    });
+  };
+};
+
+export const getProblemsByEntrepreneur = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    const state = getState();
+    dispatch({
+      type: 'GET_PROBLEMS_BY_ENTREPRENEUR',
+      payload: state.entrepreneur.currentEntrepreneur
+    });
   };
 };
 
 /*
-
-
 export const getLineChartData = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>

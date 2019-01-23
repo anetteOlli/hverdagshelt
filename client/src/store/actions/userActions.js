@@ -38,6 +38,7 @@ export const signIn = (creds: { email: string, password: string }) => {
           type: 'SIGN_IN_SUCCESS',
           payload: { user_id: response.data.id, priority: response.data.priority }
         });
+        dispatch(getUserInfo());
         dispatch(setAsyncLoading(false));
       })
       .catch((error: Error) => {
@@ -68,6 +69,7 @@ export const refresh = () => {
             type: 'REFRESH_SUCCESS',
             payload: { user_id: response.data.id, priority: response.data.priority }
           });
+          dispatch(getUserInfo());
           dispatch(setAsyncLoading(false));
         })
         .catch((error: Error) => {

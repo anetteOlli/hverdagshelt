@@ -66,22 +66,18 @@ export const getEntrepreneursByMuniAndCat = p => {
   };
 };
 
-export const getEntrepreneursByMuni = () => {
+export const getEntrepreneursByMuni = ({}) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('entrepreneurs/getcatmuni', {
-      municipality_fk: p.municipality_fk,
-      county_fk: p.county_fk,
-      category_fk: p.category_fk
-    })
+    return postData('entrepreneurs/municipality', getState().statistic.selectedMuni)
       .then(response =>
         dispatch({
-          type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS',
+          type: 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS',
           payload: response.data
         })
       )
       .catch((error: Error) =>
         dispatch({
-          type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_ERROR',
+          type: 'ENTREPRENEUR_GET_BY_MUNI_ERROR',
           payload: error
         })
       );

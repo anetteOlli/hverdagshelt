@@ -71,21 +71,32 @@ const getProblemsByCategoryPie = (
 
 const getProblemsByEntrepreneurPie = (
   allProblems: Problem[],
-  allCategories: string[]
+  entrepreneurs: []
 ): { name: string, problemer: number }[] => {
-  const entrepreneur_ids = [];
-  allProblems.map(p => {
-    if (e.findIndex(ent => ent === p.entrepreneur_id) === -1) e.push[p.entrepreneur_id];
-  });
 
-  const result = (Array(entrepreneur_ids.length)
+  const result = (Array(entrepreneurs.length)
     .fill(null)
-    .map((u, i) => ({ name: allCategories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
 
-  allProblems.map(p => result[allCategories.findIndex(c => c === p.category)].problemer++);
+  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
   console.log(result);
   return result;
 };
+
+const getProblemsByEntrepreneurBar = (
+  allProblems: Problem[],
+  entrepreneurs: []
+): { name: string, problemer: number }[] => {
+
+  const result = (Array(entrepreneurs.length)
+    .fill(null)
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
+  console.log(result);
+  return result;
+};
+
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
@@ -109,6 +120,18 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         lineChartData: getProblemsByMonth(state.problems, action.payload)
+      };
+    case 'GET_PROBLEMS_BY_ENTREPRENEUR':
+      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        lineChartData: getProblemsByEntrepreneurPie(state.problems, action.payload)
+      };
+    case 'SET_SELECTED_MUNI':
+      console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        selectedMuni: action.payload
       };
     default:
       return state;
