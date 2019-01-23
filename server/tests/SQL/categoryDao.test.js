@@ -24,7 +24,7 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
+
 
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {

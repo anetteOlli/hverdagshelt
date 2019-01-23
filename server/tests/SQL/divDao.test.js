@@ -23,7 +23,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing getAllMunicipalities from DivDao", (done) => {
   dao.getAllMunicipalities((status,data) => {

@@ -24,7 +24,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 
 test("Testing getAll from eventsDao", (done) => {

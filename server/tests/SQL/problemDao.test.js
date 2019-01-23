@@ -24,7 +24,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing getAll from problem", (done) => {
   dao.getAll((status,data) => {
@@ -122,7 +121,7 @@ test("Testing createOne from problemDao", (done) => {
   };
   dao.createOne(problem,(status,data) => {
     expect(status).toBe(200);
-    expect(data).toBe(1);
+    expect(data[0].affectedRows).toBe(1);
     done();
   })
 });

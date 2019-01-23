@@ -23,7 +23,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing getAll from entrepreneurDao", (done) => {
   dao.getAll((status,data) => {

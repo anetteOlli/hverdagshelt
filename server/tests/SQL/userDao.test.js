@@ -24,7 +24,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing getAll from userDao", (done) => {
   dao.getAll((status,data) => {
@@ -99,6 +98,7 @@ test("Testing activateUser from userDao", (done) => {
   let email = "user@user.user";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
+    expect(data[0].affectedRows).toBe(1);
     done();
   })
 });
@@ -111,6 +111,7 @@ test("Testing changePassword from userDao", (done) => {
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);
+   expect(data[0].affectedRows).toBe(1);
    done();
   });
 });
