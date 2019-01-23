@@ -17,7 +17,7 @@ run_tests:
   stage: test
   image: node:latest
   script:
-    - npm test
+    - npm test --runInBand
   artifacts:
     paths:
       - server/coverage
