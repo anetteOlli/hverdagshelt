@@ -478,9 +478,9 @@ INSERT INTO user(email, password, municipality, county ,priority, created, activ
 INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('entr@entr.entr', 'ok',"Trondheim", "Trøndelag" ,"Entrepreneur", NOW(), 1);
 INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);
 
-INSERT INTO entrepreneur(businessName, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
-INSERT INTO entrepreneur(businessName, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
-INSERT INTO entrepreneur(businessName, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
+INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
+INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
+INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
 
 INSERT INTO entrepreneur_municipality(entrepreneur_id, municipality, county) VALUES(1,"Oslo", "Oslo");
 INSERT INTO entrepreneur_municipality(entrepreneur_id, municipality, county) VALUES(1,"Tromsø", "Troms");
