@@ -8,7 +8,7 @@ const history = createHashHistory();
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
         Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
         Icon, Fab, Switch, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,
-        FormControl, FormControlLabel, FormHelperText, Divider,
+        FormControl, FormControlLabel, FormHelperText, Divider, Tooltip
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
@@ -226,14 +226,16 @@ function getStepContent(step: number, state: State,
                         <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
                       </Grid>
                       <Grid item xs>
-                        <Button
-                        variant="outlined" color="primary"
-                        size="small"
-                        align="center"
-                        onClick={e => handleSupport(state.cur_id)}
-                        >
-                           Støtt problemet
-                        </Button>
+                        <Tooltip title="Du vil få epost om noe skjer med problemet" placement="top">
+                          <Button
+                          variant="outlined" color="primary"
+                          size="small"
+                          align="center"
+                          onClick={e => handleSupport(state.cur_id)}
+                          >
+                             Støtt problemet
+                          </Button>
+                        </Tooltip>
                       </Grid>
                     </CardContent>
                     </div>) : (
@@ -245,7 +247,7 @@ function getStepContent(step: number, state: State,
                     )) : (
                     <Grid item xs>
                       <Typography align="center" color="primary">
-                        Ingen like problem
+                        Ingen like problem, gå videre
                       </Typography>
                     </Grid>
                   )}
@@ -287,6 +289,7 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
+            <br/>
             <FormControl fullWidth margin="normal">
               {state.displayImg != '' ?
               (<CardMedia
@@ -669,6 +672,7 @@ class CreateProblem extends React.Component<Props, State> {
                   <Typography>
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
+                  <br/>
                   <Button variant="contained" color="primary"
                   className="create-problem-done-button"
                   onClick={this.handleFinish}
