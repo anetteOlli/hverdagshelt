@@ -17,7 +17,7 @@ let dao = new CategoryDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
@@ -29,7 +29,8 @@ beforeEach(done => {
 test("Tester getAll fra categoryDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toEqual(200);
-    expect(data.length).toBe(4);
+    expect(data.length).toBeLessThanOrEqual(5);
+    expect(data.length).toBeGreaterThanOrEqual(3);
     //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
     //expect(data[0]).toBeArray();
     expect(data[0].category).toEqual('Hole in road');

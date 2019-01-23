@@ -17,7 +17,7 @@ let dao = new ProblemDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
@@ -39,7 +39,8 @@ test("Testing getAllFromUser from problemDao", (done) => {
   let id = 1;
   dao.getAllFromUserUnchecked(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBeGreaterThanOrEqual(2);
+    expect(data.length).toBeLessThanOrEqual(4);
     expect(data[0].user_id).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
@@ -64,7 +65,8 @@ test("Testing getFromMunicipality from problemDao", (done) => {
   };
   dao.getFromMunicipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(2);
+    expect(data.length).toBeLessThanOrEqual(3);
+    expect(data.length).toBeGreaterThanOrEqual(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].municipality).toBe("Trondheim");
     expect(data[0].county).toBe("Trøndelag");
@@ -96,7 +98,8 @@ test("Testing getFromStreet from problemDao", (done) => {
   };
   dao.getFromStreet(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBeLessThanOrEqual(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
     expect(data[0].street).toBe("Kjeldeveien");
     expect(data[0].county).toBe("Oppland");
     expect(data[0].municipality).toBe("Nord-Fron");
@@ -158,7 +161,8 @@ test("Testing patchMunicipality from problemDao", (done) => {
 test("Testing getAllUsersByProblemId", (done) => {
   dao.getAllUsersbyProblemId(1,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBeGreaterThanOrEqual(4);
+    expect(data.length).toBeLessThanOrEqual(2);
     expect(data[0].email).toBe("user@user.user");
     done();
   })

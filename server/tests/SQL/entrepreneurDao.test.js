@@ -16,7 +16,7 @@ let dao = new entrepreneurDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
@@ -27,7 +27,8 @@ beforeEach(done => {
 test("Testing getAll from entrepreneurDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBeGreaterThanOrEqual(2);
+    expect(data.length).toBeLessThanOrEqual(4);
     done();
   })
 });

@@ -16,7 +16,7 @@ let dao = new DivDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
