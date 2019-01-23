@@ -163,7 +163,7 @@ test("Testing getAllUsersByProblemId", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBeLessThanOrEqual(4);
     expect(data.length).toBeGreaterThanOrEqual(2);
-    expect(data[0].email).toBe("user@user.user");
+    expect(data[0].email).toBe("admin@admin.admin");
     done();
   })
 });

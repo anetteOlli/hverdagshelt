@@ -119,7 +119,11 @@ test("Testing problems_create_problem from problemController", (done) => {
 
 test("Testing problems_support_problem from problemController", (done) => {
   let id = 1;
-  problemController.problems_support_problem(id,(status,data) => {
+  let json = {
+    user_id: 4,
+    problem_id: 4,
+  };
+  problemController.problems_support_problem(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
     done();
