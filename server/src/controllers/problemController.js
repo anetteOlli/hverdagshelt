@@ -27,14 +27,14 @@ exports.problems_get_problem = (id, callback) => {
   });
 };
 
-exports.problems_support_problem = (req, res) => {
-  console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  console.log('user_id/ProblemID:' + req.body.user_id + '/' + req.body.problemId);
-  divDao.createSupportUser(req.body.user_id, req.body.problemId, (status, data) => {
+exports.problems_support_problem = (id,json,callback) => {
+  console.log('/problems/' + id + 'fikk PATCH request fra klient');
+  console.log('user_id/ProblemID:' + json.user_id + '/' + json.problemId);
+  divDao.createSupportUser(json.user_id, json.problemId, (status, data) => {
     if (status === 200) {
-      problemDao.supportProblem(req.params.id, (status, data) => {
+      problemDao.supportProblem(id, (status, data) => {
 
-        problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+        problemDao.getAllUsersbyProblemId(json.problemId, (status,data) => {
           console.log('data.length = ' + data.length);
           console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
           //Send email to the user who created the problem if its the firs time someone supports the problem
@@ -85,24 +85,24 @@ exports.problems_get_from_municipality_and_street = (json,callback) => {
   });
 };
 
-exports.problems_get_from_municipality_sorted = (req, res) => {
-  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+exports.problems_get_from_municipality_sorted = (json,callback) => {
+  if (json.county === 'Sør-Trøndelag' || json.county === 'Nord-Trøndelag') json.county = 'Trøndelag';
   console.log(
     '/problems/municipality/sorted: ' +
-    req.body.municipality +
+    json.municipality +
     '(' +
-    req.body.county +
+    json.county +
     ') fikk GET request fra klient'
   );
-  problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
-    res.status(status).json(data);
+  problemDao.getFromMunicipality(json, (status, data) => {
+    callback(status,data);
   });
 };
 
 exports.problems_create_problem = (file,json, callback) => {
   console.log('Fikk POST-request fra klienten');
-  if (json.county_fk === 'Nord-Trøndelag' || json.county_fk === 'Sør-Trøndelag')
-    json.county_fk = 'Trøndelag';
+  if (json.county === 'Nord-Trøndelag' || json.county === 'Sør-Trøndelag')
+    json.county = 'Trøndelag';
   //Check if user has 10 problems already in DB
   problemDao.getAllFromUserUnchecked(json.userId, (status, data) =>{
     console.log(status);
@@ -110,27 +110,28 @@ exports.problems_create_problem = (file,json, callback) => {
     if(data.length < 10){
       if (file === undefined) {
         problemDao.createOne(json, (status, data) => {
-          handleError(status,data);
+          json.img_user = '';
+          handleError(status,data,json,callback);
         });
       } else {
         image.uploadImage(file, url => {
           json.img_user = url;
           problemDao.createOne(json, (status, data) => {
-            handleError(status,data);
+            handleError(status,data,json,callback);
           });
         });
       }
     }
     else{
-      res.status(429).json(data);
-      //console.log("Cannot add more prolbmes for: " + req.body.user_id);
+      callback(429,status)
+      //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });
 
   function handleError(status, data, json, callback){
       if(status === 500) {
-        divDao.createCity(json.city_fk, () => {
-          divDao.createStreet(json.street_fk, () => {
+        divDao.createCity(json.city, () => {
+          divDao.createStreet(json.street, () => {
             problemDao.createOne(json, (status,data) => {
               callback(status,data);
             })

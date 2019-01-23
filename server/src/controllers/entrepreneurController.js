@@ -1,4 +1,5 @@
-import { hashPassword } from '../services/util';
+import { genTokenEmail, hashPassword } from '../services/util';
+const mail = require('../services/nodemailer')
 
 const EntrepreneurDao = require('../dao/entrepreneurDao');
 const UserDao = require('../dao/userDao');
@@ -38,7 +39,19 @@ exports.validate_org_nr = (orgNr,callback) => {
 
 exports.entrepreneurs_create_entrepreneur = (json,callback) => {
   userDao.createUser(json.user, hashPassword(json.user.password), 'Entrepreneur', (status, data) => {
-    if (status !== 200) callback(status,data);
+    if(status === 200){
+      let link = "http://localhost:3001/div/verifyEmail/"+genTokenEmail({"email":json.email});
+      let datapackage = {
+        recepients: json.user.email,
+        text: link,
+        html: link
+      };
+      mail.sendSingleMail(datapackage, (json) => {
+        console.log(json);
+      });
+    }else {
+      callback(status,data);
+    }
     entrepreneurDao.createEntrepreneur(json.entrepreneur, data.insertId, (status, data) => {
       if (status !== 200) callback(status,data);
       const ent_id = data.insertId;

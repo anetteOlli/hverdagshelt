@@ -8,7 +8,11 @@ router.get('/', (req,res) => {
   })
 });
 
-router.get('/id/:id', EntrepreneurController.entrepreneurs_get_one_by_user_id);
+router.get('/id/:id', (req,res) => {
+  EntrepreneurController.entrepreneurs_get_one_by_user_id(req.params.id, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
 router.get('/:id', (req,res) => {
   EntrepreneurController.entrepreneurs_get_one(req.params.id, (status,data)=> {
@@ -17,7 +21,7 @@ router.get('/:id', (req,res) => {
 });
 
 router.get('/validate_org_nr/:org_nr', (req,res) => {
-  EntrepreneurController.validate_org_nr(org_nr, (status,data) => {
+  EntrepreneurController.validate_org_nr(req.params.org_nr, (status,data) => {
     res.status(status).json(data);
   })
 });
@@ -28,6 +32,10 @@ router.post('/', (req,res) => {
   })
 });
 
-router.post('/getcatmuni/', EntrepreneurController.entrepreneurs_get_cat_muni);
+router.post('/getcatmuni/', (req,res) => {
+  EntrepreneurController.entrepreneurs_get_cat_muni(req.body,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
 module.exports = router;

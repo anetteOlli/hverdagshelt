@@ -46,14 +46,14 @@ exports.users_get_user = (id,callback) => {
 exports.users_create_user = (json, callback) => {
   userDao.createUser(json, hashPassword(json.password), 'Standard', (status, data) => {
     if(status === 200){
-      let link = "https://localhost:3001/div/verifyEmail/"+genTokenEmail({"email":json.email});
+      let link = "http://localhost:3001/div/verifyEmail/"+genTokenEmail({"email":json.email});
       let datapackage = {
-        email: json.email,
+        recepients: json.email,
         text: link,
         html: link
       };
       mail.sendSingleMail(datapackage, (json) => {
-        console.log(json);
+
       });
       callback(status,data);
     }else {
@@ -81,9 +81,9 @@ exports.user_patch_user = (id,json,callback) => {
   });
 };
 
-exports.user_change_password = (req, res) => {
-  userDao.changePassword(req.body, hashPassword(req.body.password), (status, data) => {
-    res.status(status).json(data);
+exports.user_change_password = (json,callback) => {
+  userDao.changePassword(json, hashPassword(json.password), (status, data) => {
+    callback(status,data);
   });
 };
 exports.user_is_not_old_password = (json,callback) => {

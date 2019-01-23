@@ -51,11 +51,23 @@ router.patch('/vote/:id', checkAuth, (req,res) => {
     res.status(status).json(data);
   })
 });
-router.get('/user/:user_id', ProblemController.problems_get_problem_by_user);
+router.get('/user/:user_id', (req,res) => {
+  ProblemController.problems_get_problem_by_user(req.params.user_id, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.get('/entrepreneur/:entrepreneur_id', ProblemController.problems_get_problem_by_entrepreneur);
+router.get('/entrepreneur/:entrepreneur_id', (req,res) => {
+  ProblemController.problems_get_problem_by_entrepreneur(req.params.entrepreneur_id, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.post('/municipality/sorted', ProblemController.problems_get_from_municipality_sorted);
+router.post('/municipality/sorted', (req,res) => {
+  ProblemController.problems_get_from_municipality_sorted(req.body, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
 router.patch('/add/entrepreneur', (req,res) => {
   ProblemController.problems_add_entrepreneur(req.body, (status,data) => {
