@@ -93,7 +93,6 @@ test("Testing problems_add_entrepreneur from problemController", (done) => {
 });
 
 test("Testing problems_create_problem from problemController", (done) => {
-  let file = require('./testImg.jpg');
   let problem = {
     "problem_title":"test",
     "problem_description":"test",
@@ -108,7 +107,7 @@ test("Testing problems_create_problem from problemController", (done) => {
     "city":"Vinstra",
     "street":"Kjeldeveien"
   };
-  problemController.problems_create_problem(file,problem,(status,data) => {
+  problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
     done();
