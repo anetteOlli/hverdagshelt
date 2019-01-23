@@ -27,11 +27,11 @@ CREATE TABLE municipality (
 );
 
 CREATE TABLE city (
-  cityName VARCHAR(30) PRIMARY KEY
+  city_name VARCHAR(30) PRIMARY KEY
 );
 
 CREATE TABLE street (
-  streetName VARCHAR(30) PRIMARY KEY
+  street_name VARCHAR(30) PRIMARY KEY
 );
 
 
@@ -78,7 +78,8 @@ CREATE TABLE user (
   created DATETIME NOT NULL,
   municipality VARCHAR(30) NOT NULL,
   county VARCHAR(30) NOT NULL,
-  city VARCHAR(30) NOT NULL DEFAULT "Standard"
+  priority VARCHAR(30) NOT NULL DEFAULT "Standard",
+  active TINYINT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE user_problem (
@@ -111,10 +112,10 @@ CREATE TABLE user_event (
 
 
 CREATE TABLE entrepreneur (
-  entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  business_name VARCHAR(255) NOT NULL,
-  org_nr VARCHAR(45) NOT NULL UNIQUE,
-  user_id INT NOT NULL
+    entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    business_name VARCHAR(255) NOT NULL,
+    org_nr VARCHAR(45) NOT NULL UNIQUE,
+    user_id INT NOT NULL
 );
 
 CREATE TABLE entrepreneur_municipality (
@@ -135,13 +136,13 @@ ALTER TABLE problem
   ADD FOREIGN KEY (status) REFERENCES status(status),
   ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(city_name),
+  ADD FOREIGN KEY (street) REFERENCES street(street_name),
   ADD FOREIGN KEY (category) REFERENCES category(category),
   ADD FOREIGN KEY (entrepreneur_id) REFERENCES user(user_id);
 
 ALTER TABLE user
-  ADD FOREIGN KEY (city) REFERENCES priority(power),
+  ADD FOREIGN KEY (priority) REFERENCES priority(power),
   ADD FOREIGN KEY (municipality,county) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
@@ -150,8 +151,8 @@ ALTER TABLE user_problem
 
 ALTER TABLE event
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(city_name),
+  ADD FOREIGN KEY (street) REFERENCES street(street_name),
   ADD FOREIGN KEY (status) REFERENCES status(status);
 
 ALTER TABLE user_event

@@ -3,28 +3,80 @@ import { checkAuth } from '../services/util';
 const router = require('express').Router();
 const UserController = require('../controllers/userController');
 
-//@TODO should checkAuth for getting users! (Private info like county & municipality)
+router.get('/', (req,res) => {
+  UserController.users_get_all((status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.get('/', UserController.users_get_all);
+router.post('/f/forgot', (req,res) => {
+  UserController.user_forgot_password(req.body,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.post('/f/forgot', UserController.user_forgot_password);
+router.post('/login', (req,res) => {
+  UserController.users_login(req.body,(status,data) => {
+    console.log(data);
+    res.status(status).json(data);
+  })
+});
+
+router.get('/id/:id', (req,res) => {
+  UserController.users_get_user(req.params.id,(status,data) => {
+    res.status(status).json(data);
+  })
+});
+
+router.get('/refresh', checkAuth, (req,res) => {
+  console.log(req.userData);
+  UserController.users_refresh(req.userData, (status,data) => {
+    res.status(status).json(data);
+  })
+});
+
+router.patch('/changePassword/', (req,res) => {
+  UserController.user_change_password(req.body,(status,data)=> {
+    res.status(status).json(data);
+  })
+});
 
 
-router.post('/login', UserController.users_login);
-router.get('/refresh', checkAuth, UserController.users_refresh);
+router.post('/', (req,res) => {
+  UserController.users_create_user(req.body,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.patch('/changePassword/', checkAuth, UserController.user_change_password);
+router.delete('/:id', (req,res) => {
+  UserController.user_delete_user(req.params.id,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.post('/', UserController.users_create_user);
+router.patch('/:id', (req,res) => {
+  UserController.user_patch_user(req.params.id,req.body, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.delete('/:id', UserController.user_delete_user);
+router.get('/validate_email/:email', (req,res) => {
+  UserController.user_validate_email(req.params.email, (status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.patch('/:id', UserController.user_patch_user);
+router.post('/check_pass', checkAuth, (req,res) => {
+  console.log(req.body);
+  UserController.user_is_not_old_password(req.body,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
-router.get('/validate_email/:email', UserController.user_validate_email);
-
-router.get('/check_pass/:email/:password', checkAuth, UserController.user_is_not_old_password);
-
-router.get('/:id', UserController.users_get_user);
+router.get('/:id', (req,res) => {
+  UserController.users_get_user(req.params.id,(status,data) => {
+    res.status(status).json(data);
+  })
+});
 
 module.exports = router;

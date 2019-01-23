@@ -31,8 +31,7 @@ import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
 import { getUserInfo } from '../../store/actions/userActions';
 
-
-var bool = false;
+let bool = false;
 
 type Props = {
   classes: Object,
