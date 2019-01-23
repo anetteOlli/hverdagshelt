@@ -232,7 +232,7 @@ class EditProblemE extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -245,24 +245,9 @@ class EditProblemE extends React.Component<Props, State> {
                 {/*onClick={this.handleSubmit()}*/}
                 Lagre endringer
               </Button>
-
-              <div>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Typography>Kart: </Typography>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    {
-                      // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
-                    }
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
                 <div className="mapPlaceholder">
                   <MapMarkers />
                 </div>
-              </div>
             </Grid>
           </ValidatorForm>
         </Grid>
