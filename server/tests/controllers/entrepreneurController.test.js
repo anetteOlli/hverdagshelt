@@ -22,7 +22,7 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
+
 
 
 test("Testing getAll from entrepreneurDao", (done) => {
@@ -47,7 +47,7 @@ test("Testing createEntrepreneur from userDao", (done) => {
     entrepreneur:{
       business_name: "Test",
       org_nr: "01010",
-      categories : ["Testing", "Hole in road"],
+      categories : ["Snowplow", "Hole in road"],
       municipalities: [
         {"municipality":"Nord-Fron", "county":"Oppland"},
         {"municipality":"Sør-Fron", "county":"Oppland"}

@@ -22,7 +22,7 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
+
 
 test("Testing municipalities_get_all from DivController", (done) => {
   DivController.municipalities_get_all((status,data) => {

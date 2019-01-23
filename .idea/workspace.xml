@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="4861a2a0-896f-4788-bbca-2c5e7aab9c64" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/categoryController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/categoryController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/divController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/divController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/eventController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/eventController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/userController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/userController.test.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,65 +36,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/eventDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/entrepreneurDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/divDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/categoryDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/problemDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/userDao.test.js">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/userController.test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+            <state relative-caret-position="483">
+              <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/problemController.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/divController.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="613">
+              <caret line="49" column="29" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -95,8 +75,40 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-746">
-              <caret line="465" column="39" lean-forward="true" selection-start-line="465" selection-start-column="39" selection-end-line="465" selection-end-column="39" />
+            <state relative-caret-position="372">
+              <caret line="489" column="82" lean-forward="true" selection-start-line="489" selection-end-line="489" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/categoryController.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-100">
+              <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/controllers/eventController.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/controllers/eventController.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1372">
+              <caret line="141" column="38" lean-forward="true" selection-start-line="141" selection-end-line="142" />
             </state>
           </provider>
         </entry>
@@ -104,15 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/controllers/categoryController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-238" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="153">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -142,6 +147,7 @@
       <find>get</find>
       <find>chec</find>
       <find>uploadImg</find>
+      <find>validate</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -167,12 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/src/services/util.js" />
-        <option value="$PROJECT_DIR$/client/src/components/user/SignUp.js" />
-        <option value="$PROJECT_DIR$/server/src/routes/divRoutes.js" />
-        <option value="$PROJECT_DIR$/server/src/controllers/categoryController.js" />
-        <option value="$PROJECT_DIR$/server/src/routes/categoryRoutes.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/eventDao.js" />
         <option value="$PROJECT_DIR$/server/src/dao/categoryDao.js" />
         <option value="$PROJECT_DIR$/server/src/dao/divDao.js" />
         <option value="$PROJECT_DIR$/server/src/controllers/Statistix.txt" />
@@ -208,8 +208,6 @@
         <option value="$PROJECT_DIR$/server/src/controllers/problemController.js" />
         <option value="$PROJECT_DIR$/client/src/components/problem/EditProblemM.js" />
         <option value="$PROJECT_DIR$/.gitlab-ci.yml" />
-        <option value="$PROJECT_DIR$/server/tests/controllers/categoryController.test.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
         <option value="$PROJECT_DIR$/server/package.json" />
         <option value="$PROJECT_DIR$/server/src/dao/userDao.js" />
         <option value="$PROJECT_DIR$/server/tests/SQL/eventDao.test.js" />
@@ -218,6 +216,14 @@
         <option value="$PROJECT_DIR$/server/tests/SQL/categoryDao.test.js" />
         <option value="$PROJECT_DIR$/server/tests/SQL/problemDao.test.js" />
         <option value="$PROJECT_DIR$/server/tests/SQL/userDao.test.js" />
+        <option value="$PROJECT_DIR$/server/src/services/util.js" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/eventController.test.js" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/divController.test.js" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/categoryController.test.js" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
+        <option value="$PROJECT_DIR$/server/tests/controllers/userController.test.js" />
       </list>
     </option>
   </component>
@@ -302,6 +308,13 @@
               <item name="Scruum" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Scruum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scruum" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -316,7 +329,21 @@
               <item name="Scruum" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scruum" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Scruum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scruum" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Scruum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scruum" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -337,6 +364,11 @@
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\Erlend\AppData\Roaming\npm\node_modules\prettier" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2018.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\kongen\OneDrive\Dokumenter\Skole\Dataingeniør\Scruum\server\tests" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -388,20 +420,6 @@
       <workItem from="1548141838626" duration="15011000" />
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
-    </task>
-    <task id="LOCAL-00017" summary="location">
-      <created>1547451612854</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1547451612854</updated>
-    </task>
-    <task id="LOCAL-00018" summary="get events from municipality">
-      <created>1547453173110</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1547453173110</updated>
     </task>
     <task id="LOCAL-00019" summary="get events from municipality">
       <created>1547454048983</created>
@@ -732,7 +750,21 @@
       <option name="project" value="LOCAL" />
       <updated>1548266093873</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Testing the controllers now hehe, lets go :)))))">
+      <created>1548266384418</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1548266384418</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Kjørrrrr">
+      <created>1548266926464</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1548266926465</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -750,7 +782,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221135000" />
+    <option name="totallyTimeSpent" value="222150000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -763,6 +795,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1617536" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -866,8 +899,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml" />
-    <MESSAGE value="big oof" />
     <MESSAGE value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;server/src/controllers/problemController.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js" />
     <MESSAGE value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/95d7be1a-f2cb-4fe0-9659-344d35c9c04d.xml&#10;#&#9;server/src/controllers/problemController.js&#10;#&#9;server/src/dao/problemDao.js" />
     <MESSAGE value="change password plz" />
@@ -891,40 +922,11 @@
     <MESSAGE value="testing only sql" />
     <MESSAGE value="I fixed it all?" />
     <MESSAGE value="Rly going to destroy a computer soon" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rly going to destroy a computer soon" />
+    <MESSAGE value="Testing the controllers now hehe, lets go :)))))" />
+    <MESSAGE value="Kjørrrrr" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kjørrrrr" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/problem" />
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/muniReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-651" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://ba1bf59b-00b1-4470-87fd-96a3ce3c0173/schema/larssorl/table/entrepreneur" />
-    <entry file="file://$PROJECT_DIR$/client/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="81" column="20" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/util/MuiTable-2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="150" selection-start-line="150" selection-end-line="150" />
-          <folding>
-            <element signature="e#187#241#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/nodemon.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1048,20 +1050,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3243">
-          <caret line="141" column="38" lean-forward="true" selection-start-line="141" selection-end-line="142" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/services/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -1140,13 +1128,6 @@
     <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/tests/controllers/categoryController.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1159,32 +1140,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/dao/statisticsDao.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-746">
-          <caret line="465" column="39" lean-forward="true" selection-start-line="465" selection-start-column="39" selection-end-line="465" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/controllers/categoryController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-238" />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/tests/SQL/categoryDao.test.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1225,6 +1180,93 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
           <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/services/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="42" column="7" lean-forward="true" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1372">
+          <caret line="141" column="38" lean-forward="true" selection-start-line="141" selection-end-line="142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/controllers/categoryController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/eventController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/controllers/eventController.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/categoryController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="489" column="82" lean-forward="true" selection-start-line="489" selection-end-line="489" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/divController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/problemController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="49" column="29" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/userController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
         </state>
       </provider>
     </entry>

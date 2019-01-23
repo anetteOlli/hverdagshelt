@@ -467,6 +467,7 @@ INSERT INTO status VALUES ('Finished');
 
 
 
+
 INSERT INTO priority VALUES ("Standard");
 INSERT INTO priority VALUES ("Entrepreneur");
 INSERT INTO priority VALUES ("Municipality");

@@ -22,7 +22,7 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
+
 
 test("Testing users_get_all from userController", (done) => {
   userController.users_get_all((status,data) => {
@@ -37,9 +37,9 @@ test("Testing users_get_user from userController", (done) => {
   let id = 3;
   userController.users_get_user(id,(status,data) => {
     expect(status).toBe(200);
-    expect(data).toBe(1);
-    expect(data[0].email).toBe('entr@entr.entr');
-    expect(data[0].priority).toBe('Entrepreneur');
+    expect(data.user_id).toBe(id);
+    expect(data.email).toBe('entr@entr.entr');
+    expect(data.priority).toBe('Entrepreneur');
     done();
   })
 });
@@ -61,7 +61,7 @@ test("Testing users_validate_Email from userController", (done) => {
   let email = "user@user.user";
   userController.user_validate_email(email,(status,data) => {
     expect(status).toBe(200);
-    expect(data).toBe(true);
+    expect(data.emailExist).toBe(true);
     done();
   })
 });

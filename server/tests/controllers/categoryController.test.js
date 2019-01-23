@@ -22,7 +22,6 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing get_all_categories", (done) => {
   categoryController.categories_get_all((status,data) => {
