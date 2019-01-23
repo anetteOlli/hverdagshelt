@@ -196,6 +196,7 @@ class EditProblemA extends React.Component<Props, State> {
                     className={classes.entries}
                     fullWidth
                     label="Kategori"
+                    margin="normal"
                     name="category"
                     value={this.state.category}
                     onChange={this.handleChange}
@@ -239,6 +240,7 @@ class EditProblemA extends React.Component<Props, State> {
                     className={classes.entries}
                     fullWidth
                     label="Status:"
+                    margin="normal"
                     name="status"
                     value={this.state.status}
                     onChange={this.handleChange}
@@ -264,7 +266,10 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Entreprenør: {this.state.entrepreneur_id}{' '}
+                  </Typography>
 
                   <Typography variant="i" className={classes.paper}>
                     {' '}

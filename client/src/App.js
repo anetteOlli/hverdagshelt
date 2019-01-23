@@ -21,7 +21,8 @@ import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import ScrollToTop from './components/util/ScrollToTop';
 import Notifier from './components/util/Notifier';
-
+import type { ReduxState } from './store/reducers';
+import { connect } from 'react-redux';
 const styles = () => ({
   root: {
     display: 'flex',
@@ -43,45 +44,59 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: Object
+  classes: Object,
+  checkedJWT: boolean
 };
 
-const App = ({ classes }: Props) => (
-  <SnackbarProvider maxSnack={3}>
-    <Notifier />
-    <HashRouter>
-      <Fragment>
-        <CssBaseline />
-        <div className={classes.root}>
-          <NavBar />
-          <div className={classes.site}>
-            <ScrollToTop>
-              <Switch>
-                <Route exact path="/" component={MainPage} />
-                <Route exact path="/uploadfile" component={UploadFile} />
-                <Route exact path="/registrer-bruker" component={SignUp} />
-                <Route exact path="/problems/" component={EditProblemMain} />
-                <Route exact path="/lagproblem" component={CreateProblem} />
-                <Route exact path="/problemdetails" component={ProblemDetails} />
-                <Route exact path="/opprArrangement" component={CreateEvent} />
-                <Route exact path="/muiTable" component={MuiTable2} />
-                <Route exact path="/munipage" component={MuniPage} />
-                <Route exact path="/lagproblem" component={CreateProblem} />
-                <Route exact path="/uploadfile" component={UploadFile} />
-                <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
-                <Route exact path="/stati" component={Stati} />
-                <Route exact path="/innstillinger" component={Settings} />
-                <Route exact path="/profil" component={Profile} />
-                <Route exact path="/:municipality" component={MuniPage} />
-                {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
-              </Switch>
-            </ScrollToTop>
-          </div>
-          <Footer />
-        </div>
-      </Fragment>
-    </HashRouter>
-  </SnackbarProvider>
-);
+class App extends React.Component<Props> {
+  render() {
+    console.log('dd', this.props.checkedJWT);
+    if (this.props.checkedJWT)
+      return (
+        <SnackbarProvider maxSnack={3}>
+          <Notifier />
+          <HashRouter>
+            <Fragment>
+              <CssBaseline />
+              <div className={this.props.classes.root}>
+                <NavBar />
+                <div className={this.props.classes.site}>
+                  <ScrollToTop>
+                    <Switch>
+                      <Route exact path="/" component={MainPage} />
+                      <Route exact path="/uploadfile" component={UploadFile} />
+                      <Route exact path="/registrer-bruker" component={SignUp} />
+                      <Route exact path="/problems/" component={EditProblemMain} />
+                      <Route exact path="/lagproblem" component={CreateProblem} />
+                      <Route exact path="/problemdetails" component={ProblemDetails} />
+                      <Route exact path="/opprArrangement" component={CreateEvent} />
+                      <Route exact path="/muiTable" component={MuiTable2} />
+                      <Route exact path="/munipage" component={MuniPage} />
+                      <Route exact path="/lagproblem" component={CreateProblem} />
+                      <Route exact path="/uploadfile" component={UploadFile} />
+                      <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
+                      <Route exact path="/stati" component={Stati} />
+                      <Route exact path="/innstillinger" component={Settings} />
+                      <Route exact path="/profil" component={Profile} />
+                      <Route exact path="/:municipality" component={MuniPage} />
+                      {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
+                    </Switch>
+                  </ScrollToTop>
+                </div>
+                <Footer />
+              </div>
+            </Fragment>
+          </HashRouter>
+        </SnackbarProvider>
+      );
+    else return <div>ff</div>;
+  }
+}
 
-export default withRoot(withStyles(styles)(App));
+const mapStateToProps = (state: ReduxState) => {
+  return {
+    checkedJWT: state.async.checkedJWT
+  };
+};
+
+export default connect(mapStateToProps)(withRoot(withStyles(styles)(App)));

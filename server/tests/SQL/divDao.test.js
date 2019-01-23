@@ -18,7 +18,9 @@ jest.setTimeout(30000);
 
 beforeEach(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
+    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
+      done();
+    });
   });
 });
 afterAll(() => pool.end());
@@ -28,7 +30,7 @@ test("Testing getAllMunicipalities from DivDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(422);
     expect(data[0].municipality).toBe("Asker");
-    expect(data[47].municipality).toBe("Eidskog");
+    expect(data[47].municipality).toBe("Lier");
     done();
   })
 });
@@ -48,8 +50,8 @@ test("Testing getMunicipalitiesByCounty from DivDao", (done) => {
   dao.getMunicipalitiesByCounty(county,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(48);
-    expect(data[2].municipality).toBe("Namsos");
-    expect(data[9].municipality).toBe("Agdenes");
+    expect(data[2].municipality).toBe("Flatanger");
+    expect(data[9].municipality).toBe("Holtålen");
     done();
   })
 });
@@ -73,8 +75,12 @@ test("Testing createStreet from DivDao", (done) => {
 });
 
 
-router('/',(req,res) => {
-  controller.post(req.body, (status,data) => {
-
+test("Testing createSupport from DivDao", (done) => {
+  let userId = 3;
+  let problemId = 3;
+  dao.createSupportUser(userId,problemId, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
   })
-})
+});

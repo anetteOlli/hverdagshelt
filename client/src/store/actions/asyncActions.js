@@ -7,3 +7,10 @@ export const setAsyncLoading = (isLoading: boolean = true): Action => {
     payload: isLoading
   };
 };
+
+export const checkedJWT = (): Action => {
+  return {
+    type: 'CHECKED_JWT',
+    payload: true
+  };
+};

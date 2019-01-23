@@ -1,6 +1,5 @@
 import { genTokenEmail } from './util';
 
-
 var mailOptions = {
   from : "TEST<noreply@vysly.com>",
   to : newUser.email,
@@ -8,9 +7,6 @@ var mailOptions = {
   text : 'Visit this http://localhost:3001/verifyEmail/'+token,
   html : '<a href="http://localhost:3001/yeet/verifyEmail/'+token+'"><H2>Click on this</H2></a>'
 };
-
-
-
 
 class email {
   sendVerificationEmail(recepient: string){

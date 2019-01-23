@@ -9,13 +9,13 @@ const initState = {
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
-    case 'ENTREPRENEUR_GET_ALL_SUCCESS':
-      console.log('%c ENTREPRENEUR_GET_ALL_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS':
+      console.log('%c ENTREPRENEUR_GET_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         entrepreneurs: action.payload
       };
-    case 'ENTREPRENEUR_GET_ALL_ERROR':
-      console.log('%c ENTREPRENEUR_GET_ALL_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'ENTREPRENEUR_GET_BY_MUNI_ERROR':
+      console.log('%c ENTREPRENEUR_GET_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         errorMessage: action.payload.message
       };
