@@ -68,11 +68,7 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 exports.problems_get_from_municipality_sorted = (req, res) => {
   if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
   console.log(
-    '/problems/municipality/sorted: ' +
-    req.body.municipality +
-    '(' +
-    req.body.county +
-    ') fikk GET request fra klient'
+    '/problems/municipality/sorted: ' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
   problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
     res.status(status).json(data);
@@ -84,11 +80,11 @@ exports.problems_create_problem = (req, res) => {
   if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
     req.body.county_fk = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUser(req.body.user_fk, (status, data) =>{
+  problemDao.getAllFromUser(req.body.user_fk, (status, data) => {
     console.log(status);
     //console.log(data);
     console.log(data.length);
-    if(data.length < 10){
+    if (data.length < 10) {
       if (req.file === undefined) {
         problemDao.createOne(req.body, (status, data) => {
           handleError(status, data, req, res);
@@ -101,8 +97,7 @@ exports.problems_create_problem = (req, res) => {
           });
         });
       }
-    }
-    else{
+    } else {
       res.status(429).json(data);
       //console.log("Cannot add more prolbmes for: " + req.body.userId);
     }
