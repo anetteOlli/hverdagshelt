@@ -8,7 +8,7 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getAllProblemsFromMuni = muni => {
+export const getProblemsByMuni = muni => {
   console.log(muni);
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems/municipality/sorted', muni)
