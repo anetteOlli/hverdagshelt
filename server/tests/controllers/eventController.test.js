@@ -39,7 +39,7 @@ test("Testing events_create_event from eventController", (done) => {
     latitude: 63.422724,
     longitude: 10.395582
   };
-  eventController.events_create_event(file,json, (status,data) => {
+  eventController.events_create_event(undefined,json, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
     done();
@@ -82,7 +82,7 @@ test("Testing events_get_from_municipality", (done) => {
   };
   eventController.events_get_from_municipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(2);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
     expect(data[0].county).toBe(json.county);
