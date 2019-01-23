@@ -21,21 +21,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import CloseIcon from '@material-ui/icons/Close';
-import green from '@material-ui/core/colors/green';
-import amber from '@material-ui/core/colors/amber';
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import type { ReduxState } from '../../store/reducers';
 
-const variantIcon = {
-  success: CheckCircleIcon
-};
 
 const styles = (theme: Object) => ({
   main: {
@@ -59,7 +48,8 @@ const styles = (theme: Object) => ({
     minWidth: '100%',
     [theme.breakpoints.down('sm')]: {
       width: '50%'
-    }
+    },
+    minHeight: 40,
   },
   grid: {
     height: '100%',
@@ -99,11 +89,8 @@ const styles = (theme: Object) => ({
     paddingTop: 25,
     paddingBottom: 15,
     paddingLeft: 15
-  },
-
+  }
 });
-
-
 
 class ProblemDetails extends React.Component<Props, State> {
   state = {
@@ -194,7 +181,6 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({ open: false });
   };
 
-
   handleAddEntrepreneur = e => {
     let myEntrepreneur = e;
     this.setState({
@@ -202,9 +188,8 @@ class ProblemDetails extends React.Component<Props, State> {
     });
     //this.handleClickSnack();
     this.handleClose();
-    console.log(myEntrepreneur);
     let vals = {
-      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+      entrepreneur_id: myEntrepreneur.entrepreneur_id,
       problem_id: this.props.problem.problem_id
     };
     this.props.problemAddEntrepreneur(vals).then(() => {
@@ -217,10 +202,8 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, priority_fk } = this.props;
+    const { classes, problem, priority } = this.props;
     if (problem) {
-      console.log('locked: ' + problem.problem_locked);
-      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -239,7 +222,7 @@ class ProblemDetails extends React.Component<Props, State> {
                     </Button>
                   )}
 
-                <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
+                <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
                     <Edit />
                   </Icon>{' '}
@@ -256,12 +239,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kategori: {problem.category}
                 </Typography>
               </Grid>
             </div>
@@ -350,9 +333,9 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentProblemId !== nextProps.currentProblemId) {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
-      this.checkUser(this.props.priority_fk);
+      this.checkUser(this.props.priority);
       this.checkLocked(nextProps.problem.problem_locked);
-      this.checkEdit(this.props.priority_fk);
+      this.checkEdit(this.props.priority);
     }
   }
 }
@@ -363,12 +346,11 @@ const mapStateToProps = (state: ReduxState) => {
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    priority_fk: state.user.priority,
+    priority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    errorMessage: state.problem.errorMessage,
-
+    errorMessage: state.problem.errorMessage
   };
 };
 
@@ -376,7 +358,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };

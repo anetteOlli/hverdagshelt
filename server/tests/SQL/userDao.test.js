@@ -19,7 +19,9 @@ jest.setTimeout(30000);
 
 beforeEach(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
+    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
+      done();
+    });
   });
 });
 afterAll(() => pool.end());
@@ -39,7 +41,7 @@ test("Testing getOneById from userDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].email).toBe('entr@entr.entr');
-    expect(data[0].priority_fk).toBe('Entrepreneur');
+    expect(data[0].priority).toBe('Entrepreneur');
     done();
   })
 });
@@ -59,34 +61,6 @@ test("Testing getCreateUser from userDao", (done) => {
   })
 });
 
-test("Testing createEntrepreneur from userDao", (done) => {
-  let json = {
-    bedriftNavn: "Test",
-    org_nr: "01010"
-  };
-  let id = 3;
-  dao.createEntrepreneur(json,id,(status,data) => {
-    expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
-    done();
-  })
-});
-
-test("Testing linkEntrepreneur from userDao", (done) => {
-  let json = {
-    categories : ["Testing", "Hole in road"],
-    municipalities: [
-      {"municipality":"Nord-Fron", "county":"Oppland"},
-      {"municipality":"Sør-Fron", "county":"Oppland"}
-    ]
-  };
-  let id = 1;
-  dao.linkEntrepreneur(json,id,(status,data) => {
-    expect(status).toBe(200);
-    done();
-  })
-});
-
 
 test("Testing patchOne from userDao", (done) => {
   let json = {
@@ -102,10 +76,8 @@ test("Testing patchOne from userDao", (done) => {
 });
 
 test("Testing deleteOne from userDao", (done) => {
-  let id = 2;
+  let id = 3;
   dao.deleteOne(id,(status,data) => {
-    expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
     done();
   })
 });
@@ -116,7 +88,29 @@ test("Testing checkMail from userDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].user_id).toBe(1);
-    expect(data[0].priority_fk).toBe("Standard");
+    expect(data[0].priority).toBe("Standard");
     done();
   })
+});
+
+test("Testing activateUser from userDao", (done) => {
+  let email = "user@user.user";
+  dao.activateUser(email, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing changePassword from userDao", (done) => {
+  let json = {
+    email: "user@user.user",
+    password: "test",
+    user_id : 1
+  };
+  dao.changePassword(json, json.password, (status,data) => {
+   expect(status).toBe(200);
+   expect(data.affectedRows).toBe(1);
+   done();
+  });
 });

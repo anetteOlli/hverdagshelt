@@ -19,7 +19,9 @@ jest.setTimeout(30000);
 
 beforeEach(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
+    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
+      done();
+    });
   });
 });
 afterAll(() => pool.end());
@@ -27,8 +29,19 @@ afterAll(() => pool.end());
 test("Testing getAll from problem", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(4);
     expect(data[0].problem_description).toBe("A big hole has been found in the rear of Erlend");
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    done();
+  })
+});
+
+test("Testing getAllFromUser from problemDao", (done) => {
+  let id = 1;
+  dao.getAllFromUserUnchecked(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(3);
+    expect(data[0].user_id).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
   })
@@ -38,7 +51,8 @@ test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+
+    expect(data).toBe(2);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].problem_id).toBe(id);
     done();
@@ -54,8 +68,8 @@ test("Testing getFromMunicipality from problemDao", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
-    expect(data[0].municipality_fk).toBe("Trondheim");
-    expect(data[0].county_fk).toBe("Trøndelag");
+    expect(data[0].municipality).toBe("Trondheim");
+    expect(data[0].county).toBe("Trøndelag");
     done();
   })
 });
@@ -68,9 +82,9 @@ test("Testing getFromCity from problemDao", (done) => {
   };
   dao.getFromCity(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data[0].county_fk).toBe("Oppland");
-    expect(data[0].city_fk).toBe("Vinstra");
-    expect(data[0].municipality_fk).toBe("Nord-Fron");
+    expect(data[0].county).toBe("Oppland");
+    expect(data[0].city).toBe("Vinstra");
+    expect(data[0].municipality).toBe("Nord-Fron");
     expect(data.length).toBe(1);
     done();
   })
@@ -85,9 +99,9 @@ test("Testing getFromStreet from problemDao", (done) => {
   dao.getFromStreet(json, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].street_fk).toBe("Kjeldeveien");
-    expect(data[0].county_fk).toBe("Oppland");
-    expect(data[0].municipality_fk).toBe("Nord-Fron");
+    expect(data[0].street).toBe("Kjeldeveien");
+    expect(data[0].county).toBe("Oppland");
+    expect(data[0].municipality).toBe("Nord-Fron");
     done();
   })
 });
@@ -97,15 +111,15 @@ test("Testing createOne from problemDao", (done) => {
     "problem_title":"test",
     "problem_description":"test",
     "img_user":"test",
-    "category_fk":"Snowplow",
-    "status_fk":"Unchecked",
-    "user_fk":1,
+    "category":"Snowplow",
+    "status":"Unchecked",
+    "user_id":1,
     "latitude":2.00,
     "longitude":2.00,
-    "county_fk":"Oppland",
-    "municipality_fk":"Nord-Fron",
-    "city_fk":"Vinstra",
-    "street_fk":"Kjeldeveien"
+    "county":"Oppland",
+    "municipality":"Nord-Fron",
+    "city":"Vinstra",
+    "street":"Kjeldeveien"
   };
   dao.createOne(problem,(status,data) => {
     expect(status).toBe(200);
@@ -132,7 +146,8 @@ test("Testing patchMunicipality from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"yeet",
-    status:"Finished"
+    status:"Finished",
+    category:"Snowplow"
   };
   let id = 1;
   dao.patchMunicipality(id,json,(status,data) => {
@@ -142,11 +157,21 @@ test("Testing patchMunicipality from problemDao", (done) => {
   })
 });
 
+test("Testing getAllUsersByProblemId", (done) => {
+  dao.getAllUsersbyProblemId(1,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(3);
+    expect(data[0].email).toBe("user@user.user");
+    done();
+  })
+});
+
 test("Testing patchStandard from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"test",
-    img_user: ''
+    img_user: '',
+    category: 'Snowplow'
   };
   let id = 1;
   dao.patchStandard(id,json, (status,data) => {
@@ -165,3 +190,24 @@ test("Testing deleteOne from problemDao", (done) => {
   })
 });
 
+
+test("Testing supportProblem from problemDao", (done) => {
+  let id = 1;
+  dao.supportProblem(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing addEntrepreneur from problemDao", (done) => {
+  let json = {
+    entrepreneur:1,
+    problem_id:1
+  };
+  dao.addEntrepreneur(json, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
