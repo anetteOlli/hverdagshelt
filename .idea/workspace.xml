@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51d9cfd7-b047-42d1-9475-ac1a0e015fc5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/util/DateFormater.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/DateFormater.js" afterDir="false" />
-    </list>
+    <list default="true" id="51d9cfd7-b047-42d1-9475-ac1a0e015fc5" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -48,35 +43,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="34" />
-              <folding>
-                <element signature="e#9#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
-              <folding>
-                <element signature="e#9#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="323" column="47" selection-start-line="323" selection-start-column="47" selection-end-line="323" selection-end-column="47" />
+            <state relative-caret-position="502">
+              <caret line="349" column="61" lean-forward="true" selection-start-line="349" selection-start-column="61" selection-end-line="349" selection-end-column="61" />
               <folding>
                 <element signature="e#9#35#0" expanded="true" />
               </folding>
@@ -96,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1582">
-              <caret line="337" column="2" selection-start-line="337" selection-start-column="2" selection-end-line="337" selection-end-column="2" />
+            <state relative-caret-position="171">
+              <caret line="306" column="12" selection-start-line="306" selection-start-column="12" selection-end-line="306" selection-end-column="12" />
               <folding>
                 <element signature="e#9#35#0" expanded="true" />
               </folding>
@@ -132,16 +103,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/AppWithStickyFooter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="878">
-              <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-end-line="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/NavBar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+              <caret line="86" column="20" selection-start-line="86" selection-end-line="87" />
             </state>
           </provider>
         </entry>
@@ -232,10 +194,10 @@
         <option value="$PROJECT_DIR$/client/src/index.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/NavBar.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Footer.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
         <option value="$PROJECT_DIR$/client/src/components/util/DateFormater.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" />
       </list>
     </option>
   </component>
@@ -288,6 +250,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -367,14 +334,7 @@
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
       <workItem from="1548276308370" duration="54000" />
-      <workItem from="1548276376266" duration="1405000" />
-    </task>
-    <task id="LOCAL-00009" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
-      <created>1547047242741</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1547047242741</updated>
+      <workItem from="1548276376266" duration="1651000" />
     </task>
     <task id="LOCAL-00010" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
       <created>1547047306145</created>
@@ -712,11 +672,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548277489767</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Merge branch 'snorre' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources.local.xml&#10;#&#9;.idea/workspace.xml">
+      <created>1548278026344</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1548278026344</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216309000" />
+    <option name="totallyTimeSpent" value="216555000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -730,7 +697,7 @@
   <component name="ToolWindowManager">
     <frame x="1273" y="0" width="1294" height="1407" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.17504051" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17504051" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
@@ -746,7 +713,7 @@
       <window_info anchor="bottom" id="Console" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.5852349" visible="true" weight="0.17425431" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.5852349" visible="true" weight="0.211146" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5016199" side_tool="true" weight="0.2" />
       <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49838012" weight="0.22619048" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
@@ -755,7 +722,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.040518638" />
+      <window_info anchor="right" id="Database" order="3" weight="0.25931928" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19798657" />
@@ -932,24 +899,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/nodemon.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
           <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/problem">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1153,7 +1106,7 @@
     <entry file="file://$PROJECT_DIR$/client/src/AppWithStickyFooter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="878">
-          <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-end-line="87" />
+          <caret line="86" column="20" selection-start-line="86" selection-end-line="87" />
         </state>
       </provider>
     </entry>
@@ -1174,16 +1127,6 @@
     <entry file="file://$PROJECT_DIR$/client/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1582">
-          <caret line="337" column="2" selection-start-line="337" selection-start-column="2" selection-end-line="337" selection-end-column="2" />
-          <folding>
-            <element signature="e#9#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/util/DateFormater.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1191,20 +1134,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="323" column="47" selection-start-line="323" selection-start-column="47" selection-end-line="323" selection-end-column="47" />
+        <state relative-caret-position="171">
+          <caret line="306" column="12" selection-start-line="306" selection-start-column="12" selection-end-line="306" selection-end-column="12" />
           <folding>
             <element signature="e#9#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/problem">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/nodemon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+        <state relative-caret-position="358">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="349" column="61" lean-forward="true" selection-start-line="349" selection-start-column="61" selection-end-line="349" selection-end-column="61" />
           <folding>
             <element signature="e#9#35#0" expanded="true" />
           </folding>
