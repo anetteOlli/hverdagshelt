@@ -90,10 +90,10 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div />;
+    } else return <div>LOADING...</div>;
   }
   componentDidMount(): void {
-    this.props.refresh();
+   // this.props.refresh();
   }
 }
 

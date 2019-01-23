@@ -82,6 +82,7 @@ module.exports = class ProblemDao extends Dao {
   supportProblem(id, callback) {
     super.query('UPDATE problem SET support = support + 1 WHERE problem_id = ?', id, callback);
   }
+
   patchAdministrator(id, json, callback) {
     console.log('patch admin: ' + json.problem_title);
     const values = [
@@ -94,7 +95,6 @@ module.exports = class ProblemDao extends Dao {
       json.img_entrepreneur,
       id
     ];
-
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, status_fk = ?, category_fk = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
@@ -112,12 +112,6 @@ module.exports = class ProblemDao extends Dao {
     );
   }
 
-  patchAdministrator(id, json, callback) {
-    const values = [];
-    //Skal kunne endre alt
-    super.query('');
-  }
-
   patchMunicipality(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.category_fk, json.status_fk, id];
 
@@ -129,10 +123,6 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchStandard(id, json, callback) {
-    const values = [json.problem_title, json.problem_description, json.img_user, id];
-  }
-
-  patchBruker(id, json, callback) {
     const values = [json.problem_title, json.problem_description, json.category_fk, json.img_user, id];
     console.log(values);
     super.query(
@@ -156,10 +146,14 @@ module.exports = class ProblemDao extends Dao {
   addEntrepreneur(json, callback) {
     const values = [json.entrepreneur_fk, json.problem_id];
     console.log(values);
-    super.query('UPDATE problem SET problem_locked = 1, entrepreneur_fk = ? WHERE problem_id = ?', values, callback);
+    super.query(
+      "UPDATE problem SET problem_locked = 1, status_fk = 'InProgress', entrepreneur_fk = ? WHERE problem_id = ?",
+      values,
+      callback
+    );
   }
 
-  getAllbyProblemId(id, callback) {
+  getAllUsersbyProblemId(id, callback) {
     super.query(
       'select distinct email from user join user_problem on user.user_id = user_problem.user_id where user_problem.problem_id like ?',
       [id],

@@ -59,7 +59,7 @@ class LineChartPage extends React.Component<Props, State> {
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="problemer" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="problemer" stroke="#82ca9d" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
         <ValidatorForm onSubmit={() => console.log('')}>

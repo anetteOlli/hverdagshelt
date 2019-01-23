@@ -17,7 +17,8 @@ export type State = {
 export type Action =
   | { type: 'GET_ALL_PROBLEMS_SUCCESS', payload: Problem[] }
   | { type: 'GET_ALL_PROBLEMS_ERROR', payload: Error }
-  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string };
+  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string }
+  | { type: 'GET_PROBLEMS_BY_CATEGORY', payload: string[] };
 
 const initState = {
   lineChartData: [],
@@ -56,6 +57,19 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   return result;
 };
 
+const getProblemsByCategory = (allProblems: Problem[], categories: string[]) =>{
+  const result = (Array(categories.length)
+    .fill(null)
+    .map((u, i) => ({ name: categories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  //allProblems.map((p: Problem) => result.map(r => r. ))
+
+
+
+} ;
+
+
+
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_ALL_PROBLEMS_SUCCESS':
@@ -78,6 +92,12 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         lineChartData: getProblemsByMonth(state.problems, action.payload)
+      };
+    case 'GET_PROBLEMS_BY_CATEGORY':
+      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        pieChartData: []
       };
     default:
       return state;

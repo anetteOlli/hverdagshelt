@@ -6,9 +6,7 @@ const history = createHashHistory();
 
 // Material-ui
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
 import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, Icon,
   TableBody, TableHead, TableRow, TableCell, tableSortLabel,
   List, ListItem, ListItemText, ListSubheader, CardMedia
@@ -16,13 +14,9 @@ import { MenuItem, Button, Typography, Grid, Paper, Card, CardContent, SvgIcon, 
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CheckCircle } from '@material-ui/icons';
-import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 
-/** Courtesy of https://material-ui.com/demos/expansion-panels/
- * Styles the expansionpanels!
- */
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0,0,0,.125)',
@@ -65,21 +59,13 @@ const ExpansionPanelDetails = withStyles(theme => ({
   },
 }))(MuiExpansionPanelDetails);
 
-//Own material start
-/** Props for MuiTable
- * The props are as following:
- * Rows are the item you want to show. Should have AT LEAST id, title, description, status, entrepreneur, imgURL
- * onClick is an OPTIONAL function
- */
 type Props = {
   classes: PropTypes.object,
   rows: PropTypes.array,
   onClick: PropTypes.func
 }
 
-/** Component Class for MuiTable
- * @see Props
- */
+
 class MuiTable2 extends React.Component<Props> {
   state = {
     expanded: '0',
@@ -102,12 +88,11 @@ class MuiTable2 extends React.Component<Props> {
           <ExpansionPanel expanded={expanded === row.id}
                           onChange={(onClick == null) ? this.handleChange(row.id) : e => onClick(row)}
                           key={row.id}>
+
             <ExpansionPanelSummary>
-
               <Typography>{row.businessName}</Typography>
-
-
             </ExpansionPanelSummary>
+
             <ExpansionPanelDetails>
               <Grid item xs container
                     direction="column" alignItems="flex-start"
@@ -123,6 +108,8 @@ class MuiTable2 extends React.Component<Props> {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
+
+
       </div>
     );
   }

@@ -32,6 +32,17 @@ export const getProblemsByMonth = (selectedMonth: string): Action => ({
   payload: selectedMonth
 });
 
+
+export const getProblemsByCategory = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    const state = getState();
+    dispatch({
+      type: 'GET_PROBLEMS_BY_CATEGORY',
+      payload: state.category.categories
+    })
+  };
+};
+
 /*
 
 
