@@ -151,15 +151,16 @@ exports.problems_delete_problem = (id,user,callback) => {
     problemDao.deleteOne(id, (status, data) => {
       callback(status,data);
     });
-  }
-  problemDao.getOne(id, (status, data) => {
-    if (data[0].problem_locked) callback(400,{ message: 'problem is locked' });
-    if (user.id !== data[0].user_id)
-      callback(400,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
-    problemDao.deleteOne(id, (status, data) => {
-      callback(status,data);
+  } else {
+    problemDao.getOne(id, (status, data) => {
+      if (data[0].problem_locked) callback(400, { message: 'problem is locked' });
+      if (user.id !== data[0].user_id)
+        callback(400, { message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
+      problemDao.deleteOne(id, (status, data) => {
+        callback(status, data);
+      });
     });
-  });
+  }
 };
 
 exports.problems_edit_problem = (id,json,user,file, callback) => {

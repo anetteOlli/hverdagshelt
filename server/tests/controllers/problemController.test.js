@@ -137,7 +137,7 @@ test("Testing problems_delete_problem  from problemController", (done) => {
   };
   problemController.problems_delete_problem(id,json,(status,data) => {
     expect(status).toBe(status);
-    expect(data).toBe(1);
+    expect(data.affectedRows).toBe(1);
     done();
   })
 });
