@@ -6,7 +6,7 @@ import PieChart from './PieChartPage';
 import LineChart from './LineChartPage';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { getAllProblemsFromMuni, setSelectedMuni } from '../../store/actions/statisticsActions';
+import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
 import { getUserInfo } from '../../store/actions/userActions';
 import type { ReduxState } from '../../store/reducers';
 
@@ -64,7 +64,7 @@ class StatisticPage extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    this.props.setSelectedMuni(currentMuni).then(() => this.props.getAllProblemsFromMuni());
+    this.props.getAllProblemsFromMuni(this.props.currentMuni);
   }
 }
 
@@ -78,8 +78,7 @@ const mapStateToProps = (state: ReduxState) => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: () => dispatch(getAllProblemsFromMuni()),
-    setSelectedMuni
+    getAllProblemsFromMuni: (muni) => dispatch(getAllProblemsFromMuni(muni)),
   };
 };
 

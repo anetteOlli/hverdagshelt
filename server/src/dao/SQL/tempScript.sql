@@ -2,16 +2,16 @@ INSERT INTO status VALUE ('Upcoming');
 INSERT INTO status VALUE ('Ongoing');
 INSERT INTO status VALUE ('Archived');
 INSERT INTO priority VALUE (5);
-INSERT INTO user (email, password, auz_url, priority_fk) VALUES('test@test.test', 'ok', 'test', 5);
+INSERT INTO user (email, password, priority) VALUES('test@test.test', 'ok', 'test', 5);
 INSERT INTO category VALUE ('Testing');
 
 UPDATE problem SET problem_description = 'Han vant hele driten' WHERE problem_id = 27;
 
-UPDATE user SET priority_fk = 'Administrator' WHERE user_id = 15;
+UPDATE user SET priority = 'Administrator' WHERE user_id = 15;
 
 INSERT INTO category VALUE ('water machine broke')
 
-INSERT INTO problem (problem_title, problem_description, date_made, category_fk, status_fk, user_fk, latitude, longitude, municipality_fk, county_fk, city_fk, street_fk)
+INSERT INTO problem (problem_title, problem_description, date_made, category, status, user_id, latitude, longitude, municipality, county, city, street)
 VALUES ('test1', 'testing', '2019-01-02 14:30:45', 'Tree in road', 'inProgress', 1, 69.640726, 18.931592, 'Tromsø', 'Troms', 'Tromsø', 'Kjeldeveien'),
        ('test1', 'testing', '2019-01-03 14:30:45', 'Tree in road', 'inProgress', 1, 69.640726, 18.931592, 'Tromsø', 'Troms', 'Tromsø', 'Kjeldeveien'),
        ('test1', 'testing', '2019-01-03 14:30:45', 'Tree in road', 'inProgress', 1, 69.640726, 18.931592, 'Tromsø', 'Troms', 'Tromsø', 'Kjeldeveien'),

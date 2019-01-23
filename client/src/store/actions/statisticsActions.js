@@ -8,16 +8,22 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getAllProblemsFromMuni = () => {
+export const getAllProblemsFromMuni = muni => {
+  console.log(muni);
   return (dispatch: Dispatch, getState: GetState) => {
-    const state = getState();
-    return postData('problems/municipality/sorted', state.statistic.selectedMuni || getState().user.currentMuni)
-      .then(response =>
-        dispatch({
-          type: 'GET_ALL_PROBLEMS_SUCCESS',
-          payload: response.data
-        })
-      )
+    return postData('problems/municipality/sorted', muni)
+      .then(response => {
+        if (response.length > 0)
+          dispatch({
+            type: 'GET_ALL_PROBLEMS_SUCCESS',
+            payload: response.data
+          });
+        else
+          dispatch({
+            type: 'GET_ALL_PROBLEMS_ERROR',
+            payload: new Error({message: 'EMPTY ARRAY'})
+          });
+      })
       .catch((error: Error) =>
         dispatch({
           type: 'GET_ALL_PROBLEMS_ERROR',
@@ -27,10 +33,14 @@ export const getAllProblemsFromMuni = () => {
   };
 };
 
-export const setSelectedMuni = (selectedMonth): Action => ({
-  type: 'SET_SELECTED_MUNI',
-  payload: selectedMonth
-});
+export const setSelectedMuni = selectedMonth => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return dispatch({
+      type: 'SET_SELECTED_MUNI',
+      payload: selectedMonth
+    });
+  };
+};
 
 export const getProblemsByMonth = (selectedMonth: string): Action => ({
   type: 'GET_PROBLEMS_BY_MONTH',

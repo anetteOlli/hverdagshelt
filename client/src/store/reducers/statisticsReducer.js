@@ -106,7 +106,7 @@ export default (state: State = initState, action: Action) => {
         ...state,
         problems: action.payload,
         ready: true,
-        dropDownMonths: setUpDropDown(moment(action.payload[0].date_made.toString()), moment(Date.now())),
+        dropDownMonths: setUpDropDown(moment(action.payload[0].date_made), moment(Date.now())),
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':

@@ -3,7 +3,7 @@ import type { Action } from '../reducers/userReducer';
 import type { ReduxState } from '../reducers';
 import type { Action as AsyncAction } from '../reducers/asyncReducer';
 import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
-import { setAsyncLoading } from './asyncActions';
+import { setAsyncLoading, checkedJWT } from './asyncActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction | AsyncAction) => any;
@@ -11,19 +11,21 @@ type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id/${getState().user.user_id}`)
-      .then(response =>
+    return getData(`users/${getState().user.user_id}`)
+      .then(response => {
         dispatch({
           type: 'GET_USER_INFO_SUCCESS',
           payload: response.data
-        })
-      )
-      .catch((error: Error) =>
+        });
+        dispatch(checkedJWT());
+      })
+      .catch((error: Error) => {
         dispatch({
           type: 'GET_USER_INFO_ERROR',
           payload: error
-        })
-      );
+        });
+        dispatch(checkedJWT());
+      });
   };
 };
 
@@ -59,6 +61,7 @@ export const refresh = () => {
         type: 'REFRESH_ERROR',
         payload: 'NO JWT'
       });
+      dispatch(checkedJWT());
       dispatch(setAsyncLoading(false));
     } else {
       getData('users/refresh')
@@ -77,6 +80,7 @@ export const refresh = () => {
             type: 'REFRESH_ERROR',
             payload: error.message
           });
+          dispatch(checkedJWT());
           dispatch(setAsyncLoading(false));
         });
     }
