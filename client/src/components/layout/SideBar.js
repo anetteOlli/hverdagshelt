@@ -51,7 +51,7 @@ class TemporaryDrawer extends React.Component<Props> {
   }
 
   checkUser(user) {
-    if (user === 'Administrator' || user === 'Municipality') {
+    if (user === 'Administrator') {
       this.toggleButtonVisible();
       return true;
     } else {
@@ -79,18 +79,6 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem button component={NavLink} to={'/map'}>
-            <ListItemIcon>
-              <NewIcon />
-            </ListItemIcon>
-            <ListItemText primary="Map" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/munipage'}>
-            <ListItemIcon>
-              <TrendingIcon />
-            </ListItemIcon>
-            <ListItemText primary="munipage" />
-          </ListItem>
           <ListItem button component={NavLink} to={'/opprArrangement'}>
             <ListItemIcon>
               <EventIcon />
@@ -101,7 +89,7 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="stati" />
+            <ListItemText primary="statistikk" />
           </ListItem>
           <ListItem button component={NavLink} to={'/problemdetails/2'}>
             <ListItemIcon>
@@ -113,13 +101,13 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="lagproblem" />
+            <ListItemText primary="registrer problem" />
           </ListItem>
           <ListItem button component={NavLink} to={'/editp'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="editproblem" />
+            <ListItemText primary="rediger problem" />
           </ListItem>
         </List>
         <Divider />
@@ -137,6 +125,7 @@ class TemporaryDrawer extends React.Component<Props> {
         </List>
       </div>
     );
+
     return (
       <div>
         <Drawer open={open} onClose={onClose}>
@@ -144,16 +133,7 @@ class TemporaryDrawer extends React.Component<Props> {
             {sideList}
           </div>
         </Drawer>
-
-        <div>
-          <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.openPopup}>
-            <DialogContent>
-              <Typography gutterBottom />
-              <CreateCategory onClick={e => {}} />
-            </DialogContent>
-            <DialogActions />
-          </Dialog>
-        </div>
+        <CreateCategory onClose={this.handleClose} open={this.state.openPopup} />
       </div>
     );
   }

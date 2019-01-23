@@ -6,11 +6,11 @@ type Event = {
   event_img: string,
   date_starting: Date,
   date_ending: Date,
-  status_fk: '',
-  county_fk: '',
-  municipality_fk: '',
-  city_fk: '',
-  street_fk: ''
+  status: '',
+  county: '',
+  municipality: '',
+  city: '',
+  street: ''
 };
 
 export type State = { events: Event[], errorMessage: string };
@@ -31,15 +31,15 @@ const initState = {
     {
       event_id: -1,
       event_name: '',
-      municipality_fk: '',
+      municipality: '',
       event_description: '',
       event_img: '',
       date_starting: new Date(),
       date_ending: new Date(),
-      status_fk: '',
-      county_fk: '',
-      city_fk: '',
-      street_fk: ''
+      status: '',
+      county: '',
+      city: '',
+      street: ''
     }
   ],
   errorMessage: ''

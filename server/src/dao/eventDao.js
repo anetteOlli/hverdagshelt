@@ -12,7 +12,7 @@ module.exports = class EventDao extends Dao {
 
   getByMunicipality(json, callback) {
     const values = [json.municipality, json.county];
-    super.query('SELECT * FROM event WHERE municipality_fk = ? AND county_fk = ? AND date_ending >= CURRENT_TIMESTAMP', values, callback);
+    super.query('SELECT * FROM event WHERE municipality = ? AND county = ? AND date_ending >= CURRENT_TIMESTAMP', values, callback);
   }
 
   createOne(json, callback) {
@@ -22,15 +22,16 @@ module.exports = class EventDao extends Dao {
       json.event_img,
       json.date_starting,
       json.date_ending,
-      json.county_fk,
-      json.municipality_fk,
+      json.county,
+      json.municipality,
       json.city_fk,
       json.street_fk,
       json.latitude,
-      json.longitude
+      json.longitude,
+      "Unchecked"
     ];
     super.query(
-      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county_fk, municipality_fk, city_fk, street_fk, latitude, longitude) values (?,?,?,?,?,?,?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county, municipality, city_fk, street_fk, latitude, longitude, status) values (?,?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
@@ -44,9 +45,9 @@ module.exports = class EventDao extends Dao {
       json.event_img,
       json.date_starting,
       json.date_ending,
-      json.status_fk,
-      json.county_fk,
-      json.municipality_fk,
+      json.status,
+      json.county,
+      json.municipality,
       json.city_fk,
       json.street_fk,
       json.latitude,
@@ -55,7 +56,7 @@ module.exports = class EventDao extends Dao {
     ];
 
     super.query(
-      'update event set event_name = ?, event_description = ?, event_img = ?, date_starting = ?, date_ending = ?, status_fk = ?, county_fk = ?, municipality_fk = ?, city_fk = ?, street_fk = ?, latitude = ?, longitude = ? where event_id = ?',
+      'update event set event_name = ?, event_description = ?, event_img = ?, date_starting = ?, date_ending = ?, status = ?, county = ?, municipality = ?, city_fk = ?, street_fk = ?, latitude = ?, longitude = ? where event_id = ?',
       values,
       callback
     );
@@ -64,6 +65,8 @@ module.exports = class EventDao extends Dao {
     super.query('delete from event where event_id=?', [id], callback);
   }
   updateStatus(callback){
-    super.query('update event set status_fk = ? where date_ending < CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status = ? where date_ending <= CURRENT_TIMESTAMP', ["Finished"], callback);
+    super.query('update event set status = ? where date_starting >= CURRENT_TIMESTAMP', ["Unchecked"], callback);
+    super.query('update event set status = ? where date_starting <= CURRENT_TIMESTAMP AND date_ending >= CURRENT_TIMESTAMP', ["InProgress"], callback);
   }
 };

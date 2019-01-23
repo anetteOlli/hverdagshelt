@@ -3,7 +3,7 @@
 export type Priority = 'Standard' | 'Municipality' | 'Entrepreneur' | 'Administrator';
 
 export type State = {
-  userID: number,
+  user_id: number,
   isLoggedIn: boolean,
   errorMessage: string,
   priority: Priority,
@@ -12,23 +12,23 @@ export type State = {
 };
 
 export type Action =
-  | { type: 'SIGN_IN_SUCCESS', payload: { userId: number, priority: Priority } }
+  | { type: 'SIGN_IN_SUCCESS', payload: { user_id: number, priority: Priority } }
   | { type: 'SIGN_IN_ERROR', payload: Error }
   | { type: 'SIGN_OUT_SUCCESS' }
   | { type: 'SIGN_UP_SUCCESS' }
   | { type: 'CLEAR_ERROR' }
   | { type: 'SIGN_UP_ERROR', payload: Error }
-  | { type: 'REFRESH_SUCCESS', payload: { userId: number, priority: Priority } }
+  | { type: 'REFRESH_SUCCESS', payload: { user_id: number, priority: Priority } }
   | { type: 'REFRESH_ERROR', payload: string }
   | { type: 'TEMP_PASSWORD_SUCCESS' }
   | { type: 'TEMP_PASSWORD_ERROR', payload: Error }
-  | { type: 'GET_USER_INFO_SUCESS', payload: any }
+  | { type: 'GET_USER_INFO_SUCCESS', payload: any }
   | { type: 'GET_USER_INFO_ERROR', payload: Error }
   | { type: 'NEW_PASSWORD_SUCCESS' }
   | { type: 'NEW_PASSWORD_ERROR', payload: Error };
 
 const initState = {
-  userID: 0,
+  user_id: 0,
   isLoggedIn: false,
   errorMessage: '',
   priority: 'Standard',
@@ -44,7 +44,7 @@ export default (state: State = initState, action: Action) => {
         ...state,
         isLoggedIn: true,
         priority: action.payload.priority,
-        userID: action.payload.userId,
+        user_id: action.payload.user_id,
         errorMessage: ''
       };
     case 'SIGN_IN_ERROR':
@@ -70,7 +70,7 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         isLoggedIn: false,
-        userID: 0,
+        user_id: 0,
         errorMessage: ''
       };
     case 'REFRESH_SUCCESS':
@@ -78,7 +78,7 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         isLoggedIn: true,
-        userID: action.payload.userId,
+        user_id: action.payload.user_id,
         priority: action.payload.priority,
         errorMessage: ''
       };
@@ -106,12 +106,12 @@ export default (state: State = initState, action: Action) => {
         ...state,
         errorMessage: action.payload
       };
-    case 'GET_USER_INFO_SUCESS':
-      console.log('%c GET_USER_INFO_SUCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'GET_USER_INFO_SUCCESS':
+      console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality_fk, county: action.payload.county_fk }
+        currentMuni: { municipality: action.payload[0].municipality, county: action.payload[0].county },
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);

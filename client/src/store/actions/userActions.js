@@ -11,11 +11,10 @@ type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    console.log(getState());
-    return getData(`users/${getState().user.userID}`)
+    return getData(`users/id/${getState().user.user_id}`)
       .then(response =>
         dispatch({
-          type: 'GET_USER_INFO_SUCESS',
+          type: 'GET_USER_INFO_SUCCESS',
           payload: response.data
         })
       )
@@ -37,7 +36,7 @@ export const signIn = (creds: { email: string, password: string }) => {
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: { userId: response.data.id, priority: response.data.priority }
+          payload: { user_id: response.data.id, priority: response.data.priority }
         });
         dispatch(loading(false));
       })
@@ -66,7 +65,7 @@ export const refresh = () => {
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: { userId: response.data.id, priority: response.data.priority }
+            payload: { user_id: response.data.id, priority: response.data.priority }
           });
           dispatch(hasCheckedJWT());
         })
@@ -136,7 +135,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/f/forgot', { email })
+    return postData('users/f/forgot', {email})
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
@@ -150,9 +149,9 @@ export const forgotPassword = (email: string) => {
       );
   };
 };
-export const setNewPassword = (userId: number, password: string, email: string) => {
+export const setNewPassword = (user_id: number, password: string, email: string) => {
   return (dispatch: Dispatch) => {
-    return patchData('users/changePassword', { userId, password, email })
+    return patchData('users/changePassword', { user_id, password, email })
       .then(() => {
         return dispatch({
           type: 'NEW_PASSWORD_SUCCESS'

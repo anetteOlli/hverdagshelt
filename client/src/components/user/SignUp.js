@@ -55,11 +55,11 @@ type State = {
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
-  orgNr: number,
+  org_nr: number,
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
   entrepreneurCategories: string[],
-  isUniqueOrgNr: boolean,
+  isUniqueorg_nr: boolean,
   successDialog: boolean
 };
 
@@ -96,8 +96,8 @@ class SignUp extends React.Component<Props, State> {
     entrepreneurName: '',
     entrepreneurMunies: [],
     entrepreneurCategories: [],
-    isUniqueOrgNr: false,
-    orgNr: 0,
+    isUniqueorg_nr: false,
+    org_nr: 0,
     successDialog: false
   };
 
@@ -137,7 +137,7 @@ class SignUp extends React.Component<Props, State> {
       entrepreneurMunies,
       entrepreneurCategories,
       entrepreneurName,
-      orgNr
+      org_nr
     } = this.state;
     if (!isEntrepreneur)
       this.props
@@ -162,7 +162,7 @@ class SignUp extends React.Component<Props, State> {
           { municipality: 'Trondheim', county: 'Trøndelag', email, password },
           {
             bedriftNavn: entrepreneurName,
-            org_nr: orgNr,
+            org_nr: org_nr,
             municipalities: entrepreneurMunies.map(name => {
               return { county, municipality: name };
             }),
@@ -194,16 +194,16 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
-  handleValidateOrgNr = () => {
-    getData(`entrepreneurs/validate_org_nr/${this.state.orgNr}`).then(response => {
+  handleValidateorg_nr = () => {
+    getData(`entrepreneurs/validate_org_nr/${this.state.org_nr}`).then(response => {
       console.log(response);
-      const orgNr = this.state.orgNr;
+      const org_nr = this.state.org_nr;
       this.setState({
-        isUniqueOrgNr: response.data.orgNrExist,
-        orgNr: orgNr + 1
+        isUniqueorg_nr: response.data.org_nrExist,
+        org_nr: org_nr + 1
       });
       this.setState({
-        orgNr: orgNr
+        org_nr: org_nr
       });
     });
   };
@@ -270,12 +270,12 @@ class SignUp extends React.Component<Props, State> {
           fullWidth
           margin="normal"
           label="Org nr"
-          name="orgNr"
+          name="org_nr"
           type="number"
-          value={this.state.orgNr}
+          value={this.state.org_nr}
           onChange={this.handleChange}
-          onBlur={this.handleValidateOrgNr}
-          validators={['required', 'isNumber', 'isOrgNr']}
+          onBlur={this.handleValidateorg_nr}
+          validators={['required', 'isNumber', 'isorg_nr']}
           errorMessages={['Feltet kan ikke være tomt', 'må være tall', 'Org nummeret finnes fra før']}
         />
       </div>
@@ -410,7 +410,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
-    ValidatorForm.addValidationRule('isOrgNr', () => !this.state.isUniqueOrgNr);
+    ValidatorForm.addValidationRule('isorg_nr', () => !this.state.isUniqueorg_nr);
     this.props.getCounties();
     this.props.getCategories();
   }
