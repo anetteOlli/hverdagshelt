@@ -110,8 +110,11 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality, county: action.payload.county },
+        email: action.payload[0].email,
+        currentMuni: {
+          municipality: action.payload[0].municipality,
+          county: action.payload[0].county
+        },
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);

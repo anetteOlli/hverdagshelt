@@ -16,12 +16,15 @@ exports.users_get_all = (callback) => {
 
 exports.users_login = (json,callback) => {
   userDao.checkEmail(json.email, (status, data) => {
+    if(data.length < 1 )callback(404,{"message":"Not found"});
     if (data.length === 1 && validatePassword(json.password, data[0].password)) {
       console.log(data);
       callback(200,{
         id: data[0].user_id,
         jwt: genToken(data[0].user_id, data[0].priority),
-        priority: data[0].priority
+        priority: data[0].priority,
+        municipality: data[0].municipality,
+        county: data[0].county
       });
     } else callback(401,{ message: 'WRONG_PASSWORD' });
   });
@@ -33,6 +36,8 @@ exports.users_refresh = (user,callback) => {
     id: user.id,
     jwt: genToken(user.id, user.priority),
     priority: user.priority
+    municipality: user.municipality,
+    county: user.county
   });
 };
 
@@ -142,6 +147,4 @@ exports.user_forgot_password = (json,callback) => {
       //feilmelding om at epost ikke finnes
     }
   });//checkEmail
-
-
 }

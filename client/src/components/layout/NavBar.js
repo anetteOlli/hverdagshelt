@@ -21,6 +21,7 @@ import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
 import { refresh, signOut } from '../../store/actions/userActions';
 import type { ReduxState, Dispatch } from '../../store/reducers';
+import HomeOutlined from '@material-ui/icons/HomeOutlined';
 
 const styles = (theme: Object) => ({
   appBar: {

@@ -25,6 +25,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 // Use history.push(...) to programmatically change path
 import createHashHistory from 'history/createHashHistory';
@@ -141,12 +142,17 @@ function getStepContent(step: number,
         <Card className={classes.contentNull}>
           <CardContent>
           <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
-
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
+            </Typography>
           <Typography variant="subtitle2" align="left" >
-              {state.municipality}
+              Kommune: {state.municipality}
           </Typography>
           <Typography variant="subtitle2" align="left" >
-              {state.street}
+              Gate: {state.street}
+            <br/>
+            <br/>
           </Typography>
             <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
             <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
@@ -161,9 +167,11 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
-              <Typography variant="body1">Lokasjon:</Typography>
-              <Typography>{state.municipality}</Typography>
-              <Typography>{state.street}</Typography>
+              <Typography variant="h5" align="left" color="secondary">
+                Lokasjon som er valgt:
+              </Typography>
+              <Typography>Kommune: {state.municipality}</Typography>
+              <Typography>Gate: {state.street}</Typography>
               <TextValidator
                 fullWidth
                 margin="normal"
@@ -315,6 +323,11 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h6" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
@@ -334,6 +347,8 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h5" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>

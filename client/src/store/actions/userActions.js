@@ -13,6 +13,7 @@ export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData(`users/${getState().user.user_id}`)
       .then(response => {
+        console.log("Rsp userInfo: ", response.data);
         dispatch({
           type: 'GET_USER_INFO_SUCCESS',
           payload: response.data
@@ -34,10 +35,16 @@ export const signIn = (creds: { email: string, password: string }) => {
     dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
+        console.log("Response: ", response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: { user_id: response.data.id, priority: response.data.priority }
+          payload: {
+            user_id: response.data.id,
+            priority: response.data.priority,
+            municipality: response.data.municipality,
+            county: response.data.county
+          }
         });
         dispatch(getUserInfo());
         dispatch(setAsyncLoading(false));
@@ -65,11 +72,16 @@ export const refresh = () => {
     } else {
       getData('users/refresh')
         .then(response => {
-          console.log(response);
+          console.log("Response refresh: ", response);
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: { user_id: response.data.id, priority: response.data.priority }
+            payload: {
+              user_id: response.data.id,
+              priority: response.data.priority,
+              municipality: response.data.municipality,
+              county: response.data.county
+            }
           });
           dispatch(getUserInfo());
           dispatch(setAsyncLoading(false));

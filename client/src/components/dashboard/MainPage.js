@@ -5,6 +5,7 @@ import { withStyles, Card, CardContent, Paper, Chip, Grid, Typography, TextField
 import Select from 'react-select';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
+import { getUserInfo } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
@@ -241,6 +242,7 @@ class MainPage extends React.Component<Props, State> {
     municipality: '',
     single: null,
     municipalities: ['Default'],
+    isLoggedIn: false,
   };
   render() {
     const { classes,municipalities } = this.props;
@@ -254,8 +256,20 @@ class MainPage extends React.Component<Props, State> {
                 <Typography variant="h3" className={classes.tittel}>
                   VELKOMMEN TIL HVERDAGSHELT!
                 </Typography>
+                <br/><br/>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={this.registerProblem}
+                >
+                  Registrer et problem
+                </Button>
                 <Typography variant="h5" className={classes.tekst}>
-                  Finn din kommune
+                  Eller
+                </Typography>
+                <Typography variant="h5" className={classes.tekst}>
+                  Finn arrangementer og problemer i din kommune
                 </Typography>
                 <NoSsr>
                   <Select
@@ -269,18 +283,23 @@ class MainPage extends React.Component<Props, State> {
                     isClearable
                   />
                 </NoSsr>
-                <Typography variant="h5" className={classes.tekst}>
-                  Eller
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  className={classes.button}
-                  onClick={this.registerProblem}
-                >
-                  Registrer et problem
-                </Button>
+                {this.props.isLoggedIn ? (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="medium"
+                    className={classes.button}
+                    onClick={() => {
+                        this.props.getUserInfo()
+                        .then(() =>
+                          history.push("/" + this.props.userMuni.municipality + "&" + this.props.userMuni.county)
+                        );
+                    }}
+                  >
+                    Ta meg til min kommune
+                  </Button>) : <div/>
+                }
+                <br/><br/>
               </CardContent>
             </Card>
           </Grid>
@@ -325,19 +344,24 @@ class MainPage extends React.Component<Props, State> {
 }//class
 
 const mapStateToProps = state => {
-const municipalitiesFromRedux = state.municipality.municipalities;
-const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(municipality => {
-  const value = `${municipality.municipality}&${municipality.county}`;
-  const label = `${municipality.municipality} i  ${municipality.county}`;
-  return {value, label}})) : null
+  const municipalitiesFromRedux = state.municipality.municipalities;
+  const municipalities = municipalitiesFromRedux ?
+    (municipalitiesFromRedux.map(municipality => {
+      const value = `${municipality.municipality}&${municipality.county}`;
+      const label = `${municipality.municipality} i  ${municipality.county}`;
+      return {value, label}
+  })) : null;
   return {
-    municipalities
+    municipalities: municipalities,
+    isLoggedIn: state.user.isLoggedIn,
+    userMuni: state.user.currentMuni
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMunicipalities: () => dispatch(getMunicipalities())
+    getMunicipalities: () => dispatch(getMunicipalities()),
+    getUserInfo: () => dispatch(getUserInfo())
   };
 };
 
