@@ -204,7 +204,7 @@ class ProblemDetails extends React.Component<Props, State> {
     this.handleClose();
     console.log(myEntrepreneur);
     let vals = {
-      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+      entrepreneur_id: myEntrepreneur.entrepreneur_id,
       problem_id: this.props.problem.problem_id
     };
     this.props.problemAddEntrepreneur(vals).then(() => {
@@ -217,7 +217,7 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, priority_fk } = this.props;
+    const { classes, problem, priority } = this.props;
     if (problem) {
       console.log('locked: ' + problem.problem_locked);
       console.log(this.props.entrepreneurs);
@@ -256,12 +256,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kontaktinfo: {problem.user_id}
                 </Typography>
               </Grid>
             </div>
@@ -350,9 +350,9 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentProblemId !== nextProps.currentProblemId) {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
-      this.checkUser(this.props.priority_fk);
+      this.checkUser(this.props.priority);
       this.checkLocked(nextProps.problem.problem_locked);
-      this.checkEdit(this.props.priority_fk);
+      this.checkEdit(this.props.priority);
     }
   }
 }
@@ -363,7 +363,7 @@ const mapStateToProps = (state: ReduxState) => {
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    priority_fk: state.user.priority,
+    priority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
@@ -376,7 +376,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };

@@ -26,18 +26,18 @@ export const getAllEntrepreneurs = () => {
   };
 };
 
-export const entrepreneurs_get_one_by_User_fk = () => {
+export const entrepreneurs_get_one_by_user_id = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`entrepreneurs/id/${getState().user.userID}`)
+    return getData(`entrepreneurs/id/${getState().user.user_id}`)
       .then(response =>
         dispatch({
-          type: 'ENTREPRENEUR_GET_FROM_USER_FK_SUCCESS',
+          type: 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS',
           payload: response.data
         })
       )
       .catch((error: Error) =>
         dispatch({
-          type: 'ENTREPRENEUR_GET_FROM_USER_FK_ERROR',
+          type: 'ENTREPRENEUR_GET_FROM_user_id_ERROR',
           payload: error
         })
       );
@@ -47,9 +47,9 @@ export const entrepreneurs_get_one_by_User_fk = () => {
 export const getEntrepreneursByMuniAndCat = p => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('entrepreneurs/getcatmuni', {
-      municipality_fk: p.municipality_fk,
-      county_fk: p.county_fk,
-      category_fk: p.category_fk
+      municipality: p.municipality,
+      county: p.county,
+      category: p.category
     })
       .then(response =>
         dispatch({

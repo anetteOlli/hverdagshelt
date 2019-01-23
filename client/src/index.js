@@ -6,9 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import configureStore from './store/configStore';
+import {refresh} from './store/actions/userActions';
 
 const store = configureStore();
 const root = document.getElementById('root');
+store.dispatch(refresh());
 
 if (root) {
   let render = () => {

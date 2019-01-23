@@ -227,7 +227,7 @@ class MuniPage extends React.Component<Props, State> {
                                   Slutter: {easyDateFormat(event.date_ending)}<br />
                                   <br />
                                 </Typography>
-                                <Typography component="p" className={classes.cardProps}>Lokasjon: {event.street_fk}</Typography>
+                                <Typography component="p" className={classes.cardProps}>Lokasjon: {event.street}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
@@ -261,14 +261,14 @@ class MuniPage extends React.Component<Props, State> {
                                 <Grid container spacing={24} justify="space-between">
                                   <Grid item md={6}>
                                     <Typography align="center" component="p" className={classes.statustext}>
-                                      <b>{problem.status_fk == "Finished" ? "Ferdig" :
-                                      (problem.status_fk == "InProgress" ? "Pågående" : "Ikke Godkjent"
+                                      <b>{problem.status == "Finished" ? "Ferdig" :
+                                      (problem.status == "InProgress" ? "Pågående" : "Ikke Godkjent"
                                       )}</b>
                                     </Typography>
                                   </Grid>
                                   <Grid item md={6}>
                                     <Typography align="center" component="p" className={classes.categorytext}>
-                                      <i>{problem.category_fk}</i>
+                                      <i>{problem.category}</i>
                                     </Typography>
                                   </Grid>
                                 </Grid>
@@ -281,7 +281,7 @@ class MuniPage extends React.Component<Props, State> {
                                   Lagt ut: {easyDateFormat(problem.date_made)} <br />
                                   <br />
                                 </Typography>
-                                <Typography component="p" className={classes.cardProps}>Lokasjon: {problem.street_fk}</Typography>
+                                <Typography component="p" className={classes.cardProps}>Lokasjon: {problem.street}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container direction="row" spacing={0}>
@@ -337,8 +337,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEvents: (muni, county) => dispatch(getEventsByMuni(muni, county)),
-    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni, county))
+    getEvents: (municipality, county) => dispatch(getEventsByMuni(municipality, county)),
+    getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county))
   };
 };
 

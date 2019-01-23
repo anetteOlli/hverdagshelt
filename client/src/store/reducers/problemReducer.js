@@ -10,23 +10,23 @@ export type Problem = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string
+  municipality: string,
+  county: string,
+  city: string,
+  street: string
 };
 
 export type State = {
   problems: Problem[],
   errorMessage: string,
-  currentMuni: {municipality_fk: string, county_fk: string}
+  currentMuni: {municipality: string, county: string}
 };
 
 export type Action =
@@ -63,17 +63,17 @@ const initState = {
       date_made: '2019-01-16 11:43:39',
       last_edited: '2019-01-17 10:17:16',
       date_finished: null,
-      category_fk: 'Snowplow',
-      status_fk: 'Unchecked',
-      user_fk: 1,
-      entrepreneur_fk: null,
+      category: 'Snowplow',
+      status: 'Unchecked',
+      user_id: 1,
+      entrepreneur_id: null,
       latitude: 63.422724,
       longitude: 10.395582,
       support: 1,
-      municipality_fk: 'Trondheim',
-      county_fk: 'Trøndelag',
-      city_fk: 'Trondheim',
-      street_fk: 'Klostergata'
+      municipality: 'Trondheim',
+      county: 'Trøndelag',
+      city: 'Trondheim',
+      street: 'Klostergata'
     }
   ],
   errorMessage: '',

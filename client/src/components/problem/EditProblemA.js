@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
-import { editProblem, getProblemById, goToProblemDetail} from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
 import PictureUpload from '../util/PictureUpload';
@@ -32,17 +32,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string
+  municipality: string,
+  county: string,
+  city: string,
+  street: string
 };
 
 const styles = (theme: Object) => ({
@@ -83,7 +83,7 @@ const styles = (theme: Object) => ({
   entries: {
     maxWidth: '90%',
     marginLeft: 30,
-    marginRight: 30,
+    marginRight: 30
   }
 });
 
@@ -99,17 +99,17 @@ class EditProblemA extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
+    category: '',
+    status: '',
+    user_id: '',
+    entrepreneur_id: '',
     latitude: '',
     longitude: '',
     support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
+    municipality: '',
+    county: '',
+    city: '',
+    street: '',
     displayImg: '',
     displayImg2: ''
   };
@@ -134,7 +134,6 @@ class EditProblemA extends React.Component<Props, State> {
 
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
-
   };
 
   render() {
@@ -148,11 +147,11 @@ class EditProblemA extends React.Component<Props, State> {
             <ValidatorForm ref="problemForm" onSubmit={this.handleSubmit}>
               <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
                 <Paper className={classes.paper2} name={'Paper for UserProblem'}>
-                  <Typography variant="h3" className = {classes.titles} gutterBottom align="center">
+                  <Typography variant="h3" className={classes.titles} gutterBottom align="center">
                     Bruker beskrivelse
                   </Typography>
                   <TextValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     label="Tittel"
@@ -163,12 +162,11 @@ class EditProblemA extends React.Component<Props, State> {
                     errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
                   />
                   <SelectValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     label="Status:"
-                    name="status_fk"
-                    margin="normal"
-                    value={this.state.status_fk}
+                    name="status"
+                    value={this.state.status}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -181,7 +179,7 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     multiline
                     label="Beskrivelse"
@@ -195,12 +193,11 @@ class EditProblemA extends React.Component<Props, State> {
                   />
 
                   <SelectValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     label="Kategori"
-                    margin="normal"
-                    name="category_fk"
-                    value={this.state.category_fk}
+                    name="category"
+                    value={this.state.category}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -212,7 +209,10 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
 
-                  <Typography variant="i" className={classes.paper}> Dato startet: {this.state.date_made} </Typography>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Dato startet: {this.state.date_made}{' '}
+                  </Typography>
 
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -231,17 +231,16 @@ class EditProblemA extends React.Component<Props, State> {
               </Grid>
               <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
                 <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                  <Typography variant="h3" className = {classes.titles} gutterBottom align="center">
+                  <Typography variant="h3" className={classes.titles} gutterBottom align="center">
                     Entreprenør beskrivelse
                   </Typography>
 
                   <SelectValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     label="Status:"
-                    margin="normal"
-                    name="status_fk"
-                    value={this.state.status_fk}
+                    name="status"
+                    value={this.state.status}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -254,7 +253,7 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
-                    className = {classes.entries}
+                    className={classes.entries}
                     fullWidth
                     multiline
                     rowsMax={10}
@@ -265,9 +264,12 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Typography variant = 'i' className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Typography>
+                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
 
-                  <Typography variant = 'i' className ={classes.paper}> Dato Endret: {this.state.last_edited} </Typography>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Dato Endret: {this.state.last_edited}{' '}
+                  </Typography>
 
                   <div>
                     <ExpansionPanel>
@@ -278,7 +280,12 @@ class EditProblemA extends React.Component<Props, State> {
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
                         <div>
-                          <img id="img" width="100%" src={this.state.displayImg2 ||this.state.img_entrepreneur} alt="Bilde" />
+                          <img
+                            id="img"
+                            width="100%"
+                            src={this.state.displayImg2 || this.state.img_entrepreneur}
+                            alt="Bilde"
+                          />
                           <PictureUpload uploadImg={this.handleUpload2} />
                         </div>
                       </ExpansionPanelDetails>

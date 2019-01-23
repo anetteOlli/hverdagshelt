@@ -17,14 +17,8 @@ Hvilke bedriftsbrukere fikser flest problemer?
 Hvilke kategorier får flest problemer?
   antall {problemer} for hver {kategori}, per tid*/
 
-
-
-
   getStreetProblems(json, callback) {
-    const val = [json.municipality_fk, json.county_fk];
-    super.query('SELECT * FROM problem WHERE municipality_fk = ? AND county_fk = ?', val, callback);
+    const val = [json.municipality, json.county];
+    super.query('SELECT * FROM problem WHERE municipality = ? AND county = ?', val, callback);
   }
-
-
-
 };

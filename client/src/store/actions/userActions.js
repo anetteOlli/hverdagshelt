@@ -1,17 +1,17 @@
 // @flow
 import type { Action } from '../reducers/userReducer';
 import type { ReduxState } from '../reducers';
-import type { Action as AppAction } from '../reducers/appReducer';
+import type { Action as AsyncAction } from '../reducers/asyncReducer';
 import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
-import { loading, hasCheckedJWT } from './appActions';
+import { setAsyncLoading } from './asyncActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
-type Dispatch = (action: Action | ThunkAction | PromiseAction | AppAction) => any;
+type Dispatch = (action: Action | ThunkAction | PromiseAction | AsyncAction) => any;
 type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id/${getState().user.userID}`)
+    return getData(`users/id/${getState().user.user_id}`)
       .then(response =>
         dispatch({
           type: 'GET_USER_INFO_SUCCESS',
@@ -29,35 +29,36 @@ export const getUserInfo = () => {
 
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
-    dispatch(loading());
+    dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
         console.log(response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: { userId: response.data.id, priority: response.data.priority }
+          payload: { user_id: response.data.id, priority: response.data.priority }
         });
-        dispatch(loading(false));
+        dispatch(setAsyncLoading(false));
       })
       .catch((error: Error) => {
         dispatch({
           type: 'SIGN_IN_ERROR',
           payload: error
         });
-        dispatch(loading(false));
+        dispatch(setAsyncLoading(false));
       });
   };
 };
 
 export const refresh = () => {
   return (dispatch: Dispatch) => {
+    dispatch(setAsyncLoading());
     if (!getToken()) {
       dispatch({
         type: 'REFRESH_ERROR',
         payload: 'NO JWT'
       });
-      dispatch(hasCheckedJWT());
+      dispatch(setAsyncLoading(false));
     } else {
       getData('users/refresh')
         .then(response => {
@@ -65,16 +66,16 @@ export const refresh = () => {
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: { userId: response.data.id, priority: response.data.priority }
+            payload: { user_id: response.data.id, priority: response.data.priority }
           });
-          dispatch(hasCheckedJWT());
+          dispatch(setAsyncLoading(false));
         })
         .catch((error: Error) => {
           dispatch({
             type: 'REFRESH_ERROR',
             payload: error.message
           });
-          dispatch(hasCheckedJWT());
+          dispatch(setAsyncLoading(false));
         });
     }
   };
@@ -135,7 +136,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/f/forgot', {email})
+    return postData('users/f/forgot', { email })
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
@@ -149,9 +150,9 @@ export const forgotPassword = (email: string) => {
       );
   };
 };
-export const setNewPassword = (userId: number, password: string, email: string) => {
+export const setNewPassword = (user_id: number, password: string, email: string) => {
   return (dispatch: Dispatch) => {
-    return patchData('users/changePassword', { userId, password, email })
+    return patchData('users/changePassword', { user_id, password, email })
       .then(() => {
         return dispatch({
           type: 'NEW_PASSWORD_SUCCESS'

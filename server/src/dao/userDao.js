@@ -2,7 +2,7 @@ const Dao = require('./dao.js');
 
 module.exports = class UserDao extends Dao {
   getAll(callback) {
-    super.query('select user_id, email, created, active, municipality, county, priority from user', [], callback);
+    super.query('select user_id, email, created, active, municipality, county, city from user', [], callback);
   }
 
   getOneById(id, callback) {

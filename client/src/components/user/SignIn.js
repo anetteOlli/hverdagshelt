@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { signIn, clearError } from '../../store/actions/userActions';
 import purple from '@material-ui/core/colors/purple';
 import ForgotPassword from './ForgotPassword';
+import type { Dispatch, ReduxState } from '../../store/reducers';
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -67,6 +68,7 @@ class SignIn extends React.Component<Props, State> {
   };
 
   handleClose = () => {
+    this.props.onClose();
     this.setState({
       email: '',
       password: '',
@@ -74,7 +76,6 @@ class SignIn extends React.Component<Props, State> {
       forgotPasswordOpen: false
     });
     this.props.clearError();
-    this.props.onClose();
   };
 
   handleRemember = () => {
@@ -100,63 +101,65 @@ class SignIn extends React.Component<Props, State> {
   render() {
     const { open, onClose, classes, isLoading } = this.props;
     return (
-      <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-        <DialogTitle>Login</DialogTitle>
-        <DialogContent>
-          {!this.state.forgotPasswordOpen ? (
-            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Epost"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                value={this.state.email}
-                onChange={this.handleChange}
-                validators={['required', 'isEmail', 'isRightEmail']}
-                errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Feil epost-adresse']}
-              />
-              <TextValidator
-                fullWidth
-                margin="normal"
-                label="Passord"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                validators={['required', 'isRightPassword']}
-                errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
-              />
-              <DialogActions>
-                <FormControlLabel
-                  control={<Checkbox onChange={this.handleRemember} color="primary" />}
-                  label="Husk meg"
+      <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+        {!this.state.forgotPasswordOpen ? (
+          <div>
+            <DialogTitle>Login</DialogTitle>
+            <DialogContent>
+              <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Epost"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  validators={['required', 'isEmail', 'isRightEmail']}
+                  errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'Feil epost-adresse']}
                 />
-                <div className={classes.grow} />
-                <Button color="primary" onClick={this.handleGoToPassword}>
-                  Glemt passord
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Passord"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  validators={['required', 'isRightPassword']}
+                  errorMessages={['Feltet kan ikke være tomt', 'Feil passord']}
+                />
+                <DialogActions>
+                  <FormControlLabel
+                    control={<Checkbox onChange={this.handleRemember} color="primary" />}
+                    label="Husk meg"
+                  />
+                  <div className={classes.grow} />
+                  <Button color="primary" onClick={this.handleGoToPassword}>
+                    Glemt passord
+                  </Button>
+                </DialogActions>
+                <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
+                  {isLoading && <CircularProgress size={20} className={classes.spinner} />}
+                  Login
                 </Button>
-              </DialogActions>
-              <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
-                {isLoading && <CircularProgress size={20} className={classes.spinner} />}
-                Login
-              </Button>
-              <Button
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                onClick={this.handleClose}
-              >
-                Avbryt
-              </Button>
-            </ValidatorForm>
-          ) : (
-            <ForgotPassword onClose={this.handleClose} />
-          )}
-        </DialogContent>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  onClick={this.handleClose}
+                >
+                  Avbryt
+                </Button>
+              </ValidatorForm>
+            </DialogContent>
+          </div>
+        ) : (
+          <ForgotPassword onClose={this.handleClose} />
+        )}
       </Dialog>
     );
   }
@@ -173,14 +176,14 @@ class SignIn extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     errorMessage: state.user.errorMessage,
-    isLoading: state.app.isLoading
+    isLoading: state.async.isLoading
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     signIn: creds => dispatch(signIn(creds)),
     clearError: () => dispatch(clearError())
