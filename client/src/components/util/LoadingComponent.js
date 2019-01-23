@@ -6,32 +6,31 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   root: {
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent'
   },
 
   paper: {
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    overflow: "hidden"
-  },
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    overflow: 'hidden'
+  }
 };
 
-const LoadingComponent = ({classes}) => (
+const LoadingComponent = ({ classes }) => (
   <Dialog
     open
     BackdropProps={{
       classes: {
         root: classes.root
       }
-    }
-    }
-    PaperProps ={{
+    }}
+    PaperProps={{
       classes: {
         root: classes.paper
       }
     }}
   >
-    <CircularProgress/>
+    <CircularProgress />
   </Dialog>
 );
 

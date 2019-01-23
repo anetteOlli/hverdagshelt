@@ -2,28 +2,20 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel, Input, InputLabel } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Icon from '@material-ui/core/Icon';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import SaveIcon from '@material-ui/icons/Save';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
 import Map from '../map/MapWithSearchBox';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
 import 'date-fns';
-import DateFormat from 'dateformat';
-
-// Use history.push(...) to programmatically change path
-import createHashHistory from 'history/createHashHistory';
-const history = createHashHistory();
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 type Props = {
   classes: Object,
@@ -41,6 +33,7 @@ type State = {
   dateEndInput: Date,
   displayImg: string,
   image: any,
+  failureDialog: boolean,
 
   county: string,
   municipality: string,
@@ -135,34 +128,21 @@ function getStepContent(step: number,
         <Card className={classes.contentNull}>
           <CardContent>
           <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Kommune"
-              name="municipality"
-              autoComplete="municipality"
-              value={state.municipality}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en kommune']}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Gate"
-              name="street"
-              autoComplete="street"
-              value={state.street}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en gate']}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
+            </Typography>
+          <Typography variant="subtitle2" align="left" >
+              Kommune: {state.municipality}
+          </Typography>
+          <Typography variant="subtitle2" align="left" >
+              Gate: {state.street}
+            <br/>
+            <br/>
+          </Typography>
+            <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
+            <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
+
             <div className={classes.mapPlaceholder}>
               <Map />
             </div>
@@ -173,9 +153,11 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
-              <Typography variant="body1">Lokasjon:</Typography>
-              <Typography>{state.municipality}</Typography>
-              <Typography>{state.street}</Typography>
+              <Typography variant="h5" align="left" color="secondary">
+                Lokasjon som er valgt:
+              </Typography>
+              <Typography>Kommune: {state.municipality}</Typography>
+              <Typography>Gate: {state.street}</Typography>
               <TextValidator
                 fullWidth
                 margin="normal"
@@ -304,7 +286,8 @@ class CreateEvent extends React.Component<Props, State>{
     //User
     user_id: -1,
     isLoggedIn: false,
-    priority: ''
+    priority: '',
+    failureDialog: false
   };
 
   render() {
@@ -326,7 +309,12 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h6" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
-              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
+              <Button justify="centre" onClick={this.handleFinish} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
             </CardContent>
@@ -345,7 +333,9 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h5" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
-              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            </CardContent>
+            <CardContent>
+              <Button justify="centre" onClick={this.handleFinish} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
             </CardContent>
@@ -355,6 +345,18 @@ class CreateEvent extends React.Component<Props, State>{
     }
     return (
       <div>
+      <Dialog
+        open={this.state.failureDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du må velge et sted på kartet eller ved å søke det opp'}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
         <div className={classes.Stepper}>
           <Typography variant="h2" className={classes.title} align="center" color="primary">Opprett et arrangement</Typography>
           <Stepper activeStep={this.state.activeStep}>
@@ -440,8 +442,19 @@ class CreateEvent extends React.Component<Props, State>{
   /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
-    this.setState({
+    if(this.state.municipality != ''){
+      this.setState({
       activeStep: activeStep + 1
+    });}else{
+      this.setState({
+        failureDialog: true
+        })
+    }
+  };
+  /** removes the failureDialog once the user press ok **/
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
     });
   };
 
@@ -499,15 +512,15 @@ class CreateEvent extends React.Component<Props, State>{
         municipality: this.state.municipality,
         city: this.state.city,
         street: this.state.street
-      },false)
+      })
       // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
     this.handleNext();
   };
 
   /** Handles when user is done and gets sent away. */
-  handleFinish = e => {
-    history.push("/");
+  handleFinish = () => {
+    this.props.history.push("/");
   };
 
   /** Handles uploading of image files */
@@ -553,7 +566,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createEvent: (newEvent,bool) => dispatch(createEvent(newEvent,bool))
+    createEvent: (newEvent,bool = false) => dispatch(createEvent(newEvent,bool))
   };
 };
 

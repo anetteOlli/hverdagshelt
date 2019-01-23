@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
-import withRoot from '../../withRoot';
 
 const styles = () => ({
   main: {
@@ -41,4 +40,4 @@ const Footer = props => {
   );
 };
 
-export default withRoot(withStyles(styles)(Footer));
+export default withStyles(styles)(Footer);

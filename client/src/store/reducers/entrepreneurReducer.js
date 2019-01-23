@@ -32,7 +32,11 @@ export default (state: State = initState, action: Action) => {
       };
 
     case 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS':
-      console.log('%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      console.log(
+        '%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS',
+        'color: green; font-weight: bold;',
+        action.payload
+      );
       return {
         entrepreneurs: action.payload
       };

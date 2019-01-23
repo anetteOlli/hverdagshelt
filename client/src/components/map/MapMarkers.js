@@ -114,12 +114,9 @@ class MapMarkers extends React.Component<Props, State> {
                     lng={problem.longitude}
                     text={problem.problem_id}
                   />
-                ) : (
-null
-                )
+                ) : null
               )}
           </GoogleMapReact>
-
         </div>
       );
     } else {
@@ -132,7 +129,7 @@ const mapStateToProps = state => {
   const problems = state.problem.problems;
   const currentProblemId = state.problem.currentProblemId;
   const currentProblem = problems.filter(problem => {
-   // console.log(problem);
+    // console.log(problem);
     if (problem.problem_id == currentProblemId) {
       return problem;
     }

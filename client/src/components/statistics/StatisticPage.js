@@ -59,7 +59,7 @@ class StatisticPage extends React.Component<Props> {
         </div>
       );
     } else {
-      return <LoadingComponent/>;
+      return <LoadingComponent />;
     }
   }
 
@@ -78,7 +78,7 @@ const mapStateToProps = (state: ReduxState) => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: (muni) => dispatch(getProblemsByMuni(muni)),
+    getAllProblemsFromMuni: muni => dispatch(getProblemsByMuni(muni))
   };
 };
 

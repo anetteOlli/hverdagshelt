@@ -31,7 +31,7 @@ import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
 import { getUserInfo } from '../../store/actions/userActions';
 
-var bool = false;
+let bool = false;
 
 type Props = {
   classes: Object,
@@ -71,44 +71,27 @@ const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
   },
-  paper: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10,
-    color: theme.palette.text.secondary
-  },
-  paper2: {
-    height: '100%'
-  },
+
   grid: {
     height: '100%',
-    paddingBottom: 20,
-    display: 'flex',
-    alignSelf: 'stretch'
+    paddingBottom: 20
+    //display: 'flex',
+    //alignSelf: 'stretch'
   },
-  grid2: {
-    paddingBottom: 20,
-    height: '100%',
-    alignSelf: 'stretch'
-  },
-  grid3: {
-    paddingBottom: 20,
-    Height: '100%',
-    alignItems: 'flex-end',
-    alignSelf: 'stretch'
-  },
+
   gridLeft: {
     paddingBottom: 20,
     paddingLeft: 200,
-    height: '100%',
-    width: '100%',
-    flex: 1,
+    //height: '100%',
+    //width: '100%',
+    //flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'stretch'
+    justifyContent: 'center'
+    //alignSelf: 'stretch'
   },
-  MUI: {
-    height: '100%'
+  mui: {
+    maxHeight: '250',
+    height: '250'
   }
 });
 
@@ -149,7 +132,6 @@ function getEditView(priority: number) {
 
 class EditProblemMain extends React.Component<Props, State> {
   state = {
-
     municipality: '',
     county: '',
 
@@ -166,13 +148,16 @@ class EditProblemMain extends React.Component<Props, State> {
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
-            <MuiTable2
-              rows={problems}
-              onClick={e => {
-                let myProblem = e;
-                this.props.goToProblemDetail(myProblem.problem_id);
-              }}
-            />
+            <Paper className={classes.mui}>
+              <MuiTable2
+                className={classes.mui}
+                rows={problems}
+                onClick={e => {
+                  let myProblem = e;
+                  this.props.goToProblemDetail(myProblem.problem_id);
+                }}
+              />
+            </Paper>
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority))}
@@ -184,11 +169,11 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-    this.props.entrepreneurs_get_one_by_user_id().then(() => {
-      this.props.getProblemByUser();
-      this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
-    })
-    })
+      this.props.entrepreneurs_get_one_by_user_id().then(() => {
+        this.props.getProblemByUser();
+        this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {

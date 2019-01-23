@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import withRoot from '../../withRoot';
 import {
   withStyles,
   Card,
@@ -239,7 +238,8 @@ class MainPage extends React.Component<Props, State> {
   state = {
     municipality: '',
     single: null,
-    municipalities: ['Default']
+    municipalities: ['Default'],
+    isLoggedIn: false
   };
   render() {
     const { classes, municipalities } = this.props;
@@ -253,8 +253,16 @@ class MainPage extends React.Component<Props, State> {
                 <Typography variant="h3" className={classes.tittel}>
                   VELKOMMEN TIL HVERDAGSHELT!
                 </Typography>
+                <br />
+                <br />
+                <Button variant="contained" color="primary" size="large" onClick={this.registerProblem}>
+                  Registrer et problem
+                </Button>
                 <Typography variant="h5" className={classes.tekst}>
-                  Finn din kommune
+                  Eller
+                </Typography>
+                <Typography variant="h5" className={classes.tekst}>
+                  Finn arrangementer og problemer i din kommune
                 </Typography>
                 <NoSsr>
                   <Select
@@ -268,18 +276,23 @@ class MainPage extends React.Component<Props, State> {
                     isClearable
                   />
                 </NoSsr>
-                <Typography variant="h5" className={classes.tekst}>
-                  Eller
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  className={classes.button}
-                  onClick={this.registerProblem}
-                >
-                  Registrer et problem
-                </Button>
+                {this.props.isLoggedIn ? (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="medium"
+                    className={classes.button}
+                    onClick={() =>
+                      this.props.history.push(`${this.props.userMuni.municipality}/${this.props.userMuni.county}`)
+                    }
+                  >
+                    Ta meg til min kommune
+                  </Button>
+                ) : (
+                  <div />
+                )}
+                <br />
+                <br />
               </CardContent>
             </Card>
           </Grid>
@@ -299,9 +312,9 @@ class MainPage extends React.Component<Props, State> {
   };
 
   /**User will be pushed to the registerProblem page */
-  registerProblem() {
+  registerProblem = () => {
     this.props.history.push('/lagproblem');
-  }
+  };
 
   /**Mount the municipalities from database*/
   componentWillMount() {
@@ -333,7 +346,9 @@ const mapStateToProps = state => {
       })
     : null;
   return {
-    municipalities
+    municipalities: municipalities,
+    isLoggedIn: state.user.isLoggedIn,
+    userMuni: state.user.currentMuni
   };
 };
 

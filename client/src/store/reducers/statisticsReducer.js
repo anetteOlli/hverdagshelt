@@ -58,7 +58,20 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
  **/
 
 const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { name: string, FiKSeTiD: number }[] => {
-  const months = ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember']
+  const months = [
+    'Januar',
+    'Februar',
+    'Mars',
+    'April',
+    'Mai',
+    'Juni',
+    'Juli',
+    'August',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+  ];
   const problems = allProblems.filter(p => new Date(p.date_finished).getFullYear() === selectedYear);
   const times = problems.map(p => ({
     solvedTime: (new Date(p.date_finished).getTime() - new Date(p.date_made).getTime()) / (1000 * 3600 * 24),
@@ -68,7 +81,7 @@ const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { na
     .fill(null)
     .map((v, i) => {
       const t = times.filter(t => t.month === i);
-      return ({name: months[i], tid: (t.reduce((acc, time) => acc + time) / t.length)});
+      return { name: months[i], tid: t.reduce((acc, time) => acc + time) / t.length };
     });
 };
 
