@@ -74,7 +74,7 @@ test("Testing patchOne from userDao", (done) => {
 });
 
 test("Testing deleteOne from userDao", (done) => {
-  let id = 2;
+  let id = 3;
   dao.deleteOne(id,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
@@ -106,7 +106,7 @@ test("Testing changePassword from userDao", (done) => {
   let json = {
     email: "user@user.user",
     password: "test",
-    id : 1
+    user_id : 1
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);

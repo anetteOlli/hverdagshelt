@@ -27,7 +27,7 @@ afterAll(() => pool.end());
 test("Testing getAll from problem", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(4);
     expect(data[0].problem_description).toBe("A big hole has been found in the rear of Erlend");
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
@@ -49,7 +49,8 @@ test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+
+    expect(data).toBe(2);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].problem_id).toBe(id);
     done();
@@ -143,7 +144,8 @@ test("Testing patchMunicipality from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"yeet",
-    status:"Archived"
+    status:"Finished",
+    category:"Snowplow"
   };
   let id = 1;
   dao.patchMunicipality(id,json,(status,data) => {
@@ -156,17 +158,18 @@ test("Testing patchMunicipality from problemDao", (done) => {
 test("Testing getAllUsersByProblemId", (done) => {
   dao.getAllUsersbyProblemId(1,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(3);
     expect(data[0].email).toBe("user@user.user");
     done();
   })
-})
+});
 
 test("Testing patchStandard from problemDao", (done) => {
   let json = {
     problem_title:"test",
     problem_description:"test",
-    img_user: ''
+    img_user: '',
+    category: 'Snowplow'
   };
   let id = 1;
   dao.patchStandard(id,json, (status,data) => {

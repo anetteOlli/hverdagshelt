@@ -74,8 +74,8 @@ test("Testing createStreet from DivDao", (done) => {
 
 
 test("Testing createSupport from DivDao", (done) => {
-  let userId = 1;
-  let problemId = 1;
+  let userId = 3;
+  let problemId = 3;
   dao.createSupportUser(userId,problemId, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);

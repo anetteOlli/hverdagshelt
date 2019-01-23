@@ -26,7 +26,7 @@ afterAll(() => pool.end());
 test("Testing getAll from entrepreneurDao", (done) => {
   entrepreneurController.entrepreneurs_get_all((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(3);
     done();
   })
 });
@@ -34,7 +34,7 @@ test("Testing getAll from entrepreneurDao", (done) => {
 test("Testing getEntrepreneur from entrepreneurDao", (done) => {
   entrepreneurController.entrepreneurs_get_one(1, (status,data) => {
     expect(status).toBe(200);
-    expect(data.businessName).toBe("Arbeidsjøinn");
+    expect(data.business_name).toBe("Arbeidsjøinn");
     done();
   })
 });
@@ -43,7 +43,7 @@ test("Testing createEntrepreneur from userDao", (done) => {
 
   let json = {
     entrepreneur:{
-      businessName: "Test",
+      business_name: "Test",
       org_nr: "01010",
       categories : ["Testing", "Hole in road"],
       municipalities: [

@@ -26,7 +26,7 @@ afterAll(() => pool.end());
 test("Testing getAll from entrepreneurDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(3);
     done();
   })
 });
@@ -35,14 +35,14 @@ test("Testing getEntrepreneur from entrepreneurDao", (done) => {
   dao.getEntrepreneur(1, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].businessName).toBe("Arbeidsjøinn");
+    expect(data[0].business_name).toBe("Arbeidsjøinn");
     done();
   })
 });
 
 test("Testing createEntrepreneur from userDao", (done) => {
   let json = {
-    businessName: "Test",
+    business_name: "Test",
     org_nr: "01010"
   };
   let id = 3;
@@ -73,7 +73,7 @@ test("Testing checkEntrepreneur from entrepreneurDao", (done)=> {
   dao.checkEntrepreneur(orgNr, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].businessName).toBe("Arbeidsjøinn");
+    expect(data[0].business_name).toBe("Arbeidsjøinn");
     done();
   })
 });
@@ -87,7 +87,7 @@ test("Testing  from entrepreneurDao", (done) => {
   dao.getByCatAndMuni(json,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].businessName).toBe("Arbeidsjøinn");
+    expect(data[0].business_name).toBe("Arbeidsjøinn");
     done();
   })
 });

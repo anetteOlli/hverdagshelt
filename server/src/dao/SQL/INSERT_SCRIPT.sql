@@ -501,7 +501,7 @@ INSERT INTO problem(problem_title, problem_description, problem_locked, img_user
 VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 3 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien", NOW());
 
 INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status, municipality, county, city, street, latitude, longitude)
-VALUES("SNORRES FORTNITE DANSEKURS", "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Klostergata", 63.422724, 10.395582);
+VALUES("SNORRES FORTNITE DANSEKURS", "HAR DU LYST TIL Å BLI DEN KULESTE PÅ DANSEGOLVET?!?! NÅ ER MULIGHETEN DIN HER. SNORRES BRAND NEW AND FRESH DANSE KURS SKAL STARTE OPP", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/33335219_1930565946955617_4926743241346252800_o.jpg?_nc_cat=102&_nc_ht=scontent-arn2-1.xx&oh=4045e3465ad844be3be2fa56feb0e2e0&oe=5CFEFA28", "2019-01-18 10:30:00", "2019-04-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Klostergata", 63.422724, 10.395582);
 
 INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status, municipality, county, city, street, latitude, longitude)
 VALUES("Simen's skogtur", "Gutten skal på tur og nå er det din mulighet å bli med. Nei, dette har ingenting med skogtur filmen.", "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/13892175_1012382942215365_2249318160119281179_n.jpg?_nc_cat=103&_nc_ht=scontent-arn2-1.xx&oh=a2e31243c4bf6a7871257b3421ceb301&oe=5CBF5E34", "2019-01-18 10:30:00", "2019-01-20 23:59:59", "InProgress", "Trondheim", "Trøndelag", "Trondheim", "Bispegata", 63.427619, 10.395435);
@@ -511,6 +511,6 @@ VALUES("ESA MØTER OPP PÅ BYFEST!!", "ÅRET ER NYTT OG DET ER PÅTIDE MED EN NY
 
 INSERT INTO user_problem(user_id, problem_id) VALUES (1,1);
 INSERT INTO user_problem(user_id, problem_id) VALUES (2,1);
-INSERT INTO user_problem(user_id, problem_id) VALUES (3,1);
+INSERT INTO user_problem(user_id, problem_id) VALUES (4,1);
 INSERT INTO user_problem(user_id, problem_id) VALUES (1,2);
 INSERT INTO user_problem(user_id, problem_id) VALUES (2,2);

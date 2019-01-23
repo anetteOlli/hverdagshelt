@@ -23,7 +23,6 @@ beforeEach(done => {
 afterAll(() => pool.end());
 
 test("Testing events_create_event from eventController", (done) => {
-  let file = require('./testImg.jpg');
   let json = {
     event_name: "TEST",
     event_description: "TEST",
@@ -59,9 +58,8 @@ test("Testing events_get_event from eventController", (done) => {
   let id = 1;
  eventController.events_get_event(id,(status,data) => {
    expect(status).toBe(200);
-   expect(data.length).toBe(1);
-   expect(data[0].event_id).toBe(1);
-   expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
+   expect(data.event_id).toBe(1);
+   expect(data.event_name).toBe("SNORRES FORTNITE DANSEKURS");
    done();
  })
 });
@@ -82,11 +80,11 @@ test("Testing events_get_from_municipality", (done) => {
   };
   eventController.events_get_from_municipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(2);
+    expect(data.length).toBe(1);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
-    expect(data[0].county && data[1].county).toBe(json.county);
-    expect(data[0].municipality && data[1].municipality).toBe(json.municipality);
+    expect(data[0].county).toBe(json.county);
+    expect(data[0].municipality).toBe(json.municipality);
     done();
   })
 });
