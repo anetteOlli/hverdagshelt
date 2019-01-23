@@ -22,6 +22,7 @@ import type { ReduxState } from './store/reducers';
 import { connect } from 'react-redux';
 import LoadingComponent from './components/util/LoadingComponent';
 import Notifier from './components/util/Notifier';
+import PageNotFound from './components/util/PageNotFound';
 
 type Props = {
   checkedJWT: boolean
@@ -52,7 +53,8 @@ class App extends React.Component<Props> {
               <Route exact path="/stati" component={Stati} />
               <Route exact path="/innstillinger" component={Settings} />
               <Route exact path="/profil" component={Profile} />
-              <Route exact path="/:municipality" component={MuniPage} />
+              <Route exact path="/:county/:municipality" component={MuniPage} />
+              <Route component={PageNotFound} />
             </Switch>
           </ScrollToTop>
         </HashRouter>
