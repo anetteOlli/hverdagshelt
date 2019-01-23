@@ -37,7 +37,7 @@ const styles = theme => ({
   "@global": {
      html: {
        [theme.breakpoints.down("sm")]: {
-         fontSize: 10
+         fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
          fontSize: 20
@@ -158,6 +158,8 @@ function getStepContent(step: number, state: State,
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
       //console.log("rows");
       //console.log(rows);
+      const clicked = (state.cur_title != '' && state.cur_title != null);
+      const haveRows = (rows[0] != null);
       return (
         <Card className="content-1">
           <CardContent>
@@ -190,6 +192,7 @@ function getStepContent(step: number, state: State,
               direction="column"
               md={8}
               xs={12}
+              spacing={24}
               alignItems="center"
               >
                 <Typography variant="h5" align="center" color="secondary">
@@ -198,55 +201,55 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Card style={{width:'100%'}} align="center">
-                  <CardContent>
+                <Card style={{width:'90%'}} align="center">
+                    {true ? (true ?  (
+                    <div>
+                    <CardMedia
+                      component="img"
+                      alt="Bilde av Problem"
+                      height="180"
+                      image={state.cur_imageURL || "https://semantic-ui.com/images/wireframe/image.png"}
+                      title={state.cur_title}
+                      style={{objectFit: 'cover'}}
+                    />
+                    <CardContent>
+                      <Grid item sm={12}>
+                        <Typography gutterBottom variant="h5" align="center" color="secondary">{state.cur_title}</Typography>
+                      </Grid>
+                      <Grid item sm={12}>
+                        <Typography align="center">{state.cur_description}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_entrepreneur}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
+                      </Grid>
+                      <Grid item xs>
+                        <Button
+                        variant="outlined" color="primary"
+                        size="small"
+                        align="center"
+                        onClick={e => handleSupport(state.cur_id)}
+                        >
+                           Støtt problemet
+                        </Button>
+                      </Grid>
+                    </CardContent>
+                    </div>) : (
                     <Grid item xs>
-                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                      <Typography align="center" color="primary">
+                        Velg et problem til venstre for å se beskrivelse
+                      </Typography>
                     </Grid>
+                    )) : (
                     <Grid item xs>
-                      <Typography align="center">{state.cur_description}</Typography>
+                      <Typography align="center" color="primary">
+                        Ingen like problem
+                      </Typography>
                     </Grid>
-                    <Grid item xs>
-                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center">{state.cur_entrepreneur}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                    <Typography variant="subtitle2" align="center">Status</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center" color="error">{state.cur_status}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Button
-                      variant="contained" color="primary"
-                      size="small"
-                      align="center"
-                      onClick={e => handleSupport(state.cur_id)}
-                      >
-                         <Typography>Støtt problemet</Typography>
-                      </Button>
-                    </Grid>
-                  </CardContent>
+                  )}
                 </Card>
-              </Grid>
-            </Grid>
-            <Grid item container
-            direction="row"
-            >
-              <Grid item
-              lg={12}
-              xs={12}
-              >
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                      <Typography align="center">Bilde</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL } alt="Bilde" />
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
               </Grid>
             </Grid>
           </CardContent>

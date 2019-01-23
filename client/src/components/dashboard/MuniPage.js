@@ -160,12 +160,12 @@ class MuniPage extends React.Component<Props, State> {
             <Card className={classes.cardPage}>
               <CardContent>
                 <Grid container spacing={24}>
-                  <Grid item md={9} sm={12}>
+                  <Grid item md={6} sm={12}>
                     <Typography variant="h3" className={classes.tittel}>
                       {municipality.split('&')[0]}
                     </Typography>
                   </Grid>
-                  <Grid item md={3} sm={12}>
+                  <Grid item md={6} sm={12}>
                     <Button
                       variant="contained"
                       color="primary"

@@ -26,7 +26,7 @@ module.exports = class ProblemDao extends Dao {
   getFromCity(json: any, callback: function) {
     const values = [json.municipality, json.county, json.city];
     super.query(
-      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND city_fk = ? AND date_finished IS NULL',
+      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND city = ? AND date_finished IS NULL',
       values,
       callback
     );
@@ -36,7 +36,7 @@ module.exports = class ProblemDao extends Dao {
     const values = [json.municipality, json.county, json.street];
 
     super.query(
-      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND street_fk = ? AND date_finished IS NULL',
+      'SELECT * FROM problem WHERE municipality = ? AND county = ? AND street = ? AND date_finished IS NULL',
       values,
       callback
     );
@@ -54,12 +54,12 @@ module.exports = class ProblemDao extends Dao {
       json.longitude,
       json.county,
       json.municipality,
-      json.city_fk,
-      json.street_fk,
+      json.city,
+      json.street,
       json.user_id
     ];
     super.query(
-      'INSERT INTO problem (problem_title,problem_description,img_user,category,status,user_id,latitude,longitude,county,municipality,city_fk,street_fk, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW()); INSERT INTO user_problem (user_id, problem_id) VALUES (?, LAST_INSERT_ID())',
+      'INSERT INTO problem (problem_title,problem_description,img_user,category,status,user_id,latitude,longitude,county,municipality,city,street, date_made) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW()); INSERT INTO user_problem (user_id, problem_id) VALUES (?, LAST_INSERT_ID())',
       newContent,
       callback
     );
