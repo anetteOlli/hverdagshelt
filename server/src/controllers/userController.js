@@ -1,98 +1,119 @@
 const UserDao = require('../dao/userDao');
 const pool = require('../services/database');
-import { validatePassword, genToken, hashPassword } from '../services/util';
+import { validatePassword, genToken, hashPassword, genTokenEmail } from '../services/util';
+let mail = require('../services/nodemailer');
 let userDao = new UserDao(pool);
 const MailController = require('../services/nodemailer');
 
 
-exports.users_get_all = (req, res) => {
+
+exports.users_get_all = (callback) => {
   userDao.getAll((status, data) => {
     console.log(data);
-    res.status(status).json(data);
+    callback(status,data);
   });
 };
 
-exports.users_login = (req, res) => {
-  userDao.checkEmail(req.body.email, (status, data) => {
-    if (data.length < 1) return res.status(404);
-    if (validatePassword(req.body.password, data[0].password)) {
+exports.users_login = (json,callback) => {
+  userDao.checkEmail(json.email, (status, data) => {
+    if (data.length < 1) callback(status,data);
+    if (validatePassword(json.password, data[0].password)) {
       console.log(data);
-      res.status(200).json({
+      callback(200,{
         id: data[0].user_id,
         jwt: genToken(data[0].user_id, data[0].priority),
         priority: data[0].priority
       });
-    } else res.status(401).json({ message: 'WRONG_PASSWORD' });
+    } else callback(401,{ message: 'WRONG_PASSWORD' });
   });
 };
 
-exports.users_refresh = (req, res) => {
-  res.status(200).json({
-    id: req.userData.id,
-    jwt: genToken(req.userData.id, req.userData.priority),
-    priority: req.userData.priority
+exports.users_refresh = (user,callback) => {
+  console.log(user);
+  callback(200,{
+    id: user.id,
+    jwt: genToken(user.id, user.priority),
+    priority: user.priority
   });
 };
 
-exports.users_get_user = (req, res) => {
-  console.log(req.params);
-  userDao.getOneById(req.params.id, (status, data) => {
-    res.status(status).json(data[0]);
+exports.users_get_user = (id,callback) => {
+  userDao.getOneById(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.users_create_user = (req, res) => {
-  userDao.createUser(req.body, hashPassword(req.body.password), 'Standard', (status, data) => {
-    res.status(status).json(data);
+exports.users_create_user = (json, callback) => {
+  userDao.createUser(json, hashPassword(json.password), 'Standard', (status, data) => {
+    if(status === 200){
+      let link = "http://localhost:3001/div/verifyEmail/"+genTokenEmail({"email":json.email});
+      let datapackage = {
+        recepients: json.email,
+        text: link,
+        html: link
+      };
+      mail.sendSingleMail(datapackage, (json) => {
+
+      });
+      callback(status,data);
+    }else {
+      callback(status,data);
+    }
   });
 };
 
-exports.user_delete_user = (req, res) => {
-  userDao.deleteOne(req.params.email, (status, data) => {
-    res.status(status).json(data);
+exports.user_activate = (json,callback) => {
+  console.log(json.data.email);
+  userDao.activateUser(json.data.email, (status,data) => {
+    callback(status,data);
+  })
+};
+
+exports.user_delete_user = (id, callback) => {
+  userDao.deleteOne(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.user_patch_user = (req, res) => {
-  let id = req.params.id;
-  userDao.patchOne(id, req.body, (status, data) => {
-    res.status(status).json(data);
+exports.user_patch_user = (id,json,callback) => {
+  userDao.patchOne(id, json, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.user_change_password = (req, res) => {
-  userDao.changePassword(req.body, hashPassword(req.body.password), (status, data) => {
-    res.status(status).json(data);
+exports.user_change_password = (json,callback) => {
+  userDao.changePassword(json, hashPassword(json.password), (status, data) => {
+    callback(status,data);
   });
 };
-exports.user_is_not_old_password = (req, res) => {
-  userDao.checkEmail(req.params.email, (status, data) => {
+exports.user_is_not_old_password = (json,callback) => {
+  userDao.checkEmail(json.email, (status, data) => {
     let isOldPassword = true;
     if (data.length > 0) {
-      if (!validatePassword(req.params.password, data[0].password)) {
+      if (!validatePassword(json.password, data[0].password)) {
         isOldPassword = false;
       }
     }
-    res.json({ isOldPassword });
+    callback(status,{ isOldPassword });
   });
 };
 
-exports.user_validate_email = (req, res) => {
-  userDao.checkEmail(req.params.email, (status, data) => {
+exports.user_validate_email = (email,callback) => {
+  userDao.checkEmail(email, (status, data) => {
     const emailExist = data.length > 0;
-    res.json({ emailExist });
+    callback(status,{ emailExist });
   });
 };
 
-exports.user_forgot_password = (req, res) => {
+exports.user_forgot_password = (json,callback) => {
   console.log("user_forgot_password");
 
-  userDao.checkEmail(req.body.email, (status, data) => {
-    console.log("checkEmail email = " + req.body.email);
+  userDao.checkEmail(json.email, (status, data) => {
+    console.log("checkEmail email = " + json.email);
     console.log("data.length = " + data.length);
     if(data.length > 0) {
       const id = data[0].user_id;
-      const email = req.body.email;
+      const email = json.email;
       const tempPassword = Math.random().toString(36).slice(-8);
       console.log("id = " + id);
       console.log("email = " + email);
@@ -101,7 +122,7 @@ exports.user_forgot_password = (req, res) => {
       const userinfo = {
         user_id: id,
         email: email
-      }
+      };
 
       userDao.changePassword(userinfo, hashPassword(tempPassword), (status, data) => {
         console.log("changePassword");
@@ -112,18 +133,18 @@ exports.user_forgot_password = (req, res) => {
             text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
             html: ''
           }, (status,data) => {
-            return res.staus(status).json(data)
+            callback(status,data);
           })
         }else {
           console.log("changePassword not success");
-         return res.status(status).json(data);
+         callback(status,data);
       }
       });//changePassword
 
     }//if
     else {
       console.log("data.length is 0 or below");
-      return res.status(status).json(data)
+      callback(status,data);
       //feilmelding om at epost ikke finnes
     }
   });//checkEmail

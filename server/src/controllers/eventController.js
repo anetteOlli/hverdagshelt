@@ -6,73 +6,72 @@ const pool = require('../services/database');
 let eventDao = new EventDao(pool);
 let divDao = new DivDao(pool);
 
-exports.events_get_all = (req, res) => {
+exports.events_get_all = (callback) => {
   console.log('Handling GET requests to /events');
   eventDao.getAll((status, data) => {
-    //console.log(data);
-    res.status(status).json(data);
+    callback(status,data);
     eventDao.updateStatus(() => {});
   });
 };
 
-exports.events_get_event = (req, res) => {
-  console.log('/events/' + req.params.id + ' fikk GET request fra klient');
-  eventDao.getOne(req.params.id, (status, data) => {
-    res.status(status).json(data[0]);
+exports.events_get_event = (id,callback) => {
+  console.log('/events/' + id + ' fikk GET request fra klient');
+  eventDao.getOne(id, (status, data) => {
+    callback(status,data[0]);
   });
 };
-exports.events_get_from_municipality = (req, res) => {
+exports.events_get_from_municipality = (json,callback) => {
   console.log(
-    '/events/municipalities/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
+    '/events/municipalities/' + json.municipality + '(' + json.county + ') fikk GET request fra klient'
   );
-  eventDao.getByMunicipality(req.body, (status, data) => {
-    res.status(status).json(data);
+  eventDao.getByMunicipality(json, (status, data) => {
+    callback(status,data);
     eventDao.updateStatus(() => {});
   });
 };
 
-exports.events_create_event = (req, res) => {
+exports.events_create_event = (file,json, callback) => {
   console.log('Fikk POST-request fra klienten');
-  if(req.body.county === "Nord-Trøndelag" || req.body.county === "Sør-Trøndelag") req.body.county = "Trøndelag";
-  if (req.file === undefined) {
-    eventDao.createOne(req.body, (status, data) => {
-      handleError(status,data,req,res);
+  if(json.county === "Nord-Trøndelag" || json.county === "Sør-Trøndelag") json.county = "Trøndelag";
+  if (file === undefined) {
+    eventDao.createOne(json, (status, data) => {
+      handleError(status,data,json,callback);
     });
   } else {
-    image.uploadImage(req.file, url => {
-      req.body.event_img = url;
-      eventDao.createOne(req.body, (status, data) => {
-        handleError(status,data,req,res);
+    image.uploadImage(file, url => {
+      json.event_img = url;
+      eventDao.createOne(json, (status, data) => {
+        handleError(status,data,json,callback);
       });
     });
   }
 
   function handleError(status, data, req, res){
     if(status === 500) {
-      divDao.createCity(req.body.city, () => {
-        divDao.createStreet(req.body.street, () => {
-          eventDao.createOne(req.body, (status,data) => {
-            res.status(status).json(data);
+      divDao.createCity(json.city_fk, () => {
+        divDao.createStreet(json.street_fk, () => {
+          eventDao.createOne(json, (status,data) => {
+            callback(status,data);
           })
         })
       });
     } else if(status === 200) {
-      res.status(status).json(data);
+      callback(status,data)
     } else {
-      res.status(404).json({"error":"Couldn't add problem"});
+      callback(404, {"data": {"error":"Couldn't add problem"}});
     }
   }
 };
 
-exports.events_delete_event = (req, res) => {
-  console.log('/articles/' + req.params.id + ' fikk request fra klient');
-  eventDao.deleteOne(req.params.id, (status, data) => {
-    res.status(status).json(data);
+exports.events_delete_event = (id,callback) => {
+  console.log('/articles/' + id + ' fikk request fra klient');
+  eventDao.deleteOne(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.events_edit_event = (req, res) => {
-  eventDao.patch(req.params.id, req.body, (status, data) => {
-    res.status(status).json(data);
+exports.events_edit_event = (id,json,callback) => {
+  eventDao.patch(id, json, (status, data) => {
+    callback(status,data);
   });
 };

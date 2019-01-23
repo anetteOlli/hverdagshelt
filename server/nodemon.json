@@ -5,6 +5,7 @@
     "MYSQL_HOST": "mysql.stud.iie.ntnu.no",
     "MYSQL_DB": "larssorl",
     "MYSQL_USER": "larssorl",
-    "MYSQL_PASSWORD": "zdwIJ0bm"
+    "MYSQL_PASSWORD": "zdwIJ0bm",
+    "EMAIL_KEY": "anderserenkuk"
   }
 }

@@ -12,29 +12,29 @@ let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
 let userDao = new UserDao(pool);
 
-exports.problems_get_all = (req, res) => {
+exports.problems_get_all = (callback) => {
   console.log('Handling GET requests to /problems');
   problemDao.getAll((status, data) => {
     console.log(data);
-    res.status(status).json(data);
+    callback(status,data);
   });
 };
 
-exports.problems_get_problem = (req, res) => {
-  console.log('/problems/' + req.params.id + ' fikk GET request fra klient');
-  problemDao.getOne(req.params.id, (status, data) => {
-    res.status(status).json(data[0]);
+exports.problems_get_problem = (id, callback) => {
+  console.log('/problems/' + id + ' fikk GET request fra klient');
+  problemDao.getOne(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.problems_support_problem = (req, res) => {
-  console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  console.log('user_id/ProblemID:' + req.body.user_id + '/' + req.body.problemId);
-  divDao.createSupportUser(req.body.user_id, req.body.problemId, (status, data) => {
+exports.problems_support_problem = (id,json,callback) => {
+  console.log('/problems/' + id + 'fikk PATCH request fra klient');
+  console.log('user_id/ProblemID:' + json.user_id + '/' + json.problemId);
+  divDao.createSupportUser(json.user_id, json.problemId, (status, data) => {
     if (status === 200) {
-      problemDao.supportProblem(req.params.id, (status, data) => {
+      problemDao.supportProblem(id, (status, data) => {
 
-        problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+        problemDao.getAllUsersbyProblemId(json.problemId, (status,data) => {
           console.log('data.length = ' + data.length);
           console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
           //Send email to the user who created the problem if its the firs time someone supports the problem
@@ -49,212 +49,221 @@ exports.problems_support_problem = (req, res) => {
 
         });//getAllUsersbyProblemId
 
-        res.status(status).json(data);
+        callback(status,data);
     });//support
 
     } else {
       console.log('---ELSE altså ikke status 200');
-      res.status(status).json(data);
+      callback(status,data);
     }
-  });//createSupportUser
-};
-
-exports.problems_get_from_municipality = (req, res) => {
-  console.log(
-    '/problems/municipality/' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
-  );
-  problemDao.getFromMunicipality(req.body, (status, data) => {
-    res.status(status).json(data);
   });
 };
 
-exports.problems_get_from_municipality_and_street = (req, res) => {
-  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+exports.problems_get_from_municipality = (json,callback) => {
+  console.log(
+    '/problems/municipality/' + json.municipality + '(' + json.county + ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipality(json, (status, data) => {
+    callback(status,data);
+  });
+};
+
+exports.problems_get_from_municipality_and_street = (json,callback) => {
+  if(json.county === "Sør-Trøndelag" || json.county === "Nord-Trøndelag") json.county = "Trøndelag";
   console.log(
     '/problems/municipality/street: ' +
-      req.body.street +
+      json.street +
       ', ' +
-      req.body.municipality +
+      json.municipality +
       '(' +
-      req.body.county +
+      json.county +
       ') fikk GET request fra klient'
   );
-  problemDao.getFromStreet(req.body, (status, data) => {
-    res.status(status).json(data);
+  problemDao.getFromStreet(json, (status, data) => {
+    callback(status,data);
+    console.log(data);
   });
 };
 
-exports.problems_get_from_municipality_sorted = (req, res) => {
-  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+exports.problems_get_from_municipality_sorted = (json,callback) => {
+  if (json.county === 'Sør-Trøndelag' || json.county === 'Nord-Trøndelag') json.county = 'Trøndelag';
   console.log(
     '/problems/municipality/sorted: ' +
-    req.body.municipality +
+    json.municipality +
     '(' +
-    req.body.county +
+    json.county +
     ') fikk GET request fra klient'
   );
-  problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
-    res.status(status).json(data);
+  problemDao.getFromMunicipality(json, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.problems_create_problem = (req, res) => {
+exports.problems_create_problem = (file,json, callback) => {
   console.log('Fikk POST-request fra klienten');
-  if (req.body.county === 'Nord-Trøndelag' || req.body.county === 'Sør-Trøndelag')
-    req.body.county = 'Trøndelag';
+  if (json.county === 'Nord-Trøndelag' || json.county === 'Sør-Trøndelag')
+    json.county = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUserUnchecked(req.body.user_id, (status, data) =>{
+  problemDao.getAllFromUserUnchecked(json.userId, (status, data) =>{
     console.log(status);
-    //console.log(data);
-    console.log(data.length);
+    console.log(data);
     if(data.length < 10){
-      if (req.file === undefined) {
-        problemDao.createOne(req.body, (status, data) => {
-          handleError(status, data, req, res);
+      if (file === undefined) {
+        problemDao.createOne(json, (status, data) => {
+          json.img_user = '';
+          handleError(status,data,json,callback);
         });
       } else {
-        image.uploadImage(req.file, url => {
-          req.body.img_user = url;
-          problemDao.createOne(req.body, (status, data) => {
-            handleError(status, data, req, res);
+        image.uploadImage(file, url => {
+          json.img_user = url;
+          problemDao.createOne(json, (status, data) => {
+            handleError(status,data,json,callback);
           });
         });
       }
     }
     else{
-      res.status(429).json(data);
-      //console.log("Cannot add more prolbmes for: " + req.body.user_id);
+      callback(429,status)
+      //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });
 
-  function handleError(status, data, req, res) {
-    if (status === 500) {
-      divDao.createCity(req.body.city, () => {
-        divDao.createStreet(req.body.street, () => {
-          problemDao.createOne(req.body, (status, data) => {
-            res.status(status).json(data);
-          });
+  function handleError(status, data, json, callback){
+      if(status === 500) {
+        divDao.createCity(json.city, () => {
+          divDao.createStreet(json.street, () => {
+            problemDao.createOne(json, (status,data) => {
+              callback(status,data);
+            })
+          })
         });
-      });
-    } else if (status === 200) {
-      res.status(status).json(data);
-    } else {
-      res.status(404).json({ Error: "Couldn't add problem" });
-    }
+      } else if(status === 200) {
+        callback(status,data);
+      } else {
+        callback(404,{data:{"Error":"Couldn't add problem"}});
+      }
   }
 };
 
-exports.problems_delete_problem = (req, res) => {
-  console.log('/problems/' + req.params.id + ' fikk delete request fra klient');
-  console.log(req.userData);
-  if (req.userData.priority === 'Administrator' || req.userData.priority === 'Municipality') {
-    problemDao.deleteOne(req.params.id, (status, data) => {
-      return res.status(status).json(data);
+exports.problems_delete_problem = (id,json,user,callback) => {
+  console.log('/problems/' + id + ' fikk delete request fra klient');
+  console.log(user);
+  if (user.priority === 'Administrator' || user.priority === 'Municipality') {
+    problemDao.deleteOne(id, (status, data) => {
+      callback(status,data);
     });
   }
-  problemDao.getOne(req.params.id, (status, data) => {
-    if (data[0].problem_locked) return res.status(400).json({ message: 'problem is locked' });
-    if (req.userData.id !== data[0].user_id)
-      return res.status(400).json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
-    problemDao.deleteOne(req.params.id, (status, data) => {
-      return res.status(status).json(data);
+  problemDao.getOne(id, (status, data) => {
+    if (data[0].problem_locked) callback(400,{ message: 'problem is locked' });
+    if (user.id !== data[0].user_id)
+      callback(400,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
+    problemDao.deleteOne(id, (status, data) => {
+      callback(status,data);
     });
   });
 };
 
-exports.problems_edit_problem = (req, res) => {
-  console.log('/problems/' + req.params.id + ' fikk edit request fra klient');
-  switch (req.userData.priority) {
+exports.problems_edit_problem = (id,json,user,file, callback) => {
+  console.log('/problems/' + json.id + ' fikk edit request fra klient');
+  switch (user.priority) {
     case 'Administrator':
-      problemDao.patchAdministrator(req.params.id, req.body, (status, data) => {
+      problemDao.patchAdministrator(id, json, (status, data) => {
         if (status === 200) {
-          problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
+          problemDao.getAllUsersbyProblemId(id, (status, data) => {
             console.log('DATA ADMINISTRATOR', data);
             MailController.sendMassMail({
               recepients: data,
-              text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
+              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
               html: ''
             });
           });
         }
-        return res.status(status).json(data);
+        callback(status,data);
       });
       break;
+
     case 'Municipality':
-      problemDao.patchMunicipality(req.params.id, req.body, (status, data) => {
+      problemDao.patchMunicipality(id, json, (status, data) => {
         if (status === 200) {
-          problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
+          problemDao.getAllUsersbyProblemId(id, (status, data) => {
             console.log('DATA MUNICIPALITY', data);
             MailController.sendMassMail({
               recepients: data,
-              text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
+              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
               html: ''
             });
           });
         }
-        return res.status(status).json(data);
+        callback(status,data)
       });
       break;
 
     case 'Entrepreneur':
       entDao.getEntrepreneur(data[0].entrepreneur_id, (status, data) => {
-        if (data[0].user_id !== req.userData.id)
-          return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
+        if (data[0].user_id !== user.id)
+          callback(400,{ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
-          problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
+        if(!(file === undefined)){
+          image.uploadImage(file, url => {
+            json.img_entrepreneur = url;
+          })
+        }
+          problemDao.patchEntrepreneur(id, json, (status, data) => {
             if (status === 200) {
-              problemDao.getAllUsersbyProblemId(req.params.id, (status, data) => {
-                console.log('DATA ENTREPENEUR', data);
+              problemDao.getAllUsersbyProblemId(id, (status, data) => {
+                console.log('DATA ENTREPRENEUR', data);
                 MailController.sendMassMail({
                   recepients: data,
-                  text: 'Et problem du har abonnert på "' + req.body.problem_title + '" er blitt endret.',
+                  text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
                   html: ''
                 });
               });
             }
-            return res.status(status).json(data);
+            callback(status,data);
           });
       });
       break;
     default:
-      if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
-      if (req.userData.user.id !== data[0].user_id)
-        return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+      if (data[0].problem_locked) callback(300,{ message: 'problem is locked' });
+      if (user.user.id !== data[0].user_id)
+        callback(420,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
       else
-        problemDao.patchStandard(req.params.id, false, req.body, (status, data) => {
-          return res.status(status).json(data);
+      if(!(file === undefined)){
+        image.uploadImage(file, url => {
+          json.user_img = url;
+        })
+      }
+        problemDao.patchStandard(id, false, json, (status, data) => {
+          callback(status,data);
         });
   }
 };
 
-
-exports.problems_get_problem_by_user = (req, res) => {
-  console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
-  problemDao.getByUser(req.params.user_id, (status, data) => {
-    res.status(status).json(data);
+exports.problems_get_problem_by_user = (id, callback) => {
+  console.log('/problems/' + id + ' fikk GET request fra klient');
+  problemDao.getByUser(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.problems_get_problem_by_entrepreneur = (req, res) => {
-  console.log('/problems/' + req.params.entrepreneur_id + ' fikk GET request fra klient');
-  problemDao.getByEntrepreneur(req.params.entrepreneur_id, (status, data) => {
-    res.status(status).json(data);
+exports.problems_get_problem_by_entrepreneur = (id,callback) => {
+  console.log('/problems/' + id + ' fikk GET request fra klient');
+  problemDao.getByEntrepreneur(id, (status, data) => {
+    callback(status,data);
   });
 };
 
-exports.problems_add_entrepreneur = (req, res) => {
-  problemDao.addEntrepreneur(req.body, (status, data) => {
-    console.log('problem_id = ' + req.body.problem_id);
-    if (status == 200) {
-      problemDao.getAllUsersbyProblemId(req.body.problem_id, (status,data) => {
+exports.problems_add_entrepreneur = (json,callback) => {
+  problemDao.addEntrepreneur(json, (status, data) => {
+    if (status === 200) {
+      problemDao.getAllUsersbyProblemId(json.problem_id, (status,data) => {
         MailController.sendMassMail({
           recepients: data,
           text: 'En bedrift jobber nå med et problem du abonnerer på.',
           html: ''
         }, (status,data));
       });
-
-      return res.status(400).json(data);
+      callback(400,data)
     }
   });
 };

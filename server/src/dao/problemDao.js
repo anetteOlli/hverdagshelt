@@ -128,7 +128,6 @@ module.exports = class ProblemDao extends Dao {
     json.category,
     json.img_user,
     id];
-    console.log(values);
     super.query(
       'UPDATE problem SET problem_title = ?, problem_description = ?, category = ?, img_user = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
@@ -137,7 +136,7 @@ module.exports = class ProblemDao extends Dao {
   }
 
   deleteOne(id: number, callback: function) {
-    super.query("UPDATE problem SET status = 'Archived' WHERE problem_id = ?", [id], callback);
+    super.query("UPDATE problem SET status = 'Finished' WHERE problem_id = ?", [id], callback);
   }
 
   getByUser(user_id: number, callback: function) {
@@ -146,7 +145,6 @@ module.exports = class ProblemDao extends Dao {
   getByEntrepreneur(entrepreneur_id: number, callback: function) {
     super.query("SELECT * FROM problem WHERE entrepreneur_id = ?", [entrepreneur_id], callback);
   }
-
 
   addEntrepreneur(json: any, callback: function) {
     const values = [json.entrepreneur_id, json.problem_id];
