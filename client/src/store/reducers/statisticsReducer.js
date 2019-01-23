@@ -17,8 +17,7 @@ export type State = {
 export type Action =
   | { type: 'GET_ALL_PROBLEMS_SUCCESS', payload: Problem[] }
   | { type: 'GET_ALL_PROBLEMS_ERROR', payload: Error }
-  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string }
-  | { type: 'GET_PROBLEMS_BY_CATEGORY', payload: string[] };
+  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string };
 
 const initState = {
   lineChartData: [],
@@ -57,17 +56,46 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   return result;
 };
 
-const getProblemsByCategory = (allProblems: Problem[], categories: string[]) =>{
-  const result = (Array(categories.length)
+const getProblemsByCategoryPie = (
+  allProblems: Problem[],
+  allCategories: string[]
+): { name: string, problemer: number }[] => {
+  const result = (Array(allCategories.length)
     .fill(null)
-    .map((u, i) => ({ name: categories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+    .map((u, i) => ({ name: allCategories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
 
-  //allProblems.map((p: Problem) => result.map(r => r. ))
+  allProblems.map(p => result[allCategories.findIndex(c => c === p.category)].problemer++);
+  console.log(result);
+  return result;
+};
 
+const getProblemsByEntrepreneurPie = (
+  allProblems: Problem[],
+  entrepreneurs: []
+): { name: string, problemer: number }[] => {
 
+  const result = (Array(entrepreneurs.length)
+    .fill(null)
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
 
-} ;
+  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
+  console.log(result);
+  return result;
+};
 
+const getProblemsByEntrepreneurBar = (
+  allProblems: Problem[],
+  entrepreneurs: []
+): { name: string, problemer: number }[] => {
+
+  const result = (Array(entrepreneurs.length)
+    .fill(null)
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
+  console.log(result);
+  return result;
+};
 
 
 export default (state: State = initState, action: Action) => {
@@ -78,7 +106,7 @@ export default (state: State = initState, action: Action) => {
         ...state,
         problems: action.payload,
         ready: true,
-        dropDownMonths: setUpDropDown(moment(action.payload[0].date_made.toString()), moment(Date.now())),
+        dropDownMonths: setUpDropDown(moment(action.payload[0].date_made), moment(Date.now())),
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
@@ -93,11 +121,17 @@ export default (state: State = initState, action: Action) => {
         ...state,
         lineChartData: getProblemsByMonth(state.problems, action.payload)
       };
-    case 'GET_PROBLEMS_BY_CATEGORY':
+    case 'GET_PROBLEMS_BY_ENTREPRENEUR':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        pieChartData: []
+        lineChartData: getProblemsByEntrepreneurPie(state.problems, action.payload)
+      };
+    case 'SET_SELECTED_MUNI':
+      console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        selectedMuni: action.payload
       };
     default:
       return state;

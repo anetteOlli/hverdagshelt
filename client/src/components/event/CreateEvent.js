@@ -20,6 +20,11 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
 import 'date-fns';
 import DateFormat from 'dateformat';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Use history.push(...) to programmatically change path
 import createHashHistory from 'history/createHashHistory';
@@ -41,6 +46,7 @@ type State = {
   dateEndInput: Date,
   displayImg: string,
   image: any,
+  failureDialog: boolean,
 
   county: string,
   municipality: string,
@@ -135,34 +141,16 @@ function getStepContent(step: number,
         <Card className={classes.contentNull}>
           <CardContent>
           <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Kommune"
-              name="municipality"
-              autoComplete="municipality"
-              value={state.municipality}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en kommune']}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Gate"
-              name="street"
-              autoComplete="street"
-              value={state.street}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en gate']}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+
+          <Typography variant="subtitle2" align="left" >
+              {state.municipality}
+          </Typography>
+          <Typography variant="subtitle2" align="left" >
+              {state.street}
+          </Typography>
+            <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
+            <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
+
             <div className={classes.mapPlaceholder}>
               <Map />
             </div>
@@ -304,7 +292,8 @@ class CreateEvent extends React.Component<Props, State>{
     //User
     user_id: -1,
     isLoggedIn: false,
-    priority: ''
+    priority: '',
+    failureDialog: false
   };
 
   render() {
@@ -355,6 +344,18 @@ class CreateEvent extends React.Component<Props, State>{
     }
     return (
       <div>
+      <Dialog
+        open={this.state.failureDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du må velge et sted på kartet eller ved å søke det opp'}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
         <div className={classes.Stepper}>
           <Typography variant="h2" className={classes.title} align="center" color="primary">Opprett et arrangement</Typography>
           <Stepper activeStep={this.state.activeStep}>
@@ -440,8 +441,19 @@ class CreateEvent extends React.Component<Props, State>{
   /** Handles clicking "Next" button */
   handleNext = () => {
     const { activeStep } = this.state;
-    this.setState({
+    if(this.state.municipality != ''){
+      this.setState({
       activeStep: activeStep + 1
+    });}else{
+      this.setState({
+        failureDialog: true
+        })
+    }
+  };
+  /** removes the failureDialog once the user press ok **/
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
     });
   };
 

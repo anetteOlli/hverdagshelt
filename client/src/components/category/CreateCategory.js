@@ -2,27 +2,15 @@ import React from 'react';
 import withRoot from '../../withRoot';
 import connect from 'react-redux/es/connect/connect';
 import { createCategory } from '../../store/actions/categoryActions';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CloseIcon from '@material-ui/icons/Close';
-import green from '@material-ui/core/colors/green';
-import amber from '@material-ui/core/colors/amber';
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField/TextField';
 import { withSnackbar } from 'notistack';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import { Typography } from '@material-ui/core';
-
-const variantIcon = {
-  success: CheckCircleIcon
-};
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 const styles = (theme: Object) => ({
   wrapper: {
@@ -58,9 +46,9 @@ class CreateCategory extends React.Component<Props, State> {
     const vals = {
       category: this.state.category
     };
-
-    this.props.createCategory(vals).then(respone => {
-      if (respone.type === 'CREATE_CATEGORY_ERROR') this.props.enqueueSnackbar('Noe gikk galt', { variant: 'error' });
+    console.log('VALS  ' + vals.category);
+    this.props.createCategory(vals).then(response => {
+      if (response.type === 'CREATE_CATEGORY_ERROR') this.props.enqueueSnackbar('Noe gikk galt', { variant: 'error' });
       else
         this.props.enqueueSnackbar(`'${this.state.category}' added to categories.`, {
           variant: 'success'
@@ -81,20 +69,20 @@ class CreateCategory extends React.Component<Props, State> {
     return (
       <Dialog onClose={this.props.onClose} aria-labelledby="customized-dialog-title" open={this.props.open}>
         <DialogContent>
-          <Typography gutterBottom />
+          <ValidatorForm>
           <div className={classes.wrapper}>
             <h2 className={classes.textField}>Legg til ny kategori</h2>
 
-            <TextField
-              id="outlined-with-placeholder"
-              label="Kategori"
-              placeholder="Ny kategori"
-              className={classes.textField}
+            <TextValidator
+              className = {classes.textField}
+              label="Ny kategori"
               margin="normal"
-              variant="outlined"
               name="category"
               onChange={this.handleChange}
+              validators={['required', 'minStringLength:3']}
+              errorMessages={['Ugyldig beksrivelse']}
             />
+
             <Button onClick={this.handleClick} variant="contained" color="primary" className={classes.sendInnBtn}>
               Send inn
             </Button>
@@ -102,6 +90,7 @@ class CreateCategory extends React.Component<Props, State> {
               Avbryt
             </Button>
           </div>
+          </ValidatorForm>
         </DialogContent>
         <DialogActions />
       </Dialog>

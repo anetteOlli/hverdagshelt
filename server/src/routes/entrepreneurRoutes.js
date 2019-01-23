@@ -33,7 +33,13 @@ router.post('/', (req,res) => {
 });
 
 router.post('/getcatmuni/', (req,res) => {
-  EntrepreneurController.entrepreneurs_get_cat_muni(req.body,(status,data) => {
+  EntrepreneurController.entrepreneurs_get_by_cat_and_muni(req.body,(status,data) => {
+    res.status(status).json(data);
+  })
+});
+
+router.post('/municipality', (req,res) => {
+  EntrepreneurController.entrepreneurs_get_by_muni(req.body, (status,data) => {
     res.status(status).json(data);
   })
 });

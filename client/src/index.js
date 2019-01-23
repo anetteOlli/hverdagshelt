@@ -27,6 +27,7 @@ if (root) {
       setTimeout(render);
     });
   }
+
   render();
   serviceWorker.unregister();
 }
