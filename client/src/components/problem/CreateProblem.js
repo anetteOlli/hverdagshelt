@@ -151,6 +151,18 @@ function getStepContent(step: number, state: State,
       //console.log(rows);
       return (
         <Card className="content-1">
+        <Dialog
+          open={this.state.showSuppordDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{'Du har nå støttet et problem, du sendes nå til forsiden'}</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleSupportDialogClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+          </Dialog>
           <CardContent>
           <Typography variant="h5" align="center" color="secondary">
             Nærliggende problemer
@@ -167,8 +179,6 @@ function getStepContent(step: number, state: State,
               <Grid item
               md={4} xs={12}
               >
-
-
 
                 <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
 
@@ -337,7 +347,8 @@ type Props = {
   errorMessage: string,
   enqueueSnackbar: Function,
   supportProblem: Function,
-  isLoggedIn: boolean
+  isLoggedIn: boolean,
+  handleSupportDialogClose: Function
 };
 type Problem = {
   problem_id: number,
@@ -373,6 +384,7 @@ type   state = {
     cur_imageURL: string,
     cur_entrepreneur: string,
     cur_status: string,
+    showSuppordDialog: boolean,
 
     similarProblems:
       [
@@ -418,6 +430,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_entrepreneur: '',
     cur_status: '',
     failureDialog: false,
+    showSuppordDialog: false,
 
     similarProblems:
       [
@@ -523,6 +536,12 @@ class CreateProblem extends React.Component<Props, State> {
       failureDialog: false
     });
   };
+  handleSupportDialogClose = () => {
+    this.setState({
+      showSuppordDialog: false
+    });
+    history.push("/");
+  };
 
   /** Handles clicking "Back" button */
   handleBack = () => {
@@ -595,7 +614,10 @@ class CreateProblem extends React.Component<Props, State> {
 
   /** Handles when user is done and gets sent away. */
   handleFinish = e => {
-    history.push("/");
+    this.setState({
+      showSuppordDialog: true
+      })
+
   };
 
   /** Handles uploading of image files */
