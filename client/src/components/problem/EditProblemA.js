@@ -200,7 +200,7 @@ class EditProblemA extends React.Component<Props, State> {
                     label="Kategori"
                     margin="normal"
                     name="category"
-                    value={this.state.category_fk}
+                    value={this.state.category}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
