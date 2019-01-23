@@ -12,10 +12,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
-import { editProblem, getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail} from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
-import moment from 'moment';
 import PictureUpload from '../util/PictureUpload';
 type Props = {
   classes: Object,
@@ -33,17 +32,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string,
+  municipality: string,
+  county: string,
+  city: string,
+  street: string
 };
 
 const styles = (theme: Object) => ({
@@ -88,18 +87,19 @@ class EditProblemA extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
+    category: '',
+    status: '',
+    user_id: '',
+    entrepreneur_id: '',
     latitude: '',
     longitude: '',
     support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
-
+    municipality: '',
+    county: '',
+    city: '',
+    street: '',
+    displayImg: '',
+    displayImg2: ''
   };
 
   handleChange = e => {
@@ -108,13 +108,26 @@ class EditProblemA extends React.Component<Props, State> {
     });
   };
 
+  handleUpload = e => {
+    this.setState({
+      img_user: e
+    });
+  };
+
+  handleUpload2 = e => {
+    this.setState({
+      img_entrepreneur: e
+    });
+  };
+
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
+
   };
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes, problem, categories } = this.props;
 
     if (problem) {
       return (
@@ -140,8 +153,8 @@ class EditProblemA extends React.Component<Props, State> {
                     fullWidth
                     margin="normal"
                     label="Status:"
-                    name="status_fk"
-                    value={this.state.status_fk}
+                    name="status"
+                    value={this.state.status}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -170,8 +183,8 @@ class EditProblemA extends React.Component<Props, State> {
                     fullWidth
                     margin="normal"
                     label="Kategori"
-                    name="category_fk"
-                    value={this.state.category_fk}
+                    name="category"
+                    value={this.state.category}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -192,14 +205,9 @@ class EditProblemA extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div />
                       <div>
-                        <img
-                          id="img"
-                          width="100%"
-                          src={this.state.img_user || 'http://placehold.it/180'}
-                          alt="Bilde"
-                        />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -215,8 +223,8 @@ class EditProblemA extends React.Component<Props, State> {
                     fullWidth
                     margin="normal"
                     label="Status:"
-                    name="status_fk"
-                    value={this.state.status_fk}
+                    name="status"
+                    value={this.state.status}
                     onChange={this.handleChange}
                     validators={['required']}
                     errorMessages={['this field is required']}
@@ -239,7 +247,7 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
 
                   <Paper> Dato Endret: {this.state.last_edited} </Paper>
 
@@ -251,10 +259,9 @@ class EditProblemA extends React.Component<Props, State> {
                         </div>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <div />
                         <div>
-                          <img id="img" top width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
-                          <PictureUpload uploadImg={this.handleUpload} />
+                          <img id="img" width="100%" src={this.state.displayImg2 ||this.state.img_entrepreneur} alt="Bilde" />
+                          <PictureUpload uploadImg={this.handleUpload2} />
                         </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -265,20 +272,7 @@ class EditProblemA extends React.Component<Props, State> {
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
                   Lagre endringer
                 </Button>
-
                 <div>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary>
-                      <div>
-                        <Typography>Kart: </Typography>
-                      </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      {
-                        // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
-                      }
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
                   <div className="mapPlaceholder">
                     <MapMarkers />
                   </div>
@@ -299,15 +293,13 @@ class EditProblemA extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblem: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

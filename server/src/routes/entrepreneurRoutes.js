@@ -8,6 +8,8 @@ router.get('/', (req,res) => {
   })
 });
 
+router.get('/id/:id', EntrepreneurController.entrepreneurs_get_one_by_user_id);
+
 router.get('/:id', (req,res) => {
   EntrepreneurController.entrepreneurs_get_one(req.params.id, (status,data)=> {
     res.status(status).json(data);

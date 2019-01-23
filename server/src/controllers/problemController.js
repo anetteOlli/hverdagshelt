@@ -29,8 +29,8 @@ exports.problems_get_problem = (id, callback) => {
 
 exports.problems_support_problem = (req, res) => {
   console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
-  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
+  console.log('user_id/ProblemID:' + req.body.user_id + '/' + req.body.problemId);
+  divDao.createSupportUser(req.body.user_id, req.body.problemId, (status, data) => {
     if (status === 200) {
       problemDao.supportProblem(req.params.id, (status, data) => {
 
@@ -85,6 +85,20 @@ exports.problems_get_from_municipality_and_street = (json,callback) => {
   });
 };
 
+exports.problems_get_from_municipality_sorted = (req, res) => {
+  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+  console.log(
+    '/problems/municipality/sorted: ' +
+    req.body.municipality +
+    '(' +
+    req.body.county +
+    ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+};
+
 exports.problems_create_problem = (file,json, callback) => {
   console.log('Fikk POST-request fra klienten');
   if (json.county_fk === 'Nord-Trøndelag' || json.county_fk === 'Sør-Trøndelag')
@@ -108,7 +122,8 @@ exports.problems_create_problem = (file,json, callback) => {
       }
     }
     else{
-      callback(429,data);
+      res.status(429).json(data);
+      //console.log("Cannot add more prolbmes for: " + req.body.user_id);
     }
   });
 
@@ -139,7 +154,7 @@ exports.problems_delete_problem = (id,json,user,callback) => {
   }
   problemDao.getOne(id, (status, data) => {
     if (data[0].problem_locked) callback(400,{ message: 'problem is locked' });
-    if (user.id !== data[0].user_fk)
+    if (user.id !== data[0].user_id)
       callback(400,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
     problemDao.deleteOne(id, (status, data) => {
       callback(status,data);
@@ -182,8 +197,8 @@ exports.problems_edit_problem = (id,json,user,file, callback) => {
       break;
 
     case 'Entrepreneur':
-      entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
-        if (data[0].user_fk !== user.id)
+      entDao.getEntrepreneur(data[0].entrepreneur_id, (status, data) => {
+        if (data[0].user_id !== user.id)
           callback(400,{ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
         if(!(file === undefined)){
@@ -208,7 +223,7 @@ exports.problems_edit_problem = (id,json,user,file, callback) => {
       break;
     default:
       if (data[0].problem_locked) callback(300,{ message: 'problem is locked' });
-      if (user.user.id !== data[0].user_fk)
+      if (user.user.id !== data[0].user_id)
         callback(420,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
       else
       if(!(file === undefined)){

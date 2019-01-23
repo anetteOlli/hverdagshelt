@@ -18,8 +18,6 @@ import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
 import type { Problem } from '../../store/reducers/problemReducer';
 
-const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
-
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -36,17 +34,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string,
+  municipality: string,
+  county: string,
+  city: string,
+  street: string,
 };
 
 const styles = (theme: Object) => ({
@@ -80,7 +78,6 @@ const styles = (theme: Object) => ({
 });
 
 class EditProblemE extends React.Component<Props, State> {
-
   state = {
     problem_id: null,
     problem_title: '',
@@ -92,17 +89,19 @@ class EditProblemE extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
+    category: '',
+    status: '',
+    user_id: '',
+    entrepreneur_id: '',
     latitude: '',
     longitude: '',
     support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
+    municipality: '',
+    county: '',
+    city: '',
+    street: '',
+    displayImg: '',
+
   };
 
   handleChange = e => {
@@ -116,12 +115,13 @@ class EditProblemE extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_entrepreneurF: e
     });
   };
 
   render() {
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const statuss = ['Finished', 'InProgress', 'Unchecked'];
+    const { classes} = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -131,22 +131,18 @@ class EditProblemE extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
-
+                <Paper>{this.state.problem_title}</Paper>
                 <Paper
                   className={classes.paper}
-                  fullWidth
-                  readOnly
                   margin="normal"
                   label="Status:"
-                  name="status_fk"
+                  name="status"
                   value={'status'}
                 >
-                  {'Status:   ' + this.state.status_fk}
+                  {'Status:   ' + this.state.status}
                 </Paper>
                 <Paper
                   className={classes.paper}
-                  readOnly
-                  fullWidth
                   margin="normal"
                   multiline
                   label="Beskrivelse"
@@ -158,14 +154,12 @@ class EditProblemE extends React.Component<Props, State> {
                 </Paper>
                 <Paper
                   className={classes.paper}
-                  readOnly
-                  fullWidth
                   margin="normal"
                   label="Kategori"
-                  name="category_fk"
+                  name="category"
                   value={'Kategori:   '}
                 >
-                  {'Kategori:   ' + this.state.category_fk}
+                  {'Kategori:   ' + this.state.category}
                 </Paper>
 
                 <h3> Dato startet: {this.state.date_made} </h3>
@@ -180,7 +174,6 @@ class EditProblemE extends React.Component<Props, State> {
                     <div>
                       <img
                         id="img"
-                        top
                         width="100%"
                         src={this.state.img_user || 'http://placehold.it/180'}
                         alt="Bilde"
@@ -201,8 +194,8 @@ class EditProblemE extends React.Component<Props, State> {
                   fullWidth
                   margin="normal"
                   label="Status:"
-                  name="status_fk"
-                  value={this.state.status_fk}
+                  name="status"
+                  value={this.state.status}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
@@ -225,7 +218,7 @@ class EditProblemE extends React.Component<Props, State> {
                   value={this.state.description_entrepreneur}
                   onChange={this.handleChange}
                 />
-                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
 
                 <h3> Dato Endret: {this.state.last_edited} </h3>
 
@@ -239,7 +232,7 @@ class EditProblemE extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" top width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
@@ -282,17 +275,14 @@ class EditProblemE extends React.Component<Props, State> {
       this.setState({
         ...nextProps.problem
       });
-      console.log('REEE', this.state);
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemE: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });
-    console.log(this.state);
   }
 }
 

@@ -325,10 +325,10 @@ class MainPage extends React.Component<Props, State> {
 }//class
 
 const mapStateToProps = state => {
-const municipalitiesFromRedux = state.muni.municipalities;
-const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(muni => {
-  const value = `${muni.municipality}&${muni.county}`;
-  const label = `${muni.municipality} i  ${muni.county}`;
+const municipalitiesFromRedux = state.municipality.municipalities;
+const municipalities = municipalitiesFromRedux ? (municipalitiesFromRedux.map(municipality => {
+  const value = `${municipality.municipality}&${municipality.county}`;
+  const label = `${municipality.municipality} i  ${municipality.county}`;
   return {value, label}})) : null
   return {
     municipalities

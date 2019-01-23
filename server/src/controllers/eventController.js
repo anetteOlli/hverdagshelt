@@ -32,7 +32,7 @@ exports.events_get_from_municipality = (json,callback) => {
 
 exports.events_create_event = (file,json, callback) => {
   console.log('Fikk POST-request fra klienten');
-  if(json.county_fk === "Nord-Trøndelag" || json.county_fk === "Sør-Trøndelag") json.county_fk = "Trøndelag";
+  if(json.county === "Nord-Trøndelag" || json.county === "Sør-Trøndelag") json.county = "Trøndelag";
   if (file === undefined) {
     eventDao.createOne(json, (status, data) => {
       handleError(status,data,json,callback);

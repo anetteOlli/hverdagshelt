@@ -204,7 +204,7 @@ class ProblemDetails extends React.Component<Props, State> {
     this.handleClose();
     console.log(myEntrepreneur);
     let vals = {
-      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+      entrepreneur_id: myEntrepreneur.entrepreneur_id,
       problem_id: this.props.problem.problem_id
     };
     this.props.problemAddEntrepreneur(vals).then(() => {
@@ -220,6 +220,7 @@ class ProblemDetails extends React.Component<Props, State> {
     const { classes, problem, priority_fk } = this.props;
     if (problem) {
       console.log('locked: ' + problem.problem_locked);
+      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -255,12 +256,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kontaktinfo: {problem.user_id}
                 </Typography>
               </Grid>
             </div>
@@ -330,7 +331,7 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {this.props.entrepreneurs.length > 0 ? (
+                {this.props.entrepreneurs && this.props.entrepreneurs.length > 0 ? (
                   <SelectTable2 rows={this.props.entrepreneurs} onClick={this.handleAddEntrepreneur} />
                 ) : (
                   <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>
@@ -375,7 +376,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };
