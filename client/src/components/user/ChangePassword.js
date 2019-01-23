@@ -38,7 +38,7 @@ type Props = {
   getUserInfo: Function,
   password: string,
   email: string,
-  userID: number,
+  user_id: number,
   setNewPassword: Function,
   history: Function
 };
@@ -48,7 +48,7 @@ type State = {
   password: string,
   cnfPassword: string,
   showPassword: boolean,
-  userID: number,
+  user_id: number,
   successDialog: boolean,
   isOldPassword: boolean,
   failureDialog: boolean
@@ -79,7 +79,7 @@ class ChangePassword extends React.Component<Props, State> {
     email: '',
     password: '',
     cnfPassword: '',
-    userID: -1,
+    user_id: -1,
     showPassword: false,
     successDialog: false,
     isOldPassword: false,
@@ -97,7 +97,7 @@ class ChangePassword extends React.Component<Props, State> {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { email, userID, password } = this.state;
+    const { email, user_id, password } = this.state;
 
     getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
       this.setState({
@@ -109,7 +109,7 @@ class ChangePassword extends React.Component<Props, State> {
           failureDialog: true
         });
       } else {
-        this.props.setNewPassword(userID, password, email).then(() => {
+        this.props.setNewPassword(user_id, password, email).then(() => {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
           else {
             this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
@@ -152,7 +152,7 @@ class ChangePassword extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, isLoggedIn, email, userID, password } = this.props;
+    const { classes, isLoggedIn, email, user_id, password } = this.props;
     const form = (
       <div className={classes.main}>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
@@ -226,7 +226,7 @@ class ChangePassword extends React.Component<Props, State> {
     this.props.getUserInfo().then(() => {
       this.setState({
         email: this.props.email,
-        userID: this.props.userID
+        user_id: this.props.user_id
       });
     });
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
@@ -237,14 +237,14 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
-    userID: state.user.userID,
+    user_id: state.user.user_id,
     email: state.user.email
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setNewPassword: (userId, password, email) => dispatch(setNewPassword(userId, password, email)),
+    setNewPassword: (user_id, password, email) => dispatch(setNewPassword(user_id, password, email)),
     getUserInfo: () => dispatch(getUserInfo())
   };
 };

@@ -29,8 +29,8 @@ exports.problems_get_problem = (req, res) => {
 
 exports.problems_support_problem = (req, res) => {
   console.log('/problems/' + req.params.id + 'fikk PATCH request fra klient');
-  console.log('UserID/ProblemID:' + req.body.userId + '/' + req.body.problemId);
-  divDao.createSupportUser(req.body.userId, req.body.problemId, (status, data) => {
+  console.log('user_id/ProblemID:' + req.body.user_id + '/' + req.body.problemId);
+  divDao.createSupportUser(req.body.user_id, req.body.problemId, (status, data) => {
     if (status === 200) {
       problemDao.supportProblem(req.params.id, (status, data) => {
 
@@ -81,16 +81,29 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
   );
   problemDao.getFromStreet(req.body, (status, data) => {
     res.status(status).json(data);
-    console.log(data);
+  });
+};
+
+exports.problems_get_from_municipality_sorted = (req, res) => {
+  if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
+  console.log(
+    '/problems/municipality/sorted: ' +
+    req.body.municipality +
+    '(' +
+    req.body.county +
+    ') fikk GET request fra klient'
+  );
+  problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
+    res.status(status).json(data);
   });
 };
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  if (req.body.county_fk === 'Nord-Trøndelag' || req.body.county_fk === 'Sør-Trøndelag')
-    req.body.county_fk = 'Trøndelag';
+  if (req.body.county === 'Nord-Trøndelag' || req.body.county === 'Sør-Trøndelag')
+    req.body.county = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUserUnchecked(req.body.user_fk, (status, data) =>{
+  problemDao.getAllFromUserUnchecked(req.body.user_id, (status, data) =>{
     console.log(status);
     //console.log(data);
     console.log(data.length);
@@ -110,14 +123,14 @@ exports.problems_create_problem = (req, res) => {
     }
     else{
       res.status(429).json(data);
-      //console.log("Cannot add more prolbmes for: " + req.body.userId);
+      //console.log("Cannot add more prolbmes for: " + req.body.user_id);
     }
   });
 
   function handleError(status, data, req, res) {
     if (status === 500) {
-      divDao.createCity(req.body.city_fk, () => {
-        divDao.createStreet(req.body.street_fk, () => {
+      divDao.createCity(req.body.city, () => {
+        divDao.createStreet(req.body.street, () => {
           problemDao.createOne(req.body, (status, data) => {
             res.status(status).json(data);
           });
@@ -141,7 +154,7 @@ exports.problems_delete_problem = (req, res) => {
   }
   problemDao.getOne(req.params.id, (status, data) => {
     if (data[0].problem_locked) return res.status(400).json({ message: 'problem is locked' });
-    if (req.userData.id !== data[0].user_fk)
+    if (req.userData.id !== data[0].user_id)
       return res.status(400).json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke arkivere det.' });
     problemDao.deleteOne(req.params.id, (status, data) => {
       return res.status(status).json(data);
@@ -184,8 +197,8 @@ exports.problems_edit_problem = (req, res) => {
       break;
 
     case 'Entrepreneur':
-      entDao.getEntrepreneur(data[0].entrepreneur_fk, (status, data) => {
-        if (data[0].user_fk !== req.userData.id)
+      entDao.getEntrepreneur(data[0].entrepreneur_id, (status, data) => {
+        if (data[0].user_id !== req.userData.id)
           return res.json({ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
           problemDao.patchEntrepreneur(req.params.id, req.body, (status, data) => {
@@ -205,7 +218,7 @@ exports.problems_edit_problem = (req, res) => {
       break;
     default:
       if (data[0].problem_locked) return res.json({ message: 'problem is locked' });
-      if (req.userData.user.id !== data[0].user_fk)
+      if (req.userData.user.id !== data[0].user_id)
         return res.json({ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
       else
         problemDao.patchStandard(req.params.id, false, req.body, (status, data) => {
