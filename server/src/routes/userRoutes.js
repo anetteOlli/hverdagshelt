@@ -29,13 +29,14 @@ router.get('/id/:id', (req,res) => {
 });
 
 router.get('/refresh', checkAuth, (req,res) => {
+  console.log(req.userData);
   UserController.users_refresh(req.userData, (status,data) => {
     res.status(status).json(data);
   })
 });
 
 router.patch('/changePassword/', (req,res) => {
-  UserController.user_change_password(req.body,req.body.password,(status,data)=> {
+  UserController.user_change_password(req.body,(status,data)=> {
     res.status(status).json(data);
   })
 });
@@ -65,12 +66,9 @@ router.get('/validate_email/:email', (req,res) => {
   })
 });
 
-router.get('/check_pass/:email/:password', checkAuth, (req,res) => {
-  let json = {
-    email: req.params.email,
-    password: req.params.password
-  };
-  UserController.user_is_not_old_password(json,(status,data) => {
+router.post('/check_pass', checkAuth, (req,res) => {
+  console.log(req.body);
+  UserController.user_is_not_old_password(req.body,(status,data) => {
     res.status(status).json(data);
   })
 });

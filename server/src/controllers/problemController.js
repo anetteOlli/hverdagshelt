@@ -164,7 +164,7 @@ exports.problems_delete_problem = (id,json,user,callback) => {
 };
 
 exports.problems_edit_problem = (id,json,user,file, callback) => {
-  console.log('/problems/' + json.id + ' fikk edit request fra klient');
+  console.log('/problems/' + id + ' fikk edit request fra klient');
   switch (user.priority) {
     case 'Administrator':
       problemDao.patchAdministrator(id, json, (status, data) => {
@@ -199,7 +199,7 @@ exports.problems_edit_problem = (id,json,user,file, callback) => {
       break;
 
     case 'Entrepreneur':
-      entDao.getEntrepreneur(data[0].entrepreneur_id, (status, data) => {
+      entDao.getEntrepreneur(id, (status, data) => {
         if (data[0].user_id !== user.id)
           callback(400,{ message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         else
@@ -224,7 +224,7 @@ exports.problems_edit_problem = (id,json,user,file, callback) => {
       });
       break;
     default:
-      if (data[0].problem_locked) callback(300,{ message: 'problem is locked' });
+      if (json.problem_locked) callback(300,{ message: 'problem is locked' });
       if (user.user.id !== data[0].user_id)
         callback(420,{ message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
       else

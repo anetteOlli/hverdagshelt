@@ -16,8 +16,7 @@ exports.users_get_all = (callback) => {
 
 exports.users_login = (json,callback) => {
   userDao.checkEmail(json.email, (status, data) => {
-    if (data.length < 1) callback(status,data);
-    if (validatePassword(json.password, data[0].password)) {
+    if (data.length === 1 && validatePassword(json.password, data[0].password)) {
       console.log(data);
       callback(200,{
         id: data[0].user_id,
@@ -39,7 +38,7 @@ exports.users_refresh = (user,callback) => {
 
 exports.users_get_user = (id,callback) => {
   userDao.getOneById(id, (status, data) => {
-    callback(status,data);
+    callback(status,data[0]);
   });
 };
 
@@ -88,13 +87,8 @@ exports.user_change_password = (json,callback) => {
 };
 exports.user_is_not_old_password = (json,callback) => {
   userDao.checkEmail(json.email, (status, data) => {
-    let isOldPassword = true;
-    if (data.length > 0) {
-      if (!validatePassword(json.password, data[0].password)) {
-        isOldPassword = false;
-      }
-    }
-    callback(status,{ isOldPassword });
+    if (data.length === 0) callback(404,{"message":"mail eksisterer ikke"});
+    else callback(status,{ isOldPassword: validatePassword(json.password, data[0].password) });
   });
 };
 

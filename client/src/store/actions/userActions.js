@@ -34,7 +34,6 @@ export const signIn = (creds: { email: string, password: string }) => {
     dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
-        console.log(response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',

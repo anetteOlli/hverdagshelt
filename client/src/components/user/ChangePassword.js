@@ -99,7 +99,8 @@ class ChangePassword extends React.Component<Props, State> {
     e.preventDefault();
     const { email, user_id, password } = this.state;
 
-    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+    postData('users/check_pass',{email: this.props.email, password}).then(response => {
+      console.log(response.data);
       this.setState({
         isOldPassword: response.data.isOldPassword
       });
@@ -128,7 +129,7 @@ class ChangePassword extends React.Component<Props, State> {
     this.props.history.push('/');
   };
   checkOldPassword = () => {
-    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
+    postData('users/check_pass',{email: this.props.email, password: this.state.password}).then(response => {
       this.setState({
         isOldPassword: response.data.isOldPassword
       });
@@ -136,8 +137,8 @@ class ChangePassword extends React.Component<Props, State> {
   };
 
   handlePasswordInputChange = e => {
-    getData(`users/check_pass/${this.state.email}/${this.state.password}`).then(response => {
-      if (response.status != 404) {
+    postData('users/check_pass',{email: this.props.email, password: this.state.password}).then(response => {
+      if (response.status !== 404) {
         this.setState({
           isOldPassword: response.data.isOldPassword,
           [e.target.name]: e.target.value
@@ -223,12 +224,6 @@ class ChangePassword extends React.Component<Props, State> {
     return isLoggedIn ? form : <div />;
   }
   componentDidMount() {
-    this.props.getUserInfo().then(() => {
-      this.setState({
-        email: this.props.email,
-        user_id: this.props.user_id
-      });
-    });
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isOldPassword', () => !this.state.isOldPassword);
   }
