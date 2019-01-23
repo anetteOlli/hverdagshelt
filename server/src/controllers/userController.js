@@ -35,7 +35,7 @@ exports.users_refresh = (user,callback) => {
   callback(200,{
     id: user.id,
     jwt: genToken(user.id, user.priority),
-    priority: user.priority
+    priority: user.priority,
     municipality: user.municipality,
     county: user.county
   });
