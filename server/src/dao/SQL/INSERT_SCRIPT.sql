@@ -350,7 +350,7 @@ INSERT INTO municipality(municipality, county) VALUES('Øksnes', 'Nordland');
 INSERT INTO municipality(municipality, county) VALUES('Sortland', 'Nordland');
 INSERT INTO municipality(municipality, county) VALUES('Andøy', 'Nordland');
 INSERT INTO municipality(municipality, county) VALUES('Moskenes', 'Nordland');
-INSERT INTO municipality(municipality, county) VALUES('Harstad[13]', 'Troms');
+INSERT INTO municipality(municipality, county) VALUES('Harstad', 'Troms');
 INSERT INTO municipality(municipality, county) VALUES('Tromsø', 'Troms');
 INSERT INTO municipality(municipality, county) VALUES('Kvæfjord', 'Troms');
 INSERT INTO municipality(municipality, county) VALUES('Skånland', 'Troms');
