@@ -56,6 +56,37 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   return result;
 };
 
+const getProblemsByCategoryPie = (
+  allProblems: Problem[],
+  allCategories: string[]
+): { name: string, problemer: number }[] => {
+  const result = (Array(allCategories.length)
+    .fill(null)
+    .map((u, i) => ({ name: allCategories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  allProblems.map(p => result[allCategories.findIndex(c => c === p.category)].problemer++);
+  console.log(result);
+  return result;
+};
+
+const getProblemsByEntrepreneurPie = (
+  allProblems: Problem[],
+  allCategories: string[]
+): { name: string, problemer: number }[] => {
+  const entrepreneur_ids = [];
+  allProblems.map(p => {
+    if (e.findIndex(ent => ent === p.entrepreneur_id) === -1) e.push[p.entrepreneur_id];
+  });
+
+  const result = (Array(entrepreneur_ids.length)
+    .fill(null)
+    .map((u, i) => ({ name: allCategories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  allProblems.map(p => result[allCategories.findIndex(c => c === p.category)].problemer++);
+  console.log(result);
+  return result;
+};
+
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_ALL_PROBLEMS_SUCCESS':

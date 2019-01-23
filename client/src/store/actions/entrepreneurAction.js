@@ -65,3 +65,25 @@ export const getEntrepreneursByMuniAndCat = p => {
       );
   };
 };
+
+export const getEntrepreneursByMuni = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return postData('entrepreneurs/getcatmuni', {
+      municipality_fk: p.municipality_fk,
+      county_fk: p.county_fk,
+      category_fk: p.category_fk
+    })
+      .then(response =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_ERROR',
+          payload: error
+        })
+      );
+  };
+};
