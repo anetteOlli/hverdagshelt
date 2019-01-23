@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="larssorl@mysql.stud.iie.ntnu.no">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
       <ServerVersion>5.7.24</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1300,7 +1300,7 @@ county</ColNames>
     <column id="310" parent="236" name="problem_locked">
       <Position>4</Position>
       <DataType>tinyint(1)|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="311" parent="236" name="description_entrepreneur">
@@ -1371,7 +1371,7 @@ county</ColNames>
     <column id="323" parent="236" name="support">
       <Position>17</Position>
       <DataType>int(11)|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="324" parent="236" name="municipality_fk">
@@ -1527,7 +1527,7 @@ county</RefColNames>
       <Position>5</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="352" parent="239" name="municipality_fk">

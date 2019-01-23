@@ -124,3 +124,10 @@ test("TESTING delete from eventDAO", (done) => {
     done();
   })
 });
+
+test("Testing updateStatus from eventDao", (done) => {
+  dao.updateStatus((status) => {
+    expect(status).toBe(200);
+    done();
+  })
+})

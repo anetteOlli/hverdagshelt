@@ -32,7 +32,6 @@ test("Testing getAll from entrepreneurDao", (done) => {
 });
 
 test("Testing getEntrepreneur from entrepreneurDao", (done) => {
-  let id = 1;
   dao.getEntrepreneur(1, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
@@ -77,4 +76,19 @@ test("Testing checkEntrepreneur from entrepreneurDao", (done)=> {
     expect(data[0].businessName).toBe("Arbeidsjøinn");
     done();
   })
-})
+});
+
+test("Testing  from entrepreneurDao", (done) => {
+  let json = {
+    municipality: "Oslo",
+    county: "Oslo",
+    category: "Snowplow"
+  };
+  dao.getByCatAndMuni(json,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(1);
+    expect(data[0].businessName).toBe("Arbeidsjøinn");
+    done();
+  })
+});
+

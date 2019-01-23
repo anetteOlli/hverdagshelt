@@ -101,3 +101,16 @@ test("Testing activateUser from userDao", (done) => {
     done();
   })
 });
+
+test("Testing changePassword from userDao", (done) => {
+  let json = {
+    email: "user@user.user",
+    password: "test",
+    id : 1
+  };
+  dao.changePassword(json, json.password, (status,data) => {
+   expect(status).toBe(200);
+   expect(data.affectedRows).toBe(1);
+   done();
+  });
+});

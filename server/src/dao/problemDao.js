@@ -147,7 +147,6 @@ module.exports = class ProblemDao extends Dao {
     super.query("SELECT * FROM problem WHERE entrepreneur_fk = ?", [entrepreneur_id], callback);
   }
 
-
   addEntrepreneur(json: any, callback: function) {
     const values = [json.entrepreneur_fk, json.problem_id];
     console.log(values);

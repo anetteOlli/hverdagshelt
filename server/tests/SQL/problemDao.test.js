@@ -36,7 +36,7 @@ test("Testing getAll from problem", (done) => {
 
 test("Testing getAllFromUser from problemDao", (done) => {
   let id = 1;
-  dao.getAllFromUser(id, (status,data) => {
+  dao.getAllFromUserUnchecked(id, (status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(3);
     expect(data[0].user_fk).toBe(1);
@@ -152,6 +152,15 @@ test("Testing patchMunicipality from problemDao", (done) => {
     done();
   })
 });
+
+test("Testing getAllUsersByProblemId", (done) => {
+  dao.getAllUsersbyProblemId(1,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(1);
+    expect(data[0].email).toBe("user@user.user");
+    done();
+  })
+})
 
 test("Testing patchStandard from problemDao", (done) => {
   let json = {
