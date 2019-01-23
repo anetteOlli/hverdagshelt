@@ -51,8 +51,7 @@ test("Testing getOne from problemDao", (done) => {
   let id = 1;
   dao.getOne(id, (status,data) => {
     expect(status).toBe(200);
-
-    expect(data).toBe(2);
+    expect(data[0]).toBe(1);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].problem_id).toBe(id);
     done();
@@ -66,7 +65,7 @@ test("Testing getFromMunicipality from problemDao", (done) => {
   };
   dao.getFromMunicipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(2);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].municipality).toBe("Trondheim");
     expect(data[0].county).toBe("Trøndelag");
@@ -112,7 +111,7 @@ test("Testing createOne from problemDao", (done) => {
     "problem_description":"test",
     "img_user":"test",
     "category":"Snowplow",
-    "status":"Unchecked",
+    "status":"InProgress",
     "user_id":1,
     "latitude":2.00,
     "longitude":2.00,

@@ -55,7 +55,7 @@ test("Testing getAllMunicipalities from eventDao", (done) => {
   };
   dao.getByMunicipality(json,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBe(2);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
     expect(data[0].county).toBe(json.county);
