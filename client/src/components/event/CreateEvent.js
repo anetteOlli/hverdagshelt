@@ -166,7 +166,7 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
-              <Typography variant="h5" align="left" color="secondary">
+              <Typography variant="h5" align="center" color="secondary">
                 Lokasjon som er valgt:
               </Typography>
               <Typography>Kommune: {state.municipality}</Typography>
