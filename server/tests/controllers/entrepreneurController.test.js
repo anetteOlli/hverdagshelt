@@ -20,7 +20,7 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
-
+afterAll(() => pool.end());
 
 
 test("Testing getAll from entrepreneurDao", (done) => {

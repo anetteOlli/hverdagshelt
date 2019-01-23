@@ -20,6 +20,7 @@ beforeEach(done => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
   });
 });
+afterAll(() => pool.end());
 
 test("Testing users_get_all from userController", (done) => {
   userController.users_get_all((status,data) => {
