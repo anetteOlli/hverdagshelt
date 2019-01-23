@@ -31,6 +31,7 @@ import MuiTable2 from '../util/MuiTable-2';
 import PropTypes from 'prop-types';
 import { getUserInfo } from '../../store/actions/userActions';
 
+
 var bool = false;
 
 type Props = {
@@ -71,44 +72,27 @@ const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
   },
-  paper: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10,
-    color: theme.palette.text.secondary
-  },
-  paper2: {
-    height: '100%'
-  },
+
   grid: {
     height: '100%',
     paddingBottom: 20,
-    display: 'flex',
-    alignSelf: 'stretch'
+    //display: 'flex',
+    //alignSelf: 'stretch'
   },
-  grid2: {
-    paddingBottom: 20,
-    height: '100%',
-    alignSelf: 'stretch'
-  },
-  grid3: {
-    paddingBottom: 20,
-    Height: '100%',
-    alignItems: 'flex-end',
-    alignSelf: 'stretch'
-  },
+
   gridLeft: {
     paddingBottom: 20,
     paddingLeft: 200,
-    height: '100%',
-    width: '100%',
-    flex: 1,
+    //height: '100%',
+    //width: '100%',
+    //flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'stretch'
+    //alignSelf: 'stretch'
   },
-  MUI: {
-    height: '100%'
+  mui: {
+    maxHeight: '250',
+    height: '250'
   }
 });
 
@@ -166,13 +150,17 @@ class EditProblemMain extends React.Component<Props, State> {
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
+
+            <Paper className = {classes.mui}>
             <MuiTable2
+              className = {classes.mui}
               rows={problems}
               onClick={e => {
                 let myProblem = e;
                 this.props.goToProblemDetail(myProblem.problem_id);
               }}
             />
+            </Paper>
           </Grid>
           <Grid item sm md={9} xs>
             {getEditView(getView(bool, this.props.priority_fk))}
