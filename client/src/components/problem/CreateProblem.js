@@ -126,12 +126,17 @@ function getStepContent(step: number, state: State,
               <MenuItem key={i} value={e}>{e}</MenuItem>
             ))}
             </SelectValidator>
-
-            <Typography variant="subtitle2" align="left" >
-                {state.municipality}
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
             </Typography>
             <Typography variant="subtitle2" align="left" >
-                {state.street}
+                Kommune: {state.municipality}
+            </Typography>
+            <Typography variant="subtitle2" align="left" >
+                Gate: {state.street}
+                <br/>
+                <br/>
             </Typography>
 
             <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />

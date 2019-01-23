@@ -141,12 +141,17 @@ function getStepContent(step: number,
         <Card className={classes.contentNull}>
           <CardContent>
           <Typography variant="body1" className={classes.info}>Velg lokasjonen på kartet eller bruk søkefeltet</Typography>
-
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
+            </Typography>
           <Typography variant="subtitle2" align="left" >
-              {state.municipality}
+              Kommune: {state.municipality}
           </Typography>
           <Typography variant="subtitle2" align="left" >
-              {state.street}
+              Gate: {state.street}
+            <br/>
+            <br/>
           </Typography>
             <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
             <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
@@ -161,9 +166,11 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
-              <Typography variant="body1">Lokasjon:</Typography>
-              <Typography>{state.municipality}</Typography>
-              <Typography>{state.street}</Typography>
+              <Typography variant="h5" align="left" color="secondary">
+                Lokasjon som er valgt:
+              </Typography>
+              <Typography>Kommune: {state.municipality}</Typography>
+              <Typography>Gate: {state.street}</Typography>
               <TextValidator
                 fullWidth
                 margin="normal"
