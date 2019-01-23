@@ -1,7 +1,6 @@
 // @flow
 import type {Action} from '../reducers/notifyReducer';
 export const enqueueSnackbar = (message: string, variant: 'success' | 'error' | 'warning' | 'info'): Action => {
-  console.log("DD");
   return {
     type: 'ENQUEUE_SNACKBAR',
     payload: {

@@ -9,6 +9,8 @@ import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
+import { getCategories } from '../../store/actions/categoryActions';
+import { getProblemsByCategory } from '../../store/actions/statisticsActions';
 
 const pieChartData = [
   { name: 'Group A', value: 400 },
@@ -65,19 +67,20 @@ class PieChartPage extends React.Component {
   }
 
   componentDidMount(): void {
+    this.props.getCategories().then(() => this.props.getProblemsByCategory());
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    data: state.statistic.lineChartData
+    data: state.statistic.pieChartData
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getCategories: () => dispatch(getCategories()),
+  getProblemsByCategory: () => dispatch(getProblemsByCategory())
+});
 
 // $FlowFixMe
 export default connect(

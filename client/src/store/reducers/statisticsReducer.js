@@ -43,16 +43,12 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   const problems = allProblems.filter(
     p => selectedMonth === `${new Date(p.date_made).getFullYear()}-${new Date(p.date_made).getMonth() + 1}`
   );
-  console.log('PROBLEMS', problems);
-
   const year = selectedMonth.split('-')[0];
   const month = selectedMonth.split('-')[1];
-
   const result = (Array(new Date(parseInt(year), parseInt(month), 0).getDate())
     .fill(null)
     .map((u, i) => ({ name: `Dag ${i + 1}`, problemer: 0 })): Array<{ name: string, problemer: number }>);
   problems.map(p => result[new Date(p.date_made).getDate()].problemer++);
-  console.log(result);
   return result;
 };
 
@@ -110,7 +106,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
-      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
         errorMessage: action.payload
@@ -120,6 +116,12 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         lineChartData: getProblemsByMonth(state.problems, action.payload)
+      };
+    case 'GET_PROBLEMS_BY_CATEGORY':
+      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        lineChartData: getProblemsByCategoryPie(state.problems, action.payload)
       };
     case 'GET_PROBLEMS_BY_ENTREPRENEUR':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
