@@ -19,8 +19,8 @@ exports.users_login = (req, res) => {
       console.log(data);
       res.status(200).json({
         id: data[0].user_id,
-        jwt: genToken(data[0].user_id, data[0].city),
-        priority: data[0].city
+        jwt: genToken(data[0].user_id, data[0].priority),
+        priority: data[0].priority
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
