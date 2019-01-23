@@ -35,8 +35,6 @@ exports.problems_support_problem = (id,json,callback) => {
       problemDao.supportProblem(id, (status, data) => {
         if(status !== 200 ) callback(status,data);
         problemDao.getAllUsersbyProblemId(json.problemId, (status,data) => {
-          console.log('data.length = ' + data.length);
-          console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
           //Send email to the user who created the problem if its the firs time someone supports the problem
           if(data.length <= 2){
             console.log('---Mail skal sendes!');

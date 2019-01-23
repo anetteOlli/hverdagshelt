@@ -134,8 +134,13 @@ test("Testing users_login from userController", (done) => {
     id: 1,
     priority:"Standard",
     email:"user@user.user",
-    password:"ok"
+    password:"abc123"
   };
+  userController.users_login(user,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.id).toBe(4);
+
+  })
   done();
 });
 
