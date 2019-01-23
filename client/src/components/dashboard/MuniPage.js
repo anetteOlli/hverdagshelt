@@ -337,8 +337,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEvents: (muni, county) => dispatch(getEventsByMuni(muni, county)),
-    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni, county))
+    getEvents: (municipality, county) => dispatch(getEventsByMuni(municipality, county)),
+    getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county))
   };
 };
 

@@ -213,7 +213,7 @@ const mapDispatchToProps = dispatch => {
   return {
     goToProblemDetail: id => dispatch(goToProblemDetail(id)),
     getProblemByUser: () => dispatch(getProblemByUser()),
-    setMuni: (county, muni) => dispatch(setMuni(county, muni)),
+    setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
     entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
     getUserInfo: () => dispatch(getUserInfo())
   };

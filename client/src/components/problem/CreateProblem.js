@@ -707,7 +707,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.currentMarker,
     //Cats, problems
@@ -724,7 +724,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createProblem: newProblem => dispatch(createProblem(newProblem)),
     getCategories: () => dispatch(getCategories()),
-    getProblemsByStreet: (street, muni, county) => dispatch(getProblemsByStreet(street, muni, county)),
+    getProblemsByStreet: (street, municipality, county) => dispatch(getProblemsByStreet(street, municipality, county)),
     supportProblem: (user_id, problemId) => dispatch(supportProblem(user_id, problemId))
   };
 };

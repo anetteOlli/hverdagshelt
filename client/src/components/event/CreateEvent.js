@@ -542,7 +542,7 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.currentMarker,
 

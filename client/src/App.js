@@ -19,9 +19,6 @@ import Settings from './components/user/Settings';
 import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
-import type { Dispatch, ReduxState } from './store/reducers';
-import { refresh } from './store/actions/userActions';
-import { connect } from 'react-redux';
 import ScrollToTop from './components/util/ScrollToTop';
 
 const styles = () => ({
@@ -46,14 +43,11 @@ const styles = () => ({
 
 type Props = {
   classes: Object,
-  hasCheckedJWT: boolean,
-  refresh: Function
 };
 
 class App extends React.Component<Props> {
   render() {
-    const { classes, hasCheckedJWT } = this.props;
-    if (hasCheckedJWT) {
+    const { classes} = this.props;
       return (
         <SnackbarProvider maxSnack={3}>
           <HashRouter>
@@ -67,7 +61,7 @@ class App extends React.Component<Props> {
                       <Route exact path="/" component={MainPage} />
                       <Route exact path="/uploadfile" component={UploadFile} />
                       <Route exact path="/registrer-bruker" component={SignUp} />
-                      <Route exact path="/problems/:county/:muni" component={EditProblemMain} />
+                      <Route exact path="/problems/:county/:municipality" component={EditProblemMain} />
                       <Route exact path="/lagproblem" component={CreateProblem} />
                       <Route exact path="/problemdetails" component={ProblemDetails} />
                       <Route exact path="/opprArrangement" component={CreateEvent} />
@@ -90,27 +84,7 @@ class App extends React.Component<Props> {
           </HashRouter>
         </SnackbarProvider>
       );
-    } else return <div>LOADING...</div>;
-  }
-  componentDidMount(): void {
-   // this.props.refresh();
   }
 }
 
-const mapStateToProps = (state: ReduxState) => {
-  return {
-    hasCheckedJWT: state.app.hasCheckedJWT
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    refresh: () => dispatch(refresh())
-  };
-};
-
-// $FlowFixMe
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRoot(withStyles(styles)(App)));
+export default withRoot(withStyles(styles)(App));
