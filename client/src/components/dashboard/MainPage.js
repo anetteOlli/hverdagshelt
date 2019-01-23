@@ -256,6 +256,18 @@ class MainPage extends React.Component<Props, State> {
                 <Typography variant="h3" className={classes.tittel}>
                   VELKOMMEN TIL HVERDAGSHELT!
                 </Typography>
+                <br/><br/>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={this.registerProblem}
+                >
+                  Registrer et problem
+                </Button>
+                <Typography variant="h5" className={classes.tekst}>
+                  Eller
+                </Typography>
                 <Typography variant="h5" className={classes.tekst}>
                   Finn arrangementer og problemer i din kommune
                 </Typography>
@@ -273,9 +285,9 @@ class MainPage extends React.Component<Props, State> {
                 </NoSsr>
                 {this.props.isLoggedIn ? (
                   <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
+                    variant="outlined"
+                    color="secondary"
+                    size="medium"
                     className={classes.button}
                     onClick={() => {
                         this.props.getUserInfo()
@@ -287,17 +299,7 @@ class MainPage extends React.Component<Props, State> {
                     Ta meg til min kommune
                   </Button>) : <div/>
                 }
-                <Typography variant="h5" className={classes.tekst}>
-                  Eller
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  onClick={this.registerProblem}
-                >
-                  Registrer et problem
-                </Button>
+                <br/><br/>
               </CardContent>
             </Card>
           </Grid>
