@@ -17,6 +17,7 @@ router.post('/f/forgot', (req,res) => {
 
 router.post('/login', (req,res) => {
   UserController.users_login(req.body,(status,data) => {
+    console.log(data);
     res.status(status).json(data);
   })
 });

@@ -21,8 +21,8 @@ exports.users_login = (json,callback) => {
       console.log(data);
       callback(200,{
         id: data[0].user_id,
-        jwt: genToken(data[0].user_id, data[0].priority_fk),
-        priority: data[0].priority_fk
+        jwt: genToken(data[0].user_id, data[0].priority),
+        priority: data[0].priority
       });
     } else callback(401,{ message: 'WRONG_PASSWORD' });
   });
