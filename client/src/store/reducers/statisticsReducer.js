@@ -43,20 +43,69 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   const problems = allProblems.filter(
     p => selectedMonth === `${new Date(p.date_made).getFullYear()}-${new Date(p.date_made).getMonth() + 1}`
   );
-  console.log('PROBLEMS', problems);
-
+  console.log(selectedMonth);
   const year = selectedMonth.split('-')[0];
   const month = selectedMonth.split('-')[1];
-
   const result = (Array(new Date(parseInt(year), parseInt(month), 0).getDate())
     .fill(null)
     .map((u, i) => ({ name: `Dag ${i + 1}`, problemer: 0 })): Array<{ name: string, problemer: number }>);
   problems.map(p => result[new Date(p.date_made).getDate()].problemer++);
+  return result;
+};
+
+/**
+ * @author Erlend Sundøy (snorre verified to the best of his knowledge(not enough))
+ **/
+
+const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { name: string, FiKSeTiD: number }[] => {
+  const months = ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember']
+  const problems = allProblems.filter(p => new Date(p.date_finished).getFullYear() === selectedYear);
+  const times = problems.map(p => ({
+    solvedTime: (new Date(p.date_finished).getTime() - new Date(p.date_made).getTime()) / (1000 * 3600 * 24),
+    month: new Date(p.date_made).getMonth()
+  }));
+  return Array(12)
+    .fill(null)
+    .map((v, i) => {
+      const t = times.filter(t => t.month === i);
+      return ({name: months[i], tid: (t.reduce((acc, time) => acc + time) / t.length)});
+    });
+};
+
+const getCategoryProblemsByEntrepreneur = (
+  allProblems: Problem[],
+  category: string,
+  entrepreneurs: []
+): { name: string, problems: number }[] => {
+  const problems = allProblems.filter(p => p.category === category);
+  const result = (Array(entrepreneurs.length)
+    .fill(null)
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{
+    name: string,
+    problemer: number
+  }>);
+
+  problems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
   console.log(result);
   return result;
 };
 
-const getProblemsByCategoryPie = (
+const getEntrepreneurProblemsByCategory = (
+  allProblems: Problem[],
+  entrepreneur_id: number,
+  categories: []
+): { name: string, problems: number }[] => {
+  const problems = allProblems.filter(p => p.entrepreneur_id === entrepreneur_id);
+  const result = (Array(categories.length)
+    .fill(null)
+    .map((u, i) => ({ name: categories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
+
+  problems.map(p => result[categories.findIndex(c => c === p.category)].problemer++);
+  console.log(result);
+  return result;
+};
+
+const getProblemsByCategory = (
   allProblems: Problem[],
   allCategories: string[]
 ): { name: string, problemer: number }[] => {
@@ -69,34 +118,21 @@ const getProblemsByCategoryPie = (
   return result;
 };
 
-const getProblemsByEntrepreneurPie = (
+const getProblemsByEntrepreneur = (
   allProblems: Problem[],
   entrepreneurs: []
 ): { name: string, problemer: number }[] => {
-
   const result = (Array(entrepreneurs.length)
     .fill(null)
-    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
+    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{
+    name: string,
+    problemer: number
+  }>);
 
   allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
   console.log(result);
   return result;
 };
-
-const getProblemsByEntrepreneurBar = (
-  allProblems: Problem[],
-  entrepreneurs: []
-): { name: string, problemer: number }[] => {
-
-  const result = (Array(entrepreneurs.length)
-    .fill(null)
-    .map((u, i) => ({ name: entrepreneurs[i].business_name, problemer: 0 })): Array<{ name: string, problemer: number }>);
-
-  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
-  console.log(result);
-  return result;
-};
-
 
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
@@ -110,7 +146,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
-      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload);
+      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
         errorMessage: action.payload
@@ -121,11 +157,17 @@ export default (state: State = initState, action: Action) => {
         ...state,
         lineChartData: getProblemsByMonth(state.problems, action.payload)
       };
-    case 'GET_PROBLEMS_BY_ENTREPRENEUR':
+    case 'GET_PROBLEMS_BY_CATEGORY':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        lineChartData: getProblemsByEntrepreneurPie(state.problems, action.payload)
+        pieChartData: getProblemsByCategory(state.problems, action.payload)
+      };
+    case 'GET_PROBLEMS_BY_ENTREPRENEUR':
+      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state
+        //pieChartData: getProblemsByEntrepreneur(state.problems, action.payload)
       };
     case 'SET_SELECTED_MUNI':
       console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);

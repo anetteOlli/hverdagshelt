@@ -33,30 +33,31 @@ exports.problems_support_problem = (req, res) => {
   divDao.createSupportUser(req.body.user_id, req.body.problemId, (status, data) => {
     if (status === 200) {
       problemDao.supportProblem(req.params.id, (status, data) => {
-
-        problemDao.getAllUsersbyProblemId(req.body.problemId, (status,data) => {
+        problemDao.getAllUsersbyProblemId(req.body.problemId, (status, data) => {
           console.log('data.length = ' + data.length);
           console.log('data[0].email = ' + data[0].email + 'data[1].email = ' + data[1].email);
           //Send email to the user who created the problem if its the firs time someone supports the problem
-          if(data.length <= 2){
+          if (data.length <= 2) {
             console.log('---Mail skal sendes!');
-            MailController.sendSingleMail({
-              recepients: data[0].email,
-              text: 'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
-              html: ''
-            }, (status,data));
-          }//if
-
-        });//getAllUsersbyProblemId
+            MailController.sendSingleMail(
+              {
+                recepients: data[0].email,
+                text:
+                  'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
+                html: ''
+              },
+              (status, data)
+            );
+          } //if
+        }); //getAllUsersbyProblemId
 
         res.status(status).json(data);
-    });//support
-
+      }); //support
     } else {
       console.log('---ELSE altså ikke status 200');
       res.status(status).json(data);
     }
-  });//createSupportUser
+  }); //createSupportUser
 };
 
 exports.problems_get_from_municipality = (req, res) => {
@@ -87,11 +88,7 @@ exports.problems_get_from_municipality_and_street = (req, res) => {
 exports.problems_get_from_municipality_sorted = (req, res) => {
   if (req.body.county === 'Sør-Trøndelag' || req.body.county === 'Nord-Trøndelag') req.body.county = 'Trøndelag';
   console.log(
-    '/problems/municipality/sorted: ' +
-    req.body.municipality +
-    '(' +
-    req.body.county +
-    ') fikk GET request fra klient'
+    '/problems/municipality/sorted: ' + req.body.municipality + '(' + req.body.county + ') fikk GET request fra klient'
   );
   problemDao.getFromMunicipalitySorted(req.body, (status, data) => {
     res.status(status).json(data);
@@ -100,14 +97,13 @@ exports.problems_get_from_municipality_sorted = (req, res) => {
 
 exports.problems_create_problem = (req, res) => {
   console.log('Fikk POST-request fra klienten');
-  if (req.body.county === 'Nord-Trøndelag' || req.body.county === 'Sør-Trøndelag')
-    req.body.county = 'Trøndelag';
+  if (req.body.county === 'Nord-Trøndelag' || req.body.county === 'Sør-Trøndelag') req.body.county = 'Trøndelag';
   //Check if user has 10 problems already in DB
-  problemDao.getAllFromUserUnchecked(req.body.user_id, (status, data) =>{
+  problemDao.getAllFromUserUnchecked(req.body.user_id, (status, data) => {
     console.log(status);
     //console.log(data);
     console.log(data.length);
-    if(data.length < 10){
+    if (data.length < 10) {
       if (req.file === undefined) {
         problemDao.createOne(req.body, (status, data) => {
           handleError(status, data, req, res);
@@ -120,8 +116,7 @@ exports.problems_create_problem = (req, res) => {
           });
         });
       }
-    }
-    else{
+    } else {
       res.status(429).json(data);
       //console.log("Cannot add more prolbmes for: " + req.body.user_id);
     }
@@ -227,7 +222,6 @@ exports.problems_edit_problem = (req, res) => {
   }
 };
 
-
 exports.problems_get_problem_by_user = (req, res) => {
   console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
   problemDao.getByUser(req.params.user_id, (status, data) => {
@@ -246,12 +240,15 @@ exports.problems_add_entrepreneur = (req, res) => {
   problemDao.addEntrepreneur(req.body, (status, data) => {
     console.log('problem_id = ' + req.body.problem_id);
     if (status == 200) {
-      problemDao.getAllUsersbyProblemId(req.body.problem_id, (status,data) => {
-        MailController.sendMassMail({
-          recepients: data,
-          text: 'En bedrift jobber nå med et problem du abonnerer på.',
-          html: ''
-        }, (status,data));
+      problemDao.getAllUsersbyProblemId(req.body.problem_id, (status, data) => {
+        MailController.sendMassMail(
+          {
+            recepients: data,
+            text: 'En bedrift jobber nå med et problem du abonnerer på.',
+            html: ''
+          },
+          (status, data)
+        );
       });
 
       return res.status(400).json(data);

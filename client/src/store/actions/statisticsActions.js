@@ -2,26 +2,28 @@
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
 import { postData } from '../axios';
-
+import {enqueueSnackbar} from './notifyActions'
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getAllProblemsFromMuni = muni => {
+export const getProblemsByMuni = muni => {
   console.log(muni);
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems/municipality/sorted', muni)
       .then(response => {
-        if (response.length > 0)
+        if (response.data.length > 0) {
           dispatch({
             type: 'GET_ALL_PROBLEMS_SUCCESS',
             payload: response.data
           });
+          dispatch(enqueueSnackbar('U in', 'success'));
+        }
         else
           dispatch({
             type: 'GET_ALL_PROBLEMS_ERROR',
-            payload: new Error({message: 'EMPTY ARRAY'})
+            payload: new Error({message: 'REEE'})
           });
       })
       .catch((error: Error) =>

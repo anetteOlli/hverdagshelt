@@ -6,7 +6,7 @@ import PieChart from './PieChartPage';
 import LineChart from './LineChartPage';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { getAllProblemsFromMuni } from '../../store/actions/statisticsActions';
+import { getProblemsByMuni } from '../../store/actions/statisticsActions';
 import { getUserInfo } from '../../store/actions/userActions';
 import type { ReduxState } from '../../store/reducers';
 
@@ -78,7 +78,7 @@ const mapStateToProps = (state: ReduxState) => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: (muni) => dispatch(getAllProblemsFromMuni(muni)),
+    getAllProblemsFromMuni: (muni) => dispatch(getProblemsByMuni(muni)),
   };
 };
 
