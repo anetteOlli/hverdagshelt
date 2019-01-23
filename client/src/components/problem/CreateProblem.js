@@ -151,18 +151,7 @@ function getStepContent(step: number, state: State,
       //console.log(rows);
       return (
         <Card className="content-1">
-        <Dialog
-          open={this.state.showSuppordDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{'Du har nå støttet et problem, du sendes nå til forsiden'}</DialogTitle>
-          <DialogActions>
-            <Button onClick={this.handleSupportDialogClose} color="primary" autoFocus>
-              Ok
-            </Button>
-          </DialogActions>
-          </Dialog>
+
           <CardContent>
           <Typography variant="h5" align="center" color="secondary">
             Nærliggende problemer
@@ -669,6 +658,18 @@ class CreateProblem extends React.Component<Props, State> {
     }
     return (
       <div>
+      <Dialog
+        open={this.state.showSuppordDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du har nå støttet et problem, du sendes nå til forsiden'}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleSupportDialogClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+        </Dialog>
       <Dialog
         open={this.state.failureDialog}
         aria-labelledby="alert-dialog-title"
