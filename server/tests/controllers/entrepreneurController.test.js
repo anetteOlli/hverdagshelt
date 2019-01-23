@@ -42,7 +42,7 @@ test("Testing getEntrepreneur from entrepreneurDao", (done) => {
   })
 });
 
-/*test("Testing createEntrepreneur from userDao", (done) => {
+test("Testing createEntrepreneur from userDao", (done) => {
 
   let json = {
     entrepreneur:{
@@ -68,7 +68,7 @@ test("Testing getEntrepreneur from entrepreneurDao", (done) => {
     done();
   })
 });
-*/
+
 test("Testing checkEntrepreneur from entrepreneurDao", (done)=> {
   let orgNr = "01";
   entrepreneurController.validate_org_nr(orgNr, (status,data) => {
