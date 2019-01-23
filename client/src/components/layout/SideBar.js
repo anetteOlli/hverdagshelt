@@ -91,11 +91,11 @@ class TemporaryDrawer extends React.Component<Props> {
             </ListItemIcon>
             <ListItemText primary="statistikk" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problemdetails/2'}>
+          <ListItem button component={NavLink} to={'/problems'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="ProblemDetails" />
+            <ListItemText primary="problemoversikt" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>

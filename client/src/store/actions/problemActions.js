@@ -44,7 +44,8 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        return getData(`problems/entrepreneur/${getState}`)
+        console.log("Entrepreneur_fk in problemAction: ")
+        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',

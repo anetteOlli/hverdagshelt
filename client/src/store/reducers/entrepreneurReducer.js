@@ -3,6 +3,7 @@ export type Action = { type: 'ENTREPRENEUR_GET_ALL_SUCCESS' } | { type: 'ENTREPR
 
 const initState = {
   entrepreneurs: [],
+  currentEntrepreneur: '',
   errorMessage: ''
 };
 
@@ -18,6 +19,18 @@ export default (state: State = initState, action: Action) => {
       return {
         errorMessage: action.payload.message
       };
+
+    case 'ENTREPRENEUR_GET_FROM_USER_FK_SUCCESS':
+      console.log('%c ENTREPRENEUR_GET_FROM_USER_FK_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        currentEntrepreneur: action.payload
+      };
+    case 'ENTREPRENEUR_GET_FROM_USER_FK_ERROR':
+      console.log('%c ENTREPRENEUR_GET_FROM_USER_FK_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        errorMessage: action.payload.message
+      };
+
     case 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS':
       console.log('%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {

@@ -214,6 +214,7 @@ exports.problems_edit_problem = (req, res) => {
   }
 };
 
+
 exports.problems_get_problem_by_user = (req, res) => {
   console.log('/problems/' + req.params.user_id + ' fikk GET request fra klient');
   problemDao.getByUser(req.params.user_id, (status, data) => {
