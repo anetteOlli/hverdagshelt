@@ -54,13 +54,16 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing.unit
   },
   paper: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginTop: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
     color: theme.palette.text.secondary
   },
   paper2: {
-    height: '100%'
+    height: '100%',
+    margin: 30
   },
   grid: {
     height: '100%',
@@ -72,6 +75,15 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     height: '100%',
     alignItems: 'flex-end'
+  },
+  titles: {
+    textdecoration: 'underline',
+    paddingTop: 30
+  },
+  entries: {
+    maxWidth: '90%',
+    marginLeft: 30,
+    marginRight: 30,
   }
 });
 
@@ -136,10 +148,11 @@ class EditProblemA extends React.Component<Props, State> {
             <ValidatorForm ref="problemForm" onSubmit={this.handleSubmit}>
               <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
                 <Paper className={classes.paper2} name={'Paper for UserProblem'}>
-                  <Typography variant="h2" gutterBottom align="center">
-                    Bruker beskrivelse:
+                  <Typography variant="h3" className = {classes.titles} gutterBottom align="center">
+                    Bruker beskrivelse
                   </Typography>
                   <TextValidator
+                    className = {classes.entries}
                     fullWidth
                     margin="normal"
                     label="Tittel"
@@ -150,10 +163,11 @@ class EditProblemA extends React.Component<Props, State> {
                     errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
                   />
                   <SelectValidator
+                    className = {classes.entries}
                     fullWidth
-                    margin="normal"
                     label="Status:"
                     name="status_fk"
+                    margin="normal"
                     value={this.state.status_fk}
                     onChange={this.handleChange}
                     validators={['required']}
@@ -167,10 +181,11 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
+                    className = {classes.entries}
                     fullWidth
-                    margin="normal"
                     multiline
                     label="Beskrivelse"
+                    margin="normal"
                     rowsMax={10}
                     name="problem_description"
                     value={this.state.problem_description}
@@ -180,9 +195,10 @@ class EditProblemA extends React.Component<Props, State> {
                   />
 
                   <SelectValidator
+                    className = {classes.entries}
                     fullWidth
-                    margin="normal"
                     label="Kategori"
+                    margin="normal"
                     name="category_fk"
                     value={this.state.category_fk}
                     onChange={this.handleChange}
@@ -196,7 +212,7 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
 
-                  <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                  <Typography variant="i" className={classes.paper}> Dato startet: {this.state.date_made} </Typography>
 
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -215,14 +231,15 @@ class EditProblemA extends React.Component<Props, State> {
               </Grid>
               <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
                 <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                  <Typography variant="h2" gutterBottom align="center">
-                    Entreprenør beskrivelse:
+                  <Typography variant="h3" className = {classes.titles} gutterBottom align="center">
+                    Entreprenør beskrivelse
                   </Typography>
 
                   <SelectValidator
+                    className = {classes.entries}
                     fullWidth
-                    margin="normal"
                     label="Status:"
+                    margin="normal"
                     name="status_fk"
                     value={this.state.status_fk}
                     onChange={this.handleChange}
@@ -237,6 +254,7 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
+                    className = {classes.entries}
                     fullWidth
                     multiline
                     rowsMax={10}
@@ -247,9 +265,9 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+                  <Typography variant = 'i' className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Typography>
 
-                  <Paper> Dato Endret: {this.state.last_edited} </Paper>
+                  <Typography variant = 'i' className ={classes.paper}> Dato Endret: {this.state.last_edited} </Typography>
 
                   <div>
                     <ExpansionPanel>
