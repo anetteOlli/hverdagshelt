@@ -291,10 +291,8 @@ class CreateEvent extends React.Component<Props, State>{
     dateEnd: new Date('0000-00-00T00:00:0'),
     dateEndInput: '',
     image: '',
-
     picture: '',
     displayImg: '',
-
     county: '',
     municipality: '',
     city: '',

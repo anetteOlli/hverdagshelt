@@ -31,8 +31,8 @@ module.exports = class EntrepreneurDao extends Dao {
   }
 
   createEntrepreneur(json, user_id, callback) {
-    const val = [json.bedriftNavn, json.org_nr, user_id];
-    super.query('insert into entrepreneur (businessName, org_nr, user_id) values (?,?,?)', val, callback);
+    const val = [json.business_name, json.org_nr, user_id];
+    super.query('insert into entrepreneur (business_name, org_nr, user_id) values (?,?,?)', val, callback);
   }
 
   linkEntrepreneur(json, id, callback) {

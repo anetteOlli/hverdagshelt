@@ -112,7 +112,7 @@ CREATE TABLE user_event (
 
 CREATE TABLE entrepreneur (
   entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  bedriftnavn VARCHAR(255) NOT NULL,
+  business_name VARCHAR(255) NOT NULL,
   org_nr VARCHAR(45) NOT NULL UNIQUE,
   user_id INT NOT NULL
 );
