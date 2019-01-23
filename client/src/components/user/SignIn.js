@@ -87,7 +87,7 @@ class SignIn extends React.Component<Props, State> {
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      if (this.props.errorMessage === '') this.props.enqueueSnackbar(' U in', { variant: 'success' });
+      if (this.props.errorMessage === '') this.props.enqueueSnackbar('Logget inn!', { variant: 'success' });
       else this.refs.form.submit();
     });
   };
