@@ -24,7 +24,7 @@ beforeEach(done => {
 });
 
 
-est("Testing problems_get_all from problemcontroller", (done) => {
+test("Testing problems_get_all from problemcontroller", (done) => {
   problemController.problems_get_all((status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(3);
