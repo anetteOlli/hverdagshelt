@@ -44,7 +44,7 @@ exports.problems_support_problem = (id,json,callback) => {
               recepients: data[0].email,
               text: 'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
               html: ''
-            }, (status,data));
+            }, callback(status,data));
           }//if
 
         });//getAllUsersbyProblemId
@@ -263,7 +263,7 @@ exports.problems_add_entrepreneur = (json,callback) => {
           html: ''
         }, (status,data));
       });
-      callback(400,data)
+      callback(status,data)
     }
   });
 };

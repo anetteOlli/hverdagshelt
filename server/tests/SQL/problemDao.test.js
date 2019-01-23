@@ -161,8 +161,8 @@ test("Testing patchMunicipality from problemDao", (done) => {
 test("Testing getAllUsersByProblemId", (done) => {
   dao.getAllUsersbyProblemId(1,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBeGreaterThanOrEqual(4);
-    expect(data.length).toBeLessThanOrEqual(2);
+    expect(data.length).toBeLessThanOrEqual(4);
+    expect(data.length).toBeGreaterThanOrEqual(2);
     expect(data[0].email).toBe("user@user.user");
     done();
   })

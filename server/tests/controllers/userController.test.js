@@ -29,7 +29,6 @@ test("Testing users_get_all from userController", (done) => {
     expect(status).toBe(200);
     expect(data.length).toBeLessThanOrEqual(5);
     expect(data.length).toBeGreaterThanOrEqual(3);
-    expect(data[0].email).toBe("user@user.user");
     done();
   });
 });

@@ -96,7 +96,7 @@ test("Testing checkMail from userDao", (done) => {
 });
 
 test("Testing activateUser from userDao", (done) => {
-  let email = "user@user.user";
+  let email = "admin@admin.admin";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
@@ -106,9 +106,9 @@ test("Testing activateUser from userDao", (done) => {
 
 test("Testing changePassword from userDao", (done) => {
   let json = {
-    email: "user@user.user",
+    email: "admin@admin.admin",
     password: "test",
-    user_id : 1
+    user_id : 3
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);

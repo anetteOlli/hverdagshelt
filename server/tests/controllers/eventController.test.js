@@ -51,8 +51,8 @@ test("Testing events_get_all from eventController", (done) => {
     expect(status).toBe(200);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
-    expect(data.length).toBeGreaterThanOrEqual(2);
-    expect(data.length).toBeLessThanOrEqual(2);
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    expect(data.length).toBeLessThanOrEqual(4);
     done();
   })
 });
@@ -68,7 +68,7 @@ test("Testing events_get_event from eventController", (done) => {
 });
 
 test("Testing events_delete_event", (done) => {
-  let id = 1;
+  let id = 3;
   eventController.events_delete_event(id,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toEqual(1);

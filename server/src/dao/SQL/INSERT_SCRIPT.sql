@@ -477,7 +477,7 @@ INSERT INTO priority VALUES ("Administrator");
 INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('user@user.user', 'ok',"Trondheim", "Trøndelag" ,"Standard", NOW(), 0);
 INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('koma@koma.koma', 'ok',"Trondheim", "Trøndelag" ,"Municipality", NOW(), 1);
 INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('entr@entr.entr', 'ok',"Trondheim", "Trøndelag" ,"Entrepreneur", NOW(), 1);
-INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('admin@admin.admin', 'ok', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 0);
 
 INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
 INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "045", 4);

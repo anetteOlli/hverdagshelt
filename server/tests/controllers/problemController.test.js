@@ -56,7 +56,8 @@ test("Testing problems_get_from_municipality from problemController", (done) => 
 
   problemController.problems_get_from_municipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+    expect(data.length).toBeLessThanOrEqual(2);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].municipality).toBe("Trondheim");
     expect(data[0].county).toBe("Trøndelag");
@@ -83,8 +84,8 @@ test("Testing problems_get_from_municipality_and_street from problemController",
 
 test("Testing problems_add_entrepreneur from problemController", (done) => {
   let json = {
-    entrepreneur_id:1,
-    problem_id:1
+    entrepreneur_id:3,
+    problem_id:2
   };
   problemController.problems_add_entrepreneur(json,(status,data) => {
     expect(status).toBe(200);
@@ -110,7 +111,7 @@ test("Testing problems_create_problem from problemController", (done) => {
   };
   problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
+    expect(data).toBe(1);
     done();
   })
 });
