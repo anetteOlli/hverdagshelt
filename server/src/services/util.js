@@ -7,7 +7,7 @@ export const checkAuth = (req: () => mixed, res: express$Response, next: express
   try {
     const token = req.headers.authorization.split(' ')[1];
     console.log(token);
-    req.userData = jwt.verify(token, process.env.JWT_KEY);
+    req.userData = jwt.verify(token, process.env.JWT_KEY || "123213");
     next();
   } catch (err) {
     res.status(401).json({
@@ -23,7 +23,7 @@ export const genToken = (id: number, priority: string) =>
       id,
       priority
     },
-    process.env.JWT_KEY,
+    process.env.JWT_KEY || "123213",
     {
       expiresIn: '1h'
     }

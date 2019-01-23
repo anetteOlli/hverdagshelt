@@ -19,7 +19,9 @@ jest.setTimeout(30000);
 
 beforeEach(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, done);
+    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
+      done();
+    });
   });
 });
 afterAll(() => pool.end());
@@ -30,7 +32,7 @@ test("Tester getAll fra categoryDao", (done) => {
     expect(data.length).toBe(4);
     //expect(data[0]).toBeString(); Not a function, but is a void function to check if the element is a string
     //expect(data[0]).toBeArray();
-    expect(data[0]).toEqual({"category":'Hole in road'});
+    expect(data[0].category).toEqual('Hole in road');
     done();
   });
 });
