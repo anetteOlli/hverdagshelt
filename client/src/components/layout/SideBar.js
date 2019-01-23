@@ -23,6 +23,7 @@ import Button from '@material-ui/core/Button/Button';
 import connect from 'react-redux/es/connect/connect';
 import withRoot from '../../withRoot';
 import { withSnackbar } from 'notistack';
+import HomeOutlined from '@material-ui/icons/HomeOutlined';
 
 type Props = {
   classes: Object,
@@ -79,6 +80,13 @@ class TemporaryDrawer extends React.Component<Props> {
     const sideList = (
       <div className={classes.list}>
         <List>
+          <ListItem button component={NavLink} to={'/'}>
+            <ListItemIcon>
+              <HomeOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Hverdagshelt" />
+          </ListItem>
+          <Divider />
           <ListItem button component={NavLink} to={'/opprArrangement'}>
             <ListItemIcon>
               <EventIcon />
