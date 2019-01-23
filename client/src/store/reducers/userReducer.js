@@ -112,8 +112,8 @@ export default (state: State = initState, action: Action) => {
         ...state,
         email: action.payload.email,
         currentMuni: {
-          municipality: action.payload[0].municipality_fk,
-          county: action.payload[0].county_fk
+          municipality: action.payload[0].municipality,
+          county: action.payload[0].county
         },
       };
     case 'GET_USER_INFO_ERROR':

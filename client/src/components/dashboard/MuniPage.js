@@ -156,7 +156,7 @@ class MuniPage extends React.Component<Props, State> {
     return (
       <main>
         <Grid container spacing={8} alignItems="center" alignContent="center">
-          <Grid item>
+          <Grid item xs={12}>
             <Card className={classes.cardPage}>
               <CardContent>
                 <Grid container spacing={24}>

@@ -19,10 +19,10 @@ exports.users_login = (req, res) => {
       console.log("Data: ", data);
       res.status(200).json({
         id: data[0].user_id,
-        jwt: genToken(data[0].user_id, data[0].priority_fk),
-        priority: data[0].priority_fk,
-        municipality: data[0].municipality_fk,
-        county: data[0].county_fk
+        jwt: genToken(data[0].user_id, data[0].priority),
+        priority: data[0].priority,
+        municipality: data[0].municipality,
+        county: data[0].county
       });
     } else res.status(401).json({ message: 'WRONG_PASSWORD' });
   });
@@ -34,8 +34,8 @@ exports.users_refresh = (req, res) => {
     id: req.userData.id,
     jwt: genToken(req.userData.id, req.userData.priority),
     priority: req.userData.priority,
-    municipality: req.userData.municipality_fk,
-    county: req.userData.county_fk
+    municipality: req.userData.municipality,
+    county: req.userData.county
   });
 };
 

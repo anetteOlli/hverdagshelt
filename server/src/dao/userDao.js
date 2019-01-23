@@ -5,7 +5,7 @@ const Dao = require('./dao.js');
 module.exports = class UserDao extends Dao {
   getAll(callback) {
     super.query(
-      'select user_id, email, created, active, municipality_fk, county_fk, priority_fk from user',
+      'select user_id, email, created, active, municipality, county, priority from user',
       [],
       callback
     );
@@ -14,7 +14,7 @@ module.exports = class UserDao extends Dao {
   getOneById(id, callback) {
     console.log("getOneById id: ", id);
     super.query(
-      'select user_id, email, created, active, municipality_fk, county_fk, priority_fk from user where user_id = ?',
+      'select user_id, email, created, active, municipality, county, priority from user where user_id = ?',
       [id],
       callback
     );
@@ -23,7 +23,7 @@ module.exports = class UserDao extends Dao {
   createUser(json, password, standard, callback) {
     const val = [json.email, password, json.municipality, json.county, standard];
     super.query(
-      'insert into user (email, password, created, municipality, county, priority_fk) values (?,?,NOW(),?,?,?)',
+      'insert into user (email, password, created, municipality, county, priority) values (?,?,NOW(),?,?,?)',
       val,
       callback
     );
@@ -44,6 +44,6 @@ module.exports = class UserDao extends Dao {
   }
 
   checkEmail(email, callback) {
-    super.query('select user_id, password, priority_fk, municipality_fk, county_fk from user where email = ?', [email], callback);
+    super.query('select user_id, password, priority, municipality, county from user where email = ?', [email], callback);
   }
 };
