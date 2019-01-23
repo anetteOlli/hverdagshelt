@@ -64,20 +64,21 @@ class StatisticPage extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    this.props.getUserInfo().then(() => this.props.getAllProblemsFromMuni());
+    this.props.getAllProblemsFromMuni(this.props.currentMuni);
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    ready: state.statistic.ready
+    ready: state.statistic.ready,
+    currentMuni: state.user.currentMuni
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: () => dispatch(getAllProblemsFromMuni())
+    getAllProblemsFromMuni: (muni) => dispatch(getAllProblemsFromMuni(muni)),
   };
 };
 
