@@ -253,8 +253,7 @@ exports.problems_add_entrepreneur = (req, res) => {
           html: ''
         }, (status,data));
       });
-
-      return res.status(400).json(data);
+      return res.status(status).json(data);
     }
   });
 };
