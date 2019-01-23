@@ -20,6 +20,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
 import 'date-fns';
 import DateFormat from 'dateformat';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 // Use history.push(...) to programmatically change path
 import createHashHistory from 'history/createHashHistory';
@@ -328,6 +329,11 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h6" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
@@ -347,6 +353,8 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h5" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>

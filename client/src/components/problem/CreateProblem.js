@@ -26,6 +26,7 @@ import Map from '../map/MapWithSearchBox';
 import MuiTable2 from '../util/MuiTable-2';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 /**
  * @fileOverview Create Problem Component
@@ -624,6 +625,11 @@ class CreateProblem extends React.Component<Props, State> {
               <Typography variant="h5" color="error">
                 Du må logge inn for å kunne registrere problem
               </Typography>
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>

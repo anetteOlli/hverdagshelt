@@ -255,7 +255,7 @@ class MainPage extends React.Component<Props, State> {
                   VELKOMMEN TIL HVERDAGSHELT!
                 </Typography>
                 <Typography variant="h5" className={classes.tekst}>
-                  Finn din kommune
+                  Finn arrangementer og problemer i din kommune
                 </Typography>
                 <NoSsr>
                   <Select
