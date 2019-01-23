@@ -59,7 +59,8 @@ const styles = (theme: Object) => ({
     minWidth: '100%',
     [theme.breakpoints.down('sm')]: {
       width: '50%'
-    }
+    },
+    minHeight: 40,
   },
   grid: {
     height: '100%',
@@ -99,11 +100,8 @@ const styles = (theme: Object) => ({
     paddingTop: 25,
     paddingBottom: 15,
     paddingLeft: 15
-  },
-
+  }
 });
-
-
 
 class ProblemDetails extends React.Component<Props, State> {
   state = {
@@ -194,7 +192,6 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({ open: false });
   };
 
-
   handleAddEntrepreneur = e => {
     let myEntrepreneur = e;
     this.setState({
@@ -239,7 +236,7 @@ class ProblemDetails extends React.Component<Props, State> {
                     </Button>
                   )}
 
-                <Button className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
+                <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
                     <Edit />
                   </Icon>{' '}
@@ -256,12 +253,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kategori: {problem.category}
                 </Typography>
               </Grid>
             </div>
@@ -367,8 +364,7 @@ const mapStateToProps = (state: ReduxState) => {
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    errorMessage: state.problem.errorMessage,
-
+    errorMessage: state.problem.errorMessage
   };
 };
 
