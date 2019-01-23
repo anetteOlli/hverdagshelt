@@ -16,7 +16,9 @@ if (root) {
   let render = () => {
     ReactDOM.render(
       <Provider store={store}>
+        <SnackbarProvider maxSnack={3}>
         <App />
+        </SnackbarProvider>
       </Provider>,
       root
     );

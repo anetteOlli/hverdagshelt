@@ -20,9 +20,11 @@ import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import ScrollToTop from './components/util/ScrollToTop';
-import Notifier from './components/util/Notifier';
 import type { ReduxState } from './store/reducers';
 import { connect } from 'react-redux';
+import LoadingComponent from './components/util/LoadingComponent';
+import Notifier from './components/util/Notifier';
+
 const styles = () => ({
   root: {
     display: 'flex',
@@ -50,13 +52,12 @@ type Props = {
 
 class App extends React.Component<Props> {
   render() {
-    console.log('dd',this.props.checkedJWT);
-    if (this.props.checkedJWT)
+    if (!this.props.checkedJWT) return (<LoadingComponent/>);
+    else
       return (
-        <SnackbarProvider maxSnack={3}>
-          <Notifier />
           <HashRouter>
             <Fragment>
+              <Notifier />
               <CssBaseline />
               <div className={this.props.classes.root}>
                 <NavBar />
@@ -87,9 +88,7 @@ class App extends React.Component<Props> {
               </div>
             </Fragment>
           </HashRouter>
-        </SnackbarProvider>
       );
-    else return <div>ff</div>;
   }
 }
 
