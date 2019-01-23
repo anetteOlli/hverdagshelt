@@ -16,9 +16,9 @@ import { withSnackbar } from 'notistack';
 import { getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 
 let id = 0;
-function createSingleInstanceData(problem_id, problem_title, status_fk, support) {
+function createSingleInstanceData(problem_id, problem_title, status, support) {
   id += 1;
-  return { id, problem_id, problem_title, status_fk, support};
+  return { id, problem_id, problem_title, status, support};
 }
 
 function desc(a, b, orderBy) {
@@ -47,7 +47,7 @@ function getSorting(order, orderBy) {
 
 const rows = [
   { id: 'problem_title', numeric: false, disablePadding: true, label: 'Tittel: ' },
-  { id: 'status_fk', numeric: false, disablePadding: true, label: 'Status: ' },
+  { id: 'status', numeric: false, disablePadding: true, label: 'Status: ' },
   { id: 'support', numeric: true, disablePadding: false, label: 'Støtte: ' }
 ];
 
@@ -179,7 +179,7 @@ class Tabletest extends React.Component {
                         <TableCell component="th" padding="none">
                           {n.problem_title}
                         </TableCell>
-                        <TableCell className={classes.tableRow}>{n.status_fk}</TableCell>
+                        <TableCell className={classes.tableRow}>{n.status}</TableCell>
                         <TableCell className={classes.tableRow}>{n.support}</TableCell>
                       </TableRow>
                     );
@@ -221,7 +221,7 @@ class Tabletest extends React.Component {
       console.log(problems);
       const data = problems
         ? problems.map((problem, index: number) =>
-            createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status_fk, problem.support || 0)
+            createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status, problem.support || 0)
           )
         : null;
       this.setState({

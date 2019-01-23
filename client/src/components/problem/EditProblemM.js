@@ -19,8 +19,6 @@ import MapMarkers from '../map/MapMarkers';
 import moment from 'moment';
 import type { Problem } from '../../store/reducers/problemReducer';
 
-const statuss = ['til avventing', 'påbegynt', 'registrert', 'ferdig'];
-
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -37,17 +35,17 @@ type State = {
   date_made: date,
   last_edited: date,
   date_finished: date,
-  category_fk: string,
-  status_fk: string,
-  user_fk: number,
-  entrepreneur_fk: number,
+  category: string,
+  status: string,
+  user_id: number,
+  entrepreneur_id: number,
   latitude: number,
   longitude: number,
   support: number,
-  municipality_fk: string,
-  county_fk: string,
-  city_fk: string,
-  street_fk: string,
+  municipality: string,
+  county: string,
+  city: string,
+  street: string,
 };
 
 const styles = (theme: Object) => ({
@@ -92,17 +90,18 @@ class EditProblemM extends React.Component<Props, State> {
     date_made: '',
     last_edited: '',
     date_finished: '',
-    category_fk: '',
-    status_fk: '',
-    user_fk: '',
-    entrepreneur_fk: '',
+    category: '',
+    status: '',
+    user_id: '',
+    entrepreneur_id: '',
     latitude: '',
     longitude: '',
     support: '',
-    municipality_fk: '',
-    county_fk: '',
-    city_fk: '',
-    street_fk: '',
+    municipality: '',
+    county: '',
+    city: '',
+    street: '',
+    displayImg: '',
 
   };
 
@@ -117,11 +116,12 @@ class EditProblemM extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      displayImg: e
+      img_entrepreneur: e
     });
   };
 
   render() {
+    const statuss = ['Finished', 'InProgress', 'Unchecked'];
     const { classes, problem, isLoggedIn, categories } = this.props;
     return (
       <div className={classes.main}>
@@ -132,12 +132,22 @@ class EditProblemM extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  label="Tittel"
+                  name="problem_title"
+                  value={this.state.problem_title}
+                  onChange={this.handleChange}
+                  validators={['required', 'minStringLength:1']}
+                  errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
+                />
                 <SelectValidator
                   fullWidth
                   margin="normal"
                   label="Status:"
-                  name="status_fk"
-                  value={this.state.status_fk}
+                  name="status"
+                  value={this.state.status}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
@@ -166,8 +176,8 @@ class EditProblemM extends React.Component<Props, State> {
                   fullWidth
                   margin="normal"
                   label="Kategori"
-                  name="category_fk"
-                  value={this.state.category_fk}
+                  name="category"
+                  value={this.state.category}
                   onChange={this.handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
@@ -178,7 +188,7 @@ class EditProblemM extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {moment(this.state.date_made).calendar()} </Paper>
+                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
 
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
@@ -187,14 +197,9 @@ class EditProblemM extends React.Component<Props, State> {
                     </div>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
-                    <div />
                     <div>
-                      <img
-                        id="img"
-                        width="100%"
-                        src={this.state.img_user || 'http://placehold.it/180'}
-                        alt="Bilde"
-                      />
+                      <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                      <PictureUpload uploadImg={this.handleUpload} />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -205,7 +210,7 @@ class EditProblemM extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Entreprenør beskrivelse:
                 </Typography>
-                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_fk} </Paper>
+                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
 
                 <Paper
                   className={classes.paper}
@@ -225,7 +230,7 @@ class EditProblemM extends React.Component<Props, State> {
                   }
                 </Paper>
 
-                <Paper className={classes.paper}> Dato Endret: {moment(this.state.last_edited).calendar()} </Paper>
+                <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -235,17 +240,9 @@ class EditProblemM extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div />
                       <div>
-                        <img
-                          id="img"
-                          width="100%"
-                          src={
-                            this.state.img_entrepreneur ||
-                            'https://s3.amazonaws.com/pas-wordpress-media/content/uploads/2014/06/shutterstock_185422997-653x339.jpg'
-                          }
-                          alt="Bilde"
-                        />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
+                        <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
@@ -288,11 +285,10 @@ class EditProblemM extends React.Component<Props, State> {
         ...nextProps.problem
       });
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
-    this.props.getCategories().then(() => console.log('Categories loaded in editproblemA: ', this.props.categories));
+    this.props.getCategories();
     this.setState({
       ...this.props.problem
     });

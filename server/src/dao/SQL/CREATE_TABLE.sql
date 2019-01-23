@@ -54,17 +54,17 @@ CREATE TABLE problem (
   date_made DATETIME,
   last_edited DATETIME ,
   date_finished DATETIME,
-  category_fk VARCHAR(50) NOT NULL,
-  status_fk VARCHAR(30) NOT NULL,
-  user_fk INTEGER NOT NULL,
-  entrepreneur_fk INTEGER,
+  category VARCHAR(50) NOT NULL,
+  status VARCHAR(30) NOT NULL DEFAULT "Unchecked",
+  user_id INTEGER NOT NULL,
+  entrepreneur_id INTEGER,
   latitude DOUBLE NOT NULL,
   longitude DOUBLE NOT NULL,
   support INT DEFAULT 0,
-  municipality_fk VARCHAR(30) NOT NULL,
-  county_fk VARCHAR(30) NOT NULL,
-  city_fk VARCHAR(30) NOT NULL,
-  street_fk VARCHAR(30) NOT NULL
+  municipality VARCHAR(30) NOT NULL,
+  county VARCHAR(30) NOT NULL,
+  city VARCHAR(30) NOT NULL,
+  street VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE priority (
@@ -76,9 +76,9 @@ CREATE TABLE user (
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
   created DATETIME NOT NULL,
-  municipality_fk VARCHAR(30) NOT NULL,
-  county_fk VARCHAR(30) NOT NULL,
-  priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
+  municipality VARCHAR(30) NOT NULL,
+  county VARCHAR(30) NOT NULL,
+  city VARCHAR(30) NOT NULL DEFAULT "Standard"
 );
 
 CREATE TABLE user_problem (
@@ -94,11 +94,11 @@ CREATE TABLE event (
   event_img VARCHAR(300),
   date_starting DATETIME,
   date_ending DATETIME,
-  status_fk VARCHAR(30),
-  municipality_fk VARCHAR(30),
-  county_fk VARCHAR(30),
-  city_fk VARCHAR(30),
-  street_fk VARCHAR(30),
+  status VARCHAR(30) DEFAULT "Unchecked",
+  municipality VARCHAR(30),
+  county VARCHAR(30),
+  city VARCHAR(30),
+  street VARCHAR(30),
   latitude DOUBLE NOT NULL,
   longitude DOUBLE NOT NULL
 );
@@ -112,47 +112,47 @@ CREATE TABLE user_event (
 
 CREATE TABLE entrepreneur (
   entrepreneur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  bedriftnavn VARCHAR(255) NOT NULL,
+  business_name VARCHAR(255) NOT NULL,
   org_nr VARCHAR(45) NOT NULL UNIQUE,
-  user_fk INT NOT NULL
+  user_id INT NOT NULL
 );
 
 CREATE TABLE entrepreneur_municipality (
    ent_muni INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   entrepreneur_fk INT NOT NULL,
-   municipality_fk VARCHAR(30) NOT NULL,
-   county_fk VARCHAR(30) NOT NULL
+   entrepreneur_id INT NOT NULL,
+   municipality VARCHAR(30) NOT NULL,
+   county VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE entrepreneur_category (
    ent_cat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   entrepreneur_fk INT NOT NULL,
-   category_fk VARCHAR(30) NOT NULL
+   entrepreneur_id INT NOT NULL,
+   category VARCHAR(30) NOT NULL
 );
 
 
 ALTER TABLE problem
-  ADD FOREIGN KEY (status_fk) REFERENCES status(status),
-  ADD FOREIGN KEY (user_fk) REFERENCES user(user_id),
-  ADD FOREIGN KEY (municipality_fk, county_fk) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
-  ADD FOREIGN KEY (category_fk) REFERENCES category(category),
-  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES user(user_id);
+  ADD FOREIGN KEY (status) REFERENCES status(status),
+  ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
+  ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
+  ADD FOREIGN KEY (city) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (category) REFERENCES category(category),
+  ADD FOREIGN KEY (entrepreneur_id) REFERENCES user(user_id);
 
 ALTER TABLE user
-  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
-  ADD FOREIGN KEY (municipality_fk,county_fk) REFERENCES municipality(municipality,county);
+  ADD FOREIGN KEY (city) REFERENCES priority(power),
+  ADD FOREIGN KEY (municipality,county) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
   ADD FOREIGN KEY (problem_id) REFERENCES problem(problem_id),
   ADD FOREIGN KEY (user_id) REFERENCES user(user_id);
 
 ALTER TABLE event
-  ADD FOREIGN KEY (municipality_fk, county_fk) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
-  ADD FOREIGN KEY (status_fk) REFERENCES status(status);
+  ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
+  ADD FOREIGN KEY (city) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (status) REFERENCES status(status);
 
 ALTER TABLE user_event
   ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
@@ -161,12 +161,12 @@ ALTER TABLE user_event
 ALTER TABLE municipality ADD FOREIGN KEY (county) REFERENCES county(name);
 
 ALTER TABLE entrepreneur
-  ADD FOREIGN KEY (user_fk) REFERENCES user(user_id);
+  ADD FOREIGN KEY (user_id) REFERENCES user(user_id);
 
 ALTER TABLE entrepreneur_municipality
-  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
-  ADD FOREIGN KEY (municipality_fk) REFERENCES municipality(municipality);
+  ADD FOREIGN KEY (entrepreneur_id) REFERENCES entrepreneur(entrepreneur_id),
+  ADD FOREIGN KEY (municipality) REFERENCES municipality(municipality);
 
 ALTER TABLE entrepreneur_category
-  ADD FOREIGN KEY (entrepreneur_fk) REFERENCES entrepreneur(entrepreneur_id),
-  ADD FOREIGN KEY (category_fk) REFERENCES category(category);
+  ADD FOREIGN KEY (entrepreneur_id) REFERENCES entrepreneur(entrepreneur_id),
+  ADD FOREIGN KEY (category) REFERENCES category(category);

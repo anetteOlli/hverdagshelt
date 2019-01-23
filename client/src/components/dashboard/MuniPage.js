@@ -14,6 +14,7 @@ import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path
 import moment from 'moment';
 import { CheckCircle, ThumbUp } from '@material-ui/icons';
+import { easyDateFormat } from '../util/DateFormater';
 
 type Props = {
   classes: Object,
@@ -33,13 +34,14 @@ const styles = theme => ({
     width: '100%'
   },
   cardPage: {
-    marginTop: 30
+    margin: 0,
+    width: "100%"
   },
   tittel: {
-    [theme.breakpoints.down('lg')]: {
-      fontSize: '150%'
-    },
     [theme.breakpoints.up('sm')]: {
+      fontSize: '300%'
+    },
+    [theme.breakpoints.down('sm')]: {
       fontSize: '300%'
     }
   },
@@ -48,26 +50,27 @@ const styles = theme => ({
     //padding: 30,
   },
   labeltext: {
-    [theme.breakpoints.down('lg')]: {
-      fontSize: '60%'
-    },
     [theme.breakpoints.up('sm')]: {
-      fontSize: '180%'
+      fontSize: '150%'
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '100%'
     }
   },
   tabRoot: {
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 30
   },
   card: {
-    margin: 5,
+    margin: 10,
+    height:"100%",
     [theme.breakpoints.up('sm')]: {
-      maxWidth: 310,
+      maxWidth: "100%",
       minWidth: 310
     },
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 130,
-      minWidth: 10
+      maxWidth: "100%",
+      minWidth: 100
     }
   },
   media: {
@@ -75,11 +78,48 @@ const styles = theme => ({
   },
   statustext: {
     color: '#ff9800',
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 15
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    }
   },
   categorytext: {
     color: '#1565c0',
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 15
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    }
+  },
+  cardTitle:{
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 25
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 18
+    }
+  },
+  cardDescription:{
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 15
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    },
+  },
+  cardProps:{
+    color: '#228B22',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 15
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    }
   }
 });
 
@@ -110,13 +150,13 @@ class MuniPage extends React.Component<Props, State> {
     const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
     const { municipality } = this.props.match.params;
+    //console.log("Propbs", problems);
     var moment = require('moment');
     if(events == undefined) return (<div/>);
     return (
       <main>
-        <Grid container spacing={24}>
-          <Grid item xs={1} />
-          <Grid item xs={10}>
+        <Grid container spacing={8} alignItems="center" alignContent="center">
+          <Grid item>
             <Card className={classes.cardPage}>
               <CardContent>
                 <Grid container spacing={24}>
@@ -158,7 +198,7 @@ class MuniPage extends React.Component<Props, State> {
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
-                    {console.log("EVENTER: " + events)}
+                    {console.log("EVENTER: ", events)}
                       <Grid container spacing={24}>
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
@@ -168,32 +208,31 @@ class MuniPage extends React.Component<Props, State> {
                                 alt="Bilde av arrangement"
                                 className={classes.media}
                                 height="180"
-                                image={event.event_img}
+                                image={event.event_img || "https://semantic-ui.com/images/wireframe/image.png"}
                                 title={event.event_name}
                               />
                               <CardContent>
-                                <Typography component="p" className={classes.statustext}>
-                                  <b>{event.status_fk}</b>
+                                <Typography align="center" component="p" className={classes.statustext}>
+                                  <b>{new Date(event.date_ending) <= new Date() ? "Ferdig" :
+                                     (new Date(event.date_starting) <= new Date() ? "Pågår" : "Ikke Startet")
+                                  }</b>
                                 </Typography>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                  {event.event_name}
+                                <Typography gutterBottom variant="h5" component="h2" className={classes.cardTitle}>
+                                  <b>{event.event_name}</b>
                                 </Typography>
-                                <Typography component="p">{event.event_description}</Typography>
-                                <Typography>
+                                <Typography component="p" className={classes.cardDescription}>{event.event_description}</Typography>
+                                <Typography className={classes.cardProps}>
                                   <br />
-                                  Starter: {moment(event.date_starting.toString()).calendar()}<br />
-                                  Slutter: {moment(event.date_ending.toString()).calendar()}<br />
+                                  Starter: {easyDateFormat(event.date_starting)}<br />
+                                  Slutter: {easyDateFormat(event.date_ending)}<br />
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {event.street_fk}</Typography>
+                                <Typography component="p" className={classes.cardProps}>Lokasjon: {event.street}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
                                   <Grid item md={8} />
                                   <Grid item md={4}>
-                                    <Button variant="contained" size="small" color="primary">
-                                      Info
-                                    </Button>
                                   </Grid>
                                 </Grid>
                               </CardActions>
@@ -205,7 +244,7 @@ class MuniPage extends React.Component<Props, State> {
                   )}
                   {value === 1 && (
                     <TabContainer>
-                    {console.log("PROBLEMER: " + problems)}
+                    {console.log("PROBLEMER: ", problems)}
                       <Grid container spacing={24}>
                         {problems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
@@ -215,32 +254,34 @@ class MuniPage extends React.Component<Props, State> {
                                 alt="Bilde av Problem"
                                 className={classes.media}
                                 height="180"
-                                image={problem.img_user}
+                                image={problem.img_user || "https://semantic-ui.com/images/wireframe/image.png"}
                                 title={problem.problem_title}
                               />
                               <CardContent>
-                                <Grid container spacing={24}>
-                                  <Grid item md={8}>
-                                    <Typography component="p" className={classes.statustext}>
-                                      <b>{problem.status_fk}</b>
+                                <Grid container spacing={24} justify="space-between">
+                                  <Grid item md={6}>
+                                    <Typography align="center" component="p" className={classes.statustext}>
+                                      <b>{problem.status == "Finished" ? "Ferdig" :
+                                      (problem.status == "InProgress" ? "Pågående" : "Ikke Godkjent"
+                                      )}</b>
                                     </Typography>
                                   </Grid>
-                                  <Grid item md={4}>
-                                    <Typography component="p" className={classes.categorytext}>
-                                      <i>{problem.category_fk}</i>
+                                  <Grid item md={6}>
+                                    <Typography align="center" component="p" className={classes.categorytext}>
+                                      <i>{problem.category}</i>
                                     </Typography>
                                   </Grid>
                                 </Grid>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                  {problem.problem_title}
+                                <Typography gutterBottom variant="h5" component="h2" className={classes.cardTitle}>
+                                  <b>{problem.problem_title}</b>
                                 </Typography>
-                                <Typography component="p">{problem.problem_description}</Typography>
-                                <Typography>
+                                <Typography component="p" className={classes.cardDescription}>{problem.problem_description}</Typography>
+                                <Typography className={classes.cardProps}>
                                   <br />
-                                  Dato lagt ut: {moment(problem.date_made.toString()).calendar()} <br />
+                                  Lagt ut: {easyDateFormat(problem.date_made)} <br />
                                   <br />
                                 </Typography>
-                                <Typography component="p">Lokasjon: {problem.street_fk}</Typography>
+                                <Typography component="p" className={classes.cardProps}>Lokasjon: {problem.street}</Typography>
                               </CardContent>
                               <CardActions>
                                 <Grid container direction="row" spacing={0}>
@@ -263,7 +304,6 @@ class MuniPage extends React.Component<Props, State> {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={1} />
         </Grid>
       </main>
     );
@@ -297,8 +337,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEvents: (muni, county) => dispatch(getEventsByMuni(muni, county)),
-    getProblems: (muni, county) => dispatch(getProblemsByMuni(muni, county))
+    getEvents: (municipality, county) => dispatch(getEventsByMuni(municipality, county)),
+    getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county))
   };
 };
 

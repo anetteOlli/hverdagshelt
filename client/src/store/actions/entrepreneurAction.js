@@ -26,10 +26,31 @@ export const getAllEntrepreneurs = () => {
   };
 };
 
-export const getEntrepreneursByMuniAndCat = (category_fk: string) => {
+export const entrepreneurs_get_one_by_user_id = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    //const val = [getState().problem.currentMuni.municipality_fk, getState().problem.currentMuni.county_fk, category_fk];
-    return postData('entrepreneurs/getcatmuni', {...getState().problem.currentMuni, category_fk})
+    return getData(`entrepreneurs/id/${getState().user.user_id}`)
+      .then(response =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_user_id_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+
+export const getEntrepreneursByMuniAndCat = p => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return postData('entrepreneurs/getcatmuni', {
+      municipality: p.municipality,
+      county: p.county,
+      category: p.category
+    })
       .then(response =>
         dispatch({
           type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS',
@@ -39,6 +60,24 @@ export const getEntrepreneursByMuniAndCat = (category_fk: string) => {
       .catch((error: Error) =>
         dispatch({
           type: 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+
+export const getEntrepreneursByMuni = () => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return postData('entrepreneurs/municipality', getState().statistic.selectedMuni)
+      .then(response =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_BY_MUNI_ERROR',
           payload: error
         })
       );

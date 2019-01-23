@@ -20,8 +20,8 @@ const styles = () => ({
 const Footer = props => {
   const { classes } = props;
   return (
-    <Paper>
-      <Grid className={classes.main} container>
+    <Paper className={classes.main}>
+      <Grid container>
         <Grid item xs={3} />
         <Grid item xs={6}>
           <Typography variant="body1" className={classes.footertekst}>

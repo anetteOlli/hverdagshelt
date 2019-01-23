@@ -10,16 +10,18 @@ type GetState = () => ReduxState;
 
 export const createCategory = (newCategory: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('categories', newCategory).then(() =>
-      dispatch({
-        type: 'CREATE_CATEGORY_SUCCESS'
-      }).catch((error: Error) =>
+    return postData('categories', newCategory)
+      .then(() =>
+        dispatch({
+          type: 'CREATE_CATEGORY_SUCCESS'
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'CREATE_CATEGORY_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };
 

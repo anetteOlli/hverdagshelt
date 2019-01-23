@@ -1,50 +1,56 @@
 // @flow
 import type { Action } from '../reducers/userReducer';
 import type { ReduxState } from '../reducers';
-import type { Action as AppAction } from '../reducers/appReducer';
-import { setToken, clearToken, postData, getData, getToken } from '../axios';
-import { loading, hasCheckedJWT } from './appActions';
+import type { Action as AsyncAction } from '../reducers/asyncReducer';
+import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
+import { setAsyncLoading, checkedJWT } from './asyncActions';
+import {enqueueSnackbar} from './notifyActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
-type Dispatch = (action: Action | ThunkAction | PromiseAction | AppAction) => any;
+type Dispatch = (action: Action | ThunkAction | PromiseAction | AsyncAction) => any;
 type GetState = () => ReduxState;
-
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return getData(`users/id${getState().user.userID}`).then(response =>
-      dispatch({
-        type: 'GET_USER_INFO_SUCESS',
-        payload: response.data
-      }).catch((error: Error) =>
+    return getData(`users/${getState().user.user_id}`)
+      .then(response => {
+        dispatch({
+          type: 'GET_USER_INFO_SUCCESS',
+          payload: response.data
+        });
+        dispatch(checkedJWT());
+        dispatch(enqueueSnackbar('u in', 'success'));
+      })
+      .catch((error: Error) => {
         dispatch({
           type: 'GET_USER_INFO_ERROR',
           payload: error
-        })
-      )
-    );
+        });
+        dispatch(checkedJWT());
+      });
   };
 };
 
 export const signIn = (creds: { email: string, password: string }) => {
   return (dispatch: Dispatch) => {
-    dispatch(loading());
+    dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
         console.log(response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: { userId: response.data.id, priority: response.data.priority }
+          payload: { user_id: response.data.id, priority: response.data.priority }
         });
-        dispatch(loading(false));
+        dispatch(getUserInfo());
+        dispatch(setAsyncLoading(false));
       })
       .catch((error: Error) => {
         dispatch({
           type: 'SIGN_IN_ERROR',
           payload: error
         });
-        dispatch(loading(false));
+        dispatch(setAsyncLoading(false));
       });
   };
 };
@@ -56,7 +62,7 @@ export const refresh = () => {
         type: 'REFRESH_ERROR',
         payload: 'NO JWT'
       });
-      dispatch(hasCheckedJWT());
+      dispatch(checkedJWT());
     } else {
       getData('users/refresh')
         .then(response => {
@@ -64,16 +70,16 @@ export const refresh = () => {
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: { userId: response.data.id, priority: response.data.priority }
+            payload: { user_id: response.data.id, priority: response.data.priority }
           });
-          dispatch(hasCheckedJWT());
+          dispatch(getUserInfo());
         })
         .catch((error: Error) => {
           dispatch({
             type: 'REFRESH_ERROR',
             payload: error.message
           });
-          dispatch(hasCheckedJWT());
+          dispatch(checkedJWT());
         });
     }
   };
@@ -120,7 +126,7 @@ export const signOut = () => {
     clearToken();
     dispatch({
       type: 'SIGN_OUT_SUCCESS'
-     });
+    });
   };
 };
 
@@ -134,7 +140,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/forgot', email)
+    return postData('users/f/forgot', { email })
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
@@ -143,6 +149,22 @@ export const forgotPassword = (email: string) => {
       .catch((error: Error) =>
         dispatch({
           type: 'TEMP_PASSWORD_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+export const setNewPassword = (user_id: number, password: string, email: string) => {
+  return (dispatch: Dispatch) => {
+    return patchData('users/changePassword', { user_id, password, email })
+      .then(() => {
+        return dispatch({
+          type: 'NEW_PASSWORD_SUCCESS'
+        });
+      })
+      .catch((error: Error) =>
+        dispatch({
+          type: 'NEW_PASSWORD_ERROR',
           payload: error
         })
       );
