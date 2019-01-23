@@ -129,8 +129,8 @@ exports.problems_create_problem = (req, res) => {
 
   function handleError(status, data, req, res) {
     if (status === 500) {
-      divDao.createCity(req.body.city_fk, () => {
-        divDao.createStreet(req.body.street_fk, () => {
+      divDao.createCity(req.body.city, () => {
+        divDao.createStreet(req.body.street, () => {
           problemDao.createOne(req.body, (status, data) => {
             res.status(status).json(data);
           });

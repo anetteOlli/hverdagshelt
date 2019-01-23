@@ -24,14 +24,14 @@ module.exports = class EventDao extends Dao {
       json.date_ending,
       json.county,
       json.municipality,
-      json.city_fk,
-      json.street_fk,
+      json.city,
+      json.street,
       json.latitude,
       json.longitude,
       "Unchecked"
     ];
     super.query(
-      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county, municipality, city_fk, street_fk, latitude, longitude, status) values (?,?,?,?,?,?,?,?,?,?,?,?)',
+      'insert into event (event_name,event_description, event_img, date_starting, date_ending, county, municipality, city, street, latitude, longitude, status) values (?,?,?,?,?,?,?,?,?,?,?,?)',
       newContent,
       callback
     );
@@ -48,15 +48,15 @@ module.exports = class EventDao extends Dao {
       json.status,
       json.county,
       json.municipality,
-      json.city_fk,
-      json.street_fk,
+      json.city,
+      json.street,
       json.latitude,
       json.longitude,
       id
     ];
 
     super.query(
-      'update event set event_name = ?, event_description = ?, event_img = ?, date_starting = ?, date_ending = ?, status = ?, county = ?, municipality = ?, city_fk = ?, street_fk = ?, latitude = ?, longitude = ? where event_id = ?',
+      'update event set event_name = ?, event_description = ?, event_img = ?, date_starting = ?, date_ending = ?, status = ?, county = ?, municipality = ?, city = ?, street = ?, latitude = ?, longitude = ? where event_id = ?',
       values,
       callback
     );
