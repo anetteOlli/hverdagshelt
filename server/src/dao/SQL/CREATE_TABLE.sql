@@ -63,8 +63,8 @@ CREATE TABLE problem (
   support INT DEFAULT 0,
   municipality VARCHAR(30) NOT NULL,
   county VARCHAR(30) NOT NULL,
-  city_fk VARCHAR(30) NOT NULL,
-  street_fk VARCHAR(30) NOT NULL
+  city VARCHAR(30) NOT NULL,
+  street VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE priority (
@@ -78,7 +78,7 @@ CREATE TABLE user (
   created DATETIME NOT NULL,
   municipality VARCHAR(30) NOT NULL,
   county VARCHAR(30) NOT NULL,
-  priority_fk VARCHAR(30) NOT NULL DEFAULT "Standard"
+  city VARCHAR(30) NOT NULL DEFAULT "Standard"
 );
 
 CREATE TABLE user_problem (
@@ -97,8 +97,8 @@ CREATE TABLE event (
   status VARCHAR(30) DEFAULT "Unchecked",
   municipality VARCHAR(30),
   county VARCHAR(30),
-  city_fk VARCHAR(30),
-  street_fk VARCHAR(30),
+  city VARCHAR(30),
+  street VARCHAR(30),
   latitude DOUBLE NOT NULL,
   longitude DOUBLE NOT NULL
 );
@@ -135,13 +135,13 @@ ALTER TABLE problem
   ADD FOREIGN KEY (status) REFERENCES status(status),
   ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street) REFERENCES street(streetName),
   ADD FOREIGN KEY (category) REFERENCES category(category),
   ADD FOREIGN KEY (entrepreneur_id) REFERENCES user(user_id);
 
 ALTER TABLE user
-  ADD FOREIGN KEY (priority_fk) REFERENCES priority(power),
+  ADD FOREIGN KEY (city) REFERENCES priority(power),
   ADD FOREIGN KEY (municipality,county) REFERENCES municipality(municipality,county);
 
 ALTER TABLE user_problem
@@ -150,8 +150,8 @@ ALTER TABLE user_problem
 
 ALTER TABLE event
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city_fk) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street_fk) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(cityName),
+  ADD FOREIGN KEY (street) REFERENCES street(streetName),
   ADD FOREIGN KEY (status) REFERENCES status(status);
 
 ALTER TABLE user_event

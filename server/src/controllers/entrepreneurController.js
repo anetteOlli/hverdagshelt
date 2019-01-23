@@ -50,10 +50,19 @@ exports.entrepreneurs_create_entrepreneur = (req, res) => {
   });
 };
 
-exports.entrepreneurs_get_cat_muni = (req, res) => {
+exports.entrepreneurs_get_by_cat_and_muni = (req, res) => {
   console.log('Handling POST requests to /entrepreneurs/getcatmuni',req.body);
   entrepreneurDao.getByCatAndMuni(req.body, (status, data) => {
     console.log('data',data);
+    res.status(status).json(data);
+  });
+};
+
+
+exports.entrepreneurs_get_by_muni = (req, res) => {
+  console.log('Handling POST requests to /entrepreneurs/getmuni',req.body);
+  entrepreneurDao.getByMuni(req.body, (status, data) => {
+    console.log('data: ',data);
     res.status(status).json(data);
   });
 };

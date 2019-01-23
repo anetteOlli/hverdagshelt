@@ -94,17 +94,17 @@ class TemporaryDrawer extends React.Component<Props> {
             <ListItemText primary="Hovedsiden" />
           </ListItem>
           <Divider />
-          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/stati'}>
+          <ListItem button component={NavLink} to={'/stati'}>
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Statistikk" />
+            <ListItemText primary="Statestikk" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problemdetails/2'}>
+          <ListItem button component={NavLink} to={'/problems'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>
-            <ListItemText primary="Mine Problem" />
+            <ListItemText primary="Problem Oversikt" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>
@@ -156,13 +156,13 @@ class TemporaryDrawer extends React.Component<Props> {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkUser(this.props.priority_fk);
+    this.checkUser(this.props.priority);
   }
 }
 
 const mapStateToProps = state => {
   return {
-    priority_fk: state.user.priority
+    priority: state.user.priority
   };
 };
 

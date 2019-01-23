@@ -20,8 +20,8 @@ module.exports = class UserDao extends Dao {
     );
   }
 
-  createUser(json, password, standard, callback) {
-    const val = [json.email, password, json.municipality, json.county, standard];
+  createUser(json, password, priority, callback) {
+    const val = [json.email, password, json.municipality, json.county, priority];
     super.query(
       'insert into user (email, password, created, municipality, county, priority) values (?,?,NOW(),?,?,?)',
       val,
@@ -44,6 +44,10 @@ module.exports = class UserDao extends Dao {
   }
 
   checkEmail(email, callback) {
+<<<<<<< HEAD
     super.query('select user_id, password, priority, municipality, county from user where email = ?', [email], callback);
+=======
+    super.query('select user_id, password from user where email = ?', [email], callback);
+>>>>>>> cb2e84ab747b0fd08c03c14ed01abf335473a6e5
   }
 };

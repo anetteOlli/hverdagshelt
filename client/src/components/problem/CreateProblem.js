@@ -18,6 +18,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 //Created by us
 import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
@@ -122,31 +127,23 @@ function getStepContent(step: number, state: State,
               <MenuItem key={i} value={e}>{e}</MenuItem>
             ))}
             </SelectValidator>
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Kommune: Velg i kart"
-              name="municipality"
-              autoComplete="municipality"
-              value={state.municipality}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må velge en kommune']}
-              inputProps={{readOnly: true,}}
-            />
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
+            </Typography>
+            <Typography variant="subtitle2" align="left" >
+                Kommune: {state.municipality}
+            </Typography>
+            <Typography variant="subtitle2" align="left" >
+                Gate: {state.street}
+                <br/>
+                <br/>
+            </Typography>
+
+            <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
+            <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
             {console.log('state in createProblem', state)}
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Gate: Velg i kart"
-              name="street"
-              autoComplete="street"
-              value={state.street}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må velge en gate']}
-              inputProps={{readOnly: true,}}
-            />
+
             <div className="mapPlaceholder">
               <Map />
             </div>
@@ -163,17 +160,26 @@ function getStepContent(step: number, state: State,
       return (
         <Card className="content-1">
           <CardContent>
+          <Typography variant="h5" align="center" color="secondary">
+            Nærliggende problemer
+          </Typography>
+          <Typography variant="subtitle1" align="center" color="primary">
+            Finnes problemet fra før av? <br/>
+            Gjerne støtt problemet så vet vi at det rammer mange
+          </Typography>
             <Grid container
             spacing={8}
             direction="row"
             >
+
               <Grid item
               md={4} xs={12}
               >
-                <Typography variant="h5" align="center" color="secondary">
-                  Nærliggende problemer
-                </Typography>
+
+
+
                 <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
+
                   <MuiTable2
                   rows={rows}
                   onClick={e => {
@@ -423,6 +429,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_imageURL: '',
     cur_entrepreneur: '',
     cur_status: '',
+    failureDialog: false,
 
     similarProblems:
       [
@@ -514,8 +521,18 @@ class CreateProblem extends React.Component<Props, State> {
     if(activeStep == 0){
       this.getSimilarProblems(this.state.street, this.state.municipality, this.state.county);
     }
-    this.setState({
+    if(this.state.municipality != ''){
+      this.setState({
       activeStep: activeStep + 1
+    });}else{
+      this.setState({
+        failureDialog: true
+        })
+    }
+  };
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
     });
   };
 
@@ -626,6 +643,7 @@ class CreateProblem extends React.Component<Props, State> {
     if(!this.props.isLoggedIn){
       return (
         <div>
+
           <Card className="must-log-in-to-register" align="center">
             <CardContent>
               <Typography variant="h5" color="error">
@@ -646,6 +664,18 @@ class CreateProblem extends React.Component<Props, State> {
     }
     return (
       <div>
+      <Dialog
+        open={this.state.failureDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du må velge et sted på kartet eller ved å søke det opp'}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
         <Typography variant="h2"
         color="primary"
         align="center"
@@ -693,7 +723,7 @@ class CreateProblem extends React.Component<Props, State> {
                       onClick={this.handleBack}
                       className="{classes.button}"
                     >
-                      Back
+                      Tilbake
                     </Button>
                     <Button
                       variant="contained"
@@ -701,7 +731,7 @@ class CreateProblem extends React.Component<Props, State> {
                       className="{classes.button}"
                       type="submit"
                     >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Send inn' : 'Neste'}
                     </Button>
                 </CardContent>
               </Card>

@@ -217,7 +217,7 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, priority_fk } = this.props;
+    const { classes, problem, priority } = this.props;
     if (problem) {
       console.log('locked: ' + problem.problem_locked);
       console.log(this.props.entrepreneurs);
@@ -350,9 +350,9 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentProblemId !== nextProps.currentProblemId) {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
-      this.checkUser(this.props.priority_fk);
+      this.checkUser(this.props.priority);
       this.checkLocked(nextProps.problem.problem_locked);
-      this.checkEdit(this.props.priority_fk);
+      this.checkEdit(this.props.priority);
     }
   }
 }
@@ -363,7 +363,7 @@ const mapStateToProps = (state: ReduxState) => {
   return {
     currentProblemId: state.problem.currentProblemId,
     problem,
-    priority_fk: state.user.priority,
+    priority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
