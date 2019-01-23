@@ -136,8 +136,8 @@ ALTER TABLE problem
   ADD FOREIGN KEY (status) REFERENCES status(status),
   ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(city_name),
+  ADD FOREIGN KEY (street) REFERENCES street(street_name),
   ADD FOREIGN KEY (category) REFERENCES category(category),
   ADD FOREIGN KEY (entrepreneur_id) REFERENCES user(user_id);
 
@@ -151,8 +151,8 @@ ALTER TABLE user_problem
 
 ALTER TABLE event
   ADD FOREIGN KEY (municipality, county) REFERENCES municipality(municipality,county),
-  ADD FOREIGN KEY (city) REFERENCES city(cityName),
-  ADD FOREIGN KEY (street) REFERENCES street(streetName),
+  ADD FOREIGN KEY (city) REFERENCES city(city_name),
+  ADD FOREIGN KEY (street) REFERENCES street(street_name),
   ADD FOREIGN KEY (status) REFERENCES status(status);
 
 ALTER TABLE user_event
