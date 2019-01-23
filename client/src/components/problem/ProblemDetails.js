@@ -220,6 +220,7 @@ class ProblemDetails extends React.Component<Props, State> {
     const { classes, problem, priority_fk } = this.props;
     if (problem) {
       console.log('locked: ' + problem.problem_locked);
+      console.log(this.props.entrepreneurs);
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -330,7 +331,7 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {this.props.entrepreneurs.length > 0 ? (
+                {this.props.entrepreneurs && this.props.entrepreneurs.length > 0 ? (
                   <SelectTable2 rows={this.props.entrepreneurs} onClick={this.handleAddEntrepreneur} />
                 ) : (
                   <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>

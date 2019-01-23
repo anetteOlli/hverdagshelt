@@ -8,7 +8,6 @@ import MainPage from './components/dashboard/MainPage';
 import CreateProblem from './components/problem/CreateProblem';
 import ProblemDetails from './components/problem/ProblemDetails';
 import { SnackbarProvider } from 'notistack';
-import MapMarkers from './components/map/MapMarkers';
 import MuniPage from './components/dashboard/MuniPage';
 import EditProblemMain from './components/problem/EditProblemMain';
 import UploadFile from './components/util/Test';
@@ -16,7 +15,6 @@ import CreateEvent from './components/event/CreateEvent';
 import MuiTable2 from './components/util/MuiTable-2';
 import Stati from './components/statistics/StatisticPage';
 import SignUp from './components/user/SignUp';
-import SimpleMap from './components/map/GoogleMap';
 import Settings from './components/user/Settings';
 import Profile from './components/user/Profile';
 import ChangePassword from './components/user/ChangePassword';
@@ -25,6 +23,8 @@ import withRoot from './withRoot';
 import type { Dispatch, ReduxState } from './store/reducers';
 import { refresh } from './store/actions/userActions';
 import { connect } from 'react-redux';
+
+import ScrollToTop from './components/util/ScrollToTop';
 
 const styles = () => ({
   root: {
@@ -64,6 +64,7 @@ class App extends React.Component<Props> {
               <div className={classes.root}>
                 <NavBar />
                 <div className={classes.site}>
+                  <ScrollToTop>
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/uploadfile" component={UploadFile} />
@@ -84,6 +85,7 @@ class App extends React.Component<Props> {
                     <Route exact path="/:municipality" component={MuniPage} />
                     {/*<Route exact path="/:municipality" component={MuniPage} /> Kommunenavn og fylket*/}
                   </Switch>
+                  </ScrollToTop>
                 </div>
                 <Footer />
               </div>

@@ -99,7 +99,7 @@ module.exports = class ProblemDao extends Dao {
     ];
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?,img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?, img_entrepreneur = ?, status_fk = ?, last_edited = NOW() WHERE problem_id = ?',
       values,
       callback
     );
@@ -115,7 +115,7 @@ module.exports = class ProblemDao extends Dao {
     ];
 
     super.query(
-      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, last_edited = NOW()  WHERE problem_id = ?',
+      'UPDATE problem SET problem_title = ?, problem_description = ?, category_fk = ?, status_fk = ?, img_user = ?, last_edited = NOW()  WHERE problem_id = ?',
       values,
       callback
     );
