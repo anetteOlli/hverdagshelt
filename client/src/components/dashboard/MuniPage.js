@@ -59,7 +59,8 @@ const styles = theme => ({
   },
   tabRoot: {
     marginTop: 50,
-    marginBottom: 30
+    marginBottom: 30,
+    width: "100%"
   },
   card: {
     margin: 10,
@@ -155,11 +156,11 @@ class MuniPage extends React.Component<Props, State> {
     if(events == undefined) return (<div/>);
     return (
       <main>
-        <Grid container spacing={8} alignItems="center" alignContent="center">
+        <Grid container alignItems="center" alignContent="center">
           <Grid item xs={12}>
             <Card className={classes.cardPage}>
               <CardContent>
-                <Grid container spacing={24}>
+                <Grid container spacing={32}>
                   <Grid item md={6} sm={12}>
                     <Typography variant="h3" className={classes.tittel}>
                       {municipality.split('&')[0]}
@@ -179,27 +180,25 @@ class MuniPage extends React.Component<Props, State> {
                 </Grid>
                 <div className={classes.tabRoot}>
                   <Tabs
-                    variant="fullWidth"
+                    variant="fullwidth"
                     value={value}
                     onChange={this.handleChange}
                     indicatorColor="primary"
                     textColor="primary"
                   >
-                  <LinkTab
-                    variant="fullWidth"
-                    label={<span className={classes.labeltext}>Arrangementer</span>}
-                    href="arrangement"
-                  />
-                  <LinkTab
-                    variant="fullWidth"
-                    label={<span className={classes.labeltext}>Problemer</span>}
-                    href="problemer"
-                  />
+                    <LinkTab
+                      label={<span className={classes.labeltext}>Arrangementer</span>}
+                      href="arrangement"
+                    />
+                    <LinkTab
+                      label={<span className={classes.labeltext}>Problemer</span>}
+                      href="problemer"
+                    />
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
                     {console.log("EVENTER: ", events)}
-                      <Grid container spacing={24}>
+                      <Grid container spacing={32}>
                         {events.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
                             <Card className={classes.card}>
