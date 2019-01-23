@@ -20,13 +20,13 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
 
-    case 'ENTREPRENEUR_GET_FROM_USER_FK_SUCCESS':
-      console.log('%c ENTREPRENEUR_GET_FROM_USER_FK_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+    case 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS':
+      console.log('%c ENTREPRENEUR_GET_FROM_user_id_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         currentEntrepreneur: action.payload
       };
-    case 'ENTREPRENEUR_GET_FROM_USER_FK_ERROR':
-      console.log('%c ENTREPRENEUR_GET_FROM_USER_FK_ERROR', 'color: red; font-weight: bold;', action.payload);
+    case 'ENTREPRENEUR_GET_FROM_user_id_ERROR':
+      console.log('%c ENTREPRENEUR_GET_FROM_user_id_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         errorMessage: action.payload.message
       };

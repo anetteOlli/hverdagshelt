@@ -50,7 +50,7 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_COUNTIES_BY_MUNI_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        currentMunicipalities: (action.payload.map((muni: { municipality: string }) => muni.municipality): Array<string>)
+        currentMunicipalities: (action.payload.map((municipality: { municipality: string }) => municipality.municipality): Array<string>)
       };
     case 'GET_COUNTIES_BY_MUNI_ERROR':
       console.log('%c GET_COUNTIES_BY_MUNI_ERROR', 'color: red; font-weight: bold;', action.payload);

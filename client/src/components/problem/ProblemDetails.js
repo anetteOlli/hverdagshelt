@@ -204,7 +204,7 @@ class ProblemDetails extends React.Component<Props, State> {
     this.handleClose();
     console.log(myEntrepreneur);
     let vals = {
-      entrepreneur_fk: myEntrepreneur.entrepreneur_id,
+      entrepreneur_id: myEntrepreneur.entrepreneur_id,
       problem_id: this.props.problem.problem_id
     };
     this.props.problemAddEntrepreneur(vals).then(() => {
@@ -256,12 +256,12 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status_fk}
+                  Status: {problem.status}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Kontaktinfo: {problem.user_fk}
+                  Kontaktinfo: {problem.user_id}
                 </Typography>
               </Grid>
             </div>
@@ -376,7 +376,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
-    getEntrepreneursByMuniAndCat: category_fk => dispatch(getEntrepreneursByMuniAndCat(category_fk)),
+    getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
     problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
   };
 };

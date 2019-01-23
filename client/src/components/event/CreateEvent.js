@@ -52,7 +52,7 @@ type State = {
   },
 
   //User
-  userId: number,
+  user_id: number,
   isLoggedIn: boolean,
   priority: string
 };
@@ -290,10 +290,8 @@ class CreateEvent extends React.Component<Props, State>{
     dateEnd: new Date('0000-00-00T00:00:0'),
     dateEndInput: '',
     image: '',
-
     picture: '',
     displayImg: '',
-
     county: '',
     municipality: '',
     city: '',
@@ -304,7 +302,7 @@ class CreateEvent extends React.Component<Props, State>{
     },
 
     //User
-    userId: -1,
+    user_id: -1,
     isLoggedIn: false,
     priority: ''
   };
@@ -485,10 +483,10 @@ class CreateEvent extends React.Component<Props, State>{
       k.append("date_ending", this.state.dateEnd);
       k.append("latitude", this.props.cords.lat);
       k.append("longitude", this.props.cords.lng);
-      k.append("county_fk", this.state.county);
-      k.append("municipality_fk", this.state.municipality);
-      k.append("city_fk", this.state.city);
-      k.append("street_fk", this.state.street);
+      k.append("county", this.state.county);
+      k.append("municipality", this.state.municipality);
+      k.append("city", this.state.city);
+      k.append("street", this.state.street);
       this.props.createEvent(k,true);
     } else this.props.createEvent({
         event_name: this.state.title,
@@ -497,10 +495,10 @@ class CreateEvent extends React.Component<Props, State>{
         date_ending: this.state.dateEnd,
         latitude: this.props.cords.lat,
         longitude: this.props.cords.lng,
-        county_fk: this.state.county,
-        municipality_fk: this.state.municipality,
-        city_fk: this.state.city,
-        street_fk: this.state.street
+        county: this.state.county,
+        municipality: this.state.municipality,
+        city: this.state.city,
+        street: this.state.street
       },false)
       // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
@@ -542,12 +540,12 @@ const mapStateToProps = state => {
     //street, county, municipality, cords
     street: state.map.street,
     county: state.map.county,
-    municipality: state.map.muni,
+    municipality: state.map.municipality,
     city: state.map.city,
     cords: state.map.currentMarker,
 
     //user
-    userId: state.user.userID,
+    user_id: state.user.user_id,
     isLoggedIn: state.user.isLoggedIn,
     priority: state.user.priority
   };

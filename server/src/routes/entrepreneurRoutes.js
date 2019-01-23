@@ -4,7 +4,7 @@ const EntrepreneurController = require('../controllers/entrepreneurController');
 
 router.get('/', EntrepreneurController.entrepreneurs_get_all);
 
-router.get('/id/:id', EntrepreneurController.entrepreneurs_get_one_by_User_fk);
+router.get('/id/:id', EntrepreneurController.entrepreneurs_get_one_by_user_id);
 
 router.get('/:id', EntrepreneurController.entrepreneurs_get_one);
 

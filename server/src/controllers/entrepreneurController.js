@@ -14,7 +14,7 @@ exports.entrepreneurs_get_all = (req, res) => {
   });
 };
 
-exports.entrepreneurs_get_one_by_User_fk = (req, res) => {
+exports.entrepreneurs_get_one_by_user_id = (req, res) => {
   console.log('Handling GET requests to /entrepreneurs/id/' + req.params.id);
   entrepreneurDao.getEntrepreneurID(req.params.id, (status, data) => {
     res.status(status).json(data[0]);
@@ -57,6 +57,7 @@ exports.entrepreneurs_get_by_cat_and_muni = (req, res) => {
     res.status(status).json(data);
   });
 };
+
 
 exports.entrepreneurs_get_by_muni = (req, res) => {
   console.log('Handling POST requests to /entrepreneurs/getmuni',req.body);

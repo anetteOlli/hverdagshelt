@@ -7,6 +7,8 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { forgotPassword, clearError } from '../../store/actions/userActions';
 import purple from '@material-ui/core/colors/purple';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 
 const styles = (theme: Object) => ({
   button: {
@@ -32,12 +34,14 @@ type Props = {
 };
 
 type State = {
-  email: string
+  email: string,
+  passwordSentSuccess: boolean
 };
 
 class ForgotPassword extends React.Component<Props, State> {
   state = {
-    email: ''
+    email: '',
+    passwordSentSuccess: false
   };
 
   handleChange = e => {
@@ -58,36 +62,62 @@ class ForgotPassword extends React.Component<Props, State> {
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.props.forgotPassword(this.state.email).then(() => {
-      if (this.props.errorMessage === '') this.props.enqueueSnackbar(`Midlertidig passsord er sendt til ${this.state.email}`, { variant: 'success' });
+      if (this.props.errorMessage === '') this.setState({ passwordSentSuccess: true });
       else this.refs.form.submit();
     });
   };
 
   render() {
     const { classes, isLoading } = this.props;
-    return (
-      <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-        <TextValidator
-          fullWidth
-          margin="normal"
-          label="E-post adresse"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={this.state.email}
-          onChange={this.handleChange}
-          validators={['required', 'isEmail', 'isRightEmail']}
-          errorMessages={['Feltet kan ikke være tomt', 'Ugyldig epost-adresse', 'E-post adressen eksisterer ikke']}
-        />
-        <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
-          {isLoading && <CircularProgress size={20} className={classes.spinner} />}
-          Send passord til e-post adressen
-        </Button>
-        <Button fullWidth variant="contained" color="secondary" className={classes.button} onClick={this.handleClose}>
-          Avbryt
-        </Button>
-      </ValidatorForm>
-    );
+    if (this.state.passwordSentSuccess) {
+      return (
+        <div>
+          <DialogTitle>Nytt passord sendt</DialogTitle>
+          <DialogContent>
+            <Typography> Passord sendt til {this.state.email}</Typography>
+          </DialogContent>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <DialogTitle>Send nytt passord</DialogTitle>
+          <DialogContent>
+            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="E-post adresse"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={this.state.email}
+                onChange={this.handleChange}
+                validators={['required', 'isEmail', 'isRightEmail']}
+                errorMessages={[
+                  'Feltet kan ikke være tomt',
+                  'Ugyldig epost-adresse',
+                  'E-post adressen eksisterer ikke'
+                ]}
+              />
+              <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
+                {isLoading && <CircularProgress size={20} className={classes.spinner} />}
+                Send passord til e-post adressen
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={this.handleClose}
+              >
+                Avbryt
+              </Button>
+            </ValidatorForm>
+          </DialogContent>
+        </div>
+      );
+    }
   }
 }
 
