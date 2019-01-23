@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a635d3cc-7a6e-4fe1-bd33-5bfa074f974f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/server/src/dao/statisticsDao.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/statisticsDao.js" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="ExecutionTargetDialog">
+    <checked>
+      <node key="95d7be1a-f2cb-4fe0-9659-344d35c9c04d" />
+    </checked>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="23" column="39" lean-forward="true" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/util.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1350">
+              <caret line="56" selection-start-line="56" selection-end-line="56" />
+              <folding>
+                <element signature="e#9#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1300">
+              <caret line="61" column="19" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
+              <folding>
+                <element signature="e#9#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/server.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedOutLinks.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1025">
+              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+              <folding>
+                <element signature="e#9#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/actions/userActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SideBar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+              <folding>
+                <element signature="e#9#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>PROBLEM</find>
+      <find>EVENT</find>
+      <find>proptypes</find>
+      <find>PropTypes</find>
+      <find>defaul</find>
+      <find>export default connect(</find>
+      <find>cancel</find>
+      <find>events.js</find>
+      <find>municipality_fk</find>
+      <find>county_fk</find>
+      <find>category_fk</find>
+      <find>status_fk</find>
+      <find>userID</find>
+      <find>user_fk</find>
+      <find>entrepreneur_fk</find>
+      <find>orgNr</find>
+      <find>muni:</find>
+      <find>muni</find>
+      <find>municipality</find>
+      <find>cityName</find>
+      <find>businessName</find>
+      <find>bedriftNavn</find>
+      <find>buis</find>
+      <find>_fk</find>
+      <find>city_fk</find>
+      <find>priority_fk</find>
+      <find>street_fk</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>EVENT</replace>
+      <replace>CATEGORY</replace>
+      <replace>export default connect(</replace>
+      <replace>// $FlowFixMe export default connect(</replace>
+      <replace>// $FlowFixMe \n export default connect(</replace>
+      <replace>cancel \n lol</replace>
+      <replace />
+      <replace>county</replace>
+      <replace>category</replace>
+      <replace>status</replace>
+      <replace>user_id</replace>
+      <replace>entrepreneur_id</replace>
+      <replace>org_nr</replace>
+      <replace>municipality:</replace>
+      <replace>municipality</replace>
+      <replace>city_name</replace>
+      <replace>business_name</replace>
+      <replace>priority</replace>
+      <replace>city</replace>
+      <replace>street</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Users\snorr\WebstormProjects\hverdagshelt\documents</dir>
+      <dir>C:\Users\snorr\WebstormProjects\hverdagshelt\client</dir>
+      <dir>C:\Users\snorr\WebstormProjects\hverdagshelt\client\src</dir>
+      <dir>C:\Users\snorr\WebstormProjects\hverdagshelt\server\src</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="snorre" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/server/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/client/src/components/layout/SignedOutLinks.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/map/maptest.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/divDao.js" />
+        <option value="$PROJECT_DIR$/server/src/controllers/divController.js" />
+        <option value="$PROJECT_DIR$/server/src/routes/divRoutes.js" />
+        <option value="$PROJECT_DIR$/server/src/controllers/entrepreneurController.js" />
+        <option value="$PROJECT_DIR$/server/src/routes/entrepreneurRoutes.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/Charts.js" />
+        <option value="$PROJECT_DIR$/client/src/store/axios.js" />
+        <option value="$PROJECT_DIR$/server/src/routes/userRoutes.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/BarChart.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/LineChart.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/PieChart.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/userDao.js" />
+        <option value="$PROJECT_DIR$/server/src/controllers/userController.js" />
+        <option value="$PROJECT_DIR$/server/src/controllers/problemController.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/SQL/CREATE_USER_PROBLEMS.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/SQL/CREATE_USER_PROBLEMS.sql" />
+        <option value="$PROJECT_DIR$/client/webpack.config.js" />
+        <option value="$PROJECT_DIR$/client/src/components/layout/NavBar.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" />
+        <option value="$PROJECT_DIR$/server/src/routes/problemRoutes.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/b/testZone.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/BarChartPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/PieChartPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/LineChartPage.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" />
+        <option value="$PROJECT_DIR$/client/src/index.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/categoryActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/eventReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/components/user/SignUp.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/muniReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/App.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/index.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/userActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/problemDao.js" />
+        <option value="$PROJECT_DIR$/client/src/components/user/SignIn.js" />
+        <option value="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/entrepreneurDao.js" />
+        <option value="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/categoryDao.js" />
+        <option value="$PROJECT_DIR$/server/src/dao/statisticsDao.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path>$USER_HOME$/AppData/Roaming/npm/node_modules/flow-bin</exe-path>
+    <other-services-enabled>false</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="980" />
+    <option name="height" value="1030" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="documents" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="documents" type="462c0819:PsiDirectoryNode" />
+              <item name="planning" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="editorconfig.notification" value="f" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.14.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/src" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\snorr\AppData\Roaming\npm\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\client\src\store\actions" />
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\client\src\store\reducers" />
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\client\src\components\util" />
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\server\src" />
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\server\src\backup" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\client\src\components\statistics\b" />
+      <recent name="C:\Users\snorr\WebstormProjects\hverdagshelt\client\src\components\user" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="testZone.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/client/src/components/statistics/b/testZone.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.testZone.js" />
+        <item itemvalue="Node.js.testZone.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a635d3cc-7a6e-4fe1-bd33-5bfa074f974f" name="Default Changelist" comment="" />
+      <created>1546853179232</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1546853179232</updated>
+      <workItem from="1546853181280" duration="798000" />
+      <workItem from="1546854016243" duration="7418000" />
+      <workItem from="1546862343512" duration="12465000" />
+      <workItem from="1546931385908" duration="11683000" />
+      <workItem from="1546946329691" duration="23567000" />
+      <workItem from="1547045075085" duration="21002000" />
+      <workItem from="1547130366078" duration="8496000" />
+      <workItem from="1547191938208" duration="661000" />
+      <workItem from="1547192843891" duration="5456000" />
+      <workItem from="1547203459260" duration="8000" />
+      <workItem from="1547204733937" duration="3998000" />
+      <workItem from="1547211235725" duration="4863000" />
+      <workItem from="1547225626268" duration="887000" />
+      <workItem from="1547449386712" duration="82000" />
+      <workItem from="1547449559895" duration="8989000" />
+      <workItem from="1547459813348" duration="256000" />
+      <workItem from="1547460106024" duration="236000" />
+      <workItem from="1547460387734" duration="299000" />
+      <workItem from="1547460727282" duration="82000" />
+      <workItem from="1547460835733" duration="2220000" />
+      <workItem from="1547465643955" duration="8223000" />
+      <workItem from="1547536536465" duration="15676000" />
+      <workItem from="1547622975634" duration="3734000" />
+      <workItem from="1547629551348" duration="12970000" />
+      <workItem from="1547709434325" duration="99000" />
+      <workItem from="1547709622867" duration="55000" />
+      <workItem from="1547709763447" duration="27332000" />
+      <workItem from="1547808589122" duration="13438000" />
+      <workItem from="1548055219705" duration="22915000" />
+      <workItem from="1548143696578" duration="22603000" />
+      <workItem from="1548227890933" duration="10769000" />
+    </task>
+    <task id="LOCAL-00039" summary="redux with axios features">
+      <created>1547459698842</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1547459698843</updated>
+    </task>
+    <task id="LOCAL-00040" summary="redux with axios features">
+      <created>1547473823964</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1547473823964</updated>
+    </task>
+    <task id="LOCAL-00041" summary="redux with axios features">
+      <created>1547541619971</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1547541619971</updated>
+    </task>
+    <task id="LOCAL-00042" summary="we good">
+      <created>1547541994388</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1547541994388</updated>
+    </task>
+    <task id="LOCAL-00043" summary="we good">
+      <created>1547543237471</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1547543237471</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/store/actions/problemActions.js">
+      <created>1547543281897</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1547543281897</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/store/actions/problemActions.js">
+      <created>1547544336853</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1547544336853</updated>
+    </task>
+    <task id="LOCAL-00046" summary="user signup">
+      <created>1547553183282</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1547553183282</updated>
+    </task>
+    <task id="LOCAL-00047" summary="user signup">
+      <created>1547553806657</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1547553806657</updated>
+    </task>
+    <task id="LOCAL-00048" summary="user signup">
+      <created>1547559044473</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1547559044473</updated>
+    </task>
+    <task id="LOCAL-00049" summary="user signup">
+      <created>1547559114331</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1547559114331</updated>
+    </task>
+    <task id="LOCAL-00050" summary="user signup">
+      <created>1547559613290</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1547559613290</updated>
+    </task>
+    <task id="LOCAL-00051" summary="user signup">
+      <created>1547563429259</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1547563429259</updated>
+    </task>
+    <task id="LOCAL-00052" summary="user signup">
+      <created>1547567146041</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1547567146041</updated>
+    </task>
+    <task id="LOCAL-00053" summary="user signup with ent">
+      <created>1547633738276</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1547633738276</updated>
+    </task>
+    <task id="LOCAL-00054" summary="merge with master">
+      <created>1547643752311</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1547643752311</updated>
+    </task>
+    <task id="LOCAL-00055" summary="merge with master">
+      <created>1547644205723</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1547644205723</updated>
+    </task>
+    <task id="LOCAL-00056" summary="redux fix">
+      <created>1547648035287</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1547648035287</updated>
+    </task>
+    <task id="LOCAL-00057" summary="redux fix">
+      <created>1547649143612</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1547649143612</updated>
+    </task>
+    <task id="LOCAL-00058" summary="redux fix">
+      <created>1547650142028</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1547650142028</updated>
+    </task>
+    <task id="LOCAL-00059" summary="redux fix">
+      <created>1547708837702</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1547708837702</updated>
+    </task>
+    <task id="LOCAL-00060" summary="redux fix">
+      <created>1547711399455</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1547711399455</updated>
+    </task>
+    <task id="LOCAL-00061" summary="redux fix">
+      <created>1547715644371</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1547715644371</updated>
+    </task>
+    <task id="LOCAL-00062" summary="redux fix">
+      <created>1547737884533</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1547737884533</updated>
+    </task>
+    <task id="LOCAL-00063" summary="signup helt ferdig plz">
+      <created>1547798854150</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1547798854150</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547802615654</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1547802615654</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547804042762</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1547804042762</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547813479746</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1547813479746</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547822471486</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1547822471486</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547824916695</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1547824916695</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547824930247</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1547824930247</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1547824939730</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1547824939730</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1548061150804</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1548061150806</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js">
+      <created>1548073094187</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1548073094187</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/controllers/problemController.js">
+      <created>1548073758876</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1548073758892</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/controllers/problemController.js">
+      <created>1548074025119</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1548074025119</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548075266765</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1548075266765</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548078165665</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1548078165665</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548080769453</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1548080769453</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548142181601</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1548142181601</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548148986711</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1548148986711</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Merge branch 'erlend' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/95d7be1a-f2cb-4fe0-9659-344d35c9c04d.xml&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548149117886</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1548149117886</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Merge branch 'anette' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/95d7be1a-f2cb-4fe0-9659-344d35c9c04d.xml&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548151146967</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1548151146967</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Merge branch 'anette' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/store/reducers/userReducer.js">
+      <created>1548165807263</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1548165807263</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Merge branch 'elisabeth' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548230361331</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1548230361331</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/userActions.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548231299380</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1548231299380</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/userActions.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548231762316</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1548231762316</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/userActions.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js">
+      <created>1548234603394</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1548234603394</updated>
+    </task>
+    <task id="LOCAL-00087" summary="plz work">
+      <created>1548240072275</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1548240072275</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="251280000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <layout>
+      <window_info id="Structure" order="0" sideWeight="0.50110376" side_tool="true" weight="0.2337043" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49889624" visible="true" weight="0.20302376" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.5857143" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22619048" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" weight="0.3285968" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49920508" weight="0.086904764" />
+      <window_info anchor="bottom" id="Flow" order="9" weight="0.24642856" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.22380953" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5007949" side_tool="true" weight="0.34991118" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" weight="0.3285968" />
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32857144" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.36339092" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49889624" weight="0.21436284" />
+      <window_info id="Structure" order="1" sideWeight="0.50110376" side_tool="true" weight="0.2337043" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.4059524" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.114285715" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" weight="0.3285968" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49920508" weight="0.21428572" />
+      <window_info anchor="bottom" id="Flow" order="9" weight="0.24642856" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.27857143" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5007949" side_tool="true" weight="0.34991118" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" weight="0.3285968" />
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32857144" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.28239742" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="sign in validation" />
+    <MESSAGE value="added webpack plugins" />
+    <MESSAGE value="map redux" />
+    <MESSAGE value="merged with master" />
+    <MESSAGE value="map reducer, actions" />
+    <MESSAGE value="fixed webpack" />
+    <MESSAGE value="upload file example" />
+    <MESSAGE value="statistic component" />
+    <MESSAGE value="redux with axios features" />
+    <MESSAGE value="we good" />
+    <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/store/actions/problemActions.js" />
+    <MESSAGE value="user signup" />
+    <MESSAGE value="user signup with ent" />
+    <MESSAGE value="merge with master" />
+    <MESSAGE value="redux fix" />
+    <MESSAGE value="signup helt ferdig plz" />
+    <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/codeStyles/Project.xml&#10;#&#9;server/src/controllers/entrepreneurController.js&#10;#&#9;server/src/dao/entrepreneurDao.js&#10;#&#9;server/src/routes/entrepreneurRoutes.js" />
+    <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/controllers/problemController.js" />
+    <MESSAGE value="Merge branch 'oscar' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js" />
+    <MESSAGE value="Merge branch 'erlend' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/95d7be1a-f2cb-4fe0-9659-344d35c9c04d.xml&#10;#&#9;server/src/dao/problemDao.js" />
+    <MESSAGE value="Merge branch 'anette' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/95d7be1a-f2cb-4fe0-9659-344d35c9c04d.xml&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js" />
+    <MESSAGE value="Merge branch 'anette' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/store/reducers/userReducer.js" />
+    <MESSAGE value="Merge branch 'elisabeth' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/problemDao.js" />
+    <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;client/src/App.js&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/userActions.js&#10;#&#9;client/src/store/reducers/userReducer.js&#10;#&#9;server/src/dao/problemDao.js" />
+    <MESSAGE value="plz work" />
+    <option name="LAST_COMMIT_MESSAGE" value="plz work" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/server/src/routes/problemRoutes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/b/testZone.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="197" column="29" selection-start-line="197" selection-start-column="29" selection-end-line="197" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/PieChartPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/ChangePassword.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://95d7be1a-f2cb-4fe0-9659-344d35c9c04d/schema/larssorl/table/user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/b/Charts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/statisticsActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="925">
+          <caret line="39" column="37" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="37" />
+          <folding>
+            <element signature="e#9#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/LineChartPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/configStore.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/categoryActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="263" column="56" selection-start-line="263" selection-start-column="56" selection-end-line="263" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/problemReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/dao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/divDao.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/SignUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="93" column="18" selection-start-line="93" selection-start-column="18" selection-end-line="93" selection-end-column="18" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/muniReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-853">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2475">
+          <caret line="99" column="24" selection-start-line="99" selection-start-column="24" selection-end-line="99" selection-end-column="24" />
+          <folding>
+            <element signature="e#9#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/util/Notifier.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/notifyActions.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/appReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="26" column="2" lean-forward="true" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/appActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" selection-start-line="8" selection-end-line="13" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/asyncActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="28" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/eventReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="114" column="15" selection-start-line="114" selection-start-column="2" selection-end-line="114" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/entrepreneurDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="e#9#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="22" column="6" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/event/CreateEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="295" column="21" selection-start-line="295" selection-start-column="21" selection-end-line="295" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/nodemon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="85" column="67" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/statisticsDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/categoryDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/BarChartPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/SignIn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2800">
+          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+          <folding>
+            <element signature="e#9#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1300">
+          <caret line="61" column="19" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/server.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedOutLinks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1025">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+          <folding>
+            <element signature="e#9#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/userActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/SideBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="23" column="39" lean-forward="true" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
