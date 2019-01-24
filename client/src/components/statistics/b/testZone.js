@@ -2,8 +2,6 @@
 
 console.log(Date.now());
 
-
-
 const allProblems = [
   {
     problem_id: 1,
@@ -151,20 +149,19 @@ const allProblems = [
   }
 ];
 
-
 function dateRange(startDate, endDate) {
-  const start      = startDate.split('-');
-  const end        = endDate.split('-');
-  const startYear  = parseInt(start[0]);
-  const endYear    = parseInt(end[0]);
-  const dates      = [];
+  const start = startDate.split('-');
+  const end = endDate.split('-');
+  const startYear = parseInt(start[0]);
+  const endYear = parseInt(end[0]);
+  const dates = [];
 
-  for(let i = startYear; i <= endYear; i++) {
+  for (let i = startYear; i <= endYear; i++) {
     const endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
-    const startMon = i === startYear ? parseInt(start[1])-1 : 0;
-    for(let j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
-      let month = j+1;
-      let displayMonth = month < 10 ? '0'+month : month;
+    const startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
+    for (let j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j + 1) {
+      let month = j + 1;
+      let displayMonth = month < 10 ? '0' + month : month;
       dates.push([i, displayMonth, '01'].join('-'));
     }
   }
@@ -173,7 +170,7 @@ function dateRange(startDate, endDate) {
 
 const startDate = new Date(2016, 11, 0);
 const endDate = new Date();
-console.log(dateRange(startDate,endDate));
+console.log(dateRange(startDate, endDate));
 
 var dateStart = moment('2013-8-31');
 var dateEnd = moment('2015-3-30');
@@ -181,14 +178,13 @@ var timeValues = [];
 
 while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
   timeValues.push(dateStart.format('YYYY-MM'));
-  dateStart.add(1,'month');
+  dateStart.add(1, 'month');
 }
 
-
 let array = [
-  {name: '2017 mars', value: {year: 2017, month: 2}},
-  {name: '2017 april', value: {year: 2017, month: 3}},
-  {name: '2017 mai', value: {year: 2017, month: 4}},
+  { name: '2017 mars', value: { year: 2017, month: 2 } },
+  { name: '2017 april', value: { year: 2017, month: 3 } },
+  { name: '2017 mai', value: { year: 2017, month: 4 } }
 ];
 
 const year = 2016;
@@ -200,9 +196,9 @@ console.log(allProblems[0].date_made.getMonth());
 const problems = allProblems.filter(p => p.date_made.getFullYear() === year && p.date_made.getMonth() === month);
 console.log(problems);
 
-console.log(new Date(year, month+1, 0).getDate());
+console.log(new Date(year, month + 1, 0).getDate());
 
-const result = Array(new Date(year, month+1, 0).getDate())
+const result = Array(new Date(year, month + 1, 0).getDate())
   .fill(null)
   .map((u, i) => ({ name: i, problems: 0 }));
 
@@ -254,4 +250,3 @@ const setLineChartData = (year: number, month: number) =>{
   console.log('Du har "ett" problem', result);
 };
 */
-

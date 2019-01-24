@@ -2,8 +2,7 @@
 const Dao = require('./dao.js');
 
 module.exports = class StatisticsDao extends Dao {
-
-/*  Statistikk:
+  /*  Statistikk:
 
     Hvor lang tid tar det fra problemer er meldt inn til de er fikset?
   Gjennomsnittlig {tid} for hver {kommune}, for hver {kategori}, for hver {entreprenør}, per tid.

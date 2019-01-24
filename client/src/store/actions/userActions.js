@@ -4,6 +4,7 @@ import type { ReduxState } from '../reducers';
 import type { Action as AsyncAction } from '../reducers/asyncReducer';
 import { setToken, clearToken, postData, getData, getToken, patchData } from '../axios';
 import { setAsyncLoading, checkedJWT } from './asyncActions';
+import { enqueueSnackbar } from './notifyActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction | AsyncAction) => any;
@@ -18,6 +19,7 @@ export const getUserInfo = () => {
           payload: response.data
         });
         dispatch(checkedJWT());
+        dispatch(enqueueSnackbar('u in', 'success'));
       })
       .catch((error: Error) => {
         dispatch({
@@ -34,10 +36,16 @@ export const signIn = (creds: { email: string, password: string }) => {
     dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
+        console.log('Response: ', response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
-          payload: { user_id: response.data.id, priority: response.data.priority }
+          payload: {
+            user_id: response.data.id,
+            priority: response.data.priority,
+            municipality: response.data.municipality,
+            county: response.data.county
+          }
         });
         dispatch(getUserInfo());
         dispatch(setAsyncLoading(false));
@@ -54,25 +62,27 @@ export const signIn = (creds: { email: string, password: string }) => {
 
 export const refresh = () => {
   return (dispatch: Dispatch) => {
-    dispatch(setAsyncLoading());
     if (!getToken()) {
       dispatch({
         type: 'REFRESH_ERROR',
         payload: 'NO JWT'
       });
       dispatch(checkedJWT());
-      dispatch(setAsyncLoading(false));
     } else {
       getData('users/refresh')
         .then(response => {
-          console.log(response);
+          console.log('Response refresh: ', response);
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',
-            payload: { user_id: response.data.id, priority: response.data.priority }
+            payload: {
+              user_id: response.data.id,
+              priority: response.data.priority,
+              municipality: response.data.municipality,
+              county: response.data.county
+            }
           });
           dispatch(getUserInfo());
-          dispatch(setAsyncLoading(false));
         })
         .catch((error: Error) => {
           dispatch({
@@ -80,7 +90,6 @@ export const refresh = () => {
             payload: error.message
           });
           dispatch(checkedJWT());
-          dispatch(setAsyncLoading(false));
         });
     }
   };
@@ -141,7 +150,7 @@ export const clearError = () => {
 
 export const forgotPassword = (email: string) => {
   return (dispatch: Dispatch) => {
-    return postData('users/f/forgot', { email })
+    return postData('users/forgot', { email })
       .then(() => {
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'

@@ -15,19 +15,20 @@ let pool = mysql.createPool({
   multipleStatements: true
 });
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
     });
   });
 });
-afterAll(() => pool.end());
 
-est("Testing problems_get_all from problemcontroller", (done) => {
+
+test("Testing problems_get_all from problemcontroller", (done) => {
   problemController.problems_get_all((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBeLessThanOrEqual(4);
+    expect(data.length).toBeGreaterThanOrEqual(2);
     expect(data[0].problem_description).toBe("A big hole has been found in the rear of Erlend");
     expect(data[0].problem_title).toBe("Erlend tried his best");
     done();
@@ -55,7 +56,8 @@ test("Testing problems_get_from_municipality from problemController", (done) => 
 
   problemController.problems_get_from_municipality(json, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+    expect(data.length).toBeLessThanOrEqual(2);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].municipality).toBe("Trondheim");
     expect(data[0].county).toBe("Trøndelag");
@@ -82,8 +84,8 @@ test("Testing problems_get_from_municipality_and_street from problemController",
 
 test("Testing problems_add_entrepreneur from problemController", (done) => {
   let json = {
-    entrepreneur_id:1,
-    problem_id:1
+    entrepreneur_id:3,
+    problem_id:2
   };
   problemController.problems_add_entrepreneur(json,(status,data) => {
     expect(status).toBe(200);
@@ -93,7 +95,6 @@ test("Testing problems_add_entrepreneur from problemController", (done) => {
 });
 
 test("Testing problems_create_problem from problemController", (done) => {
-  let file = require('./testImg.jpg');
   let problem = {
     "problem_title":"test",
     "problem_description":"test",
@@ -108,19 +109,72 @@ test("Testing problems_create_problem from problemController", (done) => {
     "city":"Vinstra",
     "street":"Kjeldeveien"
   };
-  problemController.problems_create_problem(file,problem,(status,data) => {
+  problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
+    expect(data[0].affectedRows).toBe(1);
     done();
   })
 });
 
 
 test("Testing problems_support_problem from problemController", (done) => {
-  let id = 1;
-  problemController.problems_support_problem(id,(status,data) => {
+  let id = 4;
+  let json = {
+    user_id: 4,
+    problem_id: 4,
+  };
+  problemController.problems_support_problem(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing problems_delete_problem  from problemController", (done) => {
+  let id = 2;
+  let json = {
+    priority: "Administrator"
+  };
+  problemController.problems_delete_problem(id,json,(status,data) => {
+    expect(status).toBe(status);
+    expect(data.affectedRows).toBe(1);
+    done();
+  })
+});
+
+test("Testing problems_get_problem_by_entrepreneur  from problemcontroller", (done) => {
+  let id = 3;
+  problemController.problems_get_problem_by_entrepreneur(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+    expect(data.length).toBeLessThanOrEqual(2);
+    done();
+  })
+});
+
+test("Testing problems_get_problem_by_user from problemcontroller", (done) => {
+  let id = 1;
+  problemController.problems_get_problem_by_user(id, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBeLessThanOrEqual(5);
+    expect(data.length).toBeGreaterThanOrEqual(3);
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    expect(data[0].user_id).toBe(id);
+    done();
+  })
+});
+
+test("Testing problems_ from problemcontroller", (done) => {
+  let json = {
+    county:"Trøndelag",
+    municipality: "Trondheim"
+  };
+  problemController.problems_get_from_municipality_sorted(json, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.length).toBe(2);
+    expect(data[0].problem_title).toBe("Erlend tried his best");
+    expect(data[0].county).toBe(json.county);
+    expect(data[0].municipality).toBe(json.municipality);
     done();
   })
 });

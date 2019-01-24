@@ -44,7 +44,7 @@ type State = {
   municipality: string,
   county: string,
   city: string,
-  street: string,
+  street: string
 };
 
 const styles = (theme: Object) => ({
@@ -100,8 +100,7 @@ class EditProblemE extends React.Component<Props, State> {
     county: '',
     city: '',
     street: '',
-    displayImg: '',
-
+    displayImg: ''
   };
 
   handleChange = e => {
@@ -121,7 +120,7 @@ class EditProblemE extends React.Component<Props, State> {
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
-    const { classes} = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -132,13 +131,7 @@ class EditProblemE extends React.Component<Props, State> {
                   Bruker beskrivelse:
                 </Typography>
                 <Paper>{this.state.problem_title}</Paper>
-                <Paper
-                  className={classes.paper}
-                  margin="normal"
-                  label="Status:"
-                  name="status"
-                  value={'status'}
-                >
+                <Paper className={classes.paper} margin="normal" label="Status:" name="status" value={'status'}>
                   {'Status:   ' + this.state.status}
                 </Paper>
                 <Paper
@@ -172,12 +165,7 @@ class EditProblemE extends React.Component<Props, State> {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
-                      <img
-                        id="img"
-                        width="100%"
-                        src={this.state.img_user || 'http://placehold.it/180'}
-                        alt="Bilde"
-                      />
+                      <img id="img" width="100%" src={this.state.img_user || 'http://placehold.it/180'} alt="Bilde" />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>

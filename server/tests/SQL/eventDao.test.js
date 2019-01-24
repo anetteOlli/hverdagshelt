@@ -17,14 +17,13 @@ let dao = new EventDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
     });
   });
 });
-afterAll(() => pool.end());
 
 
 test("Testing getAll from eventsDao", (done) => {
@@ -55,7 +54,8 @@ test("Testing getAllMunicipalities from eventDao", (done) => {
   };
   dao.getByMunicipality(json,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    expect(data.length).toBeLessThanOrEqual(3);
     expect(data[0].event_id).toBe(1);
     expect(data[0].event_name).toBe("SNORRES FORTNITE DANSEKURS");
     expect(data[0].county).toBe(json.county);
@@ -96,7 +96,7 @@ test("Testing deleteOne from eventDao", (done) => {
 });
 
 test("Testing patch from eventDao", (done) => {
-  let id = 1;
+  let id = 2;
   let json = {
     event_name: "TEST",
     event_description: "TEST",
@@ -118,18 +118,9 @@ test("Testing patch from eventDao", (done) => {
   })
 });
 
-test("TESTING delete from eventDAO", (done) => {
-  let id = 1;
-  dao.deleteOne(id,(status,data) => {
-    expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
-    done();
-  })
-});
-
 test("Testing updateStatus from eventDao", (done) => {
   dao.updateStatus((status) => {
     expect(status).toBe(200);
     done();
   })
-})
+});

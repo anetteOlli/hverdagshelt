@@ -91,7 +91,7 @@ class SearchBox extends Component<Props, State> {
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
             console.log('street', place);
-            if (place.country === 'Norge') {
+            if (place.country === 'Norge'||place.country === 'Norway') {
               this.props.updateMapName(place.street, place.municipality, place.county, place.city);
             } else {
               console.log('ikke i norge');

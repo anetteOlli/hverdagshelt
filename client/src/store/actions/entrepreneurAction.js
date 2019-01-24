@@ -44,6 +44,25 @@ export const entrepreneurs_get_one_by_user_id = () => {
   };
 };
 
+export const entrepreneurs_get_one_by_problem_id = (id: number) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`entrepreneurs/problem/${id}`)
+      .then(response =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_ERROR',
+          payload: error
+        })
+      );
+  };
+};
+
+
 export const getEntrepreneursByMuniAndCat = p => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('entrepreneurs/getcatmuni', {
@@ -66,7 +85,7 @@ export const getEntrepreneursByMuniAndCat = p => {
   };
 };
 
-export const getEntrepreneursByMuni = ({}) => {
+export const getEntrepreneursByMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('entrepreneurs/municipality', getState().statistic.selectedMuni)
       .then(response =>

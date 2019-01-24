@@ -4,7 +4,8 @@ export type Action = { type: 'ENTREPRENEUR_GET_ALL_SUCCESS' } | { type: 'ENTREPR
 const initState = {
   entrepreneurs: [],
   currentEntrepreneur: '',
-  errorMessage: ''
+  errorMessage: '',
+
 };
 
 export default (state: State = initState, action: Action) => {
@@ -23,7 +24,7 @@ export default (state: State = initState, action: Action) => {
     case 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS':
       console.log('%c ENTREPRENEUR_GET_FROM_user_id_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
-        currentEntrepreneur: action.payload
+        currentEntrepreneur: action.payload[0].entrepreneur_id,
       };
     case 'ENTREPRENEUR_GET_FROM_user_id_ERROR':
       console.log('%c ENTREPRENEUR_GET_FROM_user_id_ERROR', 'color: red; font-weight: bold;', action.payload);
@@ -31,8 +32,23 @@ export default (state: State = initState, action: Action) => {
         errorMessage: action.payload.message
       };
 
+    case 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_SUCCESS':
+      console.log('%c ENTREPRENEUR_GET_FROM_PROBLEM_ID_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      return {
+        currentEntrepreneur: action.payload[0].entrepreneur_id,
+      };
+    case 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_ERROR':
+      console.log('%c ENTREPRENEUR_GET_FROM_PROBLEM_ID_ERROR', 'color: red; font-weight: bold;', action.payload);
+      return {
+        errorMessage: action.payload.message
+      };
+
     case 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS':
-      console.log('%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
+      console.log(
+        '%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS',
+        'color: green; font-weight: bold;',
+        action.payload
+      );
       return {
         entrepreneurs: action.payload
       };

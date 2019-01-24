@@ -99,7 +99,7 @@ class ChangePassword extends React.Component<Props, State> {
     e.preventDefault();
     const { email, user_id, password } = this.state;
 
-    postData('users/check_pass',{email: this.props.email, password}).then(response => {
+    postData('users/check_pass', { email: this.props.email, password }).then(response => {
       console.log(response.data);
       this.setState({
         isOldPassword: response.data.isOldPassword
@@ -129,7 +129,7 @@ class ChangePassword extends React.Component<Props, State> {
     this.props.history.push('/');
   };
   checkOldPassword = () => {
-    postData('users/check_pass',{email: this.props.email, password: this.state.password}).then(response => {
+    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
       this.setState({
         isOldPassword: response.data.isOldPassword
       });
@@ -137,7 +137,7 @@ class ChangePassword extends React.Component<Props, State> {
   };
 
   handlePasswordInputChange = e => {
-    postData('users/check_pass',{email: this.props.email, password: this.state.password}).then(response => {
+    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
       if (response.status !== 404) {
         this.setState({
           isOldPassword: response.data.isOldPassword,
