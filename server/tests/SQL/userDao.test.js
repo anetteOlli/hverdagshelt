@@ -108,7 +108,7 @@ test("Testing changePassword from userDao", (done) => {
   let json = {
     email: "admin@admin.admin",
     password: "test",
-    user_id : 4
+    user_id: 4
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);
