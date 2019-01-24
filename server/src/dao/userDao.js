@@ -32,6 +32,7 @@ module.exports = class UserDao extends Dao {
 
   changePassword(json, password, callback) {
     const val = [json.email, password, json.user_id];
+    console.log(val);
     super.query('update user set email = ?, password = ? where user_id = ?', val, callback);
   }
 
