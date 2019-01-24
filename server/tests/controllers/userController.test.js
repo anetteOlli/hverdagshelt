@@ -133,7 +133,7 @@ test("Testing users_login from userController", (done) => {
   let user = {
     id: 1,
     priority:"Standard",
-    email:"user@user.user",
+    email:"admin@admin.admin",
     password:"abc123"
   };
   userController.users_login(user,(status,data) => {
