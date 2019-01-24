@@ -187,9 +187,9 @@ test("Testing user_is_not_old_password from userController", (done) => {
 
 test("Testing user_change_password from userController", (done) => {
   let user = {
-    id: 4,
+    id: 5,
     priority:"Administrator",
-    email:"admin@admin.admin",
+    email:"test@test.test",
     password:"test123"
   };
   userController.user_change_password(user,(status,data) => {
