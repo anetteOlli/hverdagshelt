@@ -163,17 +163,7 @@ test("Testing users_forgot_password from userController", (done) => {
   userController.user_forgot_password(user,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows[0]).toBe(1);
-    user.password = "yeeet";
-    userController.user_forgot_password(user, (status,data) => {
-      expect(status).toBe(500);
-      expect(data.affectedRows).toBe(0);
-      user.email = "soidfngisdofnoaf";
-      userController.user_forgot_password(user, (status,data) => {
-        expect(status).toBe(404);
-        expect(data).toBe(0);
-        done();
-      })
-    })
+    done();
   })
 });
 
