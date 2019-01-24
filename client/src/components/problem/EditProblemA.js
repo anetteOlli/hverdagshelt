@@ -161,6 +161,7 @@ class EditProblemA extends React.Component<Props, State> {
                   <SelectValidator
                     className={classes.entries}
                     fullWidth
+                    margin="normal"
                     label="Status:"
                     name="status"
                     value={this.state.status}

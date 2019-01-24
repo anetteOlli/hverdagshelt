@@ -28,6 +28,13 @@ exports.entrepreneurs_get_one_by_user_id = (id, callback) => {
   });
 };
 
+exports.entrepreneurs_get_one_by_entrepreneur_id = (id, callback) => {
+  console.log('Handling GET requests to /entrepreneurs/id/' + id);
+  entrepreneurDao.getEntrepreneurByEntrepreneurID(id, (status, data) => {
+    callback(status, data[0]);
+  });
+};
+
 exports.validate_org_nr = (orgNr, callback) => {
   console.log('Handling GET requests to /div/validate_org_nr');
   entrepreneurDao.checkEntrepreneur(orgNr, (status, data) => {

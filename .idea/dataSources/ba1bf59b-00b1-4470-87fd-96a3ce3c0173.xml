@@ -1101,7 +1101,8 @@
       <Type>btree</Type>
     </index>
     <index id="274" parent="232" name="municipality">
-      <ColNames>municipality</ColNames>
+      <ColNames>municipality
+county</ColNames>
       <Type>btree</Type>
     </index>
     <key id="275" parent="232" name="PRIMARY">
@@ -1116,10 +1117,12 @@
       <RefColNames>entrepreneur_id</RefColNames>
     </foreign-key>
     <foreign-key id="277" parent="232" name="entrepreneur_municipality_ibfk_2">
-      <ColNames>municipality</ColNames>
+      <ColNames>municipality
+county</ColNames>
       <RefSchemaName>larssorl</RefSchemaName>
       <RefTableName>municipality</RefTableName>
-      <RefColNames>municipality</RefColNames>
+      <RefColNames>municipality
+county</RefColNames>
     </foreign-key>
     <column id="278" parent="233" name="event_id">
       <Position>1</Position>
@@ -1455,8 +1458,8 @@ county</ColNames>
     <foreign-key id="339" parent="236" name="problem_ibfk_7">
       <ColNames>entrepreneur_id</ColNames>
       <RefSchemaName>larssorl</RefSchemaName>
-      <RefTableName>user</RefTableName>
-      <RefColNames>user_id</RefColNames>
+      <RefTableName>entrepreneur</RefTableName>
+      <RefColNames>entrepreneur_id</RefColNames>
     </foreign-key>
     <foreign-key id="340" parent="236" name="problem_ibfk_3">
       <ColNames>municipality

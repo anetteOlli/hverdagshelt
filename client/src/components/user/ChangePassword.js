@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Card, CardContent } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { setNewPassword, getUserInfo } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
@@ -30,6 +30,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
@@ -51,16 +53,21 @@ type State = {
   user_id: number,
   successDialog: boolean,
   isOldPassword: boolean,
-  failureDialog: boolean
+  failureDialog: boolean,
+  loading: boolean
 };
 
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
-    padding: 20
+    padding: 20,
+    textAlign: "center"
   },
   button: {
     marginTop: theme.spacing.unit
+  },
+  progress:{
+    width: "50%"
   }
 });
 const ITEM_HEIGHT = 48;
@@ -83,31 +90,50 @@ class ChangePassword extends React.Component<Props, State> {
     showPassword: false,
     successDialog: false,
     isOldPassword: false,
-    failureDialog: false
+    failureDialog: false,
+    loading: false
   };
+
+  /** handles input from the user, and sets new state*/
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
+  /** toggles whether or not password should be visible for the user in plain text or not*/
   handleVisibility = () => {
     this.setState(prevState => ({
       showPassword: !prevState.showPassword
     }));
   };
+
+  /**
+   * updates the database
+   */
   handleSubmit = e => {
     e.preventDefault();
     const { email, user_id, password } = this.state;
 
+    this.setState({
+      loading: true
+    });
+
+    /** checks whether new password is identical to old password, and if so gives the user an
+     * errorDialog box.
+     * if password is not identical to old password, it will update database and give the user a
+     * confirm dialog and redirect user to the front page
+     */
     postData('users/check_pass', { email: this.props.email, password }).then(response => {
       console.log(response.data);
       this.setState({
-        isOldPassword: response.data.isOldPassword
+        isOldPassword: response.data.isOldPassword,
       });
 
       if (this.state.isOldPassword) {
         this.setState({
-          failureDialog: true
+          failureDialog: true,
+          loading: false
         });
       } else {
         console.log(
@@ -124,85 +150,80 @@ class ChangePassword extends React.Component<Props, State> {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
           else {
             this.setState({
-              successDialog: true
+              successDialog: true,
+              loading: false
             });
           }
         });
       }
     });
   };
+
+  /** closes the successDialog and sends the user to the front page */
   handleSuccessDialogClose = () => {
     this.setState({
       successDialog: false
     });
     this.props.history.push('/');
   };
-  checkOldPassword = () => {
-    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
-      this.setState({
-        isOldPassword: response.data.isOldPassword
-      });
-    });
-  };
 
-  handlePasswordInputChange = e => {
-    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
-      if (response.status !== 404) {
-        this.setState({
-          isOldPassword: response.data.isOldPassword,
-          [e.target.name]: e.target.value
-        });
-      }
-    });
-  };
+  /** closes the failureDialog */
   handleFailureDialogClose = () => {
     this.setState({
       failureDialog: false
     });
   };
 
+  //if the user !isLoggedIn, it will only show a div
   render() {
     const { classes, isLoggedIn, email, user_id, password } = this.props;
     console.log('this.state on render()', this.state, this.props);
     const form = (
       <div className={classes.main}>
-        <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="New password"
-            name="password"
-            autoComplete="new-password"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.password}
-            onChange={this.handleChange}
-            validators={['required', 'minStringLength:6']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Confirm password"
-            name="cnfPassword"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.cnfPassword}
-            onChange={this.handleChange}
-            validators={['required', 'isPasswordMatch']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
-          />
-          <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
-            Endre passord
-          </Button>
-        </ValidatorForm>
+        <Card align="center">
+          <CardContent>
+            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Nytt passord"
+                name="password"
+                autoComplete="new-password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.password}
+                onChange={this.handleChange}
+                validators={['required', 'minStringLength:6']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Bekreft passord"
+                name="cnfPassword"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.cnfPassword}
+                onChange={this.handleChange}
+                validators={['required', 'isPasswordMatch']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
+              />
+              <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
+                Endre passord
+              </Button>
+              {this.state.loading && (
+                <CircularProgress size={24} className={classes.progress}/>
+              )}
+            </ValidatorForm>
+          </CardContent>
+        </Card>
         <Dialog
           open={this.state.successDialog}
           aria-labelledby="alert-dialog-title"
@@ -243,7 +264,8 @@ const mapStateToProps = state => {
     isLoggedIn: state.user.isLoggedIn,
     errorMessage: state.user.errorMessage,
     user_id: state.user.user_id,
-    email: state.user.email
+    email: state.user.email,
+    isLoading: state.async.isLoading
   };
 };
 
