@@ -36,15 +36,13 @@ type Props = {
 
 type State = {
   email: string,
-  passwordSentSuccess: boolean,
-  sentDialogue: boolean
+  passwordSentSuccess: boolean
 };
 
 class ForgotPassword extends React.Component<Props, State> {
   state = {
     email: '',
-    passwordSentSuccess: false,
-    sentDialogue: true
+    passwordSentSuccess: false
   };
 
   handleChange = e => {
@@ -81,11 +79,7 @@ class ForgotPassword extends React.Component<Props, State> {
     if (this.state.passwordSentSuccess) {
       return (
         <div>
-          <Dialog open={this.state.sentDialogue} onClose={() =>{
-            this.props.clearError();
-            this.props.onClose();
-          }}>
-          {console.log(this.state.sentDialogue)}
+          <Dialog>
             <DialogTitle>Nytt passord sendt</DialogTitle>
             <DialogContent>
               <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
