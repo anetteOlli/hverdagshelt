@@ -59,13 +59,13 @@ class TemporaryDrawer extends React.Component<Props, State> {
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Statestikk" />
+            <ListItemText primary="Statistikk (temp)" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problems'}>
+          <ListItem button component={NavLink} to={'/problemoversikt'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>
-            <ListItemText primary="Problem Oversikt" />
+            <ListItemText primary="Problemoversikt" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>
@@ -73,32 +73,32 @@ class TemporaryDrawer extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText primary="Registrer Problem" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/editp'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rediger Problem" />
-          </ListItem>
         </List>
         <Divider />
         <List>
-          {priority === 'Municipality' && (
+          {(priority === 'Municipality' || priority === 'Administrator' ) && (
+            <div>
             <ListItem button component={NavLink} to={'/opprArrangement'}>
               <ListItemIcon>
                 <EventIcon />
               </ListItemIcon>
               <ListItemText primary="Opprett Arrangement" />
             </ListItem>
+            <ListItem button component={NavLink} to={'/stati'}>
+              <ListItemIcon>
+                <HotIcon />
+              </ListItemIcon>
+              <ListItemText primary="Statistikk" />
+            </ListItem>
+            </div>
           )}
           {priority === 'Administrator' && (
-            <Button onClick={this.handleOpenCat}>
-              <ListItem>
-                <ListItemIcon>
-                  <SettingIcon />
-                </ListItemIcon>
-                <ListItemText primary="Legg til kategori" />
+              <ListItem button onClick={this.handleOpenCat}>
+                  <ListItemIcon>
+                    <AddCircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Legg til kategori" />
               </ListItem>
-            </Button>
           )}
         </List>
       </div>

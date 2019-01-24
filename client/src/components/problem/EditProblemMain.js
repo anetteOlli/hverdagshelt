@@ -3,6 +3,8 @@ import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
 import { entrepreneurs_get_one_by_user_id } from '../../store/actions/entrepreneurAction';
+import SignedOutLinks from '../layout/SignedOutLinks';
+
 // Material-ui
 import {
   Select,
@@ -139,25 +141,23 @@ class EditProblemMain extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problems } = this.props;
+    const { classes, problems, user_id } = this.props;
     bool = this.props.editMode;
+    console.log('user_id', user_id);
 
-    return (
+    const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item sm md={4} xs className={classes.gridLeft}>
-            <div style={{position: "-webkit-sticky", position: "sticky"}}>
-            <Paper className={classes.mui} style={{height: 300, width: "100%", overflow: 'auto'}}>
-              <MuiTable2
-                className={classes.mui}
-                rows={problems}
-                onClick={e => {
-                  let myProblem = e;
-                  this.props.goToProblemDetail(myProblem.problem_id);
-                }}
-              />
-            </Paper>
-            </div>
+          <Grid item sm md={4} xs className={classes.gridLeft} style={{position: 'relative'}}>
+            <MuiTable2
+              className={classes.mui}
+              rows={problems}
+              height={"40%"}
+              onClick={e => {
+                let myProblem = e;
+                this.props.goToProblemDetail(myProblem.problem_id);
+              }}
+            />
           </Grid>
           <Grid item sm md={8} xs>
             {getEditView(getView(bool, this.props.priority))}
@@ -165,6 +165,26 @@ class EditProblemMain extends React.Component<Props, State> {
         </Grid>
       </div>
     );
+    const loggOn = (
+      <div>
+      <Card className="must-log-in-to-register" align="center">
+        <CardContent>
+          <Typography variant="h5" color="error">
+            Du må logge inn for å kunne se problemoversikten
+          </Typography>
+        </CardContent>
+        <CardContent>
+          <SignedOutLinks />
+        </CardContent>
+        <CardContent>
+          <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            Tilbake til hovedmenyen
+          </Button>
+        </CardContent>
+      </Card>
+      </div>
+    );
+    return user_id > 0 ? main : loggOn;
   }
 
   componentDidMount() {
