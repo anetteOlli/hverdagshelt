@@ -3,7 +3,7 @@ import * as mysql from 'mysql';
 const userController = require('../../src/controllers/userController');
 const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
-jest.setTimeout(70000);
+jest.setTimeout(700000);
 
 let pool = mysql.createPool({
   connectionLimit: 1000000,

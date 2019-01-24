@@ -109,7 +109,17 @@ test("Testing problems_create_problem from problemController", (done) => {
   problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
     expect(data[0].affectedRows).toBe(1);
-    done();
+    problem.street = "yeetStreet";
+    problemController.problems_create_problem(undefined,problem,(status,data) => {
+      expect(status).toBe(200);
+      expect(data[0].affectedRows).toBe(1);
+      problem.county = "yeet";
+      problemController.problems_create_problem(undefined, problem, (status,data) => {
+        expect(status).toBe(429);
+        expect(data.affectedRows).toBe(0);
+        done();
+      })
+    })
   })
 });
 
@@ -122,8 +132,13 @@ test("Testing problems_support_problem from problemController", (done) => {
   problemController.problems_support_problem(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
-    done();
+    problemController.problems_support_problem(id,json,(status,data) => {
+      expect(status).toBe(500);
+      expect(data.affectedRows).toBe(0);
+      done();
+    })
   })
+
 });
 
 test("Testing problems_delete_problem  from problemController", (done) => {
@@ -160,7 +175,7 @@ test("Testing problems_get_problem_by_user from problemController", (done) => {
   })
 });
 
-test("Testing problems_ from problemController", (done) => {
+test("Testing problems_get_from_municipality_sorted from problemController", (done) => {
   let json = {
     county:"Trøndelag",
     municipality: "Trondheim"
