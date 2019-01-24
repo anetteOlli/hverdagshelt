@@ -110,10 +110,19 @@ class ChangePassword extends React.Component<Props, State> {
           failureDialog: true
         });
       } else {
-        this.props.setNewPassword(user_id, password, email).then(() => {
+        console.log(
+          'INNI ChangePassword',
+          this.state.user_id,
+          this.state.password,
+          this.state.email,
+          'LOCAL VAR',
+          user_id,
+          password,
+          email
+        );
+        this.props.setNewPassword(this.props.user_id, password, this.props.email).then(() => {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
           else {
-            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
             this.setState({
               successDialog: true
             });
@@ -154,6 +163,7 @@ class ChangePassword extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoggedIn, email, user_id, password } = this.props;
+    console.log('this.state on render()', this.state, this.props);
     const form = (
       <div className={classes.main}>
         <ValidatorForm ref="form" onSubmit={this.handleSubmit}>

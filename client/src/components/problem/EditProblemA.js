@@ -72,6 +72,15 @@ const styles = (theme: Object) => ({
     paddingBottom: 20,
     height: '100%',
     alignItems: 'flex-end'
+  },
+  titles: {
+    textdecoration: 'underline',
+    paddingTop: 30
+  },
+  entries: {
+    maxWidth: '90%',
+    marginLeft: 30,
+    marginRight: 30
   }
 });
 
@@ -135,10 +144,11 @@ class EditProblemA extends React.Component<Props, State> {
             <ValidatorForm ref="problemForm" onSubmit={this.handleSubmit}>
               <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
                 <Paper className={classes.paper2} name={'Paper for UserProblem'}>
-                  <Typography variant="h2" gutterBottom align="center">
+                  <Typography variant="h3" className={classes.titles} gutterBottom align="center">
                     Bruker beskrivelse
                   </Typography>
                   <TextValidator
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     label="Tittel"
@@ -149,6 +159,7 @@ class EditProblemA extends React.Component<Props, State> {
                     errorMessages={['Du må skrive inn en tittel', 'Ugyldig tittel']}
                   />
                   <SelectValidator
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     label="Status:"
@@ -166,6 +177,7 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     multiline
@@ -179,6 +191,7 @@ class EditProblemA extends React.Component<Props, State> {
                   />
 
                   <SelectValidator
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     label="Kategori"
@@ -195,7 +208,10 @@ class EditProblemA extends React.Component<Props, State> {
                     ))}
                   </SelectValidator>
 
-                  <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Dato startet: {this.state.date_made}{' '}
+                  </Typography>
 
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -214,11 +230,12 @@ class EditProblemA extends React.Component<Props, State> {
               </Grid>
               <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
                 <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                  <Typography variant="h2" gutterBottom align="center">
+                  <Typography variant="h3" className={classes.titles} gutterBottom align="center">
                     Entreprenør beskrivelse
                   </Typography>
 
                   <SelectValidator
+                    className={classes.entries}
                     fullWidth
                     margin="normal"
                     label="Status:"
@@ -236,6 +253,7 @@ class EditProblemA extends React.Component<Props, State> {
                   </SelectValidator>
 
                   <TextValidator
+                    className={classes.entries}
                     fullWidth
                     multiline
                     rowsMax={10}
@@ -246,9 +264,15 @@ class EditProblemA extends React.Component<Props, State> {
                     value={this.state.description_entrepreneur}
                     onChange={this.handleChange}
                   />
-                  <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Entreprenør: {this.state.entrepreneur_id}{' '}
+                  </Typography>
 
-                  <Paper> Dato Endret: {this.state.last_edited} </Paper>
+                  <Typography variant="i" className={classes.paper}>
+                    {' '}
+                    Dato Endret: {this.state.last_edited}{' '}
+                  </Typography>
 
                   <div>
                     <ExpansionPanel>
@@ -287,7 +311,7 @@ class EditProblemA extends React.Component<Props, State> {
         </div>
       );
     } else {
-      return <h3>Loading current problem</h3>;
+      return <h3>Velg et problem til venstre</h3>;
     }
   }
 
