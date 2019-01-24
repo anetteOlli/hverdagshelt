@@ -139,14 +139,31 @@ test("Testing users_login from userController", (done) => {
   userController.users_login(user,(status,data) => {
     expect(status).toBe(200);
     expect(data.id).toBe(4);
-    user.email = "heihå@heiå.heiå";
+    user.password = "fasdfasd"
     userController.users_login(user, (status,data) => {
       expect(status).toBe(401);
       expect(data.message).toBe("WRONG_PASSWORD");
-      done();
+      user.email = "heihå@heiå.heiå";
+      userController.users_login(json, (status,data) => {
+        expect(status).toBe(404);
+        expect(data.message).toBe("NOT_FOUND");
+        done();
+      })
     })
   });
-
 });
+
+test("Testing users_forgot_password from userController", (done) => {
+  let user = {
+    id: 1,
+    priority:"Standard",
+    email:"admin@admin.admin",
+    password:"abc123"
+  };
+  userController.user_forgot_password(user,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
+  })
+})
 
 
