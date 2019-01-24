@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51d9cfd7-b047-42d1-9475-ac1a0e015fc5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/1e6b8da9-edfd-471e-a847-9dc381772804.xml~971de9a5d062df43b67f8246197f33eca8da0994" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/1e6b8da9-edfd-471e-a847-9dc381772804.xml~HEAD_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classdiagram/clientclass.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classdiagram/serverclass.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/problem/EditProblemMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/EditProblemMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/util/MuiTable-2.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/MuiTable-2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/userActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/userRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/services/nodemailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/services/nodemailer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,12 +44,6 @@
         <item name="larssorl@mysql.stud.iie.ntnu.no [2]" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="larssorl@mysql.stud.iie.ntnu.no [2]" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="larssorl: schema" type="c314c289:MysqlImplModel$Schema" />
-      </path>
     </expand>
     <select />
   </component>
@@ -76,35 +51,35 @@
     <session id="1849383522">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="SCHEMA:larssorl" value="1" />
+          <entry key="SCHEMA:larssorl" value="2" />
           <entry key="entrepreneur" value="2" />
           <entry key="entrepreneur_category" value="1" />
           <entry key="entrepreneur_municipality" value="1" />
           <entry key="js" value="14" />
-          <entry key="problem" value="1" />
-          <entry key="sql" value="1" />
+          <entry key="problem" value="2" />
+          <entry key="sql" value="2" />
           <entry key="user" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Database Element" value="7" />
+          <entry key="Database Element" value="8" />
           <entry key="JavaScript" value="14" />
-          <entry key="SQL" value="1" />
-          <entry key="UML" value="1" />
+          <entry key="SQL" value="2" />
+          <entry key="UML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="cell" value="26" />
           <entry key="js" value="580" />
-          <entry key="txt" value="13" />
+          <entry key="txt" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JavaScript" value="580" />
-          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="PLAIN_TEXT" value="28" />
           <entry key="Scratch" value="26" />
         </counts>
       </usages-collector>
@@ -112,41 +87,201 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="207" column="14" selection-start-line="207" selection-start-column="14" selection-end-line="207" selection-end-column="14" />
-              <folding>
-                <element signature="e#9#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="51" column="62" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="62" />
+            <state relative-caret-position="207">
+              <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/controllers/entrepreneurController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+        <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>DATABASE</ID>
+              <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
+              <nodes>
+                <node x="561.6854395604396" y="688.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
+                <node x="143.3104395604396" y="1230.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
+                <node x="750.8166208791208" y="0.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
+                <node x="483.2087912087911" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
+                <node x="519.0" y="112.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
+                <node x="316.2087912087911" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
+                <node x="594.7087912087911" y="234.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
+                <node x="1263.6682692307693" y="875.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
+                <node x="1039.6682692307693" y="490.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
+                <node x="0.0" y="1371.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+                <node x="114.20879120879113" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
+                <node x="175.8104395604396" y="776.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
+                <node x="970.5432692307693" y="886.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
+                <node x="856.6682692307693" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
+                <node x="868.4354395604396" y="1230.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
+                <node x="730.8166208791208" y="101.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="0.0" y="-246.0" />
+                  <point x="692.6854395604396" y="668.0" />
+                  <point x="663.7087912087911" y="668.0" />
+                  <point x="-23.0" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="46.0" y="-59.0" />
+                  <point x="1401.6682692307693" y="214.0" />
+                  <point x="897.0666208791208" y="214.0" />
+                  <point x="71.25" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event">
+                  <point x="41.0" y="-48.0" />
+                  <point x="266.3104395604396" y="1205.0" />
+                  <point x="285.3104395604396" y="1205.0" />
+                  <point x="0.0" y="158.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+                  <point x="44.75" y="-48.0" />
+                  <point x="1104.7932692307693" y="668.0" />
+                  <point x="1141.1682692307693" y="668.0" />
+                  <point x="0.0" y="59.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority">
+                  <point x="-46.0" y="-103.0" />
+                  <point x="640.7087912087911" y="194.0" />
+                  <point x="593.5" y="194.0" />
+                  <point x="0.0" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="46.0" y="-103.0" />
+                  <point x="732.7087912087911" y="214.0" />
+                  <point x="802.0666208791208" y="214.0" />
+                  <point x="-23.75" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="37.428571428571445" y="-246.0" />
+                  <point x="730.1140109890109" y="648.0" />
+                  <point x="846.1682692307693" y="648.0" />
+                  <point x="846.1682692307693" y="214.0" />
+                  <point x="849.5666208791208" y="214.0" />
+                  <point x="23.75" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+                  <point x="-74.85714285714278" y="-246.0" />
+                  <point x="617.8282967032967" y="638.0" />
+                  <point x="426.45879120879107" y="638.0" />
+                  <point x="36.74999999999994" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+                  <point x="112.28571428571433" y="-246.0" />
+                  <point x="804.9711538461538" y="668.0" />
+                  <point x="1073.5016025641025" y="668.0" />
+                  <point x="-67.66666666666663" y="59.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+                  <point x="74.85714285714289" y="-246.0" />
+                  <point x="767.5425824175825" y="658.0" />
+                  <point x="897.4182692307693" y="658.0" />
+                  <point x="-40.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="-82.125" y="-158.0" />
+                  <point x="203.1854395604396" y="668.0" />
+                  <point x="62.03914835164824" y="668.0" />
+                  <point x="62.03914835164824" y="204.0" />
+                  <point x="754.5666208791208" y="204.0" />
+                  <point x="-71.25" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+                  <point x="27.375" y="-158.0" />
+                  <point x="312.6854395604396" y="668.0" />
+                  <point x="352.9587912087911" y="668.0" />
+                  <point x="-36.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+                  <point x="-112.28571428571422" y="-246.0" />
+                  <point x="580.3997252747254" y="648.0" />
+                  <point x="250.70879120879113" y="648.0" />
+                  <point x="45.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="0.0" y="-59.0" />
+                  <point x="1141.1682692307693" y="470.0" />
+                  <point x="709.7087912087911" y="470.0" />
+                  <point x="23.0" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="45.25" y="-48.0" />
+                  <point x="1004.1854395604396" y="1205.0" />
+                  <point x="1253.1682692307693" y="1205.0" />
+                  <point x="1253.1682692307693" y="460.0" />
+                  <point x="755.7087912087911" y="460.0" />
+                  <point x="69.0" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+                  <point x="-27.375" y="-158.0" />
+                  <point x="257.9354395604396" y="658.0" />
+                  <point x="159.70879120879113" y="658.0" />
+                  <point x="-45.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+                  <point x="-44.75" y="-48.0" />
+                  <point x="1015.2932692307693" y="658.0" />
+                  <point x="978.9182692307693" y="658.0" />
+                  <point x="40.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+                  <point x="-46.0" y="-59.0" />
+                  <point x="1309.6682692307693" y="668.0" />
+                  <point x="1208.834935897436" y="668.0" />
+                  <point x="67.66666666666674" y="59.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+                  <point x="-37.42857142857133" y="-246.0" />
+                  <point x="655.2568681318683" y="628.0" />
+                  <point x="610.7087912087911" y="628.0" />
+                  <point x="42.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="-41.0" y="-48.0" />
+                  <point x="184.3104395604396" y="1205.0" />
+                  <point x="45.5" y="1205.0" />
+                  <point x="45.5" y="470.0" />
+                  <point x="617.7087912087911" y="470.0" />
+                  <point x="-69.0" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+                  <point x="82.125" y="-158.0" />
+                  <point x="367.4354395604396" y="668.0" />
+                  <point x="525.7087912087911" y="668.0" />
+                  <point x="-42.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem">
+                  <point x="-45.25" y="-48.0" />
+                  <point x="913.6854395604396" y="1205.0" />
+                  <point x="692.6854395604396" y="1205.0" />
+                  <point x="0.0" y="246.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county">
+                  <point x="0.0" y="-36.5" />
+                  <point x="0.0" y="25.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.33368146214099215" x="699.2488262910798" y="1237.2488262910797" />
+              <SelectedNodes />
+              <Categories>
+                <Category>Key columns</Category>
+                <Category>Columns</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -1256,8 +1391,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1762" />
-    <option name="width" value="1450" />
+    <option name="x" value="987" />
+    <option name="width" value="2228" />
     <option name="height" value="1715" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -1324,7 +1459,15 @@
               <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="SQL" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1393,13 +1536,6 @@
       <workItem from="1548141838626" duration="15011000" />
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
-    </task>
-    <task id="LOCAL-00008" summary="event dao + route">
-      <created>1547046989999</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1547046989999</updated>
     </task>
     <task id="LOCAL-00009" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
       <created>1547047242741</created>
@@ -1737,11 +1873,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548335413287</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="nionolkjm">
+      <created>1548335687095</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1548335687095</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232541000" />
+    <option name="totallyTimeSpent" value="235428000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1753,9 +1896,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1293" height="693" extended-state="6" />
+    <frame x="395" y="0" width="891" height="686" extended-state="1" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1611336" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.051620647" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
@@ -1773,14 +1917,14 @@
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.5852349" weight="0.32206404" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" visible="true" weight="0.18149467" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" visible="true" weight="0.18378378" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.2964539" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.2097166" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.34333733" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19798657" />
@@ -1846,7 +1990,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Merging merge conflicts :)))" />
     <MESSAGE value="entrepreneur linking to categories and munis" />
     <MESSAGE value="oh boy" />
     <MESSAGE value="merge conflicts ahoy" />
@@ -1871,7 +2014,8 @@
     <MESSAGE value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/SQL/testScript.sql" />
     <MESSAGE value="App" />
     <MESSAGE value="++++" />
-    <option name="LAST_COMMIT_MESSAGE" value="++++" />
+    <MESSAGE value="nionolkjm" />
+    <option name="LAST_COMMIT_MESSAGE" value="nionolkjm" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
@@ -2150,54 +2294,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>DATABASE</ID>
-          <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
-          <nodes>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.6" x="322.16666666666674" y="118.83333333333337" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Key columns</Category>
-            <Category>Columns</Category>
-          </Categories>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="51" column="62" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -2226,6 +2322,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://ba1bf59b-00b1-4470-87fd-96a3ce3c0173/schema/larssorl/table/user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="das://ba1bf59b-00b1-4470-87fd-96a3ce3c0173/schema/larssorl/table/problem">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -2240,20 +2343,206 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://ba1bf59b-00b1-4470-87fd-96a3ce3c0173/schema/larssorl/table/user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="207" column="14" selection-start-line="207" selection-start-column="14" selection-end-line="207" selection-end-column="14" />
+        <state relative-caret-position="158">
+          <caret line="359" column="52" lean-forward="true" selection-start-line="359" selection-start-column="52" selection-end-line="359" selection-end-column="52" />
           <folding>
             <element signature="e#9#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
+          <nodes>
+            <node x="561.6854395604396" y="688.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
+            <node x="143.3104395604396" y="1230.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
+            <node x="750.8166208791208" y="0.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
+            <node x="483.2087912087911" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
+            <node x="519.0" y="112.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
+            <node x="316.2087912087911" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
+            <node x="594.7087912087911" y="234.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
+            <node x="1263.6682692307693" y="875.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
+            <node x="1039.6682692307693" y="490.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
+            <node x="0.0" y="1371.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+            <node x="114.20879120879113" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
+            <node x="175.8104395604396" y="776.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
+            <node x="970.5432692307693" y="886.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
+            <node x="856.6682692307693" y="523.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
+            <node x="868.4354395604396" y="1230.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
+            <node x="730.8166208791208" y="101.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="0.0" y="-246.0" />
+              <point x="692.6854395604396" y="668.0" />
+              <point x="663.7087912087911" y="668.0" />
+              <point x="-23.0" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="46.0" y="-59.0" />
+              <point x="1401.6682692307693" y="214.0" />
+              <point x="897.0666208791208" y="214.0" />
+              <point x="71.25" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event">
+              <point x="41.0" y="-48.0" />
+              <point x="266.3104395604396" y="1205.0" />
+              <point x="285.3104395604396" y="1205.0" />
+              <point x="0.0" y="158.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+              <point x="44.75" y="-48.0" />
+              <point x="1104.7932692307693" y="668.0" />
+              <point x="1141.1682692307693" y="668.0" />
+              <point x="0.0" y="59.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority">
+              <point x="-46.0" y="-103.0" />
+              <point x="640.7087912087911" y="194.0" />
+              <point x="593.5" y="194.0" />
+              <point x="0.0" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="46.0" y="-103.0" />
+              <point x="732.7087912087911" y="214.0" />
+              <point x="802.0666208791208" y="214.0" />
+              <point x="-23.75" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="37.428571428571445" y="-246.0" />
+              <point x="730.1140109890109" y="648.0" />
+              <point x="846.1682692307693" y="648.0" />
+              <point x="846.1682692307693" y="214.0" />
+              <point x="849.5666208791208" y="214.0" />
+              <point x="23.75" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+              <point x="-74.85714285714278" y="-246.0" />
+              <point x="617.8282967032967" y="638.0" />
+              <point x="426.45879120879107" y="638.0" />
+              <point x="36.74999999999994" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+              <point x="112.28571428571433" y="-246.0" />
+              <point x="804.9711538461538" y="668.0" />
+              <point x="1073.5016025641025" y="668.0" />
+              <point x="-67.66666666666663" y="59.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+              <point x="74.85714285714289" y="-246.0" />
+              <point x="767.5425824175825" y="658.0" />
+              <point x="897.4182692307693" y="658.0" />
+              <point x="-40.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="-82.125" y="-158.0" />
+              <point x="203.1854395604396" y="668.0" />
+              <point x="62.03914835164824" y="668.0" />
+              <point x="62.03914835164824" y="204.0" />
+              <point x="754.5666208791208" y="204.0" />
+              <point x="-71.25" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+              <point x="27.375" y="-158.0" />
+              <point x="312.6854395604396" y="668.0" />
+              <point x="352.9587912087911" y="668.0" />
+              <point x="-36.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+              <point x="-112.28571428571422" y="-246.0" />
+              <point x="580.3997252747254" y="648.0" />
+              <point x="250.70879120879113" y="648.0" />
+              <point x="45.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="0.0" y="-59.0" />
+              <point x="1141.1682692307693" y="470.0" />
+              <point x="709.7087912087911" y="470.0" />
+              <point x="23.0" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="45.25" y="-48.0" />
+              <point x="1004.1854395604396" y="1205.0" />
+              <point x="1253.1682692307693" y="1205.0" />
+              <point x="1253.1682692307693" y="460.0" />
+              <point x="755.7087912087911" y="460.0" />
+              <point x="69.0" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+              <point x="-27.375" y="-158.0" />
+              <point x="257.9354395604396" y="658.0" />
+              <point x="159.70879120879113" y="658.0" />
+              <point x="-45.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+              <point x="-44.75" y="-48.0" />
+              <point x="1015.2932692307693" y="658.0" />
+              <point x="978.9182692307693" y="658.0" />
+              <point x="40.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+              <point x="-46.0" y="-59.0" />
+              <point x="1309.6682692307693" y="668.0" />
+              <point x="1208.834935897436" y="668.0" />
+              <point x="67.66666666666674" y="59.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+              <point x="-37.42857142857133" y="-246.0" />
+              <point x="655.2568681318683" y="628.0" />
+              <point x="610.7087912087911" y="628.0" />
+              <point x="42.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="-41.0" y="-48.0" />
+              <point x="184.3104395604396" y="1205.0" />
+              <point x="45.5" y="1205.0" />
+              <point x="45.5" y="470.0" />
+              <point x="617.7087912087911" y="470.0" />
+              <point x="-69.0" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+              <point x="82.125" y="-158.0" />
+              <point x="367.4354395604396" y="668.0" />
+              <point x="525.7087912087911" y="668.0" />
+              <point x="-42.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem">
+              <point x="-45.25" y="-48.0" />
+              <point x="913.6854395604396" y="1205.0" />
+              <point x="692.6854395604396" y="1205.0" />
+              <point x="0.0" y="246.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county">
+              <point x="0.0" y="-36.5" />
+              <point x="0.0" y="25.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.33368146214099215" x="699.2488262910798" y="1237.2488262910797" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
         </state>
       </provider>
     </entry>
