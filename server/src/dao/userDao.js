@@ -40,7 +40,7 @@ module.exports = class UserDao extends Dao {
   }
 
   checkEmail(email, callback) {
-    super.query('select user_id, password, priority from user where email = ?', [email], callback);
+    super.query('select user_id, password, priority from user where email = ? AND active = TRUE', [email], callback);
   }
 
   activateUser(email, callback) {
