@@ -141,10 +141,11 @@ class EditProblemMain extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problems } = this.props;
+    const { classes, problems, user_id } = this.props;
     bool = this.props.editMode;
+    console.log('user_id', user_id);
 
-    return (
+    const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
@@ -165,6 +166,18 @@ class EditProblemMain extends React.Component<Props, State> {
         </Grid>
       </div>
     );
+    const loggOn = (
+      <div>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" color="error">
+              Du må logge på for å få se problemoversikten{' '}
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    );
+    return user_id > 0 ? main : loggOn;
   }
 
   componentDidMount() {
