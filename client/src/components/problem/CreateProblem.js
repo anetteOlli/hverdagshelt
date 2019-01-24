@@ -23,6 +23,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Created by us
 import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
@@ -45,7 +46,7 @@ const styles = theme => ({
          fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
-         fontSize: 20
+         fontSize: 16
        }
     }
   },
@@ -152,12 +153,12 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      //console.log("rows");
-      //console.log(rows);
+      //console.log("rows step 1: ", rows);
       const clicked = (state.cur_title != '' && state.cur_title != null);
       const haveRows = (rows[0] != null);
       return (
         <Card className="content-1">
+
           <CardContent>
           <Typography variant="h5" align="center" color="secondary">
             Nærliggende problemer
@@ -166,32 +167,32 @@ function getStepContent(step: number, state: State,
             Finnes problemet fra før av? <br/>
             Gjerne støtt problemet så vet vi at det rammer mange
           </Typography>
+          <br/>
             <Grid container
             spacing={8}
             direction="row"
             >
-
               <Grid item
               md={4} xs={12}
+              style={{position: 'relative'}}
               >
-
-
-
-                <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
-
+              {haveRows ? (
                   <MuiTable2
-                  rows={rows}
-                  onClick={e => {
-                    let myProblem = e;
-                    handleChangeSpec("cur_id", myProblem.problem_id);
-                    handleChangeSpec("cur_title", myProblem.problem_title);
-                    handleChangeSpec("cur_description", myProblem.problem_description);
-                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_id);
-                    handleChangeSpec("cur_status", myProblem.status);
-                    handleChangeSpec("cur_imageURL", myProblem.img_user);
+                    rows={rows}
+                    height={"100%"}
+                    onClick={e => {
+                      let myProblem = e;
+                      handleChangeSpec("cur_id", myProblem.problem_id);
+                      handleChangeSpec("cur_title", myProblem.problem_title);
+                      handleChangeSpec("cur_description", myProblem.problem_description);
+                      handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_id);
+                      handleChangeSpec("cur_status", myProblem.status);
+                      handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
-                </Paper>
+              ):(
+                <div/>
+              )}
               </Grid>
               <Grid item container
               direction="column"
@@ -200,6 +201,7 @@ function getStepContent(step: number, state: State,
               spacing={24}
               alignItems="center"
               >
+                <br/>
                 <Typography variant="h5" align="center" color="secondary">
                     {state.municipality},
                 </Typography>
@@ -207,7 +209,7 @@ function getStepContent(step: number, state: State,
                     {state.street}
                 </Typography>
                 <Card style={{width:'90%'}} align="center">
-                    {true ? (true ?  (
+                    {haveRows ? (clicked ?  (
                     <div>
                     <CardMedia
                       component="img"
@@ -225,9 +227,6 @@ function getStepContent(step: number, state: State,
                         <Typography align="center">{state.cur_description}</Typography><br/>
                       </Grid>
                       <Grid item md={6}>
-                        <Typography variant="subtitle2" color="error" align="center">{state.cur_entrepreneur}</Typography><br/>
-                      </Grid>
-                      <Grid item md={6}>
                         <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
                       </Grid>
                       <Grid item xs>
@@ -241,6 +240,10 @@ function getStepContent(step: number, state: State,
                              Støtt problemet
                           </Button>
                         </Tooltip>
+                        <br/>
+                        {state.loadingSupport && (
+                        <CircularProgress size={24} />
+                        )}
                       </Grid>
                     </CardContent>
                     </div>) : (
@@ -251,7 +254,7 @@ function getStepContent(step: number, state: State,
                     </Grid>
                     )) : (
                     <Grid item xs>
-                      <Typography align="center" color="primary">
+                      <Typography align="center" color="error">
                         Ingen like problem, gå videre
                       </Typography>
                     </Grid>
@@ -266,9 +269,9 @@ function getStepContent(step: number, state: State,
       return (
         <Card className="content-2" align="center">
           <CardContent>
-            <Typography>{state.category}</Typography>
-            <Typography>{state.municipality}</Typography>
-            <Typography>{state.street}</Typography>
+            <Typography variant="h6" align="center" color="secondary">{state.category}</Typography>
+            <Typography variant="h6" color="primary">{state.municipality},</Typography>
+            <Typography variant="h6" color="primary">{state.street}</Typography>
             <TextValidator
               fullWidth
               margin="normal"
@@ -348,7 +351,10 @@ type Props = {
   errorMessage: string,
   enqueueSnackbar: Function,
   supportProblem: Function,
-  isLoggedIn: boolean
+  isLoggedIn: boolean,
+  handleSupportDialogClose: Function,
+  handleSupportDialogCloseFron: Function,
+  backToFrontPage: Function,
 };
 type Problem = {
   problem_id: number,
@@ -384,6 +390,9 @@ type   state = {
     cur_imageURL: string,
     cur_entrepreneur: string,
     cur_status: string,
+    showSuppordDialog: boolean,
+    loadingSupport: boolean,
+    loadingCreateProb: boolean,
 
     similarProblems:
       [
@@ -429,6 +438,9 @@ class CreateProblem extends React.Component<Props, State> {
     cur_entrepreneur: '',
     cur_status: '',
     failureDialog: false,
+    showSuppordDialog: false,
+    loadingSupport: false,
+    loadingCreateProb: false,
 
     similarProblems:
       [
@@ -522,17 +534,67 @@ class CreateProblem extends React.Component<Props, State> {
     }
     if(this.state.municipality != ''){
       this.setState({
-      activeStep: activeStep + 1
-    });}else{
+        activeStep: activeStep + 1
+      });
+    }else{
       this.setState({
         failureDialog: true
-        })
+      });
     }
   };
+
+  /** setting failureDialog: false will close the failureDialog*/
   handleFailureDialogClose = () => {
     this.setState({
       failureDialog: false
     });
+  };
+  /**  setting showSuppordDialog: false will close the showSuppordDialog and
+  * this method will also redirect user to the frontpage
+  */
+  handleSupportDialogCloseFront = () => {
+    this.setState({
+      showSuppordDialog: false
+    });
+    history.push("/");
+  };
+  /**
+  *setting showSuppordDialog: false will close the showSuppordDialog.
+  * Rest of the function will refresh the similarProblems-lists, in order
+  * to update the number of "likes" on the problem the user clicked on
+  */
+  handleSupportDialogClose = () => {
+    this.setState({
+      showSuppordDialog: false
+    });
+    this.props.getProblemsByStreet(this.state.street, this.state.municipality, this.state.county).then(() => {
+       //console.log("Ferdiog!!")
+       let myProbs = this.props.similarProblems;
+       /*
+       this.props.similarProblems.map(e => {
+         console.log(this.props.similarProblems);
+         myProbs.push({
+             similarProblems
+         })
+       });*/
+       console.log("My probs");
+       console.log(myProbs);
+
+       //Set default to first
+       if(myProbs[0] != null){
+         this.handleChangeSpec("cur_id", myProbs[0].problem_id);
+         this.handleChangeSpec("cur_title", myProbs[0].problem_title);
+         this.handleChangeSpec("cur_description", myProbs[0].problem_description);
+         this.handleChangeSpec("cur_entrepreneur", myProbs[0].entrepreneur_id);
+         this.handleChangeSpec("cur_status", myProbs[0].status);
+         this.handleChangeSpec("cur_imageURL", myProbs[0].img_user);
+       }
+       else{
+         //myProbs = [{id:1, title: 'default', category: 'default', municipality: 'default', entrepreneur: 'Bob1', street: 'default', description: 'default', status: 'Unchecked', imageURL: "default"}]
+       }
+
+       this.setState({similarProblems: myProbs});
+   });
   };
 
   /** Handles clicking "Back" button */
@@ -541,6 +603,9 @@ class CreateProblem extends React.Component<Props, State> {
       activeStep: state.activeStep - 1
     }));
   };
+  backToFrontPage = () =>{
+    history.push("/");
+  }
 
   /** Handles input values
    * changes this component's state values
@@ -582,6 +647,10 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("city", this.state.city);
       k.append("street", this.state.street);
 
+      this.setState({
+        loadingCreateProb: true
+      });
+
       this.props.createProblem(k)
       .then((status) => {
         if(this.props.errorMessage != ''){
@@ -599,6 +668,9 @@ class CreateProblem extends React.Component<Props, State> {
         else{
           this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
         }
+        this.setState({
+          loadingCreateProb: false
+        });
       });
     }
     this.handleNext();
@@ -606,7 +678,9 @@ class CreateProblem extends React.Component<Props, State> {
 
   /** Handles when user is done and gets sent away. */
   handleFinish = e => {
-    history.push("/");
+    this.setState({
+      showSuppordDialog: true
+    });
   };
 
   /** Handles uploading of image files */
@@ -622,13 +696,20 @@ class CreateProblem extends React.Component<Props, State> {
   */
   handleSupport(problemId: number) {
     console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
+    this.setState({
+      loadingSupport: true
+    });
     this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
       //console.log(status);
+      this.setState({
+        loadingSupport: false
+      });
       if(this.props.errorMessage != ''){
         this.props.enqueueSnackbar("Error: Kunne ikke støtte problemet", {variant: 'warning'});
+      }else{
+        this.handleFinish();
       }
-      this.handleFinish();
     });
   }
 
@@ -664,10 +745,32 @@ class CreateProblem extends React.Component<Props, State> {
     return (
       <div>
       <Dialog
+        open={this.state.showSuppordDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du har nå støttet et problem'}</DialogTitle>
+        <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {"Takk! Du vil bli oppdatert på epost når det skjer noe med problemet"}
+        </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleSupportDialogCloseFront} color="primary" autoFocus>
+            Til forsiden
+          </Button>
+
+          <Button onClick={this.handleSupportDialogClose} color="primary" autoFocus>
+            Lukk vindu
+          </Button>
+        </DialogActions>
+        </Dialog>
+      <Dialog
         open={this.state.failureDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+
         <DialogTitle id="alert-dialog-title">{'Du må velge et sted på kartet eller ved å søke det opp'}</DialogTitle>
         <DialogActions>
           <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
@@ -696,6 +799,11 @@ class CreateProblem extends React.Component<Props, State> {
           </Stepper>
           <div className="bottomContent">
             {activeStep === steps.length ? (
+              this.state.loadingCreateProb ? (
+              <Card aling="center"> <CardContent>
+              <CircularProgress size={24} />
+              </CardContent></Card>
+              ) : (
               <Card className="create-problem-done" align="center">
                 <CardContent>
                   <Typography>
@@ -704,13 +812,13 @@ class CreateProblem extends React.Component<Props, State> {
                   <br/>
                   <Button variant="contained" color="primary"
                   className="create-problem-done-button"
-                  onClick={this.handleFinish}
+                  onClick={this.backToFrontPage}
                   >
                     Ferdig
                   </Button>
                 </CardContent>
               </Card>
-            ) : (
+            )) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
                               this.handleChangeSpec, this.handleUpload, this.handleSupport,

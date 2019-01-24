@@ -22,6 +22,7 @@ import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 import { signUpUser, signUpEntrepreneur } from '../../store/actions/userActions';
 import { getCounties, getMunicipalitiesByCounty } from '../../store/actions/muniActions';
+import {enqueueSnackbar} from '../../store/actions/notifyActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -49,16 +50,16 @@ type Props = {
 type State = {
   municipality: string,
   county: string,
-  entrepreneurName: string,
+  business_name: string,
   email: string,
   password: string,
   cnfPassword: string,
   showPassword: boolean,
   isUniqueEmail: boolean,
-  org_nr: number,
+  org_nr: string,
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
-  entrepreneurCategories: string[],
+  categories: string[],
   isUniqueOrgNr: boolean,
   successDialog: boolean
 };
@@ -93,11 +94,11 @@ class SignUp extends React.Component<Props, State> {
     showPassword: false,
     isUniqueEmail: false,
     isEntrepreneur: false,
-    entrepreneurName: '',
+    business_name: '',
     entrepreneurMunies: [],
-    entrepreneurCategories: [],
+    categories: [],
     isUniqueOrgNr: false,
-    org_nr: 0,
+    org_nr: '',
     successDialog: false
   };
 
@@ -135,8 +136,8 @@ class SignUp extends React.Component<Props, State> {
       password,
       isEntrepreneur,
       entrepreneurMunies,
-      entrepreneurCategories,
-      entrepreneurName,
+      categories,
+      business_name,
       org_nr
     } = this.state;
     if (!isEntrepreneur)
@@ -148,31 +149,33 @@ class SignUp extends React.Component<Props, State> {
           password
         })
         .then(() => {
-          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          if (this.props.errorMessage) this.props.enqueueSnackbar('Feil med å lage bruker', 'error');
           else {
-            this.props.enqueueSnackbar('Bruker laget!', { variant: 'success' });
+            this.props.enqueueSnackbar('Bruker laget!', 'success' );
             this.setState({
               successDialog: true
             });
           }
         });
     else {
+      if (entrepreneurMunies.length === 0)
+        return this.props.enqueueSnackbar('Entrepenørem må jobbe i minst en kommune', 'warning');
+      if (categories.length === 0)
+        return this.props.enqueueSnackbar('Entrepenøren må jobbe innnenfor minst en kategori', 'warning');
       this.props
         .signUpEntrepreneur(
-          { municipality: 'Trondheim', county: 'Trøndelag', email, password },
+          { municipality, county, email, password },
           {
-            business_name: entrepreneurName,
-            org_nr: org_nr,
-            municipalities: entrepreneurMunies.map(name => {
-              return { county, municipality: name };
-            }),
-            categories: entrepreneurCategories
+            business_name,
+            org_nr,
+            municipalities: entrepreneurMunies.map(name => ({ county, municipality: name })),
+            categories
           }
         )
         .then(() => {
-          if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
+          if (this.props.errorMessage) this.props.enqueueSnackbar('Feil med å lage bruker', 'error');
           else {
-            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.props.enqueueSnackbar('Bruker laget!', 'success' );
             this.setState({
               successDialog: true
             });
@@ -221,9 +224,9 @@ class SignUp extends React.Component<Props, State> {
           fullWidth
           margin="normal"
           label="Entrepenør navn"
-          name="entrepreneurName"
+          name="business_name"
           autoComplete="organization"
-          value={this.state.entrepreneurName}
+          value={this.state.business_name}
           onChange={this.handleChange}
           validators={['required']}
           errorMessages={['Feltet kan ikke være tomt']}
@@ -251,8 +254,8 @@ class SignUp extends React.Component<Props, State> {
           <InputLabel htmlFor="category-checkbox">Kategorier entrepenøren jobber innenfor:</InputLabel>
           <Select
             multiple
-            value={this.state.entrepreneurCategories}
-            name="entrepreneurCategories"
+            value={this.state.categories}
+            name="categories"
             onChange={this.handleChange}
             input={<Input id="category-checkbox" />}
             renderValue={selected => selected.join(', ')}
@@ -260,7 +263,7 @@ class SignUp extends React.Component<Props, State> {
           >
             {this.props.categories.map(name => (
               <MenuItem key={name} value={name}>
-                <Checkbox checked={this.state.entrepreneurCategories.indexOf(name) > -1} />
+                <Checkbox checked={this.state.categories.indexOf(name) > -1} />
                 <ListItemText primary={name} />
               </MenuItem>
             ))}
@@ -378,10 +381,10 @@ class SignUp extends React.Component<Props, State> {
           />
           {this.state.isEntrepreneur && EntrepenurSignUp}
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
-            Register
+            Registrer
           </Button>
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
-            Cancel
+            Avbryt
           </Button>
         </ValidatorForm>
         <Dialog
@@ -431,7 +434,8 @@ const mapDispatchToProps = dispatch => {
     signUpEntrepreneur: (newUser, newEntrepreneur) => dispatch(signUpEntrepreneur(newUser, newEntrepreneur)),
     getCounties: () => dispatch(getCounties()),
     getMunicipalitiesByCounty: (county: string) => dispatch(getMunicipalitiesByCounty(county)),
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    enqueueSnackbar: (message, type) => dispatch(enqueueSnackbar(message, type))
   };
 };
 
@@ -439,4 +443,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(withSnackbar(SignUp)));
+)(withStyles(styles)(SignUp));

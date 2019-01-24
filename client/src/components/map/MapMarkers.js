@@ -8,6 +8,7 @@ import withRoot from '../../withRoot';
 import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
 import { Pointer, PointerCurrent } from './pointer';
 
+/** API_KEY from google api. **/
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
@@ -55,7 +56,7 @@ type State = {
 /**
  * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
  * as we don't want the map to load each time a user clicks on the map, we are splitting those variables into to different locations
- *
+ * Changing center in already loaded map is bug-hell, dont
  **/
 class MapMarkers extends React.Component<Props, State> {
   state = {
@@ -69,18 +70,14 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    //console.log('MapMarker componentDidMount this.props', this.props);
     if (this.props.currentProblem) {
-      //console.log('MapMarker componentDidMount this.props', this.props);
       this.setState({
         hasLoaded: true
       });
     }
-    // this.props.getProblemsByMuni('Nord-Fron', 'Oppland').then(() => this.setState({ hasLoaded: true }));
   }
 
   apiHasLoaded = (map, maps) => {
-    //console.log('apiHasLoaded', map);
     if (map && maps) {
       this.setState({
         apiReady: true,

@@ -39,7 +39,7 @@ type State = {
 /**
  * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
  * as we don't want the map to load each time a user clicks on the map, we are splitting those variables into to different locations
- *
+ * Centering: sadly after a center has been sent in to google-map-react, updating center is no longer possible.
  **/
 class SimpleMap extends React.Component<Props, State> {
   state = {
