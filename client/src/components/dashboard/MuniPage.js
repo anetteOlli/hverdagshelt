@@ -334,7 +334,7 @@ class MuniPage extends React.Component<Props, State> {
   };
 
   /**User will be pushed to the registerProblem page */
-  registerProblem() {
+  registerProblem=()=> {
     this.props.history.push('/lagproblem');
   }
 

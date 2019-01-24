@@ -73,12 +73,6 @@ class TemporaryDrawer extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText primary="Registrer Problem" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/editp'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rediger Problem" />
-          </ListItem>
         </List>
         <Divider />
         <List>
