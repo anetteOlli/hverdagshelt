@@ -59,7 +59,7 @@ class TemporaryDrawer extends React.Component<Props, State> {
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Statestikk" />
+            <ListItemText primary="Statestikk (temp)" />
           </ListItem>
           <ListItem button component={NavLink} to={'/problems'}>
             <ListItemIcon>
@@ -82,23 +82,29 @@ class TemporaryDrawer extends React.Component<Props, State> {
         </List>
         <Divider />
         <List>
-          {priority === 'Municipality' && (
+          {(priority === 'Municipality' || priority === 'Administrator' ) && (
+            <div>
             <ListItem button component={NavLink} to={'/opprArrangement'}>
               <ListItemIcon>
                 <EventIcon />
               </ListItemIcon>
               <ListItemText primary="Opprett Arrangement" />
             </ListItem>
+            <ListItem button component={NavLink} to={'/stati'}>
+              <ListItemIcon>
+                <HotIcon />
+              </ListItemIcon>
+              <ListItemText primary="Statestikk" />
+            </ListItem>
+            </div>
           )}
           {priority === 'Administrator' && (
-            <Button onClick={this.handleOpenCat}>
-              <ListItem>
-                <ListItemIcon>
-                  <SettingIcon />
-                </ListItemIcon>
-                <ListItemText primary="Legg til kategori" />
+              <ListItem button onClick={this.handleOpenCat}>
+                  <ListItemIcon>
+                    <AddCircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Legg til kategori" />
               </ListItem>
-            </Button>
           )}
         </List>
       </div>

@@ -283,7 +283,7 @@ class MainPage extends React.Component<Props, State> {
                     size="medium"
                     className={classes.button}
                     onClick={() =>
-                      this.props.history.push(`${this.props.userMuni.municipality}/${this.props.userMuni.county}`)
+                      this.props.history.push(`${this.props.userMuni.county}/${this.props.userMuni.municipality}`)
                     }
                   >
                     Ta meg til min kommune

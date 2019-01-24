@@ -84,6 +84,15 @@ class ForgotPassword extends React.Component<Props, State> {
             <DialogContent>
               <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
             </DialogContent>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              className={classes.button}
+              onClick={this.handleClose}
+            >
+              Ok
+            </Button>
           </Dialog>
         </div>
       );

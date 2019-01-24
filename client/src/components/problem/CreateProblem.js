@@ -23,6 +23,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Created by us
 import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
@@ -152,8 +153,7 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      //console.log("rows");
-      //console.log(rows);
+      //console.log("rows step 1: ", rows);
       const clicked = (state.cur_title != '' && state.cur_title != null);
       const haveRows = (rows[0] != null);
       return (
@@ -174,22 +174,21 @@ function getStepContent(step: number, state: State,
             >
               <Grid item
               md={4} xs={12}
+              style={{position: 'relative'}}
               >
               {haveRows ? (
-                <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
                   <MuiTable2
-                  rows={rows}
-                  onClick={e => {
-                    let myProblem = e;
-                    handleChangeSpec("cur_id", myProblem.problem_id);
-                    handleChangeSpec("cur_title", myProblem.problem_title);
-                    handleChangeSpec("cur_description", myProblem.problem_description);
-                    handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_id);
-                    handleChangeSpec("cur_status", myProblem.status);
-                    handleChangeSpec("cur_imageURL", myProblem.img_user);
+                    rows={rows}
+                    onClick={e => {
+                      let myProblem = e;
+                      handleChangeSpec("cur_id", myProblem.problem_id);
+                      handleChangeSpec("cur_title", myProblem.problem_title);
+                      handleChangeSpec("cur_description", myProblem.problem_description);
+                      handleChangeSpec("cur_entrepreneur", myProblem.entrepreneur_id);
+                      handleChangeSpec("cur_status", myProblem.status);
+                      handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
-                </Paper>
               ):(
                 <div/>
               )}
@@ -226,9 +225,6 @@ function getStepContent(step: number, state: State,
                         <Typography align="center">{state.cur_description}</Typography><br/>
                       </Grid>
                       <Grid item md={6}>
-                        <Typography variant="subtitle2" color="error" align="center">{state.cur_entrepreneur}</Typography><br/>
-                      </Grid>
-                      <Grid item md={6}>
                         <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
                       </Grid>
                       <Grid item xs>
@@ -242,6 +238,10 @@ function getStepContent(step: number, state: State,
                              Støtt problemet
                           </Button>
                         </Tooltip>
+                        <br/>
+                        {state.loadingSupport && (
+                        <CircularProgress size={24} />
+                        )}
                       </Grid>
                     </CardContent>
                     </div>) : (
@@ -389,6 +389,8 @@ type   state = {
     cur_entrepreneur: string,
     cur_status: string,
     showSuppordDialog: boolean,
+    loadingSupport: boolean,
+    loadingCreateProb: boolean,
 
     similarProblems:
       [
@@ -435,6 +437,8 @@ class CreateProblem extends React.Component<Props, State> {
     cur_status: '',
     failureDialog: false,
     showSuppordDialog: false,
+    loadingSupport: false,
+    loadingCreateProb: false,
 
     similarProblems:
       [
@@ -528,24 +532,35 @@ class CreateProblem extends React.Component<Props, State> {
     }
     if(this.state.municipality != ''){
       this.setState({
-      activeStep: activeStep + 1
-    });}else{
+        activeStep: activeStep + 1
+      });
+    }else{
       this.setState({
         failureDialog: true
-        })
+      });
     }
   };
+
+  /** setting failureDialog: false will close the failureDialog*/
   handleFailureDialogClose = () => {
     this.setState({
       failureDialog: false
     });
   };
+  /**  setting showSuppordDialog: false will close the showSuppordDialog and
+  * this method will also redirect user to the frontpage
+  */
   handleSupportDialogCloseFront = () => {
     this.setState({
       showSuppordDialog: false
     });
     history.push("/");
   };
+  /**
+  *setting showSuppordDialog: false will close the showSuppordDialog.
+  * Rest of the function will refresh the similarProblems-lists, in order
+  * to update the number of "likes" on the problem the user clicked on
+  */
   handleSupportDialogClose = () => {
     this.setState({
       showSuppordDialog: false
@@ -630,6 +645,10 @@ class CreateProblem extends React.Component<Props, State> {
       k.append("city", this.state.city);
       k.append("street", this.state.street);
 
+      this.setState({
+        loadingCreateProb: true
+      });
+
       this.props.createProblem(k)
       .then((status) => {
         if(this.props.errorMessage != ''){
@@ -647,6 +666,9 @@ class CreateProblem extends React.Component<Props, State> {
         else{
           this.props.enqueueSnackbar("Problem laget!", {variant: 'success'})
         }
+        this.setState({
+          loadingCreateProb: false
+        });
       });
     }
     this.handleNext();
@@ -656,7 +678,7 @@ class CreateProblem extends React.Component<Props, State> {
   handleFinish = e => {
     this.setState({
       showSuppordDialog: true
-      })
+    });
   };
 
   /** Handles uploading of image files */
@@ -672,13 +694,20 @@ class CreateProblem extends React.Component<Props, State> {
   */
   handleSupport(problemId: number) {
     console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
+    this.setState({
+      loadingSupport: true
+    });
     this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
       //console.log(status);
+      this.setState({
+        loadingSupport: false
+      });
       if(this.props.errorMessage != ''){
         this.props.enqueueSnackbar("Error: Kunne ikke støtte problemet", {variant: 'warning'});
-      }else
-      this.handleFinish();
+      }else{
+        this.handleFinish();
+      }
     });
   }
 
@@ -768,6 +797,9 @@ class CreateProblem extends React.Component<Props, State> {
           </Stepper>
           <div className="bottomContent">
             {activeStep === steps.length ? (
+              this.state.loadingCreateProb ? (
+              <CircularProgress size={24} />
+              ) : (
               <Card className="create-problem-done" align="center">
                 <CardContent>
                   <Typography>
@@ -782,7 +814,7 @@ class CreateProblem extends React.Component<Props, State> {
                   </Button>
                 </CardContent>
               </Card>
-            ) : (
+            )) : (
               <ValidatorForm onSubmit={this.handleSubmit} onError={errors => console.log(errors)}>
                 {getStepContent(activeStep, this.state, this.handleChange,
                               this.handleChangeSpec, this.handleUpload, this.handleSupport,
