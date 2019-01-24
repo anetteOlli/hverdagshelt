@@ -89,7 +89,8 @@ const styles = theme => ({
       position: 'absolute',
       top: '0',
       bottom: '0',
-      overflow: 'auto'
+      overflow: 'auto',
+      height: '40%'
     },
     [theme.breakpoints.down('sm')]:{
       height: 250,

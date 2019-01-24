@@ -146,19 +146,15 @@ class EditProblemMain extends React.Component<Props, State> {
     const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item sm md={4} xs className={classes.gridLeft}>
-            <div style={{position: "-webkit-sticky", position: "sticky"}}>
-            <Paper className={classes.mui} style={{height: 300, width: "100%", overflow: 'auto'}}>
-              <MuiTable2
-                className={classes.mui}
-                rows={problems}
-                onClick={e => {
-                  let myProblem = e;
-                  this.props.goToProblemDetail(myProblem.problem_id);
-                }}
-              />
-            </Paper>
-            </div>
+          <Grid item sm md={4} xs className={classes.gridLeft} style={{position: 'relative'}}>
+            <MuiTable2
+              className={classes.mui}
+              rows={problems}
+              onClick={e => {
+                let myProblem = e;
+                this.props.goToProblemDetail(myProblem.problem_id);
+              }}
+            />
           </Grid>
           <Grid item sm md={8} xs>
             {getEditView(getView(bool, this.props.priority))}
