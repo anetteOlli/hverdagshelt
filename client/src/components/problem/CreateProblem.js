@@ -200,6 +200,7 @@ function getStepContent(step: number, state: State,
               spacing={24}
               alignItems="center"
               >
+                <br/>
                 <Typography variant="h5" align="center" color="secondary">
                     {state.municipality},
                 </Typography>

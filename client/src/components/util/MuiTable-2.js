@@ -85,8 +85,15 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 const styles = theme => ({
   expansionPaper:{
-    [theme.breakpoints.down('md')]:{
-      height: 250
+    [theme.breakpoints.up('sm')]:{
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      overflow: 'auto'
+    },
+    [theme.breakpoints.down('sm')]:{
+      height: 250,
+      overflow: 'auto'
     }
   }
 });
@@ -276,7 +283,7 @@ class MuiTable2 extends React.Component<Props> {
     return (
       <div>
         <Paper className={classes.expansionPaper} style={{
-          position: 'absolute', top: '0', bottom: '0', overflow: 'auto'
+
         }}>
           <Card align="center">
             <CardContent>
