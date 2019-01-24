@@ -287,7 +287,7 @@ class EditProblemA extends React.Component<Props, State> {
         </div>
       );
     } else {
-      return <h3>Loading current problem</h3>;
+      return <h3>Velg et problem til venstre</h3>;
     }
   }
 
