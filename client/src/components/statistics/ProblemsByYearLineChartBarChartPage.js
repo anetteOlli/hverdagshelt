@@ -11,39 +11,30 @@ import Legend from 'recharts/lib/component/Legend';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import type { ReduxState } from '../../store/reducers';
-import { getProblemsByMonth } from '../../store/actions/statisticsActions';
+import { getProblemsByYear } from '../../store/actions/statisticsActions';
 import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import moment from 'moment';
 
-const lineChartData = [
-  { name: 'Mon', Problems: 2200 },
-  { name: 'Tue', Problems: 1200 },
-  { name: 'Wed', Problems: 5000 },
-  { name: 'Thu', Problems: 4780 },
-  { name: 'Fri', Problems: 5890 },
-  { name: 'Sat', Problems: 4390 },
-  { name: 'Sun', Problems: 4490 }
-];
-
 type Props = {
-  dropDownMonths: { value: string, name: string }[],
+  dropDownYears: { value: string, name: string }[],
   getProblemsByMonthLine: (selectedMonth: string) => void,
   lineChartData: any
 };
+
 type State = {
-  selectedMonth: string
+  selectedYear: string
 };
 
 class LineChartPage extends React.Component<Props, State> {
   state = {
-    selectedMonth: moment(Date.now()).format('YYYY-M')
+    selectedYear: moment(Date.now()).format('YYYY')
   };
 
   handleChange = (e: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({
-      selectedMonth: e.target.value
+      selectedYear: e.target.value
     });
     this.props.getProblemsByMonth(e.target.value);
   };
@@ -65,14 +56,14 @@ class LineChartPage extends React.Component<Props, State> {
           <SelectValidator
             fullWidth
             margin="normal"
-            label="Fylke: "
-            name="county"
-            value={this.state.selectedMonth}
+            label="Velg månde"
+            name="selectedYear"
+            value={this.state.selectedYear}
             onChange={this.handleChange}
             validators={['required']}
             errorMessages={['this field is required']}
           >
-            {this.props.dropDownMonths.map((option, index) => (
+            {this.props.dropDownYears.map((option, index) => (
               <MenuItem key={index} value={option.value}>
                 {option.name}
               </MenuItem>
@@ -84,18 +75,19 @@ class LineChartPage extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    this.props.getProblemsByMonth(this.state.selectedMonth);
+    this.props.getProblemsByYear(this.state.selectedYear);
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    dropDownMonths: state.statistic.dropDownMonths,
+    dropDownYears: state.statistic.dropDownYears,
     lineChartData: state.statistic.lineChartData
   };
 };
+
 const mapDispatchToProps = dispatch => ({
-  getProblemsByMonth: month => dispatch(getProblemsByMonth(month))
+  getProblemsByYear: year => dispatch(getProblemsByYear(year))
 });
 
 // $FlowFixMe

@@ -1,14 +1,15 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import BarChart from './BarChartPage';
+import ProblemsByYearLineChartBarChartPage from './ProblemsByYearLineChartBarChartPage';
 import PieChart from './PieChartPage';
-import LineChart from './LineChartPage';
+import ProblemsByMonthLineChart from './ProblemsByMonthLineChart';
 import { connect } from 'react-redux';
 import { getProblemsByMuni } from '../../store/actions/statisticsActions';
 import { getUserInfo } from '../../store/actions/userActions';
 import type { ReduxState } from '../../store/reducers';
 import LoadingComponent from '../util/LoadingComponent';
+import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -35,7 +36,7 @@ type Props = {
 class StatisticPage extends React.Component<Props> {
   render() {
     const { classes, ready, priority } = this.props;
-    if (priority !== 'Municipality' && priority !== 'Administrator') return <div>Du hakke tilgang ha deg vekk</div>;
+    if (priority !== 'Municipality' && priority !== 'Administrator') return <Redirect to="/" />;
     if (ready) {
       return (
         <div className={classes.content}>
@@ -43,22 +44,22 @@ class StatisticPage extends React.Component<Props> {
             Statistikk i {this.props.currentMuni.municipality}
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            LineChart
+            Problemer i månden
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <LineChart />
+            <ProblemsByMonthLineChart />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            PieChart
+            Gjennomstnilit problemer i året
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <ProblemsByYearLineChartBarChartPage />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            Problemer pr kategory/entreprenør
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <PieChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            BarChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <BarChart />
           </Typography>
         </div>
       );
@@ -76,7 +77,7 @@ const mapStateToProps = (state: ReduxState) => {
   return {
     ready: state.statistic.ready,
     priority: state.user.priority,
-    currentMuni: state.user.currentMuni,
+    currentMuni: state.user.currentMuni
   };
 };
 

@@ -50,6 +50,11 @@ export const getProblemsByMonth = (selectedMonth: string): Action => ({
   payload: selectedMonth
 });
 
+export const getProblemsByYear = (selectedYear: string): Action => ({
+  type: 'GET_PROBLEMS_BY_YEAR',
+  payload: selectedYear
+});
+
 export const getProblemsByCategory = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();

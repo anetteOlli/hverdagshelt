@@ -28,11 +28,21 @@ const initState = {
   dropDownMonths: []
 };
 
-const setUpDropDown = (dateStart: moment, dateEnd: moment): { value: string, name: string }[] => {
+const setUpDropDownMonth = (dateStart: moment, dateEnd: moment): { value: string, name: string }[] => {
   const timeValues = [];
   while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
     timeValues.push({ value: dateStart.format('YYYY-M'), name: dateStart.format('MMMM YYYY') });
     dateStart.add(1, 'month');
+  }
+  return timeValues;
+};
+
+
+const setUpDropDownYear = (dateStart: moment, dateEnd: moment): { value: string, name: string }[] => {
+  const timeValues = [];
+  while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+    timeValues.push({ value: dateStart.format('YYYY'), name: dateStart.format('YYYY') });
+    dateStart.add(1, 'year');
   }
   return timeValues;
 };
@@ -79,7 +89,7 @@ const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { na
     .fill(null)
     .map((v, i) => {
       const t = times.filter(t => t.month === i);
-      return { name: months[i], tid: t.reduce((acc, time) => acc + time) / t.length };
+      return { name: months[i], tid: t ? t.reduce((acc, time) => acc + time) / t.length : 0 };
     });
 };
 
@@ -115,6 +125,9 @@ const getEntrepreneurProblemsByCategory = (
   console.log(result);
   return result;
 };
+
+
+
 
 const getProblemsByCategory = (
   allProblems: Problem[],
@@ -152,7 +165,8 @@ export default (state: State = initState, action: Action) => {
         ...state,
         problems: action.payload,
         ready: true,
-        dropDownMonths: setUpDropDown(moment(action.payload[0].date_made), moment(Date.now())),
+        dropDownMonths: setUpDropDownMonth(moment(action.payload[0].date_made), moment(Date.now())),
+        dropDownYears: setUpDropDownYear(moment(action.payload[0].date_made), moment(Date.now())),
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
@@ -185,6 +199,12 @@ export default (state: State = initState, action: Action) => {
       return {
         ...state,
         selectedMuni: action.payload
+      };
+    case 'GET_PROBLEMS_BY_YEAR':
+      console.log('%c GET_PROBLEMS_BY_YEAR', 'color: green; font-weight: bold;', action.payload);
+      return {
+        ...state,
+        lineChartData: {...state.lineChartData, problemsByYearData: getSolvedTimeByTime(state.problems, action.payload)}
       };
     default:
       return state;
