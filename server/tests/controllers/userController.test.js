@@ -15,7 +15,7 @@ let pool = mysql.createPool({
   multipleStatements: true
 });
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
@@ -139,9 +139,14 @@ test("Testing users_login from userController", (done) => {
   userController.users_login(user,(status,data) => {
     expect(status).toBe(200);
     expect(data.id).toBe(4);
+    user.email = "heihå@heiå.heiå";
+    userController.users_login(user, (status,data) => {
+      expect(status).toBe(401);
+      expect(data.message).toBe("WRONG_PASSWORD");
+      done();
+    })
+  });
 
-  })
-  done();
 });
 
 
