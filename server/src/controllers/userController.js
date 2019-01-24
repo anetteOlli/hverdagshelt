@@ -16,7 +16,7 @@ exports.users_get_all = (callback) => {
 
 exports.users_login = (json,callback) => {
   userDao.checkEmail(json.email, (status, data) => {
-    if (data.length < 1) callback(status,data);
+    if (data.length !== 1) callback(status,data);
     if (validatePassword(json.password, data[0].password)) {
       console.log(data);
       callback(200,{
