@@ -1,6 +1,14 @@
 // @flow
 import React from 'react';
-import { Button, Typography, MenuItem } from '@material-ui/core/';
+import {
+  Button,
+  Typography,
+  MenuItemCard,
+  CardContent,
+  CardActionArea,
+  CardActions,
+  CardMedia
+} from '@material-ui/core/';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
@@ -16,10 +24,10 @@ import { editProblem, getProblemById, goToProblemDetail } from '../../store/acti
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
 import PictureUpload from '../util/PictureUpload';
-import {
-  entrepreneurs_get_one_by_problem_id,
-} from '../../store/actions/entrepreneurAction';
 import { easyDateFormat } from '../util/DateFormater';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -113,6 +121,7 @@ class EditProblemA extends React.Component<Props, State> {
     street: '',
     displayImg: '',
     displayImg2: '',
+    entrepreneur_bool: false,
     entrepreneur: {}
   };
 
@@ -122,33 +131,27 @@ class EditProblemA extends React.Component<Props, State> {
     });
   };
 
-  handleUpload = e => {
-    this.setState({
-      img_user: e
-    });
-  };
-
-  handleUpload2 = e => {
-    this.setState({
-      img_entrepreneur: e
-    });
+  handleUpload = bool => e => {
+    console.log(bool)
+    if (bool === 'e') {
+      this.setState({
+        img_entrepreneur: URL.createObjectURL(e.target.files[0]),
+        displayImg2: URL.createObjectURL(e.target.files[0])
+      });
+    } else {
+      this.setState({
+        img_user: URL.createObjectURL(e.target.files[0]),
+        displayImg: URL.createObjectURL(e.target.files[0])
+      });
+    }
   };
 
   handleSubmit = e => {
+    e.preventDefault();
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
 
-  handleEntrepreneur = e => {
-    this.setState({
-      entrepreneur: entrepreneurs_get_one_by_problem_id(this.props.currentProblemId),
-    })
-  }
-
   render() {
-    if(this.state.entrepreneur_id){
-      this.handleEntrepreneur
-    }
-    console.log(this.state.entrepreneur)
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
     const { classes, problem, categories } = this.props;
 
@@ -235,69 +238,128 @@ class EditProblemA extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
-                        <PictureUpload uploadImg={this.handleUpload} />
-                      </div>
+                      <FormControl fullWidth margin="normal">
+                        {this.state.displayImg != '' ? (
+                          <CardMedia
+                            image={this.state.displayImg || this.state.img_user || ''}
+                            title="Image title"
+                            style={{
+                              height: 400,
+                              paddingTop: '20%'
+                            }}
+                          />
+                        ) : (
+                          <i className="imgHere" />
+                        )}
+                        <input
+                          accept="image/*"
+                          id="contained-button-file"
+                          name="userImg"
+                          type="file"
+                          onChange={this.handleUpload('true')}
+                          style={{ display: 'none' }}
+                        />
+                        <label htmlFor="contained-button-file">
+                          <Button variant="contained" component="span">
+                            <CloudUploadIcon className="icon-button" />
+                            Last opp bilde
+                          </Button>
+                        </label>
+                      </FormControl>
+                      {/*
+                        <div>
+                          <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde"/>
+                          {<PictureUpload uploadImg={this.handleUpload} />}
+                        </div>
+                      */}
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </Paper>
               </Grid>
-              <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
-                <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
-                  <Typography variant="h3" className={classes.titles} gutterBottom align="center">
-                    Entreprenør beskrivelse
-                  </Typography>
+              {this.props.currentEntrepreneur && (
+                <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
+                  <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
+                    <Typography variant="h3" className={classes.titles} gutterBottom align="center">
+                      Entreprenør beskrivelse
+                    </Typography>
 
-                  <SelectValidator
-                    className={classes.entries}
-                    fullWidth
-                    margin="normal"
-                    label="Status:"
-                    name="status"
-                    value={this.state.status}
-                    onChange={this.handleChange}
-                    validators={['required']}
-                    errorMessages={['this field is required']}
-                  >
-                    {statuss.map((option, index) => (
-                      <MenuItem key={index} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </SelectValidator>
+                    <SelectValidator
+                      className={classes.entries}
+                      fullWidth
+                      margin="normal"
+                      label="Status:"
+                      name="status"
+                      value={this.state.status}
+                      onChange={this.handleChange}
+                      validators={['required']}
+                      errorMessages={['this field is required']}
+                    >
+                      {statuss.map((option, index) => (
+                        <MenuItem key={index} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </SelectValidator>
 
-                  <TextValidator
-                    className={classes.entries}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                    margin="normal"
-                    label="Beskrivelse"
-                    value={'Beskrivelse:'}
-                    name="description_entrepreneur"
-                    value={this.state.description_entrepreneur}
-                    onChange={this.handleChange}
-                  />
-                  <Typography variant="i" className={classes.paper}>
-                    {' '}
-                    Entreprenør: {this.state.entrepreneur.business_name}{' '}
-                  </Typography>
+                    <TextValidator
+                      className={classes.entries}
+                      fullWidth
+                      multiline
+                      rowsMax={10}
+                      margin="normal"
+                      label="Beskrivelse"
+                      value={'Beskrivelse:'}
+                      name="description_entrepreneur"
+                      value={this.state.description_entrepreneur}
+                      onChange={this.handleChange}
+                    />
+                    <Typography variant="i" className={classes.paper}>
+                      {' '}
+                      Entreprenør: {this.state.entrepreneur.business_name}{' '}
+                    </Typography>
 
-                  <Typography variant="i" className={classes.paper}>
-                    {' '}
-                    Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
-                  </Typography>
+                    <Typography variant="i" className={classes.paper}>
+                      {' '}
+                      Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
+                    </Typography>
 
-                  <div>
-                    <ExpansionPanel>
-                      <ExpansionPanelSummary>
-                        <div>
-                          <Typography>Bilde</Typography>
-                        </div>
-                      </ExpansionPanelSummary>
-                      <ExpansionPanelDetails>
-                        <div>
+                    <div>
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary>
+                          <div>
+                            <Typography>Bilde</Typography>
+                          </div>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <FormControl fullWidth margin="normal">
+                            {this.state.displayImg2 != '' ? (
+                              <CardMedia
+                                image={this.state.displayImg2 || this.state.img_entrepreneur || ''}
+                                title="Image title2"
+                                style={{
+                                  height: 400,
+                                  paddingTop: '20%'
+                                }}
+                              />
+                            ) : (
+                              <i className="imgHere" />
+                            )}
+                            <input
+                              accept="image/*"
+                              name="entImg"
+                              id="contained-button-file2"
+                              type="file"
+                              onChange={this.handleUpload('e')}
+                              style={{ display: 'none' }}
+                            />
+                            <label htmlFor="contained-button-file">
+                              <Button variant="contained" component="span">
+                                <CloudUploadIcon className="icon-button" />
+                                Last opp bilde
+                              </Button>
+                            </label>
+                          </FormControl>
+                          {/*<div>
                           <img
                             id="img"
                             width="100%"
@@ -306,11 +368,13 @@ class EditProblemA extends React.Component<Props, State> {
                           />
                           <PictureUpload uploadImg={this.handleUpload2} />
                         </div>
-                      </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                  </div>
-                </Paper>
-              </Grid>
+                        */}
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                    </div>
+                  </Paper>
+                </Grid>
+              )}
               <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
                   Lagre endringer
@@ -355,7 +419,8 @@ const mapStateToProps = state => {
     problem,
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    categories: state.category.categories,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 
@@ -364,8 +429,8 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
     getCategories: () => dispatch(getCategories()),
-    editProblem: (problem: Problem) => dispatch(editProblem(problem)),
-    entrepreneurs_get_one_by_problem_id: (id: number) => dispatch(entrepreneurs_get_one_by_problem_id(id)),
+    editProblem: (problem: Problem) => dispatch(editProblem(problem))
+    //entrepreneurs_get_one_by_problem_id: (id: number) => dispatch(entrepreneurs_get_one_by_problem_id(id)),
   };
 };
 

@@ -16,6 +16,7 @@ import { editProblem, getProblemById, goToProblemDetail } from '../../store/acti
 import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
 import type { Problem } from '../../store/reducers/problemReducer';
+import { easyDateFormat } from '../util/DateFormater';
 
 type Props = {
   classes: Object,
@@ -164,7 +165,7 @@ class EditProblem extends React.Component<Props, State> {
                   {'Status:   ' + this.state.status}
                 </Paper>
 
-                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {easyDateFormat(this.state.date_made)} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -182,12 +183,12 @@ class EditProblem extends React.Component<Props, State> {
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
+                <Button fullWidth variant="contained" className={classes.button} type="submit">
+                Lagre endringer
+              </Button>
                 <div className="mapPlaceholder">
                   <MapMarkers />
                 </div>
-                <Button fullWidth variant="contained" className={classes.button} type="submit">
-                  Lagre endringer
-                </Button>
               </ValidatorForm>
             </Paper>
           </Grid>

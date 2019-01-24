@@ -2,7 +2,11 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
-import { entrepreneurs_get_one_by_id, entrepreneurs_get_one_by_user_id } from '../../store/actions/entrepreneurAction';
+import {
+  entrepreneurs_get_one_by_entrepreneur_id,
+  entrepreneurs_get_one_by_id,
+  entrepreneurs_get_one_by_user_id
+} from '../../store/actions/entrepreneurAction';
 // Material-ui
 import {
   Select,
@@ -141,7 +145,6 @@ class EditProblemMain extends React.Component<Props, State> {
   render() {
     const { classes, problems, user_id } = this.props;
     bool = this.props.editMode;
-    console.log('user_id', user_id);
 
     const main = (
       <div>
@@ -154,12 +157,8 @@ class EditProblemMain extends React.Component<Props, State> {
                 rows={problems}
                 onClick={e => {
                   let myProblem = e;
-                  if(myProblem.entrepreneur_id) {
-
-                    this.props.goToProblemDetail(myProblem.problem_id);
-                  }else{
-                    this.props.goToProblemDetail(myProblem.problem_id);
-                  }
+                  this.props.entrepreneurs_get_one_by_entrepreneur_id(myProblem.entrepreneur_id)
+                  this.props.goToProblemDetail(myProblem.problem_id);
                 }}
               />
             </Paper>
@@ -223,7 +222,8 @@ const mapDispatchToProps = dispatch => {
     getProblemByUser: () => dispatch(getProblemByUser()),
     setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
     entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
-    getUserInfo: () => dispatch(getUserInfo())
+    getUserInfo: () => dispatch(getUserInfo()),
+    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id)),
   };
 };
 

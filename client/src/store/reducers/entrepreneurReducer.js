@@ -65,6 +65,7 @@ export default (state: State = initState, action: Action) => {
     case 'ENTREPRENEUR_GET_FROM_entrepreneur_id_ERROR':
       console.log('%c ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_ERROR', 'color: green; font-weight: bold;', action.payload);
       return {
+        currentEntrepreneur: null,
         errorMessage: action.payload.message
       };
     default:

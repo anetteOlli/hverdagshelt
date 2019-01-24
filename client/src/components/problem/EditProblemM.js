@@ -18,6 +18,7 @@ import { getCategories } from '../../store/actions/categoryActions';
 import MapMarkers from '../map/MapMarkers';
 import moment from 'moment';
 import type { Problem } from '../../store/reducers/problemReducer';
+import { easyDateFormat } from '../util/DateFormater';
 
 type Props = {
   classes: Object,
@@ -121,7 +122,6 @@ class EditProblemM extends React.Component<Props, State> {
     });
   };
   handleUpload2 = e => {
-    console.log('ENTREPRENEURE');
     this.setState({
       img_entrepreneur: e
     });
@@ -129,7 +129,7 @@ class EditProblemM extends React.Component<Props, State> {
 
   render() {
     const statuss = ['Finished', 'InProgress', 'Unchecked'];
-    const { classes, problem, isLoggedIn, categories } = this.props;
+    const { classes, categories } = this.props;
     return (
       <div className={classes.main}>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -195,7 +195,7 @@ class EditProblemM extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {this.state.date_made} </Paper>
+                <Paper className={classes.paper}> Dato startet: {easyDateFormat(this.state.date_made)} </Paper>
 
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
@@ -237,7 +237,7 @@ class EditProblemM extends React.Component<Props, State> {
                   }
                 </Paper>
 
-                <Paper className={classes.paper}> Dato Endret: {this.state.last_edited} </Paper>
+                <Paper className={classes.paper}> Dato Endret: {easyDateFormat(this.state.last_edited)} </Paper>
 
                 <div>
                   <ExpansionPanel>
@@ -262,23 +262,9 @@ class EditProblemM extends React.Component<Props, State> {
             </Grid>
             <Grid item xs className={classes.grid2} name={'GridItem for map and submit-button'}>
               <Button type="submit" fullWidth variant="contained" className={classes.button}>
-                {/*onClick={this.handleSubmit()}*/}
                 Lagre endringer
               </Button>
-
               <div>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Typography>Kart: </Typography>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    {
-                      // I want map to be here, but alas - expansionPanel and MapMakers cannot put away past differences and reconcile.
-                    }
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
                 <div className="mapPlaceholder">
                   <MapMarkers />
                 </div>

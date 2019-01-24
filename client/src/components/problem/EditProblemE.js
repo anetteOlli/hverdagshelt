@@ -114,7 +114,7 @@ class EditProblemE extends React.Component<Props, State> {
   };
   handleUpload = e => {
     this.setState({
-      img_entrepreneurF: e
+      img_entrepreneur: e
     });
   };
 
@@ -220,7 +220,7 @@ class EditProblemE extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div />
                       <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde" />
+                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
                         <PictureUpload uploadImg={this.handleUpload} />
                       </div>
                     </ExpansionPanelDetails>
