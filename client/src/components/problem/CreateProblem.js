@@ -179,6 +179,7 @@ function getStepContent(step: number, state: State,
               {haveRows ? (
                   <MuiTable2
                     rows={rows}
+                    height={"100%"}
                     onClick={e => {
                       let myProblem = e;
                       handleChangeSpec("cur_id", myProblem.problem_id);

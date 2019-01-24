@@ -89,8 +89,7 @@ const styles = theme => ({
       position: 'absolute',
       top: '0',
       bottom: '0',
-      overflow: 'auto',
-      height: '40%'
+      overflow: 'auto'
     },
     [theme.breakpoints.down('sm')]:{
       height: 250,
@@ -267,7 +266,7 @@ class MuiTable2 extends React.Component<Props> {
 
   render() {
     const { expanded } = this.state;
-    const { classes, rows, onSupportClick, onClick } = this.props;
+    const { classes, rows, onSupportClick, onClick, height } = this.props;
     let color = 'disabled';
     let myRows = [];
     //console.log("MuiTable2 rows: ", rows);
@@ -284,7 +283,7 @@ class MuiTable2 extends React.Component<Props> {
     return (
       <div>
         <Paper className={classes.expansionPaper} style={{
-
+          height: height
         }}>
           <Card align="center">
             <CardContent>

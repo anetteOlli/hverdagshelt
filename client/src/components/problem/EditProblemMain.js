@@ -150,6 +150,7 @@ class EditProblemMain extends React.Component<Props, State> {
             <MuiTable2
               className={classes.mui}
               rows={problems}
+              height={"40%"}
               onClick={e => {
                 let myProblem = e;
                 this.props.goToProblemDetail(myProblem.problem_id);
