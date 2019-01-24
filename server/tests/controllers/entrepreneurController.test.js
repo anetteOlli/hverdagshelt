@@ -15,20 +15,21 @@ let pool = mysql.createPool({
   multipleStatements: true
 });
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
     });
   });
 });
-afterAll(() => pool.end());
+
 
 
 test("Testing getAll from entrepreneurDao", (done) => {
   entrepreneurController.entrepreneurs_get_all((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBeLessThanOrEqual(4);
+    expect(data.length).toBeGreaterThanOrEqual(2);
     done();
   })
 });
@@ -47,7 +48,7 @@ test("Testing createEntrepreneur from userDao", (done) => {
     entrepreneur:{
       business_name: "Test",
       org_nr: "01010",
-      categories : ["Testing", "Hole in road"],
+      categories : ["Snowplow", "Hole in road"],
       municipalities: [
         {"municipality":"Nord-Fron", "county":"Oppland"},
         {"municipality":"Sør-Fron", "county":"Oppland"}

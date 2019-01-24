@@ -25,7 +25,6 @@ import { withStyles } from '@material-ui/core/styles';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import type { ReduxState } from '../../store/reducers';
 
-
 const styles = (theme: Object) => ({
   main: {
     margin: 20,
@@ -49,7 +48,7 @@ const styles = (theme: Object) => ({
     [theme.breakpoints.down('sm')]: {
       width: '50%'
     },
-    minHeight: 40,
+    minHeight: 40
   },
   grid: {
     height: '100%',
@@ -209,18 +208,17 @@ class ProblemDetails extends React.Component<Props, State> {
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {this.state.visible &&
-                  !this.state.locked && (
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="secondary"
-                      className={classes.linkbtn}
-                      onClick={this.onClickAdd}
-                    >
-                      Legg til entrepreneur
-                    </Button>
-                  )}
+                {this.state.visible && !this.state.locked && (
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    className={classes.linkbtn}
+                    onClick={this.onClickAdd}
+                  >
+                    Legg til entrepreneur
+                  </Button>
+                )}
 
                 <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>

@@ -1,7 +1,6 @@
 // @flow
-import type {Action} from '../reducers/notifyReducer';
+import type { Action } from '../reducers/notifyReducer';
 export const enqueueSnackbar = (message: string, variant: 'success' | 'error' | 'warning' | 'info'): Action => {
-  console.log("DD");
   return {
     type: 'ENQUEUE_SNACKBAR',
     payload: {
@@ -9,7 +8,7 @@ export const enqueueSnackbar = (message: string, variant: 'success' | 'error' | 
       message,
       options: { variant }
     }
-  }
+  };
 };
 
 export const removeSnackbar = (key: string): Action => ({

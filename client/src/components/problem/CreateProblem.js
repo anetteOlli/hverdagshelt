@@ -8,7 +8,7 @@ const history = createHashHistory();
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
         Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
         Icon, Fab, Switch, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,
-        FormControl, FormControlLabel, FormHelperText, Divider,
+        FormControl, FormControlLabel, FormHelperText, Divider, Tooltip
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
@@ -31,6 +31,7 @@ import Map from '../map/MapWithSearchBox';
 import MuiTable2 from '../util/MuiTable-2';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 /**
  * @fileOverview Create Problem Component
@@ -41,7 +42,7 @@ const styles = theme => ({
   "@global": {
      html: {
        [theme.breakpoints.down("sm")]: {
-         fontSize: 10
+         fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
          fontSize: 20
@@ -142,7 +143,6 @@ function getStepContent(step: number, state: State,
             <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
             <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
             {console.log('state in createProblem', state)}
-
             <div className="mapPlaceholder">
               <Map />
             </div>
@@ -154,6 +154,8 @@ function getStepContent(step: number, state: State,
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
       //console.log("rows");
       //console.log(rows);
+      const clicked = (state.cur_title != '' && state.cur_title != null);
+      const haveRows = (rows[0] != null);
       return (
         <Card className="content-1">
           <CardContent>
@@ -195,6 +197,7 @@ function getStepContent(step: number, state: State,
               direction="column"
               md={8}
               xs={12}
+              spacing={24}
               alignItems="center"
               >
                 <Typography variant="h5" align="center" color="secondary">
@@ -203,55 +206,57 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Card style={{width:'100%'}} align="center">
-                  <CardContent>
+                <Card style={{width:'90%'}} align="center">
+                    {true ? (true ?  (
+                    <div>
+                    <CardMedia
+                      component="img"
+                      alt="Bilde av Problem"
+                      height="180"
+                      image={state.cur_imageURL || "https://semantic-ui.com/images/wireframe/image.png"}
+                      title={state.cur_title}
+                      style={{objectFit: 'cover'}}
+                    />
+                    <CardContent>
+                      <Grid item sm={12}>
+                        <Typography gutterBottom variant="h5" align="center" color="secondary">{state.cur_title}</Typography>
+                      </Grid>
+                      <Grid item sm={12}>
+                        <Typography align="center">{state.cur_description}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_entrepreneur}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
+                      </Grid>
+                      <Grid item xs>
+                        <Tooltip title="Du vil få epost om noe skjer med problemet" placement="top">
+                          <Button
+                          variant="outlined" color="primary"
+                          size="small"
+                          align="center"
+                          onClick={e => handleSupport(state.cur_id)}
+                          >
+                             Støtt problemet
+                          </Button>
+                        </Tooltip>
+                      </Grid>
+                    </CardContent>
+                    </div>) : (
                     <Grid item xs>
-                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                      <Typography align="center" color="primary">
+                        Velg et problem til venstre for å se beskrivelse
+                      </Typography>
                     </Grid>
+                    )) : (
                     <Grid item xs>
-                      <Typography align="center">{state.cur_description}</Typography>
+                      <Typography align="center" color="primary">
+                        Ingen like problem, gå videre
+                      </Typography>
                     </Grid>
-                    <Grid item xs>
-                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center">{state.cur_entrepreneur}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                    <Typography variant="subtitle2" align="center">Status</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center" color="error">{state.cur_status}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Button
-                      variant="contained" color="primary"
-                      size="small"
-                      align="center"
-                      onClick={e => handleSupport(state.cur_id)}
-                      >
-                         <Typography>Støtt problemet</Typography>
-                      </Button>
-                    </Grid>
-                  </CardContent>
+                  )}
                 </Card>
-              </Grid>
-            </Grid>
-            <Grid item container
-            direction="row"
-            >
-              <Grid item
-              lg={12}
-              xs={12}
-              >
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                      <Typography align="center">Bilde</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL } alt="Bilde" />
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
               </Grid>
             </Grid>
           </CardContent>
@@ -289,6 +294,7 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
+            <br/>
             <FormControl fullWidth margin="normal">
               {state.displayImg != '' ?
               (<CardMedia
@@ -642,6 +648,11 @@ class CreateProblem extends React.Component<Props, State> {
               <Typography variant="h5" color="error">
                 Du må logge inn for å kunne registrere problem
               </Typography>
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
@@ -690,6 +701,7 @@ class CreateProblem extends React.Component<Props, State> {
                   <Typography>
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
+                  <br/>
                   <Button variant="contained" color="primary"
                   className="create-problem-done-button"
                   onClick={this.handleFinish}
@@ -763,4 +775,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(CreateProblem))));
+)(withStyles(styles)(withSnackbar(CreateProblem)));

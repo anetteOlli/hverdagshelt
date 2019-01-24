@@ -4,10 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-export default preloadedState => {
-  const composedEnhancer = composeWithDevTools(
-    applyMiddleware(thunk),
-  );
+export default (preloadedState: any) => {
+  const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
   const store = createStore(rootReducer, preloadedState, composedEnhancer);
   if (process.env.NODE_ENV !== 'production') {
     if (module.hot) {

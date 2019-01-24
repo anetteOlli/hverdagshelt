@@ -66,7 +66,7 @@ export const getEntrepreneursByMuniAndCat = p => {
   };
 };
 
-export const getEntrepreneursByMuni = ({}) => {
+export const getEntrepreneursByMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('entrepreneurs/municipality', getState().statistic.selectedMuni)
       .then(response =>

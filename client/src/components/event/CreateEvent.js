@@ -2,33 +2,20 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { withStyles, Stepper, Step, StepLabel, Card, CardContent, CardMedia, CardActionArea, CardActions, Paper, Grid, Typography, TextField, MenuItem, Button, FormControl, FormControlLabel, Input, InputLabel } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Icon from '@material-ui/core/Icon';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import SaveIcon from '@material-ui/icons/Save';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {createEvent} from '../../store/actions/eventActions';
 import Map from '../map/MapWithSearchBox';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from 'material-ui-pickers';
 import 'date-fns';
-import DateFormat from 'dateformat';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-// Use history.push(...) to programmatically change path
-import createHashHistory from 'history/createHashHistory';
-const history = createHashHistory();
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 type Props = {
   classes: Object,
@@ -322,7 +309,12 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h6" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
-              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
+              <Button justify="centre" onClick={this.handleFinish} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
             </CardContent>
@@ -341,7 +333,9 @@ class CreateEvent extends React.Component<Props, State>{
               <Typography variant="h5" color="error">
                 Merk: Bare kommuneansatte kan legge til arrangementer
               </Typography>
-              <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            </CardContent>
+            <CardContent>
+              <Button justify="centre" onClick={this.handleFinish} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
             </CardContent>
@@ -518,15 +512,15 @@ class CreateEvent extends React.Component<Props, State>{
         municipality: this.state.municipality,
         city: this.state.city,
         street: this.state.street
-      },false)
+      })
       // this.props.createEvent(k).then( e=> this.props.enqueueSnackbar('error', {variant: 'warning'});
     }
     this.handleNext();
   };
 
   /** Handles when user is done and gets sent away. */
-  handleFinish = e => {
-    history.push("/");
+  handleFinish = () => {
+    this.props.history.push("/");
   };
 
   /** Handles uploading of image files */
@@ -572,7 +566,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createEvent: (newEvent,bool) => dispatch(createEvent(newEvent,bool))
+    createEvent: (newEvent,bool = false) => dispatch(createEvent(newEvent,bool))
   };
 };
 

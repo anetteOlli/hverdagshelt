@@ -17,19 +17,19 @@ let dao = new UserDAO(pool);
 
 jest.setTimeout(30000);
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
     });
   });
 });
-afterAll(() => pool.end());
 
 test("Testing getAll from userDao", (done) => {
   dao.getAll((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(4);
+    expect(data.length).toBeLessThanOrEqual(5);
+    expect(data.length).toBeGreaterThanOrEqual(3);
     expect(data[0].email).toBe("user@user.user");
     done();
   });
@@ -78,23 +78,25 @@ test("Testing patchOne from userDao", (done) => {
 test("Testing deleteOne from userDao", (done) => {
   let id = 3;
   dao.deleteOne(id,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
     done();
   })
 });
 
 test("Testing checkMail from userDao", (done) => {
-  let email = "user@user.user";
+  let email = "admin@admin.admin";
   dao.checkEmail(email,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].user_id).toBe(1);
-    expect(data[0].priority).toBe("Standard");
+    expect(data[0].user_id).toBe(4);
+    expect(data[0].priority).toBe("Administrator");
     done();
   })
 });
 
 test("Testing activateUser from userDao", (done) => {
-  let email = "user@user.user";
+  let email = "admin@admin.admin";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
@@ -104,9 +106,9 @@ test("Testing activateUser from userDao", (done) => {
 
 test("Testing changePassword from userDao", (done) => {
   let json = {
-    email: "user@user.user",
+    email: "admin@admin.admin",
     password: "test",
-    user_id : 1
+    user_id : 4
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);

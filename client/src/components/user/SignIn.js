@@ -64,11 +64,9 @@ class SignIn extends React.Component<Props, State> {
     this.setState({
       [e.target.name]: e.target.value
     });
-    this.props.clearError();
   };
 
   handleClose = () => {
-    this.props.onClose();
     this.setState({
       email: '',
       password: '',
@@ -76,6 +74,7 @@ class SignIn extends React.Component<Props, State> {
       forgotPasswordOpen: false
     });
     this.props.clearError();
+    this.props.onClose();
   };
 
   handleRemember = () => {
@@ -87,8 +86,8 @@ class SignIn extends React.Component<Props, State> {
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      if (this.props.errorMessage === '') this.props.enqueueSnackbar(' U in', { variant: 'success' });
-      else this.refs.form.submit();
+      if (this.props.errorMessage === '') this.props.enqueueSnackbar('Logget inn!', { variant: 'success' });
+      else this.refs.signInForm.submit();
     });
   };
 
@@ -106,9 +105,10 @@ class SignIn extends React.Component<Props, State> {
           <div>
             <DialogTitle>Login</DialogTitle>
             <DialogContent>
-              <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+              <ValidatorForm ref="signInForm" onSubmit={this.handleSubmit}>
                 <TextValidator
                   fullWidth
+                  onFocus={this.props.clearError}
                   margin="normal"
                   label="Epost"
                   name="email"
@@ -121,6 +121,7 @@ class SignIn extends React.Component<Props, State> {
                 />
                 <TextValidator
                   fullWidth
+                  onFocus={this.props.clearError}
                   margin="normal"
                   label="Passord"
                   name="password"

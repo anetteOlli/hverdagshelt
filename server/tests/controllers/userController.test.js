@@ -22,13 +22,13 @@ beforeEach(done => {
     });
   });
 });
-afterAll(() => pool.end());
+
 
 test("Testing users_get_all from userController", (done) => {
   userController.users_get_all((status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(4);
-    expect(data[0].email).toBe("user@user.user");
+    expect(data.length).toBeLessThanOrEqual(5);
+    expect(data.length).toBeGreaterThanOrEqual(3);
     done();
   });
 });
@@ -37,9 +37,9 @@ test("Testing users_get_user from userController", (done) => {
   let id = 3;
   userController.users_get_user(id,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(1);
-    expect(data[0].email).toBe('entr@entr.entr');
-    expect(data[0].priority).toBe('Entrepreneur');
+    expect(data.user_id).toBe(id);
+    expect(data.email).toBe('entr@entr.entr');
+    expect(data.priority).toBe('Entrepreneur');
     done();
   })
 });
@@ -61,8 +61,7 @@ test("Testing users_validate_Email from userController", (done) => {
   let email = "user@user.user";
   userController.user_validate_email(email,(status,data) => {
     expect(status).toBe(200);
-    expect(data.user_id).toBe(1);
-    expect(data.priority).toBe("Standard");
+    expect(data.emailExist).toBe(true);
     done();
   })
 });
@@ -135,8 +134,13 @@ test("Testing users_login from userController", (done) => {
     id: 1,
     priority:"Standard",
     email:"user@user.user",
-    password:"ok"
+    password:"abc123"
   };
+  userController.users_login(user,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.id).toBe(4);
+
+  })
   done();
 });
 

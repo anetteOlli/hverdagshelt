@@ -74,7 +74,7 @@ const styles = (theme: Object) => ({
 
   grid: {
     height: '100%',
-    paddingBottom: 20,
+    paddingBottom: 20
     //display: 'flex',
     //alignSelf: 'stretch'
   },
@@ -86,7 +86,7 @@ const styles = (theme: Object) => ({
     //width: '100%',
     //flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
     //alignSelf: 'stretch'
   },
   mui: {
@@ -132,7 +132,6 @@ function getEditView(priority: number) {
 
 class EditProblemMain extends React.Component<Props, State> {
   state = {
-
     municipality: '',
     county: '',
 
@@ -149,16 +148,15 @@ class EditProblemMain extends React.Component<Props, State> {
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
           <Grid item sm md={3} xs className={classes.gridLeft}>
-
-            <Paper className = {classes.mui}>
-            <MuiTable2
-              className = {classes.mui}
-              rows={problems}
-              onClick={e => {
-                let myProblem = e;
-                this.props.goToProblemDetail(myProblem.problem_id);
-              }}
-            />
+            <Paper className={classes.mui}>
+              <MuiTable2
+                className={classes.mui}
+                rows={problems}
+                onClick={e => {
+                  let myProblem = e;
+                  this.props.goToProblemDetail(myProblem.problem_id);
+                }}
+              />
             </Paper>
           </Grid>
           <Grid item sm md={9} xs>
@@ -171,11 +169,11 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-    this.props.entrepreneurs_get_one_by_user_id().then(() => {
-      this.props.getProblemByUser();
-      this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
-    })
-    })
+      this.props.entrepreneurs_get_one_by_user_id().then(() => {
+        this.props.getProblemByUser();
+        this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {

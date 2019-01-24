@@ -15,14 +15,14 @@ let pool = mysql.createPool({
   multipleStatements: true
 });
 
-beforeEach(done => {
+beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
     runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
       done();
     });
   });
 });
-afterAll(() => pool.end());
+
 
 test("Testing municipalities_get_all from DivController", (done) => {
   DivController.municipalities_get_all((status,data) => {
