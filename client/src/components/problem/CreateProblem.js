@@ -45,7 +45,7 @@ const styles = theme => ({
          fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
-         fontSize: 20
+         fontSize: 16
        }
     }
   },
@@ -167,17 +167,16 @@ function getStepContent(step: number, state: State,
             Finnes problemet fra før av? <br/>
             Gjerne støtt problemet så vet vi at det rammer mange
           </Typography>
+          <br/>
             <Grid container
             spacing={8}
             direction="row"
             >
-
               <Grid item
               md={4} xs={12}
               >
-
+              {haveRows ? (
                 <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
-
                   <MuiTable2
                   rows={rows}
                   onClick={e => {
@@ -191,6 +190,9 @@ function getStepContent(step: number, state: State,
                     }}
                   />
                 </Paper>
+              ):(
+                <div/>
+              )}
               </Grid>
               <Grid item container
               direction="column"
@@ -206,7 +208,7 @@ function getStepContent(step: number, state: State,
                     {state.street}
                 </Typography>
                 <Card style={{width:'90%'}} align="center">
-                    {true ? (true ?  (
+                    {haveRows ? (clicked ?  (
                     <div>
                     <CardMedia
                       component="img"
@@ -250,7 +252,7 @@ function getStepContent(step: number, state: State,
                     </Grid>
                     )) : (
                     <Grid item xs>
-                      <Typography align="center" color="primary">
+                      <Typography align="center" color="error">
                         Ingen like problem, gå videre
                       </Typography>
                     </Grid>
@@ -265,9 +267,9 @@ function getStepContent(step: number, state: State,
       return (
         <Card className="content-2" align="center">
           <CardContent>
-            <Typography>{state.category}</Typography>
-            <Typography>{state.municipality}</Typography>
-            <Typography>{state.street}</Typography>
+            <Typography variant="h6" align="center" color="secondary">{state.category}</Typography>
+            <Typography variant="h6" color="primary">{state.municipality},</Typography>
+            <Typography variant="h6" color="primary">{state.street}</Typography>
             <TextValidator
               fullWidth
               margin="normal"

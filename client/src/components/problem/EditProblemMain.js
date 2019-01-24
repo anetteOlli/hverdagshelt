@@ -90,8 +90,6 @@ const styles = (theme: Object) => ({
     //alignSelf: 'stretch'
   },
   mui: {
-    maxHeight: '250',
-    height: '250'
   }
 });
 
@@ -148,8 +146,9 @@ class EditProblemMain extends React.Component<Props, State> {
     const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item sm md={3} xs className={classes.gridLeft}>
-            <Paper className={classes.mui}>
+          <Grid item sm md={4} xs className={classes.gridLeft}>
+            <div style={{position: "-webkit-sticky", position: "sticky"}}>
+            <Paper className={classes.mui} style={{height: 300, width: "100%", overflow: 'auto'}}>
               <MuiTable2
                 className={classes.mui}
                 rows={problems}
@@ -159,8 +158,9 @@ class EditProblemMain extends React.Component<Props, State> {
                 }}
               />
             </Paper>
+            </div>
           </Grid>
-          <Grid item sm md={9} xs>
+          <Grid item sm md={8} xs>
             {getEditView(getView(bool, this.props.priority))}
           </Grid>
         </Grid>

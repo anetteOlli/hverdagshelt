@@ -161,6 +161,7 @@ class EditProblemA extends React.Component<Props, State> {
                   <SelectValidator
                     className={classes.entries}
                     fullWidth
+                    margin="normal"
                     label="Status:"
                     name="status"
                     value={this.state.status}
@@ -310,7 +311,7 @@ class EditProblemA extends React.Component<Props, State> {
         </div>
       );
     } else {
-      return <h3>Loading current problem</h3>;
+      return <h3>Velg et problem til venstre</h3>;
     }
   }
 

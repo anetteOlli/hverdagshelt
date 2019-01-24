@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/forgot', (req, res) => {
   UserController.user_forgot_password(req.body, (status, data) => {
+    //console.log("Forgot status in route: ", status);
     res.status(status).json(data);
   });
 });

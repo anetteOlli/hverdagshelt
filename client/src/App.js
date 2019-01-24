@@ -41,7 +41,7 @@ class App extends React.Component<Props> {
               <Route exact path="/" component={MainPage} />
               <Route exact path="/uploadfile" component={UploadFile} />
               <Route exact path="/registrer-bruker" component={SignUp} />
-              <Route exact path="/problems/" component={EditProblemMain} />
+              <Route exact path="/problems" component={EditProblemMain} />
               <Route exact path="/lagproblem" component={CreateProblem} />
               <Route exact path="/problemdetails" component={ProblemDetails} />
               <Route exact path="/opprArrangement" component={CreateEvent} />
