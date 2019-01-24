@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getEventsByMuni } from '../../store/actions/eventActions';
+import { getEventsByMuni, deleteEvent } from '../../store/actions/eventActions';
 import { getProblemsByMuni } from '../../store/actions/problemActions';
 import { CheckCircle, ThumbUp } from '@material-ui/icons';
 import moment from 'moment';
@@ -243,8 +243,19 @@ class MuniPage extends React.Component<Props, State> {
                               </CardContent>
                               <CardActions>
                                 <Grid container spacing={24}>
-                                  <Grid item md={8} />
-                                  <Grid item md={4} />
+                                  <Grid item md={8}>
+                                  </Grid>
+                                  <Grid item md={4}>
+                                    <Button
+                                      variant="contained"
+                                      color="primary"
+                                      size="large"
+                                      className={classes.button}
+                                      onClick={() => this.deleteEvent(event.event_id)}
+                                    >
+                                      Slett
+                                    </Button>
+                                  </Grid>
                                 </Grid>
                               </CardActions>
                             </Card>
@@ -338,6 +349,12 @@ class MuniPage extends React.Component<Props, State> {
     this.props.history.push('/lagproblem');
   }
 
+  /**User deletes the event */
+  deleteEvent = (id: number) => {
+    console.log('id = ' + id);
+    this.props.deleteEvent({id});
+  }
+
   /**Set state of municipality*/
   componentDidMount() {
     const { county, municipality } = this.props.match.params;
@@ -356,7 +373,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getEvents: (municipality, county) => dispatch(getEventsByMuni(municipality, county)),
-    getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county))
+    getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county)),
+    deleteEvent: (id: number) => dispatch(deleteEvent(id))
   };
 };
 

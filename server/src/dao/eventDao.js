@@ -67,6 +67,7 @@ module.exports = class EventDao extends Dao {
     );
   }
   deleteOne(id, callback) {
+    console.log('--eventDao--');
     super.query('delete from event where event_id=?', [id], callback);
   }
   updateStatus(callback) {

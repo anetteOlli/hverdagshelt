@@ -62,8 +62,11 @@ exports.events_create_event = (file, json, callback) => {
 };
 
 exports.events_delete_event = (id, callback) => {
-  console.log('/articles/' + id + ' fikk request fra klient');
+  console.log('/events/' + id + ' fikk request fra klient');
+  console.log(id);
   eventDao.deleteOne(id, (status, data) => {
+    console.log('--eventController før callback--');
+    console.log('status = ' + status + ' data.id = ' + data.id + ' data.event_id = ' + data.event_id);
     callback(status, data);
   });
 };

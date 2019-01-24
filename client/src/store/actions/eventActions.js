@@ -80,7 +80,9 @@ export const editEvent = (event: JSON) => {
 };
 
 export const deleteEvent = (id: number) => {
+  console.log('--eventAction--');
   return (dispatch: Dispatch) => {
+    console.log('--eventAction inni første return--');
     return deleteData(`events/${id}`).then(() =>
       dispatch({
         type: 'DELETE_EVENT_SUCCESS'
