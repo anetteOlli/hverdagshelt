@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/forgot', (req, res) => {
   UserController.user_forgot_password(req.body, (status, data) => {
+    //console.log("Forgot status in route: ", status);
     res.status(status).json(data);
   });
 });
@@ -36,6 +37,7 @@ router.get('/refresh', checkAuth, (req, res) => {
 });
 
 router.patch('/changePassword/', (req, res) => {
+  console.log('req.body', req.body, req.params);
   UserController.user_change_password(req.body, (status, data) => {
     res.status(status).json(data);
   });

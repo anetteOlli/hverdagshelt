@@ -6,17 +6,15 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HotIcon from '@material-ui/icons/Whatshot';
-import SettingIcon from '@material-ui/icons/Settings';
 import EventIcon from '@material-ui/icons/Event';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import CreateCategory from '../category/CreateCategory';
-import Button from '@material-ui/core/Button/Button';
 import connect from 'react-redux/es/connect/connect';
-import HomeOutlined from '@material-ui/icons/HomeOutlined';
+import HomeOutlined from '@material-ui/icons/Home';
 import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
 import Folder from '@material-ui/icons/Folder';
+import Stati from '@material-ui/icons/BarChart';
 
 type Props = {
   classes: Object,
@@ -48,57 +46,51 @@ class TemporaryDrawer extends React.Component<Props, State> {
     const sideList = (
       <div>
         <List>
-          <ListItem button component={NavLink} to={'/'}>
+          <ListItem button component={Link} to={'/'}>
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
             <ListItemText primary="Hovedsiden" />
           </ListItem>
           <Divider />
-          <ListItem button component={NavLink} to={'/stati'}>
-            <ListItemIcon>
-              <HotIcon />
-            </ListItemIcon>
-            <ListItemText primary="Statestikk" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/problems'}>
+          <ListItem button component={Link} to={'/problemoversikt'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>
-            <ListItemText primary="Problem Oversikt" />
+            <ListItemText primary="Problemoversikt" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/lagproblem'}>
+          <ListItem button component={Link} to={'/lagproblem'}>
             <ListItemIcon>
               <AddCircleOutlined />
             </ListItemIcon>
             <ListItemText primary="Registrer Problem" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/editp'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rediger Problem" />
-          </ListItem>
         </List>
         <Divider />
         <List>
-          {priority === 'Municipality' && (
-            <ListItem button component={NavLink} to={'/opprArrangement'}>
+          {(priority === 'Municipality' || priority === 'Administrator' ) && (
+            <div>
+            <ListItem button component={Link} to={'/opprArrangement'}>
               <ListItemIcon>
                 <EventIcon />
               </ListItemIcon>
               <ListItemText primary="Opprett Arrangement" />
             </ListItem>
+            <ListItem button component={Link} to={'/stati'}>
+              <ListItemIcon>
+                <Stati />
+              </ListItemIcon>
+              <ListItemText primary="Statistikk" />
+            </ListItem>
+            </div>
           )}
           {priority === 'Administrator' && (
-            <Button onClick={this.handleOpenCat}>
-              <ListItem>
-                <ListItemIcon>
-                  <SettingIcon />
-                </ListItemIcon>
-                <ListItemText primary="Legg til kategori" />
+              <ListItem button onClick={this.handleOpenCat}>
+                  <ListItemIcon>
+                    <AddCircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Legg til kategori" />
               </ListItem>
-            </Button>
           )}
         </List>
       </div>

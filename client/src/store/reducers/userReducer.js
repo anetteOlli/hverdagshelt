@@ -89,7 +89,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'CLEAR_ERROR':
-      console.log('%c CLEAR_ERROR', 'color: green; font-weight: bold;');
+      console.log('%c CLEAR_ERROR', 'color: red; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''

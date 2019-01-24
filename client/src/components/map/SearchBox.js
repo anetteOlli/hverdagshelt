@@ -11,6 +11,9 @@ type Props = {
   updateMarker: Function
 };
 
+/**
+ * google api key used for using google-map-react
+ **/
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type State = {};
@@ -91,7 +94,7 @@ class SearchBox extends Component<Props, State> {
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
             console.log('street', place);
-            if (place.country === 'Norge'||place.country === 'Norway') {
+            if (place.country === 'Norge' || place.country === 'Norway') {
               this.props.updateMapName(place.street, place.municipality, place.county, place.city);
             } else {
               console.log('ikke i norge');

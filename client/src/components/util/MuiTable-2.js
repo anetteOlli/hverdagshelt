@@ -83,6 +83,21 @@ const ExpansionPanelDetails = withStyles(theme => ({
   }
 }))(MuiExpansionPanelDetails);
 
+const styles = theme => ({
+  expansionPaper:{
+    [theme.breakpoints.up('sm')]:{
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      overflow: 'auto'
+    },
+    [theme.breakpoints.down('sm')]:{
+      height: 250,
+      overflow: 'auto'
+    }
+  }
+});
+
 //Own material start
 /** Props for MuiTable
  * The props are as following:
@@ -210,17 +225,26 @@ class MuiTable2 extends React.Component<Props> {
     });
   };
 
+  /** Sorts an array of problems
+   *
+   * */
   getSorted(rows) {
     let sort = rows;
     if (this.state.sort == 'support') {
       if (this.state.direction == 'asc') {
         sort
           .sort(function(a, b) {
+            if(a.support == b.support){
+              return a.date_made.localeCompare(b.date_made);
+            }
             return a.support - b.support;
           })
           .reverse();
       } else {
         sort.sort(function(a, b) {
+          if(a.support == b.support){
+            return a.date_made.localeCompare(b.date_made);
+          }
           return a.support - b.support;
         });
       }
@@ -242,94 +266,95 @@ class MuiTable2 extends React.Component<Props> {
 
   render() {
     const { expanded } = this.state;
-    const { classes, rows, onSupportClick, onClick } = this.props;
+    const { classes, rows, onSupportClick, onClick, height } = this.props;
     let color = 'disabled';
     let myRows = [];
+    //console.log("MuiTable2 rows: ", rows);
     if (rows == undefined) {
       //myRows = this.getSorted(this.state.rows);
+      myRows = undefined;
+    } else if(rows[0] == null){
       myRows = undefined;
     } else {
       myRows = this.getSorted(rows);
     }
-    //console.log("My Rows after sort:");
-    //console.log(myRows);
-    //console.log("My state");
+    //console.log("Muitable2", myRows);
     //console.log(this.state);
     return (
       <div>
-        <Card align="center">
-          <CardContent>
-            <Button onClick={this.sortDate} variant="contained" size="small">
-              {' '}
-              <Typography variant="button" style={{ fontSize: 10 }}>
-                {' '}
-                Sorter på dato{' '}
-              </Typography>{' '}
-            </Button>
-            <Button onClick={this.sortSupport} variant="contained" size="small">
-              {' '}
-              <Typography variant="button" style={{ fontSize: 10 }}>
-                {' '}
-                Sorter på støtte{' '}
-              </Typography>{' '}
-            </Button>
-          </CardContent>
-        </Card>
-        {myRows == undefined ? (
-          <Card>
+        <Paper className={classes.expansionPaper} style={{
+          height: height
+        }}>
+          <Card align="center">
             <CardContent>
-              <Typography align="center"> Ingen problemer å vise </Typography>
+              <Button onClick={this.sortDate} variant="contained" size="small">
+                {' '}
+                <Typography variant="button" style={{ fontSize: 10 }}>
+                  {' '}
+                  Sorter på dato{' '}
+                </Typography>{' '}
+              </Button>
+              <Button onClick={this.sortSupport} variant="contained" size="small">
+                {' '}
+                <Typography variant="button" style={{ fontSize: 10 }}>
+                  {' '}
+                  Sorter på støtte{' '}
+                </Typography>{' '}
+              </Button>
             </CardContent>
           </Card>
-        ) : (
-          myRows.map(row => (
-            <ExpansionPanel
-              expanded={expanded === row.problem_id}
-              onChange={onClick == null ? this.handleChange(row.problem_id) : e => onClick(row)}
-              key={row.problem_id}
-            >
-              <ExpansionPanelSummary>
-                <CheckCircle
-                  className="material-icons"
-                  color={row.status == 'Unchecked' ? 'disabled' : row.status == 'Checked' ? 'primary' : 'error'}
-                />
-                <Typography style={{ flexBasis: '100%', fontSize: 15 }}>{row.problem_title}</Typography>
-                <Typography style={{ flexBasis: '30%', fontSize: 12 }}>{easyDateFormat(row.date_made)}</Typography>
-                <ThumbUp className="material-icons" color="primary" size="50%" />
-                <Typography align="right" style={{ flexBasis: '10%', fontSize: 10 }}>
-                  {row.support}
-                </Typography>
+          {myRows == undefined ? (
+            <Typography align="center"> Ingen problemer å vise </Typography>
+          ) : (
+            myRows.map(row => (
+              <ExpansionPanel
+                expanded={expanded === row.problem_id}
+                onChange={onClick == null ? this.handleChange(row.problem_id) : e => onClick(row)}
+                key={row.problem_id}
+              >
+                <ExpansionPanelSummary>
+                  <CheckCircle
+                    className="material-icons"
+                    color={row.status == 'Unchecked' ? 'disabled' : row.status == 'Checked' ? 'primary' : 'error'}
+                  />
+                  <Typography style={{ flexBasis: '100%', fontSize: 15 }}>{row.problem_title}</Typography>
+                  <Typography style={{ flexBasis: '30%', fontSize: 12 }}>{easyDateFormat(row.date_made)}</Typography>
+                  <ThumbUp className="material-icons" color="primary" size="50%" />
+                  <Typography align="right" style={{ flexBasis: '10%', fontSize: 10 }}>
+                    {row.support}
+                  </Typography>
 
-                <CheckCircle className="material-icons" color="disabled" size="50%" />
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Grid item xs container direction="column" alignItems="flex-start" lg={5} md={6} sm={12} sx={12}>
-                  <Grid item xs>
-                    <h4>Beskrivelse</h4>
+                  <CheckCircle className="material-icons" color="disabled" size="50%" />
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Grid item xs container direction="column" alignItems="flex-start" lg={5} md={6} sm={12} sx={12}>
+                    <Grid item xs>
+                      <h4>Beskrivelse</h4>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography>{row.problem_description}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <h4>Entreprenør</h4>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography>{row.entrepreneur_id}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <h4>Status</h4>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography>{row.status}</Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item xs>
-                    <Typography>{row.problem_description}</Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <h4>Entreprenør</h4>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography>{row.entrepreneur_id}</Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <h4>Status</h4>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography>{row.status}</Typography>
-                  </Grid>
-                </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))
-        )}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))
+          )}
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRoot(MuiTable2);
+export default withStyles(styles)(MuiTable2);
