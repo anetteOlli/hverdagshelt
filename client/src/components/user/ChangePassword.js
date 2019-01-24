@@ -182,47 +182,47 @@ class ChangePassword extends React.Component<Props, State> {
       <div className={classes.main}>
         <Card align="center">
           <CardContent>
-        <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Nytt passord"
-            name="password"
-            autoComplete="new-password"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.password}
-            onChange={this.handleChange}
-            validators={['required', 'minStringLength:6']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Bekreft passord"
-            name="cnfPassword"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.cnfPassword}
-            onChange={this.handleChange}
-            validators={['required', 'isPasswordMatch']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
-          />
-          <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
-            Endre passord
-          </Button>
-          {this.state.loading && (
-            <CircularProgress size={24} className={classes.progress}/>
-          )}
-        </ValidatorForm>
-        </CardContent>
+            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Nytt passord"
+                name="password"
+                autoComplete="new-password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.password}
+                onChange={this.handleChange}
+                validators={['required', 'minStringLength:6']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Bekreft passord"
+                name="cnfPassword"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.cnfPassword}
+                onChange={this.handleChange}
+                validators={['required', 'isPasswordMatch']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
+              />
+              <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
+                Endre passord
+              </Button>
+              {this.state.loading && (
+                <CircularProgress size={24} className={classes.progress}/>
+              )}
+            </ValidatorForm>
+          </CardContent>
         </Card>
         <Dialog
           open={this.state.successDialog}
