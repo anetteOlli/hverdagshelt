@@ -49,7 +49,6 @@ class App extends React.Component<Props> {
               <Route exact path="/munipage" component={MuniPage} />
               <Route exact path="/lagproblem" component={CreateProblem} />
               <Route exact path="/uploadfile" component={UploadFile} />
-              <Route exact path="/problemdetails/:problem_id" component={ProblemDetails} />
               <Route exact path="/stati" component={Stati} />
               <Route exact path="/innstillinger" component={Settings} />
               <Route exact path="/profil" component={Profile} />

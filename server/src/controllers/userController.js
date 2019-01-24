@@ -101,7 +101,7 @@ exports.user_validate_email = (email, callback) => {
 };
 
 exports.user_forgot_password = (json, callback) => {
-  console.log('user_forgot_password');
+  console.log('>>> user_forgot_password');
 
   userDao.checkEmail(json.email, (status, data) => {
     console.log('checkEmail email = ' + json.email);
@@ -112,9 +112,9 @@ exports.user_forgot_password = (json, callback) => {
       const tempPassword = Math.random()
         .toString(36)
         .slice(-8);
-      console.log('id = ' + id);
-      console.log('email = ' + email);
-      console.log('tempPassword = ' + tempPassword);
+      console.log('--id = ' + id);
+      console.log('--email = ' + email);
+      console.log('--tempPassword = ' + tempPassword);
 
       const userinfo = {
         user_id: id,
@@ -124,27 +124,29 @@ exports.user_forgot_password = (json, callback) => {
       userDao.changePassword(userinfo, hashPassword(tempPassword), (status, data) => {
         console.log('changePassword');
         if (status === 200) {
-          console.log('Will send mail');
+          console.log('Will send mail!');
           MailController.sendSingleMail(
             {
               recepients: email,
               text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
               html: ''
             },
-            (status, data) => {
-              callback(status, data);
+            (status) => {
+              console.log("Callback coming: ", status);
+              callback(status, null);
             }
           );
         } else {
-          console.log('changePassword not success');
-          callback(status, data);
+          console.log('!!! changePassword not success');
+          callback(200, data);
+          //pga sikkerhet sendes ikke feilmelding om noe går galt, bare server for vite
         }
       }); //changePassword
     } //if
     else {
-      console.log('data.length is 0 or below');
-      callback(404, data);
-      //feilmelding om at epost ikke finnes
+      console.log('!!! data.length is 0 or below');
+      callback(200, data);
+      //pga sikkerhet sendes ikke feilmelding om noe går galt, bare server for vite
     }
   }); //checkEmail
 };

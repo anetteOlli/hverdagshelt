@@ -37,6 +37,10 @@ module.exports = class EntrepreneurDao extends Dao {
     super.query('select * from entrepreneur where user_id = ?', [user_id], callback);
   }
 
+  getEntrepreneurByEntrepreneurID(entrepreneur_id, callback) {
+    super.query('select * from entrepreneur where entrepreneur_id = ?', [entrepreneur_id], callback);
+  }
+
   checkEntrepreneur(org_nr, callback) {
     super.query('select * from entrepreneur WHERE org_nr = ?', [org_nr], callback);
   }

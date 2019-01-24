@@ -12,6 +12,7 @@ type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
   return (dispatch: Dispatch, getState: GetState) => {
+    console.log('GET STATE, GET STATE ', getState().user.user_id);
     return getData(`users/${getState().user.user_id}`)
       .then(response => {
         dispatch({
@@ -19,7 +20,6 @@ export const getUserInfo = () => {
           payload: response.data
         });
         dispatch(checkedJWT());
-        dispatch(enqueueSnackbar('u in', 'success'));
       })
       .catch((error: Error) => {
         dispatch({
@@ -166,6 +166,7 @@ export const forgotPassword = (email: string) => {
 };
 export const setNewPassword = (user_id: number, password: string, email: string) => {
   return (dispatch: Dispatch) => {
+    console.log('userActions USERACTION USERACTION', user_id, password, email);
     return patchData('users/changePassword', { user_id, password, email })
       .then(() => {
         return dispatch({

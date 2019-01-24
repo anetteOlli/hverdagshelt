@@ -62,6 +62,23 @@ export const entrepreneurs_get_one_by_problem_id = (id: number) => {
   };
 };
 
+export const entrepreneurs_get_one_by_entrepreneur_id = (id) => {
+  return (dispatch: Dispatch, getState: GetState) => {
+    return getData(`entrepreneurs/e_id/${id}`)
+      .then(response =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_entrepreneur_id_SUCCESS',
+          payload: response.data
+        })
+      )
+      .catch((error: Error) =>
+        dispatch({
+          type: 'ENTREPRENEUR_GET_FROM_entrepreneur_id_ERROR',
+          payload: error
+        })
+      );
+  };
+};
 
 export const getEntrepreneursByMuniAndCat = p => {
   return (dispatch: Dispatch, getState: GetState) => {
