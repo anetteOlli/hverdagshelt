@@ -162,7 +162,7 @@ test("Testing users_forgot_password from userController", (done) => {
   };
   userController.user_forgot_password(user,(status,data) => {
     expect(status).toBe(200);
-    expect(data.affectedRows).toBe(1);
+    expect(data.affectedRows[0]).toBe(1);
     user.password = "yeeet";
     userController.user_forgot_password(user, (status,data) => {
       expect(status).toBe(500);
@@ -179,7 +179,7 @@ test("Testing users_forgot_password from userController", (done) => {
 
 test("Testing user_is_not_old_password from userController", (done) => {
   let user = {
-    id: 1,
+    id: 4,
     priority:"Administrator",
     email:"admin@admin.admin",
     password:"abc123"
@@ -201,7 +201,7 @@ test("Testing user_change_password from userController", (done) => {
     id: 4,
     priority:"Administrator",
     email:"admin@admin.admin",
-    password:"test123 "
+    password:"test123"
   };
   userController.user_change_password(user,(status,data) => {
     expect(status).toBe(200);

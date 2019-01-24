@@ -87,7 +87,7 @@ test("Testing entrepreneur_get_by_cat_and_muni from entrepreneurDao", (done) => 
 
   entrepreneurController.entrepreneurs_get_by_cat_and_muni(json, (status,data) => {
   expect(status).toBe(200);
-  expect(data.length).toBe(4);
+  expect(data.length).toBe(1);
   done();
   });
 });
@@ -99,17 +99,18 @@ test("Testing entrepreneur_get_by_muni", (done) => {
   };
   entrepreneurController.entrepreneurs_get_by_muni(json,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(4);
-    expect(data[0].business_name).toBe("");
+    expect(data.length).toBe(3);
+    expect(data[0].business_name).toBe("Arbeidsjøinn");
     done();
   })
 });
 
 test("Testing entrepreneur_get_one_by_user_id", (done) => {
-  let id = 1;
+  let id = 4;
+  //Må gjøre user_id unique på siden?
   entrepreneurController.entrepreneurs_get_one_by_user_id(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(4);
+    expect(data.length).toBe(3);
     done();
   })
 });
