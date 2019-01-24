@@ -540,17 +540,27 @@ class CreateProblem extends React.Component<Props, State> {
       });
     }
   };
+
+  /** setting failureDialog: false will close the failureDialog*/
   handleFailureDialogClose = () => {
     this.setState({
       failureDialog: false
     });
   };
+  /**  setting showSuppordDialog: false will close the showSuppordDialog and
+  * this method will also redirect user to the frontpage
+  */
   handleSupportDialogCloseFront = () => {
     this.setState({
       showSuppordDialog: false
     });
     history.push("/");
   };
+  /**
+  *setting showSuppordDialog: false will close the showSuppordDialog.
+  * Rest of the function will refresh the similarProblems-lists, in order
+  * to update the number of "likes" on the problem the user clicked on
+  */
   handleSupportDialogClose = () => {
     this.setState({
       showSuppordDialog: false

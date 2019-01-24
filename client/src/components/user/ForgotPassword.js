@@ -36,15 +36,13 @@ type Props = {
 
 type State = {
   email: string,
-  passwordSentSuccess: boolean,
-  sentDialogue: boolean
+  passwordSentSuccess: boolean
 };
 
 class ForgotPassword extends React.Component<Props, State> {
   state = {
     email: '',
-    passwordSentSuccess: false,
-    sentDialogue: true
+    passwordSentSuccess: false
   };
 
   handleChange = e => {

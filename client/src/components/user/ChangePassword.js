@@ -93,16 +93,24 @@ class ChangePassword extends React.Component<Props, State> {
     failureDialog: false,
     loading: false
   };
+
+  /** handles input from the user, and sets new state*/
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
+  /** toggles whether or not password should be visible for the user in plain text or not*/
   handleVisibility = () => {
     this.setState(prevState => ({
       showPassword: !prevState.showPassword
     }));
   };
+
+  /**
+   * updates the database
+   */
   handleSubmit = e => {
     e.preventDefault();
     const { email, user_id, password } = this.state;
@@ -111,6 +119,11 @@ class ChangePassword extends React.Component<Props, State> {
       loading: true
     });
 
+    /** checks whether new password is identical to old password, and if so gives the user an
+     * errorDialog box.
+     * if password is not identical to old password, it will update database and give the user a
+     * confirm dialog and redirect user to the front page
+     */
     postData('users/check_pass', { email: this.props.email, password }).then(response => {
       console.log(response.data);
       this.setState({
@@ -145,36 +158,23 @@ class ChangePassword extends React.Component<Props, State> {
       }
     });
   };
+
+  /** closes the successDialog and sends the user to the front page */
   handleSuccessDialogClose = () => {
     this.setState({
       successDialog: false
     });
     this.props.history.push('/');
   };
-  checkOldPassword = () => {
-    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
-      this.setState({
-        isOldPassword: response.data.isOldPassword
-      });
-    });
-  };
 
-  handlePasswordInputChange = e => {
-    postData('users/check_pass', { email: this.props.email, password: this.state.password }).then(response => {
-      if (response.status !== 404) {
-        this.setState({
-          isOldPassword: response.data.isOldPassword,
-          [e.target.name]: e.target.value
-        });
-      }
-    });
-  };
+  /** closes the failureDialog */
   handleFailureDialogClose = () => {
     this.setState({
       failureDialog: false
     });
   };
 
+  //if the user !isLoggedIn, it will only show a div
   render() {
     const { classes, isLoggedIn, email, user_id, password } = this.props;
     console.log('this.state on render()', this.state, this.props);
