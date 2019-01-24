@@ -36,13 +36,15 @@ type Props = {
 
 type State = {
   email: string,
-  passwordSentSuccess: boolean
+  passwordSentSuccess: boolean,
+  isLoading: boolean
 };
 
 class ForgotPassword extends React.Component<Props, State> {
   state = {
     email: '',
-    passwordSentSuccess: false
+    passwordSentSuccess: false,
+    isLoading: false
   };
 
   handleChange = e => {
@@ -61,14 +63,16 @@ class ForgotPassword extends React.Component<Props, State> {
 
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
+    this.setState({ isLoading: true });
     this.props.forgotPassword(this.state.email)
     .then(() => {
       if (this.props.errorMessage === ''){
-        this.setState({ passwordSentSuccess: true });
+        this.setState({ passwordSentSuccess: true, isLoading: false });
       }
       else {
         console.log("Got error: ", this.props.errorMessage);
         this.refs.forgotPasswordForm.submit();
+        this.setState({ isLoading: false });
       }
     });
   };
@@ -122,6 +126,9 @@ class ForgotPassword extends React.Component<Props, State> {
               <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
                 {isLoading && <CircularProgress size={20} className={classes.spinner} />}
                 Send passord til e-post adressen
+                {this.state.isLoading && (
+                  <CircularProgress size={24} style={{position: 'static'}}/>
+                )}
               </Button>
               <Button
                 fullWidth
@@ -150,7 +157,8 @@ class ForgotPassword extends React.Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
+    isLoading: state.async.isLoading
   };
 };
 

@@ -59,25 +59,19 @@ class TemporaryDrawer extends React.Component<Props, State> {
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="Statestikk (temp)" />
+            <ListItemText primary="Statistikk (temp)" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problems'}>
+          <ListItem button component={NavLink} to={'/problem-oversikt'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>
-            <ListItemText primary="Problem Oversikt" />
+            <ListItemText primary="Problemoversikt" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>
               <AddCircleOutlined />
             </ListItemIcon>
             <ListItemText primary="Registrer Problem" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/editp'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rediger Problem" />
           </ListItem>
         </List>
         <Divider />
@@ -94,7 +88,7 @@ class TemporaryDrawer extends React.Component<Props, State> {
               <ListItemIcon>
                 <HotIcon />
               </ListItemIcon>
-              <ListItemText primary="Statestikk" />
+              <ListItemText primary="Statistikk" />
             </ListItem>
             </div>
           )}
