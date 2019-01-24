@@ -96,7 +96,7 @@ test("Testing checkMail from userDao", (done) => {
 });
 
 test("Testing activateUser from userDao", (done) => {
-  let email = "user@user.user";
+  let email = "test@test.test";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
