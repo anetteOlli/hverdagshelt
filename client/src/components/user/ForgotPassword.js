@@ -81,15 +81,20 @@ class ForgotPassword extends React.Component<Props, State> {
     if (this.state.passwordSentSuccess) {
       return (
         <div>
-          <Dialog open={this.state.sentDialogue} onClose={() =>{
-            this.props.clearError();
-            this.props.onClose();
-          }}>
-          {console.log(this.state.sentDialogue)}
+          <Dialog>
             <DialogTitle>Nytt passord sendt</DialogTitle>
             <DialogContent>
               <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
             </DialogContent>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              className={classes.button}
+              onClick={this.handleClose}
+            >
+              Ok
+            </Button>
           </Dialog>
         </div>
       );
