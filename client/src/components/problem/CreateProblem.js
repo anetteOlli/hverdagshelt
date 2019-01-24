@@ -45,7 +45,7 @@ const styles = theme => ({
          fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
-         fontSize: 20
+         fontSize: 16
        }
     }
   },
