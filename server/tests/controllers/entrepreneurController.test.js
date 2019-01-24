@@ -99,7 +99,7 @@ test("Testing entrepreneur_get_by_muni", (done) => {
   };
   entrepreneurController.entrepreneurs_get_by_muni(json,(status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(1);
     expect(data[0].business_name).toBe("Arbeidsjøinn");
     done();
   })
