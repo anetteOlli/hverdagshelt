@@ -268,8 +268,8 @@ class CreateEvent extends React.Component<Props, State>{
 
     title: '',
     description: '',
-    dateStart: new Date('0000-00-00T00:00:00'),
-    dateEnd: new Date('0000-00-00T00:00:0'),
+    dateStart: new Date(),
+    dateEnd: new Date(),
     dateEndInput: '',
     image: '',
     picture: '',
@@ -396,7 +396,7 @@ class CreateEvent extends React.Component<Props, State>{
                       onClick={this.handleBack}
                       className={classes.button}
                     >
-                      Back
+                      Tilbake
                     </Button>
                     <Button
                       variant="contained"
@@ -404,7 +404,7 @@ class CreateEvent extends React.Component<Props, State>{
                       className={classes.button}
                       type="submit"
                     >
-                      {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {this.state.activeStep === steps.length - 1 ? 'Send Inn' : 'Neste'}
                     </Button>
                 </CardContent>
               </Card>

@@ -14,7 +14,7 @@ import { enqueueSnackbar } from '../../store/actions/notifyActions';
 const styles = (theme: Object) => ({
   wrapper: {
     minWidth: 300,
-    minHeight: 250,
+    minHeight: 200,
     textAlign: 'center'
   },
   textField: {
@@ -67,7 +67,7 @@ class CreateCategory extends React.Component<Props, State> {
         <DialogContent>
           <ValidatorForm onSubmit={this.handleSubmit}>
             <div className={classes.wrapper}>
-              <h2 className={classes.textField}>Legg til ny kategori</h2>
+              <Typography variant="h5" className={classes.textField}>Legg til ny kategori</Typography>
 
               <TextValidator
                 className={classes.textField}
@@ -76,7 +76,7 @@ class CreateCategory extends React.Component<Props, State> {
                 name="category"
                 onChange={this.handleChange}
                 validators={['required', 'minStringLength:3']}
-                errorMessages={['Ugyldig beksrivelse']}
+                errorMessages={['Du må skrive inn noe', 'Teksten må være lengere']}
               />
 
               <Button type="submit" variant="contained" color="primary" className={classes.sendInnBtn}>

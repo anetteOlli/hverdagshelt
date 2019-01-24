@@ -18,7 +18,7 @@ export const getProblemsByMuni = muni => {
             type: 'GET_ALL_PROBLEMS_SUCCESS',
             payload: response.data
           });
-          dispatch(enqueueSnackbar('U in', 'success'));
+          dispatch(enqueueSnackbar('Statistikk hentet', 'success'));
         } else
           dispatch({
             type: 'GET_ALL_PROBLEMS_ERROR',
