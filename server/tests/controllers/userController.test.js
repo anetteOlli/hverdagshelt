@@ -3,7 +3,7 @@ import * as mysql from 'mysql';
 const userController = require('../../src/controllers/userController');
 const runsqlfile = require('../../src/dao/SQL/runsqlfile');
 
-jest.setTimeout(30000);
+jest.setTimeout(70000);
 
 let pool = mysql.createPool({
   connectionLimit: 1000000,
@@ -146,7 +146,7 @@ test("Testing users_login from userController", (done) => {
       user.email = "heihå@heiå.heiå";
       userController.users_login(user, (status,data) => {
         expect(status).toBe(404);
-        expect(data.message).toBe("NOT_FOUND");
+        expect(data.message).toBe("Not found");
         done();
       })
     })
@@ -155,7 +155,7 @@ test("Testing users_login from userController", (done) => {
 
 test("Testing users_forgot_password from userController", (done) => {
   let user = {
-    id: 1,
+    id: 4,
     priority:"Administrator",
     email:"admin@admin.admin",
     password:"abc123"
@@ -196,16 +196,17 @@ test("Testing user_is_not_old_password from userController", (done) => {
   })
 });
 
-test("Testing user_change_password from userController", (status,data) => {
+test("Testing user_change_password from userController", (done) => {
   let user = {
     id: 4,
     priority:"Administrator",
     email:"admin@admin.admin",
-    password:"abc123"
+    password:"test123 "
   };
   userController.user_change_password(user,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
+    done();
   })
 });
 
