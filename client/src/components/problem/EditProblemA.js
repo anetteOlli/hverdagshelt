@@ -54,16 +54,13 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing.unit
   },
   paper: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginTop: 20,
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10,
     color: theme.palette.text.secondary
   },
   paper2: {
-    height: '100%',
-    margin: 30
+    height: '100%'
   },
   grid: {
     height: '100%',
@@ -181,9 +178,9 @@ class EditProblemA extends React.Component<Props, State> {
                   <TextValidator
                     className={classes.entries}
                     fullWidth
+                    margin="normal"
                     multiline
                     label="Beskrivelse"
-                    margin="normal"
                     rowsMax={10}
                     name="problem_description"
                     value={this.state.problem_description}
@@ -195,8 +192,8 @@ class EditProblemA extends React.Component<Props, State> {
                   <SelectValidator
                     className={classes.entries}
                     fullWidth
-                    label="Kategori"
                     margin="normal"
+                    label="Kategori"
                     name="category"
                     value={this.state.category}
                     onChange={this.handleChange}
@@ -239,8 +236,8 @@ class EditProblemA extends React.Component<Props, State> {
                   <SelectValidator
                     className={classes.entries}
                     fullWidth
-                    label="Status:"
                     margin="normal"
+                    label="Status:"
                     name="status"
                     value={this.state.status}
                     onChange={this.handleChange}

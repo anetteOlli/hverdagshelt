@@ -1,3 +1,5 @@
+//@flow
+
 const Dao = require('./dao.js');
 
 module.exports = class UserDao extends Dao {
@@ -6,7 +8,7 @@ module.exports = class UserDao extends Dao {
   }
 
   getOneById(id, callback) {
-    console.log(id);
+    console.log('getOneById id: ', id);
     super.query(
       'select user_id, email, created, active, municipality, county, priority from user where user_id = ?',
       [id],
@@ -42,6 +44,6 @@ module.exports = class UserDao extends Dao {
   }
 
   activateUser(email, callback) {
-    super.query('UPDATE user SET active = TRUE WHERE email = ?', [email], callback);
+    super.query('UPDATE user SET active = 1 WHERE email = ?', [email], callback);
   }
 };

@@ -89,7 +89,7 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'CLEAR_ERROR':
-      console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;');
+      console.log('%c CLEAR_ERROR', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
@@ -104,14 +104,17 @@ export default (state: State = initState, action: Action) => {
       console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
-        errorMessage: action.payload
+        errorMessage: action.payload.message
       };
     case 'GET_USER_INFO_SUCCESS':
       console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         email: action.payload.email,
-        currentMuni: { municipality: action.payload.municipality, county: action.payload.county },
+        currentMuni: {
+          municipality: action.payload.municipality,
+          county: action.payload.county
+        }
       };
     case 'GET_USER_INFO_ERROR':
       console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);

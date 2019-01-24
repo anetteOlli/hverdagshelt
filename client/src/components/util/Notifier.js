@@ -42,12 +42,12 @@ class Notifier extends React.Component {
 }
 
 const mapStateToProps = (store: ReduxState) => ({
-  notifications: store.notify.notifications,
+  notifications: store.notify.notifications
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ removeSnackbar }, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withSnackbar(Notifier));

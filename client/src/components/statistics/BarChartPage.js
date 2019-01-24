@@ -33,18 +33,13 @@ class BarChartPage extends React.Component {
   handleDataChange = (e: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   };
   render() {
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <BarChart
-            width={600}
-            height={300}
-            data={barChartData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
+          <BarChart width={600} height={300} data={barChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
@@ -72,16 +67,14 @@ class BarChartPage extends React.Component {
     );
   }
 
-  componentDidMount(): void {
-  }
+  componentDidMount(): void {}
 }
 
 const mapStateToProps = (state: ReduxState) => ({
   data: state.statistic.barChartData
 });
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 // $FlowFixMe
 export default connect(
