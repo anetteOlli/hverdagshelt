@@ -81,8 +81,8 @@ test("Testing checkEntrepreneur from entrepreneurDao", (done)=> {
 test("Testing entrepreneur_get_by_cat_and_muni from entrepreneurDao", (done) => {
   let json = {
     category: "Snowplow",
-    municipality:"Trondheim",
-    county:"Trøndelag"
+    municipality:"Tromsø",
+    county:"Troms"
   };
 
   entrepreneurController.entrepreneurs_get_by_cat_and_muni(json, (status,data) => {
@@ -94,8 +94,8 @@ test("Testing entrepreneur_get_by_cat_and_muni from entrepreneurDao", (done) => 
 
 test("Testing entrepreneur_get_by_muni", (done) => {
   let json = {
-    municipality:"Trondheim",
-    county:"Trøndelag"
+    municipality:"Tromsø",
+    county:"Troms"
   };
   entrepreneurController.entrepreneurs_get_by_muni(json,(status,data) => {
     expect(status).toBe(200);

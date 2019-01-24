@@ -116,7 +116,6 @@ test("Testing problems_create_problem from problemController", (done) => {
       problem.county = "yeet";
       problemController.problems_create_problem(undefined, problem, (status,data) => {
         expect(status).toBe(500);
-        expect(data.affectedRows).toBe(0);
         done();
       })
     })
