@@ -37,6 +37,7 @@ router.get('/refresh', checkAuth, (req, res) => {
 });
 
 router.patch('/changePassword/', (req, res) => {
+  console.log('req.body', req.body, req.params);
   UserController.user_change_password(req.body, (status, data) => {
     res.status(status).json(data);
   });
