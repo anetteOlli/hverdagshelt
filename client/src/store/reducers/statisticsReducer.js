@@ -10,7 +10,6 @@ export type State = {
   pieChartData: [],
   barChartData: [],
   errorMessage: string,
-  selectedMuni: { municipality: string, county: string } | null,
   ready: boolean,
   dropDownMonths: { value: string, name: string }[]
 };
@@ -20,12 +19,11 @@ export type Action =
   | { type: 'GET_PROBLEMS_BY_MONTH', payload: string };
 
 const initState = {
-  lineChartData: [],
-  pieChartData: [],
+  lineChartData: { problemsByMonthData: []},
+  pieChartData: { categoryData: [], entrepreneurData: [] },
   barChartData: [],
   problems: [],
   errorMessage: '',
-  selectedMuni: null,
   ready: false,
   dropDownMonths: []
 };
@@ -141,9 +139,8 @@ const getProblemsByEntrepreneur = (
     name: string,
     problemer: number
   }>);
-
-  allProblems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
-  console.log(result);
+  const problemsWithEnt = allProblems.filter(p => p.entrepreneur_id !== null);
+  problemsWithEnt.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
   return result;
 };
 
@@ -162,25 +159,26 @@ export default (state: State = initState, action: Action) => {
       console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
+        ready: true,
         errorMessage: action.payload
       };
     case 'GET_PROBLEMS_BY_MONTH':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        lineChartData: getProblemsByMonth(state.problems, action.payload)
+        lineChartData: {...state.lineChartData, problemsByMonthData: getProblemsByMonth(state.problems, action.payload)}
       };
     case 'GET_PROBLEMS_BY_CATEGORY':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
-        pieChartData: getProblemsByCategory(state.problems, action.payload)
+        pieChartData: {...state.pieChartData, categoryData: getProblemsByCategory(state.problems, action.payload)}
       };
     case 'GET_PROBLEMS_BY_ENTREPRENEUR':
       console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
-        ...state
-        //pieChartData: getProblemsByEntrepreneur(state.problems, action.payload)
+        ...state,
+        pieChartData: {...state.pieChartData, entrepreneurData: getProblemsByEntrepreneur(state.problems, action.payload)}
       };
     case 'SET_SELECTED_MUNI':
       console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);

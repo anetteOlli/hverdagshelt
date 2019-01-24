@@ -34,10 +34,14 @@ type Props = {
 
 class StatisticPage extends React.Component<Props> {
   render() {
-    const { classes, ready } = this.props;
+    const { classes, ready, priority } = this.props;
+    if (priority !== 'Municipality' && priority !== 'Administrator') return <div>Du hakke tilgang ha deg vekk</div>;
     if (ready) {
       return (
         <div className={classes.content}>
+          <Typography variant="h2" gutterBottom component="h2" align="center">
+            Statistikk i {this.props.currentMuni.municipality}
+          </Typography>
           <Typography variant="h4" gutterBottom component="h2">
             LineChart
           </Typography>
@@ -64,21 +68,22 @@ class StatisticPage extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    this.props.getAllProblemsFromMuni(this.props.currentMuni);
+    this.props.getAllProblemsFromMuni();
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
     ready: state.statistic.ready,
-    currentMuni: state.user.currentMuni
+    priority: state.user.priority,
+    currentMuni: state.user.currentMuni,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: muni => dispatch(getProblemsByMuni(muni))
+    getAllProblemsFromMuni: () => dispatch(getProblemsByMuni())
   };
 };
 

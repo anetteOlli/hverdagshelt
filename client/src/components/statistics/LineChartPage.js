@@ -45,15 +45,14 @@ class LineChartPage extends React.Component<Props, State> {
     this.setState({
       selectedMonth: e.target.value
     });
-    this.props.getProblemsByMonthLine(e.target.value);
+    this.props.getProblemsByMonth(e.target.value);
   };
 
   render() {
-    console.log(this.props.lineChartData);
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={this.props.lineChartData}>
+          <LineChart data={this.props.lineChartData.problemsByMonthData}>
             <XAxis dataKey="name" />
             <YAxis />
             <CartesianGrid vertical={false} strokeDasharray="3 3" />

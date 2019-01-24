@@ -8,29 +8,31 @@ type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const getProblemsByMuni = muni => {
-  console.log(muni);
+export const getProblemsByMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('problems/municipality/sorted', muni)
+    return postData('problems/municipality/sorted', getState().user.currentMuni)
       .then(response => {
         if (response.data.length > 0) {
           dispatch({
             type: 'GET_ALL_PROBLEMS_SUCCESS',
             payload: response.data
           });
-          dispatch(enqueueSnackbar('U in', 'success'));
-        } else
+          dispatch(enqueueSnackbar('Hentet data fra databasen', 'success'));
+        } else {
           dispatch({
             type: 'GET_ALL_PROBLEMS_ERROR',
-            payload: new Error({ message: 'REEE' })
+            payload: new Error('Tom database')
           });
+          dispatch(enqueueSnackbar('Kommunen har ikke noe data å vise', 'error'));
+        }
       })
-      .catch((error: Error) =>
+      .catch((error: Error) => {
         dispatch({
           type: 'GET_ALL_PROBLEMS_ERROR',
           payload: error
-        })
-      );
+        });
+        dispatch(enqueueSnackbar('Feil med databasen', 'error'));
+      });
   };
 };
 
@@ -63,7 +65,7 @@ export const getProblemsByEntrepreneur = () => {
     const state = getState();
     dispatch({
       type: 'GET_PROBLEMS_BY_ENTREPRENEUR',
-      payload: state.entrepreneur.currentEntrepreneur
+      payload: state.entrepreneur.entrepreneurs
     });
   };
 };

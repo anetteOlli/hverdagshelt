@@ -16,7 +16,7 @@ module.exports = class EntrepreneurDao extends Dao {
   }
 
   getByMuni(json, callback) {
-    const val = [json.municipality_fk, json.county_fk];
+    const val = [json.municipality, json.county];
     console.log(val);
     super.query(
       'select distinct * from entrepreneur WHERE entrepreneur_id in (SELECT entrepreneur_id from entrepreneur_municipality where municipality = ? AND county = ?)',
