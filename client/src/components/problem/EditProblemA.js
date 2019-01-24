@@ -136,7 +136,7 @@ class EditProblemA extends React.Component<Props, State> {
               <Grid item xs className={classes.grid2} name={'GridItem UserProblem'}>
                 <Paper className={classes.paper2} name={'Paper for UserProblem'}>
                   <Typography variant="h2" gutterBottom align="center">
-                    Bruker beskrivelse:
+                    Bruker beskrivelse
                   </Typography>
                   <TextValidator
                     fullWidth
@@ -215,7 +215,7 @@ class EditProblemA extends React.Component<Props, State> {
               <Grid item xs className={classes.grid2} name={'GridItem for entrepreneur'}>
                 <Paper className={classes.paper2} name={'Paper for entrepreneur'}>
                   <Typography variant="h2" gutterBottom align="center">
-                    Entreprenør beskrivelse:
+                    Entreprenør beskrivelse
                   </Typography>
 
                   <SelectValidator
