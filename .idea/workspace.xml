@@ -65,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/tests/controllers/userController.test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="973">
+            <state relative-caret-position="145">
               <caret line="164" column="31" lean-forward="true" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
             </state>
           </provider>
@@ -89,39 +89,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/tests/SQL/userDao.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="106" column="28" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="102" column="19" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="42" column="96" selection-start-line="42" selection-start-column="96" selection-end-line="42" selection-end-column="96" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="501" column="202" selection-start-line="501" selection-start-column="202" selection-end-line="501" selection-end-column="202" />
+            <state relative-caret-position="371">
+              <caret line="501" column="192" selection-start-line="501" selection-start-column="192" selection-end-line="501" selection-end-column="192" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tests/SQL/problemDao.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2691">
+              <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3174" />
           </provider>
         </entry>
       </file>
@@ -145,8 +134,8 @@
       <find>user_change</find>
       <find>validate</find>
       <find>va</find>
-      <find>password</find>
       <find>user_forgot</find>
+      <find>password</find>
       <find>yee</find>
     </findStrings>
     <replaceStrings>
@@ -172,7 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/src/controllers/statisticsController.js" />
         <option value="$PROJECT_DIR$/server/src/dao/statisticsDao.js" />
         <option value="$PROJECT_DIR$/server/src/controllers/divController.js" />
         <option value="$PROJECT_DIR$/server/src/routes/problemRoutes.js" />
@@ -222,6 +210,7 @@
         <option value="$PROJECT_DIR$/server/tests/SQL/userDao.test.js" />
         <option value="$PROJECT_DIR$/server/tests/controllers/userController.test.js" />
         <option value="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" />
+        <option value="$PROJECT_DIR$/server/tests/SQL/problemDao.test.js" />
         <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
       </list>
     </option>
@@ -396,27 +385,6 @@
       <workItem from="1548141838626" duration="15011000" />
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
-    </task>
-    <task id="LOCAL-00010" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
-      <created>1547047306145</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1547047306145</updated>
-    </task>
-    <task id="LOCAL-00011" summary="before pull">
-      <created>1547111137178</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1547111137178</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Merge branch 'simen' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;server/src/routes/userRoutes.js">
-      <created>1547115590867</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1547115590867</updated>
     </task>
     <task id="LOCAL-00013" summary="Made category dao+routes, made controllers for all routes/endpoints, some backend optimalization.">
       <created>1547127299708</created>
@@ -740,11 +708,32 @@
       <option name="project" value="LOCAL" />
       <updated>1548348465836</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into lars&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1548348687219</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1548348687219</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into lars&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1548348884835</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1548348884835</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into lars&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1548349486418</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1548349486418</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234811000" />
+    <option name="totallyTimeSpent" value="235834000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -759,12 +748,13 @@
     <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2010582" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2010582" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
       <window_info id="Job Explorer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="DB Execution Console" visible="true" weight="0.32921812" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.16562009" />
@@ -777,7 +767,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.5852349" weight="0.32206404" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" visible="true" weight="0.18106996" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" weight="0.18106996" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.2964539" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
@@ -889,20 +879,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into lars&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/store/actions/mapActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/actions/eventActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="49" column="29" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/map/SearchBox.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
@@ -1231,31 +1207,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="42" column="96" selection-start-line="42" selection-start-column="96" selection-end-line="42" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/tests/SQL/userDao.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="106" column="28" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
           <caret line="102" column="19" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/tests/controllers/userController.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="973">
-          <caret line="164" column="31" lean-forward="true" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -1266,6 +1221,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/SQL/userDao.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="106" column="28" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/userDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="42" column="96" selection-start-line="42" selection-start-column="96" selection-end-line="42" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/tests/controllers/problemController.test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-69">
@@ -1273,10 +1242,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/SQL/problemDao.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2691">
+          <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3174" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tests/controllers/userController.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="164" column="31" lean-forward="true" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="501" column="202" selection-start-line="501" selection-start-column="202" selection-end-line="501" selection-end-column="202" />
+        <state relative-caret-position="371">
+          <caret line="501" column="192" selection-start-line="501" selection-start-column="192" selection-end-line="501" selection-end-column="192" />
         </state>
       </provider>
     </entry>
