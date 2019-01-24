@@ -289,7 +289,14 @@ class MainPage extends React.Component<Props, State> {
                     Ta meg til min kommune
                   </Button>
                 ) : (
-                  <div />
+                  <div >
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </div>
                 )}
                 <br />
                 <br />

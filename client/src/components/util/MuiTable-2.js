@@ -248,11 +248,13 @@ class MuiTable2 extends React.Component<Props> {
     if (rows == undefined) {
       //myRows = this.getSorted(this.state.rows);
       myRows = undefined;
+    } else if(myRows[0] == null){
+      myRows = undefined;
     } else {
       myRows = this.getSorted(rows);
     }
     //console.log("My Rows after sort:");
-    //console.log(myRows);
+    console.log("Muitable2", myRows);
     //console.log("My state");
     //console.log(this.state);
     return (
