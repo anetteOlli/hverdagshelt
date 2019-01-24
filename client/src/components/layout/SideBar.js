@@ -85,29 +85,23 @@ class TemporaryDrawer extends React.Component<Props> {
             </ListItemIcon>
             <ListItemText primary="Opprett Arrangement" />
           </ListItem>
-          <ListItem activeClassName={classes.selected} button component={NavLink} to={'/stati'}>
+          <ListItem button component={NavLink} to={'/stati'}>
             <ListItemIcon>
               <HotIcon />
             </ListItemIcon>
-            <ListItemText primary="statistikk" />
+            <ListItemText primary="Statestikk" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problemdetails/2'}>
+          <ListItem button component={NavLink} to={'/problems'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="ProblemDetails" />
+            <ListItemText primary="Problem oversikt" />
           </ListItem>
           <ListItem button component={NavLink} to={'/lagproblem'}>
             <ListItemIcon>
               <SettingIcon />
             </ListItemIcon>
-            <ListItemText primary="registrer problem" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/editp'}>
-            <ListItemIcon>
-              <SettingIcon />
-            </ListItemIcon>
-            <ListItemText primary="rediger problem" />
+            <ListItemText primary="Registrer problem" />
           </ListItem>
         </List>
         <Divider />
@@ -139,13 +133,13 @@ class TemporaryDrawer extends React.Component<Props> {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkUser(this.props.priority_fk);
+    this.checkUser(this.props.priority);
   }
 }
 
 const mapStateToProps = state => {
   return {
-    priority_fk: state.user.priority
+    priority: state.user.priority
   };
 };
 

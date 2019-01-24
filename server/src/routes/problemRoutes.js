@@ -23,7 +23,7 @@ router.post('/municipality', (req,res) => {
 });
 
 router.post('/', checkAuth, upload.uploader , (req,res) => {
-  ProblemController.problems_create_problem(req.file,req.body, (status,data) => {
+  ProblemController.problems_create_problem(req.file, req.body, (status,data) => {
     res.status(status).json(data);
   })
 });
@@ -40,8 +40,8 @@ router.delete('/:id', checkAuth, (req,res) => {
   })
 });
 
-router.patch('/:id', checkAuth,upload.uploader, (req,res) => {
-  ProblemController.problems_edit_problem(req.params.id,req.body,req.userData,req.file, (status,data) => {
+router.patch('/:id', checkAuth, upload.uploader, (req,res) => {
+  ProblemController.problems_edit_problem(req.params.id, req.body, req.userData, req.file, (status,data) => {
     res.status(status).json(data);
   })
 });

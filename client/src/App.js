@@ -20,7 +20,6 @@ import Profile from './components/user/Profile';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import ScrollToTop from './components/util/ScrollToTop';
-import Notifier from './components/util/Notifier';
 import type { ReduxState } from './store/reducers';
 import { connect } from 'react-redux';
 const styles = () => ({
@@ -54,7 +53,6 @@ class App extends React.Component<Props> {
     if (this.props.checkedJWT)
       return (
         <SnackbarProvider maxSnack={3}>
-          <Notifier />
           <HashRouter>
             <Fragment>
               <CssBaseline />

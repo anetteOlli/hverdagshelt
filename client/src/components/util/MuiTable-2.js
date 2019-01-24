@@ -88,17 +88,17 @@ class MuiTable2 extends React.Component<Props> {
     direction: 'asc',
     rows: [
             {problem_id: 1, problem_title: "Title1", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done", support: 1, date_made: "18-01-2019"},
+            entrepreneur_id: "Bob1", status: "Done", support: 1, date_made: "18-01-2019"},
             {problem_id: 2, problem_title: "Title2", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 0, date_made: "20-02-2019"},
+            entrepreneur_id: "Bob1", status: "Done",  support: 0, date_made: "20-02-2019"},
             {problem_id: 3, problem_title: "Title3", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 5, date_made: "25-02-2019"},
+            entrepreneur_id: "Bob1", status: "Done",  support: 5, date_made: "25-02-2019"},
             {problem_id: 4, problem_title: "Title4", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 2, date_made: "01-02-2019"},
+            entrepreneur_id: "Bob1", status: "Done",  support: 2, date_made: "01-02-2019"},
             {problem_id: 5, problem_title: "Title5", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 12, date_made: "03-03-2019"},
+            entrepreneur_id: "Bob1", status: "Done",  support: 12, date_made: "03-03-2019"},
             {problem_id: 6, problem_title: "Title6", problem_description: "abc1", image_user: "imgURL",
-            entrepreneur_fk: "Bob1", status_fk: "Done",  support: 7, date_made: "01-01-2019"}
+            entrepreneur_id: "Bob1", status: "Done",  support: 7, date_made: "01-01-2019"}
           ]
   };
 
@@ -204,8 +204,8 @@ class MuiTable2 extends React.Component<Props> {
             key={row.problem_id}>
             <ExpansionPanelSummary>
               <CheckCircle className="material-icons" color=
-              {row.status_fk == "Unchecked" ? "disabled"
-              : (row.status_fk == "Checked" ? "primary" : "error")}/>
+              {row.status == "Unchecked" ? "disabled"
+              : (row.status == "Checked" ? "primary" : "error")}/>
               <Typography style={{flexBasis:"100%", fontSize:15}}>{row.problem_title}</Typography>
               <Typography style={{flexBasis:"30%", fontSize:12}}>{easyDateFormat(row.date_made)}</Typography>
               <ThumbUp  className="material-icons" color="primary" size="50%"/>
@@ -228,13 +228,13 @@ class MuiTable2 extends React.Component<Props> {
                   <h4>Entreprenør</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.entrepreneur_fk}</Typography>
+                  <Typography>{row.entrepreneur_id}</Typography>
                 </Grid>
                 <Grid item xs>
                   <h4>Status</h4>
                 </Grid>
                 <Grid item xs>
-                  <Typography>{row.status_fk}</Typography>
+                  <Typography>{row.status}</Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelDetails>

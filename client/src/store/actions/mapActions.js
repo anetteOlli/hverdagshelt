@@ -41,7 +41,7 @@ export const changeCenter = (lat: string, lng: string) => {
   };
 };
 
-export const changePlaceName = (street: string, muni: string, county: string, city: string) => {
+export const changePlaceName = (street: string, municipality: string, county: string, city: string) => {
   console.log('...data');
   return (dispatch: Dispatch) => {
     dispatch({
@@ -49,7 +49,7 @@ export const changePlaceName = (street: string, muni: string, county: string, ci
       payload: {
         street,
         county,
-        muni,
+        municipality,
         city
       }
     });

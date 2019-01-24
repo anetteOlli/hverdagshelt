@@ -1,4 +1,4 @@
-import * as mysql from 'mysql';
+import mysql from 'mysql';
 
 const categoryController = require('../../src/controllers/categoryController');
 const runsqlfile = require('../../src/dao/SQL/runsqlfile');

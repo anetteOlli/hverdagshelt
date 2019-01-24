@@ -64,18 +64,16 @@ exports.entrepreneurs_create_entrepreneur = (json,callback) => {
 };
 
 exports.entrepreneurs_get_by_cat_and_muni = (json,callback) => {
-  console.log('Handling POST requests to /entrepreneurs/getcatmuni',req.body);
+  console.log('Handling POST requests to /entrepreneurs/getcatmuni',json);
   entrepreneurDao.getByCatAndMuni(json, (status, data) => {
-    console.log('data',data);
     callback(status,data);
   });
 };
 
 
 exports.entrepreneurs_get_by_muni = (json,callback) => {
-  console.log('Handling POST requests to /entrepreneurs/getmuni',req.body);
+  console.log('Handling POST requests to /entrepreneurs/getmuni',json);
   entrepreneurDao.getByMuni(json, (status, data) => {
-    console.log('data: ',data);
     callback(status,data);
   });
 };
