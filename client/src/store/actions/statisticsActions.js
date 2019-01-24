@@ -2,7 +2,7 @@
 import type { Action } from '../reducers/statisticsReducer';
 import type { ReduxState } from '../reducers';
 import { postData } from '../axios';
-import {enqueueSnackbar} from './notifyActions'
+import { enqueueSnackbar } from './notifyActions';
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
@@ -19,11 +19,10 @@ export const getProblemsByMuni = muni => {
             payload: response.data
           });
           dispatch(enqueueSnackbar('U in', 'success'));
-        }
-        else
+        } else
           dispatch({
             type: 'GET_ALL_PROBLEMS_ERROR',
-            payload: new Error({message: 'REEE'})
+            payload: new Error({ message: 'REEE' })
           });
       })
       .catch((error: Error) =>

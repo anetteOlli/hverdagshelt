@@ -44,7 +44,7 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        console.log("entrepreneur_id in problemAction: ")
+        console.log('entrepreneur_id in problemAction: ');
         return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
           .then(respond =>
             dispatch({
@@ -171,8 +171,7 @@ export const getProblemsByMuni = (municipality: string, county: string) => {
           type: 'PROBLEMS_BY_MUNI_SUCCESS',
           payload: response.data
         });
-      }
-      )
+      })
       .catch((error: Error) =>
         dispatch({
           type: 'PROBLEMS_BY_MUNI_ERROR',
@@ -220,7 +219,7 @@ export const goToProblemEdit = (id: number) => {
 
 export const setMuni = (county: string, municipality: string) => ({
   type: 'SET_MUNI',
-  payload: {county, municipality}
+  payload: { county, municipality }
 });
 
 export const problemAddEntrepreneur = (problem: JSON) => {

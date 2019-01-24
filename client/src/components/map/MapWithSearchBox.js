@@ -77,7 +77,6 @@ class SimpleMap extends React.Component<Props, State> {
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        console.log('responseJson, fromCordsToPlace()', responseJson.results[2].address_components);
         if (responseJson.results.length > 5) {
           if (responseJson.results[2].address_components.length > 6) {
             //chosing responseJson.results[2].address_components because it has the most accurate results
@@ -93,8 +92,12 @@ class SimpleMap extends React.Component<Props, State> {
               county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
-            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
-            console.log('place', place);
+            console.log('PLASSEN', place);
+            if (place.country === 'Norge' || place.country === 'Norway') {
+              this.props.updateMapName(place.street, place.municipality, place.county, place.city);
+            } else {
+              console.log('place', place);
+            }
           }
         }
       });

@@ -29,7 +29,7 @@ class SearchBox extends Component<Props, State> {
   };
 
   static defaultProps = {
-    placeholder: 'Search...',
+    placeholder: 'søk etter sted her, eller trykk på kartet',
     onPlacesChanged: null
   };
 
@@ -80,9 +80,9 @@ class SearchBox extends Component<Props, State> {
       .then(responseJson => {
         console.log('responseJson, fromCordsToPlace()', responseJson.results);
         if (responseJson.results.length > 5) {
-          if (responseJson.results[1].address_components.length > 3) {
+          if (responseJson.results[0].address_components.length > 3) {
             //chosing responseJson.results[2].address_components because it has the most accurate results
-            let address_components = responseJson.results[1].address_components;
+            let address_components = responseJson.results[0].address_components;
             let place = {
               street: address_components.filter(e => e.types[0] == 'route')[0].long_name,
               city: address_components.filter(e => e.types[0] == 'postal_town')[0].long_name,
@@ -91,8 +91,11 @@ class SearchBox extends Component<Props, State> {
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
             console.log('street', place);
-            this.props.updateMapName(place.street, place.municipality, place.county, place.city);
-            console.log('2');
+            if (place.country === 'Norge'||place.country === 'Norway') {
+              this.props.updateMapName(place.street, place.municipality, place.county, place.city);
+            } else {
+              console.log('ikke i norge');
+            }
             this.props.updateMarker(cords);
 
             console.log('place is changed based on searchbox', place);

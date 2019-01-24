@@ -11,8 +11,7 @@ import Legend from 'recharts/lib/component/Legend';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import type { ReduxState } from '../../store/reducers';
-import {
-  getProblemsByMonth } from '../../store/actions/statisticsActions';
+import { getProblemsByMonth } from '../../store/actions/statisticsActions';
 import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
@@ -97,7 +96,7 @@ const mapStateToProps = (state: ReduxState) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  getProblemsByMonth: (month) => dispatch(getProblemsByMonth(month)),
+  getProblemsByMonth: month => dispatch(getProblemsByMonth(month))
 });
 
 // $FlowFixMe

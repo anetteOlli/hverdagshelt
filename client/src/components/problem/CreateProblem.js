@@ -8,7 +8,7 @@ const history = createHashHistory();
 import {Select, Input, MenuItem, Stepper, Step, StepLabel, Button, Typography,
         Grid, Paper, Card, CardContent, CardActionArea, CardActions, CardMedia , TextField,
         Icon, Fab, Switch, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,
-        FormControl, FormControlLabel, FormHelperText, Divider,
+        FormControl, FormControlLabel, FormHelperText, Divider, Tooltip
         } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator, ValidatorComponent } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
@@ -18,6 +18,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 //Created by us
 import {createProblem, getProblemsByStreet, supportProblem} from '../../store/actions/problemActions';
@@ -26,6 +31,7 @@ import Map from '../map/MapWithSearchBox';
 import MuiTable2 from '../util/MuiTable-2';
 import MuiTable from '../util/MuiTable';
 import createMuiData from '../util/createMuiData';
+import SignedOutLinks from '../layout/SignedOutLinks';
 
 /**
  * @fileOverview Create Problem Component
@@ -36,7 +42,7 @@ const styles = theme => ({
   "@global": {
      html: {
        [theme.breakpoints.down("sm")]: {
-         fontSize: 10
+         fontSize: 12
        },
        [theme.breakpoints.up("sm")]: {
          fontSize: 20
@@ -121,31 +127,22 @@ function getStepContent(step: number, state: State,
               <MenuItem key={i} value={e}>{e}</MenuItem>
             ))}
             </SelectValidator>
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Kommune: Velg i kart"
-              name="municipality"
-              autoComplete="municipality"
-              value={state.municipality}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må velge en kommune']}
-              inputProps={{readOnly: true,}}
-            />
+            <Typography variant="h5" align="left" color="secondary">
+              <br/>
+              Lokasjon som er valgt:
+            </Typography>
+            <Typography variant="subtitle2" align="left" >
+                Kommune: {state.municipality}
+            </Typography>
+            <Typography variant="subtitle2" align="left" >
+                Gate: {state.street}
+                <br/>
+                <br/>
+            </Typography>
+
+            <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
+            <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
             {console.log('state in createProblem', state)}
-            <TextValidator
-              fullWidth
-              margin="normal"
-              label="Gate: Velg i kart"
-              name="street"
-              autoComplete="street"
-              value={state.street}
-              onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må velge en gate']}
-              inputProps={{readOnly: true,}}
-            />
             <div className="mapPlaceholder">
               <Map />
             </div>
@@ -157,20 +154,31 @@ function getStepContent(step: number, state: State,
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
       //console.log("rows");
       //console.log(rows);
+      const clicked = (state.cur_title != '' && state.cur_title != null);
+      const haveRows = (rows[0] != null);
       return (
         <Card className="content-1">
           <CardContent>
+          <Typography variant="h5" align="center" color="secondary">
+            Nærliggende problemer
+          </Typography>
+          <Typography variant="subtitle1" align="center" color="primary">
+            Finnes problemet fra før av? <br/>
+            Gjerne støtt problemet så vet vi at det rammer mange
+          </Typography>
             <Grid container
             spacing={8}
             direction="row"
             >
+
               <Grid item
               md={4} xs={12}
               >
-                <Typography variant="h5" align="center" color="secondary">
-                  Nærliggende problemer
-                </Typography>
+
+
+
                 <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
+
                   <MuiTable2
                   rows={rows}
                   onClick={e => {
@@ -189,6 +197,7 @@ function getStepContent(step: number, state: State,
               direction="column"
               md={8}
               xs={12}
+              spacing={24}
               alignItems="center"
               >
                 <Typography variant="h5" align="center" color="secondary">
@@ -197,55 +206,57 @@ function getStepContent(step: number, state: State,
                 <Typography variant="h5" align="center" color="secondary">
                     {state.street}
                 </Typography>
-                <Card style={{width:'100%'}} align="center">
-                  <CardContent>
+                <Card style={{width:'90%'}} align="center">
+                    {true ? (true ?  (
+                    <div>
+                    <CardMedia
+                      component="img"
+                      alt="Bilde av Problem"
+                      height="180"
+                      image={state.cur_imageURL || "https://semantic-ui.com/images/wireframe/image.png"}
+                      title={state.cur_title}
+                      style={{objectFit: 'cover'}}
+                    />
+                    <CardContent>
+                      <Grid item sm={12}>
+                        <Typography gutterBottom variant="h5" align="center" color="secondary">{state.cur_title}</Typography>
+                      </Grid>
+                      <Grid item sm={12}>
+                        <Typography align="center">{state.cur_description}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_entrepreneur}</Typography><br/>
+                      </Grid>
+                      <Grid item md={6}>
+                        <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
+                      </Grid>
+                      <Grid item xs>
+                        <Tooltip title="Du vil få epost om noe skjer med problemet" placement="top">
+                          <Button
+                          variant="outlined" color="primary"
+                          size="small"
+                          align="center"
+                          onClick={e => handleSupport(state.cur_id)}
+                          >
+                             Støtt problemet
+                          </Button>
+                        </Tooltip>
+                      </Grid>
+                    </CardContent>
+                    </div>) : (
                     <Grid item xs>
-                      <Typography variant="subtitle1" align="center" color="secondary">{state.cur_title}</Typography>
+                      <Typography align="center" color="primary">
+                        Velg et problem til venstre for å se beskrivelse
+                      </Typography>
                     </Grid>
+                    )) : (
                     <Grid item xs>
-                      <Typography align="center">{state.cur_description}</Typography>
+                      <Typography align="center" color="primary">
+                        Ingen like problem, gå videre
+                      </Typography>
                     </Grid>
-                    <Grid item xs>
-                      <Typography variant="subtitle2" align="center">Entreprenør</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center">{state.cur_entrepreneur}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                    <Typography variant="subtitle2" align="center">Status</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography align="center" color="error">{state.cur_status}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Button
-                      variant="contained" color="primary"
-                      size="small"
-                      align="center"
-                      onClick={e => handleSupport(state.cur_id)}
-                      >
-                         <Typography>Støtt problemet</Typography>
-                      </Button>
-                    </Grid>
-                  </CardContent>
+                  )}
                 </Card>
-              </Grid>
-            </Grid>
-            <Grid item container
-            direction="row"
-            >
-              <Grid item
-              lg={12}
-              xs={12}
-              >
-                <ExpansionPanel>
-                  <ExpansionPanelSummary>
-                      <Typography align="center">Bilde</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                      <img id="img" width="100%" height="100%" src={ state.cur_imageURL } alt="Bilde" />
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
               </Grid>
             </Grid>
           </CardContent>
@@ -283,6 +294,7 @@ function getStepContent(step: number, state: State,
               validators={['required']}
               errorMessages={['Du må skrive inn en beskrivelse']}
             />
+            <br/>
             <FormControl fullWidth margin="normal">
               {state.displayImg != '' ?
               (<CardMedia
@@ -416,6 +428,7 @@ class CreateProblem extends React.Component<Props, State> {
     cur_imageURL: '',
     cur_entrepreneur: '',
     cur_status: '',
+    failureDialog: false,
 
     similarProblems:
       [
@@ -507,8 +520,18 @@ class CreateProblem extends React.Component<Props, State> {
     if(activeStep == 0){
       this.getSimilarProblems(this.state.street, this.state.municipality, this.state.county);
     }
-    this.setState({
+    if(this.state.municipality != ''){
+      this.setState({
       activeStep: activeStep + 1
+    });}else{
+      this.setState({
+        failureDialog: true
+        })
+    }
+  };
+  handleFailureDialogClose = () => {
+    this.setState({
+      failureDialog: false
     });
   };
 
@@ -619,11 +642,17 @@ class CreateProblem extends React.Component<Props, State> {
     if(!this.props.isLoggedIn){
       return (
         <div>
+
           <Card className="must-log-in-to-register" align="center">
             <CardContent>
               <Typography variant="h5" color="error">
                 Du må logge inn for å kunne registrere problem
               </Typography>
+            </CardContent>
+            <CardContent>
+              <SignedOutLinks />
+            </CardContent>
+            <CardContent>
               <Button justify="centre" onClick={e => history.push("/")} variant="contained">
                 Tilbake til hovedmenyen
               </Button>
@@ -634,6 +663,18 @@ class CreateProblem extends React.Component<Props, State> {
     }
     return (
       <div>
+      <Dialog
+        open={this.state.failureDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Du må velge et sted på kartet eller ved å søke det opp'}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleFailureDialogClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
         <Typography variant="h2"
         color="primary"
         align="center"
@@ -660,6 +701,7 @@ class CreateProblem extends React.Component<Props, State> {
                   <Typography>
                     {"Takk! Du vil bli oppdatert når det skjer noe med problemet"}
                   </Typography>
+                  <br/>
                   <Button variant="contained" color="primary"
                   className="create-problem-done-button"
                   onClick={this.handleFinish}
@@ -680,7 +722,7 @@ class CreateProblem extends React.Component<Props, State> {
                       onClick={this.handleBack}
                       className="{classes.button}"
                     >
-                      Back
+                      Tilbake
                     </Button>
                     <Button
                       variant="contained"
@@ -688,7 +730,7 @@ class CreateProblem extends React.Component<Props, State> {
                       className="{classes.button}"
                       type="submit"
                     >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Send inn' : 'Neste'}
                     </Button>
                 </CardContent>
               </Card>
@@ -733,4 +775,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(CreateProblem))));
+)(withStyles(styles)(withSnackbar(CreateProblem)));

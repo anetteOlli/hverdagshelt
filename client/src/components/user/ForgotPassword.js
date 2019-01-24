@@ -48,7 +48,6 @@ class ForgotPassword extends React.Component<Props, State> {
     this.setState({
       [e.target.name]: e.target.value
     });
-    this.props.clearError();
   };
 
   handleClose = () => {
@@ -63,7 +62,7 @@ class ForgotPassword extends React.Component<Props, State> {
     e.preventDefault();
     this.props.forgotPassword(this.state.email).then(() => {
       if (this.props.errorMessage === '') this.setState({ passwordSentSuccess: true });
-      else this.refs.form.submit();
+      else this.refs.forgotPasswordForm.submit();
     });
   };
 
@@ -83,9 +82,10 @@ class ForgotPassword extends React.Component<Props, State> {
         <div>
           <DialogTitle>Send nytt passord</DialogTitle>
           <DialogContent>
-            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+            <ValidatorForm ref="forgotPasswordForm" onSubmit={this.handleSubmit}>
               <TextValidator
                 fullWidth
+                onFocus={this.props.clearError}
                 margin="normal"
                 label="E-post adresse"
                 name="email"
@@ -118,6 +118,13 @@ class ForgotPassword extends React.Component<Props, State> {
         </div>
       );
     }
+  }
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule(
+      'isRightEmail',
+      () => this.props.errorMessage !== 'Request failed with status code 404'
+    );
   }
 }
 

@@ -2,18 +2,46 @@ const router = require('express').Router();
 
 const EntrepreneurController = require('../controllers/entrepreneurController');
 
-router.get('/', EntrepreneurController.entrepreneurs_get_all);
+router.get('/', (req, res) => {
+  EntrepreneurController.entrepreneurs_get_all((status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.get('/id/:id', EntrepreneurController.entrepreneurs_get_one_by_user_id);
+router.get('/id/:id', (req, res) => {
+  EntrepreneurController.entrepreneurs_get_one_by_user_id(req.params.id, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.get('/:id', EntrepreneurController.entrepreneurs_get_one);
+router.get('/:id', (req, res) => {
+  EntrepreneurController.entrepreneurs_get_one(req.params.id, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.get('/validate_org_nr/:org_nr', EntrepreneurController.validate_org_nr);
+router.get('/validate_org_nr/:org_nr', (req, res) => {
+  EntrepreneurController.validate_org_nr(req.params.org_nr, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.post('/', EntrepreneurController.entrepreneurs_create_entrepreneur);
+router.post('/', (req, res) => {
+  EntrepreneurController.entrepreneurs_create_entrepreneur(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.post('/getcatmuni/', EntrepreneurController.entrepreneurs_get_by_cat_and_muni);
+router.post('/getcatmuni/', (req, res) => {
+  EntrepreneurController.entrepreneurs_get_by_cat_and_muni(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
-router.post('/municipality', EntrepreneurController.entrepreneurs_get_by_muni);
+router.post('/municipality', (req, res) => {
+  EntrepreneurController.entrepreneurs_get_by_muni(req.body, (status, data) => {
+    res.status(status).json(data);
+  });
+});
 
 module.exports = router;

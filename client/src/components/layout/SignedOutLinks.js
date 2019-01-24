@@ -3,7 +3,6 @@ import { Button, withStyles } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import SignIn from '../user/SignIn';
-import withRoot from '../../withRoot';
 
 type Props = {
   classes: Object
@@ -58,5 +57,4 @@ class SignedOutLinks extends React.Component<Props, State> {
     );
   }
 }
-
-export default withRoot(withStyles(styles)(SignedOutLinks));
+export default withStyles(styles)(SignedOutLinks);
