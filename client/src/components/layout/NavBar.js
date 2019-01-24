@@ -13,13 +13,12 @@ import {
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
-import withRoot from '../../withRoot';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SideBar from './SideBar';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 import { connect } from 'react-redux';
-import { refresh, signOut } from '../../store/actions/userActions';
+import { signOut } from '../../store/actions/userActions';
 import type { ReduxState, Dispatch } from '../../store/reducers';
 import HomeOutlined from '@material-ui/icons/HomeOutlined';
 
@@ -40,6 +39,9 @@ const styles = (theme: Object) => ({
       display: 'block'
     },
     margin: theme.spacing.unit
+  },
+  nav: {
+    paddingBottom: theme.spacing.unit * 15
   }
 });
 
@@ -47,7 +49,7 @@ type Props = {
   classes: Object,
   categories: string[],
   isLoggedIn: boolean,
-  signOut: Function,
+  signOut: Function
 };
 
 type State = {
@@ -74,7 +76,7 @@ class NavBar extends React.Component<Props, State> {
   render() {
     const { classes, isLoggedIn, signOut } = this.props;
     return (
-      <div>
+      <div className={classes.nav}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
@@ -114,4 +116,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(NavBar)));
+)(withStyles(styles)(NavBar));

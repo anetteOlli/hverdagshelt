@@ -143,7 +143,6 @@ function getStepContent(step: number, state: State,
             <input type='hidden' onChange={handleChange} name= 'municipality' value={state.municipality} required />
             <input type='hidden' onChange={handleChange} name= 'street' value={state.street} required />
             {console.log('state in createProblem', state)}
-
             <div className="mapPlaceholder">
               <Map />
             </div>
@@ -776,4 +775,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRoot(withStyles(styles)(withSnackbar(CreateProblem))));
+)(withStyles(styles)(withSnackbar(CreateProblem)));

@@ -59,7 +59,7 @@ type State = {
   isEntrepreneur: boolean,
   entrepreneurMunies: string[],
   entrepreneurCategories: string[],
-  isUniqueorg_nr: boolean,
+  isUniqueOrgNr: boolean,
   successDialog: boolean
 };
 
@@ -96,7 +96,7 @@ class SignUp extends React.Component<Props, State> {
     entrepreneurName: '',
     entrepreneurMunies: [],
     entrepreneurCategories: [],
-    isUniqueorg_nr: false,
+    isUniqueOrgNr: false,
     org_nr: 0,
     successDialog: false
   };
@@ -194,13 +194,13 @@ class SignUp extends React.Component<Props, State> {
     });
   };
 
-  handleValidateorg_nr = () => {
+  handleValidateOrgNr = () => {
     getData(`entrepreneurs/validate_org_nr/${this.state.org_nr}`).then(response => {
       console.log(response);
       const org_nr = this.state.org_nr;
       this.setState({
-        isUniqueorg_nr: response.data.org_nrExist,
-        org_nr: org_nr + 1
+        isUniqueOrgNr: response.data.orgNrExist,
+        org_nr: org_nr + ' '
       });
       this.setState({
         org_nr: org_nr
@@ -271,12 +271,11 @@ class SignUp extends React.Component<Props, State> {
           margin="normal"
           label="Org nr"
           name="org_nr"
-          type="number"
           value={this.state.org_nr}
           onChange={this.handleChange}
-          onBlur={this.handleValidateorg_nr}
-          validators={['required', 'isNumber', 'isorg_nr']}
-          errorMessages={['Feltet kan ikke være tomt', 'må være tall', 'Org nummeret finnes fra før']}
+          onBlur={this.handleValidateOrgNr}
+          validators={['required', 'isNumber', 'isUniqueOrgNr']}
+          errorMessages={['Feltet kan ikke være tomt', 'Feltet må være ett tall', 'Org nummeret finnes fra før']}
         />
       </div>
     );
@@ -410,7 +409,7 @@ class SignUp extends React.Component<Props, State> {
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === this.state.password);
     ValidatorForm.addValidationRule('isUniqueEmail', () => !this.state.isUniqueEmail);
-    ValidatorForm.addValidationRule('isorg_nr', () => !this.state.isUniqueorg_nr);
+    ValidatorForm.addValidationRule('isUniqueOrgNr', () => !this.state.isUniqueOrgNr);
     this.props.getCounties();
     this.props.getCategories();
   }

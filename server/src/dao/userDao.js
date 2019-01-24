@@ -4,15 +4,11 @@ const Dao = require('./dao.js');
 
 module.exports = class UserDao extends Dao {
   getAll(callback) {
-    super.query(
-      'select user_id, email, created, active, municipality, county, priority from user',
-      [],
-      callback
-    );
+    super.query('select user_id, email, created, active, municipality, county, priority from user', [], callback);
   }
 
   getOneById(id, callback) {
-    console.log("getOneById id: ", id);
+    console.log('getOneById id: ', id);
     super.query(
       'select user_id, email, created, active, municipality, county, priority from user where user_id = ?',
       [id],
@@ -47,10 +43,7 @@ module.exports = class UserDao extends Dao {
     super.query('select user_id, password, priority from user where email = ?', [email], callback);
   }
 
-  activateUser(email, callback){
-    super.query('UPDATE user SET active = 1 WHERE email = ?',
-      [email],
-      callback
-    );
+  activateUser(email, callback) {
+    super.query('UPDATE user SET active = 1 WHERE email = ?', [email], callback);
   }
 };

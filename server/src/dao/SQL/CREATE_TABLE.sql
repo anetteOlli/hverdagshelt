@@ -139,7 +139,7 @@ ALTER TABLE problem
   ADD FOREIGN KEY (city) REFERENCES city(city_name),
   ADD FOREIGN KEY (street) REFERENCES street(street_name),
   ADD FOREIGN KEY (category) REFERENCES category(category),
-  ADD FOREIGN KEY (entrepreneur_id) REFERENCES user(user_id);
+  ADD FOREIGN KEY (entrepreneur_id) REFERENCES entrepreneur(entrepreneur_id);
 
 ALTER TABLE user
   ADD FOREIGN KEY (priority) REFERENCES priority(power),
@@ -166,7 +166,7 @@ ALTER TABLE entrepreneur
 
 ALTER TABLE entrepreneur_municipality
   ADD FOREIGN KEY (entrepreneur_id) REFERENCES entrepreneur(entrepreneur_id),
-  ADD FOREIGN KEY (municipality) REFERENCES municipality(municipality);
+  ADD FOREIGN KEY (municipality,county) REFERENCES municipality(municipality,county);
 
 ALTER TABLE entrepreneur_category
   ADD FOREIGN KEY (entrepreneur_id) REFERENCES entrepreneur(entrepreneur_id),

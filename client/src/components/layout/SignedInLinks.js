@@ -1,18 +1,14 @@
 // @flow
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../../withRoot';
 import connect from 'react-redux/es/connect/connect';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
-import { getUserInfo } from '../../store/actions/userActions';
 
 const styles = () => ({
   sectionDesktop: {
@@ -33,12 +29,8 @@ type State = {
 class PrimarySearchAppBar extends React.Component<Props, State> {
   state = {
     anchorEl: null,
-    email: 'abc'
+    email: ''
   };
-
-  componentWillMount(){
-    this.props.getUserInfo();
-  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -60,10 +52,8 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem>
-          {this.props.email}
-        </MenuItem>
-        <Divider/>
+        <MenuItem>{this.props.email}</MenuItem>
+        <Divider />
         <MenuItem component={Link} to={'/profil'} onClick={this.handleMenuClose}>
           Profil
         </MenuItem>
@@ -97,13 +87,6 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getUserInfo: () => dispatch(getUserInfo())
-  };
-};
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRoot(withStyles(styles)(PrimarySearchAppBar)));
+  mapStateToProps
+)(withStyles(styles)(PrimarySearchAppBar));

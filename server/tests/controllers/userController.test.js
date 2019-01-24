@@ -132,7 +132,7 @@ test("Testing users_refresh from userController", (done) => {
 test("Testing users_login from userController", (done) => {
   let user = {
     id: 1,
-    priority:"Standard",
+    priority:"Administrator",
     email:"admin@admin.admin",
     password:"abc123"
   };
@@ -144,7 +144,7 @@ test("Testing users_login from userController", (done) => {
       expect(status).toBe(401);
       expect(data.message).toBe("WRONG_PASSWORD");
       user.email = "heihå@heiå.heiå";
-      userController.users_login(json, (status,data) => {
+      userController.users_login(user, (status,data) => {
         expect(status).toBe(404);
         expect(data.message).toBe("NOT_FOUND");
         done();
@@ -156,14 +156,56 @@ test("Testing users_login from userController", (done) => {
 test("Testing users_forgot_password from userController", (done) => {
   let user = {
     id: 1,
-    priority:"Standard",
+    priority:"Administrator",
     email:"admin@admin.admin",
     password:"abc123"
   };
   userController.user_forgot_password(user,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
-    done();
+    user.password = "yeeet";
+    userController.user_forgot_password(user, (status,data) => {
+      expect(status).toBe(500);
+      expect(data.affectedRows).toBe(0);
+      user.email = "soidfngisdofnoaf";
+      userController.user_forgot_password(user, (status,data) => {
+        expect(status).toBe(404);
+        expect(data).toBe(0);
+        done();
+      })
+    })
+  })
+});
+
+test("Testing user_is_not_old_password from userController", (done) => {
+  let user = {
+    id: 1,
+    priority:"Administrator",
+    email:"admin@admin.admin",
+    password:"abc123"
+  };
+  userController.user_is_not_old_password(user, (status,data) => {
+    expect(status).toBe(200);
+    expect(data.isOldPassword).toBe(false);
+    user.email = "hwaeuih";
+    userController.user_is_not_old_password(user, (status,data) => {
+      expect(status).toBe(404);
+      expect(data.message).toBe("mail eksisterer ikke");
+      done();
+    })
+  })
+});
+
+test("Testing user_change_password from userController", (status,data) => {
+  let user = {
+    id: 4,
+    priority:"Administrator",
+    email:"admin@admin.admin",
+    password:"abc123"
+  };
+  userController.user_change_password(user,(status,data) => {
+    expect(status).toBe(200);
+    expect(data.affectedRows).toBe(1);
   })
 });
 

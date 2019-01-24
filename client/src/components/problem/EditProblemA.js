@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/Expan
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
 import MapMarkers from '../map/MapMarkers';
-import { editProblem, getProblemById, goToProblemDetail} from '../../store/actions/problemActions';
+import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
 import PictureUpload from '../util/PictureUpload';
@@ -122,7 +122,6 @@ class EditProblemA extends React.Component<Props, State> {
 
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
-
   };
 
   render() {
@@ -260,7 +259,12 @@ class EditProblemA extends React.Component<Props, State> {
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
                         <div>
-                          <img id="img" width="100%" src={this.state.displayImg2 ||this.state.img_entrepreneur} alt="Bilde" />
+                          <img
+                            id="img"
+                            width="100%"
+                            src={this.state.displayImg2 || this.state.img_entrepreneur}
+                            alt="Bilde"
+                          />
                           <PictureUpload uploadImg={this.handleUpload2} />
                         </div>
                       </ExpansionPanelDetails>

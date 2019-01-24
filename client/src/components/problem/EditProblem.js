@@ -90,8 +90,7 @@ class EditProblem extends React.Component<Props, State> {
     county: '',
     city: '',
     street: '',
-    displayImg: '',
-
+    displayImg: ''
   };
 
   handleChange = e => {
@@ -161,13 +160,7 @@ class EditProblem extends React.Component<Props, State> {
                   ))}
                 </SelectValidator>
 
-                <Paper
-                  className={classes.paper2}
-                  margin="normal"
-                  label="Status:"
-                  name="status"
-                  value={'status'}
-                >
+                <Paper className={classes.paper2} margin="normal" label="Status:" name="status" value={'status'}>
                   {'Status:   ' + this.state.status}
                 </Paper>
 
