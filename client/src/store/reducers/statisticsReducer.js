@@ -54,7 +54,7 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
 };
 
 /**
- * @author Erlend Sundøy (snorre verified to the best of his knowledge(not enough))
+ * @author Erlend Sundøy
  **/
 
 const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { name: string, FiKSeTiD: number }[] => {
