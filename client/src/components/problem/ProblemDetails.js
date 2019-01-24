@@ -324,7 +324,7 @@ class ProblemDetails extends React.Component<Props, State> {
         </div>
       );
     } else {
-      return <div>LOADING PROBLEM...</div>;
+      return <div>Velg et problem til venstre</div>;
     }
   }
 
