@@ -20,7 +20,7 @@ export const getUserInfo = () => {
           payload: response.data
         });
         dispatch(checkedJWT());
-        dispatch(enqueueSnackbar('u in', 'success'));
+        //dispatch(enqueueSnackbar('u in', 'success'));
       })
       .catch((error: Error) => {
         dispatch({
