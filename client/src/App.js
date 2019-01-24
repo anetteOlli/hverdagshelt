@@ -38,12 +38,11 @@ class App extends React.Component<Props> {
             <Notifier />
             <NavBar />
             <Switch>
-              <Route exact path="/" component={Ma inPage} />
+              <Route exact path="/" component={MainPage} />
               <Route exact path="/uploadfile" component={UploadFile} />
               <Route exact path="/registrer-bruker" component={SignUp} />
-              <Route exact path="/problem-oversikt" component={EditProblemMain} />
+              <Route exact path="/problemoversikt" component={EditProblemMain} />
               <Route exact path="/lagproblem" component={CreateProblem} />
-              <Route exact path="/problemdetails" component={ProblemDetails} />
               <Route exact path="/opprArrangement" component={CreateEvent} />
               <Route exact path="/lagproblem" component={CreateProblem} />
               <Route exact path="/uploadfile" component={UploadFile} />

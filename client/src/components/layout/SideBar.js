@@ -61,7 +61,7 @@ class TemporaryDrawer extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText primary="Statistikk (temp)" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/problem-oversikt'}>
+          <ListItem button component={NavLink} to={'/problemoversikt'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>

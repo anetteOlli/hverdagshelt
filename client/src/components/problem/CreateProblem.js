@@ -800,7 +800,9 @@ class CreateProblem extends React.Component<Props, State> {
           <div className="bottomContent">
             {activeStep === steps.length ? (
               this.state.loadingCreateProb ? (
+              <Card aling="center"> <CardContent>
               <CircularProgress size={24} />
+              </CardContent></Card>
               ) : (
               <Card className="create-problem-done" align="center">
                 <CardContent>

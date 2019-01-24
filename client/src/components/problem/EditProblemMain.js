@@ -3,6 +3,8 @@ import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
 import { entrepreneurs_get_one_by_user_id } from '../../store/actions/entrepreneurAction';
+import SignedOutLinks from '../layout/SignedOutLinks';
+
 // Material-ui
 import {
   Select,
@@ -165,13 +167,21 @@ class EditProblemMain extends React.Component<Props, State> {
     );
     const loggOn = (
       <div>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" color="error">
-              Du må logge på for å få se problemoversikten{' '}
-            </Typography>
-          </CardContent>
-        </Card>
+      <Card className="must-log-in-to-register" align="center">
+        <CardContent>
+          <Typography variant="h5" color="error">
+            Du må logge inn for å kunne se problemoversikten
+          </Typography>
+        </CardContent>
+        <CardContent>
+          <SignedOutLinks />
+        </CardContent>
+        <CardContent>
+          <Button justify="centre" onClick={e => history.push("/")} variant="contained">
+            Tilbake til hovedmenyen
+          </Button>
+        </CardContent>
+      </Card>
       </div>
     );
     return user_id > 0 ? main : loggOn;
