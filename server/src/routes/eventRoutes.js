@@ -23,7 +23,7 @@ router.post('/municipality', (req,res) => {
 });
 
 router.post('/', checkAuth, upload.uploader ,(req,res) => {
-  EventController.events_create_event(file,req.body, (status,data) => {
+  EventController.events_create_event(req.file,req.body, (status,data) => {
    res.status(status).json(data);
   })
 });

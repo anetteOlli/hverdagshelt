@@ -102,7 +102,8 @@ class EditProblemM extends React.Component<Props, State> {
     city: '',
     street: '',
     displayImg: '',
-    displayImg2: ''
+    displayImg2: '',
+    type : true
 
   };
 
@@ -115,17 +116,17 @@ class EditProblemM extends React.Component<Props, State> {
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
-  handleUpload = e => {
-    console.log("user")
-    this.setState({
-      img_user: e
-    });
-  };
-  handleUpload2 = e => {
-    console.log("ENTREPRENEURE")
-    this.setState({
-      img_entrepreneur: e
-    });
+  handleUpload = (e,type) => {
+    if(type){
+      this.setState({
+        img_user: e
+      });
+    } else {
+      this.setState({
+        img_entrepreneur: e
+      });
+    }
+
   };
 
   render() {
@@ -207,7 +208,7 @@ class EditProblemM extends React.Component<Props, State> {
                   <ExpansionPanelDetails>
                     <div>
                       <img id="img" width="100%" src={this.state.displayImg2 || this.state.img_user} alt="Bilde" />
-                      <PictureUpload id={'imgUpload1'} uploadImg={this.handleUpload} />
+                      <PictureUpload id={'imgUpload1'} uploadImg={(e) => this.handleUpload(e,true)} />
                     </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -250,7 +251,7 @@ class EditProblemM extends React.Component<Props, State> {
                     <ExpansionPanelDetails>
                       <div>
                         <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
-
+                        <PictureUpload id={'imgUpload1'} uploadImg={(e) => this.handleUpload(e,false)} />
                       </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
