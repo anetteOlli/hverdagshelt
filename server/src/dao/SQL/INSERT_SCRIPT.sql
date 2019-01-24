@@ -499,7 +499,7 @@ VALUES("Try", "Try try, much try - why no work? try try, so much try - hopw it w
 INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category, status, user_id, latitude, longitude, county, municipality, city, street, date_made)
 VALUES("Snorres big job", "I've done a oopsie", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "Unchecked", 1, 61.596816, 9.769004, "Oppland", "Nord-Fron", "Vinstra", "Kjeldeveien", NOW());
 
-INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category, status, user_id, entrepreneur_id, latitude, longitude, county, municipality, city, street,date_made, locked)
+INSERT INTO problem(problem_title, problem_description, problem_locked, img_user,  category, status, user_id, entrepreneur_id, latitude, longitude, county, municipality, city, street,date_made, problem_locked)
 VALUES("Lars is best", "Gloria borger is the best news reporter", FALSE, "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/37032713_1777400872353121_1971277099943591936_n.jpg?_nc_cat=111&_nc_ht=scontent-arn2-1.xx&oh=dbdfebda96c80ead5e55f1e45587efba&oe=5CBFFCF5", "Tree in road", "InProgress", 1, 2 ,69.640726, 18.931592, "Troms", "Tromsø", "Tromsø", "Kjeldeveien", NOW(), 1);
 
 INSERT INTO event(event_name, event_description, event_img, date_starting, date_ending, status, municipality, county, city, street, latitude, longitude)
