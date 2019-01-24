@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/forgot', (req, res) => {
+  console.log('-UserRoutes-');
   UserController.user_forgot_password(req.body, (status, data) => {
     res.status(status).json(data);
   });
