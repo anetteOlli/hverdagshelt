@@ -29,7 +29,7 @@ const lineChartData = [
 
 type Props = {
   dropDownMonths: { value: string, name: string }[],
-  getProblemsByMonth: (selectedMonth: string) => void,
+  getProblemsByMonthLine: (selectedMonth: string) => void,
   lineChartData: any
 };
 type State = {
@@ -45,7 +45,7 @@ class LineChartPage extends React.Component<Props, State> {
     this.setState({
       selectedMonth: e.target.value
     });
-    this.props.getProblemsByMonth(e.target.value);
+    this.props.getProblemsByMonthLine(e.target.value);
   };
 
   render() {
@@ -95,15 +95,14 @@ const mapStateToProps = (state: ReduxState) => {
     lineChartData: state.statistic.lineChartData
   };
 };
-
-const action = {
-  getProblemsByMonth
-};
+const mapDispatchToProps = dispatch => ({
+  getProblemsByMonth: month => dispatch(getProblemsByMonth(month))
+});
 
 // $FlowFixMe
 export default connect(
   mapStateToProps,
-  action
+  mapDispatchToProps
 )(withSnackbar(LineChartPage));
 
 /*

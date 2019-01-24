@@ -9,6 +9,9 @@ import Switch from '@material-ui/core/Switch';
 import type { ReduxState } from '../../store/reducers';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
+import { getCategories } from '../../store/actions/categoryActions';
+import { getProblemsByCategory, getProblemsByEntrepreneur } from '../../store/actions/statisticsActions';
+import { getEntrepreneursByMuni } from '../../store/actions/entrepreneurAction';
 
 const pieChartData = [
   { name: 'Group A', value: 400 },
@@ -38,7 +41,15 @@ class PieChartPage extends React.Component {
       <div>
         <ResponsiveContainer width="99%" height={320}>
           <PieChart width={800} height={400}>
-            <Pie dataKey={1} data={pieChartData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
+            <Pie
+              dataKey="problemer"
+              data={this.props.pieChartData}
+              cx={200}
+              cy={200}
+              outerRadius={80}
+              fill="#8884d8"
+              label
+            />
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
@@ -65,19 +76,23 @@ class PieChartPage extends React.Component {
   }
 
   componentDidMount(): void {
+    this.props.getCategories().then(() => this.props.getProblemsByCategory());
+    this.props.getEntrepreneursByMuni().then(() => this.props.getProblemsByEntrepreneur());
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    data: state.statistic.lineChartData
+    pieChartData: state.statistic.pieChartData
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getCategories: () => dispatch(getCategories()),
+  getProblemsByCategory: () => dispatch(getProblemsByCategory()),
+  getEntrepreneursByMuni: () => dispatch(getEntrepreneursByMuni()),
+  getProblemsByEntrepreneur: () => dispatch(getProblemsByEntrepreneur())
+});
 
 // $FlowFixMe
 export default connect(

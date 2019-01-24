@@ -18,7 +18,7 @@ import { getProblemById, goToProblemDetail } from '../../store/actions/problemAc
 let id = 0;
 function createSingleInstanceData(problem_id, problem_title, status, support) {
   id += 1;
-  return { id, problem_id, problem_title, status, support};
+  return { id, problem_id, problem_title, status, support };
 }
 
 function desc(a, b, orderBy) {
@@ -89,7 +89,6 @@ class EnhancedTableHead extends React.Component {
 }
 
 const styles = theme => ({
-
   main: {
     width: '100%',
     height: '100%'
@@ -109,14 +108,14 @@ const styles = theme => ({
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: '5%',
-  paddingRight: '5%'
+    paddingRight: '5%'
   },
   tableRowBottom: {
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: '5%',
     paddingRight: '5%'
-  },
+  }
 });
 
 class Tabletest extends React.Component {
@@ -156,7 +155,7 @@ class Tabletest extends React.Component {
     return (
       <div className={classes.main}>
         <Paper className={classes.paper} name="Main paper in table">
-            <div name="Main div in table">
+          <div name="Main div in table">
             <Table className={classes.table} aria-labelledby="tableTitle">
               <EnhancedTableHead
                 order={order}

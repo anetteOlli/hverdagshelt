@@ -26,7 +26,7 @@ export type Problem = {
 export type State = {
   problems: Problem[],
   errorMessage: string,
-  currentMuni: {municipality: string, county: string}
+  currentMuni: { municipality: string, county: string }
 };
 
 export type Action =
@@ -47,7 +47,6 @@ export type Action =
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
   | { type: 'SET_MUNI', payload: any };
-
 
 const initState = {
   problems: [
@@ -79,7 +78,7 @@ const initState = {
   errorMessage: '',
   currentProblemId: 2,
   editMode: false,
-  currentMuni: {municipality: '', county: ''}
+  currentMuni: { municipality: '', county: '' }
 };
 
 export default (state: State = initState, action: Action) => {

@@ -111,6 +111,7 @@ module.exports = class ProblemDao extends Dao {
     json.problem_description,
     json.category,
     json.status,
+    json.img_user,
     id
     ];
 
