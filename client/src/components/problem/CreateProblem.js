@@ -166,6 +166,7 @@ function getStepContent(step: number, state: State,
             Finnes problemet fra før av? <br/>
             Gjerne støtt problemet så vet vi at det rammer mange
           </Typography>
+          <br/>
             <Grid container
             spacing={8}
             direction="row"
@@ -173,6 +174,7 @@ function getStepContent(step: number, state: State,
               <Grid item
               md={4} xs={12}
               >
+              {haveRows ? (
                 <Paper style={{height: '70%', width: '100%', overflow: 'auto'}}>
                   <MuiTable2
                   rows={rows}
@@ -187,6 +189,9 @@ function getStepContent(step: number, state: State,
                     }}
                   />
                 </Paper>
+              ):(
+                <div/>
+              )}
               </Grid>
               <Grid item container
               direction="column"
