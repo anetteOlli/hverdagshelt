@@ -1,12 +1,17 @@
-# Hverdagsvindu
+# Hverdagshelt
+"System for kommunal kommunikasjon"
 
 ## About the project
 
-Project about ....
+We were tasked with completing a 3-week SCRUM project where we would make a system with client, server and DB (full stack).
 
-Created by ...
+Created by Anette Olli Siiri (@anettosi), Elisabeth Marie Opsahl (@elisamop), Erlend Sundøy (@erlendsu), Lars Sørlie (@larssorl), Oscar Tideman Borgerud Skaug (@otskaug), Simen Sælevik Tengs (@simenten), Sindre Haugland Paulshus (@sindrhpa) and Snorre Kristoffer Strand (@snorreks).
 
-For Systemutvikling 2, Jan 2019
+The role of Produkt Owner was acted out by Knut Yngve Barstad Gjelle (@kygjelle).
+
+SCRUM-Master was Grethe Sandstrak (@grethsan).
+
+For the course "TDAT2003 Systemutvikling 2", weeks 2-4 of January 2019.
 
 ## How to use
 
@@ -26,3 +31,7 @@ npm run client-install
 npm run server-install
 npm start
 ```
+
+## Wiki
+
+For more information (structure, testing, ERR and much more) see the official [WIKI](https://gitlab.stud.iie.ntnu.no/larssorl/hverdagshelt/wikis/home).
