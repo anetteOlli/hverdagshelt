@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8581a2ca-4c26-4b6e-b4ba-40635d5f1797" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/event/EditEvent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/EditUser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user/Profile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/map/MapMarkers.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/map/MapMarkers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/map/SearchBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/map/SearchBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/MuiTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/MuiTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/PictureUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/PictureUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/Tabletest.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/Tabletest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/Test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/createMuiData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/createMuiData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/userActions.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -62,76 +64,94 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/App.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-255">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="277">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SideBar.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1304">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="277">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="57" column="15" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
+            <state relative-caret-position="-17">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/user/ChangePassword.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/problemReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="258" column="6" selection-start-line="258" selection-start-column="6" selection-end-line="258" selection-end-column="6" />
+            <state relative-caret-position="289">
+              <caret line="240" column="17" lean-forward="true" selection-start-line="240" selection-start-column="17" selection-end-line="240" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
+              <folding>
+                <element signature="e#9#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="116" column="36" lean-forward="true" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="322" selection-start-line="322" selection-end-line="322" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/map/MapMarkers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="148" selection-start-line="148" selection-end-line="149" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="409" selection-start-line="409" selection-end-line="409" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/problem/CreateProblem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/store/actions/userActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="156" column="26" lean-forward="true" selection-start-line="156" selection-end-line="157" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/user/Settings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="141">
+              <caret line="680" column="4" selection-start-line="680" selection-start-column="4" selection-end-line="680" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -156,6 +176,7 @@
       <find>&quot;</find>
       <find>'</find>
       <find>Finished</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -170,6 +191,7 @@
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\Erlend\WebstormProjects\hverdagshelt\server\src\controllers</dir>
+      <dir>C:\Users\snorr\WebstormProjects\hverdagshelt\client\src</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -184,35 +206,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/components/user/SignUp.js" />
-        <option value="$PROJECT_DIR$/server/src/routes/userRoutes.js" />
-        <option value="$PROJECT_DIR$/client/src/store/actions/userActions.js" />
-        <option value="$PROJECT_DIR$/server/src/routes/statisticsRoutes.js" />
-        <option value="$PROJECT_DIR$/client/src/components/user/SignIn.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql" />
-        <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
-        <option value="$PROJECT_DIR$/server/src/controllers/problemController.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonthLineChart.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYearLineChartBarChartPage.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/PieChartPage.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/SQL/stati.sql" />
         <option value="$PROJECT_DIR$/server/package.json" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js" />
         <option value="$PROJECT_DIR$/client/src/components/category/CreateCategory.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js" />
         <option value="$PROJECT_DIR$/client/src/components/util/ConvertPDF.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/muniReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/mapReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/index.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/eventReducer.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/categoryActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" />
@@ -220,10 +225,8 @@
         <option value="$PROJECT_DIR$/client/src/store/actions/mapActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/muniActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/notifyActions.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/problemActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/axios.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" />
@@ -235,6 +238,25 @@
         <option value="$PROJECT_DIR$/server/src/controllers/userController.js" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" />
+        <option value="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/PictureUpload.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/Tabletest.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/MuiTable.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/createMuiData.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/Test.js" />
+        <option value="$PROJECT_DIR$/client/src/components/map/MapMarkers.js" />
+        <option value="$PROJECT_DIR$/client/src/components/map/SearchBox.js" />
+        <option value="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/userActions.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" />
       </list>
     </option>
   </component>
@@ -315,6 +337,14 @@
             <path>
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
               <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -365,7 +395,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/src/controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\snorr\AppData\Roaming\npm\node_modules\prettier" />
@@ -421,20 +451,6 @@
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
       <workItem from="1548404737490" duration="17899000" />
-    </task>
-    <task id="LOCAL-00012" summary="Merge branch 'simen' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;server/src/routes/userRoutes.js">
-      <created>1547115590867</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1547115590867</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Made category dao+routes, made controllers for all routes/endpoints, some backend optimalization.">
-      <created>1547127299708</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1547127299708</updated>
     </task>
     <task id="LOCAL-00014" summary="jwt, with auth">
       <created>1547135187795</created>
@@ -765,11 +781,25 @@
       <option name="project" value="LOCAL" />
       <updated>1548428648895</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js">
+      <created>1548430502640</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1548430502640</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js">
+      <created>1548431073328</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1548431073328</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252054000" />
+    <option name="totallyTimeSpent" value="252931000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -802,7 +832,7 @@
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" visible="true" weight="0.08525755" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" visible="true" weight="0.20426288" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.94671404" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
@@ -915,25 +945,25 @@
     <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js" />
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/components/event/CreateEvent.js</url>
+          <line>428</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js</url>
+          <line>328</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/event/CreateEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8808" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/event/EditEvent.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/layout/Footer.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -981,13 +1011,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/reducers/muniReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1013,20 +1036,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -1089,13 +1098,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/problemReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="85" column="13" selection-start-line="85" selection-start-column="2" selection-end-line="85" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/actions/statisticsActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1103,23 +1105,6 @@
           <folding>
             <element signature="e#9#69#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="31" column="19" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="19" />
-          <folding>
-            <element signature="e#9#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1133,22 +1118,12 @@
     <entry file="file://$PROJECT_DIR$/client/src/store/configStore.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapMarkers.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1271,8 +1246,95 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
+        <state relative-caret-position="127">
+          <caret line="164" column="2" lean-forward="true" selection-start-line="164" selection-start-column="2" selection-end-line="164" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/event/CreateEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="429" selection-start-line="429" selection-end-line="430" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="28" column="12" lean-forward="true" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/problemReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="240" column="17" lean-forward="true" selection-start-line="240" selection-start-column="17" selection-end-line="240" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+          <folding>
+            <element signature="e#9#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="116" column="36" lean-forward="true" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="322" selection-start-line="322" selection-end-line="322" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapMarkers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="148" selection-start-line="148" selection-end-line="149" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="409" selection-start-line="409" selection-end-line="409" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/CreateProblem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="680" column="4" selection-start-line="680" selection-start-column="4" selection-end-line="680" selection-end-column="4" />
         </state>
       </provider>
     </entry>

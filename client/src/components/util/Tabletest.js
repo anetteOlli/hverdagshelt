@@ -217,7 +217,6 @@ class Tabletest extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.problems !== nextProps.problems) {
       const problems = nextProps.problems;
-      console.log(problems);
       const data = problems
         ? problems.map((problem, index: number) =>
             createSingleInstanceData(problem.problem_id, problem.problem_title, problem.status, problem.support || 0)

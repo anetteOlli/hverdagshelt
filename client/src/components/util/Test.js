@@ -42,7 +42,6 @@ class Test extends React.Component<Props, State> {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('picture', picture);
-    console.log(formData);
   };
 
   handleChange = e => {

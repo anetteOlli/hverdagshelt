@@ -320,7 +320,6 @@ class MainPage extends React.Component<Props, State> {
     this.setState({
       [name]: value
     });
-    console.log(value);
     this.props.history.push(value.value);
   };
 
