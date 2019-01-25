@@ -1,11 +1,7 @@
 import React from 'react';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import Tooltip from 'recharts/lib/component/Tooltip';
-import { withSnackbar } from 'notistack';
-import PieChart from 'recharts/lib/chart/PieChart';
-import Pie from 'recharts/lib/polar/Pie';
 import { getCategories } from '../../store/actions/categoryActions';
-import Cell from 'recharts/lib/component/Cell';
 import { connect } from 'react-redux';
 import { getEntrepreneursByMuni } from '../../store/actions/entrepreneurAction';
 import { getProblemsByCategory, getProblemsByEntrepreneur } from '../../store/actions/statisticsActions';
@@ -16,21 +12,41 @@ import YAxis from 'recharts/es6/cartesian/YAxis';
 import Legend from 'recharts/es6/component/Legend';
 import Bar from 'recharts/es6/cartesian/Bar';
 import CartesianGrid from 'recharts/es6/cartesian/CartesianGrid';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  chartContainer: {
+    marginLeft: -22,
+    paddingBottom: theme.spacing.unit * 4
+  }
+});
 
 class ProblemsByCat extends React.Component {
   render() {
+    const { classes } = this.props;
     return (
-        <ResponsiveContainer width="99%" height={320}>
-          <BarChart width={600} height={300} data={this.props.pieChartData.categoryData}
-                    margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <Tooltip/>
-            <Legend />
-            <Bar dataKey="problemer" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
+      <div>
+        <Typography variant="h4" gutterBottom component="h2">
+          Problemer pr kategory
+        </Typography>
+        <Typography component="div" className={classes.chartContainer}>
+          <ResponsiveContainer width="99%" height={320}>
+            <BarChart
+              width={600}
+              height={300}
+              data={this.props.pieChartData.categoryData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="problemer" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </Typography>
+      </div>
     );
   }
 
@@ -57,4 +73,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSnackbar(ProblemsByCat));
+)(withStyles(styles)(ProblemsByCat));

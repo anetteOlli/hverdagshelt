@@ -19,6 +19,8 @@ import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Toolbar from '@material-ui/core/Toolbar';
+
 type Props = {
   dropDownYears: { value: string, name: string }[],
   getProblemsByMonthLine: (selectedMonth: string) => void,
@@ -31,7 +33,12 @@ type State = {
 
 const styles = theme => ({
   formControl: {
-    marginLeft: theme.spacing.unit * 5
+    marginLeft: theme.spacing.unit * 5,
+    minWidth: 68,
+  },
+  chartContainer: {
+    marginLeft: -22,
+    paddingBottom: theme.spacing.unit * 4
   }
 });
 
@@ -48,35 +55,36 @@ class ProblemsByYear extends React.Component<Props, State> {
   };
 
   render() {
+    const {classes} = this.props;
     return (
       <div>
-        <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={this.props.lineChartData.problemsByYearData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="dager" stroke="#82ca9d" activeDot={{ r: 8 }} />
-          </LineChart>
-        </ResponsiveContainer>
-        <FormControl className={this.props.classes.formControl}>
-          <Select
-            fullWidth
-            margin="normal"
-            label="Velg år"
-            name="selectedYear"
-            value={this.state.selectedYear}
-            onChange={this.handleChange}
-          >
-            {this.props.dropDownYears &&
+        <Toolbar>
+        <Typography variant="h4" gutterBottom component="h2">
+          Gjennomsnittlig antall dager det tok for å løse problemer i månden
+        </Typography>
+          <FormControl className={classes.formControl}>
+            <Select label="Velg år" name="selectedYear" value={this.state.selectedYear} onChange={this.handleChange}>
+              {this.props.dropDownYears &&
               this.props.dropDownYears.map((option, index) => (
                 <MenuItem key={index} value={option.value}>
                   {option.name}
                 </MenuItem>
               ))}
-          </Select>
-        </FormControl>
+            </Select>
+          </FormControl>
+        </Toolbar>
+        <Typography component="div" className={classes.chartContainer}>
+          <ResponsiveContainer width="99%" height={320}>
+            <LineChart data={this.props.lineChartData.problemsByYearData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="dager" stroke="#82ca9d" activeDot={{ r: 8 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </Typography>
       </div>
     );
   }
