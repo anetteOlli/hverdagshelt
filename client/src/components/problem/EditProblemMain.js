@@ -194,16 +194,18 @@ class EditProblemMain extends React.Component<Props, State> {
       if(this.props.priority === "Entrepreneur") {
         this.props.entrepreneurs_get_one_by_user_id().then(() => {
           this.props.getProblemByUser().then(()=>{
-                console.log("abc", this.props.problems);
-                this.props.goToProblemDetail(this.props.problems[0].problem_id);
-              };
+            if(this.props.problems.length > 0){
+              this.props.goToProblemDetail(this.props.problems[0].problem_id);
+            }
+          });
           this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
         });
       } else{
           this.props.getProblemByUser().then(()=>{
-              if(this.props.problems.length > 0){
-                this.props.goToProblemDetail(this.props.problems[0].problem_id);
-              };
+            if(this.props.problems.length > 0){
+              this.props.goToProblemDetail(this.props.problems[0].problem_id);
+            }
+          });
           this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
         }
     });
