@@ -86,13 +86,20 @@ export const getEntrepreneursByMuniAndCat = p => {
 
 export const getEntrepreneursByMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return postData('entrepreneurs/municipality', getState().statistic.selectedMuni)
-      .then(response =>
-        dispatch({
-          type: 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS',
-          payload: response.data
-        })
-      )
+    return postData('entrepreneurs/municipality', getState().user.currentMuni)
+      .then(response => {
+        if (response.data.length > 0) {
+          dispatch({
+            type: 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS',
+            payload: response.data
+          });
+        } else {
+          dispatch({
+            type: 'ENTREPRENEUR_GET_BY_MUNI_ERROR',
+            payload: new Error('Database tom')
+          });
+        }
+      })
       .catch((error: Error) =>
         dispatch({
           type: 'ENTREPRENEUR_GET_BY_MUNI_ERROR',
