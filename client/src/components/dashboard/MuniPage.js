@@ -264,17 +264,19 @@ class MuniPage extends React.Component<Props, State> {
                                   <Grid item md={8}>
                                   </Grid>
                                   <Grid item md={4}>
-                                    <Button
-                                      align="right"
-                                      variant="outlined"
-                                      size="large"
-                                      color="primary"
-                                      className={classes.button}
-                                      onClick={() => this.deleteEvent(event.event_id)}
-                                    >
+                                  {(this.props.priority === "Municipality" || this.props.priority === "Administrator") ? (
+                                      <Button
+                                        align="right"
+                                        variant="outlined"
+                                        size="large"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={() => this.deleteEvent(event.event_id)}
+                                      >
                                     <WarningOutlined color="error"/>
                                       Slett
                                     </Button>
+                                  ) : (<div/>)}
                                   </Grid>
                                 </Grid>
                               </CardActions>
@@ -513,7 +515,8 @@ class MuniPage extends React.Component<Props, State> {
 const mapStateToProps = state => {
   return {
     events: state.event.events,
-    problems: state.problem.problems
+    problems: state.problem.problems,
+    priority: state.user.priority
   };
 };
 
@@ -521,7 +524,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getEvents: (municipality, county) => dispatch(getEventsByMuni(municipality, county)),
     getProblems: (municipality, county) => dispatch(getProblemsByMuni(municipality, county)),
-    deleteEvent: (id: number) => dispatch(deleteEvent(id))
+    deleteEvent: (id: number) => dispatch(deleteEvent(id)),
+
   };
 };
 
