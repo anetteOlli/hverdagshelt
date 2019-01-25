@@ -80,7 +80,6 @@ const styles = (theme: Object) => ({
   grid: {
     height: '100%',
     paddingBottom: 20
-
   },
 
   gridLeft: {
@@ -173,6 +172,11 @@ class EditProblemMain extends React.Component<Props, State> {
         </Grid>
       </div>
     );
+    const noProblems = (
+        <Typography variant="h2" align="center" color="primary" >
+          Du har ikke registrert noen aktive problemer
+        </Typography>
+    );
     const loggOn = (
       <div>
         <Card className="must-log-in-to-register" align="center">
@@ -192,28 +196,28 @@ class EditProblemMain extends React.Component<Props, State> {
         </Card>
       </div>
     );
-    return user_id > 0 ? main : loggOn;
+    return user_id > 0 ? (this.props.problems.length > 0 ? main : noProblems) : loggOn;
   }
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-      if(this.props.priority === "Entrepreneur") {
+      if (this.props.priority === 'Entrepreneur') {
         this.props.entrepreneurs_get_one_by_user_id().then(() => {
-          this.props.getProblemByUser().then(()=>{
-            if(this.props.problems.length > 0){
+          this.props.getProblemByUser().then(() => {
+            if (this.props.problems.length > 0) {
               this.props.goToProblemDetail(this.props.problems[0].problem_id);
             }
           });
           this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
         });
-      } else{
-          this.props.getProblemByUser().then(()=>{
-            if(this.props.problems.length > 0){
-              this.props.goToProblemDetail(this.props.problems[0].problem_id);
-            }
-          });
-          this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
-        }
+      } else {
+        this.props.getProblemByUser().then(() => {
+          if (this.props.problems.length > 0) {
+            this.props.goToProblemDetail(this.props.problems[0].problem_id);
+          }
+        });
+        this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+      }
     });
   }
 }
@@ -237,7 +241,7 @@ const mapDispatchToProps = dispatch => {
     setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
     entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
     getUserInfo: () => dispatch(getUserInfo()),
-    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id)),
+    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id))
   };
 };
 
