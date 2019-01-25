@@ -160,6 +160,8 @@ function getStepContent(step: number, state: State,
           <Typography variant="h5" align="center" color="secondary">
             Nærliggende problemer
           </Typography>
+            {haveRows ? (
+              <div>
           <Typography variant="subtitle1" align="center" color="primary">
             Finnes problemet fra før av? <br/>
             Gjerne støtt problemet så vet vi at det rammer mange
@@ -173,7 +175,7 @@ function getStepContent(step: number, state: State,
               md={4} xs={12}
               style={{position: 'relative'}}
               >
-              {haveRows ? (
+              {haveRows && (
                   <MuiTable2
                     rows={rows}
                     height={"100%"}
@@ -187,8 +189,6 @@ function getStepContent(step: number, state: State,
                       handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
-              ):(
-                <div/>
               )}
               </Grid>
               <Grid item container
@@ -206,7 +206,7 @@ function getStepContent(step: number, state: State,
                     {state.street}
                 </Typography>
                 <Card style={{width:'90%'}} align="center">
-                    {haveRows ? (clicked ?  (
+                    {(clicked ?  (
                     <div>
                     <CardMedia
                       component="img"
@@ -249,16 +249,16 @@ function getStepContent(step: number, state: State,
                         Velg et problem til venstre for å se beskrivelse
                       </Typography>
                     </Grid>
-                    )) : (
-                    <Grid item xs>
-                      <Typography align="center" color="error">
-                        Ingen like problem, gå videre
-                      </Typography>
-                    </Grid>
-                  )}
+                    ))}
                 </Card>
               </Grid>
             </Grid>
+                </div>
+            ) : (
+                <Typography align="center" variant="h5" color="error">
+                  Ingen like problem, gå videre
+                </Typography>
+              )}
           </CardContent>
         </Card>
       );
