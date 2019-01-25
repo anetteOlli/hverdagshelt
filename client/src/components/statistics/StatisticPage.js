@@ -1,14 +1,17 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import BarChart from './BarChartPage';
-import PieChart from './PieChartPage';
-import LineChart from './LineChartPage';
+import ProblemsByYear from './ProblemsByYear';
+import ProblemsByCat from './ProblemsByCat';
+import ProblemsByEnt from './ProblemsByEnt';
+import ProblemsByMonth from './ProblemsByMonth';
 import { connect } from 'react-redux';
 import { getProblemsByMuni } from '../../store/actions/statisticsActions';
 import { getUserInfo } from '../../store/actions/userActions';
 import type { ReduxState } from '../../store/reducers';
 import LoadingComponent from '../util/LoadingComponent';
+import { Redirect } from 'react-router-dom';
+import Pdf from "react-to-pdf";
 
 const styles = theme => ({
   root: {
@@ -20,7 +23,8 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3
   },
   chartContainer: {
-    marginLeft: -22
+    marginLeft: -22,
+    paddingBottom: theme.spacing.unit * 5
   },
   tableContainer: {
     height: 320
@@ -31,31 +35,48 @@ type Props = {
   ready: boolean,
   classes: Object
 };
+const ref = React.createRef();
+
 
 class StatisticPage extends React.Component<Props> {
   render() {
-    const { classes, ready } = this.props;
+    const { classes, ready, priority } = this.props;
+    if (priority !== 'Municipality' && priority !== 'Administrator') return <Redirect to="/" />;
     if (ready) {
       return (
-        <div className={classes.content}>
-          <Typography variant="h4" gutterBottom component="h2">
-            LineChart
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <LineChart />
+        <div>
+        <div ref={ref} className={classes.content}>
+          <Typography variant="h2" gutterBottom component="h2" align="center">
+            Statistikk i {this.props.currentMuni.municipality}
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            PieChart
+            Problemer i månden
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <PieChart />
+            <ProblemsByMonth />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            BarChart
+            Gjennomsnittlig antall dager det tok for å løse problemer i månden
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <BarChart />
+            <ProblemsByYear />
           </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            Problemer pr kategory
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <ProblemsByCat />
+          </Typography>
+          <Typography variant="h4" gutterBottom component="h2">
+            Antall problemer løst av entreprenører
+          </Typography>
+          <Typography component="div" className={classes.chartContainer}>
+            <ProblemsByEnt />
+          </Typography>
+        </div>
+          <Pdf targetRef={ref} filename="code-example.pdf">
+            {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+          </Pdf>
         </div>
       );
     } else {
@@ -64,13 +85,14 @@ class StatisticPage extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    this.props.getAllProblemsFromMuni(this.props.currentMuni);
+    this.props.getAllProblemsFromMuni();
   }
 }
 
 const mapStateToProps = (state: ReduxState) => {
   return {
     ready: state.statistic.ready,
+    priority: state.user.priority,
     currentMuni: state.user.currentMuni
   };
 };
@@ -78,7 +100,7 @@ const mapStateToProps = (state: ReduxState) => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    getAllProblemsFromMuni: muni => dispatch(getProblemsByMuni(muni))
+    getAllProblemsFromMuni: () => dispatch(getProblemsByMuni())
   };
 };
 

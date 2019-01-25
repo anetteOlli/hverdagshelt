@@ -6,17 +6,15 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HotIcon from '@material-ui/icons/Whatshot';
-import SettingIcon from '@material-ui/icons/Settings';
 import EventIcon from '@material-ui/icons/Event';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import CreateCategory from '../category/CreateCategory';
-import Button from '@material-ui/core/Button/Button';
 import connect from 'react-redux/es/connect/connect';
-import HomeOutlined from '@material-ui/icons/HomeOutlined';
+import HomeOutlined from '@material-ui/icons/Home';
 import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
 import Folder from '@material-ui/icons/Folder';
+import Stati from '@material-ui/icons/BarChart';
 
 type Props = {
   classes: Object,
@@ -48,26 +46,20 @@ class TemporaryDrawer extends React.Component<Props, State> {
     const sideList = (
       <div>
         <List>
-          <ListItem button component={NavLink} to={'/'}>
+          <ListItem button component={Link} to={'/'}>
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
             <ListItemText primary="Hovedsiden" />
           </ListItem>
           <Divider />
-          <ListItem button component={NavLink} to={'/stati'}>
-            <ListItemIcon>
-              <HotIcon />
-            </ListItemIcon>
-            <ListItemText primary="Statistikk (temp)" />
-          </ListItem>
-          <ListItem button component={NavLink} to={'/problemoversikt'}>
+          <ListItem button component={Link} to={'/problemoversikt'}>
             <ListItemIcon>
               <Folder />
             </ListItemIcon>
             <ListItemText primary="Problemoversikt" />
           </ListItem>
-          <ListItem button component={NavLink} to={'/lagproblem'}>
+          <ListItem button component={Link} to={'/lagproblem'}>
             <ListItemIcon>
               <AddCircleOutlined />
             </ListItemIcon>
@@ -78,15 +70,15 @@ class TemporaryDrawer extends React.Component<Props, State> {
         <List>
           {(priority === 'Municipality' || priority === 'Administrator' ) && (
             <div>
-            <ListItem button component={NavLink} to={'/opprArrangement'}>
+            <ListItem button component={Link} to={'/opprArrangement'}>
               <ListItemIcon>
                 <EventIcon />
               </ListItemIcon>
               <ListItemText primary="Opprett Arrangement" />
             </ListItem>
-            <ListItem button component={NavLink} to={'/stati'}>
+            <ListItem button component={Link} to={'/stati'}>
               <ListItemIcon>
-                <HotIcon />
+                <Stati />
               </ListItemIcon>
               <ListItemText primary="Statistikk" />
             </ListItem>

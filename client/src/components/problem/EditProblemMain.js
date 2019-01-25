@@ -91,8 +91,7 @@ const styles = (theme: Object) => ({
     justifyContent: 'center'
     //alignSelf: 'stretch'
   },
-  mui: {
-  }
+  mui: {}
 });
 
 function getView(bool: boolean, p) {
@@ -148,11 +147,11 @@ class EditProblemMain extends React.Component<Props, State> {
     const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
-          <Grid item sm md={4} xs className={classes.gridLeft} style={{position: 'relative'}}>
+          <Grid item sm md={4} xs className={classes.gridLeft} style={{ position: 'relative' }}>
             <MuiTable2
               className={classes.mui}
               rows={problems}
-              height={"40%"}
+              height={'40%'}
               onClick={e => {
                 let myProblem = e;
                 this.props.goToProblemDetail(myProblem.problem_id);
@@ -167,21 +166,21 @@ class EditProblemMain extends React.Component<Props, State> {
     );
     const loggOn = (
       <div>
-      <Card className="must-log-in-to-register" align="center">
-        <CardContent>
-          <Typography variant="h5" color="error">
-            Du må logge inn for å kunne se problemoversikten
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <SignedOutLinks />
-        </CardContent>
-        <CardContent>
-          <Button justify="centre" onClick={e => history.push("/")} variant="contained">
-            Tilbake til hovedmenyen
-          </Button>
-        </CardContent>
-      </Card>
+        <Card className="must-log-in-to-register" align="center">
+          <CardContent>
+            <Typography variant="h5" color="error">
+              Du må logge inn for å kunne se problemoversikten
+            </Typography>
+          </CardContent>
+          <CardContent>
+            <SignedOutLinks />
+          </CardContent>
+          <CardContent>
+            <Button justify="centre" onClick={() => this.props.history.push('/')} variant="contained">
+              Tilbake til hovedmenyen
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
     return user_id > 0 ? main : loggOn;
