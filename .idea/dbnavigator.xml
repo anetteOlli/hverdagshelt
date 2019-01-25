@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="434feb8e-42e1-467f-b51d-3e017346d21b">
-        <schema name="hverdagshelt" object-types="table, view, function, column" />
+        <schema name="hverdagshelt" object-types="table, function, column" />
       </connection>
     </loaded-nodes>
   </component>
