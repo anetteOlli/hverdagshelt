@@ -8,6 +8,13 @@ const initState = {
 
 };
 
+/**
+ * The entrepreneurReducer stores the redux state of entrepreneurs.
+ * @param state Current state of the entrepreneurReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the entrepreneurReducer.
+ */
+
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS':

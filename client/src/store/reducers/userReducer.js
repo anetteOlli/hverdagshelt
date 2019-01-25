@@ -36,6 +36,12 @@ const initState = {
   currentMuni: null
 };
 
+/**
+ * The userReducer stores the redux state of the user that is logged in.
+ * @param state Current state of the userReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the userReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'SIGN_IN_SUCCESS':

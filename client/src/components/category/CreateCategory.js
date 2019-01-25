@@ -3,7 +3,6 @@ import connect from 'react-redux/es/connect/connect';
 import { createCategory } from '../../store/actions/categoryActions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { withSnackbar } from 'notistack';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
@@ -74,7 +73,9 @@ class CreateCategory extends React.Component<Props, State> {
         <DialogContent>
           <ValidatorForm onSubmit={this.handleSubmit}>
             <div className={classes.wrapper}>
-              <Typography variant="h5" className={classes.textField}>Legg til ny kategori</Typography>
+              <Typography variant="h5" className={classes.textField}>
+                Legg til ny kategori
+              </Typography>
 
               <TextValidator
                 className={classes.textField}
@@ -103,7 +104,7 @@ class CreateCategory extends React.Component<Props, State> {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createCategory: vals => dispatch(createCategory(vals)),
+    createCategory: (name: string) => dispatch(createCategory(name)),
     enqueueSnackbar: (message: string, type: string) => dispatch(enqueueSnackbar(message, type))
   };
 };
