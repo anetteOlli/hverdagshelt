@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51d9cfd7-b047-42d1-9475-ac1a0e015fc5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -45,12 +46,6 @@
         <item name="larssorl@mysql.stud.iie.ntnu.no [2]" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="larssorl@mysql.stud.iie.ntnu.no [2]" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="larssorl: schema" type="c314c289:MysqlImplModel$Schema" />
-      </path>
     </expand>
     <select />
   </component>
@@ -58,11 +53,11 @@
     <session id="1849383522">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="SCHEMA:larssorl" value="2" />
+          <entry key="SCHEMA:larssorl" value="3" />
           <entry key="entrepreneur" value="4" />
           <entry key="entrepreneur_category" value="2" />
           <entry key="entrepreneur_municipality" value="1" />
-          <entry key="js" value="17" />
+          <entry key="js" value="19" />
           <entry key="problem" value="3" />
           <entry key="sql" value="2" />
           <entry key="user" value="2" />
@@ -71,22 +66,22 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Database Element" value="12" />
-          <entry key="JavaScript" value="17" />
+          <entry key="JavaScript" value="19" />
           <entry key="SQL" value="2" />
-          <entry key="UML" value="2" />
+          <entry key="UML" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="cell" value="26" />
-          <entry key="js" value="739" />
-          <entry key="txt" value="28" />
+          <entry key="js" value="1618" />
+          <entry key="txt" value="34" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="739" />
-          <entry key="PLAIN_TEXT" value="28" />
+          <entry key="JavaScript" value="1618" />
+          <entry key="PLAIN_TEXT" value="34" />
           <entry key="Scratch" value="26" />
         </counts>
       </usages-collector>
@@ -94,11 +89,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/problem/EditProblemA.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+            <state relative-caret-position="218">
+              <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -115,11 +110,190 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-598">
-              <caret line="218" column="45" lean-forward="true" selection-start-line="218" selection-start-column="45" selection-end-line="218" selection-end-column="45" />
+            <state relative-caret-position="-799">
+              <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
               <folding>
                 <element signature="e#9#35#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>DATABASE</ID>
+              <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
+              <nodes>
+                <node x="363.68051948051954" y="520.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
+                <node x="714.3055194805195" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
+                <node x="570.6071428571429" y="0.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
+                <node x="36.082792207792295" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
+                <node x="794.8258928571429" y="112.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
+                <node x="226.0827922077923" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
+                <node x="731.3258928571429" y="224.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
+                <node x="1178.3952922077924" y="1062.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
+                <node x="1067.5202922077924" y="707.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
+                <node x="46.997663551401956" y="1068.3411214953273">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+                <node x="393.0827922077923" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
+                <node x="34.53125" y="608.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
+                <node x="979.3952922077923" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
+                <node x="945.1071428571429" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
+                <node x="513.3055194805195" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
+                <node x="550.6071428571429" y="101.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="46.0" y="-59.0" />
+                  <point x="1316.3952922077924" y="1042.0" />
+                  <point x="1301.0202922077924" y="1042.0" />
+                  <point x="1301.0202922077924" y="194.0" />
+                  <point x="716.8571428571429" y="194.0" />
+                  <point x="71.25" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="37.428571428571445" y="-246.0" />
+                  <point x="532.109090909091" y="470.0" />
+                  <point x="749.7258928571429" y="470.0" />
+                  <point x="-73.60000000000002" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event">
+                  <point x="-41.0" y="-48.0" />
+                  <point x="755.3055194805195" y="1032.0" />
+                  <point x="144.03125" y="1032.0" />
+                  <point x="0.0" y="158.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+                  <point x="44.75" y="-48.0" />
+                  <point x="1113.6452922077924" y="1042.0" />
+                  <point x="1118.2702922077924" y="1042.0" />
+                  <point x="-50.75" y="59.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority">
+                  <point x="46.0" y="-103.0" />
+                  <point x="0.0" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="-46.0" y="-103.0" />
+                  <point x="777.3258928571429" y="204.0" />
+                  <point x="669.3571428571429" y="204.0" />
+                  <point x="23.75" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="0.0" y="-246.0" />
+                  <point x="494.68051948051954" y="460.0" />
+                  <point x="601.2702922077923" y="460.0" />
+                  <point x="601.2702922077923" y="204.0" />
+                  <point x="621.8571428571429" y="204.0" />
+                  <point x="-23.75" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+                  <point x="-74.85714285714278" y="-246.0" />
+                  <point x="419.82337662337676" y="470.0" />
+                  <point x="336.3327922077923" y="470.0" />
+                  <point x="36.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+                  <point x="112.28571428571433" y="-246.0" />
+                  <point x="606.9662337662339" y="500.0" />
+                  <point x="985.8571428571429" y="500.0" />
+                  <point x="-40.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+                  <point x="-82.125" y="-158.0" />
+                  <point x="61.90625" y="500.0" />
+                  <point x="0.0" y="500.0" />
+                  <point x="0.0" y="204.0" />
+                  <point x="574.3571428571429" y="204.0" />
+                  <point x="-71.25" y="36.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+                  <point x="27.375" y="-158.0" />
+                  <point x="171.40625" y="490.0" />
+                  <point x="262.8327922077923" y="490.0" />
+                  <point x="-36.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+                  <point x="-37.42857142857139" y="-246.0" />
+                  <point x="457.25194805194815" y="450.0" />
+                  <point x="529.5827922077923" y="450.0" />
+                  <point x="45.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="0.0" y="-59.0" />
+                  <point x="1169.0202922077924" y="490.0" />
+                  <point x="896.9258928571429" y="490.0" />
+                  <point x="73.60000000000002" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="45.25" y="-48.0" />
+                  <point x="649.0555194805195" y="1042.0" />
+                  <point x="755.6452922077923" y="1042.0" />
+                  <point x="755.6452922077923" y="490.0" />
+                  <point x="823.3258928571429" y="490.0" />
+                  <point x="0.0" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+                  <point x="82.125" y="-158.0" />
+                  <point x="226.15625" y="500.0" />
+                  <point x="438.5827922077923" y="500.0" />
+                  <point x="-45.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+                  <point x="-44.75" y="-48.0" />
+                  <point x="1024.1452922077924" y="1042.0" />
+                  <point x="1038.2702922077924" y="1042.0" />
+                  <point x="1038.2702922077924" y="500.0" />
+                  <point x="1067.357142857143" y="500.0" />
+                  <point x="40.75" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+                  <point x="-46.0" y="-59.0" />
+                  <point x="1224.3952922077924" y="1042.0" />
+                  <point x="1219.7702922077924" y="1042.0" />
+                  <point x="50.75" y="59.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+                  <point x="-112.28571428571422" y="-246.0" />
+                  <point x="382.3948051948053" y="480.0" />
+                  <point x="163.5827922077923" y="480.0" />
+                  <point x="42.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+                  <point x="41.0" y="-48.0" />
+                  <point x="837.3055194805195" y="1042.0" />
+                  <point x="888.7321428571429" y="1042.0" />
+                  <point x="888.7321428571429" y="490.0" />
+                  <point x="860.125892857143" y="490.0" />
+                  <point x="36.80000000000007" y="103.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+                  <point x="-27.375" y="-158.0" />
+                  <point x="116.65625" y="500.0" />
+                  <point x="78.5827922077923" y="500.0" />
+                  <point x="-42.5" y="25.5" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem">
+                  <point x="-45.25" y="-48.0" />
+                  <point x="558.5555194805195" y="1042.0" />
+                  <point x="494.68051948051954" y="1042.0" />
+                  <point x="0.0" y="246.0" />
+                </edge>
+                <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county">
+                  <point x="0.0" y="-36.5" />
+                  <point x="0.0" y="25.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.4468307233407904" x="550.8102101896183" y="1185.3863484646195" />
+              <SelectedNodes>
+                <node>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Key columns</Category>
+                <Category>Columns</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -141,6 +315,8 @@
       <find>1814</find>
       <find>history</find>
       <find>classes.button</find>
+      <find>visible</find>
+      <find>onClickAdd</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -214,8 +390,8 @@
         <option value="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" />
         <option value="$PROJECT_DIR$/server/src/controllers/entrepreneurController.js" />
-        <option value="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" />
         <option value="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" />
+        <option value="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" />
       </list>
     </option>
   </component>
@@ -1280,6 +1456,14 @@
               <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="store" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -1375,13 +1559,6 @@
       <workItem from="1548141838626" duration="15011000" />
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
-    </task>
-    <task id="LOCAL-00010" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
-      <created>1547047306145</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1547047306145</updated>
     </task>
     <task id="LOCAL-00011" summary="before pull">
       <created>1547111137178</created>
@@ -1719,11 +1896,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548346304542</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="nionolkjm">
+      <created>1548347980904</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1548347980904</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="237043000" />
+    <option name="totallyTimeSpent" value="247891000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1755,7 +1939,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
       <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.5852349" visible="true" weight="0.3202847" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" weight="0.18149467" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" weight="0.430605" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.2964539" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
@@ -1856,13 +2040,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="nionolkjm" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/node_modules/notistack/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -1943,13 +2120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/CreateProblem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="146" column="16" lean-forward="true" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -2170,54 +2340,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>DATABASE</ID>
-          <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
-          <nodes>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
-            <node x="" y="">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.33368146214099215" x="992.9420970266042" y="1013.9820031298905" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Key columns</Category>
-            <Category>Columns</Category>
-          </Categories>
-        </state>
-      </provider>
-    </entry>
     <entry file="das://ba1bf59b-00b1-4470-87fd-96a3ce3c0173/schema/larssorl/table/entrepreneur">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-598">
-          <caret line="218" column="45" lean-forward="true" selection-start-line="218" selection-start-column="45" selection-end-line="218" selection-end-column="45" />
-          <folding>
-            <element signature="e#9#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2228,6 +2354,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/EditProblemA.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/util/MuiTable-2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="228" column="4" lean-forward="true" selection-start-line="228" selection-start-column="4" selection-end-line="228" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/CreateProblem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+            <element signature="e#186#552#0" expanded="true" />
+            <element signature="e#1378#1480#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -2235,10 +2387,190 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/EditProblemA.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+        <state relative-caret-position="-799">
+          <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.SCHEMA:larssorl</OriginalElement>
+          <nodes>
+            <node x="363.68051948051954" y="520.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem</node>
+            <node x="714.3055194805195" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event</node>
+            <node x="570.6071428571429" y="0.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county</node>
+            <node x="36.082792207792295" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city</node>
+            <node x="794.8258928571429" y="112.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority</node>
+            <node x="226.0827922077923" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status</node>
+            <node x="731.3258928571429" y="224.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user</node>
+            <node x="1178.3952922077924" y="1062.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality</node>
+            <node x="1067.5202922077924" y="707.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur</node>
+            <node x="46.997663551401956" y="1068.3411214953273">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+            <node x="393.0827922077923" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street</node>
+            <node x="34.53125" y="608.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event</node>
+            <node x="979.3952922077923" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category</node>
+            <node x="945.1071428571429" y="301.5">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category</node>
+            <node x="513.3055194805195" y="1073.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem</node>
+            <node x="550.6071428571429" y="101.0">ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="46.0" y="-59.0" />
+              <point x="1316.3952922077924" y="1042.0" />
+              <point x="1301.0202922077924" y="1042.0" />
+              <point x="1301.0202922077924" y="194.0" />
+              <point x="716.8571428571429" y="194.0" />
+              <point x="71.25" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="37.428571428571445" y="-246.0" />
+              <point x="532.109090909091" y="470.0" />
+              <point x="749.7258928571429" y="470.0" />
+              <point x="-73.60000000000002" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event">
+              <point x="-41.0" y="-48.0" />
+              <point x="755.3055194805195" y="1032.0" />
+              <point x="144.03125" y="1032.0" />
+              <point x="0.0" y="158.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+              <point x="44.75" y="-48.0" />
+              <point x="1113.6452922077924" y="1042.0" />
+              <point x="1118.2702922077924" y="1042.0" />
+              <point x="-50.75" y="59.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.priority">
+              <point x="46.0" y="-103.0" />
+              <point x="0.0" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="-46.0" y="-103.0" />
+              <point x="777.3258928571429" y="204.0" />
+              <point x="669.3571428571429" y="204.0" />
+              <point x="23.75" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="0.0" y="-246.0" />
+              <point x="494.68051948051954" y="460.0" />
+              <point x="601.2702922077923" y="460.0" />
+              <point x="601.2702922077923" y="204.0" />
+              <point x="621.8571428571429" y="204.0" />
+              <point x="-23.75" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+              <point x="-74.85714285714278" y="-246.0" />
+              <point x="419.82337662337676" y="470.0" />
+              <point x="336.3327922077923" y="470.0" />
+              <point x="36.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+              <point x="112.28571428571433" y="-246.0" />
+              <point x="606.9662337662339" y="500.0" />
+              <point x="985.8571428571429" y="500.0" />
+              <point x="-40.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality">
+              <point x="-82.125" y="-158.0" />
+              <point x="61.90625" y="500.0" />
+              <point x="0.0" y="500.0" />
+              <point x="0.0" y="204.0" />
+              <point x="574.3571428571429" y="204.0" />
+              <point x="-71.25" y="36.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.status">
+              <point x="27.375" y="-158.0" />
+              <point x="171.40625" y="490.0" />
+              <point x="262.8327922077923" y="490.0" />
+              <point x="-36.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+              <point x="-37.42857142857139" y="-246.0" />
+              <point x="457.25194805194815" y="450.0" />
+              <point x="529.5827922077923" y="450.0" />
+              <point x="45.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="0.0" y="-59.0" />
+              <point x="1169.0202922077924" y="490.0" />
+              <point x="896.9258928571429" y="490.0" />
+              <point x="73.60000000000002" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="45.25" y="-48.0" />
+              <point x="649.0555194805195" y="1042.0" />
+              <point x="755.6452922077923" y="1042.0" />
+              <point x="755.6452922077923" y="490.0" />
+              <point x="823.3258928571429" y="490.0" />
+              <point x="0.0" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.street">
+              <point x="82.125" y="-158.0" />
+              <point x="226.15625" y="500.0" />
+              <point x="438.5827922077923" y="500.0" />
+              <point x="-45.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_category" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.category">
+              <point x="-44.75" y="-48.0" />
+              <point x="1024.1452922077924" y="1042.0" />
+              <point x="1038.2702922077924" y="1042.0" />
+              <point x="1038.2702922077924" y="500.0" />
+              <point x="1067.357142857143" y="500.0" />
+              <point x="40.75" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur_municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.entrepreneur">
+              <point x="-46.0" y="-59.0" />
+              <point x="1224.3952922077924" y="1042.0" />
+              <point x="1219.7702922077924" y="1042.0" />
+              <point x="50.75" y="59.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+              <point x="-112.28571428571422" y="-246.0" />
+              <point x="382.3948051948053" y="480.0" />
+              <point x="163.5827922077923" y="480.0" />
+              <point x="42.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user">
+              <point x="41.0" y="-48.0" />
+              <point x="837.3055194805195" y="1042.0" />
+              <point x="888.7321428571429" y="1042.0" />
+              <point x="888.7321428571429" y="490.0" />
+              <point x="860.125892857143" y="490.0" />
+              <point x="36.80000000000007" y="103.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.event" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.city">
+              <point x="-27.375" y="-158.0" />
+              <point x="116.65625" y="500.0" />
+              <point x="78.5827922077923" y="500.0" />
+              <point x="-42.5" y="25.5" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.user_problem" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.problem">
+              <point x="-45.25" y="-48.0" />
+              <point x="558.5555194805195" y="1042.0" />
+              <point x="494.68051948051954" y="1042.0" />
+              <point x="0.0" y="246.0" />
+            </edge>
+            <edge source="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.municipality" target="ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.county">
+              <point x="0.0" y="-36.5" />
+              <point x="0.0" y="25.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.4468307233407904" x="550.8102101896183" y="1185.3863484646195" />
+          <SelectedNodes>
+            <node>ba1bf59b-00b1-4470-87fd-96a3ce3c0173.TABLE:larssorl.TestTable</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
         </state>
       </provider>
     </entry>

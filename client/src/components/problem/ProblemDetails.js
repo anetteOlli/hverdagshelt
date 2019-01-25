@@ -12,20 +12,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
-import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import { getProblemById, goToProblemEdit } from '../../store/actions/problemActions';
 import { entrepreneurs_get_one_by_entrepreneur_id, getEntrepreneursByMuniAndCat } from '../../store/actions/entrepreneurAction';
 import { problemAddEntrepreneur } from '../../store/actions/problemActions';
-
 import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
-
 import { withStyles } from '@material-ui/core/styles';
-
 import type { ReduxState } from '../../store/reducers';
 
 const styles = (theme: Object) => ({
+
   main: {
     margin: 20,
     padding: 20,
@@ -91,7 +89,12 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** Problem Details Component
+ * @return the selected problems content. Will update on changes in parent component.
+ * */
+
 class ProblemDetails extends React.Component<Props, State> {
+
   state = {
     categories: [],
     isHidden: true,
@@ -102,6 +105,7 @@ class ProblemDetails extends React.Component<Props, State> {
     editVisible: true
   };
 
+  /** Functions that sets boolean variables in state **/
   toggleButtonVisible() {
     this.setState({
       visible: true
@@ -112,8 +116,6 @@ class ProblemDetails extends React.Component<Props, State> {
       visible: false
     });
   }
-
-  //locked og vanlig bruker
   toggleEditBtnVisible() {
     this.setState({
       editVisible: true
@@ -124,7 +126,18 @@ class ProblemDetails extends React.Component<Props, State> {
       editVisible: false
     });
   }
+  toggleHidden() {this.setState({
+      isHidden: !this.state.isHidden
+    });
+  }
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
+  /** Removes edit problem option for standard users' problems if the problem is locked. **/
   checkEdit(bool) {
     if (bool === 'Standard' && this.state.locked) {
       this.toggleEditBtnHidden();
@@ -133,6 +146,7 @@ class ProblemDetails extends React.Component<Props, State> {
     }
   }
 
+  /** Takes in a boolean to toggle locked state **/
   checkLocked(bool) {
     if (bool) {
       this.setState({
@@ -145,6 +159,7 @@ class ProblemDetails extends React.Component<Props, State> {
     }
   }
 
+  /** Takes in a 'user priority' varchar to toggle visibility of edit button */
   checkUser(user) {
     if (user === 'Administrator' || user === 'Municipality') {
       this.toggleButtonVisible();
@@ -155,31 +170,19 @@ class ProblemDetails extends React.Component<Props, State> {
     }
   }
 
+  /** Opens entrepreneurs list component in popup **/
   onClickAdd = () => {
     this.handleClickOpen();
     this.toggleHidden();
   };
 
+  /** Opens edit problem component **/
   onClickEdit = () => {
     this.props.goToProblemEdit(this.props.problem.problem_id);
   };
 
-  toggleHidden() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
-  }
-
-  handleClickOpen = () => {
-    this.setState({
-      open: true
-    });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
+  /** Function that is called when a entrepreneur
+   * is selected in the add entrepreneur component **/
   handleAddEntrepreneur = e => {
     let myEntrepreneur = e;
     this.setState({
