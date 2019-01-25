@@ -28,6 +28,11 @@ type Props = {
   checkedJWT: boolean
 };
 
+/**
+ * The main App component that switches witch component to display depending on the url.
+ * The app will wait for redux to check if the user was logged in after a refresh to render.
+ */
+
 class App extends React.Component<Props> {
   render() {
     if (!this.props.checkedJWT) return <LoadingComponent />;

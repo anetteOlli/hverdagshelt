@@ -3,8 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import {Save} from '@material-ui/icons'
-import { Grid, Card, CardContent} from '@material-ui/core';
+import { Save } from '@material-ui/icons';
+import { Grid, Card, CardContent } from '@material-ui/core';
 import ProblemsByYear from './ProblemsByYear';
 import ProblemsByCat from './ProblemsByCat';
 import ProblemsByEnt from './ProblemsByEnt';
@@ -15,9 +15,12 @@ import { getUserInfo } from '../../store/actions/userActions';
 import type { ReduxState } from '../../store/reducers';
 import LoadingComponent from '../util/LoadingComponent';
 import { Redirect } from 'react-router-dom';
-import Pdf from "react-to-pdf";
 import { convertSingleToPDF, convertMultipleToPDF } from '../util/ConvertPDF';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+/**
+ * @fileOverview The main statistic component that displays different data using rechart and also allow the user to download the charts to pdf format.
+ */
 
 const styles = theme => ({
   root: {
@@ -53,34 +56,26 @@ class StatisticPage extends React.Component<Props, State> {
     indexLoadingPDF: 0
   };
 
-  /**
-   * Function for wanting to download pdf of a single component
-   * @params index: index of the statistic
-   * @params doc: id of the div the statistic component is in
-   * @params name: name of the statistic
-   * 1000 x 300 works good for Sindre's pc in height and width
-   * */
-  handleClickPDF(index, doc, name){
-    this.setState({isLoadingPDF: true, indexLoadingPDF: index})
+  handleClickPDF(index, doc, name) {
+    this.setState({ isLoadingPDF: true, indexLoadingPDF: index });
     const input = document.getElementById(doc);
-    convertSingleToPDF(input, this.props.currentMuni.municipality + name, 1000, 300, () => {
-      this.setState({isLoadingPDF: false});
+    convertSingleToPDF(input, this.props.currentMuni.municipality + name, 1000, 900, () => {
+      this.setState({ isLoadingPDF: false });
     });
   }
 
-  /** Handles wanting to download pdf of all components */
-  handleClickPDFAll = () =>{
-    this.setState({isLoadingPDF: true, indexLoadingPDF: 0})
+  handleClickPDFAll = () => {
+    this.setState({ isLoadingPDF: true, indexLoadingPDF: 0 });
     const input = [
       document.getElementById('ProblemsByMonth'),
       document.getElementById('ProblemsByYear'),
       document.getElementById('ProblemsByCat'),
       document.getElementById('ProblemsByEnt')
     ];
-    convertMultipleToPDF(input, this.props.currentMuni.municipality + "_all_statistikk", 1000, 300, () => {
-      this.setState({isLoadingPDF: false});
+    convertMultipleToPDF(input, this.props.currentMuni.municipality + '_all_statistikk', 1000, 300, () => {
+      this.setState({ isLoadingPDF: false });
     });
-  }
+  };
 
   render() {
     const { classes, ready, priority } = this.props;
@@ -94,101 +89,83 @@ class StatisticPage extends React.Component<Props, State> {
             </Typography>
             <div className="pdf-button-1">
               <Tooltip title="last ned under" placement="top">
-                <Button align="center" size="small" color="primary" variant="outlined"
-                  onClick={() => this.handleClickPDF(1, "ProblemsByMonth", "_problem_måneder")}
+                <Button
+                  align="center"
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => this.handleClickPDF(1, 'ProblemsByMonth', '_problem_måneder')}
                 >
-                  <Save/>
-                  <Typography></Typography>
-                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 1) && (
-                    <CircularProgress size={24} />
-                  )}
+                  <Save />
+                  <Typography />
+                  {this.state.isLoadingPDF && this.state.indexLoadingPDF == 1 && <CircularProgress size={24} />}
                 </Button>
               </Tooltip>
             </div>
-            <div id="ProblemsByMonth">
-              <Typography variant="h4" gutterBottom component="h2">
-                Problemer i månden
-              </Typography>
-              <Typography component="div" className={classes.chartContainer}>
-                <ProblemsByMonth />
-              </Typography>
-            </div>
+            <ProblemsByMonth/>
             <div className="pdf-button-2">
               <Tooltip title="last ned under" placement="top">
-                <Button align="center" size="medium" color="primary" variant="outlined"
-                  onClick={() => this.handleClickPDF(2, "ProblemsByYear", "_problem_år")}
+                <Button
+                  align="center"
+                  size="medium"
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => this.handleClickPDF(2, 'ProblemsByYear', '_problem_år')}
                 >
-                  <Save/>
-                  <Typography></Typography>
-                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 2) && (
-                    <CircularProgress size={24} />
-                  )}
+                  <Save />
+                  <Typography />
+                  {this.state.isLoadingPDF && this.state.indexLoadingPDF == 2 && <CircularProgress size={24} />}
                 </Button>
               </Tooltip>
             </div>
-            <div id="ProblemsByYear">
-              <Typography variant="h4" gutterBottom component="h2">
-                Gjennomsnittlig antall dager det tok for å løse problemer i månden
-              </Typography>
-              <Typography component="div" className={classes.chartContainer}>
-                <ProblemsByYear />
-              </Typography>
-            </div>
+            <ProblemsByYear />
             <div className="pdf-button-3">
               <Tooltip title="last ned under" placement="top">
-                <Button align="center" size="medium" color="primary" variant="outlined"
-                  onClick={() => this.handleClickPDF(3, "ProblemsByCat", "_problem_kategori")}
+                <Button
+                  align="center"
+                  size="medium"
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => this.handleClickPDF(3, 'ProblemsByCat', '_problem_kategori')}
                 >
-                  <Save/>
-                  <Typography></Typography>
-                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 3) && (
-                    <CircularProgress size={24} />
-                  )}
+                  <Save />
+                  <Typography />
+                  {this.state.isLoadingPDF && this.state.indexLoadingPDF == 3 && <CircularProgress size={24} />}
                 </Button>
               </Tooltip>
             </div>
-            <div id="ProblemsByCat">
-              <Typography variant="h4" gutterBottom component="h2">
-                Problemer pr kategory
-              </Typography>
-              <Typography component="div" className={classes.chartContainer}>
-                <ProblemsByCat />
-              </Typography>
-            </div>
+            <ProblemsByCat/>
             <div className="pdf-button-4">
               <Tooltip title="last ned under" placement="top">
-                <Button align="center" size="medium" color="primary" variant="outlined"
-                    onClick={() => this.handleClickPDF(4, "ProblemsByEnt", "_problem_entreprenør")}
+                <Button
+                  align="center"
+                  size="medium"
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => this.handleClickPDF(4, 'ProblemsByEnt', '_problem_entreprenør')}
                 >
-                  <Save/>
-                  <Typography></Typography>
-                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 4) && (
-                    <CircularProgress size={24} />
-                  )}
+                  <Save />
+                  <Typography />
+                  {this.state.isLoadingPDF && this.state.indexLoadingPDF == 4 && <CircularProgress size={24} />}
                 </Button>
               </Tooltip>
             </div>
-            <div id="ProblemsByEnt">
-              <Typography variant="h4" gutterBottom component="h2">
-                Antall problemer løst av entreprenører
-              </Typography>
-              <Typography component="div" className={classes.chartContainer}>
-                <ProblemsByEnt />
-              </Typography>
-            </div>
+            <ProblemsByEnt  />
           </div>
           <div className="pdf-button-0">
             <Card align="center">
               <CardContent>
                 <Tooltip title="Én PDF, med de valgene du har nå" placement="top">
-                  <Button align="center" size="large" color="primary" variant="outlined"
+                  <Button
+                    align="center"
+                    size="large"
+                    color="primary"
+                    variant="outlined"
                     onClick={this.handleClickPDFAll}
                   >
-                    <Save/>
+                    <Save />
                     <Typography>Last ned PDF av alt</Typography>
-                    {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 0) && (
-                      <CircularProgress size={24} />
-                    )}
+                    {this.state.isLoadingPDF && this.state.indexLoadingPDF == 0 && <CircularProgress size={24} />}
                   </Button>
                 </Tooltip>
               </CardContent>

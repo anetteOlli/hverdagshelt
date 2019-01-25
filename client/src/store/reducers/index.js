@@ -53,6 +53,10 @@ type PromiseAction = Promise<Action>;
 type GetState = () => ReduxState;
 export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 
+/**
+ * The rootReducer that combines all the different reducers in the app.
+ */
+
 // $FlowFixMe
 export default combineReducers({
   user: userReducer,

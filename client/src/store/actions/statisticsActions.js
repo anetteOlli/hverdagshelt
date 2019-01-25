@@ -1,13 +1,23 @@
 // @flow
-import type { Action } from '../reducers/statisticsReducer';
+import type { Action as StatiAction } from '../reducers/statisticsReducer';
+import type { Action as NotifyAction } from '../reducers/notifyReducer';
 import type { ReduxState } from '../reducers';
 import { postData } from '../axios';
 import { enqueueSnackbar } from './notifyActions';
+
+/**
+ * @fileOverview The statistics redux actions that gets all the problems and changes the redux store, depending on what the user will display.
+ */
+type Action = NotifyAction | StatiAction;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
+/**
+ * Get all problems of the users municipality.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getProblemsByMuni = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems/municipality/sorted', getState().user.currentMuni)
@@ -36,25 +46,43 @@ export const getProblemsByMuni = () => {
   };
 };
 
-export const setSelectedMuni = selectedMonth => {
+/**
+ * Set the selected municipality that the user will display.
+ * @param selectedMuni
+ * @returns {function(Dispatch, GetState): *}
+ */
+export const setSelectedMuni = (selectedMuni: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return dispatch({
       type: 'SET_SELECTED_MUNI',
-      payload: selectedMonth
+      payload: selectedMuni
     });
   };
 };
-
+/**
+ * Updates the statistic reducer to display the problems data of the selected month.
+ * @param selectedMonth The selected month.
+ * @returns {{payload: string, type: string}}
+ */
 export const getProblemsByMonth = (selectedMonth: string): Action => ({
   type: 'GET_PROBLEMS_BY_MONTH',
   payload: selectedMonth
 });
-
+/**
+ * Updates the statistic reducer to display the problems data of the selected year.
+ * @param selectedYear The selected year.
+ * @returns {{payload: string, type: string}}
+ */
 export const getProblemsByYear = (selectedYear: string): Action => ({
   type: 'GET_PROBLEMS_BY_YEAR',
   payload: selectedYear
 });
 
+
+/**
+ * Get the all the categories to the statistics reducer.
+ * @returns {Function}
+ */
 export const getProblemsByCategory = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
@@ -74,54 +102,3 @@ export const getProblemsByEntrepreneur = () => {
     });
   };
 };
-
-/*
-export const getLineChartData = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/lineChartData', getState().statistic.selectedMuni).then(response =>
-      dispatch({
-        type: 'LINE_CHART_DATA_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'LINE_CHART_DATA_ERROR',
-          payload: error
-        })
-      )
-    );
-  };
-};
-
-export const getPieChartData = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/pieChartData', getState().statistic.selectedMuni).then(response =>
-      dispatch({
-        type: 'PIE_CHART_DATA_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'PIE_CHART_DATA_ERROR',
-          payload: error
-        })
-      )
-    );
-  };
-};
-
-export const getBarChartData = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    return postData('statistics/barChartData', getState().statistic.selectedMuni).then(response =>
-      dispatch({
-        type: 'BAR_CHART_DATA_SUCCESS',
-        payload: response.data
-      }).catch((error: Error) =>
-        dispatch({
-          type: 'BAR_CHART_DATA_ERROR',
-          payload: error
-        })
-      )
-    );
-  };
-};
-
- */

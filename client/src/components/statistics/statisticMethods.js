@@ -67,18 +67,13 @@ export const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string
     solvedTime: (new Date(p.date_finished).getTime() - new Date(p.date_made).getTime()) / (1000 * 3600 * 24),
     month: new Date(p.date_made).getMonth()
   }));
-  console.log('dddd', times);
-
-  console.log('ddd', problems);
-  const a = Array(12)
+  return Array(12)
     .fill(null)
     .map((v, i) => {
       const t = times.filter(t => t.month === i);
       const dager = t.length > 0 ? Math.floor(t.reduce((avg, { solvedTime },_, { length }) => avg + solvedTime / length, 0)) : 0;
       return { name: months[i], dager};
     });
-  console.log(a);
-  return a;
 };
 
 export const getCategoryProblemsByEntrepreneur = (
