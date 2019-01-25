@@ -48,6 +48,7 @@ class ForgotPassword extends React.Component<Props, State> {
   };
 
   handleChange = e => {
+    console.log('target.value = ' + e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
