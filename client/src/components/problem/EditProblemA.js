@@ -133,7 +133,9 @@ class EditProblemA extends React.Component<Props, State> {
 
   handleUpload = bool => e => {
     console.log(bool)
-    if (bool === 'e') {
+    if (bool === 'false') {
+
+      console.log("now you in here")
       this.setState({
         img_entrepreneur: URL.createObjectURL(e.target.files[0]),
         displayImg2: URL.createObjectURL(e.target.files[0])
@@ -349,10 +351,10 @@ class EditProblemA extends React.Component<Props, State> {
                               name="entImg"
                               id="contained-button-file2"
                               type="file"
-                              onChange={this.handleUpload('e')}
+                              onChange={this.handleUpload('false')}
                               style={{ display: 'none' }}
                             />
-                            <label htmlFor="contained-button-file">
+                            <label htmlFor="contained-button-file2">
                               <Button variant="contained" component="span">
                                 <CloudUploadIcon className="icon-button" />
                                 Last opp bilde
