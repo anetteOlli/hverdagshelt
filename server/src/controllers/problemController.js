@@ -277,6 +277,11 @@ function handleEdit(priority, id, json, callback) {
 */
 exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, callback) => {
   console.log('/problems/' + id + ' fikk edit request fra klient');
+
+  if(file_user.fieldname==='img_entrepreneur'){
+    file_entrepreneur = file_user;
+    file_user = undefined;
+  }
   switch (user.priority) {
     case 'Administrator':
       if (!(file_user === undefined) && file_entrepreneur === undefined) {
@@ -322,8 +327,8 @@ exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, c
         if (data[0].entrepreneur_id != json.entrepreneur_id) {
           callback(400, { message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         } else {
-          if (!(file_user === undefined)) {
-            image.uploadImage(file_user, url => {
+          if (!(file_entrepreneur === undefined)) {
+            image.uploadImage(file_entrepreneur, url => {
               json.img_entrepreneur = url;
               handleEdit('Entrepreneur', id, json, callback)
             });
