@@ -232,8 +232,7 @@ class MuiTable2 extends React.Component<Props> {
     let sort = rows;
     if (this.state.sort == 'support') {
       if (this.state.direction == 'asc') {
-        sort
-          .sort(function(a, b) {
+        sort.sort(function(a, b) {
             if(a.support == b.support){
               return a.date_made.localeCompare(b.date_made);
             }
@@ -250,8 +249,7 @@ class MuiTable2 extends React.Component<Props> {
       }
     } else if (this.state.sort == 'date') {
       if (this.state.direction == 'asc') {
-        sort
-          .sort(function(a, b) {
+        sort.sort(function(a, b) {
             return a.date_made.localeCompare(b.date_made);
           })
           .reverse();

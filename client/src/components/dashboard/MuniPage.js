@@ -153,16 +153,23 @@ class MuniPage extends React.Component<Props, State> {
   state = {
     municipality: '',
     municipalities: ['Default'],
-    value: 0
+    value: 0,
+
+    //Sorting
+    sortEvent: "nada",
+    sortProb: "nada",
+    direction: "asc"
   };
 
   render() {
     const { classes, events, problems, municounty } = this.props;
     const { value } = this.state;
     const { municipality } = this.props.match.params;
-    //console.log("Propbs", problems);
+    //console.log("state", this.state);
     var moment = require('moment');
     if (events == undefined) return <div />;
+    let myEvents = this.getSorted(true, events);
+    let myProblems = this.getSorted(false, problems);
     return (
       <main>
         <Grid container alignItems="center" alignContent="center">
@@ -200,9 +207,15 @@ class MuniPage extends React.Component<Props, State> {
                   </Tabs>
                   {value === 0 && (
                     <TabContainer>
+                      <Button size="medium" variant="contained" color="primary" onClick={this.sortEventDateStart}>
+                        Sorter på startsdato
+                      </Button>
+                      <Button size="medium" variant="contained" color="primary" onClick={this.sortEventDateEnd}>
+                        Sorter på sluttdato
+                      </Button>
                       {console.log('EVENTER: ', events)}
                       <Grid container spacing={32}>
-                        {events.map(event => (
+                        {myEvents.map(event => (
                           <Grid key={event.event_id} item lg={4} md={6} sm={12} sx={12}>
                             <Card className={classes.card}>
                               <CardMedia
@@ -267,9 +280,15 @@ class MuniPage extends React.Component<Props, State> {
                   )}
                   {value === 1 && (
                     <TabContainer>
+                      <Button size="medium" variant="contained" color="primary" onClick={this.sortProbDate}>
+                        Sorter på dato
+                      </Button>
+                      <Button size="medium" variant="contained" color="primary" onClick={this.sortProbSupport}>
+                        Sorter på støtte
+                      </Button>
                       {console.log('PROBLEMER: ', problems)}
                       <Grid container spacing={24}>
-                        {problems.map(problem => (
+                        {myProblems.map(problem => (
                           <Grid key={problem.problem_id} item lg={4} md={6} sm={12} sx={12}>
                             <Card className={classes.card}>
                               <CardMedia
@@ -363,6 +382,131 @@ class MuniPage extends React.Component<Props, State> {
     const { county, municipality } = this.props.match.params;
     this.props.getEvents(municipality, county);
     this.props.getProblems(municipality, county);
+  }
+
+  /** Helping function for sorting asc and desc. Toggles between them*/
+  directionHandler(){
+    if (this.state.direction == 'asc') {
+      this.setState({
+        direction: 'desc'
+      });
+    } else {
+      this.setState({
+        direction: 'asc'
+      });
+    }
+  }
+
+  /** Button event for sorting by support*/
+  sortProbSupport = e => {
+    console.log('Sorting prob by support');
+    if (this.state.sortProb == 'support') {
+      this.directionHandler();
+    }
+    this.setState({
+      sortProb: 'support'
+    });
+  };
+
+  /** Button event for sorting by date */
+  sortProbDate = e => {
+    console.log('Sorting prob by date');
+    if (this.state.sortProb == 'date') {
+      this.directionHandler();
+    }
+    this.setState({
+      sortProb: 'date'
+    });
+  };
+
+  /** Button event for sorting by date_starting */
+  sortEventDateStart = e => {
+    console.log('Sorting events by dateStart');
+    if (this.state.sortEvent == 'dateStart') {
+      this.directionHandler();
+    }
+    this.setState({
+      sortEvent: 'dateStart'
+    });
+  };
+
+  /** Button event for sorting by date_ending */
+  sortEventDateEnd = e => {
+    console.log('Sorting events by date');
+    if (this.state.sortEvent == 'dateEnd') {
+      this.directionHandler();
+    }
+    this.setState({
+      sortEvent: 'dateEnd'
+    });
+  };
+
+  /** Sorts problems or events
+   * @params events, a boolean: true if rows contains events
+   * @params rows, array of problems or events
+   * */
+  getSorted(events: boolean, rows: any) {
+    let sort = rows;
+    //console.log("Getting sorted: ", rows);
+    if(events){
+      //Events
+      //console.log("Events: ", sort);
+      if (this.state.sortEvent == 'dateStart') {
+        sort.sort(function(a, b) {
+          if(a.date_starting == b.date_starting){
+            return a.date_ending.localeCompare(b.date_ending);
+          }
+          return a.date_starting.localeCompare(b.date_starting);
+        });
+        if (this.state.direction == 'asc') {
+          sort.reverse();
+        }
+      } else if (this.state.sortEvent == 'dateEnd') {
+        sort.sort(function(a, b) {
+          if(a.date_ending == b.date_ending){
+            return a.date_starting.localeCompare(b.date_starting);
+          }
+          return a.date_ending.localeCompare(b.date_ending);
+        });
+        if (this.state.direction == 'asc') {
+          sort.reverse();
+        }
+      }
+    }
+    else{
+      //probs
+      //console.log("Prob");
+      if (this.state.sortProb == 'support') {
+        if (this.state.direction == 'asc') {
+          sort.sort(function(a, b) {
+            if(a.support == b.support){
+              return a.date_made.localeCompare(b.date_made);
+            }
+            return a.support - b.support;
+          })
+          .reverse();
+        } else {
+          sort.sort(function(a, b) {
+            if(a.support == b.support){
+              return a.date_made.localeCompare(b.date_made);
+            }
+            return a.support - b.support;
+          });
+        }
+      } else if (this.state.sortProb == 'date') {
+        if (this.state.direction == 'asc') {
+          sort.sort(function(a, b) {
+            return a.date_made.localeCompare(b.date_made);
+          })
+          .reverse();
+        } else {
+          sort.sort(function(a, b) {
+            return a.date_made.localeCompare(b.date_made);
+          });
+        }
+      }
+    }
+  return sort;
   }
 }
 
