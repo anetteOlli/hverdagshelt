@@ -20,6 +20,7 @@ module.exports = class EventDao extends Dao {
   }
 
   createOne(json, callback) {
+    console.log('CreateOne Event DAO');
     const newContent = [
       json.event_name,
       json.event_description,

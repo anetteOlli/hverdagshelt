@@ -20,6 +20,12 @@ router.get('/e_id/:id', (req, res) => {
   });
 });
 
+router.get('/problem/:problem_id', (req, res) => {
+  EntrepreneurController.getEntrepreneurByProblem(req.params.problem_id, (status, data) => {
+    res.status(status).json(data);
+  });
+});
+
 router.get('/:id', (req, res) => {
   EntrepreneurController.entrepreneurs_get_one(req.params.id, (status, data) => {
     res.status(status).json(data);
