@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 /*---      Verify token       ---*/
+
 export const checkAuth = (req: () => mixed, res: express$Response, next: express$NextFunction): void => {
   try {
     const token = req.headers.authorization.split(' ')[1];
