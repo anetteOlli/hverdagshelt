@@ -170,8 +170,8 @@ function getStepContent(step: number,
                 autoComplete="title"
                 value={state.title}
                 onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en tittel']}
+                validators={['required', 'minStringLength:5', 'maxStringLength:50']}
+                errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 50 bokstaver i tittelen']}
               />
               <TextValidator
                 multiline
@@ -184,8 +184,8 @@ function getStepContent(step: number,
                 autoComplete="description"
                 value={state.description}
                 onChange={handleChange}
-                validators={['required']}
-                errorMessages={['Du må skrive inn en beskrivelse']}
+                validators={['required', 'maxStringLength:300', 'minStringLength:10']}
+                errorMessages={['Du må skrive inn en beskrivelse', 'Beskrivelsen kan være maks 300 ord', 'Beskrivelsen må være minst 10 ord']}
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container className={classes.grid} justify="space-around">
