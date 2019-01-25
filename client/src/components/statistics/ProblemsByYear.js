@@ -60,7 +60,7 @@ class ProblemsByYear extends React.Component<Props, State> {
       <div>
         <Toolbar>
         <Typography variant="h4" gutterBottom component="h2">
-          Gjennomsnittlig antall dager det tok for å løse problemer i månden
+          Tid for fiksing av problemer
         </Typography>
           <FormControl className={classes.formControl}>
             <Select label="Velg år" name="selectedYear" value={this.state.selectedYear} onChange={this.handleChange}>
