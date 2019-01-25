@@ -23,12 +23,12 @@ class ImageHostController {
 
   uploadImage(file, callback) {
     if (!imgFilter(file)) {
-      callback({ Error: 'File not accepted' });
+      return callback({ Error: 'File not accepted' });
     }
     let bufferedFile = this.dataUri(file);
     cloudinary.v2.uploader.upload(bufferedFile.content, function(error, result) {
       if (!error) {
-        callback(result.url);
+        return callback(result.url);
       } else {
         console.log(error);
       }
@@ -37,5 +37,5 @@ class ImageHostController {
 }
 module.exports = {
   ImageHostController: new ImageHostController(),
-  uploader: upload.single('image')
+  uploader: upload.any()
 };

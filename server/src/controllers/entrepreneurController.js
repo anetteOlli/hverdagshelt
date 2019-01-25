@@ -21,6 +21,13 @@ exports.entrepreneurs_get_one = (id, callback) => {
   });
 };
 
+exports.getEntrepreneurByProblem = (problem_id, callback) => {
+  console.log('Handling GET requests to /entrepreneurs/problem/' + problem_id);
+  entrepreneurDao.getEntrepreneurByProblem(problem_id, (status, data) => {
+    callback(status, data[0]);
+  });
+};
+
 exports.entrepreneurs_get_one_by_user_id = (id, callback) => {
   console.log('Handling GET requests to /entrepreneurs/id/' + id);
   entrepreneurDao.getEntrepreneurByUserID(id, (status, data) => {
