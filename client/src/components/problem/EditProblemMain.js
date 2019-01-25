@@ -143,7 +143,6 @@ class EditProblemMain extends React.Component<Props, State> {
     const { classes, problems, user_id } = this.props;
     bool = this.props.editMode;
     console.log('user_id', user_id);
-
     const main = (
       <div>
         <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
@@ -189,7 +188,12 @@ class EditProblemMain extends React.Component<Props, State> {
   componentDidMount() {
     this.props.getUserInfo().then(() => {
       this.props.entrepreneurs_get_one_by_user_id().then(() => {
-        this.props.getProblemByUser();
+        this.props.getProblemByUser().then(()=>{
+            if(this.props.problems.length > 0){
+              console.log("abc", this.props.problems);
+              this.props.goToProblemDetail(this.props.problems[0].problem_id);
+            }
+          });
         this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
       });
     });
