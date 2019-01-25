@@ -7,6 +7,10 @@ import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 
+/**
+ * @DEPRECATED
+ * @SEE ChangePassword
+ */
 type Props = {
   classes: Object,
   history: any

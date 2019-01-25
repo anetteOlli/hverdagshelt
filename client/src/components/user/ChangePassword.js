@@ -32,6 +32,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+/**
+ * @fileOverview changePassword component
+ * @author Anette Olli Siiri
+ */
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
@@ -81,6 +86,9 @@ const MenuProps = {
   }
 };
 
+/**
+ * changePassword component
+ */
 class ChangePassword extends React.Component<Props, State> {
   state = {
     email: '',
@@ -192,7 +200,7 @@ class ChangePassword extends React.Component<Props, State> {
                 type={this.state.showPassword ? 'text' : 'password'}
                 value={this.state.password}
                 onChange={this.handleChange}
-                validators={['required', 'minStringLength:6']}
+                validators={['required', 'minStringLength:6', 'maxStringLength:30']}
                 errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
                 InputProps={{
                   endAdornment: (

@@ -12,6 +12,10 @@ let divDao = new DivDao(pool);
 let entDao = new EntDao(pool);
 let userDao = new UserDao(pool);
 
+/**
+ * Method for getting all the problems in the system
+ * @param callback returns status and data from problemdao
+ */
 exports.problems_get_all = callback => {
   console.log('Handling GET requests to /problems');
   problemDao.getAll((status, data) => {
@@ -20,6 +24,11 @@ exports.problems_get_all = callback => {
   });
 };
 
+/**
+ * Method for getting a problem given a id
+ * @param id Id of the specific problem you want to fetch
+ * @param callback Returns status and data from the problemDao
+ */
 exports.problems_get_problem = (id, callback) => {
   console.log('/problems/' + id + ' fikk GET request fra klient');
   problemDao.getOne(id, (status, data) => {
@@ -27,6 +36,12 @@ exports.problems_get_problem = (id, callback) => {
   });
 };
 
+/**
+ * Method for supporting a problem. Method takes in and id and connects problem with a new user, and sends a mail on the first support
+ * @param id id of the user that supports the problem
+ * @param json Object containing information about the problem
+ * @param callback Returns status and data from the eventDao
+ */
 exports.problems_support_problem = (id, json, callback) => {
   console.log('/problems/' + id + 'fikk PATCH request fra klient');
   console.log('user_id/ProblemID:' + json.user_id + '/' + json.problemId);
@@ -58,6 +73,11 @@ exports.problems_support_problem = (id, json, callback) => {
   });
 };
 
+/**
+ * Method for getting all the problems given a Municipality
+ * @param json Object containing the county and municipality
+ * @param callback Returns the status and data from the problemDao
+ */
 exports.problems_get_from_municipality = (json, callback) => {
   console.log('/problems/municipality/' + json.municipality + '(' + json.county + ') fikk GET request fra klient');
   problemDao.getFromMunicipality(json, (status, data) => {
@@ -65,6 +85,11 @@ exports.problems_get_from_municipality = (json, callback) => {
   });
 };
 
+/**
+ * Method for getting all the problems in a given street in a municipality
+ * @param json Object containing street, municipality and county for wanted problem
+ * @param callback Returns status and data from the problemDao
+ */
 exports.problems_get_from_municipality_and_street = (json, callback) => {
   if (json.county === 'Sør-Trøndelag' || json.county === 'Nord-Trøndelag') json.county = 'Trøndelag';
   console.log(
@@ -82,6 +107,11 @@ exports.problems_get_from_municipality_and_street = (json, callback) => {
   });
 };
 
+/**
+ * Method for getting all problems from a municipality sorted
+ * @param json Object containing municipality and county
+ * @param callback returns status and data from problemDao
+ */
 exports.problems_get_from_municipality_sorted = (json, callback) => {
   if (json.county === 'Sør-Trøndelag' || json.county === 'Nord-Trøndelag') json.county = 'Trøndelag';
   console.log(
@@ -92,6 +122,12 @@ exports.problems_get_from_municipality_sorted = (json, callback) => {
   });
 };
 
+/**
+ * Method for creating a problem, will return specific errors depending on which branch "crashes"
+ * @param file Image file for eventual uploads to the system
+ * @param json Object containing all problemdetails
+ * @param callback Returns status and data from the problemDao
+ */
 exports.problems_create_problem = (file, json, callback) => {
   console.log('Fikk POST-request fra klienten');
   if (json.county === 'Nord-Trøndelag' || json.county === 'Sør-Trøndelag') json.county = 'Trøndelag';
@@ -119,6 +155,13 @@ exports.problems_create_problem = (file, json, callback) => {
     }
   });
 
+  /**
+   * Helper function to minimize duplicate code
+   * @param status Status code returned from the eventDao
+   * @param data Data returned from the eventDao
+   * @param json Object containing all the event information
+   * @param callback returns status and data given different situations/branches
+   */
   function handleError(status, data, json, callback) {
     if (status === 500) {
       divDao.createCity(json.city, () => {
@@ -135,7 +178,13 @@ exports.problems_create_problem = (file, json, callback) => {
     }
   }
 };
-
+/**
+ * Method for deleting a problem given a specific id, checks if the user sending the query
+ * is privileged to delete it or if the problem is locked
+ * @param id Id of the problem wanted to be deleted
+ * @param user Object containing information about the user
+ * @param callback Returns data and status
+ */
 exports.problems_delete_problem = (id, user, callback) => {
   console.log('/problems/' + id + ' fikk delete request fra klient');
   console.log(user);
@@ -155,26 +204,73 @@ exports.problems_delete_problem = (id, user, callback) => {
   }
 };
 
-exports.problems_edit_problem = (id, json, user, file, callback) => {
+function handleEdit(id, json, callback) {
+  problemDao.patchAdministrator(id, json, (status, data) => {
+    if (status === 200) {
+      problemDao.getAllUsersbyProblemId(id, (status, data) => {
+        console.log('DATA ADMINISTRATOR', data);
+        MailController.sendMassMail({
+          recepients: data,
+          text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+          html: ''
+        });
+      });
+    }
+    callback(status, { img_user: json.img_user, img_entrepreneur: json.img_entrepreneur });
+  });
+}
+
+/**
+* Method for editing a problem, different editing rights given by the priority level the user object
+* contains
+* @param id ID of the problem you want to update/edit
+* @param json Object containing the new details
+* @param user Object containing all the information about the user
+* @param file_user Image file that will be uploaded to and linked to the IMG_user
+* @param file_entrepreneur Image file that will be uploaded to and linked to the IMG_entrepreneur
+* @param callback returns data and status
+*/
+exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, callback) => {
   console.log('/problems/' + id + ' fikk edit request fra klient');
   switch (user.priority) {
     case 'Administrator':
-      problemDao.patchAdministrator(id, json, (status, data) => {
-        if (status === 200) {
-          problemDao.getAllUsersbyProblemId(id, (status, data) => {
-            console.log('DATA ADMINISTRATOR', data);
-            MailController.sendMassMail({
-              recepients: data,
-              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-              html: ''
-            });
+      console.log('FILE IN CONTROLLER:', file_user);
+      console.log('FILE IN CONTROLLER: ', file_entrepreneur);
+      if (!(file_user === undefined) && file_entrepreneur === undefined) {
+        image.uploadImage(file_user, url => {
+          json.img_user = url;
+          console.log('url: ' + url + '\n img_user: ' + json.img_user);
+          handleEdit(id, json, callback);
+        });
+      }
+      if (!(file_entrepreneur === undefined) && file_user === undefined) {
+        image.uploadImage(file_entrepreneur, url => {
+          json.img_entrepreneur = url;
+          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
+          handleEdit(id, json, callback);
+        });
+      }
+      if (!(file_entrepreneur === undefined) && !(file_user === undefined)) {
+        image.uploadImage(file_entrepreneur, url => {
+          json.img_entrepreneur = url;
+          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
+          image.uploadImage(file_user, url => {
+            json.img_user = url;
+            console.log('url: ' + url + '\n img_user: ' + json.img_user);
+            handleEdit(id, json, callback);
           });
-        }
-        callback(status, data);
-      });
+        });
+      }
+      if (file_entrepreneur === undefined && file_user === undefined) {
+        handleEdit(id, json, callback);
+      }
       break;
-
     case 'Municipality':
+      if (!(file_user === undefined)) {
+        image.uploadImage(file, url => {
+          json.img_user = url;
+        });
+      }
       problemDao.patchMunicipality(id, json, (status, data) => {
         if (status === 200) {
           problemDao.getAllUsersbyProblemId(id, (status, data) => {
@@ -189,42 +285,47 @@ exports.problems_edit_problem = (id, json, user, file, callback) => {
         callback(status, data);
       });
       break;
-
     case 'Entrepreneur':
-      entDao.getEntrepreneur(id, (status, data) => {
-        if (data[0].user_id !== user.id)
+      entDao.getEntrepreneur(json.entrepreneur_id, (status, data) => {
+        console.log('ProbController ---- Data: ' + data + ', data[0]: ' + data[0].entrepreneur_id);
+        if (data[0].entrepreneur_id !== json.entrepreneur_id) {
           callback(400, { message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
-        else if (!(file === undefined)) {
-          image.uploadImage(file, url => {
-            json.img_entrepreneur = url;
-          });
-        }
-        problemDao.patchEntrepreneur(id, json, (status, data) => {
-          if (status === 200) {
-            problemDao.getAllUsersbyProblemId(id, (status, data) => {
-              console.log('DATA ENTREPRENEUR', data);
-              MailController.sendMassMail({
-                recepients: data,
-                text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-                html: ''
-              });
+        } else {
+          if (!(file_entrepreneur === undefined)) {
+            image.uploadImage(file, url => {
+              json.img_entrepreneur = url;
             });
           }
-          callback(status, data);
-        });
+          problemDao.patchEntrepreneur(id, json, (status, data) => {
+            if (status === 200) {
+              problemDao.getAllUsersbyProblemId(id, (status, data) => {
+                console.log('DATA ENTREPRENEUR', data);
+                MailController.sendMassMail({
+                  recepients: data,
+                  text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+                  html: ''
+                });
+              });
+            }
+            callback(status, data);
+          });
+        }
       });
       break;
     default:
-      if (json.problem_locked) callback(300, { message: 'problem is locked' });
-      if (user.user.id !== data[0].user_id)
-        callback(420, { message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
-      else if (!(file === undefined)) {
-        image.uploadImage(file, url => {
-          json.user_img = url;
+      if (json.problem_locked) return callback(300, { message: 'problem is locked' });
+      problemDao.getOne(id, (status, data) => {
+        console.log('in Problemcontroller: user.id = ' + user.id + ' data[0}.user_id = ' + data[0].user_id);
+        if (user.id !== data[0].user_id) {
+          return callback(420, { message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
+        } else if (!(file_user === undefined)) {
+          image.uploadImage(file, url => {
+            json.img_user = url;
+          });
+        }
+        problemDao.patchStandard(id, json, (status, data) => {
+          return callback(status, data);
         });
-      }
-      problemDao.patchStandard(id, false, json, (status, data) => {
-        callback(status, data);
       });
   }
 };

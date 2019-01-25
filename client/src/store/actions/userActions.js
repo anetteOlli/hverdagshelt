@@ -15,7 +15,6 @@ export const getUserInfo = () => {
     console.log('GET STATE, GET STATE ', getState().user.user_id);
     return getData(`users/${getState().user.user_id}`)
       .then(response => {
-        console.log('Rsp userInfo: ', response.data);
         dispatch({
           type: 'GET_USER_INFO_SUCCESS',
           payload: response.data

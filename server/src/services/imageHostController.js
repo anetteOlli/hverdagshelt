@@ -18,17 +18,20 @@ const imgFilter = (file: multer): void => {
   return file.originalname.match(/\.(jpg|jpeg|png|gif)$/);
 };
 
+/**
+ * Class for handling the upload image functionality on the backend
+ */
 class ImageHostController {
   dataUri = file => dUri.format(path.extname(file.originalname).toString(), file.buffer);
 
   uploadImage(file, callback) {
     if (!imgFilter(file)) {
-      callback({ Error: 'File not accepted' });
+      return callback({ Error: 'File not accepted' });
     }
     let bufferedFile = this.dataUri(file);
     cloudinary.v2.uploader.upload(bufferedFile.content, function(error, result) {
       if (!error) {
-        callback(result.url);
+        return callback(result.url);
       } else {
         console.log(error);
       }
@@ -37,5 +40,5 @@ class ImageHostController {
 }
 module.exports = {
   ImageHostController: new ImageHostController(),
-  uploader: upload.single('image')
+  uploader: upload.any()
 };

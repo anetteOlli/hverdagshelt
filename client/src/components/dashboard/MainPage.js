@@ -19,6 +19,11 @@ import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 import type { Dispatch, ReduxState } from '../../store/reducers';
 
+/**
+ * @fileOverview overview page for events and problems
+ * @author Elisabeth Marie Opsahl
+ */
+
 /**Props og State*/
 type Props = {
   classes: Object

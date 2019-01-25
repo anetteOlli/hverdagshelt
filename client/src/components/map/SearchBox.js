@@ -12,11 +12,15 @@ type Props = {
 };
 
 /**
- * google api key used for using google-map-react
- **/
+ * @fileOverview SearchBox component that can will place marker when user clicks on map or uses the SearchBox. Uses API_KEY from google api.
+ */
+
 let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
-type State = {};
+/**
+ * @return the searchBox component
+ * @params mapsapi: google-map object
+ **/
 class SearchBox extends Component<Props, State> {
   static propTypes = {
     mapsapi: PropTypes.shape({

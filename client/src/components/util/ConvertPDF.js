@@ -32,20 +32,37 @@ import jsPDF from 'jspdf';
  * @Author Sindre H. Paulshus
  * Courtesy of https://medium.com/@shivekkhurana/how-to-create-pdfs-from-react-components-client-side-solution-7f506d9dfa6d
  * Works like this: Wrap what u want to be pdf-d (react components) in a div with an id (or ids), pass that(those) id(s) to either
- * convertSingle or convertMultiple with a name ConvertPDF will then download the pdf for you
+ * convertSingle or convertMultiple with a name, height, width and callback. ConvertPDF will then download the pdf for you
  */
 
+ /**
+  * Function for converting a single react component to pdf.
+  * @params input: a single react component,
+  * @params name: a string, name of pdf
+  * @params height: number, height of pdf pages
+  * @params width: number, width of pdf pages
+  * @params callback: function to call when done
+  */
 export function convertSingleToPDF(input: any, name: string, height: number, width: number, callback: function) {
   html2canvas(input).then(canvas => {
     const imgData = canvas.toDataURL('image/png');
 
-    const pdf = new jsPDF("landscape", "mm", [width, height]);
+    //                               landscape makes it width x height
+    const pdf = new jsPDF("landscape", "mm", [height, width]);
     pdf.addImage(imgData, 'PNG', 0, 0);
     pdf.save(name + '.pdf');
     callback();
   });
 }
 
+/**
+ * Function for converting multiple react components to pdf. Each component gets its own page in the pdf.
+ * @params input: an array of react components,
+ * @params name: a string, name of pdf
+ * @params height: number, height of pdf pages
+ * @params width: number, width of pdf pages
+ * @params callback: function to call when done
+ */
 export function convertMultipleToPDF(input: [], name: string, height: number, width: number, callback: function) {
   const pdf = new jsPDF("landscape", "mm", [width, height]);
   console.log(Array.from(input));
@@ -67,7 +84,7 @@ export function convertMultipleToPDF(input: [], name: string, height: number, wi
 }
 
 /**
-* Experimental component
+* Experimental component which was going to be a download pdf button you could import anywhere
 */
 export function PDFButton(props){
   return(
@@ -86,16 +103,3 @@ export function PDFButton(props){
     </div>
   );
 }
-
-/*
-<Button variant="contained" onClick={ () =>{
-  const input = [
-    document.getElementById('5/5'),
-    document.getElementById('4/5'),
-    document.getElementById('2/5')
-  ];
-  convertMultipleToPDF(input, "All");
-  }}>
-  Convert me to PDF
-</Button>
-*/
