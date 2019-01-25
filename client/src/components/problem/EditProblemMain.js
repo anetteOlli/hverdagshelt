@@ -156,7 +156,6 @@ class EditProblemMain extends React.Component<Props, State> {
               height={'40%'}
               onClick={e => {
                 let myProblem = e;
-                this.props.entrepreneurs_get_one_by_entrepreneur_id(myProblem.entrepreneur_id)
                 this.props.goToProblemDetail(myProblem.problem_id);
               }}
             />

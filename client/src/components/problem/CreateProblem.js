@@ -281,8 +281,8 @@ function getStepContent(step: number, state: State,
               autoComplete="title"
               value={state.title}
               onChange={handleChange}
-              validators={['required', 'minStringLength:5', 'maxStringLength:50']}
-              errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 50 bokstaver i tittelen']}
+              validators={['required', 'minStringLength:5', 'maxStringLength:30']}
+              errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 30 bokstaver i tittelen']}
             />
             <TextValidator
               multiline

@@ -3,7 +3,7 @@ const Dao = require('./dao.js');
 
 module.exports = class ProblemDao extends Dao {
   getAll(callback: function) {
-    super.query('SELECT * FROM problem', [], callback);
+    super.query('SELECT * FROM problem where date_finished IS NULL ', [], callback);
   }
 
   getAllFromUserUnchecked(id: number, callback: function) {
