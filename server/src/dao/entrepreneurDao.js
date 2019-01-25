@@ -49,7 +49,11 @@ module.exports = class EntrepreneurDao extends Dao {
     super.query('select * from entrepreneur WHERE entrepreneur_id = ?', [id], callback);
   }
 
-
+  /**
+   * Retrieves the entrepreneur from the database, if there is an entrepreneur connected to the user who submitted the problem.
+   * @param problem_id ID of the problem.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getEntrepreneurByProblem(problem_id, callback){
     super.query('select * from entrepreneur WHERE user_id = (select user_id from problem where problem_id = ?)', [problem_id], callback)
   }
