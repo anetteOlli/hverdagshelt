@@ -13,6 +13,12 @@ const initState = {
   errorMessage: ''
 };
 
+/**
+ * The categoryReducer stores the redux state of categories.
+ * @param state Current state of the categoryReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the categoryReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_CATEGORY_SUCCESS':

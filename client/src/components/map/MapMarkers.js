@@ -8,8 +8,11 @@ import withRoot from '../../withRoot';
 import { getProblemsByMuni, goToProblemDetail } from '../../store/actions/problemActions';
 import { Pointer, PointerCurrent } from './pointer';
 
-/** API_KEY from google api. **/
-let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
+/** API_KEY from google api.
+ * @fileOverview MapMarkers component, modified so that it only places one marker.
+ *
+ **/
+const API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
   problems: problem[],
@@ -54,15 +57,20 @@ type State = {
 };
 
 /**
- * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
- * as we don't want the map to load each time a user clicks on the map, we are splitting those variables into to different locations
- * Changing center in already loaded map is bug-hell, dont
+ *  @params lat : latitude of the marker placed on the map
+ * @params lng: longitude of the marker placed on the map
+ * @params Center: lat & lng of the center of the map. Cannot be changed once the google-map-react component has loaded.
+ * @return the map component with a single map marker
+ * @params zoom: how detailed the map will displayed
+ * @params mapsApiLoaded: used by google-map-react component. Once the mapsApiLoaded is true, the component is ready to use google-map api
+ * @params mapsapi: google-map object
+ * @params hasLoaded: ensures that the map does not load before the center has been chosen.
  **/
 class MapMarkers extends React.Component<Props, State> {
+  // $FlowFixMe
   state = {
     zoom: 13,
     mapsApiLoaded: false,
-    mapInstance: null,
     mapsapi: null,
     map: null,
     googlemaps: null,
@@ -89,6 +97,7 @@ class MapMarkers extends React.Component<Props, State> {
   };
 
   render() {
+    // $FlowFixMe
     const { apiReady, googlemaps, map, mapsapi, zoom, hasLoaded } = this.state;
     const { problems, currentProblemId } = this.props;
     if (hasLoaded) {
@@ -154,6 +163,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   mapDispatchToProps

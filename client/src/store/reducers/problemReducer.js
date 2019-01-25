@@ -46,7 +46,12 @@ export type Action =
   | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
-  | { type: 'SET_MUNI', payload: any };
+  | { type: 'PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_ADMINISTRATOR_USER_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_STANDARD_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_STANDARD_USER_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_ENTREPRENEUR_USER_ERROR', payload: Error };
 
 const initState = {
   problems: [
@@ -81,6 +86,12 @@ const initState = {
   currentMuni: { municipality: '', county: '' }
 };
 
+/**
+ * The problemReducer stores the redux state of all the problems in the app.
+ * @param state Current state of the problemReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the problemReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_PROBLEM_SUCCESS':

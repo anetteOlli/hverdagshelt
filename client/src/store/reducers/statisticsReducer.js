@@ -23,10 +23,14 @@ export type State = {
 export type Action =
   | { type: 'GET_ALL_PROBLEMS_SUCCESS', payload: Problem[] }
   | { type: 'GET_ALL_PROBLEMS_ERROR', payload: Error }
-  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string };
+  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string }
+  | { type: 'GET_PROBLEMS_BY_CATEGORY', payload: string[] }
+  | { type: 'SET_SELECTED_MUNI', payload: string }
+  | { type: 'GET_PROBLEMS_BY_ENTREPRENEUR', payload: any }
+  | { type: 'GET_PROBLEMS_BY_YEAR', payload: string };
 
 const initState = {
-  lineChartData: { problemsByMonthData: [] },
+  lineChartData: { problemsByMonthData: [], problemsByYearData: [] },
   pieChartData: { categoryData: [], entrepreneurData: [] },
   barChartData: [],
   problems: [],
@@ -35,6 +39,12 @@ const initState = {
   dropDownMonths: []
 };
 
+/**
+ * The statisticsReducer stores the redux state of all the statistics in the app.
+ * @param state Current state of the statisticsReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the statisticsReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_ALL_PROBLEMS_SUCCESS':

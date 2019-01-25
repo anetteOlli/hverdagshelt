@@ -27,6 +27,13 @@ const initState = {
   }
 };
 
+/**
+ * The mapReducer stores the redux state of the current marker location and address.
+ * @param state Current state of the mapReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the mapReducer.
+ */
+
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'UPDATE_MAP':

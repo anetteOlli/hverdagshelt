@@ -71,7 +71,7 @@ module.exports = class ProblemDao extends Dao {
 
 
   patchAdministrator(id, json, callback) {
-    console.log('patch admin: ' + json.problem_title);
+    console.log('patch admin: ' + json.problem_title + "\n img_userDAO: " + json.img_user + "\n img_entreprenørDAO: " + json.img_entrepreneur);
     const values = [
       json.problem_title,
       json.problem_description,
@@ -83,7 +83,7 @@ module.exports = class ProblemDao extends Dao {
       id
       ];
       super.query(
-        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?, img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
         values,
         callback
       );

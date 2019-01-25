@@ -2,13 +2,21 @@
 import type { Action } from '../reducers/categoryReducer';
 import type { ReduxState } from '../reducers';
 import { postData, deleteData, getData } from '../axios';
+/**
+ * @fileOverview The category redux actions that creates, deletes and removes categories.
+ */
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
-export const createCategory = (newCategory: JSON) => {
+/**
+ * Creates a new category
+ * @param newCategory The name of the new category.
+ * @returns {function(Dispatch, GetState): *}
+ */
+export const createCategory = (newCategory: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('categories', newCategory)
       .then(() =>
@@ -24,6 +32,11 @@ export const createCategory = (newCategory: JSON) => {
       );
   };
 };
+/**
+ * Deletes a selected category.
+ * @param id The id of the selected category to delete.
+ * @returns {function(Dispatch, GetState): *}
+ */
 
 export const deleteCategory = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -42,6 +55,10 @@ export const deleteCategory = (id: number) => {
   };
 };
 
+/**
+ * Gets all categories in the database.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getCategories = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('categories')
