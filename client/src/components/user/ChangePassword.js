@@ -200,7 +200,7 @@ class ChangePassword extends React.Component<Props, State> {
                 type={this.state.showPassword ? 'text' : 'password'}
                 value={this.state.password}
                 onChange={this.handleChange}
-                validators={['required', 'minStringLength:6']}
+                validators={['required', 'minStringLength:6', 'maxStringLength:30']}
                 errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
                 InputProps={{
                   endAdornment: (
