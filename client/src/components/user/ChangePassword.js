@@ -32,6 +32,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+/**
+ * @fileOverview changePassword component
+ */
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
@@ -81,6 +85,9 @@ const MenuProps = {
   }
 };
 
+/**
+ * changePassword component
+ */
 class ChangePassword extends React.Component<Props, State> {
   state = {
     email: '',
