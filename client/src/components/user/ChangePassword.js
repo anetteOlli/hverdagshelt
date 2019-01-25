@@ -32,6 +32,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+/**
+ * @fileOverview user change password component
+ * @author Anette Olli Siiri
+ */
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean,

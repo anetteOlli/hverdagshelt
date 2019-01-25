@@ -40,6 +40,9 @@ import { easyDateFormat } from '../util/DateFormater';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
  * Styles the expansionpanels!
+ * @fileOverview Muitable's Sequel. A table of myProblems
+ * @author Sindre H. Paulshus
+ * @see CreateProblem and ProblemDetails
  */
 const ExpansionPanel = withStyles({
   root: {

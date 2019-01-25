@@ -31,7 +31,7 @@ import { purple, red, green, orange, yellow } from '@material-ui/core/colors';
 
 /**
  * @DEPRECATED
- * @SEE MuiTable-2.js
+ * @see MuiTable-2.js
  * @fileOverview Material UI Table Component. Used with Events and problems.
  * @author Sindre H. Paulshus
  * @see https://material-ui.com/demos/tables/

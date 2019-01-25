@@ -20,10 +20,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getEventsByMuni, deleteEvent } from '../../store/actions/eventActions';
 import { getProblemsByMuni } from '../../store/actions/problemActions';
-import { CheckCircle, ThumbUp } from '@material-ui/icons';
+import { CheckCircle, ThumbUp, WarningOutlined } from '@material-ui/icons';
 import moment from 'moment';
 import 'moment/locale/nb';
 moment.locale('nb');
+
+/**
+ * @fileOverview overview page for events and problems
+ * @author Elisabeth Marie Opsahl
+ */
 
 type Props = {
   classes: Object,
@@ -261,12 +266,13 @@ class MuniPage extends React.Component<Props, State> {
                                   <Grid item md={4}>
                                     <Button
                                       align="right"
-                                      variant="contained"
-                                      color="primary"
+                                      variant="outlined"
                                       size="large"
+                                      color="primary"
                                       className={classes.button}
                                       onClick={() => this.deleteEvent(event.event_id)}
                                     >
+                                    <WarningOutlined color="error"/>
                                       Slett
                                     </Button>
                                   </Grid>
@@ -369,7 +375,9 @@ class MuniPage extends React.Component<Props, State> {
     this.props.history.push('/lagproblem');
   }
 
-  /**User deletes the event */
+  /**User deletes the event
+   * @params id: id of the event to delete
+   * */
   deleteEvent = (id: number) => {
     const { county, municipality } = this.props.match.params;
     console.log(county + ' / ' + municipality);
@@ -441,9 +449,10 @@ class MuniPage extends React.Component<Props, State> {
     });
   };
 
-  /** Sorts problems or events
+  /** Sorts problems or events.
    * @params events, a boolean: true if rows contains events
-   * @params rows, array of problems or events
+   * @params rows, array of problems or events (not a mixed array)
+   * @return the sorted array
    * */
   getSorted(events: boolean, rows: any) {
     let sort = rows;
