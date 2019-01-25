@@ -155,27 +155,63 @@ exports.problems_delete_problem = (id, user, callback) => {
   }
 };
 
-exports.problems_edit_problem = (id, json, user, file, callback) => {
+function handleEdit(id, json, callback) {
+  problemDao.patchAdministrator(id, json, (status, data) => {
+    if (status === 200) {
+      problemDao.getAllUsersbyProblemId(id, (status, data) => {
+        console.log('DATA ADMINISTRATOR', data);
+        MailController.sendMassMail({
+          recepients: data,
+          text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+          html: ''
+        });
+      });
+    }
+    callback(status, { img_user: json.img_user, img_entrepreneur: json.img_entrepreneur });
+  });
+}
+
+exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, callback) => {
   console.log('/problems/' + id + ' fikk edit request fra klient');
-  console.log('ddd', user);
   switch (user.priority) {
     case 'Administrator':
-      problemDao.patchAdministrator(id, json, (status, data) => {
-        if (status === 200) {
-          problemDao.getAllUsersbyProblemId(id, (status, data) => {
-            console.log('DATA ADMINISTRATOR', data);
-            MailController.sendMassMail({
-              recepients: data,
-              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-              html: ''
-            });
+      console.log('FILE IN CONTROLLER:', file_user);
+      console.log('FILE IN CONTROLLER: ', file_entrepreneur);
+      if (!(file_user === undefined) && file_entrepreneur === undefined) {
+        image.uploadImage(file_user, url => {
+          json.img_user = url;
+          console.log('url: ' + url + '\n img_user: ' + json.img_user);
+          handleEdit(id, json, callback);
+        });
+      }
+      if (!(file_entrepreneur === undefined) && file_user === undefined) {
+        image.uploadImage(file_entrepreneur, url => {
+          json.img_entrepreneur = url;
+          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
+          handleEdit(id, json, callback);
+        });
+      }
+      if (!(file_entrepreneur === undefined) && !(file_user === undefined)) {
+        image.uploadImage(file_entrepreneur, url => {
+          json.img_entrepreneur = url;
+          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
+          image.uploadImage(file_user, url => {
+            json.img_user = url;
+            console.log('url: ' + url + '\n img_user: ' + json.img_user);
+            handleEdit(id, json, callback);
           });
-        }
-        callback(status, data);
-      });
+        });
+      }
+      if (file_entrepreneur === undefined && file_user === undefined) {
+        handleEdit(id, json, callback);
+      }
       break;
-
     case 'Municipality':
+      if (!(file_user === undefined)) {
+        image.uploadImage(file, url => {
+          json.img_user = url;
+        });
+      }
       problemDao.patchMunicipality(id, json, (status, data) => {
         if (status === 200) {
           problemDao.getAllUsersbyProblemId(id, (status, data) => {
@@ -196,7 +232,7 @@ exports.problems_edit_problem = (id, json, user, file, callback) => {
         if (data[0].entrepreneur_id !== json.entrepreneur_id) {
           callback(400, { message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         } else {
-          if (!(file === undefined)) {
+          if (!(file_entrepreneur === undefined)) {
             image.uploadImage(file, url => {
               json.img_entrepreneur = url;
             });
@@ -223,9 +259,9 @@ exports.problems_edit_problem = (id, json, user, file, callback) => {
         console.log('in Problemcontroller: user.id = ' + user.id + ' data[0}.user_id = ' + data[0].user_id);
         if (user.id !== data[0].user_id) {
           return callback(420, { message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
-        } else if (!(file === undefined)) {
+        } else if (!(file_user === undefined)) {
           image.uploadImage(file, url => {
-            json.user_img = url;
+            json.img_user = url;
           });
         }
         problemDao.patchStandard(id, json, (status, data) => {

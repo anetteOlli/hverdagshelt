@@ -23,7 +23,6 @@ import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
-import PictureUpload from '../util/PictureUpload';
 import { easyDateFormat } from '../util/DateFormater';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -136,13 +135,15 @@ class EditProblemA extends React.Component<Props, State> {
     if (bool === 'false') {
 
       console.log("now you in here")
+      console.log("e: " + e.target.files[0])
       this.setState({
-        img_entrepreneur: URL.createObjectURL(e.target.files[0]),
+        img_entrepreneur: e.target.files[0],
         displayImg2: URL.createObjectURL(e.target.files[0])
       });
     } else {
+      console.log("u: " + e.target.files[0])
       this.setState({
-        img_user: URL.createObjectURL(e.target.files[0]),
+        img_user: e.target.files[0],
         displayImg: URL.createObjectURL(e.target.files[0])
       });
     }
@@ -268,12 +269,6 @@ class EditProblemA extends React.Component<Props, State> {
                           </Button>
                         </label>
                       </FormControl>
-                      {/*
-                        <div>
-                          <img id="img" width="100%" src={this.state.displayImg || this.state.img_user} alt="Bilde"/>
-                          {<PictureUpload uploadImg={this.handleUpload} />}
-                        </div>
-                      */}
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </Paper>
@@ -361,16 +356,6 @@ class EditProblemA extends React.Component<Props, State> {
                               </Button>
                             </label>
                           </FormControl>
-                          {/*<div>
-                          <img
-                            id="img"
-                            width="100%"
-                            src={this.state.displayImg2 || this.state.img_entrepreneur}
-                            alt="Bilde"
-                          />
-                          <PictureUpload uploadImg={this.handleUpload2} />
-                        </div>
-                        */}
                         </ExpansionPanelDetails>
                       </ExpansionPanel>
                     </div>
@@ -432,7 +417,6 @@ const mapDispatchToProps = dispatch => {
     goToProblemDetail: (id: number) => dispatch(goToProblemDetail(id)),
     getCategories: () => dispatch(getCategories()),
     editProblem: (problem: Problem) => dispatch(editProblem(problem))
-    //entrepreneurs_get_one_by_problem_id: (id: number) => dispatch(entrepreneurs_get_one_by_problem_id(id)),
   };
 };
 
