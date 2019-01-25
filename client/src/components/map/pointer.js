@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/** Styled-components is used because Material-ui caused issued with google-map-React
+ ** transform : translate(-50%, -50%) is used to plase the marker where the user clicked and not in top left corner
+ **
+ **/
+
+/**
+ * black dot
+ **/
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -17,6 +25,10 @@ const Wrapper = styled.div`
     z-index: 1;
   }
 `;
+
+/**
+ * blue dot
+ **/
 const WrapperCurrent = styled.div`
   position: absolute;
   top: 50%;

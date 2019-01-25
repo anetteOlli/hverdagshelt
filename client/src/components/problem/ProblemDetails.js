@@ -13,7 +13,7 @@ import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
 import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
-import { getAllEntrepreneurs, getEntrepreneursByMuniAndCat } from '../../store/actions/entrepreneurAction';
+import { entrepreneurs_get_one_by_entrepreneur_id, getEntrepreneursByMuniAndCat } from '../../store/actions/entrepreneurAction';
 import { problemAddEntrepreneur } from '../../store/actions/problemActions';
 
 import SelectTable2 from '../util/SelectTable2';
@@ -22,7 +22,7 @@ import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 
 import { withStyles } from '@material-ui/core/styles';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 import type { ReduxState } from '../../store/reducers';
 
 const styles = (theme: Object) => ({
@@ -185,7 +185,6 @@ class ProblemDetails extends React.Component<Props, State> {
     this.setState({
       entrepreneur_chosen: myEntrepreneur.entrepreneur_id
     });
-    //this.handleClickSnack();
     this.handleClose();
     let vals = {
       entrepreneur_id: myEntrepreneur.entrepreneur_id,
@@ -201,7 +200,10 @@ class ProblemDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, problem, priority } = this.props;
+    const { classes, problem, currentEntrepreneur } = this.props;
+    if(this.props.entrepreneurs) {
+      console.log('length: ' + this.props.entrepreneurs.length);
+    }
     if (problem) {
       return (
         <div className={classes.main}>
@@ -244,6 +246,13 @@ class ProblemDetails extends React.Component<Props, State> {
                 <Typography variant="caption" gutterBottom align="left">
                   Kategori: {problem.category}
                 </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                {currentEntrepreneur &&
+                  <Typography variant="caption" gutterBottom align="left">
+                    Entrepreneur: {currentEntrepreneur.business_name}
+                  </Typography>
+                }
               </Grid>
             </div>
 
@@ -324,7 +333,7 @@ class ProblemDetails extends React.Component<Props, State> {
         </div>
       );
     } else {
-      return <div>LOADING PROBLEM...</div>;
+      return <div>Velg et problem til venstre</div>;
     }
   }
 
@@ -334,6 +343,8 @@ class ProblemDetails extends React.Component<Props, State> {
       this.checkUser(this.props.priority);
       this.checkLocked(nextProps.problem.problem_locked);
       this.checkEdit(this.props.priority);
+      this.props.entrepreneurs_get_one_by_entrepreneur_id(nextProps.problem.entrepreneur_id);
+
     }
   }
 }
@@ -348,7 +359,8 @@ const mapStateToProps = (state: ReduxState) => {
     isLoggedIn: state.user.isLoggedIn,
     entrepreneurs: state.entrepreneur.entrepreneurs,
     currentMuni: state.problem.currentMuni,
-    errorMessage: state.problem.errorMessage
+    errorMessage: state.problem.errorMessage,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 
@@ -357,7 +369,8 @@ const mapDispatchToProps = dispatch => {
     getProblemById: (id: number) => dispatch(getProblemById(id)),
     goToProblemEdit: (id: number) => dispatch(goToProblemEdit(id)),
     getEntrepreneursByMuniAndCat: category => dispatch(getEntrepreneursByMuniAndCat(category)),
-    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals))
+    problemAddEntrepreneur: vals => dispatch(problemAddEntrepreneur(vals)),
+    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id)),
   };
 };
 

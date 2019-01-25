@@ -474,10 +474,11 @@ INSERT INTO priority VALUES ("Municipality");
 INSERT INTO priority VALUES ("Administrator");
 
 
-INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('user@user.user', 'ok',"Trondheim", "Trøndelag" ,"Standard", NOW(), 0);
-INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('koma@koma.koma', 'ok',"Trondheim", "Trøndelag" ,"Municipality", NOW(), 1);
-INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('entr@entr.entr', 'ok',"Trondheim", "Trøndelag" ,"Entrepreneur", NOW(), 1);
-INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('admin@admin.admin', '$2b$10$L7h/o1fU9IrS5Kmj5Ty.G.8vnDbcpdiZem8ZcpRlIE5PwIl0SQgCi', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 0);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('user@user.user', 'ok', "Trondheim", "Trøndelag" ,"Standard", NOW(), 0);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('koma@koma.koma', 'ok', "Trondheim", "Trøndelag" ,"Municipality", NOW(), 1);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('entr@entr.entr', 'ok', "Trondheim", "Trøndelag" ,"Entrepreneur", NOW(), 1);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('admin@admin.admin', '$2b$10$L7h/o1fU9IrS5Kmj5Ty.G.8vnDbcpdiZem8ZcpRlIE5PwIl0SQgCi', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);
+INSERT INTO user(email, password, municipality, county ,priority, created, active) VALUES('test@test.test', '$2b$10$L7h/o1fU9IrS5Kmj5Ty.G.8vnDbcpdiZem8ZcpRlIE5PwIl0SQgCi', "Trondheim", "Trøndelag" ,"Administrator", NOW(), 1);
 
 INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "01", 4);
 INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn", "045", 4);
@@ -485,6 +486,7 @@ INSERT INTO entrepreneur(business_name, org_nr, user_id) VALUES("Arbeidsjøinn",
 
 INSERT INTO entrepreneur_municipality(entrepreneur_id, municipality, county) VALUES(1,"Oslo", "Oslo");
 INSERT INTO entrepreneur_municipality(entrepreneur_id, municipality, county) VALUES(1,"Tromsø", "Troms");
+
 
 INSERT INTO entrepreneur_category(entrepreneur_id, category) VALUES(1,'Tree in road');
 INSERT INTO entrepreneur_category(entrepreneur_id, category) VALUES(1,'Snowplow');

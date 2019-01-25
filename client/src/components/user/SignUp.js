@@ -172,7 +172,7 @@ class SignUp extends React.Component<Props, State> {
         .then(() => {
           if (this.props.errorMessage) this.props.enqueueSnackbar(this.props.errorMessage, { variant: 'error' });
           else {
-            this.props.enqueueSnackbar('SUCCESS', { variant: 'success' });
+            this.props.enqueueSnackbar('Entreprenørbruker laget!', { variant: 'success' });
             this.setState({
               successDialog: true
             });
@@ -378,10 +378,10 @@ class SignUp extends React.Component<Props, State> {
           />
           {this.state.isEntrepreneur && EntrepenurSignUp}
           <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
-            Register
+            Registrer
           </Button>
           <Button fullWidth variant="contained" className={classes.button} color="secondary" component={Link} to={'/'}>
-            Cancel
+            Avbryt
           </Button>
         </ValidatorForm>
         <Dialog

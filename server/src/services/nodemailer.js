@@ -23,8 +23,8 @@ class MailController {
      */
     sendSingleMail(dataPackage: object, callback: function) {
         console.log('---Inne i sendSingleMail');
-        console.log('---DataPackage er:' + dataPackage);
-        console.log('---Email er:' + dataPackage.recepients);
+        console.log('---DataPackage er:', dataPackage);
+        console.log('---Email er:', dataPackage.recepients);
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",
           to: dataPackage.recepients,
@@ -33,10 +33,10 @@ class MailController {
           html: dataPackage.html
         };
 
-        transporter.sendMail(mailOptions,function(email_err){
+        transporter.sendMail(mailOptions, email_err => {
             if(!email_err){
                 console.log("Email is Sent");
-                callback({success: true, token: token})
+                callback(200);
             }else{
                 callback(email_err);
                 console.log(email_err);

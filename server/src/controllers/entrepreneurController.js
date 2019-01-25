@@ -28,6 +28,13 @@ exports.entrepreneurs_get_one_by_user_id = (id, callback) => {
   });
 };
 
+exports.entrepreneurs_get_one_by_entrepreneur_id = (id, callback) => {
+  console.log('Handling GET requests to /entrepreneurs/id/' + id);
+  entrepreneurDao.getEntrepreneurByEntrepreneurID(id, (status, data) => {
+    callback(status, data[0]);
+  });
+};
+
 exports.validate_org_nr = (orgNr, callback) => {
   console.log('Handling GET requests to /div/validate_org_nr');
   entrepreneurDao.checkEntrepreneur(orgNr, (status, data) => {
@@ -39,7 +46,7 @@ exports.validate_org_nr = (orgNr, callback) => {
 exports.entrepreneurs_create_entrepreneur = (json, callback) => {
   userDao.createUser(json.user, hashPassword(json.user.password), 'Entrepreneur', (status, data) => {
     if (status === 200) {
-      let link = 'http://localhost:3001/div/verifyEmail/' + genTokenEmail({ email: json.email });
+      let link = "<a>"+'http://localhost:3001/div/verifyEmail/' + genTokenEmail({ email: json.email }) + "</a>";
       let datapackage = {
         recepients: json.user.email,
         text: link,

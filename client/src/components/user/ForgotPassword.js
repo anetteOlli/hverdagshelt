@@ -7,6 +7,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 import { forgotPassword, clearError } from '../../store/actions/userActions';
 import purple from '@material-ui/core/colors/purple';
+import Dialog from '@material-ui/core/DialogTitle';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
@@ -35,13 +36,15 @@ type Props = {
 
 type State = {
   email: string,
-  passwordSentSuccess: boolean
+  passwordSentSuccess: boolean,
+  isLoading: boolean
 };
 
 class ForgotPassword extends React.Component<Props, State> {
   state = {
     email: '',
-    passwordSentSuccess: false
+    passwordSentSuccess: false,
+    isLoading: false
   };
 
   handleChange = e => {
@@ -60,21 +63,41 @@ class ForgotPassword extends React.Component<Props, State> {
 
   handleSubmit = (e: SyntheticInputEvent<HTMLInputElement>) => {
     e.preventDefault();
-    this.props.forgotPassword(this.state.email).then(() => {
-      if (this.props.errorMessage === '') this.setState({ passwordSentSuccess: true });
-      else this.refs.forgotPasswordForm.submit();
+    this.setState({ isLoading: true });
+    this.props.forgotPassword(this.state.email)
+    .then(() => {
+      if (this.props.errorMessage === ''){
+        this.setState({ passwordSentSuccess: true, isLoading: false });
+      }
+      else {
+        console.log("Got error: ", this.props.errorMessage);
+        this.refs.forgotPasswordForm.submit();
+        this.setState({ isLoading: false });
+      }
     });
   };
 
   render() {
     const { classes, isLoading } = this.props;
+    console.log(this.state);
     if (this.state.passwordSentSuccess) {
       return (
         <div>
-          <DialogTitle>Nytt passord sendt</DialogTitle>
-          <DialogContent>
-            <Typography> Passord sendt til {this.state.email}</Typography>
-          </DialogContent>
+          <Dialog>
+            <DialogTitle>Nytt passord sendt</DialogTitle>
+            <DialogContent>
+              <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
+            </DialogContent>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              className={classes.button}
+              onClick={this.handleClose}
+            >
+              Ok
+            </Button>
+          </Dialog>
         </div>
       );
     } else {
@@ -103,6 +126,9 @@ class ForgotPassword extends React.Component<Props, State> {
               <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
                 {isLoading && <CircularProgress size={20} className={classes.spinner} />}
                 Send passord til e-post adressen
+                {this.state.isLoading && (
+                  <CircularProgress size={24} style={{position: 'static'}}/>
+                )}
               </Button>
               <Button
                 fullWidth
@@ -121,16 +147,18 @@ class ForgotPassword extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    /*
     ValidatorForm.addValidationRule(
       'isRightEmail',
-      () => this.props.errorMessage !== 'Request failed with status code 404'
-    );
+      () => this.props.errorMessage !== 'Request failed with status code 400'
+    );*/
   }
 }
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
+    isLoading: state.async.isLoading
   };
 };
 
