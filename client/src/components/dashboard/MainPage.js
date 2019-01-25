@@ -18,6 +18,11 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
 
+/**
+ * @fileOverview overview page for events and problems
+ * @author Elisabeth Marie Opsahl
+ */
+
 /**Props og State*/
 type Props = {
   classes: Object

@@ -3,7 +3,7 @@
 /**
  * @fileOverview Formats dates
  * @author Sindre H. Paulshus
- * MERK: Courtesy of https://stackoverflow.com/questions/10632346/how-to-format-a-date-in-mm-dd-yyyy-hhmmss-format-in-javascript
+ * Note: Courtesy of https://stackoverflow.com/questions/10632346/how-to-format-a-date-in-mm-dd-yyyy-hhmmss-format-in-javascript
  * */
 
 Number.prototype.padLeft = function(base, chr) {

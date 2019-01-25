@@ -16,6 +16,11 @@ import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
 import Folder from '@material-ui/icons/Folder';
 import Stati from '@material-ui/icons/BarChart';
 
+/**
+ * @fileOverview Navigation Sidebar
+ * @author Snorre K. Strand
+ */
+
 type Props = {
   classes: Object,
   open: boolean,

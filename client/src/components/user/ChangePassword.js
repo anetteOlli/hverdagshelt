@@ -34,6 +34,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 /**
  * @fileOverview changePassword component
+ * @author Anette Olli Siiri
  */
 
 type Props = {

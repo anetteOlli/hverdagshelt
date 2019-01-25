@@ -1,6 +1,8 @@
 // @flow
 
 /**
+ * @DEPRECATED
+ * @SEE MuiTable-2.js
  * @fileOverview Formats data for MuiTable
  * @author Sindre H. Paulshus
  * @see MuiTable.js
