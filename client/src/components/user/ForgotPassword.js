@@ -11,6 +11,11 @@ import Dialog from '@material-ui/core/DialogTitle';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
+/**
+ * @fileOverview user change password component
+ * @author Elisabeth Marie Opsahl
+ */
+
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit

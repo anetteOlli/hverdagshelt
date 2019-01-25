@@ -53,6 +53,13 @@ class StatisticPage extends React.Component<Props, State> {
     indexLoadingPDF: 0
   };
 
+  /**
+   * Function for wanting to download pdf of a single component
+   * @params index: index of the statistic
+   * @params doc: id of the div the statistic component is in
+   * @params name: name of the statistic
+   * 1000 x 300 works good for Sindre's pc in height and width
+   * */
   handleClickPDF(index, doc, name){
     this.setState({isLoadingPDF: true, indexLoadingPDF: index})
     const input = document.getElementById(doc);
@@ -61,6 +68,7 @@ class StatisticPage extends React.Component<Props, State> {
     });
   }
 
+  /** Handles wanting to download pdf of all components */
   handleClickPDFAll = () =>{
     this.setState({isLoadingPDF: true, indexLoadingPDF: 0})
     const input = [
