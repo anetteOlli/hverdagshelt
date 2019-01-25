@@ -678,13 +678,11 @@ class CreateProblem extends React.Component<Props, State> {
   * @params problemId: number, id of the problem to 'support'
   */
   handleSupport(problemId: number) {
-    console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
     this.setState({
       loadingSupport: true
     });
     this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
-      //console.log(status);
       this.setState({
         loadingSupport: false
       });
