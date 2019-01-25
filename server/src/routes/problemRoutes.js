@@ -40,7 +40,6 @@ router.delete('/:id', checkAuth, (req, res) => {
 });
 
 router.patch('/:id', checkAuth, upload.uploader, (req, res) => {
-  console.log("ID IN ROUTES: " + req.params.id  + " : " + req.body.problem_id)
   ProblemController.problems_edit_problem(req.params.id, req.body, req.userData, req.files[0], req.files[1], (status, data) => {
     res.status(status).json(data);
   });
