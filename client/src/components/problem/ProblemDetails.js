@@ -161,7 +161,7 @@ class ProblemDetails extends React.Component<Props, State> {
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {(this.props.priority=== 'Administrator' || this.props.priority === 'Municipality')&& !this.props.problem.problem_locked && (
+                {(this.props.priority=== 'Administrator' || this.props.priority === 'Municipality')&& !this.props.problem.entrepreneur_id && (
                   <Button
                     variant="contained"
                     size="small"
@@ -172,7 +172,7 @@ class ProblemDetails extends React.Component<Props, State> {
                     Legg til entrepreneur
                   </Button>
                 )}
-                {(this.props.priority === 'Administrator' || this.props.priority === 'Municipality' || !this.props.problem.problem_locked) &&
+                {(this.props.priority === 'Administrator' || this.props.priority === 'Municipality' || this.props.priority === 'Entrepreneur' || !this.props.problem.problem_locked) &&
                 <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
                     <Edit />

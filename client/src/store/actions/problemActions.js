@@ -181,7 +181,7 @@ export const editProblem = (problem: Problem) => {
     k.append('county', problem.county);
     k.append('city', problem.city);
     k.append('street', problem.street);
-
+    k.append('date_finished', problem.date_finished);
     return patchData(`problems/${problem.problem_id}`, k)
       .then(resp =>
         dispatch({

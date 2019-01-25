@@ -106,9 +106,8 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   supportProblem(id, callback) {
-    super.query('UPDATE problem SET support = support + 1 WHERE problem_id = ?', id, callback);
+    super.query('UPDATE problem SET support = support + 1, problem_locked = 1 WHERE problem_id = ?', id, callback);
   }
-
 
   /**
    * Updates a problem row in the database, used for admins.
@@ -125,10 +124,13 @@ module.exports = class ProblemDao extends Dao {
       json.img_user,
       json.description_entrepreneur,
       json.img_entrepreneur,
+      (json.date_finished === 'null' ? null : json.date_finished),
       id
       ];
-      super.query(
-        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?, img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+
+    console.log(json);
+    super.query(
+        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?, img_entrepreneur = ?, last_edited = NOW(), date_finished=? WHERE problem_id = ?',
         values,
         callback
       );
@@ -142,16 +144,17 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   patchEntrepreneur(id, json, callback) {
-
     const values = [
     json.description_entrepreneur,
     json.img_entrepreneur,
     json.status,
-    id
+      (json.date_finished === 'null' ? null : json.date_finished),
+      id
     ];
+    console.log(json);
 
     super.query(
-      'UPDATE problem SET description_entrepreneur = ?, img_entrepreneur = ?, status = ?, last_edited = NOW() WHERE problem_id = ?',
+      'UPDATE problem SET description_entrepreneur = ?, img_entrepreneur = ?, status = ?, last_edited = NOW(), date_finished= ? WHERE problem_id = ?',
       values,
       callback
     );

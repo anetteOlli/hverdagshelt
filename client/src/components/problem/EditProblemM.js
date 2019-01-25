@@ -130,7 +130,11 @@ class EditProblemM extends React.Component<Props, State> {
    * then it redirects you to the Problem Details component of the current problem
    **/
   handleSubmit = e => {
-    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
+    e.preventDefault();
+    this.props.editProblem(this.state).then(() => {
+      this.props.enqueueSnackbar('Oppdatert problem', { variant: 'success' });
+      this.props.goToProblemDetail(this.state.problem_id);
+    });
   };
 
   /** Handles uploading of image files */

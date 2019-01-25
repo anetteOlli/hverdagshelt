@@ -23,10 +23,16 @@ import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
 import type { Problem } from '../../store/reducers/problemReducer';
-import { easyDateFormat } from '../util/DateFormater';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import DateFnsUtils from '@date-io/date-fns';
+
+import moment from 'moment';
+import 'moment/locale/nb';
+import { DatePicker, MuiPickersUtilsProvider, TimePicker } from 'material-ui-pickers';
+moment.locale('nb');
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean
@@ -62,7 +68,7 @@ const styles = (theme: Object) => ({
     padding: 20
   },
   button: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   },
   paper: {
     paddingTop: 20,
@@ -161,7 +167,18 @@ class EditProblemA extends React.Component<Props, State> {
    **/
   handleSubmit = e => {
     e.preventDefault();
-    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
+    this.props.editProblem(this.state).then(() => {
+      this.props.enqueueSnackbar('Oppdatert problem', { variant: 'success' });
+      this.props.goToProblemDetail(this.state.problem_id);
+    });
+  };
+
+  /**Handles the dates*/
+  handleEndDateChange = date => {
+    const dateFormat = require('dateformat');
+    this.setState({
+      date_finished: ""+ dateFormat(date, "isoDateTime").slice(0,19)
+    });
   };
 
   render() {
@@ -241,7 +258,7 @@ class EditProblemA extends React.Component<Props, State> {
 
                   <Typography variant="i" className={classes.paper}>
                     {' '}
-                    Dato startet: {easyDateFormat(this.state.date_made)}{' '}
+                    Dato startet: {moment(this.state.date_made).calendar()}{' '}
                   </Typography>
 
                   <ExpansionPanel>
@@ -315,7 +332,6 @@ class EditProblemA extends React.Component<Props, State> {
                       rowsMax={10}
                       margin="normal"
                       label="Beskrivelse"
-                      value={'Beskrivelse:'}
                       name="description_entrepreneur"
                       value={this.state.description_entrepreneur}
                       onChange={this.handleChange}
@@ -327,9 +343,27 @@ class EditProblemA extends React.Component<Props, State> {
 
                     <Typography variant="i" className={classes.paper}>
                       {' '}
-                      Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
+                      Dato Endret: {moment(this.state.last_edited).calendar()}{' '}
                     </Typography>
-
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Grid container className={classes.grid} justify="space-around">
+                        <DatePicker
+                          minDate={new Date(this.state.date_made)}
+                          fullWidth
+                          margin="normal"
+                          label="Dato problemet ble ferdig"
+                          value={this.state.date_finished}
+                          onChange={this.handleEndDateChange}
+                        />
+                        <TimePicker
+                          fullWidth
+                          margin="normal"
+                          label="Klokkeslett problemet ble ferdig"
+                          value={this.state.date_finished}
+                          onChange={this.handleEndDateChange}
+                        />
+                      </Grid>
+                    </MuiPickersUtilsProvider>
                     <div>
                       <ExpansionPanel>
                         <ExpansionPanelSummary>
@@ -377,7 +411,7 @@ class EditProblemA extends React.Component<Props, State> {
                   Lagre endringer
                 </Button>
               </Grid>
-              <Grid item xs className = {classes.grid3}>
+              <Grid item xs className={classes.grid3}>
                 <div>
                   <div className="mapPlaceholder">
                     <MapMarkers />
@@ -395,19 +429,21 @@ class EditProblemA extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.problem !== this.props.problem) {
+      const date_finished = nextProps.problem.date_finished ? new Date(nextProps.problem.date_finished) : null;
       this.setState({
-        ...nextProps.problem
+        ...nextProps.problem,
+        date_finished
       });
     }
   }
 
   componentDidMount() {
     this.props.getCategories();
+    const date_finished = this.props.problem.date_finished ? new Date(this.props.problem.date_finished) : null;
     this.setState({
+      ...this.props.problem,
+      date_finished,
       entrepreneur: this.props.currentEntrepreneur
-    })
-    this.setState({
-      ...this.props.problem
     });
   }
 }
@@ -422,8 +458,7 @@ const mapStateToProps = state => {
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     categories: state.category.categories,
-    currentEntrepreneur: state.entrepreneur.currentEntrepreneur,
-
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 

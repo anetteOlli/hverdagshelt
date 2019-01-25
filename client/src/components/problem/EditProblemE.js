@@ -27,6 +27,8 @@ import { easyDateFormat } from '../util/DateFormater';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import { DatePicker, MuiPickersUtilsProvider, TimePicker } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 type Props = {
   classes: Object,
@@ -128,7 +130,11 @@ class EditProblemE extends React.Component<Props, State> {
    * then it redirects you to the Problem Details component of the current problem
    **/
   handleSubmit = e => {
-    this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
+    e.preventDefault();
+    this.props.editProblem(this.state).then(() => {
+      this.props.enqueueSnackbar('Oppdatert problem', { variant: 'success' });
+      this.props.goToProblemDetail(this.state.problem_id);
+    });
   };
 
   /** Handles uploading of image files */
@@ -136,6 +142,15 @@ class EditProblemE extends React.Component<Props, State> {
     this.setState({
       img_entrepreneur: e.target.files[0],
       displayImg: URL.createObjectURL(e.target.files[0])
+    });
+  };
+
+
+  /**Handles the dates*/
+  handleEndDateChange = date => {
+    const dateFormat = require('dateformat');
+    this.setState({
+      date_finished: ""+ dateFormat(date, "isoDateTime").slice(0,19)
     });
   };
 
@@ -239,6 +254,25 @@ class EditProblemE extends React.Component<Props, State> {
                   {' '}
                   Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
                 </Typography>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container className={classes.grid} justify="space-around">
+                    <DatePicker
+                      minDate={new Date(this.state.date_made)}
+                      fullWidth
+                      margin="normal"
+                      label="Dato problemet ble ferdig"
+                      value={this.state.date_finished}
+                      onChange={this.handleEndDateChange}
+                    />
+                    <TimePicker
+                      fullWidth
+                      margin="normal"
+                      label="Klokkeslett problemet ble ferdig"
+                      value={this.state.date_finished}
+                      onChange={this.handleEndDateChange}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
                 <div>
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -297,19 +331,21 @@ class EditProblemE extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.problem !== this.props.problem) {
+      const date_finished = nextProps.problem.date_finished ? new Date(nextProps.problem.date_finished) : null;
       this.setState({
-        ...nextProps.problem
+        ...nextProps.problem,
+        date_finished
       });
     }
   }
 
   componentDidMount() {
     this.props.getCategories();
+    const date_finished = this.props.problem.date_finished ? new Date(this.props.problem.date_finished) : null;
     this.setState({
+      ...this.props.problem,
+      date_finished,
       entrepreneur: this.props.currentEntrepreneur
-    })
-    this.setState({
-      ...this.props.problem
     });
   }
 }
