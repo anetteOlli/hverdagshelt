@@ -1,10 +1,20 @@
 const Dao = require('./dao.js');
 
 module.exports = class EntrepreneurDao extends Dao {
+
+  /**
+   * Retrieves all entrepreneurs from the database.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getAll(callback) {
     super.query('select * from entrepreneur', [], callback);
   }
 
+  /**
+   * Retrieves all entrepreneurs from a given municipality, working in a specific category, from the database.
+   * @param json Object containing entrepreneur data.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getByCatAndMuni(json, callback) {
     const val = [json.municipality, json.county, json.category];
     console.log(val);
@@ -15,6 +25,11 @@ module.exports = class EntrepreneurDao extends Dao {
     );
   }
 
+  /**
+   * Retrieves all entrepreneurs from a specified municipality from the database.
+   * @param json Object containing entrepreneur data.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getByMuni(json, callback) {
     const val = [json.municipality, json.county];
     console.log(val);
@@ -25,36 +40,59 @@ module.exports = class EntrepreneurDao extends Dao {
     );
   }
 
-
-  getEntrepreneurByUserID(user_id, callback) {
-    super.query('select * from entrepreneur where user_id = ?', [user_id], callback);
-  }
-
+  /**
+   * Retrieves an entrepreneur from the database.
+   * @param id The ID of the entrepreneur.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getEntrepreneur(id, callback) {
     super.query('select * from entrepreneur WHERE entrepreneur_id = ?', [id], callback);
   }
 
+  /**
+   * Retrieves the entrepreneur from the database, if there is an entrepreneur connected to the user who submitted the problem.
+   * @param problem_id ID of the problem.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getEntrepreneurByProblem(problem_id, callback){
     super.query('select * from entrepreneur WHERE user_id = (select user_id from problem where problem_id = ?)', [problem_id], callback)
   }
 
+  /**
+   * Retrieves an entrepreneur from the database.
+   * @param user_id ID of the user connected to the entrepreneur.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   getEntrepreneurByUserID(user_id, callback) {
     super.query('select * from entrepreneur where user_id = ?', [user_id], callback);
   }
 
-  getEntrepreneurByEntrepreneurID(entrepreneur_id, callback) {
-    super.query('select * from entrepreneur where entrepreneur_id = ?', [entrepreneur_id], callback);
-  }
-
+  /**
+   * Retrieves an entrepreneur from the database.
+   * @param org_nr The organisation ID of the entrepreneur.
+   * @param callback Returns table rows and status or an error code if something went wrong.
+   */
   checkEntrepreneur(org_nr, callback) {
     super.query('select * from entrepreneur WHERE org_nr = ?', [org_nr], callback);
   }
 
+  /**
+   * Creates an entrepreneur row in the database.
+   * @param json Object containing entrepreneur data.
+   * @param user_id ID of the user connected to the entrepreneur.
+   * @param callback Returns the response from MySQL (status and data).
+   */
   createEntrepreneur(json, user_id, callback) {
     const val = [json.business_name, json.org_nr, user_id];
     super.query('insert into entrepreneur (business_name, org_nr, user_id) values (?,?,?)', val, callback);
   }
 
+  /**
+   * Sets a given entrepreneur's working municipalities and categories.
+   * @param json Object containing entrepreneur data; should have an array of categories and municipalities.
+   * @param id The ID of the entrepreneur.
+   * @param callback Returns the response from MySQL (status and data).
+   */
   linkEntrepreneur(json, id, callback) {
     const catLength = json.categories.length;
     const muni_countyLength = json.municipalities.length;
