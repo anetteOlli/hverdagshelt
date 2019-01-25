@@ -18,6 +18,9 @@ const imgFilter = (file: multer): void => {
   return file.originalname.match(/\.(jpg|jpeg|png|gif)$/);
 };
 
+/**
+ * Class for handling the upload image functionality on the backend
+ */
 class ImageHostController {
   dataUri = file => dUri.format(path.extname(file.originalname).toString(), file.buffer);
 
