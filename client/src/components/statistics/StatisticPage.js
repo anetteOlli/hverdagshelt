@@ -50,19 +50,19 @@ class StatisticPage extends React.Component<Props> {
             Statistikk i {this.props.currentMuni.municipality}
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            Problemer i månden
+            Problemer
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <ProblemsByMonth />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            Gjennomsnittlig antall dager det tok for å løse problemer i månden
+            Gjennomsnittlig antall dager det tok for å løse problemer
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <ProblemsByYear />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            Problemer pr kategory
+              Problemer per kategori
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <ProblemsByCat />

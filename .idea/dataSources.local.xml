@@ -2,10 +2,6 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="larssorl@mysql.stud.iie.ntnu.no" uuid="1e6b8da9-edfd-471e-a847-9dc381772804">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="MYSQL" exact-version="0.0" />
-      <introspection-schemas>*:@</introspection-schemas>
-    </data-source>
-    <data-source name="larssorl@mysql.stud.iie.ntnu.no [2]" uuid="ba1bf59b-00b1-4470-87fd-96a3ce3c0173">
       <database-info product="MySQL" version="5.7.24-0ubuntu0.18.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )" family="MYSQL" exact-version="5.7.24">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
