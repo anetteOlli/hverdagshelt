@@ -84,6 +84,19 @@ class StatisticPage extends React.Component<Props, State> {
             <Typography variant="h2" gutterBottom component="h2" align="center">
               Statistikk i {this.props.currentMuni.municipality}
             </Typography>
+            <div className="pdf-button-1">
+              <Tooltip title="last ned under" placement="top">
+                <Button align="center" size="small" color="primary" variant="outlined"
+                  onClick={() => this.handleClickPDF(1, "ProblemsByMonth", "_problem_måneder")}
+                >
+                  <Save/>
+                  <Typography></Typography>
+                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 1) && (
+                    <CircularProgress size={24} />
+                  )}
+                </Button>
+              </Tooltip>
+            </div>
             <div id="ProblemsByMonth">
               <Typography variant="h4" gutterBottom component="h2">
                 Problemer i månden
@@ -92,17 +105,18 @@ class StatisticPage extends React.Component<Props, State> {
                 <ProblemsByMonth />
               </Typography>
             </div>
-            <div className="pdf-button-1">
-              <Button align="center" size="small" color="primary" variant="outlined"
-                onClick={() => this.handleClickPDF(1, "ProblemsByMonth", "_problem_måneder")}
-              >
-                <Save/>
-                <Typography>Last ned over</Typography>
-                {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 1) && (
-                  <CircularProgress size={24} />
-                )}
-              </Button>
-              <br/>
+            <div className="pdf-button-2">
+              <Tooltip title="last ned under" placement="top">
+                <Button align="center" size="medium" color="primary" variant="outlined"
+                  onClick={() => this.handleClickPDF(2, "ProblemsByYear", "_problem_år")}
+                >
+                  <Save/>
+                  <Typography></Typography>
+                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 2) && (
+                    <CircularProgress size={24} />
+                  )}
+                </Button>
+              </Tooltip>
             </div>
             <div id="ProblemsByYear">
               <Typography variant="h4" gutterBottom component="h2">
@@ -112,16 +126,18 @@ class StatisticPage extends React.Component<Props, State> {
                 <ProblemsByYear />
               </Typography>
             </div>
-            <div className="pdf-button-2">
-              <Button align="center" size="medium" color="primary" variant="outlined"
-                onClick={() => this.handleClickPDF(2, "ProblemsByYear", "_problem_år")}
-              >
-                <Save/>
-                <Typography>Last ned over</Typography>
-                {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 2) && (
-                  <CircularProgress size={24} />
-                )}
-              </Button>
+            <div className="pdf-button-3">
+              <Tooltip title="last ned under" placement="top">
+                <Button align="center" size="medium" color="primary" variant="outlined"
+                  onClick={() => this.handleClickPDF(3, "ProblemsByCat", "_problem_kategori")}
+                >
+                  <Save/>
+                  <Typography></Typography>
+                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 3) && (
+                    <CircularProgress size={24} />
+                  )}
+                </Button>
+              </Tooltip>
             </div>
             <div id="ProblemsByCat">
               <Typography variant="h4" gutterBottom component="h2">
@@ -131,16 +147,18 @@ class StatisticPage extends React.Component<Props, State> {
                 <ProblemsByCat />
               </Typography>
             </div>
-            <div className="pdf-button-3">
-              <Button align="center" size="medium" color="primary" variant="outlined"
-                onClick={() => this.handleClickPDF(3, "ProblemsByCat", "_problem_kategori")}
-              >
-                <Save/>
-                <Typography>Last ned over</Typography>
-                {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 3) && (
-                  <CircularProgress size={24} />
-                )}
-              </Button>
+            <div className="pdf-button-4">
+              <Tooltip title="last ned under" placement="top">
+                <Button align="center" size="medium" color="primary" variant="outlined"
+                    onClick={() => this.handleClickPDF(4, "ProblemsByEnt", "_problem_entreprenør")}
+                >
+                  <Save/>
+                  <Typography></Typography>
+                  {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 4) && (
+                    <CircularProgress size={24} />
+                  )}
+                </Button>
+              </Tooltip>
             </div>
             <div id="ProblemsByEnt">
               <Typography variant="h4" gutterBottom component="h2">
@@ -150,23 +168,14 @@ class StatisticPage extends React.Component<Props, State> {
                 <ProblemsByEnt />
               </Typography>
             </div>
-            <div className="pdf-button-4">
-              <Button align="center" size="medium" color="primary" variant="outlined"
-                  onClick={() => this.handleClickPDF(4, "ProblemsByEnt", "_problem_entreprenør")}
-              >
-                <Save/>
-                <Typography>Last ned over</Typography>
-                {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 4) && (
-                  <CircularProgress size={24} />
-                )}
-              </Button>
-            </div>
           </div>
           <div className="pdf-button-0">
             <Card align="center">
               <CardContent>
                 <Tooltip title="Én PDF, med de valgene du har nå" placement="top">
-                  <Button align="center" size="large" color="primary" variant="outlined" onClick={this.handleClickPDFAll}>
+                  <Button align="center" size="large" color="primary" variant="outlined"
+                    onClick={this.handleClickPDFAll}
+                  >
                     <Save/>
                     <Typography>Last ned PDF av alt</Typography>
                     {this.state.isLoadingPDF && (this.state.indexLoadingPDF == 0) && (

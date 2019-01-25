@@ -66,6 +66,27 @@ export function convertMultipleToPDF(input: [], name: string, height: number, wi
   }, 6000);
 }
 
+/**
+* Experimental component
+*/
+export function PDFButton(props){
+  return(
+    <div className={'pdf-button-' + props.index}>
+      <Tooltip title="last ned under" placement="top">
+        <Button align="center" size="small" color="primary" variant="outlined"
+          onClick={props.onClick}
+        >
+          <Save/>
+          <Typography></Typography>
+          {this.state.isLoadingPDF && (this.state.indexLoadingPDF == props.index) && (
+            <CircularProgress size={24} />
+          )}
+        </Button>
+      </Tooltip>
+    </div>
+  );
+}
+
 /*
 <Button variant="contained" onClick={ () =>{
   const input = [
