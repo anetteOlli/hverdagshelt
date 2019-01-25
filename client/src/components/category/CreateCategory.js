@@ -36,10 +36,15 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** CreateCategory component **/
+
 class CreateCategory extends React.Component<Props, State> {
   state = {
     category: ''
   };
+
+  /** Submits a new category to category table. If it passes validator
+   * requirements it will show a snackbar showing the result of the query. **/
 
   handleSubmit = e => {
     e.preventDefault();
@@ -53,6 +58,8 @@ class CreateCategory extends React.Component<Props, State> {
     });
   };
 
+
+  /** Sets state like input value **/
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -76,7 +83,7 @@ class CreateCategory extends React.Component<Props, State> {
                 name="category"
                 onChange={this.handleChange}
                 validators={['required', 'minStringLength:3']}
-                errorMessages={['Du må skrive inn noe', 'Teksten må være lengere']}
+                errorMessages={['Teksten må være lengere']}
               />
 
               <Button type="submit" variant="contained" color="primary" className={classes.sendInnBtn}>
