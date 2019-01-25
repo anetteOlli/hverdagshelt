@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8581a2ca-4c26-4b6e-b4ba-40635d5f1797" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/event/EditEvent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layout/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/EditUser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/Profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/userController.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,7 +35,23 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="larssorl@mysql.stud.iie.ntnu.no" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="larssorl@mysql.stud.iie.ntnu.no" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="larssorl@mysql.stud.iie.ntnu.no" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="larssorl: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="ExecutionTargetDialog">
@@ -33,62 +59,76 @@
       <node key="1e6b8da9-edfd-471e-a847-9dc381772804" />
     </checked>
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1849383522">
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="txt" value="20" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="20" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts">
-        <counts>
-          <entry key="FlowJSServerService" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/problem/EditProblemA.js">
+        <entry file="file://$PROJECT_DIR$/client/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="185" column="45" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="64" />
+            <state relative-caret-position="-255">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SideBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="65" column="23" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
+            <state relative-caret-position="-1304">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="57" column="15" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/user/ChangePassword.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="258" column="6" selection-start-line="258" selection-start-column="6" selection-end-line="258" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="380" column="18" lean-forward="true" selection-start-line="380" selection-start-column="18" selection-end-line="380" selection-end-column="18" />
-              <folding>
-                <element signature="e#9#35#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="305">
+              <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/category/CreateCategory.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/actions/userActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
+            <state relative-caret-position="92">
+              <caret line="156" column="26" lean-forward="true" selection-start-line="156" selection-end-line="157" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/user/Settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -139,25 +179,19 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/components/layout/SignedOutLinks.js" />
-        <option value="$PROJECT_DIR$/client/src/components/layout/NavBar.js" />
-        <option value="$PROJECT_DIR$/client/src/components/layout/Footer.js" />
         <option value="$PROJECT_DIR$/client/src/components/user/SignUp.js" />
-        <option value="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" />
         <option value="$PROJECT_DIR$/server/src/routes/userRoutes.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/userActions.js" />
         <option value="$PROJECT_DIR$/server/src/routes/statisticsRoutes.js" />
-        <option value="$PROJECT_DIR$/server/src/controllers/userController.js" />
-        <option value="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" />
         <option value="$PROJECT_DIR$/client/src/components/user/SignIn.js" />
         <option value="$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql" />
         <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
         <option value="$PROJECT_DIR$/server/src/controllers/problemController.js" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonthLineChart.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYearLineChartBarChartPage.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/PieChartPage.js" />
@@ -191,23 +225,24 @@
         <option value="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
         <option value="$PROJECT_DIR$/client/src/store/axios.js" />
-        <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" />
+        <option value="$PROJECT_DIR$/client/.babelrc" />
+        <option value="$PROJECT_DIR$/client/src/components/layout/SideBar.js" />
+        <option value="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" />
+        <option value="$PROJECT_DIR$/client/src/App.js" />
+        <option value="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" />
+        <option value="$PROJECT_DIR$/server/src/controllers/userController.js" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path>$USER_HOME$/AppData/Roaming/npm/node_modules/flow-bin</exe-path>
     <other-services-enabled>false</other-services-enabled>
     <auto-save>true</auto-save>
-  </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-11" />
@@ -215,9 +250,7 @@
     <option name="width" value="1943" />
     <option name="height" value="1043" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -254,7 +287,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="category" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
@@ -262,7 +295,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="problem" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
@@ -270,7 +303,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
@@ -295,6 +328,13 @@
               <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -304,6 +344,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
               <item name="SQL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -317,7 +364,7 @@
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server/src/controllers" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
@@ -338,7 +385,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="testZone.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/client/src/components/statistics/b/testZone.js" working-dir="$PROJECT_DIR$">
+    <configuration name="testZone.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/client/src/components/statistics/b/testZone.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -374,13 +421,6 @@
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
       <workItem from="1548404737490" duration="17899000" />
-    </task>
-    <task id="LOCAL-00011" summary="before pull">
-      <created>1547111137178</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1547111137178</updated>
     </task>
     <task id="LOCAL-00012" summary="Merge branch 'simen' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;server/src/routes/userRoutes.js">
       <created>1547115590867</created>
@@ -718,11 +758,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548417354914</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js">
+      <created>1548428648895</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1548428648895</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251264000" />
+    <option name="totallyTimeSpent" value="252054000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -734,10 +781,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1293" height="693" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22105263" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21214575" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
@@ -746,7 +793,7 @@
       <window_info anchor="bottom" id="Flow" order="0" weight="0.053285968" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49932885" weight="0.21847247" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49932885" weight="0.25754884" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -754,16 +801,16 @@
       <window_info anchor="bottom" id="Console" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32907802" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5020243" side_tool="true" weight="0.32384342" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" weight="0.110124335" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" visible="true" weight="0.08525755" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
-      <window_info anchor="bottom" id="Database Console" order="14" weight="0.23445825" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.94671404" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
-      <window_info anchor="bottom" id="Version Control" order="16" sideWeight="0.4979757" visible="true" weight="0.32384342" />
+      <window_info anchor="bottom" id="Version Control" order="16" sideWeight="0.4986577" weight="0.3250444" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.23157895" />
+      <window_info anchor="right" id="Database" order="3" weight="0.2242915" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" weight="0.21214575" />
@@ -823,11 +870,24 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Merging merge conflicts :)))" />
     <MESSAGE value="entrepreneur linking to categories and munis" />
     <MESSAGE value="oh boy" />
     <MESSAGE value="merge conflicts ahoy" />
@@ -852,72 +912,10 @@
     <MESSAGE value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;server/src/dao/SQL/testScript.sql" />
     <MESSAGE value="a lot" />
     <MESSAGE value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/store/reducers/statisticsReducer.js&#10;#&#9;server/src/dao/SQL/INSERT_SCRIPT.sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/store/reducers/statisticsReducer.js&#10;#&#9;server/src/dao/SQL/INSERT_SCRIPT.sql" />
+    <MESSAGE value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://gitlab.stud.idi.ntnu.no/larssorl/hverdagshelt into snorre&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/components/statistics/StatisticPage.js&#10;#&#9;client/src/store/actions/entrepreneurAction.js" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/user" />
-    <entry file="file://$PROJECT_DIR$/server/src/controllers/entrepreneurController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/street" />
-    <entry file="file://$PROJECT_DIR$/server/src/dao/entrepreneurDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e6b8da9-edfd-471e-a847-9dc381772804/console.sql" />
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/problem" />
-    <entry file="file://$PROJECT_DIR$/server/src/services/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="16" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/stati.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/category/CreateCategory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MainPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="876">
-          <caret line="371" column="32" lean-forward="true" selection-start-line="371" selection-start-column="32" selection-end-line="371" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1241">
@@ -1036,6 +1034,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="29" selection-start-line="29" selection-end-line="35" selection-end-column="3" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1048,8 +1049,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="65" column="23" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
+        <state relative-caret-position="34">
+          <caret line="4" selection-start-line="4" selection-end-line="6" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -1135,21 +1136,14 @@
     <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -1163,6 +1157,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="195" column="15" selection-start-line="195" selection-start-column="15" selection-end-line="195" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/actions/asyncActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1173,7 +1174,7 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1182,18 +1183,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/.babelrc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-end-line="10" />
+        <state relative-caret-position="221">
+          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/NavBar.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/nodemon.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="380" column="18" lean-forward="true" selection-start-line="380" selection-start-column="18" selection-end-line="380" selection-end-column="18" />
+        <state relative-caret-position="119">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/SideBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1304">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/EditUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1275" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="57" column="15" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/entrepreneur">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/Settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
           <folding>
-            <element signature="e#9#35#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/userActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="156" column="26" lean-forward="true" selection-start-line="156" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/ChangePassword.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="258" column="6" selection-start-line="258" selection-start-column="6" selection-end-line="258" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/controllers/userController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
         </state>
       </provider>
     </entry>
