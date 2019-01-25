@@ -61,13 +61,13 @@ const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20,
-    textAlign: "center"
+    textAlign: 'center'
   },
   button: {
     marginTop: theme.spacing.unit
   },
-  progress:{
-    width: "50%"
+  progress: {
+    width: '50%'
   }
 });
 const ITEM_HEIGHT = 48;
@@ -127,7 +127,7 @@ class ChangePassword extends React.Component<Props, State> {
     postData('users/check_pass', { email: this.props.email, password }).then(response => {
       console.log(response.data);
       this.setState({
-        isOldPassword: response.data.isOldPassword,
+        isOldPassword: response.data.isOldPassword
       });
 
       if (this.state.isOldPassword) {
@@ -177,7 +177,7 @@ class ChangePassword extends React.Component<Props, State> {
   //if the user !isLoggedIn, it will only show a div
   render() {
     const { classes, isLoggedIn, email, user_id, password } = this.props;
-    console.log('this.state on render()', this.state, this.props);
+
     const form = (
       <div className={classes.main}>
         <Card align="center">
@@ -218,9 +218,7 @@ class ChangePassword extends React.Component<Props, State> {
               <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
                 Endre passord
               </Button>
-              {this.state.loading && (
-                <CircularProgress size={24} className={classes.progress}/>
-              )}
+              {this.state.loading && <CircularProgress size={24} className={classes.progress} />}
             </ValidatorForm>
           </CardContent>
         </Card>

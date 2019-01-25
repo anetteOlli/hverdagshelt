@@ -45,6 +45,13 @@ const initState = {
   errorMessage: ''
 };
 
+/**
+ * The eventReducer stores the redux state of events.
+ * @param state Current state of the eventReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the eventReducer.
+ */
+
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_EVENT_SUCCESS':

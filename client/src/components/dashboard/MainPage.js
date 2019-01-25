@@ -39,7 +39,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginBottom: 20,
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   tittel: {
     marginButtom: 30,

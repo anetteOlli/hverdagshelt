@@ -59,7 +59,7 @@ class ProblemsByMonth extends React.Component<Props, State> {
   render() {
     const {classes} = this.props;
     return (
-      <div>
+      <div id="ProblemsByMonth" >
         <Toolbar>
         <Typography variant="h4" gutterBottom component="h2" className={classes.grow}>
           Problemer i {moment(this.state.selectedMonth).format('MMMM YYYY')}

@@ -114,7 +114,7 @@ exports.problems_create_problem = (file, json, callback) => {
         });
       }
     } else {
-      callback(429, status);
+      callback(429, data);
       //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });

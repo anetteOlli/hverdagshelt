@@ -2,9 +2,70 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8581a2ca-4c26-4b6e-b4ba-40635d5f1797" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e6b8da9-edfd-471e-a847-9dc381772804.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e6b8da9-edfd-471e-a847-9dc381772804.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/category/CreateCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/category/CreateCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/map/MapMarkers.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/map/MapMarkers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/EditProblemA.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ChangePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/util/ConvertPDF.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/util/ConvertPDF.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/categoryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/categoryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/eventActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/eventActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/mapActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/mapActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/muniActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/muniActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/notifyActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/notifyActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/problemActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/problemActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/userActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/eventReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/eventReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/mapReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/mapReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/muniReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/muniReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tests/components/problem/CreateProblemTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/tests/components/problem/CreateProblemTest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/entrepreneurController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/entrepreneurController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/eventController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/eventController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/problemController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/problemController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/SQL/stati.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/SQL/stati.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/SQL/tempScript.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/SQL/tempScript.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/entrepreneurDao.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/entrepreneurDao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/eventDao.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/eventDao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/dao/userDao.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/dao/userDao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/eventRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/eventRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/userRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/SQL/problemDao.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/SQL/problemDao.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/SQL/userDao.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/SQL/userDao.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/entrepreneurController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/problemController.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/controllers/userController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/controllers/userController.test.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,29 +98,26 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
+        <entry file="file://$PROJECT_DIR$/client/src/store/configStore.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="92" selection-start-line="92" selection-end-line="92" />
+            <state relative-caret-position="317">
+              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/event/CreateEvent.js">
+        <entry file="file://$PROJECT_DIR$/client/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8808" />
+            <state relative-caret-position="17">
+              <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+            </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/event/EditEvent.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/Footer.js">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -70,32 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="109" column="25" lean-forward="true" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-              <folding>
-                <element signature="e#9#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="914">
+              <caret line="120" column="25" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -103,17 +137,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+            <state relative-caret-position="289">
+              <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js">
+        <entry file="file://$PROJECT_DIR$/client/.babelrc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="11" column="84" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="84" />
+            <state relative-caret-position="153">
+              <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2856">
+              <caret line="192" column="15" selection-start-line="192" selection-start-column="15" selection-end-line="192" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/store/actions/asyncActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -165,27 +229,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/src/routes/entrepreneurRoutes.js" />
-        <option value="$PROJECT_DIR$/server/src/controllers/entrepreneurController.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" />
-        <option value="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/entrepreneurDao.js" />
-        <option value="$PROJECT_DIR$/server/src/controllers/eventController.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/userDao.js" />
-        <option value="$PROJECT_DIR$/client/src/index.js" />
-        <option value="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" />
-        <option value="$PROJECT_DIR$/client/src/App.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" />
-        <option value="$PROJECT_DIR$/server/src/dao/problemDao.js" />
-        <option value="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" />
-        <option value="$PROJECT_DIR$/client/src/withRoot.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js" />
-        <option value="$PROJECT_DIR$/client/src/components/problem/CreateProblem.js" />
-        <option value="$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js" />
-        <option value="$PROJECT_DIR$/client/src/components/map/SearchBox.js" />
-        <option value="$PROJECT_DIR$/client/src/store/actions/eventActions.js" />
-        <option value="$PROJECT_DIR$/client/src/components/event/CreateEvent.js" />
-        <option value="$PROJECT_DIR$/client/src/components/layout/SideBar.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/SignedOutLinks.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/NavBar.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Footer.js" />
@@ -193,14 +236,12 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/SignedInLinks.js" />
         <option value="$PROJECT_DIR$/server/src/routes/userRoutes.js" />
         <option value="$PROJECT_DIR$/client/src/store/actions/userActions.js" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" />
         <option value="$PROJECT_DIR$/server/src/routes/statisticsRoutes.js" />
         <option value="$PROJECT_DIR$/server/src/controllers/userController.js" />
         <option value="$PROJECT_DIR$/client/src/components/user/ForgotPassword.js" />
         <option value="$PROJECT_DIR$/client/src/components/user/SignIn.js" />
         <option value="$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql" />
         <option value="$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql" />
-        <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
         <option value="$PROJECT_DIR$/server/src/controllers/problemController.js" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonthLineChart.js" />
@@ -209,13 +250,36 @@
         <option value="$PROJECT_DIR$/server/src/dao/SQL/stati.sql" />
         <option value="$PROJECT_DIR$/server/package.json" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js" />
-        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js" />
         <option value="$PROJECT_DIR$/client/src/components/category/CreateCategory.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/MainPage.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js" />
+        <option value="$PROJECT_DIR$/client/src/components/util/ConvertPDF.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js" />
         <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/muniReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/mapReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/index.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/eventReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/asyncActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/categoryActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/eventActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/mapActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/muniActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/notifyActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/problemReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/problemActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/actions/statisticsActions.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/store/axios.js" />
+        <option value="$PROJECT_DIR$/client/src/App.js" />
+        <option value="$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js" />
       </list>
     </option>
   </component>
@@ -248,82 +312,6 @@
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
               <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="category" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="event" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="map" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="problem" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="statistics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hverdagshelt" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hverdagshelt" type="b2602c69:ProjectViewProjectNode" />
@@ -433,14 +421,7 @@
       <workItem from="1548141838626" duration="15011000" />
       <workItem from="1548228127640" duration="6487000" />
       <workItem from="1548237709120" duration="7878000" />
-      <workItem from="1548404737490" duration="9080000" />
-    </task>
-    <task id="LOCAL-00010" summary="Merge branch 'master' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into Erlend&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources/882cdab8-d18e-49c2-8eed-edaacfd1e376.xml">
-      <created>1547047306145</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1547047306145</updated>
+      <workItem from="1548404737490" duration="17899000" />
     </task>
     <task id="LOCAL-00011" summary="before pull">
       <created>1547111137178</created>
@@ -778,11 +759,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548413952028</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/store/reducers/statisticsReducer.js&#10;#&#9;server/src/dao/SQL/INSERT_SCRIPT.sql">
+      <created>1548417354912</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1548417354914</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241411000" />
+    <option name="totallyTimeSpent" value="250230000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -795,58 +783,60 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21214575" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21214575" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
       <window_info id="Job Explorer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Flow" weight="0.053285968" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.21847247" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32907802" />
-      <window_info anchor="bottom" id="Console" order="7" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.5852349" visible="true" weight="0.14920071" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" weight="0.18014185" />
+      <window_info anchor="bottom" id="Flow" order="0" weight="0.053285968" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49932885" weight="0.21847247" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32907802" />
+      <window_info anchor="bottom" id="Console" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32907802" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" visible="true" weight="0.110124335" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.23445825" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
+      <window_info anchor="bottom" id="Version Control" order="16" sideWeight="0.4986577" weight="0.3250444" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.17246963" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.17651822" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21214575" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" weight="0.3395973" />
       <window_info id="Project Explorer" order="3" weight="0.3295302" />
       <window_info id="Job Explorer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.21847247" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32907802" />
-      <window_info anchor="bottom" id="Console" order="7" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32907802" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.5852349" visible="true" weight="0.1705151" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4986577" weight="0.18014185" />
+      <window_info anchor="bottom" id="Flow" order="0" weight="0.053285968" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49932885" weight="0.21847247" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32907802" />
+      <window_info anchor="bottom" id="Console" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32907802" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4147651" side_tool="true" weight="0.26524824" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.5852349" visible="true" weight="0.20781527" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.23445825" />
       <window_info anchor="bottom" id="TypeScript" order="15" />
+      <window_info anchor="bottom" id="Version Control" order="16" sideWeight="0.4986577" weight="0.3250444" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -927,135 +917,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'snorre' of gitlab.stud.idi.ntnu.no:larssorl/hverdagshelt into ErlendReal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;client/src/store/reducers/statisticsReducer.js&#10;#&#9;server/src/dao/SQL/INSERT_SCRIPT.sql" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/src/routes/entrepreneurRoutes.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/user/ForgotPassword.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/routes/problemRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="65" column="42" selection-start-line="65" selection-start-column="42" selection-end-line="65" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/CREATE_TABLE.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2397">
-          <caret line="141" column="59" selection-start-line="141" selection-start-column="59" selection-end-line="141" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/routes/eventRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="15" selection-start-column="15" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/controllers/problemController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="106" column="3" selection-start-line="106" selection-start-column="3" selection-end-line="106" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/problemDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="163" column="27" selection-start-line="163" selection-start-column="2" selection-end-line="163" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/tempScript.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="2" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/SQL/INSERT_SCRIPT.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="456" column="36" selection-start-line="456" selection-start-column="28" selection-end-line="456" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/user/Profile.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5049" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/problem/EditProblemMain.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/map/pointer.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/map/SearchBox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="135" column="15" selection-start-line="135" selection-start-column="15" selection-end-line="135" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/util/ConvertPDF.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-55">
-          <caret line="26" column="38" lean-forward="true" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/category">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/user_problem">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/controllers/eventController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="15" selection-start-line="65" selection-start-column="15" selection-end-line="65" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/dao/eventDao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="67" column="2" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://1e6b8da9-edfd-471e-a847-9dc381772804/schema/larssorl/table/user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
-          <folding>
-            <element signature="e#9#57#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1122,31 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
-          <folding>
-            <element signature="e#9#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/category/CreateCategory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-578">
@@ -1163,7 +1003,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/MuniPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
+        <state relative-caret-position="1241">
           <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
@@ -1179,47 +1019,264 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Footer.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapMarkers.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="109" column="25" lean-forward="true" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-          <folding>
-            <element signature="e#9#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="11" column="84" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="84" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByEnt.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
+        <state relative-caret-position="187">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByCat.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+        <state relative-caret-position="108">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/statisticMethods.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByMonth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="63" column="74" selection-start-line="63" selection-start-column="61" selection-end-line="63" selection-end-column="85" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/ProblemsByYear.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="56" selection-start-line="56" selection-end-line="57" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/notifyReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/muniReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/mapReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="56" column="71" selection-start-line="56" selection-start-column="71" selection-end-line="56" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/eventReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/entrepreneurReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/categoryReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/util/ConvertPDF.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="29" selection-start-line="29" selection-end-line="35" selection-end-column="3" />
+          <folding>
+            <element signature="e#9#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/categoryActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" column="29" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/entrepreneurAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="4" selection-start-line="4" selection-end-line="6" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/eventActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" selection-start-line="5" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/mapActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="4" selection-start-line="4" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/muniActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" selection-start-line="5" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/problemActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="313" column="59" selection-start-line="313" selection-start-column="59" selection-end-line="313" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/notifyActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/problemReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="85" column="13" selection-start-line="85" selection-start-column="2" selection-end-line="85" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/statisticsActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="83" column="22" lean-forward="true" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="22" />
+          <folding>
+            <element signature="e#9#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/statisticsReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-425">
+          <caret line="31" column="19" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="19" />
+          <folding>
+            <element signature="e#9#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/userReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/axios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/configStore.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/reducers/asyncReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="11" column="84" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="84" />
+          <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapMarkers.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/map/MapWithSearchBox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="914">
+          <caret line="120" column="25" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/problem/ProblemDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="192" column="15" selection-start-line="192" selection-start-column="15" selection-end-line="192" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/store/actions/asyncActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/statistics/StatisticPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-end-line="10" />
         </state>
       </provider>
     </entry>

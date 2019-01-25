@@ -25,9 +25,9 @@ class ProblemsByCat extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div id="ProblemsByCat" >
         <Typography variant="h4" gutterBottom component="h2">
-          Problemer pr kategory
+          Problemer per kategori
         </Typography>
         <Typography component="div" className={classes.chartContainer}>
           <ResponsiveContainer width="99%" height={320}>

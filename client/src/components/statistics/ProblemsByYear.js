@@ -34,11 +34,14 @@ type State = {
 const styles = theme => ({
   formControl: {
     marginLeft: theme.spacing.unit * 5,
-    minWidth: 68,
+    minWidth: 68
   },
   chartContainer: {
     marginLeft: -22,
     paddingBottom: theme.spacing.unit * 4
+  },
+  grow: {
+    flex: 1
   }
 });
 
@@ -55,21 +58,21 @@ class ProblemsByYear extends React.Component<Props, State> {
   };
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
-      <div>
+      <div id="ProblemsByYear">
         <Toolbar>
-        <Typography variant="h4" gutterBottom component="h2">
-          Tid for fiksing av problemer
-        </Typography>
+          <Typography variant="h4" gutterBottom component="h2" className={classes.grow}>
+            Tid for fiksing av problemer
+          </Typography>
           <FormControl className={classes.formControl}>
             <Select label="Velg år" name="selectedYear" value={this.state.selectedYear} onChange={this.handleChange}>
               {this.props.dropDownYears &&
-              this.props.dropDownYears.map((option, index) => (
-                <MenuItem key={index} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
+                this.props.dropDownYears.map((option, index) => (
+                  <MenuItem key={index} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Toolbar>

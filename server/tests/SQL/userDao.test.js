@@ -85,18 +85,18 @@ test("Testing deleteOne from userDao", (done) => {
 });
 
 test("Testing checkMail from userDao", (done) => {
-  let email = "admin@admin.admin";
+  let email = "koma@koma.koma";
   dao.checkEmail(email,(status,data) => {
     expect(status).toBe(200);
     expect(data.length).toBe(1);
-    expect(data[0].user_id).toBe(4);
-    expect(data[0].priority).toBe("Administrator");
+    expect(data[0].user_id).toBe(2);
+    expect(data[0].priority).toBe("Municipality");
     done();
   })
 });
 
 test("Testing activateUser from userDao", (done) => {
-  let email = "admin@admin.admin";
+  let email = "test@test.test";
   dao.activateUser(email, (status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
@@ -108,7 +108,7 @@ test("Testing changePassword from userDao", (done) => {
   let json = {
     email: "admin@admin.admin",
     password: "test",
-    user_id : 4
+    user_id: 4
   };
   dao.changePassword(json, json.password, (status,data) => {
    expect(status).toBe(200);

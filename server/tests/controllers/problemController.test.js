@@ -35,7 +35,6 @@ test("Testing problems_get_all from problemcontroller", (done) => {
   })
 });
 
-
 test("Testing problems_get_one from problemController", (done) => {
   let id = 1;
   problemController.problems_get_problem(id, (status,data) => {
@@ -46,7 +45,6 @@ test("Testing problems_get_one from problemController", (done) => {
     done();
   })
 });
-
 
 test("Testing problems_get_from_municipality from problemController", (done) => {
   let json = {
@@ -64,7 +62,6 @@ test("Testing problems_get_from_municipality from problemController", (done) => 
     done();
   })
 });
-
 
 test("Testing problems_get_from_municipality_and_street from problemController", (done) => {
   let json = {
@@ -112,10 +109,18 @@ test("Testing problems_create_problem from problemController", (done) => {
   problemController.problems_create_problem(undefined, problem,(status,data) => {
     expect(status).toBe(200);
     expect(data[0].affectedRows).toBe(1);
-    done();
+    problem.street = "yeetStreet";
+    problemController.problems_create_problem(undefined,problem,(status,data) => {
+      expect(status).toBe(200);
+      expect(data[0].affectedRows).toBe(1);
+      problem.county = "yeet";
+      problemController.problems_create_problem(undefined, problem, (status,data) => {
+        expect(status).toBe(500);
+        done();
+      })
+    })
   })
 });
-
 
 test("Testing problems_support_problem from problemController", (done) => {
   let id = 4;
@@ -126,8 +131,14 @@ test("Testing problems_support_problem from problemController", (done) => {
   problemController.problems_support_problem(id,json,(status,data) => {
     expect(status).toBe(200);
     expect(data.affectedRows).toBe(1);
+    /*problemController.problems_support_problem(id,json,(status,data) => {
+      expect(status).toBe(500);
+      expect(data.affectedRows).toBe(0);
+      done();
+    })*/
     done();
   })
+
 });
 
 test("Testing problems_delete_problem  from problemController", (done) => {
@@ -142,7 +153,7 @@ test("Testing problems_delete_problem  from problemController", (done) => {
   })
 });
 
-test("Testing problems_get_problem_by_entrepreneur  from problemcontroller", (done) => {
+test("Testing problems_get_problem_by_entrepreneur  from problemController", (done) => {
   let id = 3;
   problemController.problems_get_problem_by_entrepreneur(id,(status,data) => {
     expect(status).toBe(200);
@@ -152,19 +163,19 @@ test("Testing problems_get_problem_by_entrepreneur  from problemcontroller", (do
   })
 });
 
-test("Testing problems_get_problem_by_user from problemcontroller", (done) => {
+test("Testing problems_get_problem_by_user from problemController", (done) => {
   let id = 1;
   problemController.problems_get_problem_by_user(id, (status,data) => {
     expect(status).toBe(200);
-    expect(data.length).toBeLessThanOrEqual(5);
-    expect(data.length).toBeGreaterThanOrEqual(3);
+    expect(data.length).toBeLessThanOrEqual(6);
+    expect(data.length).toBeGreaterThanOrEqual(4);
     expect(data[0].problem_title).toBe("Erlend tried his best");
     expect(data[0].user_id).toBe(id);
     done();
   })
 });
 
-test("Testing problems_ from problemcontroller", (done) => {
+test("Testing problems_get_from_municipality_sorted from problemController", (done) => {
   let json = {
     county:"Trøndelag",
     municipality: "Trondheim"

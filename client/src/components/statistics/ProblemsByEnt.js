@@ -28,9 +28,9 @@ class ProblemsByEnt extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div id="ProblemsByEnt">
         <Typography variant="h4" gutterBottom component="h2">
-          Antall problemer løst av entreprenører
+          Problemer løst av entreprenører
         </Typography>
         <Typography component="div" className={classes.chartContainer}>
           <ResponsiveContainer width="99%" height={320}>
