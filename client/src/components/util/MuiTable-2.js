@@ -40,6 +40,9 @@ import { easyDateFormat } from '../util/DateFormater';
 
 /** Courtesy of https://material-ui.com/demos/expansion-panels/
  * Styles the expansionpanels!
+ * @fileOverview Muitable's Sequel. A table of myProblems
+ * @author Sindre H. Paulshus
+ * @see CreateProblem and ProblemDetails
  */
 const ExpansionPanel = withStyles({
   root: {
@@ -85,8 +88,15 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 const styles = theme => ({
   expansionPaper:{
-    [theme.breakpoints.down('md')]:{
-      height: 250
+    [theme.breakpoints.up('sm')]:{
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      overflow: 'auto'
+    },
+    [theme.breakpoints.down('sm')]:{
+      height: 250,
+      overflow: 'auto'
     }
   }
 });
@@ -225,8 +235,7 @@ class MuiTable2 extends React.Component<Props> {
     let sort = rows;
     if (this.state.sort == 'support') {
       if (this.state.direction == 'asc') {
-        sort
-          .sort(function(a, b) {
+        sort.sort(function(a, b) {
             if(a.support == b.support){
               return a.date_made.localeCompare(b.date_made);
             }
@@ -243,8 +252,7 @@ class MuiTable2 extends React.Component<Props> {
       }
     } else if (this.state.sort == 'date') {
       if (this.state.direction == 'asc') {
-        sort
-          .sort(function(a, b) {
+        sort.sort(function(a, b) {
             return a.date_made.localeCompare(b.date_made);
           })
           .reverse();
@@ -259,7 +267,7 @@ class MuiTable2 extends React.Component<Props> {
 
   render() {
     const { expanded } = this.state;
-    const { classes, rows, onSupportClick, onClick } = this.props;
+    const { classes, rows, onSupportClick, onClick, height } = this.props;
     let color = 'disabled';
     let myRows = [];
     //console.log("MuiTable2 rows: ", rows);
@@ -276,7 +284,7 @@ class MuiTable2 extends React.Component<Props> {
     return (
       <div>
         <Paper className={classes.expansionPaper} style={{
-          position: 'absolute', top: '0', bottom: '0', overflow: 'auto'
+          height: height
         }}>
           <Card align="center">
             <CardContent>

@@ -79,14 +79,16 @@ class NavBar extends React.Component<Props, State> {
       <div className={classes.nav}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton
-              onClick={this.handleOpen}
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
+            {isLoggedIn && (
+              <IconButton
+                onClick={this.handleOpen}
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Open drawer"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Button component={NavLink} to={'/'} color="inherit" className={classes.title}>
               HverdagsHelt
             </Button>

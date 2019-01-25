@@ -16,13 +16,18 @@ module.exports = class EntrepreneurDao extends Dao {
   }
 
   getByMuni(json, callback) {
-    const val = [json.municipality_fk, json.county_fk];
+    const val = [json.municipality, json.county];
     console.log(val);
     super.query(
       'select distinct * from entrepreneur WHERE entrepreneur_id in (SELECT entrepreneur_id from entrepreneur_municipality where municipality = ? AND county = ?)',
       val,
       callback
     );
+  }
+
+
+  getEntrepreneurByUserID(user_id, callback) {
+    super.query('select * from entrepreneur where user_id = ?', [user_id], callback);
   }
 
   getEntrepreneur(id, callback) {
@@ -33,7 +38,7 @@ module.exports = class EntrepreneurDao extends Dao {
     super.query('select * from entrepreneur WHERE user_id = (select user_id from problem where problem_id = ?)', [problem_id], callback)
   }
 
-  getEntrepreneurID(user_id, callback) {
+  getEntrepreneurByUserID(user_id, callback) {
     super.query('select * from entrepreneur where user_id = ?', [user_id], callback);
   }
 

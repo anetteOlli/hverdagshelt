@@ -32,6 +32,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+/**
+ * @fileOverview changePassword component
+ * @author Anette Olli Siiri
+ */
+
 type Props = {
   classes: Object,
   isLoggedIn: boolean,
@@ -61,13 +66,13 @@ const styles = (theme: Object) => ({
   main: {
     margin: 20,
     padding: 20,
-    textAlign: "center"
+    textAlign: 'center'
   },
   button: {
     marginTop: theme.spacing.unit
   },
-  progress:{
-    width: "50%"
+  progress: {
+    width: '50%'
   }
 });
 const ITEM_HEIGHT = 48;
@@ -81,6 +86,9 @@ const MenuProps = {
   }
 };
 
+/**
+ * changePassword component
+ */
 class ChangePassword extends React.Component<Props, State> {
   state = {
     email: '',
@@ -127,7 +135,7 @@ class ChangePassword extends React.Component<Props, State> {
     postData('users/check_pass', { email: this.props.email, password }).then(response => {
       console.log(response.data);
       this.setState({
-        isOldPassword: response.data.isOldPassword,
+        isOldPassword: response.data.isOldPassword
       });
 
       if (this.state.isOldPassword) {
@@ -177,52 +185,50 @@ class ChangePassword extends React.Component<Props, State> {
   //if the user !isLoggedIn, it will only show a div
   render() {
     const { classes, isLoggedIn, email, user_id, password } = this.props;
-    console.log('this.state on render()', this.state, this.props);
+
     const form = (
       <div className={classes.main}>
         <Card align="center">
           <CardContent>
-        <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Nytt passord"
-            name="password"
-            autoComplete="new-password"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.password}
-            onChange={this.handleChange}
-            validators={['required', 'minStringLength:6']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextValidator
-            fullWidth
-            margin="normal"
-            label="Bekreft passord"
-            name="cnfPassword"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.cnfPassword}
-            onChange={this.handleChange}
-            validators={['required', 'isPasswordMatch']}
-            errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
-          />
-          <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
-            Endre passord
-          </Button>
-          {this.state.loading && (
-            <CircularProgress size={24} className={classes.progress}/>
-          )}
-        </ValidatorForm>
-        </CardContent>
+            <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Nytt passord"
+                name="password"
+                autoComplete="new-password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.password}
+                onChange={this.handleChange}
+                validators={['required', 'minStringLength:6']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordet må være lenger']}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="Toggle password visibility" onClick={this.handleVisibility}>
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextValidator
+                fullWidth
+                margin="normal"
+                label="Bekreft passord"
+                name="cnfPassword"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.cnfPassword}
+                onChange={this.handleChange}
+                validators={['required', 'isPasswordMatch']}
+                errorMessages={['Feltet kan ikke være tomt', 'Passordene er ikke like']}
+              />
+              <Button fullWidth color="primary" variant="contained" className={classes.button} type="submit">
+                Endre passord
+              </Button>
+              {this.state.loading && <CircularProgress size={24} className={classes.progress} />}
+            </ValidatorForm>
+          </CardContent>
         </Card>
         <Dialog
           open={this.state.successDialog}

@@ -62,12 +62,14 @@ const styles = (theme: Object) => ({
     padding: 20
   },
   button: {
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
   },
   paper: {
     paddingTop: 20,
     paddingBottom: 20,
     marginTop: 10,
+    marginLeft: 30,
+    marginRight: 30,
     color: theme.palette.text.secondary
   },
   paper2: {
@@ -81,6 +83,11 @@ const styles = (theme: Object) => ({
   },
   grid2: {
     paddingBottom: 20,
+    height: '100%',
+    alignItems: 'flex-end'
+  },
+  grid3: {
+    paddingTop: 50,
     height: '100%',
     alignItems: 'flex-end'
   },
@@ -366,6 +373,8 @@ class EditProblemA extends React.Component<Props, State> {
                 <Button type="submit" fullWidth variant="contained" className={classes.button}>
                   Lagre endringer
                 </Button>
+              </Grid>
+              <Grid item xs className = {classes.grid3}>
                 <div>
                   <div className="mapPlaceholder">
                     <MapMarkers />

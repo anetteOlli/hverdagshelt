@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   fs.watch(public_path, () => reloadServer.reload());
 }
 
-const PORT: number = process.env.PORT != null ? parseInt(process.env.PORT, 10) : 3000;
+const PORT: number = process.env.PORT != null ? parseInt(process.env.PORT, 10) : 3002;
 export let listen = new Promise<void>((resolve, reject) => {
   app.listen(PORT, error => {
     if (error) reject(error.message);

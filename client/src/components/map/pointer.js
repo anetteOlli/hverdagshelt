@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-/** Styled-components is used because Material-ui caused issued with google-map-React
- ** transform : translate(-50%, -50%) is used to plase the marker where the user clicked and not in top left corner
- **
- **/
+/**
+ * @fileOverview Using 'styled-components' for map markers as google-map-react package had issues with material-ui.
+ */
 
 /**
  * black dot

@@ -87,7 +87,7 @@ exports.problems_get_from_municipality_sorted = (json, callback) => {
   console.log(
     '/problems/municipality/sorted: ' + json.municipality + '(' + json.county + ') fikk GET request fra klient'
   );
-  problemDao.getFromMunicipality(json, (status, data) => {
+  problemDao.getFromMunicipalitySorted(json, (status, data) => {
     callback(status, data);
   });
 };
@@ -114,7 +114,7 @@ exports.problems_create_problem = (file, json, callback) => {
         });
       }
     } else {
-      callback(429, status);
+      callback(429, data);
       //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });

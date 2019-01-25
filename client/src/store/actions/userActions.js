@@ -149,9 +149,12 @@ export const clearError = () => {
 };
 
 export const forgotPassword = (email: string) => {
+  console.log('--userActions--');
+  console.log('email in = ' + email);
   return (dispatch: Dispatch) => {
     return postData('users/forgot', { email })
       .then(() => {
+        console.log('--userAction2--');
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
         });

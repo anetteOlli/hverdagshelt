@@ -30,7 +30,7 @@ exports.getEntrepreneurByProblem = (problem_id, callback) => {
 
 exports.entrepreneurs_get_one_by_user_id = (id, callback) => {
   console.log('Handling GET requests to /entrepreneurs/id/' + id);
-  entrepreneurDao.getEntrepreneurID(id, (status, data) => {
+  entrepreneurDao.getEntrepreneurByUserID(id, (status, data) => {
     callback(status, data);
   });
 };
@@ -53,7 +53,7 @@ exports.validate_org_nr = (orgNr, callback) => {
 exports.entrepreneurs_create_entrepreneur = (json, callback) => {
   userDao.createUser(json.user, hashPassword(json.user.password), 'Entrepreneur', (status, data) => {
     if (status === 200) {
-      let link = 'http://localhost:3001/div/verifyEmail/' + genTokenEmail({ email: json.email });
+      let link = "<a>"+'http://localhost:3001/div/verifyEmail/' + genTokenEmail({ email: json.email }) + "</a>";
       let datapackage = {
         recepients: json.user.email,
         text: link,

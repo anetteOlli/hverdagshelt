@@ -99,11 +99,12 @@ function getSteps() {
 * @params handleChange: @see handleChange
 * @params handleChangeSpec: @see handleChangeSpec
 * @params handleUpload: @see handleUpload
-* @params similarProblems: [], array of similar problems to our user's
-* @params categories: [], array of ALL problem categories
+* @params handleSupport: function, @see handleSupport
+* @params props: this.props from CreateProblem
 */
 function getStepContent(step: number, state: State,
-                      handleChange: function, handleChangeSpec: function, handleUpload: function, handleSupport: function,
+                      handleChange: function, handleChangeSpec: function,
+                      handleUpload: function, handleSupport: function,
                       props: any) {
   //console.log(props.categories[0]);
   //props.categories.map((e,i) => console.log(e + " / " + i));
@@ -179,6 +180,7 @@ function getStepContent(step: number, state: State,
               {haveRows ? (
                   <MuiTable2
                     rows={rows}
+                    height={"100%"}
                     onClick={e => {
                       let myProblem = e;
                       handleChangeSpec("cur_id", myProblem.problem_id);
@@ -200,6 +202,7 @@ function getStepContent(step: number, state: State,
               spacing={24}
               alignItems="center"
               >
+                <br/>
                 <Typography variant="h5" align="center" color="secondary">
                     {state.municipality},
                 </Typography>
@@ -364,7 +367,6 @@ type Problem = {
 
 
 };
-
 type   state = {
     activeStep: number,
     //User
@@ -399,7 +401,6 @@ type   state = {
         ],
     categories:['Default']
   };
-
 
 /** CreateProblem Component */
 class CreateProblem extends React.Component<Props, State> {
@@ -474,6 +475,7 @@ class CreateProblem extends React.Component<Props, State> {
   /** Gets problems in vicinity
   * @params municipality: string, the user-selected municipality
   * @params street: string, the inputted street
+  * @params county: string, the inputted county
   * */
   getSimilarProblems(street: string, municipality: string, county: string){
      this.props.getProblemsByStreet(street, municipality, county)
@@ -547,6 +549,7 @@ class CreateProblem extends React.Component<Props, State> {
       failureDialog: false
     });
   };
+
   /**  setting showSuppordDialog: false will close the showSuppordDialog and
   * this method will also redirect user to the frontpage
   */
@@ -556,6 +559,7 @@ class CreateProblem extends React.Component<Props, State> {
     });
     history.push("/");
   };
+
   /**
   *setting showSuppordDialog: false will close the showSuppordDialog.
   * Rest of the function will refresh the similarProblems-lists, in order
@@ -601,6 +605,8 @@ class CreateProblem extends React.Component<Props, State> {
       activeStep: state.activeStep - 1
     }));
   };
+
+  /** Goes back to front page */
   backToFrontPage = () =>{
     history.push("/");
   }
@@ -798,7 +804,9 @@ class CreateProblem extends React.Component<Props, State> {
           <div className="bottomContent">
             {activeStep === steps.length ? (
               this.state.loadingCreateProb ? (
+              <Card aling="center"> <CardContent>
               <CircularProgress size={24} />
+              </CardContent></Card>
               ) : (
               <Card className="create-problem-done" align="center">
                 <CardContent>

@@ -202,7 +202,7 @@ class ProblemDetails extends React.Component<Props, State> {
   render() {
     const { classes, problem, currentEntrepreneur } = this.props;
     if(this.props.entrepreneurs) {
-      console.log('lengtth ' + this.props.entrepreneurs.length);
+      console.log('length: ' + this.props.entrepreneurs.length);
     }
     if (problem) {
       return (
