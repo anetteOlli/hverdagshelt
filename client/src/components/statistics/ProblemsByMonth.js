@@ -16,16 +16,9 @@ import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import moment from 'moment';
-
-const lineChartData = [
-  { name: 'Mon', Problems: 2200 },
-  { name: 'Tue', Problems: 1200 },
-  { name: 'Wed', Problems: 5000 },
-  { name: 'Thu', Problems: 4780 },
-  { name: 'Fri', Problems: 5890 },
-  { name: 'Sat', Problems: 4390 },
-  { name: 'Sun', Problems: 4490 }
-];
+import { withStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 type Props = {
   dropDownMonths: { value: string, name: string }[],
@@ -36,7 +29,14 @@ type State = {
   selectedMonth: string
 };
 
-class LineChartPage extends React.Component<Props, State> {
+const styles = theme => ({
+  formControl: {
+    marginLeft: theme.spacing.unit *5
+  }
+});
+
+
+class ProblemsByMonth extends React.Component<Props, State> {
   state = {
     selectedMonth: moment(Date.now()).format('YYYY-M')
   };
@@ -45,15 +45,14 @@ class LineChartPage extends React.Component<Props, State> {
     this.setState({
       selectedMonth: e.target.value
     });
-    this.props.getProblemsByMonthLine(e.target.value);
+    this.props.getProblemsByMonth(e.target.value);
   };
 
   render() {
-    console.log(this.props.lineChartData);
     return (
       <div>
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={this.props.lineChartData}>
+          <LineChart data={this.props.lineChartData.problemsByMonthData}>
             <XAxis dataKey="name" />
             <YAxis />
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -62,24 +61,21 @@ class LineChartPage extends React.Component<Props, State> {
             <Line type="monotone" dataKey="problemer" stroke="#82ca9d" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
-        <ValidatorForm onSubmit={() => console.log('')}>
-          <SelectValidator
-            fullWidth
+        <FormControl className={this.props.classes.formControl}>
+          <Select
             margin="normal"
-            label="Fylke: "
-            name="county"
+            label="Velg månde"
+            name="selectedMonth"
             value={this.state.selectedMonth}
             onChange={this.handleChange}
-            validators={['required']}
-            errorMessages={['this field is required']}
           >
             {this.props.dropDownMonths.map((option, index) => (
               <MenuItem key={index} value={option.value}>
                 {option.name}
               </MenuItem>
             ))}
-          </SelectValidator>
-        </ValidatorForm>
+          </Select>
+        </FormControl>
       </div>
     );
   }
@@ -103,26 +99,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSnackbar(LineChartPage));
-
-/*
-  <InputLabel shrink htmlFor="age-label-placeholder">
-              Age
-            </InputLabel>
-            <Select
-              value={this.state.age}
-              onChange={this.handleChange}
-              input={<Input name="age" id="age-label-placeholder" />}
-              displayEmpty
-              name="age"
-              className={classes.selectEmpty}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-
- */
+)(withStyles(styles)(ProblemsByMonth));

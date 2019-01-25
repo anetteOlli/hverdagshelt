@@ -97,8 +97,12 @@ class SignIn extends React.Component<Props, State> {
     });
   };
 
+  handleClear = () => {
+    this.props.clearError();
+  };
+
   render() {
-    const { open, onClose, classes, isLoading } = this.props;
+    const { open, classes, isLoading } = this.props;
     return (
       <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
         {!this.state.forgotPasswordOpen ? (
@@ -142,7 +146,14 @@ class SignIn extends React.Component<Props, State> {
                     Glemt passord
                   </Button>
                 </DialogActions>
-                <Button fullWidth variant="contained" color="primary" type="submit" className={classes.button}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  onClick={this.handleClear}
+                  className={classes.button}
+                >
                   {isLoading && <CircularProgress size={20} className={classes.spinner} />}
                   Login
                 </Button>

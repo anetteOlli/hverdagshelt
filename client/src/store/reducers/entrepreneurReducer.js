@@ -19,7 +19,6 @@ export default (state: State = initState, action: Action) => {
       return {
         errorMessage: action.payload.message
       };
-
     case 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS':
       console.log('%c ENTREPRENEUR_GET_FROM_user_id_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {

@@ -287,11 +287,11 @@
 </g>
 <g id="clust70" class="cluster"><title>cluster_71</title>
 <polygon fill="lightgray" stroke="lightgrey" points="65495,-1025 65495,-1985.4 66414,-1985.4 66414,-1025 65495,-1025"/>
-<text text-anchor="middle" x="65955" y="-1954.4" font-family="Times,serif" font-size="30.00">/home/anette/hverdagshelt/client/src/components/statistics/BarChartPage.js</text>
+<text text-anchor="middle" x="65955" y="-1954.4" font-family="Times,serif" font-size="30.00">/home/anette/hverdagshelt/client/src/components/statistics/ProblemsByYearLineChartBarChartPage.js</text>
 </g>
 <g id="clust71" class="cluster"><title>cluster_72</title>
 <polygon fill="lightgray" stroke="lightgrey" points="16890,-1045.8 16890,-2136.6 18086,-2136.6 18086,-1045.8 16890,-1045.8"/>
-<text text-anchor="middle" x="17355.8" y="-2105.6" font-family="Times,serif" font-size="30.00">/home/anette/hverdagshelt/client/src/components/statistics/LineChartPage.js</text>
+<text text-anchor="middle" x="17355.8" y="-2105.6" font-family="Times,serif" font-size="30.00">/home/anette/hverdagshelt/client/src/components/statistics/ProblemsByMonthLineChart.jsineChart.js</text>
 </g>
 <g id="clust72" class="cluster"><title>cluster_73</title>
 <polygon fill="lightgray" stroke="lightgrey" points="19585,-1025 19585,-1985.4 20994,-1985.4 20994,-1025 19585,-1025"/>
@@ -10311,7 +10311,7 @@
 <g id="node888" class="node"><title>647</title>
 <polygon fill="khaki" stroke="black" points="17136.3,-1887.3 17136.3,-1928.9 17239.7,-1928.9 17239.7,-1887.3 17136.3,-1887.3"/>
 <text text-anchor="middle" x="17188" y="-1912.3" font-family="Times,serif" font-size="14.00">«CLASS»</text>
-<text text-anchor="middle" x="17188" y="-1895.5" font-family="Times,serif" font-size="14.00"> LineChartPage</text>
+<text text-anchor="middle" x="17188" y="-1895.5" font-family="Times,serif" font-size="14.00"> ProblemsByMonthLineChart</text>
 </g>
 <!-- 648 -->
 <g id="node889" class="node"><title>648</title>
