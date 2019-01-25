@@ -1,7 +1,7 @@
 const Dao = require('./dao.js');
 
 module.exports = class EntrepreneurDao extends Dao {
-  
+
   /**
    * Retrieves all entrepreneurs from the database.
    * @param callback Returns table rows and status or an error code if something went wrong.
@@ -47,6 +47,11 @@ module.exports = class EntrepreneurDao extends Dao {
    */
   getEntrepreneur(id, callback) {
     super.query('select * from entrepreneur WHERE entrepreneur_id = ?', [id], callback);
+  }
+
+
+  getEntrepreneurByProblem(problem_id, callback){
+    super.query('select * from entrepreneur WHERE user_id = (select user_id from problem where problem_id = ?)', [problem_id], callback)
   }
 
   /**

@@ -8,6 +8,12 @@ const initState = {
   notifications: []
 };
 
+/**
+ * The notifyReducer stores the redux state of all the notifications in the app.
+ * @param state Current state of the notifyReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the notifyReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'ENQUEUE_SNACKBAR':

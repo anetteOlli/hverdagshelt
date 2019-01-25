@@ -99,11 +99,12 @@ function getSteps() {
 * @params handleChange: @see handleChange
 * @params handleChangeSpec: @see handleChangeSpec
 * @params handleUpload: @see handleUpload
-* @params similarProblems: [], array of similar problems to our user's
-* @params categories: [], array of ALL problem categories
+* @params handleSupport: function, @see handleSupport
+* @params props: this.props from CreateProblem
 */
 function getStepContent(step: number, state: State,
-                      handleChange: function, handleChangeSpec: function, handleUpload: function, handleSupport: function,
+                      handleChange: function, handleChangeSpec: function,
+                      handleUpload: function, handleSupport: function,
                       props: any) {
   //console.log(props.categories[0]);
   //props.categories.map((e,i) => console.log(e + " / " + i));
@@ -280,8 +281,8 @@ function getStepContent(step: number, state: State,
               autoComplete="title"
               value={state.title}
               onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en tittel']}
+              validators={['required', 'minStringLength:5', 'maxStringLength:30']}
+              errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 30 bokstaver i tittelen']}
             />
             <TextValidator
               multiline
@@ -294,8 +295,8 @@ function getStepContent(step: number, state: State,
               autoComplete="description"
               value={state.description}
               onChange={handleChange}
-              validators={['required']}
-              errorMessages={['Du må skrive inn en beskrivelse']}
+              validators={['required', 'maxStringLength:300', 'minStringLength:10']}
+              errorMessages={['Du må skrive inn en beskrivelse', 'Beskrivelsen kan være maks 300 ord', 'Beskrivelsen må være minst 10 ord']}
             />
             <br/>
             <FormControl fullWidth margin="normal">
@@ -366,7 +367,6 @@ type Problem = {
 
 
 };
-
 type   state = {
     activeStep: number,
     //User
@@ -401,7 +401,6 @@ type   state = {
         ],
     categories:['Default']
   };
-
 
 /** CreateProblem Component */
 class CreateProblem extends React.Component<Props, State> {
@@ -476,6 +475,7 @@ class CreateProblem extends React.Component<Props, State> {
   /** Gets problems in vicinity
   * @params municipality: string, the user-selected municipality
   * @params street: string, the inputted street
+  * @params county: string, the inputted county
   * */
   getSimilarProblems(street: string, municipality: string, county: string){
      this.props.getProblemsByStreet(street, municipality, county)
@@ -549,6 +549,7 @@ class CreateProblem extends React.Component<Props, State> {
       failureDialog: false
     });
   };
+
   /**  setting showSuppordDialog: false will close the showSuppordDialog and
   * this method will also redirect user to the frontpage
   */
@@ -558,6 +559,7 @@ class CreateProblem extends React.Component<Props, State> {
     });
     history.push("/");
   };
+
   /**
   *setting showSuppordDialog: false will close the showSuppordDialog.
   * Rest of the function will refresh the similarProblems-lists, in order
@@ -603,6 +605,8 @@ class CreateProblem extends React.Component<Props, State> {
       activeStep: state.activeStep - 1
     }));
   };
+
+  /** Goes back to front page */
   backToFrontPage = () =>{
     history.push("/");
   }

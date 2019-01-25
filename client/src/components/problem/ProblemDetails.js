@@ -12,20 +12,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Icon from '@material-ui/core/Icon';
 import MapMarkers from '../map/MapMarkers';
 import Edit from '@material-ui/icons/BorderColor';
-import { getProblemById, goToProblemDetail, goToProblemEdit } from '../../store/actions/problemActions';
+import { getProblemById, goToProblemEdit } from '../../store/actions/problemActions';
 import { entrepreneurs_get_one_by_entrepreneur_id, getEntrepreneursByMuniAndCat } from '../../store/actions/entrepreneurAction';
 import { problemAddEntrepreneur } from '../../store/actions/problemActions';
-
 import SelectTable2 from '../util/SelectTable2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
-
 import { withStyles } from '@material-ui/core/styles';
-
 import type { ReduxState } from '../../store/reducers';
 
 const styles = (theme: Object) => ({
+
   main: {
     margin: 20,
     padding: 20,
@@ -91,7 +89,12 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** Problem Details Component
+ * @return the selected problems content. Will update on changes in parent component.
+ * */
+
 class ProblemDetails extends React.Component<Props, State> {
+
   state = {
     categories: [],
     isHidden: true,
@@ -102,84 +105,34 @@ class ProblemDetails extends React.Component<Props, State> {
     editVisible: true
   };
 
-  toggleButtonVisible() {
-    this.setState({
-      visible: true
-    });
-  }
-  toggleButtonHidden() {
-    this.setState({
-      visible: false
-    });
-  }
 
-  //locked og vanlig bruker
-  toggleEditBtnVisible() {
-    this.setState({
-      editVisible: true
-    });
-  }
-  toggleEditBtnHidden() {
-    this.setState({
-      editVisible: false
-    });
-  }
+  /** Functions that sets boolean variables in state **/
 
-  checkEdit(bool) {
-    if (bool === 'Standard' && this.state.locked) {
-      this.toggleEditBtnHidden();
-    } else {
-      this.toggleEditBtnVisible();
-    }
-  }
-
-  checkLocked(bool) {
-    if (bool) {
-      this.setState({
-        locked: true
-      });
-    } else {
-      this.setState({
-        locked: false
-      });
-    }
-  }
-
-  checkUser(user) {
-    if (user === 'Administrator' || user === 'Municipality') {
-      this.toggleButtonVisible();
-      return true;
-    } else {
-      this.toggleButtonHidden();
-      return false;
-    }
-  }
-
-  onClickAdd = () => {
-    this.handleClickOpen();
-    this.toggleHidden();
-  };
-
-  onClickEdit = () => {
-    this.props.goToProblemEdit(this.props.problem.problem_id);
-  };
-
-  toggleHidden() {
-    this.setState({
+  toggleHidden() {this.setState({
       isHidden: !this.state.isHidden
     });
   }
 
   handleClickOpen = () => {
-    this.setState({
-      open: true
-    });
+    this.setState({ open: true });
   };
-
   handleClose = () => {
     this.setState({ open: false });
   };
 
+  /** Opens entrepreneurs list component in popup **/
+  onClickAdd = () => {
+    this.handleClickOpen();
+    this.toggleHidden();
+  };
+
+  /** Opens edit problem component **/
+  onClickEdit = () => {
+    this.props.goToProblemEdit(this.props.problem.problem_id);
+  };
+
+  /** Function that is called when a entrepreneur
+   * is selected in the add entrepreneur component **/
   handleAddEntrepreneur = e => {
     let myEntrepreneur = e;
     this.setState({
@@ -201,16 +154,14 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, currentEntrepreneur } = this.props;
-    if(this.props.entrepreneurs) {
-      console.log('length: ' + this.props.entrepreneurs.length);
-    }
+
     if (problem) {
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {this.state.visible && !this.state.locked && (
+                {(this.props.priority=== 'Administrator' || this.props.priority === 'Municipality')&& !this.props.problem.problem_locked && (
                   <Button
                     variant="contained"
                     size="small"
@@ -221,13 +172,14 @@ class ProblemDetails extends React.Component<Props, State> {
                     Legg til entrepreneur
                   </Button>
                 )}
-
+                {(this.props.priority === 'Administrator' || this.props.priority === 'Municipality' || !this.props.problem.problem_locked) &&
                 <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
                     <Edit />
                   </Icon>{' '}
                   Edit
                 </Button>
+                }
               </div>
             </Grid>
 
@@ -321,7 +273,7 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {this.props.entrepreneurs && this.props.entrepreneurs.length > 0 ? (
+                {(this.props.entrepreneurs && this.props.entrepreneurs.length > 0) ? (
                   <SelectTable2 rows={this.props.entrepreneurs} onClick={this.handleAddEntrepreneur} />
                 ) : (
                   <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>
@@ -340,13 +292,10 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentProblemId !== nextProps.currentProblemId) {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
-      this.checkUser(this.props.priority);
-      this.checkLocked(nextProps.problem.problem_locked);
-      this.checkEdit(this.props.priority);
       this.props.entrepreneurs_get_one_by_entrepreneur_id(nextProps.problem.entrepreneur_id);
-
     }
   }
+
 }
 
 const mapStateToProps = (state: ReduxState) => {

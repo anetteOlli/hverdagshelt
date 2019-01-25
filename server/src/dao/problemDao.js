@@ -8,7 +8,7 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns table rows and status or an error code if something went wrong.
    */
   getAll(callback: function) {
-    super.query('SELECT * FROM problem', [], callback);
+    super.query('SELECT * FROM problem where date_finished IS NULL ', [], callback);
   }
 
   /**
@@ -117,7 +117,6 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   patchAdministrator(id, json, callback) {
-    console.log('patch admin: ' + json.problem_title);
     const values = [
       json.problem_title,
       json.problem_description,
@@ -129,7 +128,7 @@ module.exports = class ProblemDao extends Dao {
       id
       ];
       super.query(
-        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?,img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
+        'UPDATE problem SET problem_title = ?, problem_description = ?, status = ?, category = ?, img_user = ?, description_entrepreneur = ?, img_entrepreneur = ?, last_edited = NOW() WHERE problem_id = ?',
         values,
         callback
       );
@@ -143,6 +142,7 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   patchEntrepreneur(id, json, callback) {
+
     const values = [
     json.description_entrepreneur,
     json.img_entrepreneur,
@@ -164,6 +164,7 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   patchMunicipality(id, json, callback) {
+
     const values = [
     json.problem_title,
     json.problem_description,
@@ -187,6 +188,7 @@ module.exports = class ProblemDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   patchStandard(id, json, callback) {
+
     const values = [
     json.problem_title,
     json.problem_description,

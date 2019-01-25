@@ -40,6 +40,7 @@ module.exports = class EventDao extends Dao {
    * @param callback Returns the response from MySQL (status and data).
    */
   createOne(json, callback) {
+    console.log('CreateOne Event DAO');
     const newContent = [
       json.event_name,
       json.event_description,

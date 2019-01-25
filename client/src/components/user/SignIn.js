@@ -20,6 +20,7 @@ import { signIn, clearError } from '../../store/actions/userActions';
 import purple from '@material-ui/core/colors/purple';
 import ForgotPassword from './ForgotPassword';
 import type { Dispatch, ReduxState } from '../../store/reducers';
+
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit

@@ -2,7 +2,10 @@
 import React from 'react';
 import withRoot from '../../withRoot';
 import { getProblemByUser, goToProblemDetail, setMuni } from '../../store/actions/problemActions';
-import { entrepreneurs_get_one_by_user_id } from '../../store/actions/entrepreneurAction';
+import {
+  entrepreneurs_get_one_by_entrepreneur_id,
+  entrepreneurs_get_one_by_user_id
+} from '../../store/actions/entrepreneurAction';
 import SignedOutLinks from '../layout/SignedOutLinks';
 
 // Material-ui
@@ -142,7 +145,6 @@ class EditProblemMain extends React.Component<Props, State> {
   render() {
     const { classes, problems, user_id } = this.props;
     bool = this.props.editMode;
-    console.log('user_id', user_id);
 
     const main = (
       <div>
@@ -188,10 +190,23 @@ class EditProblemMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-      this.props.entrepreneurs_get_one_by_user_id().then(() => {
-        this.props.getProblemByUser();
-        this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
-      });
+      if(this.props.priority === "Entrepreneur") {
+        this.props.entrepreneurs_get_one_by_user_id().then(() => {
+          this.props.getProblemByUser().then(()=>{
+            if(this.props.problems.length > 0){
+              this.props.goToProblemDetail(this.props.problems[0].problem_id);
+            }
+          });
+          this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+        });
+      } else{
+          this.props.getProblemByUser().then(()=>{
+            if(this.props.problems.length > 0){
+              this.props.goToProblemDetail(this.props.problems[0].problem_id);
+            }
+          });
+          this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+        }
     });
   }
 
@@ -219,7 +234,8 @@ const mapDispatchToProps = dispatch => {
     getProblemByUser: () => dispatch(getProblemByUser()),
     setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
     entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
-    getUserInfo: () => dispatch(getUserInfo())
+    getUserInfo: () => dispatch(getUserInfo()),
+    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id)),
   };
 };
 

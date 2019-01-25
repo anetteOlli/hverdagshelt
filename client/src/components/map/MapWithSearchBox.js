@@ -7,8 +7,11 @@ import { connect } from 'react-redux';
 import Marker from '@material-ui/icons/AddLocation';
 import withRoot from '../../withRoot';
 import { Pointer } from './pointer';
+/**
+ * @fileOverview Map component that can will place marker when user clicks on map or uses the SearchBox. Uses API_KEY from google api.
+ */
 
-let API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
+const API_KEY = 'AIzaSyC7JTJVIYcS0uL893GRfYb_sEJtdzS94VE';
 
 type Props = {
   updateMap: Function,
@@ -37,9 +40,14 @@ type State = {
 };
 
 /**
- * Difference between 'lat', 'lng' and 'Center', lat and lng is used for placing marker, center is used for centering map
- * as we don't want the map to load each time a user clicks on the map, we are splitting those variables into to different locations
- * Centering: sadly after a center has been sent in to google-map-react, updating center is no longer possible.
+ *  @params lat : latitude of the marker placed on the map
+ * @params lng: longitude of the marker placed on the map
+ * @params Center: lat & lng of the center of the map. Cannot be changed once the google-map-react component has loaded.
+ * @return the map component with a single map marker
+ * @params zoom: how detailed the map will displayed
+ * @params mapsApiLoaded: used by google-map-react component. Once the mapsApiLoaded is true, the component is ready to use google-map api
+ * @params mapsapi: google-map object
+ * @params hasLoaded: ensures that the map does not load before the center has been chosen.
  **/
 class SimpleMap extends React.Component<Props, State> {
   state = {
@@ -70,7 +78,10 @@ class SimpleMap extends React.Component<Props, State> {
       });
     }
   };
-
+  /**
+   * @params cords: lat, lng of the marker
+   *
+   */
   fromCordsToPlace(cords) {
     let url =
       'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;

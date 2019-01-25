@@ -3,7 +3,7 @@
 /**
  * @fileOverview Formats dates
  * @author Sindre H. Paulshus
- * MERK: Courtesy of https://stackoverflow.com/questions/10632346/how-to-format-a-date-in-mm-dd-yyyy-hhmmss-format-in-javascript
+ * Note: Courtesy of https://stackoverflow.com/questions/10632346/how-to-format-a-date-in-mm-dd-yyyy-hhmmss-format-in-javascript
  * */
 
 Number.prototype.padLeft = function(base, chr) {
@@ -14,7 +14,7 @@ Number.prototype.padLeft = function(base, chr) {
 export function easyDateFormat(myString: string) {
   let d = new Date(myString);
   let dformat =
-    [(d.getMonth() + 1).padLeft(), d.getDate().padLeft(), d.getFullYear()].join('/') +
+    [d.getDate().padLeft(), (d.getMonth() + 1).padLeft(), d.getFullYear()].join('/') +
     ' ' +
     [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':');
   return dformat;

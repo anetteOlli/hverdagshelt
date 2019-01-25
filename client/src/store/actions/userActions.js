@@ -15,7 +15,6 @@ export const getUserInfo = () => {
     console.log('GET STATE, GET STATE ', getState().user.user_id);
     return getData(`users/${getState().user.user_id}`)
       .then(response => {
-        console.log('Rsp userInfo: ', response.data);
         dispatch({
           type: 'GET_USER_INFO_SUCCESS',
           payload: response.data
@@ -150,9 +149,12 @@ export const clearError = () => {
 };
 
 export const forgotPassword = (email: string) => {
+  console.log('--userActions--');
+  console.log('email in = ' + email);
   return (dispatch: Dispatch) => {
     return postData('users/forgot', { email })
       .then(() => {
+        console.log('--userAction2--');
         return dispatch({
           type: 'TEMP_PASSWORD_SUCCESS'
         });

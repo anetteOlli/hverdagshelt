@@ -17,6 +17,12 @@ import Select from 'react-select';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
+import type { Dispatch, ReduxState } from '../../store/reducers';
+
+/**
+ * @fileOverview overview page for events and problems
+ * @author Elisabeth Marie Opsahl
+ */
 
 /**Props og State*/
 type Props = {
@@ -38,7 +44,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginBottom: 20,
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   tittel: {
     marginButtom: 30,
@@ -343,7 +349,7 @@ class MainPage extends React.Component<Props, State> {
   // }
 } //class
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   const municipalitiesFromRedux = state.municipality.municipalities;
   const municipalities = municipalitiesFromRedux
     ? municipalitiesFromRedux.map(municipality => {
@@ -359,7 +365,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getMunicipalities: () => dispatch(getMunicipalities())
   };

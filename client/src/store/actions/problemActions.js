@@ -2,11 +2,21 @@
 import type { Action, Problem } from '../reducers/problemReducer';
 import type { ReduxState } from '../reducers';
 import { postData, patchData, deleteData, getData } from '../axios';
+
+/**
+ * @fileOverview The problem redux actions that gets, creates, edits and removes problems in the database.
+ */
+
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
+/**
+ * Get the selected problem.
+ * @param id The id of the selected problem.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getProblemById = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData(`problems/${id}`)
@@ -24,6 +34,15 @@ export const getProblemById = (id: number) => {
       );
   };
 };
+
+/**
+ * Get problems depending on the status of the user.
+ * If the user is a standard user return the problems created by that user.
+ * If the user is an administrator returns all the problems.
+ * If the user is an entrepreneur returns all the problems the entrepreneur is assigned to.
+ * If the user is a municipality employee returns all the problems from the municipality the user is in.
+ * @returns {Function}
+ */
 
 export const getProblemByUser = () => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -44,8 +63,7 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        console.log('entrepreneur_id in problemAction: ');
-        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
+        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',
@@ -92,6 +110,12 @@ export const getProblemByUser = () => {
   };
 };
 
+/**
+ * Get all the problems of the selected entrepreneur.
+ * @param entrepreneur_id The id of the selected entrepreneur.
+ * @returns {function(Dispatch, GetState): *}
+ */
+
 export const getProblemByEntrepreneur = (entrepreneur_id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData(`problems/entrepreneur/${entrepreneur_id}`)
@@ -109,7 +133,11 @@ export const getProblemByEntrepreneur = (entrepreneur_id: number) => {
       );
   };
 };
-
+/**
+ * Creates a new problem.
+ * @param newProblem A json object of the new problem.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const createProblem = (newProblem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('problems', newProblem)
@@ -127,13 +155,42 @@ export const createProblem = (newProblem: Problem) => {
   };
 };
 
+/**
+ * Edit an old problem.
+ * @param problem A json object of updated values of the selected problem.
+ * @returns {function(Dispatch, GetState): *}
+ */
+
 export const editProblem = (problem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return patchData(`problems/${problem.problem_id}`, problem)
-      .then(() =>
+    let k = new FormData();
+    k.append('problem_title', problem.problem_title);
+    k.append('problem_description', problem.problem_description);
+    k.append('problem_locked', problem.problem_locked);
+    k.append('description_entrepreneur', problem.description_entrepreneur);
+    k.append('img_user', problem.img_user);
+    k.append('img_entrepreneur', problem.img_entrepreneur);
+    k.append('category', problem.category);
+    k.append('status', problem.status);
+    k.append('user_id', problem.user_id);
+    k.append('entrepreneur_id', problem.entrepreneur_id);
+    k.append('latitude', problem.latitude);
+    k.append('longitude', problem.longitude);
+    k.append('support', problem.support);
+    k.append('municipality', problem.municipality);
+    k.append('county', problem.county);
+    k.append('city', problem.city);
+    k.append('street', problem.street);
+
+    return patchData(`problems/${problem.problem_id}`, k)
+      .then(resp =>
         dispatch({
           type: 'EDIT_PROBLEM_SUCCESS',
-          payload: problem
+          payload: {
+            ...problem,
+            img_user: resp.data.img_user || '',
+            img_entrepreneur: resp.data.img_entrepreneur || ''
+          }
         })
       )
       .catch((error: Error) =>
@@ -144,7 +201,11 @@ export const editProblem = (problem: Problem) => {
       );
   };
 };
-
+/**
+ * Deletes a problem.
+ * @param id The id of the selected problem.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const deleteProblem = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return deleteData(`problems/${id}`)
@@ -161,6 +222,13 @@ export const deleteProblem = (id: number) => {
       );
   };
 };
+
+/**
+ * Get all the problems of the selected municipality.
+ * @param municipality The selected municipality.
+ * @param county The selected county.
+ * @returns {function(Dispatch, GetState): *}
+ */
 
 export const getProblemsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -180,7 +248,13 @@ export const getProblemsByMuni = (municipality: string, county: string) => {
       );
   };
 };
-
+/**
+ * Get all the problems of a selcted street.
+ * @param street The selcted street.
+ * @param municipality The selected municiaplity.
+ * @param county The selected county.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getProblemsByStreet = (street: string, municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData(`problems/municipality/street`, { street, municipality, county })
@@ -198,7 +272,11 @@ export const getProblemsByStreet = (street: string, municipality: string, county
       );
   };
 };
-
+/**
+ * Alert the redux store to go to problem details with the id of the selected problem.
+ * @param id The id of the selected problem.
+ * @returns {Function}
+ */
 export const goToProblemDetail = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     dispatch({
@@ -207,6 +285,11 @@ export const goToProblemDetail = (id: number) => {
     });
   };
 };
+/**
+ * Alert the redux store to go to problem edit with the id of the selected problem.
+ * @param id The id of the selected problem.
+ * @returns {Function}
+ */
 
 export const goToProblemEdit = (id: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -216,15 +299,24 @@ export const goToProblemEdit = (id: number) => {
     });
   };
 };
-
+/**
+ * Set the currentMuni in the problem reducer to the selected municipality.
+ * @param county The selected county.
+ * @param municipality The selected municipality.
+ * @returns {{payload: {county: string, municipality: string}, type: string}}
+ */
 export const setMuni = (county: string, municipality: string) => ({
   type: 'SET_MUNI',
   payload: { county, municipality }
 });
-
-export const problemAddEntrepreneur = (problem: JSON) => {
+/**
+ * Add an entrepreneur to a problem.
+ * @param probEnt A json object that contains the problem id and entrepreneur id.
+ * @returns {function(Dispatch, GetState): *}
+ */
+export const problemAddEntrepreneur = (probEnt: JSON) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return patchData('problems/add/entrepreneur', problem)
+    return patchData('problems/add/entrepreneur', probEnt)
       .then(() =>
         dispatch({
           type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS'
@@ -238,7 +330,12 @@ export const problemAddEntrepreneur = (problem: JSON) => {
       );
   };
 };
-
+/**
+ * Support a problem.
+ * @param user_id The userId of the logged in user.
+ * @param problemId The problem that the user will support.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const supportProblem = (user_id: number, problemId: number) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return patchData(`problems/vote/${problemId}`, { user_id, problemId })

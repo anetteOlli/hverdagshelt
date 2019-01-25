@@ -11,6 +11,11 @@ import Dialog from '@material-ui/core/DialogTitle';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
+/**
+ * @fileOverview user change password component
+ * @author Elisabeth Marie Opsahl
+ */
+
 const styles = (theme: Object) => ({
   button: {
     marginTop: theme.spacing.unit
@@ -70,7 +75,6 @@ class ForgotPassword extends React.Component<Props, State> {
         this.setState({ passwordSentSuccess: true, isLoading: false });
       }
       else {
-        console.log("Got error: ", this.props.errorMessage);
         this.refs.forgotPasswordForm.submit();
         this.setState({ isLoading: false });
       }
@@ -79,14 +83,13 @@ class ForgotPassword extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoading } = this.props;
-    console.log(this.state);
     if (this.state.passwordSentSuccess) {
       return (
         <div>
           <Dialog>
             <DialogTitle>Nytt passord sendt</DialogTitle>
             <DialogContent>
-              <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
+              <Typography> Passord sendt til {this.state.email}</Typography>
             </DialogContent>
             <Button
               fullWidth
@@ -147,11 +150,10 @@ class ForgotPassword extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    /*
     ValidatorForm.addValidationRule(
       'isRightEmail',
-      () => this.props.errorMessage !== 'Request failed with status code 400'
-    );*/
+      () => this.props.errorMessage !== 'Request failed with status code 404'
+    );
   }
 }
 
