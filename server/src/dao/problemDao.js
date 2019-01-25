@@ -71,7 +71,6 @@ module.exports = class ProblemDao extends Dao {
 
 
   patchAdministrator(id, json, callback) {
-    console.log('patch admin: ' + json.problem_title + "\n img_userDAO: " + json.img_user + "\n img_entreprenørDAO: " + json.img_entrepreneur);
     const values = [
       json.problem_title,
       json.problem_description,
@@ -91,7 +90,6 @@ module.exports = class ProblemDao extends Dao {
 
 
   patchEntrepreneur(id, json, callback) {
-    console.log('patch Entrepreneur: ' + json.problem_title + "\n img_userDAO: " + json.img_user + "\n img_entreprenørDAO: " + json.img_entrepreneur);
 
     const values = [
     json.description_entrepreneur,
@@ -108,7 +106,6 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchMunicipality(id, json, callback) {
-    console.log('patch Municipality: ' + json.problem_title + "\n img_userDAO: " + json.img_user + "\n img_entreprenørDAO: " + json.img_entrepreneur);
 
     const values = [
     json.problem_title,
@@ -127,7 +124,6 @@ module.exports = class ProblemDao extends Dao {
   }
 
   patchStandard(id, json, callback) {
-    console.log('patch Standard: ' + json.problem_title + "\n img_userDAO: " + json.img_user + "\n img_entreprenørDAO: " + json.img_entrepreneur);
 
     const values = [
     json.problem_title,

@@ -115,7 +115,6 @@ exports.problems_create_problem = (file, json, callback) => {
       }
     } else {
       callback(429, data);
-      //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });
 
@@ -221,24 +220,20 @@ exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, c
       if (!(file_user === undefined) && file_entrepreneur === undefined) {
         image.uploadImage(file_user, url => {
           json.img_user = url;
-          console.log('url: ' + url + '\n img_user: ' + json.img_user);
           handleEdit('Administrator', id, json, callback);
         });
       }
       if (!(file_entrepreneur === undefined) && file_user === undefined) {
         image.uploadImage(file_entrepreneur, url => {
           json.img_entrepreneur = url;
-          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
           handleEdit('Administrator', id, json, callback);
         });
       }
       if (!(file_entrepreneur === undefined) && !(file_user === undefined)) {
         image.uploadImage(file_entrepreneur, url => {
           json.img_entrepreneur = url;
-          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
           image.uploadImage(file_user, url => {
             json.img_user = url;
-            console.log('url: ' + url + '\n img_user: ' + json.img_user);
             handleEdit('Administrator', id, json, callback);
           });
         });
@@ -262,7 +257,6 @@ exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, c
 
     case 'Entrepreneur':
       entDao.getEntrepreneur(json.entrepreneur_id, (status, data) => {
-        console.log(data[0].entrepreneur_id, json.entrepreneur_id)
         if (data[0].entrepreneur_id != json.entrepreneur_id) {
           callback(400, { message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         } else {

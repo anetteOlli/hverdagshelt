@@ -138,17 +138,12 @@ class EditProblemA extends React.Component<Props, State> {
   };
 
   handleUpload = bool => e => {
-    console.log(bool)
     if (bool === 'false') {
-
-      console.log("now you in here")
-      console.log("e: " + e.target.files[0])
       this.setState({
         img_entrepreneur: e.target.files[0],
         displayImg2: URL.createObjectURL(e.target.files[0])
       });
     } else {
-      console.log("u: " + e.target.files[0])
       this.setState({
         img_user: e.target.files[0],
         displayImg: URL.createObjectURL(e.target.files[0])
@@ -401,6 +396,9 @@ class EditProblemA extends React.Component<Props, State> {
   componentDidMount() {
     this.props.getCategories();
     this.setState({
+      entrepreneur: this.props.currentEntrepreneur
+    })
+    this.setState({
       ...this.props.problem
     });
   }
@@ -416,7 +414,8 @@ const mapStateToProps = state => {
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
     categories: state.category.categories,
-    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur,
+
   };
 };
 

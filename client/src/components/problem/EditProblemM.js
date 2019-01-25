@@ -111,7 +111,9 @@ class EditProblemM extends React.Component<Props, State> {
     city: '',
     street: '',
     displayImg: '',
-    displayImg2: ''
+    displayImg2: '',
+    entrepreneur: {}
+
   };
 
   handleChange = e => {
@@ -198,8 +200,10 @@ class EditProblemM extends React.Component<Props, State> {
                     </MenuItem>
                   ))}
                 </SelectValidator>
-                <Paper className={classes.paper}> Dato startet: {easyDateFormat(this.state.date_made)} </Paper>
-
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Dato startet: {easyDateFormat(this.state.date_made)}{' '}
+                </Typography>
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
                     <div>
@@ -244,9 +248,11 @@ class EditProblemM extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Entreprenør beskrivelse:
                 </Typography>
-                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
-
-                <Paper
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Entreprenør: {this.state.entrepreneur.business_name}{' '}
+                </Typography>
+                <Typography
                   className={classes.paper}
                   readOnly
                   margin="normal"
@@ -255,17 +261,12 @@ class EditProblemM extends React.Component<Props, State> {
                   name="problem_description"
                 >
                   {'Beskrivelse: \n ' + this.state.description_entrepreneur}
-                </Paper>
+                </Typography>
 
-                <Paper className={classes.paper}>
-                  Entreprenør kontakt informasjon:{' '}
-                  {
-                    // her kommer kontakt informasjon
-                  }
-                </Paper>
-
-                <Paper className={classes.paper}> Dato Endret: {easyDateFormat(this.state.last_edited)} </Paper>
-
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
+                </Typography>
                 <div>
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -314,6 +315,9 @@ class EditProblemM extends React.Component<Props, State> {
   componentDidMount() {
     this.props.getCategories();
     this.setState({
+      entrepreneur: this.props.currentEntrepreneur
+    })
+    this.setState({
       ...this.props.problem
     });
   }
@@ -328,7 +332,8 @@ const mapStateToProps = state => {
     problem,
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    categories: state.category.categories,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 

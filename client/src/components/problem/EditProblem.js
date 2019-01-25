@@ -101,7 +101,8 @@ class EditProblem extends React.Component<Props, State> {
     county: '',
     city: '',
     street: '',
-    displayImg: ''
+    displayImg: '',
+    entrepreneur: {}
   };
 
   handleChange = e => {
@@ -173,12 +174,14 @@ class EditProblem extends React.Component<Props, State> {
                   ))}
                 </SelectValidator>
 
-                <Paper className={classes.paper2} margin="normal" label="Status:" name="status" value={'status'}>
+                <Typography className={classes.paper2} margin="normal" label="Status:" name="status" value={'status'}>
                   {'Status:   ' + this.state.status}
-                </Paper>
+                </Typography>
 
-                <Paper className={classes.paper}> Dato startet: {easyDateFormat(this.state.date_made)} </Paper>
-
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Dato startet: {easyDateFormat(this.state.date_made)}{' '}
+                </Typography>
                 <div>
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -242,6 +245,7 @@ class EditProblem extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getCategories();
+
     this.setState({
       ...this.props.problem
     });
@@ -257,7 +261,8 @@ const mapStateToProps = state => {
     problem,
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    categories: state.category.categories,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 
