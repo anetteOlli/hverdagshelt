@@ -242,11 +242,12 @@ class MuniPage extends React.Component<Props, State> {
                                 </Typography>
                               </CardContent>
                               <CardActions>
-                                <Grid container spacing={24}>
+                                <Grid container spacing={24} >
                                   <Grid item md={8}>
                                   </Grid>
                                   <Grid item md={4}>
                                     <Button
+                                      align="right"
                                       variant="contained"
                                       color="primary"
                                       size="large"
@@ -351,8 +352,10 @@ class MuniPage extends React.Component<Props, State> {
 
   /**User deletes the event */
   deleteEvent = (id: number) => {
+    const { county, municipality } = this.props.match.params;
+    console.log(county + ' / ' + municipality);
     console.log('id = ' + id);
-    this.props.deleteEvent({id});
+    this.props.deleteEvent(id).then(window.location.reload());
   }
 
   /**Set state of municipality*/
