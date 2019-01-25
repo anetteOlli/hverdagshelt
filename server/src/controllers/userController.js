@@ -209,8 +209,7 @@ exports.user_forgot_password = (json, callback) => {
       }); //changePassword
     } //if
     else {
-      console.log('!!! data.length is 0 or below');
-      callback(200, data);
+      return callback(404, data);
       //pga sikkerhet sendes ikke feilmelding om noe går galt, bare server for vite
     }
   }); //checkEmail

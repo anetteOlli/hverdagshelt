@@ -18,7 +18,6 @@ import Stati from '@material-ui/icons/BarChart';
 
 /**
  * @fileOverview Navigation Sidebar
- * @author Snorre K. Strand
  */
 
 type Props = {
@@ -73,29 +72,29 @@ class TemporaryDrawer extends React.Component<Props, State> {
         </List>
         <Divider />
         <List>
-          {(priority === 'Municipality' || priority === 'Administrator' ) && (
+          {(priority === 'Municipality' || priority === 'Administrator') && (
             <div>
-            <ListItem button component={Link} to={'/opprArrangement'}>
-              <ListItemIcon>
-                <EventIcon />
-              </ListItemIcon>
-              <ListItemText primary="Opprett Arrangement" />
-            </ListItem>
-            <ListItem button component={Link} to={'/stati'}>
-              <ListItemIcon>
-                <Stati />
-              </ListItemIcon>
-              <ListItemText primary="Statistikk" />
-            </ListItem>
+              <ListItem button component={Link} to={'/opprArrangement'}>
+                <ListItemIcon>
+                  <EventIcon />
+                </ListItemIcon>
+                <ListItemText primary="Opprett Arrangement" />
+              </ListItem>
+              <ListItem button component={Link} to={'/statistikk'}>
+                <ListItemIcon>
+                  <Stati />
+                </ListItemIcon>
+                <ListItemText primary="Statistikk" />
+              </ListItem>
             </div>
           )}
           {priority === 'Administrator' && (
-              <ListItem button onClick={this.handleOpenCat}>
-                  <ListItemIcon>
-                    <AddCircleOutlined />
-                  </ListItemIcon>
-                  <ListItemText primary="Legg til kategori" />
-              </ListItem>
+            <ListItem button onClick={this.handleOpenCat}>
+              <ListItemIcon>
+                <AddCircleOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Legg til kategori" />
+            </ListItem>
           )}
         </List>
       </div>
