@@ -224,7 +224,13 @@ function getStepContent(step: number, state: State,
                         <Typography align="center">{state.cur_description}</Typography><br/>
                       </Grid>
                       <Grid item md={6}>
-                        <Typography variant="subtitle2" color="error" align="center">{state.cur_status}</Typography><br/>
+                        <Typography variant="subtitle2" color="error" align="center">
+                          {state.cur_status === 'Finished'
+                          ? 'Ferdig'
+                          : state.cur_status === 'InProgress'
+                          ? 'Pågående'
+                          : 'Ikke Godkjent'}
+                        </Typography><br/>
                       </Grid>
                       <Grid item xs>
                         <Tooltip title="Du vil få epost om noe skjer med problemet" placement="top">

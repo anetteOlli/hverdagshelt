@@ -99,6 +99,7 @@ const styles = (theme: Object) => ({
  */
 function getView(bool: boolean, p) {
   var view;
+  console.log("prio", p);
   if (bool) {
     if (p === 'Standard') {
       view = 0;

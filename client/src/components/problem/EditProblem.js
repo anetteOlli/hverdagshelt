@@ -185,7 +185,10 @@ class EditProblem extends React.Component<Props, State> {
                 </SelectValidator>
 
                 <Typography className={classes.paper2} margin="normal" label="Status:" name="status" value={'status'}>
-                  {'Status:   ' + this.state.status}
+                  {'Status:   ' + (this.state.status === 'Finished' ? 'Ferdig'
+                                  : (this.state.status === 'InProgress'
+                                  ? 'Pågående'
+                                  : 'Ikke Godkjent'))}
                 </Typography>
 
                 <Typography variant="i" className={classes.paper}>

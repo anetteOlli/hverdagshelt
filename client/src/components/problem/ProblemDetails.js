@@ -191,7 +191,10 @@ class ProblemDetails extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption" gutterBottom align="left">
-                  Status: {problem.status}
+                  Status: {(problem.status === 'Finished' ? 'Ferdig'
+                                  : (problem.status === 'InProgress'
+                                  ? 'Pågående'
+                                  : 'Ikke Godkjent'))}
                 </Typography>
               </Grid>
               <Grid item xs={12}>

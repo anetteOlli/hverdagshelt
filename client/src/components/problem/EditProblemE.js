@@ -168,7 +168,10 @@ class EditProblemE extends React.Component<Props, State> {
                 </Typography>
                 <Typography>{this.state.problem_title}</Typography>
                 <Typography className={classes.paper} margin="normal" label="Status:" name="status" value={'status'}>
-                  {'Status:   ' + this.state.status}
+                  {'Status:   ' + (this.state.status === 'Finished' ? 'Ferdig'
+                                  : (this.state.status === 'InProgress'
+                                  ? 'Pågående'
+                                  : 'Ikke Godkjent')) }
                 </Typography>
                 <Typography
                   className={classes.paper}
