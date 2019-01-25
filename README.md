@@ -1,12 +1,16 @@
-# Hverdagsvindu
+# Hverdagshelt
 
 ## About the project
 
-Project about ....
+Project was about completing a 3-week SCRUM project where we would make a system with client, server and DB (full stack).
 
-Created by ...
+Created by Anette Olli Siiri (@anettosi), Elisabeth Marie Opsahl (@elisamop), Erlend Sundøy (@erlendsu), Lars Sørlie (@larssorl), Oscar Tideman Borgerud Skaug (@otskaug), Simen Sælevik Tengs (@simenten), Sindre Haugland Paulshus (@sindrhpa) and Snorre Kristoffer Strand (@snorreks).
 
-For Systemutvikling 2, Jan 2019
+The role of Produkt Owner was acted out by Knut Yngve Barstad Gjelle (@kygjelle).
+
+SCRUM-Master was Grethe Sandstrak (@grethsan).
+
+For the course "TDAT2003 Systemutvikling 2", weeks 2-4 of January 2019.
 
 ## How to use
 
