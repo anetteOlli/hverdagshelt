@@ -59,9 +59,13 @@ exports.problems_support_problem = (id, json, callback) => {
                 recepients: data[0].email,
                 text:
                   'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
-                html: ''
+                html: '',
+                subject: "Noen har støttet ditt problem"
               },
-              callback(status, data)
+              (status) => {
+              console.log("Callback coming: ", status);
+              callback(status, null);
+            }
             );
           } else {
             callback(status, data);
@@ -238,9 +242,7 @@ function handleEdit(priority, id, json, callback) {
       callback(status, { img_user: json.img_user});
     });
       break;
-
     case 'Entrepreneur':
-
       problemDao.patchEntrepreneur(id, json, (status, data) => {
       if (status === 200) {
         problemDao.getAllUsersbyProblemId(id, (status, data) => {
@@ -255,7 +257,6 @@ function handleEdit(priority, id, json, callback) {
       callback(status, { img_entrepreneur: json.img_entrepreneur});
     });
       break;
-
     case 'Standard':
       problemDao.patchStandard(id, json, (status, data) => {
         return callback(status, { img_user: json.img_user});

@@ -43,7 +43,6 @@ class App extends React.Component<Props> {
               <Route exact path="/problemoversikt" component={EditProblemMain} />
               <Route exact path="/lagproblem" component={CreateProblem} />
               <Route exact path="/opprArrangement" component={CreateEvent} />
-              <Route exact path="/lagproblem" component={CreateProblem} />
               <Route exact path="/statistikk" component={Stati} />
               <Route exact path="/innstillinger" component={Settings} />
               <Route exact path="/:county/:municipality" component={MuniPage} />

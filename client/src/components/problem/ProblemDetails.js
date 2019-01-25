@@ -105,70 +105,20 @@ class ProblemDetails extends React.Component<Props, State> {
     editVisible: true
   };
 
+
   /** Functions that sets boolean variables in state **/
-  toggleButtonVisible() {
-    this.setState({
-      visible: true
-    });
-  }
-  toggleButtonHidden() {
-    this.setState({
-      visible: false
-    });
-  }
-  toggleEditBtnVisible() {
-    this.setState({
-      editVisible: true
-    });
-  }
-  toggleEditBtnHidden() {
-    this.setState({
-      editVisible: false
-    });
-  }
+
   toggleHidden() {this.setState({
       isHidden: !this.state.isHidden
     });
   }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
   handleClose = () => {
     this.setState({ open: false });
   };
-
-  /** Removes edit problem option for standard users' problems if the problem is locked. **/
-  checkEdit(bool) {
-    if (bool === 'Standard' && this.state.locked) {
-      this.toggleEditBtnHidden();
-    } else {
-      this.toggleEditBtnVisible();
-    }
-  }
-
-  /** Takes in a boolean to toggle locked state **/
-  checkLocked(bool) {
-    if (bool) {
-      this.setState({
-        locked: true
-      });
-    } else {
-      this.setState({
-        locked: false
-      });
-    }
-  }
-
-  /** Takes in a 'user priority' varchar to toggle visibility of edit button */
-  checkUser(user) {
-    if (user === 'Administrator' || user === 'Municipality') {
-      this.toggleButtonVisible();
-      return true;
-    } else {
-      this.toggleButtonHidden();
-      return false;
-    }
-  }
 
   /** Opens entrepreneurs list component in popup **/
   onClickAdd = () => {
@@ -204,16 +154,14 @@ class ProblemDetails extends React.Component<Props, State> {
 
   render() {
     const { classes, problem, currentEntrepreneur } = this.props;
-    if(this.props.entrepreneurs) {
-      console.log('length: ' + this.props.entrepreneurs.length);
-    }
+
     if (problem) {
       return (
         <div className={classes.main}>
           <Grid container spacing={24} className={classes.grid} name={'Main Grid'}>
             <Grid item xs={12}>
               <div className={classes.btnContainer}>
-                {this.state.visible && !this.state.locked && (
+                {(this.props.priority=== 'Administrator' || this.props.priority === 'Municipality')&& !this.props.problem.problem_locked && (
                   <Button
                     variant="contained"
                     size="small"
@@ -224,13 +172,14 @@ class ProblemDetails extends React.Component<Props, State> {
                     Legg til entrepreneur
                   </Button>
                 )}
-
+                {(this.props.priority === 'Administrator' || this.props.priority === 'Municipality' || !this.props.problem.problem_locked) &&
                 <Button variant="contained" className={classes.linkbtn} onClick={this.onClickEdit} color="secondary">
                   <Icon>
                     <Edit />
                   </Icon>{' '}
                   Edit
                 </Button>
+                }
               </div>
             </Grid>
 
@@ -324,7 +273,7 @@ class ProblemDetails extends React.Component<Props, State> {
               <DialogContent>
                 <h2>Velg Entrepreneur</h2>
                 <Typography gutterBottom />
-                {this.props.entrepreneurs && this.props.entrepreneurs.length > 0 ? (
+                {(this.props.entrepreneurs && this.props.entrepreneurs.length > 0) ? (
                   <SelectTable2 rows={this.props.entrepreneurs} onClick={this.handleAddEntrepreneur} />
                 ) : (
                   <div>Det finnes ingen entrepreneurer i område som passer til problemet.</div>
@@ -343,13 +292,10 @@ class ProblemDetails extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentProblemId !== nextProps.currentProblemId) {
       this.props.getEntrepreneursByMuniAndCat(nextProps.problem);
-      this.checkUser(this.props.priority);
-      this.checkLocked(nextProps.problem.problem_locked);
-      this.checkEdit(this.props.priority);
       this.props.entrepreneurs_get_one_by_entrepreneur_id(nextProps.problem.entrepreneur_id);
-
     }
   }
+
 }
 
 const mapStateToProps = (state: ReduxState) => {

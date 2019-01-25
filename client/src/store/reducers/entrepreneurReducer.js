@@ -19,44 +19,54 @@ export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'ENTREPRENEUR_GET_BY_MUNI_SUCCESS':
       return {
+        ...state,
         entrepreneurs: action.payload
       };
     case 'ENTREPRENEUR_GET_BY_MUNI_ERROR':
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'ENTREPRENEUR_GET_FROM_user_id_SUCCESS':
       return {
+        ...state,
         currentEntrepreneur: action.payload[0].entrepreneur_id,
       };
     case 'ENTREPRENEUR_GET_FROM_user_id_ERROR':
       return {
+        ...state,
         errorMessage: action.payload.message
       };
 
     case 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_SUCCESS':
       return {
+        ...state,
         currentEntrepreneur: action.payload[0].entrepreneur_id,
       };
     case 'ENTREPRENEUR_GET_FROM_PROBLEM_ID_ERROR':
       return {
+        ...state,
         errorMessage: action.payload.message
       };
 
     case 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_SUCCESS':
       return {
+        ...state,
         entrepreneurs: action.payload
       };
     case 'ENTREPRENEUR_GET_BY_MUNI_AND_CATEGORY_ERROR':
       return {
+        ...state,
         errorMessage: action.payload.message
       };
     case 'ENTREPRENEUR_GET_FROM_entrepreneur_id_SUCCESS':
       return {
+        ...state,
         currentEntrepreneur: action.payload
       };
     case 'ENTREPRENEUR_GET_FROM_entrepreneur_id_ERROR':
       return {
+        ...state,
         currentEntrepreneur: null,
         errorMessage: action.payload.message
       };

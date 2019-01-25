@@ -4,17 +4,19 @@ const nodemailer = require('nodemailer');
 
 
 const transporter = nodemailer.createTransport(
-    {
-        host:'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user:'mapokengaming@gmail.com',
-            pass:'Laol1996!'
-        }
+  {
+    host:'smtp.gmail.com',
+    service: 'gmail',
+    secure: false, // use SSL
+    port: 25, // port for secure SMTP
+    auth: {
+      user:'mapokengaming@gmail.com',
+      pass:'Laol1996!'
+    },
+    tls: {
+      rejectUnauthorized: false
     }
-);
-
+  });
 class MailController {
     /**
      * Method for sending an activation link to an given email with a specific activation link
@@ -28,7 +30,7 @@ class MailController {
         let mailOptions = {
           from: "NOREPLY@hverdagshelt.com",
           to: dataPackage.recepients,
-          subject: "Your problem has been registered",
+          subject: dataPackage.subject,
           text: dataPackage.text,
           html: dataPackage.html
         };
@@ -38,7 +40,7 @@ class MailController {
                 console.log("Email is Sent");
                 callback(200);
             }else{
-                callback(email_err);
+                callback(500);
                 console.log(email_err);
             }
         });
