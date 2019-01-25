@@ -11,8 +11,5 @@
       <user-name>larssorl</user-name>
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
-    <data-source name="larssorl@mysql.stud.iie.ntnu.no [2]" uuid="ba1bf59b-00b1-4470-87fd-96a3ce3c0173">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="MYSQL" exact-version="0.0" />
-    </data-source>
   </component>
 </project>

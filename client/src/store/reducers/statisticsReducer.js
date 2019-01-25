@@ -39,6 +39,14 @@ const setUpDropDown = (dateStart: moment, dateEnd: moment): { value: string, nam
   return timeValues;
 };
 
+
+/**
+ * Gets all problems in a month and displays it on a day-to-day basis
+ *
+ * @param allProblems
+ * @param selectedMonth
+ * @returns {*}
+ */
 const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { name: string, problemer: number }[] => {
   const problems = allProblems.filter(
     p => selectedMonth === `${new Date(p.date_made).getFullYear()}-${new Date(p.date_made).getMonth() + 1}`
@@ -53,10 +61,13 @@ const getProblemsByMonth = (allProblems: Problem[], selectedMonth: string): { na
   return result;
 };
 
-/**
- * @author Erlend Sundøy
- **/
 
+/**
+ * Gets all problems in a year and shows the development in average solve time per month.
+ * @param allProblems
+ * @param selectedYear
+ * @returns {{name: string, tid: number}[]}
+ */
 const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { name: string, FiKSeTiD: number }[] => {
   const months = [
     'Januar',
@@ -85,7 +96,15 @@ const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string): { na
     });
 };
 
-const getCategoryProblemsByEntrepreneur = (
+
+/**
+ * Gets the distribution of entrepreneurs for a given problem category
+ * @param allProblems
+ * @param category
+ * @param entrepreneurs
+ * @returns {*}
+ */
+const getEntrepreneurProblemsByCategory = (
   allProblems: Problem[],
   category: string,
   entrepreneurs: []
@@ -103,7 +122,14 @@ const getCategoryProblemsByEntrepreneur = (
   return result;
 };
 
-const getEntrepreneurProblemsByCategory = (
+/**
+ * Gets the distribution of problems per category for a given entrepreneur
+ * @param allProblems
+ * @param entrepreneur_id
+ * @param categories
+ * @returns {*}
+ */
+const getCategoryProblemsByEntrepreneur = (
   allProblems: Problem[],
   entrepreneur_id: number,
   categories: []
@@ -118,6 +144,13 @@ const getEntrepreneurProblemsByCategory = (
   return result;
 };
 
+
+/**
+ * Gets the category distribution for all problems
+ * @param allProblems
+ * @param allCategories
+ * @returns {*}
+ */
 const getProblemsByCategory = (
   allProblems: Problem[],
   allCategories: string[]
@@ -131,6 +164,13 @@ const getProblemsByCategory = (
   return result;
 };
 
+
+/**
+ * Gets the distribution of problems per entrepreneur
+ * @param allProblems
+ * @param entrepreneurs
+ * @returns {*}
+ */
 const getProblemsByEntrepreneur = (
   allProblems: Problem[],
   entrepreneurs: []
