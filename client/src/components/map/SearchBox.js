@@ -78,14 +78,12 @@ class SearchBox extends Component<Props, State> {
       lat: this.searchBox.getPlaces()[0].geometry.location.lat(),
       lng: this.searchBox.getPlaces()[0].geometry.location.lng()
     };
-    console.log('searchbox cords:', cords);
 
     let url =
       'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat + ',' + cords.lng + '&key=' + API_KEY;
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        console.log('responseJson, fromCordsToPlace()', responseJson.results);
         if (responseJson.results.length > 5) {
           if (responseJson.results[0].address_components.length > 3) {
             //chosing responseJson.results[2].address_components because it has the most accurate results
@@ -97,15 +95,12 @@ class SearchBox extends Component<Props, State> {
               county: address_components.filter(e => e.types[0] == 'administrative_area_level_1')[0].long_name,
               country: address_components.filter(e => e.types[0] == 'country')[0].long_name
             };
-            console.log('street', place);
             if (place.country === 'Norge' || place.country === 'Norway') {
               this.props.updateMapName(place.street, place.municipality, place.county, place.city);
             } else {
               console.log('ikke i norge');
             }
             this.props.updateMarker(cords);
-
-            console.log('place is changed based on searchbox', place);
           }
         }
       });

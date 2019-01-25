@@ -102,6 +102,7 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** Edit Problem component for USER with ADMINISTRATOR priority**/
 class EditProblemA extends React.Component<Props, State> {
   state = {
     problem_id: null,
@@ -131,12 +132,16 @@ class EditProblemA extends React.Component<Props, State> {
     entrepreneur: {}
   };
 
+  /** Handles input values
+   * changes this component's state values
+   * */
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  /** Handles uploading of image files */
   handleUpload = bool => e => {
     if (bool === 'false') {
       this.setState({
@@ -151,6 +156,9 @@ class EditProblemA extends React.Component<Props, State> {
     }
   };
 
+  /** Handles validation forms' submit event and post request to server
+   * then it redirects you to the Problem Details component of the current problem
+   **/
   handleSubmit = e => {
     e.preventDefault();
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));

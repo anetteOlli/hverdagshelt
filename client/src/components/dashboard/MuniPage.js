@@ -407,7 +407,6 @@ class MuniPage extends React.Component<Props, State> {
 
   /** Button event for sorting by support*/
   sortProbSupport = e => {
-    console.log('Sorting prob by support');
     if (this.state.sortProb == 'support') {
       this.directionHandler();
     }
@@ -418,7 +417,6 @@ class MuniPage extends React.Component<Props, State> {
 
   /** Button event for sorting by date */
   sortProbDate = e => {
-    console.log('Sorting prob by date');
     if (this.state.sortProb == 'date') {
       this.directionHandler();
     }
@@ -429,7 +427,6 @@ class MuniPage extends React.Component<Props, State> {
 
   /** Button event for sorting by date_starting */
   sortEventDateStart = e => {
-    console.log('Sorting events by dateStart');
     if (this.state.sortEvent == 'dateStart') {
       this.directionHandler();
     }
@@ -440,7 +437,6 @@ class MuniPage extends React.Component<Props, State> {
 
   /** Button event for sorting by date_ending */
   sortEventDateEnd = e => {
-    console.log('Sorting events by date');
     if (this.state.sortEvent == 'dateEnd') {
       this.directionHandler();
     }
@@ -456,10 +452,7 @@ class MuniPage extends React.Component<Props, State> {
    * */
   getSorted(events: boolean, rows: any) {
     let sort = rows;
-    //console.log("Getting sorted: ", rows);
     if(events){
-      //Events
-      //console.log("Events: ", sort);
       if (this.state.sortEvent == 'dateStart') {
         sort.sort(function(a, b) {
           if(a.date_starting == b.date_starting){
@@ -483,8 +476,6 @@ class MuniPage extends React.Component<Props, State> {
       }
     }
     else{
-      //probs
-      //console.log("Prob");
       if (this.state.sortProb == 'support') {
         if (this.state.direction == 'asc') {
           sort.sort(function(a, b) {

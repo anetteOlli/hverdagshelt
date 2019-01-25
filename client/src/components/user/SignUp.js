@@ -199,7 +199,6 @@ class SignUp extends React.Component<Props, State> {
 
   handleValidateOrgNr = () => {
     getData(`entrepreneurs/validate_org_nr/${this.state.org_nr}`).then(response => {
-      console.log(response);
       const org_nr = this.state.org_nr;
       this.setState({
         isUniqueOrgNr: response.data.orgNrExist,

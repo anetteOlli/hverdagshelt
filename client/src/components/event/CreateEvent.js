@@ -256,15 +256,6 @@ function getStepContent(step: number,
       return 'Unknown step';
   }
 }
-
-/** Handles 'supporting' an existing problem
-* @params problemId: number, id of the problem to 'support'
-*/
-function handleSupport(eventId: number){
-  //@TODO Handle support a event
-  console.log("Clicked updoot for " + eventId + "! Take me away hunny")
-}
-
 class CreateEvent extends React.Component<Props, State>{
   state = {
     activeStep: 0,
@@ -301,10 +292,6 @@ class CreateEvent extends React.Component<Props, State>{
     const { classes } = this.props;
     //const { enqueueSnackbar } = this.props;
     const steps = getSteps();
-    const { dateStart, dateEnd } = this.state;
-    console.log("this.props");
-    console.log(this.props);
-
     if(!this.props.isLoggedIn){
       return (
         <div>
@@ -426,22 +413,16 @@ class CreateEvent extends React.Component<Props, State>{
   /**Handles the dates*/
   handleStartDateChange = date => {
     var dateFormat = require('dateformat');
-    // console.log("Changes start date to " + dateFormat(date, "isoDateTime").slice(0,19));
     this.setState({
       dateStart: ""+ dateFormat(date, "isoDateTime").slice(0,19).toString()
       });
-    console.log(this.state.dateStart);
-
   };
   /**Handles the dates*/
   handleEndDateChange = date => {
     var dateFormat = require('dateformat');
-    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
-    console.log("dateEnd før: " + this.state.dateEnd);
     this.setState({
       dateEnd: ""+ dateFormat(date, "isoDateTime").slice(0,19)
       });
-    console.log("dateEnd etter: " + this.state.dateEnd);
   };
 
   /** Handles clicking "Next" button */
@@ -481,15 +462,7 @@ class CreateEvent extends React.Component<Props, State>{
    *  @see handleNext
    * */
   handleSubmit = e => {
-
-    console.log('dateStart' + this.state.dateStart);
-    console.log('dateEnd' + this.state.dateEnd);
-
     e.preventDefault();
-    const { picture, title} = this.state;
-
-    console.log(this.state);
-
     if(this.state.activeStep > 0){
       // if (!picture) {
       //   this.props.enqueueSnackbar('Please upload an image', { variant: 'warning' });
@@ -541,8 +514,6 @@ class CreateEvent extends React.Component<Props, State>{
   };
 
   componentWillReceiveProps(nextProps){
-    console.log("HEEEER");
-    console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
         cords: nextProps.cords,

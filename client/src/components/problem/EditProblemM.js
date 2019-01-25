@@ -87,6 +87,7 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** Edit Problem component for USER with MUNICIPALITY priority**/
 class EditProblemM extends React.Component<Props, State> {
   state = {
     problem_id: null,
@@ -116,15 +117,23 @@ class EditProblemM extends React.Component<Props, State> {
 
   };
 
+  /** Handles input values
+   * changes this component's state values
+   * */
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  /** Handles validation forms' submit event and post request to server
+   * then it redirects you to the Problem Details component of the current problem
+   **/
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
+
+  /** Handles uploading of image files */
   handleUpload = e => {
     this.setState({
       img_user: e.target.files[0],

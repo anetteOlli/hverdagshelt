@@ -48,7 +48,6 @@ const initState = {
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_ALL_PROBLEMS_SUCCESS':
-      console.log('%c GET_ALL_PROBLEMS_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload,
@@ -58,14 +57,12 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
-      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
         ready: true,
         errorMessage: action.payload
       };
     case 'GET_PROBLEMS_BY_MONTH':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         lineChartData: {
@@ -74,13 +71,11 @@ export default (state: State = initState, action: Action) => {
         }
       };
     case 'GET_PROBLEMS_BY_CATEGORY':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         pieChartData: { ...state.pieChartData, categoryData: getProblemsByCategory(state.problems, action.payload) }
       };
     case 'GET_PROBLEMS_BY_ENTREPRENEUR':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         pieChartData: {
@@ -89,13 +84,11 @@ export default (state: State = initState, action: Action) => {
         }
       };
     case 'SET_SELECTED_MUNI':
-      console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         selectedMuni: action.payload
       };
     case 'GET_PROBLEMS_BY_YEAR':
-      console.log('%c GET_PROBLEMS_BY_YEAR', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         lineChartData: {

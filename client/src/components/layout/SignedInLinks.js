@@ -54,11 +54,8 @@ class PrimarySearchAppBar extends React.Component<Props, State> {
       >
         <MenuItem>{this.props.email}</MenuItem>
         <Divider />
-        <MenuItem component={Link} to={'/profil'} onClick={this.handleMenuClose}>
-          Profil
-        </MenuItem>
         <MenuItem component={Link} to={'/innstillinger'} onClick={this.handleMenuClose}>
-          Innstillinger
+          Endre passsord
         </MenuItem>
         <MenuItem component={Link} to={'/'} onClick={handleSignOut}>
           Logg ut

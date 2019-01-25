@@ -257,7 +257,6 @@ class ChangePassword extends React.Component<Props, State> {
         </Dialog>
       </div>
     );
-
     return isLoggedIn ? form : <div />;
   }
   componentDidMount() {

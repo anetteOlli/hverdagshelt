@@ -106,9 +106,6 @@ function getStepContent(step: number, state: State,
                       handleChange: function, handleChangeSpec: function,
                       handleUpload: function, handleSupport: function,
                       props: any) {
-  //console.log(props.categories[0]);
-  //props.categories.map((e,i) => console.log(e + " / " + i));
-  //console.log(state.categories);
   switch (step) {
     case 0:
       return (
@@ -154,7 +151,6 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      //console.log("rows step 1: ", rows);
       const clicked = (state.cur_title != '' && state.cur_title != null);
       const haveRows = (rows[0] != null);
       return (
@@ -455,8 +451,6 @@ class CreateProblem extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props){
-    console.log("NextProps")
-    console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
         cords: nextProps.cords,
@@ -513,8 +507,6 @@ class CreateProblem extends React.Component<Props, State> {
   getCategories(){
     this.props.getCategories()
     .then(e => {
-      console.log("Props after get");
-      console.log(this.props.categories);
       this.handleChangeSpec("category", this.props.categories[0]);
     });
     //console.log("Props");
@@ -570,18 +562,7 @@ class CreateProblem extends React.Component<Props, State> {
       showSuppordDialog: false
     });
     this.props.getProblemsByStreet(this.state.street, this.state.municipality, this.state.county).then(() => {
-       //console.log("Ferdiog!!")
        let myProbs = this.props.similarProblems;
-       /*
-       this.props.similarProblems.map(e => {
-         console.log(this.props.similarProblems);
-         myProbs.push({
-             similarProblems
-         })
-       });*/
-       console.log("My probs");
-       console.log(myProbs);
-
        //Set default to first
        if(myProbs[0] != null){
          this.handleChangeSpec("cur_id", myProbs[0].problem_id);
@@ -632,10 +613,8 @@ class CreateProblem extends React.Component<Props, State> {
    * */
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
     if(this.state.activeStep > 1){
       //Save in DB/Redux
-      console.log(this.props.cords);
       let k = new FormData();
       k.append("image",this.state.image);
 
@@ -699,13 +678,11 @@ class CreateProblem extends React.Component<Props, State> {
   * @params problemId: number, id of the problem to 'support'
   */
   handleSupport(problemId: number) {
-    console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
     this.setState({
       loadingSupport: true
     });
     this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
-      //console.log(status);
       this.setState({
         loadingSupport: false
       });

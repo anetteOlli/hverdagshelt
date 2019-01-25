@@ -53,7 +53,6 @@ class ForgotPassword extends React.Component<Props, State> {
   };
 
   handleChange = e => {
-    console.log('target.value = ' + e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -76,7 +75,6 @@ class ForgotPassword extends React.Component<Props, State> {
         this.setState({ passwordSentSuccess: true, isLoading: false });
       }
       else {
-        console.log("Got error: ", this.props.errorMessage);
         this.refs.forgotPasswordForm.submit();
         this.setState({ isLoading: false });
       }
@@ -85,14 +83,13 @@ class ForgotPassword extends React.Component<Props, State> {
 
   render() {
     const { classes, isLoading } = this.props;
-    console.log(this.state);
     if (this.state.passwordSentSuccess) {
       return (
         <div>
           <Dialog>
             <DialogTitle>Nytt passord sendt</DialogTitle>
             <DialogContent>
-              <Typography> Passord sendt til {this.state.email} om den finnes</Typography>
+              <Typography> Passord sendt til {this.state.email}</Typography>
             </DialogContent>
             <Button
               fullWidth
@@ -153,11 +150,10 @@ class ForgotPassword extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    /*
     ValidatorForm.addValidationRule(
       'isRightEmail',
-      () => this.props.errorMessage !== 'Request failed with status code 400'
-    );*/
+      () => this.props.errorMessage !== 'Request failed with status code 404'
+    );
   }
 }
 

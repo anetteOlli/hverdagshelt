@@ -97,10 +97,6 @@ class MuiVirtualizedTable extends React.PureComponent {
     const { columns, classes, rowHeight, onRowClick, isExpandable } = this.props;
     let icon = cellData == 'Unchecked' ? 0 : cellData == 'Checked' ? 1 : cellData == 'Working' ? 2 : -1;
     let status = icon >= 0 ? true : false;
-
-    //console.log(rowIndex);
-    //console.log(this.props);
-    //console.log(cellData);
     return (
       <TableCell
         component="div"
@@ -264,8 +260,6 @@ function createData(problems: []) {
  */
 function MuiTable(props) {
   const rows = props.rows == null ? rowsDefault : props.rows;
-  //console.log("Rows lower");
-  //console.log(rows);
   let isExpandable = props.isExpandable;
   isExpandable = false;
   let columns = [

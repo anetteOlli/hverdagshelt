@@ -80,23 +80,24 @@ const styles = (theme: Object) => ({
   grid: {
     height: '100%',
     paddingBottom: 20
-    //display: 'flex',
-    //alignSelf: 'stretch'
+
   },
 
   gridLeft: {
     paddingBottom: 20,
     paddingLeft: 200,
-    //height: '100%',
-    //width: '100%',
-    //flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-    //alignSelf: 'stretch'
   },
   mui: {}
 });
 
+/**
+ *
+ * @param bool: boolean, boolean that is used to decide weather or not we are in edit or detail view.
+ * @param p: string, priority of the user currently logged in
+ * @returns {number} used to decide which component to render
+ */
 function getView(bool: boolean, p) {
   var view;
   if (bool) {
@@ -115,6 +116,11 @@ function getView(bool: boolean, p) {
   return view;
 }
 
+/**
+ *
+ * @param priority: number, used to determine which component to return
+ * @returns {component} returns the component to be rendered on the page to the right of the mui - table.
+ */
 function getEditView(priority: number) {
   switch (priority) {
     case 0:
@@ -132,6 +138,7 @@ function getEditView(priority: number) {
   }
 }
 
+/** Component for Main view to Problem overview, render one of the other problem components**/
 class EditProblemMain extends React.Component<Props, State> {
   state = {
     municipality: '',
