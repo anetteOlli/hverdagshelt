@@ -50,8 +50,10 @@ exports.problems_support_problem = (id, json, callback) => {
       problemDao.supportProblem(id, (status, data) => {
         problemDao.getAllUsersbyProblemId(json.problemId, (status, data) => {
           //Send email to the user who created the problem if its the firs time someone supports the problem
-          if (data.length === 1) {
+          console.log('datalength' + data.length);
+          if (data.length <= 2) {
             console.log('---Mail skal sendes!');
+            console.log('mail: ' + data[0].email);
             MailController.sendSingleMail(
               {
                 recepients: data[0].email,
@@ -61,10 +63,10 @@ exports.problems_support_problem = (id, json, callback) => {
               },
               callback(status, data)
             );
-          } //if
+          } else {
+            callback(status, data);
+          }
         }); //getAllUsersbyProblemId
-
-        callback(status, data);
       }); //support
     } else {
       console.log('---ELSE altså ikke status 200');
