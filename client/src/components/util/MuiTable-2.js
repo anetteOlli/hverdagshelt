@@ -318,7 +318,9 @@ class MuiTable2 extends React.Component<Props> {
                     className="material-icons"
                     color={row.status == 'Unchecked' ? 'disabled' : row.status == 'Checked' ? 'primary' : 'error'}
                   />
-                  <Typography style={{ flexBasis: '100%', fontSize: 15 }}>{row.problem_title}</Typography>
+                  <Typography style={{ flexBasis: '100%', fontSize: 15 }}>
+                    {row.problem_title.length >= 30 ? (row.problem_title.substring(0, 27) + "...") : row.problem_title}
+                  </Typography>
                   <Typography style={{ flexBasis: '30%', fontSize: 12 }}>{easyDateFormat(row.date_made)}</Typography>
                   <ThumbUp className="material-icons" color="primary" size="50%" />
                   <Typography align="right" style={{ flexBasis: '10%', fontSize: 10 }}>

@@ -17,7 +17,7 @@ let pool = mysql.createPool({
 
 beforeAll(done => {
   runsqlfile('src/dao/SQL/CREATE_TABLE.sql', pool, () => {
-    runsqlfile('src/dao/SQL/INSERT_SCRIPT.sql', pool, () => {
+    runsqlfile('src/dao/SQL/testINSERT.sql', pool, () => {
       done();
     });
   });
