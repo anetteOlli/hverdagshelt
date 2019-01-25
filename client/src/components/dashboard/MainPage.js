@@ -17,6 +17,7 @@ import Select from 'react-select';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { getMunicipalities } from '../../store/actions/muniActions';
 import { connect } from 'react-redux';
+import type { Dispatch, ReduxState } from '../../store/reducers';
 
 /**
  * @fileOverview overview page for events and problems
@@ -319,7 +320,6 @@ class MainPage extends React.Component<Props, State> {
     this.setState({
       [name]: value
     });
-    console.log(value);
     this.props.history.push(value.value);
   };
 
@@ -348,7 +348,7 @@ class MainPage extends React.Component<Props, State> {
   // }
 } //class
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   const municipalitiesFromRedux = state.municipality.municipalities;
   const municipalities = municipalitiesFromRedux
     ? municipalitiesFromRedux.map(municipality => {
@@ -364,7 +364,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getMunicipalities: () => dispatch(getMunicipalities())
   };

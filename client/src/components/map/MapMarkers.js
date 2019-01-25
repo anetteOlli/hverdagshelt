@@ -135,12 +135,10 @@ const mapStateToProps = state => {
   const problems = state.problem.problems;
   const currentProblemId = state.problem.currentProblemId;
   const currentProblem = problems.filter(problem => {
-    // console.log(problem);
     if (problem.problem_id == currentProblemId) {
       return problem;
     }
   })[0];
-  //console.log('currentProblem', currentProblem);
   const center = currentProblem
     ? { lat: parseFloat(currentProblem.latitude), lng: parseFloat(currentProblem.longitude) }
     : {

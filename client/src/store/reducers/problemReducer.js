@@ -46,7 +46,12 @@ export type Action =
   | { type: 'GO_TO_PROBLEM_EDIT', payload: number }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS' }
   | { type: 'PROBLEM_ADD_ENTREPRENEUR_ERROR' }
-  | { type: 'SET_MUNI', payload: any };
+  | { type: 'PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_ADMINISTRATOR_USER_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_STANDARD_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_STANDARD_USER_ERROR', payload: Error }
+  | { type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS', payload: Problem[] }
+  | { type: 'PROBLEMS_BY_ENTREPRENEUR_USER_ERROR', payload: Error };
 
 const initState = {
   problems: [
@@ -81,22 +86,25 @@ const initState = {
   currentMuni: { municipality: '', county: '' }
 };
 
+/**
+ * The problemReducer stores the redux state of all the problems in the app.
+ * @param state Current state of the problemReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the problemReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'CREATE_PROBLEM_SUCCESS':
-      console.log('%c CREATE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'CREATE_PROBLEM_ERROR':
-      console.log('%c CREATE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'EDIT_PROBLEM_SUCCESS':
-      console.log('%c EDIT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: state.problems.map((problem: Problem) => {
@@ -109,150 +117,126 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'EDIT_PROBLEM_ERROR':
-      console.log('%c EDIT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'DELETE_PROBLEM_SUCCESS':
-      console.log('%c DELETE_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'DELETE_PROBLEM_ERROR':
-      console.log('%c DELETE_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_MUNICIPALITY_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_MUNICIPALITY_USER_ERROR':
-      console.log('%c PROBLEMS_BY_MUNICIPALITY_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'PROBLEMS_BY_MUNI_SUCCESS':
-      console.log('%c PROBLEMS_BY_MUNICIPALITY_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_MUNI_ERROR':
-      console.log('%c PROBLEMS_BY_MUNICIPALITY_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'PROBLEMS_BY_STANDARD_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_STANDARD_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_STANDARD_USER_ERROR':
-      console.log('%c PROBLEMS_BY__STANDARD_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
 
     case 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_ENTREPRENEUR_USER_ERROR':
-      console.log('%c PROBLEMS_BY_ENTREPRENEUR_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
 
     case 'PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS':
-      console.log('%c PROBLEMS_BY_ADMINISTRATOR_USER_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_ADMINISTRATOR_USER_ERROR':
-      console.log('%c PROBLEMS_BY_ADMINISTRATOR_USER_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
 
     case 'PROBLEMS_BY_STREET_SUCCESS':
-      console.log('%c PROBLEMS_BY_STREET_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEMS_BY_STREET_ERROR':
-      console.log('%c PROBLEMS_BY_STREET_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'PROBLEM_BY_ID_SUCCESS':
-      console.log('%c PROBLEM_BY_ID_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload
       };
     case 'PROBLEM_BY_ID_ERROR':
-      console.log('%c PROBLEM_BY_ID_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'GO_TO_PROBLEM_DETAIL':
-      console.log('%c GO_TO_PROBLEM_DETAIL', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
         editMode: false
       };
     case 'GO_TO_PROBLEM_EDIT':
-      console.log('%c GO_TO_PROBLEM_EDIT', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentProblemId: action.payload,
         editMode: true
       };
     case 'SUPPORT_PROBLEM_SUCCESS':
-      console.log('%c SUPPORT_PROBLEM_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'SUPPORT_PROBLEM_ERROR':
-      console.log('%c SUPPORT_PROBLEM_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'PROBLEM_ADD_ENTREPRENEUR_SUCCESS':
-      console.log('%c PROBLEM_ADD_ENTREPRENEUR_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'PROBLEM_ADD_ENTREPRENEUR_ERROR':
-      console.log('%c PROBLEM_ADD_ENTREPRENEUR_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'SET_MUNI':
-      console.log('%c GET_MUNI', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         currentMuni: action.payload,

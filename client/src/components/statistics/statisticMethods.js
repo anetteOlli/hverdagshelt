@@ -33,7 +33,6 @@ export const getProblemsByMonth = (
   const problems = allProblems.filter(
     p => selectedMonth === `${new Date(p.date_made).getFullYear()}-${new Date(p.date_made).getMonth() + 1}`
   );
-  console.log(selectedMonth);
   const year = selectedMonth.split('-')[0];
   const month = selectedMonth.split('-')[1];
   const result = (Array(new Date(parseInt(year), parseInt(month), 0).getDate())
@@ -67,18 +66,13 @@ export const getSolvedTimeByTime = (allProblems: Problem[], selectedYear: string
     solvedTime: (new Date(p.date_finished).getTime() - new Date(p.date_made).getTime()) / (1000 * 3600 * 24),
     month: new Date(p.date_made).getMonth()
   }));
-  console.log('dddd', times);
-
-  console.log('ddd', problems);
-  const a = Array(12)
+  return Array(12)
     .fill(null)
     .map((v, i) => {
       const t = times.filter(t => t.month === i);
       const dager = t.length > 0 ? Math.floor(t.reduce((avg, { solvedTime },_, { length }) => avg + solvedTime / length, 0)) : 0;
       return { name: months[i], dager};
     });
-  console.log(a);
-  return a;
 };
 
 export const getCategoryProblemsByEntrepreneur = (
@@ -94,7 +88,6 @@ export const getCategoryProblemsByEntrepreneur = (
     problemer: number
   }>);
   problems.map(p => result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++);
-  console.log(result);
   return result;
 };
 
@@ -109,7 +102,6 @@ export const getEntrepreneurProblemsByCategory = (
     .map((u, i) => ({ name: categories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
 
   problems.map(p => result[categories.findIndex(c => c === p.category)].problemer++);
-  console.log(result);
   return result;
 };
 
@@ -122,7 +114,6 @@ export const getProblemsByCategory = (
     .map((u, i) => ({ name: allCategories[i], problemer: 0 })): Array<{ name: string, problemer: number }>);
 
   allProblems.map(p => result[allCategories.findIndex(c => c === p.category)].problemer++);
-  console.log(result);
   return result;
 };
 
@@ -137,7 +128,6 @@ export const getProblemsByEntrepreneur = (
     problemer: number
   }>);
   const problemsWithEnt = allProblems.filter(p => p.entrepreneur_id !== null);
-  console.log(entrepreneurs);
   problemsWithEnt.map(p => {
     const id = entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id);
     if (id !== -1) result[entrepreneurs.findIndex(e => e.entrepreneur_id === p.entrepreneur_id)].problemer++;

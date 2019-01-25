@@ -3,7 +3,6 @@ import connect from 'react-redux/es/connect/connect';
 import { createCategory } from '../../store/actions/categoryActions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { withSnackbar } from 'notistack';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
@@ -36,10 +35,15 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** CreateCategory component **/
+
 class CreateCategory extends React.Component<Props, State> {
   state = {
     category: ''
   };
+
+  /** Submits a new category to category table. If it passes validator
+   * requirements it will show a snackbar showing the result of the query. **/
 
   handleSubmit = e => {
     e.preventDefault();
@@ -53,6 +57,8 @@ class CreateCategory extends React.Component<Props, State> {
     });
   };
 
+
+  /** Sets state like input value **/
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -67,7 +73,9 @@ class CreateCategory extends React.Component<Props, State> {
         <DialogContent>
           <ValidatorForm onSubmit={this.handleSubmit}>
             <div className={classes.wrapper}>
-              <Typography variant="h5" className={classes.textField}>Legg til ny kategori</Typography>
+              <Typography variant="h5" className={classes.textField}>
+                Legg til ny kategori
+              </Typography>
 
               <TextValidator
                 className={classes.textField}
@@ -76,7 +84,7 @@ class CreateCategory extends React.Component<Props, State> {
                 name="category"
                 onChange={this.handleChange}
                 validators={['required', 'minStringLength:3']}
-                errorMessages={['Du må skrive inn noe', 'Teksten må være lengere']}
+                errorMessages={['Teksten må være lengere']}
               />
 
               <Button type="submit" variant="contained" color="primary" className={classes.sendInnBtn}>
@@ -96,7 +104,7 @@ class CreateCategory extends React.Component<Props, State> {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createCategory: vals => dispatch(createCategory(vals)),
+    createCategory: (name: string) => dispatch(createCategory(name)),
     enqueueSnackbar: (message: string, type: string) => dispatch(enqueueSnackbar(message, type))
   };
 };

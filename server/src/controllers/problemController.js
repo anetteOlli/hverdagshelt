@@ -50,21 +50,27 @@ exports.problems_support_problem = (id, json, callback) => {
       problemDao.supportProblem(id, (status, data) => {
         problemDao.getAllUsersbyProblemId(json.problemId, (status, data) => {
           //Send email to the user who created the problem if its the firs time someone supports the problem
-          if (data.length === 1) {
+          console.log('datalength' + data.length);
+          if (data.length <= 2) {
             console.log('---Mail skal sendes!');
+            console.log('mail: ' + data[0].email);
             MailController.sendSingleMail(
               {
                 recepients: data[0].email,
                 text:
                   'Et problem du har opprettet er blitt støttet av noen andre. Problemet er nå ikke mulig å endre lengre.',
-                html: ''
+                html: '',
+                subject: "Noen har støttet ditt problem"
               },
-              callback(status, data)
+              (status) => {
+              console.log("Callback coming: ", status);
+              callback(status, null);
+            }
             );
-          } //if
+          } else {
+            callback(status, data);
+          }
         }); //getAllUsersbyProblemId
-
-        callback(status, data);
       }); //support
     } else {
       console.log('---ELSE altså ikke status 200');
@@ -151,7 +157,6 @@ exports.problems_create_problem = (file, json, callback) => {
       }
     } else {
       callback(429, data);
-      //console.log("Cannot add more prolbmes for: " + json.user_id);
     }
   });
 
@@ -204,20 +209,60 @@ exports.problems_delete_problem = (id, user, callback) => {
   }
 };
 
-function handleEdit(id, json, callback) {
-  problemDao.patchAdministrator(id, json, (status, data) => {
-    if (status === 200) {
-      problemDao.getAllUsersbyProblemId(id, (status, data) => {
-        console.log('DATA ADMINISTRATOR', data);
-        MailController.sendMassMail({
-          recepients: data,
-          text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-          html: ''
-        });
+function handleEdit(priority, id, json, callback) {
+  switch(priority){
+    case 'Administrator':
+      problemDao.patchAdministrator(id, json, (status, data) => {
+        if (status === 200) {
+          problemDao.getAllUsersbyProblemId(id, (status, data) => {
+            console.log('DATA ADMINISTRATOR', data);
+            MailController.sendMassMail({
+              recepients: data,
+              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+              html: ''
+            });
+          });
+        }
+        callback(status, { img_user: json.img_user, img_entrepreneur: json.img_entrepreneur });
       });
-    }
-    callback(status, { img_user: json.img_user, img_entrepreneur: json.img_entrepreneur });
-  });
+      break;
+
+    case  'Municipality':
+      problemDao.patchMunicipality(id, json, (status, data) => {
+      if (status === 200) {
+        problemDao.getAllUsersbyProblemId(id, (status, data) => {
+          console.log('DATA MUNICIPALITY', data);
+          MailController.sendMassMail({
+            recepients: data,
+            text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+            html: ''
+          });
+        });
+      }
+      callback(status, { img_user: json.img_user});
+    });
+      break;
+    case 'Entrepreneur':
+      problemDao.patchEntrepreneur(id, json, (status, data) => {
+      if (status === 200) {
+        problemDao.getAllUsersbyProblemId(id, (status, data) => {
+          console.log('DATA ENTREPRENEUR', data);
+          MailController.sendMassMail({
+            recepients: data,
+            text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
+            html: ''
+          });
+        });
+      }
+      callback(status, { img_entrepreneur: json.img_entrepreneur});
+    });
+      break;
+    case 'Standard':
+      problemDao.patchStandard(id, json, (status, data) => {
+        return callback(status, { img_user: json.img_user});
+      });
+      break;
+  }
 }
 
 /**
@@ -234,98 +279,73 @@ exports.problems_edit_problem = (id, json, user, file_user, file_entrepreneur, c
   console.log('/problems/' + id + ' fikk edit request fra klient');
   switch (user.priority) {
     case 'Administrator':
-      console.log('FILE IN CONTROLLER:', file_user);
-      console.log('FILE IN CONTROLLER: ', file_entrepreneur);
       if (!(file_user === undefined) && file_entrepreneur === undefined) {
         image.uploadImage(file_user, url => {
           json.img_user = url;
-          console.log('url: ' + url + '\n img_user: ' + json.img_user);
-          handleEdit(id, json, callback);
+          handleEdit('Administrator', id, json, callback);
         });
       }
       if (!(file_entrepreneur === undefined) && file_user === undefined) {
         image.uploadImage(file_entrepreneur, url => {
           json.img_entrepreneur = url;
-          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
-          handleEdit(id, json, callback);
+          handleEdit('Administrator', id, json, callback);
         });
       }
       if (!(file_entrepreneur === undefined) && !(file_user === undefined)) {
         image.uploadImage(file_entrepreneur, url => {
           json.img_entrepreneur = url;
-          console.log('url: ' + url + '\n img_entrepreneur: ' + json.img_entrepreneur);
           image.uploadImage(file_user, url => {
             json.img_user = url;
-            console.log('url: ' + url + '\n img_user: ' + json.img_user);
-            handleEdit(id, json, callback);
+            handleEdit('Administrator', id, json, callback);
           });
         });
       }
       if (file_entrepreneur === undefined && file_user === undefined) {
-        handleEdit(id, json, callback);
+        handleEdit('Administrator', id, json, callback);
       }
       break;
     case 'Municipality':
       if (!(file_user === undefined)) {
-        image.uploadImage(file, url => {
+        image.uploadImage(file_user, url => {
           json.img_user = url;
+          handleEdit('Municipality', id, json, callback)
         });
       }
-      problemDao.patchMunicipality(id, json, (status, data) => {
-        if (status === 200) {
-          problemDao.getAllUsersbyProblemId(id, (status, data) => {
-            console.log('DATA MUNICIPALITY', data);
-            MailController.sendMassMail({
-              recepients: data,
-              text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-              html: ''
-            });
-          });
-        }
-        callback(status, data);
-      });
+      else{
+        handleEdit('Municipality', id, json, callback)
+      }
+
       break;
+
     case 'Entrepreneur':
       entDao.getEntrepreneur(json.entrepreneur_id, (status, data) => {
-        console.log('ProbController ---- Data: ' + data + ', data[0]: ' + data[0].entrepreneur_id);
-        if (data[0].entrepreneur_id !== json.entrepreneur_id) {
+        if (data[0].entrepreneur_id != json.entrepreneur_id) {
           callback(400, { message: 'Brukeren er entreprenør men har ikke rettigheter til dette problemet' });
         } else {
-          if (!(file_entrepreneur === undefined)) {
-            image.uploadImage(file, url => {
+          if (!(file_user === undefined)) {
+            image.uploadImage(file_user, url => {
               json.img_entrepreneur = url;
+              handleEdit('Entrepreneur', id, json, callback)
             });
+          } else {
+            handleEdit('Entrepreneur', id, json, callback)
           }
-          problemDao.patchEntrepreneur(id, json, (status, data) => {
-            if (status === 200) {
-              problemDao.getAllUsersbyProblemId(id, (status, data) => {
-                console.log('DATA ENTREPRENEUR', data);
-                MailController.sendMassMail({
-                  recepients: data,
-                  text: 'Et problem du har abonnert på "' + json.problem_title + '" er blitt endret.',
-                  html: ''
-                });
-              });
-            }
-            callback(status, data);
-          });
         }
       });
       break;
     default:
-      if (json.problem_locked) return callback(300, { message: 'problem is locked' });
+      if (json.problem_locked === 1) return callback(300, { message: 'problem is locked' });
       problemDao.getOne(id, (status, data) => {
-        console.log('in Problemcontroller: user.id = ' + user.id + ' data[0}.user_id = ' + data[0].user_id);
         if (user.id !== data[0].user_id) {
           return callback(420, { message: 'Brukeren har ikke lagd problemet og kan derfor ikke endre det.' });
         } else if (!(file_user === undefined)) {
-          image.uploadImage(file, url => {
+          image.uploadImage(file_user, url => {
             json.img_user = url;
+            handleEdit('Standard', id, json, callback)
           });
+        } else {
+          handleEdit('Standard', id, json, callback)
         }
-        problemDao.patchStandard(id, json, (status, data) => {
-          return callback(status, data);
-        });
       });
   }
 };

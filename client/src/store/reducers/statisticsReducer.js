@@ -23,10 +23,14 @@ export type State = {
 export type Action =
   | { type: 'GET_ALL_PROBLEMS_SUCCESS', payload: Problem[] }
   | { type: 'GET_ALL_PROBLEMS_ERROR', payload: Error }
-  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string };
+  | { type: 'GET_PROBLEMS_BY_MONTH', payload: string }
+  | { type: 'GET_PROBLEMS_BY_CATEGORY', payload: string[] }
+  | { type: 'SET_SELECTED_MUNI', payload: string }
+  | { type: 'GET_PROBLEMS_BY_ENTREPRENEUR', payload: any }
+  | { type: 'GET_PROBLEMS_BY_YEAR', payload: string };
 
 const initState = {
-  lineChartData: { problemsByMonthData: [] },
+  lineChartData: { problemsByMonthData: [], problemsByYearData: [] },
   pieChartData: { categoryData: [], entrepreneurData: [] },
   barChartData: [],
   problems: [],
@@ -35,10 +39,15 @@ const initState = {
   dropDownMonths: []
 };
 
+/**
+ * The statisticsReducer stores the redux state of all the statistics in the app.
+ * @param state Current state of the statisticsReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the statisticsReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_ALL_PROBLEMS_SUCCESS':
-      console.log('%c GET_ALL_PROBLEMS_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         problems: action.payload,
@@ -48,14 +57,12 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'GET_ALL_PROBLEMS_ERROR':
-      console.log('%c GET_ALL_PROBLEMS_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
         ready: true,
         errorMessage: action.payload
       };
     case 'GET_PROBLEMS_BY_MONTH':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         lineChartData: {
@@ -64,13 +71,11 @@ export default (state: State = initState, action: Action) => {
         }
       };
     case 'GET_PROBLEMS_BY_CATEGORY':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         pieChartData: { ...state.pieChartData, categoryData: getProblemsByCategory(state.problems, action.payload) }
       };
     case 'GET_PROBLEMS_BY_ENTREPRENEUR':
-      console.log('%c GET_PROBLEMS_BY_MONTH', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         pieChartData: {
@@ -79,13 +84,11 @@ export default (state: State = initState, action: Action) => {
         }
       };
     case 'SET_SELECTED_MUNI':
-      console.log('%c SET_SELECTED_MUNI', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         selectedMuni: action.payload
       };
     case 'GET_PROBLEMS_BY_YEAR':
-      console.log('%c GET_PROBLEMS_BY_YEAR', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         lineChartData: {

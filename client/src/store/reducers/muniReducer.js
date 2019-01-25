@@ -20,6 +20,12 @@ const initState = {
   errorMessage: ''
 };
 
+/**
+ * The muniReducer stores the redux state of municipalities.
+ * @param state Current state of the muniReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns the updated state of the muniReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'GET_MUNICIPALITIES_SUCCESS':

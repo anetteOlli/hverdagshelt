@@ -11,8 +11,7 @@ type Dispatch = (action: Action | ThunkAction | PromiseAction | AsyncAction) => 
 type GetState = () => ReduxState;
 
 export const getUserInfo = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
-    console.log('GET STATE, GET STATE ', getState().user.user_id);
+  return (dispatch: Dispatch, getState: GetState) => {;
     return getData(`users/${getState().user.user_id}`)
       .then(response => {
         dispatch({
@@ -36,7 +35,6 @@ export const signIn = (creds: { email: string, password: string }) => {
     dispatch(setAsyncLoading());
     return postData('users/login', creds)
       .then(response => {
-        console.log('Response: ', response);
         setToken(response.data.jwt);
         dispatch({
           type: 'SIGN_IN_SUCCESS',
@@ -71,7 +69,6 @@ export const refresh = () => {
     } else {
       getData('users/refresh')
         .then(response => {
-          console.log('Response refresh: ', response);
           setToken(response.data.jwt);
           dispatch({
             type: 'REFRESH_SUCCESS',

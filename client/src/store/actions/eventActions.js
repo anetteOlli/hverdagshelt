@@ -4,14 +4,18 @@ import type { ReduxState } from '../reducers';
 import { postData, patchData, deleteData, getData } from '../axios';
 
 /**
- * @fileOverview categoryActions: actions for categories in redux
- * */
+ * @fileOverview The event redux actions that gets, deletes, edits event.
+ */
 
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 type GetState = () => ReduxState;
 
+/**
+ * Get all events.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getAllEvents = () => {
   return (dispatch: Dispatch, getState: GetState) => {
     return getData('events').then(response =>
@@ -28,6 +32,12 @@ export const getAllEvents = () => {
   };
 };
 
+/**
+ * Get all events of the selected municipality.
+ * @param municipality The selected municipality.
+ * @param county The selected county.
+ * @returns {function(Dispatch, GetState): *}
+ */
 export const getEventsByMuni = (municipality: string, county: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     return postData('events/municipality', { municipality, county })
@@ -45,9 +55,14 @@ export const getEventsByMuni = (municipality: string, county: string) => {
       );
   };
 };
+/**
+ * Creates a new event.
+ * @param newEvent The json object of the new event.
+ * @param bool A boolean that notifies the axios-util if the event contains a image or not.
+ * @returns {function(Dispatch): *}
+ */
 
 export const createEvent = (newEvent: JSON, bool: boolean) => {
-  console.log(newEvent.getAll);
   return (dispatch: Dispatch) => {
     return postData('events', newEvent, bool)
       .then(() =>
@@ -64,6 +79,11 @@ export const createEvent = (newEvent: JSON, bool: boolean) => {
   };
 };
 
+/**
+ * Edits an event.
+ * @param event The event with new attributes.
+ * @returns {function(Dispatch): *}
+ */
 export const editEvent = (event: JSON) => {
   return (dispatch: Dispatch) => {
     return patchData('events', event).then(() =>
@@ -79,6 +99,11 @@ export const editEvent = (event: JSON) => {
   };
 };
 
+/**
+ * Deletes an event.
+ * @param id The selected id of the event will be deleted.
+ * @returns {function(Dispatch): *}
+ */
 export const deleteEvent = (id: number) => {
   return (dispatch: Dispatch) => {
     return deleteData(`events/${id}`)

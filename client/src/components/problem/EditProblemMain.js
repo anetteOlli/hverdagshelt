@@ -80,23 +80,23 @@ const styles = (theme: Object) => ({
   grid: {
     height: '100%',
     paddingBottom: 20
-    //display: 'flex',
-    //alignSelf: 'stretch'
   },
 
   gridLeft: {
     paddingBottom: 20,
     paddingLeft: 200,
-    //height: '100%',
-    //width: '100%',
-    //flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-    //alignSelf: 'stretch'
   },
   mui: {}
 });
 
+/**
+ *
+ * @param bool: boolean, boolean that is used to decide weather or not we are in edit or detail view.
+ * @param p: string, priority of the user currently logged in
+ * @returns {number} used to decide which component to render
+ */
 function getView(bool: boolean, p) {
   var view;
   if (bool) {
@@ -115,6 +115,11 @@ function getView(bool: boolean, p) {
   return view;
 }
 
+/**
+ *
+ * @param priority: number, used to determine which component to return
+ * @returns {component} returns the component to be rendered on the page to the right of the mui - table.
+ */
 function getEditView(priority: number) {
   switch (priority) {
     case 0:
@@ -132,6 +137,7 @@ function getEditView(priority: number) {
   }
 }
 
+/** Component for Main view to Problem overview, render one of the other problem components**/
 class EditProblemMain extends React.Component<Props, State> {
   state = {
     municipality: '',
@@ -156,7 +162,6 @@ class EditProblemMain extends React.Component<Props, State> {
               height={'40%'}
               onClick={e => {
                 let myProblem = e;
-                this.props.entrepreneurs_get_one_by_entrepreneur_id(myProblem.entrepreneur_id)
                 this.props.goToProblemDetail(myProblem.problem_id);
               }}
             />
@@ -166,6 +171,11 @@ class EditProblemMain extends React.Component<Props, State> {
           </Grid>
         </Grid>
       </div>
+    );
+    const noProblems = (
+        <Typography variant="h2" align="center" color="primary" >
+          Du har ikke registrert noen aktive problemer
+        </Typography>
     );
     const loggOn = (
       <div>
@@ -186,34 +196,29 @@ class EditProblemMain extends React.Component<Props, State> {
         </Card>
       </div>
     );
-    return user_id > 0 ? main : loggOn;
+    return user_id > 0 ? (this.props.problems.length > 0 ? main : noProblems) : loggOn;
   }
 
   componentDidMount() {
     this.props.getUserInfo().then(() => {
-      if(this.props.priority === "Entrepreneur") {
+      if (this.props.priority === 'Entrepreneur') {
         this.props.entrepreneurs_get_one_by_user_id().then(() => {
-          this.props.getProblemByUser().then(()=>{
-            if(this.props.problems.length > 0){
+          this.props.getProblemByUser().then(() => {
+            if (this.props.problems.length > 0) {
               this.props.goToProblemDetail(this.props.problems[0].problem_id);
             }
           });
           this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
         });
-      } else{
-          this.props.getProblemByUser().then(()=>{
-            if(this.props.problems.length > 0){
-              this.props.goToProblemDetail(this.props.problems[0].problem_id);
-            }
-          });
-          this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
-        }
+      } else {
+        this.props.getProblemByUser().then(() => {
+          if (this.props.problems.length > 0) {
+            this.props.goToProblemDetail(this.props.problems[0].problem_id);
+          }
+        });
+        this.props.setMuni(this.props.currentMuni.county, this.props.currentMuni.municipality);
+      }
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.problems !== nextProps.problems) {
-    }
   }
 }
 
@@ -236,7 +241,7 @@ const mapDispatchToProps = dispatch => {
     setMuni: (county, municipality) => dispatch(setMuni(county, municipality)),
     entrepreneurs_get_one_by_user_id: () => dispatch(entrepreneurs_get_one_by_user_id()),
     getUserInfo: () => dispatch(getUserInfo()),
-    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id)),
+    entrepreneurs_get_one_by_entrepreneur_id: (id: number) => dispatch(entrepreneurs_get_one_by_entrepreneur_id(id))
   };
 };
 

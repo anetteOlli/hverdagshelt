@@ -77,11 +77,11 @@ exports.users_create_user = (json, callback) => {
       let link = 'http://localhost:3001/div/verifyEmail/' + genTokenEmail({ email: json.email });
       let datapackage = {
         recepients: json.email,
-        text: link,
-        html: link
+        text: 'Trykk her for å registrere din bruker',
+        html: link,
+        subject: "Registrer bruker"
       };
-      mail.sendSingleMail(datapackage, json => {});
-      callback(status, data);
+      mail.sendSingleMail(datapackage, status => callback(status, data));
     } else {
       callback(status, data);
     }
@@ -134,7 +134,6 @@ exports.user_change_password = (json, callback) => {
   });
 };
 
-
 /**
  * Method for checking if new password isn't the old password
  * @param json Object containing the new password and email of the user
@@ -158,7 +157,6 @@ exports.user_validate_email = (email, callback) => {
     callback(status, { emailExist });
   });
 };
-
 
 /**
  * Method for giving a user new password through email
@@ -194,10 +192,11 @@ exports.user_forgot_password = (json, callback) => {
             {
               recepients: email,
               text: 'Ditt passord er nå endret. Ditt nye midlertidige passord er: ' + tempPassword,
-              html: ''
+              html: '',
+              subject: "Passord endret"
             },
-            (status) => {
-              console.log("Callback coming: ", status);
+            status => {
+              console.log('Callback coming: ', status);
               callback(status, null);
             }
           );
@@ -209,8 +208,7 @@ exports.user_forgot_password = (json, callback) => {
       }); //changePassword
     } //if
     else {
-      console.log('!!! data.length is 0 or below');
-      callback(200, data);
+      return callback(404, data);
       //pga sikkerhet sendes ikke feilmelding om noe går galt, bare server for vite
     }
   }); //checkEmail

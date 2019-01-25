@@ -36,10 +36,15 @@ const initState = {
   currentMuni: null
 };
 
+/**
+ * The userReducer stores the redux state of the user that is logged in.
+ * @param state Current state of the userReducer.
+ * @param action The action contains the type and payload to update the state.
+ * @returns The updated state of the userReducer.
+ */
 export default (state: State = initState, action: Action) => {
   switch (action.type) {
     case 'SIGN_IN_SUCCESS':
-      console.log('%c SIGN_IN_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         isLoggedIn: true,
@@ -48,25 +53,21 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'SIGN_IN_ERROR':
-      console.log('%c SIGN_IN_ERROR', 'color: red; font-weight: bold;', action.payload.message);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'SIGN_UP_SUCCESS':
-      console.log('%c SIGN_UP_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'SIGN_UP_ERROR':
-      console.log('%c SIGN_UP_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'SIGN_OUT_SUCCESS':
-      console.log('%c SIGN_OUT_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         isLoggedIn: false,
@@ -74,7 +75,6 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'REFRESH_SUCCESS':
-      console.log('%c REFRESH_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         isLoggedIn: true,
@@ -83,31 +83,26 @@ export default (state: State = initState, action: Action) => {
         errorMessage: ''
       };
     case 'REFRESH_ERROR':
-      console.log('%c REFRESH_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: ''
       };
     case 'CLEAR_ERROR':
-      console.log('%c CLEAR_ERROR', 'color: red; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'TEMP_PASSWORD_SUCCESS':
-      console.log('%c TEMP_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'TEMP_PASSWORD_ERROR':
-      console.log('%c TEMP_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload.message
       };
     case 'GET_USER_INFO_SUCCESS':
-      console.log('%c GET_USER_INFO_SUCCESS', 'color: green; font-weight: bold;', action.payload);
       return {
         ...state,
         email: action.payload.email,
@@ -117,24 +112,20 @@ export default (state: State = initState, action: Action) => {
         }
       };
     case 'GET_USER_INFO_ERROR':
-      console.log('%c GET_USER_INFO_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload
       };
     case 'NEW_PASSWORD_SUCCESS':
-      console.log('%c NEW_PASSWORD_SUCCESS', 'color: green; font-weight: bold;');
       return {
         ...state,
         errorMessage: ''
       };
     case 'NEW_PASSWORD_ERROR':
-      console.log('%c NEW_PASSWORD_ERROR', 'color: red; font-weight: bold;', action.payload);
       return {
         ...state,
         errorMessage: action.payload
       };
-
     default:
       return state;
   }

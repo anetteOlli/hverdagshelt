@@ -1,6 +1,14 @@
 // @flow
 import React from 'react';
-import { Button, Typography, MenuItem } from '@material-ui/core/';
+import {
+  Button,
+  Typography,
+  MenuItemCard,
+  CardContent,
+  CardActionArea,
+  CardActions,
+  CardMedia
+} from '@material-ui/core/';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import withRoot from '../../withRoot';
 import { withStyles } from '@material-ui/core';
@@ -11,12 +19,14 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/Expan
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid/Grid';
 import Paper from '@material-ui/core/Paper/Paper';
-import PictureUpload from '../util/PictureUpload';
-import { CardContent } from './CreateProblem';
+import MapMarkers from '../map/MapMarkers';
 import { editProblem, getProblemById, goToProblemDetail } from '../../store/actions/problemActions';
 import { getCategories } from '../../store/actions/categoryActions';
-import MapMarkers from '../map/MapMarkers';
 import type { Problem } from '../../store/reducers/problemReducer';
+import { easyDateFormat } from '../util/DateFormater';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 type Props = {
   classes: Object,
@@ -77,6 +87,7 @@ const styles = (theme: Object) => ({
   }
 });
 
+/** Edit Problem component for USER with ENTREPRENEUR priority**/
 class EditProblemE extends React.Component<Props, State> {
   state = {
     problem_id: null,
@@ -100,21 +111,31 @@ class EditProblemE extends React.Component<Props, State> {
     county: '',
     city: '',
     street: '',
-    displayImg: ''
+    displayImg: '',
+    entrepreneur: {}
   };
 
+  /** Handles input values
+   * changes this component's state values
+   * */
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  /** Handles validation forms' submit event and post request to server
+   * then it redirects you to the Problem Details component of the current problem
+   **/
   handleSubmit = e => {
     this.props.editProblem(this.state).then(() => this.props.goToProblemDetail(this.state.problem_id));
   };
+
+  /** Handles uploading of image files */
   handleUpload = e => {
     this.setState({
-      img_entrepreneur: e
+      img_entrepreneur: e.target.files[0],
+      displayImg: URL.createObjectURL(e.target.files[0])
     });
   };
 
@@ -130,11 +151,11 @@ class EditProblemE extends React.Component<Props, State> {
                 <Typography variant="h2" gutterBottom align="center">
                   Bruker beskrivelse:
                 </Typography>
-                <Paper>{this.state.problem_title}</Paper>
-                <Paper className={classes.paper} margin="normal" label="Status:" name="status" value={'status'}>
+                <Typography>{this.state.problem_title}</Typography>
+                <Typography className={classes.paper} margin="normal" label="Status:" name="status" value={'status'}>
                   {'Status:   ' + this.state.status}
-                </Paper>
-                <Paper
+                </Typography>
+                <Typography
                   className={classes.paper}
                   margin="normal"
                   multiline
@@ -144,8 +165,8 @@ class EditProblemE extends React.Component<Props, State> {
                   value={'Beskrivelse:'}
                 >
                   {'Beskrivelse: \n' + this.state.problem_description}
-                </Paper>
-                <Paper
+                </Typography>
+                <Typography
                   className={classes.paper}
                   margin="normal"
                   label="Kategori"
@@ -153,9 +174,12 @@ class EditProblemE extends React.Component<Props, State> {
                   value={'Kategori:   '}
                 >
                   {'Kategori:   ' + this.state.category}
-                </Paper>
+                </Typography>
 
-                <h3> Dato startet: {this.state.date_made} </h3>
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Dato startet: {easyDateFormat(this.state.date_made)}{' '}
+                </Typography>
 
                 <ExpansionPanel>
                   <ExpansionPanelSummary>
@@ -206,10 +230,15 @@ class EditProblemE extends React.Component<Props, State> {
                   value={this.state.description_entrepreneur}
                   onChange={this.handleChange}
                 />
-                <Paper className={classes.paper}> Entreprenør: {this.state.entrepreneur_id} </Paper>
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Entreprenør: {this.state.entrepreneur.business_name}{' '}
+                </Typography>
 
-                <h3> Dato Endret: {this.state.last_edited} </h3>
-
+                <Typography variant="i" className={classes.paper}>
+                  {' '}
+                  Dato Endret: {easyDateFormat(this.state.last_edited)}{' '}
+                </Typography>
                 <div>
                   <ExpansionPanel>
                     <ExpansionPanelSummary>
@@ -218,11 +247,34 @@ class EditProblemE extends React.Component<Props, State> {
                       </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <div />
-                      <div>
-                        <img id="img" width="100%" src={this.state.displayImg || this.state.img_entrepreneur} alt="Bilde" />
-                        <PictureUpload uploadImg={this.handleUpload} />
-                      </div>
+                      <FormControl fullWidth margin="normal">
+                        {this.state.displayImg != '' ? (
+                          <CardMedia
+                            image={this.state.displayImg || this.state.img_entrepreneur || ''}
+                            title="Image title"
+                            style={{
+                              height: 400,
+                              paddingTop: '20%'
+                            }}
+                          />
+                        ) : (
+                          <i className="imgHere" />
+                        )}
+                        <input
+                          accept="image/*"
+                          id="contained-button-file"
+                          name="userImg"
+                          type="file"
+                          onChange={this.handleUpload}
+                          style={{ display: 'none' }}
+                        />
+                        <label htmlFor="contained-button-file">
+                          <Button variant="contained" component="span">
+                            <CloudUploadIcon className="icon-button" />
+                            Last opp bilde
+                          </Button>
+                        </label>
+                      </FormControl>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
@@ -254,6 +306,9 @@ class EditProblemE extends React.Component<Props, State> {
   componentDidMount() {
     this.props.getCategories();
     this.setState({
+      entrepreneur: this.props.currentEntrepreneur
+    })
+    this.setState({
       ...this.props.problem
     });
   }
@@ -268,7 +323,8 @@ const mapStateToProps = state => {
     problem,
     userPriority: state.user.priority,
     isLoggedIn: state.user.isLoggedIn,
-    categories: state.category.categories
+    categories: state.category.categories,
+    currentEntrepreneur: state.entrepreneur.currentEntrepreneur
   };
 };
 

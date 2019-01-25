@@ -106,9 +106,6 @@ function getStepContent(step: number, state: State,
                       handleChange: function, handleChangeSpec: function,
                       handleUpload: function, handleSupport: function,
                       props: any) {
-  //console.log(props.categories[0]);
-  //props.categories.map((e,i) => console.log(e + " / " + i));
-  //console.log(state.categories);
   switch (step) {
     case 0:
       return (
@@ -154,7 +151,6 @@ function getStepContent(step: number, state: State,
     case 1:
       //const rows = (state.similarProblems == null ? [] : createMuiData(state.similarProblems));
       const rows = (state.similarProblems == null ? [] : state.similarProblems);
-      //console.log("rows step 1: ", rows);
       const clicked = (state.cur_title != '' && state.cur_title != null);
       const haveRows = (rows[0] != null);
       return (
@@ -164,6 +160,8 @@ function getStepContent(step: number, state: State,
           <Typography variant="h5" align="center" color="secondary">
             Nærliggende problemer
           </Typography>
+            {haveRows ? (
+              <div>
           <Typography variant="subtitle1" align="center" color="primary">
             Finnes problemet fra før av? <br/>
             Gjerne støtt problemet så vet vi at det rammer mange
@@ -177,7 +175,7 @@ function getStepContent(step: number, state: State,
               md={4} xs={12}
               style={{position: 'relative'}}
               >
-              {haveRows ? (
+              {haveRows && (
                   <MuiTable2
                     rows={rows}
                     height={"100%"}
@@ -191,8 +189,6 @@ function getStepContent(step: number, state: State,
                       handleChangeSpec("cur_imageURL", myProblem.img_user);
                     }}
                   />
-              ):(
-                <div/>
               )}
               </Grid>
               <Grid item container
@@ -210,7 +206,7 @@ function getStepContent(step: number, state: State,
                     {state.street}
                 </Typography>
                 <Card style={{width:'90%'}} align="center">
-                    {haveRows ? (clicked ?  (
+                    {(clicked ?  (
                     <div>
                     <CardMedia
                       component="img"
@@ -253,16 +249,16 @@ function getStepContent(step: number, state: State,
                         Velg et problem til venstre for å se beskrivelse
                       </Typography>
                     </Grid>
-                    )) : (
-                    <Grid item xs>
-                      <Typography align="center" color="error">
-                        Ingen like problem, gå videre
-                      </Typography>
-                    </Grid>
-                  )}
+                    ))}
                 </Card>
               </Grid>
             </Grid>
+                </div>
+            ) : (
+                <Typography align="center" variant="h5" color="error">
+                  Ingen like problem, gå videre
+                </Typography>
+              )}
           </CardContent>
         </Card>
       );
@@ -281,8 +277,8 @@ function getStepContent(step: number, state: State,
               autoComplete="title"
               value={state.title}
               onChange={handleChange}
-              validators={['required', 'minStringLength:5', 'maxStringLength:50']}
-              errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 50 bokstaver i tittelen']}
+              validators={['required', 'minStringLength:5', 'maxStringLength:30']}
+              errorMessages={['Du må skrive inn en tittel', 'Du må skrive minst 5 bokstaver', 'Du kan ha max 30 bokstaver i tittelen']}
             />
             <TextValidator
               multiline
@@ -455,8 +451,6 @@ class CreateProblem extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props){
-    console.log("NextProps")
-    console.log(nextProps);
     if(this.state.street !== nextProps.street){
       this.setState({
         cords: nextProps.cords,
@@ -513,8 +507,6 @@ class CreateProblem extends React.Component<Props, State> {
   getCategories(){
     this.props.getCategories()
     .then(e => {
-      console.log("Props after get");
-      console.log(this.props.categories);
       this.handleChangeSpec("category", this.props.categories[0]);
     });
     //console.log("Props");
@@ -570,18 +562,7 @@ class CreateProblem extends React.Component<Props, State> {
       showSuppordDialog: false
     });
     this.props.getProblemsByStreet(this.state.street, this.state.municipality, this.state.county).then(() => {
-       //console.log("Ferdiog!!")
        let myProbs = this.props.similarProblems;
-       /*
-       this.props.similarProblems.map(e => {
-         console.log(this.props.similarProblems);
-         myProbs.push({
-             similarProblems
-         })
-       });*/
-       console.log("My probs");
-       console.log(myProbs);
-
        //Set default to first
        if(myProbs[0] != null){
          this.handleChangeSpec("cur_id", myProbs[0].problem_id);
@@ -632,10 +613,8 @@ class CreateProblem extends React.Component<Props, State> {
    * */
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
     if(this.state.activeStep > 1){
       //Save in DB/Redux
-      console.log(this.props.cords);
       let k = new FormData();
       k.append("image",this.state.image);
 
@@ -699,18 +678,16 @@ class CreateProblem extends React.Component<Props, State> {
   * @params problemId: number, id of the problem to 'support'
   */
   handleSupport(problemId: number) {
-    console.log("Clicked updoot for " + problemId + "/" + this.props.user_id + "! Take me away hunny")
     this.setState({
       loadingSupport: true
     });
     this.props.supportProblem(this.props.user_id, problemId)
     .then((status) => {
-      //console.log(status);
       this.setState({
         loadingSupport: false
       });
-      if(this.props.errorMessage != ''){
-        this.props.enqueueSnackbar("Error: Kunne ikke støtte problemet", {variant: 'warning'});
+      if(this.props.errorMessage !== ''){
+        this.props.enqueueSnackbar("Du har støttet problemet fra før av!", {variant: 'warning'});
       }else{
         this.handleFinish();
       }
