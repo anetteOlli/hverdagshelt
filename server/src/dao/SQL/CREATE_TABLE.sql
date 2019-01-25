@@ -55,7 +55,7 @@ CREATE TABLE problem (
   last_edited DATETIME ,
   date_finished DATETIME,
   category VARCHAR(50) NOT NULL,
-  status VARCHAR(30) NOT NULL DEFAULT "Unchecked",
+  status VARCHAR(30) NOT NULL DEFAULT 'Unchecked',
   user_id INTEGER NOT NULL,
   entrepreneur_id INTEGER,
   latitude DOUBLE NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE user (
   created DATETIME NOT NULL,
   municipality VARCHAR(30) NOT NULL,
   county VARCHAR(30) NOT NULL,
-  priority VARCHAR(30) NOT NULL DEFAULT "Standard",
+  priority VARCHAR(30) NOT NULL DEFAULT 'Standard',
   active TINYINT NOT NULL DEFAULT 0
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE event (
   event_img VARCHAR(300),
   date_starting DATETIME,
   date_ending DATETIME,
-  status VARCHAR(30) DEFAULT "Unchecked",
+  status VARCHAR(30) DEFAULT 'Unchecked',
   municipality VARCHAR(30),
   county VARCHAR(30),
   city VARCHAR(30),

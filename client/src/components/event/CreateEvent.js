@@ -17,6 +17,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SignedOutLinks from '../layout/SignedOutLinks';
 
+var dateFormat = require('dateformat');
+
+
 type Props = {
   classes: Object,
   enqueueSnackbar: Function,
@@ -121,6 +124,7 @@ function getStepContent(step: number,
                         handleEndDateChange: function,
                         handleUpload: function,
                         classes: Props) {
+  const today = new Date();
 
   switch (step) {
     case 0:
@@ -153,7 +157,7 @@ function getStepContent(step: number,
         return (
           <Card className={classes.contentEn} align="center">
             <CardContent>
-              <Typography variant="h5" align="left" color="secondary">
+              <Typography variant="h5" align="center" color="secondary">
                 Lokasjon som er valgt:
               </Typography>
               <Typography>Kommune: {state.municipality}</Typography>
@@ -186,7 +190,7 @@ function getStepContent(step: number,
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container className={classes.grid} justify="space-around">
                   <DatePicker
-                    fullWidth
+                    minDate={today}                    fullWidth
                     margin="normal"
                     label="Dato arrangementet starter"
                     value={state.dateStart}
@@ -204,7 +208,7 @@ function getStepContent(step: number,
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container className={classes.grid} justify="space-around">
                   <DatePicker
-                    fullWidth
+                    minDate={today}                    fullWidth
                     margin="normal"
                     label="Dato arrangementet slutter"
                     value={state.dateEnd}
@@ -262,14 +266,17 @@ function handleSupport(eventId: number){
 }
 
 class CreateEvent extends React.Component<Props, State>{
-
   state = {
     activeStep: 0,
 
     title: '',
     description: '',
-    dateStart: new Date(),
-    dateEnd: new Date(),
+    // dateStart: new Date(),
+    // dateEnd: new Date(),
+
+    dateStart: dateFormat(new Date(), "isoDateTime").slice(0,19).toString(),
+    dateEnd: dateFormat(new Date(), "isoDateTime").slice(0,19).toString(),
+
     dateEndInput: '',
     image: '',
     picture: '',
@@ -429,10 +436,8 @@ class CreateEvent extends React.Component<Props, State>{
   /**Handles the dates*/
   handleEndDateChange = date => {
     var dateFormat = require('dateformat');
-    // var dateEndInput = ""+ dateFormat(date, "isoDateTime").slice(0,19);
-    // console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
-    // console.log("dateEndInput: " + dateEndInput);
-    // console.log("dateEnd før: " + this.state.dateEnd);
+    console.log("Changes end date to " + dateFormat(date, "isoDateTime").slice(0,19));
+    console.log("dateEnd før: " + this.state.dateEnd);
     this.setState({
       dateEnd: ""+ dateFormat(date, "isoDateTime").slice(0,19)
       });
@@ -476,6 +481,10 @@ class CreateEvent extends React.Component<Props, State>{
    *  @see handleNext
    * */
   handleSubmit = e => {
+
+    console.log('dateStart' + this.state.dateStart);
+    console.log('dateEnd' + this.state.dateEnd);
+
     e.preventDefault();
     const { picture, title} = this.state;
 

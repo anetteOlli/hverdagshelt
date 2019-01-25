@@ -44,8 +44,7 @@ export const getProblemByUser = () => {
             })
           );
       case 'Entrepreneur':
-        console.log('entrepreneur_id in problemAction: ');
-        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur.entrepreneur_id}`)
+        return getData(`problems/entrepreneur/${getState().entrepreneur.currentEntrepreneur}`)
           .then(respond =>
             dispatch({
               type: 'PROBLEMS_BY_ENTREPRENEUR_USER_SUCCESS',
@@ -129,11 +128,33 @@ export const createProblem = (newProblem: Problem) => {
 
 export const editProblem = (problem: Problem) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    return patchData(`problems/${problem.problem_id}`, problem)
-      .then(() =>
+    let k = new FormData();
+    k.append('problem_title', problem.problem_title);
+    k.append('problem_description', problem.problem_description);
+    k.append('problem_locked', problem.problem_locked);
+    k.append('description_entrepreneur', problem.description_entrepreneur);
+    k.append('img_user', problem.img_user);
+    k.append('img_entrepreneur', problem.img_entrepreneur);
+    k.append('category', problem.category);
+    k.append('status', problem.status);
+    k.append('user_id', problem.user_id);
+    k.append('entrepreneur_id', problem.entrepreneur_id);
+    k.append('latitude', problem.latitude);
+    k.append('longitude', problem.longitude);
+    k.append('support', problem.support);
+    k.append('municipality', problem.municipality);
+    k.append('county', problem.county);
+    k.append('city', problem.city);
+    k.append('street', problem.street);
+    return patchData(`problems/${problem.problem_id}`, k)
+      .then(resp =>
         dispatch({
           type: 'EDIT_PROBLEM_SUCCESS',
-          payload: problem
+          payload: {
+            ...problem,
+            img_user: resp.data.img_user || '',
+            img_entrepreneur: resp.data.img_entrepreneur || ''
+          }
         })
       )
       .catch((error: Error) =>

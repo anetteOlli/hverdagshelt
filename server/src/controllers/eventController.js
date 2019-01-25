@@ -98,7 +98,7 @@ exports.events_create_event = (file, json, callback) => {
  * @param callback returns status and data from the eventDao
  */
 exports.events_delete_event = (id, callback) => {
-  console.log('/articles/' + id + ' fikk request fra klient');
+  console.log('/events/' + id + ' fikk request fra klient');
   eventDao.deleteOne(id, (status, data) => {
     callback(status, data);
   });
