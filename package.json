@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "html2canvas": "^1.0.0-alpha.12",
+    "jsdoc": "^3.5.5",
     "jspdf": "^1.5.3",
     "react-to-pdf": "0.0.6"
   },
