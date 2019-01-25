@@ -47,7 +47,7 @@ export const getEventsByMuni = (municipality: string, county: string) => {
 };
 
 export const createEvent = (newEvent: JSON, bool: boolean) => {
-  console.log(newEvent.getAll)
+  console.log(newEvent.getAll);
   return (dispatch: Dispatch) => {
     return postData('events', newEvent, bool)
       .then(() =>
@@ -81,15 +81,17 @@ export const editEvent = (event: JSON) => {
 
 export const deleteEvent = (id: number) => {
   return (dispatch: Dispatch) => {
-    return deleteData(`events/${id}`).then(() =>
-      dispatch({
-        type: 'DELETE_EVENT_SUCCESS'
-      }).catch((error: Error) =>
+    return deleteData(`events/${id}`)
+      .then(() =>
+        dispatch({
+          type: 'DELETE_EVENT_SUCCESS'
+        })
+      )
+      .catch((error: Error) =>
         dispatch({
           type: 'DELETE_EVENT_ERROR',
           payload: error
         })
-      )
-    );
+      );
   };
 };

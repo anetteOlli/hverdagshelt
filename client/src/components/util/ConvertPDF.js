@@ -35,18 +35,19 @@ import jsPDF from 'jspdf';
  * convertSingle or convertMultiple with a name ConvertPDF will then download the pdf for you
  */
 
-export function convertSingleToPDF(input: any, name: string) {
+export function convertSingleToPDF(input: any, name: string, height: number, width: number, callback: function) {
   html2canvas(input).then(canvas => {
     const imgData = canvas.toDataURL('image/png');
 
-    const pdf = new jsPDF();
+    const pdf = new jsPDF("landscape", "mm", [width, height]);
     pdf.addImage(imgData, 'PNG', 0, 0);
     pdf.save(name + '.pdf');
+    callback();
   });
 }
 
-export function convertMultipleToPDF(input: [], name: string) {
-  const pdf = new jsPDF();
+export function convertMultipleToPDF(input: [], name: string, height: number, width: number, callback: function) {
+  const pdf = new jsPDF("landscape", "mm", [width, height]);
   console.log(Array.from(input));
   input.map((e, i) => {
     console.log('before canvas', i, e);
@@ -60,9 +61,30 @@ export function convertMultipleToPDF(input: [], name: string) {
     });
   });
   setTimeout(() => {
-    console.log('Yo!');
     pdf.save(name + '.pdf');
+    callback();
   }, 6000);
+}
+
+/**
+* Experimental component
+*/
+export function PDFButton(props){
+  return(
+    <div className={'pdf-button-' + props.index}>
+      <Tooltip title="last ned under" placement="top">
+        <Button align="center" size="small" color="primary" variant="outlined"
+          onClick={props.onClick}
+        >
+          <Save/>
+          <Typography></Typography>
+          {this.state.isLoadingPDF && (this.state.indexLoadingPDF == props.index) && (
+            <CircularProgress size={24} />
+          )}
+        </Button>
+      </Tooltip>
+    </div>
+  );
 }
 
 /*
