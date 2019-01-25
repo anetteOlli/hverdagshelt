@@ -2,23 +2,23 @@
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import  CreateProblem  from '../../../src/components/problem/CreateProblem.js';
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../../../src/store/reducers';
-import ChangePassword from '../../../src/components/user/ChangePassword';
+import CreateProblem from '../../../src/components/problem/CreateProblem.js';
+
 import { signIn } from '../../../src/store/actions/userActions';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Card, Typography} from '@material-ui/core';
+import { Button, Card, Typography } from '@material-ui/core';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { createShallow, createMount } from '@material-ui/core/test-utils';
-import {shape} from 'prop-types';
+import { shape } from 'prop-types';
 
 /**
-* @Author Sindre H. Paulshus
-* Integration test of CreateProblem
-*/
+ * @Author Sindre H. Paulshus
+ * Integration test of CreateProblem
+ */
 
 const options = {
   context: {
@@ -56,16 +56,19 @@ const options = {
 };
 
 describe('>>> CreateProblem tests', () => {
-  it('+++ initially', () => {
-    //sconsole.log('wrapper.debug()', wrapper.debug());
-  });
-  it('+++ User is not logged in', () => {
-    const store = createStore(rootReducer, applyMiddleware(thunk));
-    const wrapper = mount(<CreateProblem store={store}/>);
-    expect(wrapper.find('Card')).toHaveLength(1);
-    expect(wrapper.find('Typography')).toHaveLength(1); //desc
-    expect(wrapper.find('Button')).toHaveLength(1); //back
-  });
+  // it('+++ User is not logged in', () => {
+  //   const store = createStore(rootReducer, applyMiddleware(thunk));
+  //   const wrapper = mount(
+  //     <div store={store(state)}>
+  //       <CreateProblem />
+  //     </div>,
+  //     options
+  //   );
+  //   console.log('createProblem.debug()', wrapper.debug());
+  //   expect(wrapper.find('Card')).toHaveLength(1);
+  //   expect(wrapper.find('Typography')).toHaveLength(1); //desc
+  //   expect(wrapper.find('Button')).toHaveLength(1); //back
+  // });
   // it('+++ User is logged in', () => {
   //   const storeLoggedIn = createStore(rootReducer, applyMiddleware(thunk));
   //   storeLoggedIn.dispatch({ type: 'SIGN_IN_SUCCESS', payload: { userId: 1, priority: 'Administrator' }});
